@@ -1,0 +1,40 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+    
+    - name: Build documentation
+      run: |
+        chmod +x scripts/build_docs.sh
+        ./scripts/build_docs.sh
+    
+    - name: Check documentation
+      run: |
+        if [ ! -f "docs/html/index.html" ]; then
+          echo "Error: Documentation not generated"
+          exit 1
+        fi
+        echo "Documentation generated successfully"
+    
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs/html
+        cname: rameshkolluru43.github.io
