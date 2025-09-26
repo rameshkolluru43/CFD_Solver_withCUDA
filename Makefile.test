@@ -1,0 +1,45 @@
+# Simple Makefile for VTK reader test
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra -O2
+INCLUDES = -I./include -I./Basic_Function_Files
+SRCDIR = ./src
+BASICDIR = ./Basic_Function_Files
+
+# Source files needed for the test
+SOURCES = test_vtk_reader.cpp \
+		  $(SRCDIR)/Mesh_Loader.cpp \
+		  $(SRCDIR)/Grid_Computations.cpp \
+		  $(BASICDIR)/Global_Functions.cpp \
+		  $(BASICDIR)/Cell.cpp \
+		  $(BASICDIR)/Point.cpp \
+		  $(BASICDIR)/Edge.cpp \
+		  $(BASICDIR)/Face.cpp \
+		  $(BASICDIR)/Cell_Geometry.cpp \
+		  $(BASICDIR)/Utility_Files.cpp
+
+# Object files
+OBJECTS = $(SOURCES:.cpp=.o)
+
+# Target executable
+TARGET = test_vtk_reader
+
+# Default target
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(CXXFLAGS) $(OBJECTS) -o $(TARGET)
+
+# Pattern rule for object files
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+
+# Clean target
+clean:
+	rm -f $(OBJECTS) $(TARGET)
+
+# Run the test
+test: $(TARGET)
+	./$(TARGET)
+
+# Phony targets
+.PHONY: all clean test

@@ -3,7 +3,6 @@
 #include "definitions.h"
 #include "Globals.h"
 
-void initializeGridDimensions();
 void readInputFile(int argc, char *argv[]);
-void runSolver();
+bool runSolver();
 #endif // #ifndef MAIN_H

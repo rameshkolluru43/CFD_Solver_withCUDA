@@ -11,19 +11,20 @@
 // Function for reading input grid file
 void Read_Grid(const string &);
 // Function for reading Gmsh Grid File
-void Read_GmshVTK_Grid(const string &);
+bool Read_VTK_Grid(const string &);
+bool Read_GmshVTK_Grid(const string &);
 void Read_GmshMESH_Grid(const string &);
 // Function for reading a structured mesh from CSV node coordinate lists (x and y)
 void Read_CSV_Mesh(const std::string &xnodesCsv, const std::string &ynodesCsv);
 // Convenience loader that auto-detects by extension or JSON config (mesh.xnodes/mesh.ynodes)
-void Load_Mesh(const std::string &configOrMeshPath);
+bool Load_Mesh(const std::string &configOrMeshPath);
 // Identifying Qaud and Traiangle cells from the grid points and
 void Identify_Cells(V_D &, vector<Cell> &, bool, int &);
 // Identifying the neighbours of the cells
 void Identify_Neighbours(V_D &, vector<Cell> &, vector<Cell> &);
 void Identify_ParentCell(vector<Cell> &, vector<Cell> &);
 // Function for Constructing Cells from the data read from grid file
-void Form_Cells(const string &);
+bool Form_Cells(const string &);
 // Function to consturcting Cell
 void Construct_Cell(V_D &, V_D &, V_D &, V_D &);
 // Function to construct for Triangle Cells

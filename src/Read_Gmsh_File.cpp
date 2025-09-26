@@ -8,124 +8,145 @@
 // Function to read the Gmsh grid file
 // The function reads the grid file and stores the points, cells and boundary cells in the respective vectors
 
-void Read_GmshVTK_Grid(const string &GridFileName)
+bool Read_VTK_Grid(const string &GridFileName)
 {
-    ifstream file(GridFileName);
-    if (!file)
+    try
     {
-        cerr << "Could not open the file! Check the file path: " << GridFileName << endl;
-        exit(1);
-    }
-
-    Is_2D_Flow = true;
-    string line;
-    vector<double> Points;
-    int No_of_Points = 0, No_of_Cells = 0, NumEntries = 0;
-
-    // Mapping VTK cell types to node counts
-    std::map<int, int> cellTypeToNodeCount = {
-        {1, 1}, {3, 2}, {5, 3}, {8, 4}, {9, 8}, {19, 8}, {11, 10}, {12, 6}};
-
-    cout << "Reading " << GridFileName << " ..." << endl;
-
-    while (std::getline(file, line))
-    {
-        stringstream ss(line);
-        string keyword;
-        ss >> keyword;
-
-        if (keyword == "POINTS")
+        ifstream file(GridFileName);
+        if (!file)
         {
-            ss >> No_of_Points;
-            cout << "Number of Points: " << No_of_Points << endl;
-
-            Points.reserve(3 * No_of_Points);
-            double x, y, z;
-            for (int i = 0; i < No_of_Points; i++)
-            {
-                file >> x >> y >> z;
-                Points.insert(Points.end(), {x, y, z});
-            }
+            cerr << "Could not open the file! Check the file path: " << GridFileName << endl;
+            return false;
         }
-        else if (keyword == "CELLS")
+
+        string line;
+        vector<double> Points;
+        int No_of_Points = 0, No_of_Cells = 0, NumEntries = 0;
+
+        // Mapping VTK cell types to node counts
+        std::map<int, int> cellTypeToNodeCount = {
+            {1, 1}, {3, 2}, {5, 3}, {8, 4}, {9, 8}, {19, 8}, {11, 10}, {12, 6}};
+
+        cout << "Reading " << GridFileName << " ..." << endl;
+
+        while (std::getline(file, line))
         {
-            ss >> No_of_Cells >> NumEntries;
-            cout << "Number of Cells: " << No_of_Cells << endl;
+            stringstream ss(line);
+            string keyword;
+            ss >> keyword;
 
-            for (int i = 0; i < No_of_Cells; i++)
+            if (keyword == "POINTS")
             {
-                int numNodes;
-                file >> numNodes;
+                ss >> No_of_Points;
+                cout << "Number of Points: " << No_of_Points << endl;
 
-                vector<int> nodeIndices(numNodes);
-                for (int &nodeIndex : nodeIndices)
+                Points.reserve(3 * No_of_Points);
+                double x, y, z;
+                for (int i = 0; i < No_of_Points; i++)
                 {
-                    file >> nodeIndex;
-                }
-
-                if (numNodes == 2)
-                {
-                    Boundary_Cells.push_back(Cell(numNodes, i, nodeIndices));
-                }
-                else if (numNodes == 3 || numNodes == 4)
-                {
-                    Is_2D_Flow = true;
-                    Cells.push_back(Cell(numNodes, i - Boundary_Cells.size(), nodeIndices));
+                    file >> x >> y >> z;
+                    Points.insert(Points.end(), {x, y, z});
                 }
             }
-        }
-        else if (keyword == "CELL_TYPES")
-        {
-            cout << "Reading Cell Types" << endl;
-
-            for (int i = 0; i < No_of_Cells; i++)
+            else if (keyword == "CELLS")
             {
-                int cellType;
-                file >> cellType;
+                ss >> No_of_Cells >> NumEntries;
+                cout << "Number of Cells: " << No_of_Cells << endl;
 
-                if (cellType == 3)
+                for (int i = 0; i < No_of_Cells; i++)
                 {
-                    Boundary_Cells[i].cellType = cellType;
+                    int numNodes;
+                    file >> numNodes;
+
+                    vector<int> nodeIndices(numNodes);
+                    for (int &nodeIndex : nodeIndices)
+                    {
+                        file >> nodeIndex;
+                    }
+
+                    if (numNodes == 2)
+                    {
+                        Boundary_Cells.push_back(Cell(numNodes, i, nodeIndices));
+                    }
+                    else if (numNodes == 3 || numNodes == 4)
+                    {
+                        Is_2D_Flow = true;
+                        Cells.push_back(Cell(numNodes, i - Boundary_Cells.size(), nodeIndices));
+                    }
                 }
-                else if (cellType == 5 || cellType == 8)
+            }
+            else if (keyword == "CELL_TYPES")
+            {
+                cout << "Reading Cell Types" << endl;
+
+                for (int i = 0; i < No_of_Cells; i++)
                 {
-                    Cells[i - Boundary_Cells.size()].cellType = cellType;
+                    int cellType;
+                    file >> cellType;
+
+                    if (cellType == 3)
+                    {
+                        Boundary_Cells[i].cellType = cellType;
+                    }
+                    else if (cellType == 5 || cellType == 8)
+                    {
+                        Cells[i - Boundary_Cells.size()].cellType = cellType;
+                    }
                 }
             }
         }
+
+        file.close();
+
+        cout << "Number of Cells of each type: " << endl;
+        cout << "Line: " << Boundary_Cells.size() << endl;
+        cout << "Triangle/Quadrilateral: " << Cells.size() << endl;
+
+        if (Is_2D_Flow)
+        {
+            cout << "2D Grid is being read" << endl;
+            No_Physical_Cells = Cells.size();
+        }
+        else
+        {
+            cout << "3D Grid is being read" << endl;
+        }
+
+        Identify_Cells(Points, Cells, Is_2D_Flow, No_Physical_Cells);
+        cout << "Identifying Cells is done" << endl;
+        Identify_Neighbours(Points, Cells, Boundary_Cells);
+        cout << "Identifying Neighbours is done" << endl;
+        // Identifying and classifying the boundaries
+        double Xmin, Xmax, Ymin, Ymax, Zmin, Zmax;
+        BoundingBox(Points, Xmin, Xmax, Ymin, Ymax, Zmin, Zmax);
+        Classify_Domain_Boundaries(Cells, Xmin, Xmax, Ymin, Ymax);
+        Create_Boundary_Cells_Lists(Cells, Inlet_Cells_List, Exit_Cells_List, Wall_Cells_List);
+        // Sort_Neighbours(Cells);
+        for (size_t i = 0; i < Cells.size(); i++)
+        {
+            /* code */
+            Print(Cells[i]);
+        }
+
+        cout << "Read_VTK_Grid completed successfully" << endl;
+        return true;
     }
-
-    file.close();
-
-    cout << "Number of Cells of each type: " << endl;
-    cout << "Line: " << Boundary_Cells.size() << endl;
-    cout << "Triangle/Quadrilateral: " << Cells.size() << endl;
-
-    if (Is_2D_Flow)
+    catch (const std::exception &e)
     {
-        cout << "2D Grid is being read" << endl;
-        No_Physical_Cells = Cells.size();
+        cerr << "Exception in Read_VTK_Grid: " << e.what() << endl;
+        return false;
     }
-    else
+    catch (...)
     {
-        cout << "3D Grid is being read" << endl;
+        cerr << "Unknown exception occurred in Read_VTK_Grid" << endl;
+        return false;
     }
+}
 
-    Identify_Cells(Points, Cells, Is_2D_Flow, No_Physical_Cells);
-    cout << "Identifying Cells is done" << endl;
-    Identify_Neighbours(Points, Cells, Boundary_Cells);
-    cout << "Identifying Neighbours is done" << endl;
-    // Identifying and classifying the boundaries
-    double Xmin, Xmax, Ymin, Ymax, Zmin, Zmax;
-    BoundingBox(Points, Xmin, Xmax, Ymin, Ymax, Zmin, Zmax);
-    Classify_Domain_Boundaries(Cells, Xmin, Xmax, Ymin, Ymax);
-    Create_Boundary_Cells_Lists(Cells, Inlet_Cells_List, Exit_Cells_List, Wall_Cells_List);
-    // Sort_Neighbours(Cells);
-    for (size_t i = 0; i < Cells.size(); i++)
-    {
-        /* code */
-        Print(Cells[i]);
-    }
+// Wrapper function that calls Read_VTK_Grid for compatibility
+bool Read_GmshVTK_Grid(const string &GridFileName)
+{
+    return Read_VTK_Grid(GridFileName);
 }
 
 void Identify_Cells(V_D &Points, vector<Cell> &Cells, bool Is_2D_Flow, int &No_Physical_Cells)

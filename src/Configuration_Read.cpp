@@ -78,47 +78,6 @@ void readJSON(const std::string &jsonFileName)
     // Epsilon = limiterData["Epsilon"].asDouble(); // new
 }
 
-void testCase(int &Test_Case)
-{
-    // Test case switch
-    /*  switch (Test_Case)
-      {
-      case 1:
-          Half_Cylinder_Flow();
-          break;
-      case 2:
-          Shock_Reflection_2D();
-          break;
-      case 3:
-          Ramp_15_Degree();
-          break;
-      case 4:
-          Forward_Facing_Step();
-          break;
-      case 5:
-          Air_Foil();
-          break;
-      case 6:
-          Shock_Tube_2D();
-          break;
-      case 8:
-          Channel_Flow();
-          break;
-      case 9:
-          Scram_Jet_Inlet();
-          break;
-      case 10:
-          Flow_Over_Bump();
-          break;
-      case 11:
-          Slip_Flow_2D();
-          break;
-      default:
-          Ramp_15_Degree();
-          break;
-      }*/
-}
-
 // Function to read parameters from a configuration file
 map<string, string> ReadConfigFile(const string &filename)
 {
@@ -154,8 +113,9 @@ map<string, string> ReadConfigFile(const string &filename)
     return config;
 }
 
-// Reads the test case JSON file and populates the parameters
-void readTestCaseJSON(const std::string &jsonFileName)
+// Reads the test case JSON file and initializes the grid and data structures
+// from the grid file name initializes the grid and data structures and initializes the test case
+void parseTestCaseJSON(const std::string &jsonFileName)
 {
     std::ifstream fileStream(jsonFileName);
     if (!fileStream.is_open())
@@ -221,9 +181,6 @@ void readTestCaseJSON(const std::string &jsonFileName)
     initCond.M = init["Inlet_Mach_No"].asDouble();
     initCond.u = init["u"].asDouble();
     initCond.v = init["v"].asDouble();
-
-    initializeGridFiles();
-    Initialize_TestCase();
 }
 
 // Reads boundary conditions from a JSON file and populates the inlet and exit structures
@@ -343,13 +300,4 @@ bool readInitialAndBoundaryConditions(const std::string &filename, InitialCondit
     exitCond.v = Exit["V_2"].asDouble();
 
     return true;
-}
-
-void initializeGridFiles()
-{
-    gridDir = "../Grid_Files/" + Test_Case_Name + "/";
-    cout << "Grid Directory: " << gridDir << endl;
-    cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
-    Grid_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
-    Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
 }

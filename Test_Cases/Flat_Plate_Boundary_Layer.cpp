@@ -19,7 +19,11 @@ void Flat_Plate_Boundary_Layer()
 	 * Calculates the Cell Normals, Cell Areas
 	 * Checks for Grid
 	 */
-	Form_Cells(Grid_File);
+	if (!Form_Cells(Grid_File))
+	{
+		cerr << "Error: Failed to form cells from grid file: " << Grid_File << endl;
+		exit(EXIT_FAILURE);
+	}
 	cout << "Grid_Type used \t" << Grid_Type << endl;
 	//	Write_Cell_Info("../Grid_Files/Channel_Files/Channel_Details_101_101.txt");
 	V_D V(2, 0.0);

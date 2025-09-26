@@ -271,40 +271,127 @@ void Conversion_Factor(V_D &Data)
 }
 
 /*		Function for Constructing Cells from the data read from grid file				*/
-void Form_Cells(const string &ipfile)
-{
-	cout << "Reading \t" << ipfile.c_str() << endl;
-	// Auto-detect loader (JSON: mesh.xnodes/mesh.ynodes or mesh.vtk/mesh.txt, VTK, CSV, or legacy TXT)
-	Load_Mesh(ipfile);
-	cout << "Constructing Physical Cells done" << endl;
-	cout << Cells.size() << endl;
-	cout << Inlet_Cells_List.size() << "\t" << Wall_Cells_List.size() << "\t" << Exit_Cells_List.size() << "\t" << Symmetry_Cells_List.size() << endl;
-	/*for (int i = 0; i < No_Ghost_Cells; i++)
-	{
-		Cell Temp;
-		Cells.push_back(Temp);
-	}*/
-	cout << Cells.size() << endl;
-	Construct_Ghost_Cells();
-	cout << "Constructing Ghost Cells done" << endl;
-	Calculate_Cell_Center_Distances();
-	cout << "Evaluating Cell Center Distances done" << endl;
-	cout << No_Physical_Cells << "\t" << No_Ghost_Cells << "\t" << Total_No_Cells << endl;
-	Check_Cells();
-	cout << "Checking Cells done" << endl;
-	cout << "Construction Co Volumes for NS Solver" << endl;
-	if (Is_Viscous_Wall)
-	{
-		for (int i = 0; i < No_Physical_Cells; i++)
-		{
-			//			cout<<i<<endl;
-			Construct_Co_Volumes(i);
-			//
-		}
-		cout << "Construction of Co-Volumes Completed\n";
-	}
 
-	//	exit(0);
+bool initializeGridFiles()
+{
+	try
+	{
+		gridDir = "../Grid_Files/" + Test_Case_Name + "/";
+		cout << "Grid Directory: " << gridDir << endl;
+		cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
+		Grid_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
+		Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+
+		// Check if the grid file exists
+		ifstream file_check(Grid_File);
+		if (!file_check.good())
+		{
+			cerr << "Error: Grid file does not exist: " << Grid_File << endl;
+			return false;
+		}
+		file_check.close();
+
+		// Grid_File = gridFiles[0];
+		cout << "Grid file to be read: " << Grid_File << endl;
+
+		if (!Form_Cells(Grid_File))
+		{
+			cerr << "Error: Failed to form cells from grid file: " << Grid_File << endl;
+			return false;
+		}
+
+		std::cout << "Grid_Type used: " << Grid_Type << std::endl;
+		cout << "Grid files initialized successfully" << endl;
+		return true;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Exception in initializeGridFiles: " << e.what() << endl;
+		return false;
+	}
+	catch (...)
+	{
+		cerr << "Unknown exception in initializeGridFiles" << endl;
+		return false;
+	}
+}
+
+bool Form_Cells(const string &ipfile)
+{
+	try
+	{
+		cout << "Reading \t" << ipfile.c_str() << endl;
+
+		// Check if file exists before attempting to load
+		ifstream file_check(ipfile);
+		if (!file_check.good())
+		{
+			cerr << "Error: Cannot open mesh file: " << ipfile << endl;
+			return false;
+		}
+		file_check.close();
+
+		// Auto-detect loader (JSON: mesh.xnodes/mesh.ynodes or mesh.vtk/mesh.txt, VTK, CSV, or legacy TXT)
+		if (!Load_Mesh(ipfile))
+		{
+			cerr << "Error: Failed to load mesh from file: " << ipfile << endl;
+			return false;
+		}
+
+		// Validate that cells were loaded
+		if (Cells.empty())
+		{
+			cerr << "Error: No cells were loaded from the mesh file" << endl;
+			return false;
+		}
+
+		cout << "Constructing Physical Cells done" << endl;
+		cout << "Number of cells loaded: " << Cells.size() << endl;
+		cout << "Boundary cells - Inlet: " << Inlet_Cells_List.size() << "\tWall: " << Wall_Cells_List.size()
+			 << "\tExit: " << Exit_Cells_List.size() << "\tSymmetry: " << Symmetry_Cells_List.size() << endl;
+
+		/*for (int i = 0; i < No_Ghost_Cells; i++)
+		{
+			Cell Temp;
+			Cells.push_back(Temp);
+		}*/
+		cout << "Total cells after loading: " << Cells.size() << endl;
+
+		Construct_Ghost_Cells();
+		cout << "Constructing Ghost Cells done" << endl;
+
+		Calculate_Cell_Center_Distances();
+		cout << "Evaluating Cell Center Distances done" << endl;
+		cout << "Physical: " << No_Physical_Cells << "\tGhost: " << No_Ghost_Cells << "\tTotal: " << Total_No_Cells << endl;
+
+		Check_Cells();
+		cout << "Checking Cells done" << endl;
+
+		cout << "Construction Co Volumes for NS Solver" << endl;
+		if (Is_Viscous_Wall)
+		{
+			for (int i = 0; i < No_Physical_Cells; i++)
+			{
+				//			cout<<i<<endl;
+				Construct_Co_Volumes(i);
+				//
+			}
+			cout << "Construction of Co-Volumes Completed\n";
+		}
+
+		cout << "Form_Cells completed successfully" << endl;
+		return true;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Exception in Form_Cells: " << e.what() << endl;
+		return false;
+	}
+	catch (...)
+	{
+		cerr << "Unknown exception occurred in Form_Cells" << endl;
+		return false;
+	}
 }
 
 void Construct_Ghost_Cells()

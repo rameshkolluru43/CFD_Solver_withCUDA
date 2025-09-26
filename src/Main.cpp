@@ -11,12 +11,6 @@
 #include "Directory_Files.h"
 #include "Solver.h"
 
-void initializeGridDimensions()
-{
-    nx_1 = 0;
-    ny_1 = 0;
-}
-
 void readInputFile(int argc, char *argv[])
 {
     if (argc < 2)
@@ -46,7 +40,7 @@ void readInputFile(int argc, char *argv[])
  *
  * This function validates the test case setting and then dispatches control to the corresponding
  * solver:
- * - If the test case is not set (i.e., Test_Case equals 0), it logs an error message and terminates the program.
+ * - If the test case is not set (i.e., Test_Case equals 0), it logs an error message and returns false.
  * - If the viscous wall condition (Is_Viscous_Wall) is active, it runs the Navier-Stokes solver with viscous terms.
  * - Otherwise, it runs the solver for Euler equations.
  *
@@ -57,34 +51,83 @@ void readInputFile(int argc, char *argv[])
  *
  * @note Proper initialization is assumed to be performed elsewhere; the Test_Case should be assigned a valid, non-zero value.
  *
+ * @return true if solver completes successfully, false otherwise
+ *
  * @see Viscous_Solver, Inviscid_Solver
  */
-void runSolver()
+bool runSolver()
 {
-    if (Test_Case == 0)
+    try
     {
-        cerr << "Error: Test_Case is not set. Please check the JSON file or initialization." << endl;
-        cerr << "Test Case Number starts from 1\n";
-        exit(EXIT_FAILURE);
+        if (Test_Case == 0)
+        {
+            cerr << "Error: Test_Case is not set. Please check the JSON file or initialization." << endl;
+            cerr << "Test Case Number starts from 1\n";
+            return false;
+        }
+
+        cout << "*******----------The Following Solver is currently Running-----------**********\n";
+
+        bool solver_success = false;
+        if (Is_Viscous_Wall)
+        {
+            cout << "Viscous Terms are Enabled solving NS Solver" << endl;
+            solver_success = Viscous_Solver(Error_File, Solution_File);
+            if (!solver_success)
+            {
+                cerr << "Error: Viscous solver failed to complete successfully" << endl;
+                return false;
+            }
+        }
+        else
+        {
+            cout << "Inviscid Solver ---- Solving Euler Equations" << endl;
+            solver_success = Inviscid_Solver(Error_File, Solution_File);
+            if (!solver_success)
+            {
+                cerr << "Error: Inviscid solver failed to complete successfully" << endl;
+                return false;
+            }
+        }
+
+        cout << "Solver completed successfully" << endl;
+        return true;
     }
-    cout << "*******----------The Following Solver is currently Running-----------**********\n";
-    if (Is_Viscous_Wall)
+    catch (const std::exception &e)
     {
-        cout << "Viscous Terms are Enabled solving NS Solver" << endl;
-        Viscous_Solver(Error_File, Solution_File);
+        cerr << "Exception in runSolver: " << e.what() << endl;
+        return false;
     }
-    else
+    catch (...)
     {
-        cout << "Inviscid Solver ---- Solving Euler Equations" << endl;
-        Inviscid_Solver(Error_File, Solution_File);
+        cerr << "Unknown exception occurred in runSolver" << endl;
+        return false;
     }
 }
 
 int main(int argc, char *argv[])
 {
-    initializeGridDimensions();
+    // Read input JSON file and initialize parameters
     readInputFile(argc, argv);
-    readTestCaseJSON(Test_Case_JSON_File);
-    runSolver();
-    return 0;
+    // Reads the test case JSON file and populates the parameters
+    parseTestCaseJSON(Test_Case_JSON_File);
+
+    if (!initializeGridFiles())
+    {
+        cerr << "Error: Failed to initialize grid files. Exiting..." << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    cout << "Checking and creating the directories for solution files" << endl;
+    createOutputDirectories();
+    Initialize_TestCase();
+
+    if (!runSolver())
+    {
+        cerr << "Error: Solver execution failed. Exiting..." << endl;
+        return EXIT_FAILURE;
+    }
+
+    cout << "CFD simulation completed successfully!" << endl;
+    return EXIT_SUCCESS;
 }

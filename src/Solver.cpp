@@ -61,173 +61,205 @@
 
 // Core logic for solving Euler equations based on Test Case
 
-void Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
+bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 {
-	double start_time, end_time;
-	int Solution_Data_Type = 1;
-	iterations = 0;
-	Total_Time = 0.0;
-	// cout << "Using Inviscid Solver" << endl;
-	// Set fixed floating point format and desired precision
-	cout << scientific << setprecision(6);
-
-	// Print header with specified widths for each column
-	cout << setw(10) << "Iter"
-		 << setw(15) << "dt"
-		 << setw(15) << "Rho_Error"
-		 << setw(15) << "Rho_u_Error"
-		 << setw(15) << "Rho_v_Error"
-		 << setw(15) << "Rho_Et_Error"
-		 << setw(20) << "Wall_Clock_Time"
-		 << setw(15) << "Total_Time"
-		 << setw(15) << "OMP_Time" << endl;
-
-	do
+	try
 	{
-		//		start_time = omp_get_wtime();
-		int timer = clock();
-		// Applies the boundary conditions for the cells
+		double start_time, end_time;
+		int Solution_Data_Type = 1;
+		iterations = 0;
+		Total_Time = 0.0;
+		// cout << "Using Inviscid Solver" << endl;
+		// Set fixed floating point format and desired precision
+		cout << scientific << setprecision(6);
 
-		Apply_Boundary_Conditions();
-		// cout << "Applied Boundary Conditions" << endl;
+		// Print header with specified widths for each column
+		cout << setw(10) << "Iter"
+			 << setw(15) << "dt"
+			 << setw(15) << "Rho_Error"
+			 << setw(15) << "Rho_u_Error"
+			 << setw(15) << "Rho_v_Error"
+			 << setw(15) << "Rho_Et_Error"
+			 << setw(20) << "Wall_Clock_Time"
+			 << setw(15) << "Total_Time"
+			 << setw(15) << "OMP_Time" << endl;
 
-		//  cout<<"In Solver solving with Implicit method\t"<<Is_Implicit_Method<<endl;
-		if (Time_Accurate)
+		do
 		{
-			// cout << "Using Runge Kutta Method" << endl;
-			Runge_Kutta_Method();
-		}
-		else
-		{
-			if (Is_Implicit_Method)
+			//		start_time = omp_get_wtime();
+			int timer = clock();
+			// Applies the boundary conditions for the cells
+
+			Apply_Boundary_Conditions();
+			// cout << "Applied Boundary Conditions" << endl;
+
+			//  cout<<"In Solver solving with Implicit method\t"<<Is_Implicit_Method<<endl;
+			if (Time_Accurate)
 			{
-				Implicit_Method();
+				// cout << "Using Runge Kutta Method" << endl;
+				Runge_Kutta_Method();
 			}
 			else
 			{
-				Explicit_Method();
+				if (Is_Implicit_Method)
+				{
+					Implicit_Method();
+				}
+				else
+				{
+					Explicit_Method();
+				}
 			}
-		}
 
-		Total_Time += Min_dt;
+			Total_Time += Min_dt;
 
-		iterations++;
-		Estimate_Error();
-		// cout << "Error Estimated" << endl;
-		Update();
-		// cout << "Updated Conservative Variables" << endl;
-		if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
-		{
-			// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
-			cout << setw(10) << iterations
-				 << setw(15) << Min_dt
-				 << setw(15) << Error[0]
-				 << setw(15) << Error[1]
-				 << setw(15) << Error[2]
-				 << setw(15) << Error[3]
-				 << setw(20) << (timer / CLOCKS_PER_SEC)
-				 << setw(15) << Total_Time
-				 << endl;
-			Write_Error_File(Error_Filename);
-			Write_Solution(Sol_Filename, Solution_Data_Type);
-			Append_Solution(Solution_File, Final_Solution_File);
-		}
-		if (iterations % 1000 == 0)
-		{
-			// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
-			timer = clock();
-			Write_Error_File(Error_Filename);
-			Write_Solution(Sol_Filename, Solution_Data_Type);
-			Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-			Append_Solution(Solution_File, Final_Solution_File);
-			// cout << "Updated Solution File Sucessfully" << endl;
-			cout << setw(10) << iterations
-				 << setw(15) << Min_dt
-				 << setw(15) << Error[0]
-				 << setw(15) << Error[1]
-				 << setw(15) << Error[2]
-				 << setw(15) << Error[3]
-				 << setw(20) << (timer / CLOCKS_PER_SEC)
-				 << setw(15) << Total_Time
-				 << endl;
-		}
-	} while (iterations < Total_Iterations);
-}
-
-// Main story line of the NS equations based on Boundary condition type
-void Viscous_Solver(string &Error_Filename, string &Sol_Filename)
-{
-	int Solution_Data_Type = 1;
-	iterations = 0;
-	cout << "Min_dt\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\tWall_Clock_Time\tTotal_Time" << endl;
-	do
-	{
-		int timer = clock();
-		Apply_Boundary_Conditions();
-		//		cout<<"Applied Boundary Conditions"<<endl;
-		Evaluate_Viscous_Fluxes();
-		//	cout<<"Viscous Fluxes evaluated"<<endl;
-		// Evaluates the Convective fluxes for all the cells
-		if (Is_Second_Order)
-			Evaluate_Cell_Net_Flux_2O();
-		else
-			Evaluate_Cell_Net_Flux_1O();
-
-		// Solves the first order Euler method using Explicit Scheme
-		if (Time_Accurate)
-			Runge_Kutta_Method();
-		else if (Is_Implicit_Method)
-			Implicit_Method();
-		else
-			Explicit_Method();
-		Total_Time += Min_dt;
-		Estimate_Error();
-		//		cout<<"Error Estimated"<<endl;
-		Update();
-
-		if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
-		{
-			//	cout<<"Minimum Time Step\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\t Wall Clock Time\t Total Time"<<endl;
-			cout << Min_dt << "\t" << iterations << "\t Error\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
-			Write_Error_File(Error_Filename);
-			Write_Solution(Sol_Filename, Solution_Data_Type);
-			Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-			Append_Solution(Solution_File, Final_Solution_File);
-			timer = clock();
-			exit(0);
-		}
-		else if (iterations % 500 == 0)
-		{
-			//			cout<<"Maximum and Minimum Time Step in iteration in \t"<<iterations<<"\t"<<Max_dt<<"\t"<<Min_dt<<endl;
-			Write_Error_File(Error_Filename);
-			Write_Solution(Sol_Filename, Solution_Data_Type);
-			Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-			Append_Solution(Solution_File, Final_Solution_File);
-			// 			cout<<"Updated Solution File Sucessfully"<<endl;
-			if (Is_Viscous_Wall)
+			iterations++;
+			Estimate_Error();
+			// cout << "Error Estimated" << endl;
+			Update();
+			// cout << "Updated Conservative Variables" << endl;
+			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
 			{
-				//				cout<<"Evaluating Skin Friction Coefficient"<<endl;
-				Evaluate_Wall_Skin_Friction();
-				//				cout<<"Writing Skin Friction Coefficient\t"<<CF_File<<endl;
-				Write_CF_File(CF_File);
+				// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
+				cout << setw(10) << iterations
+					 << setw(15) << Min_dt
+					 << setw(15) << Error[0]
+					 << setw(15) << Error[1]
+					 << setw(15) << Error[2]
+					 << setw(15) << Error[3]
+					 << setw(20) << (timer / CLOCKS_PER_SEC)
+					 << setw(15) << Total_Time
+					 << endl;
+				Write_Error_File(Error_Filename);
+				Write_Solution(Sol_Filename, Solution_Data_Type);
+				Append_Solution(Solution_File, Final_Solution_File);
 			}
-			timer = clock();
-			cout << Min_dt << "\t" << iterations << "\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
-			//			cout<<"---------------------------------------------------------------------------"<<endl;
-		}
-		iterations++;
-	} while (iterations < Total_Iterations);
-	cout << "Iterations Completed \t" << iterations << endl;
-	cout << "Evaluating Skin Friction Coefficient" << endl;
-	try
-	{
-		Evaluate_Wall_Skin_Friction();
+			if (iterations % 1000 == 0)
+			{
+				// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
+				timer = clock();
+				Write_Error_File(Error_Filename);
+				Write_Solution(Sol_Filename, Solution_Data_Type);
+				Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
+				Append_Solution(Solution_File, Final_Solution_File);
+				// cout << "Updated Solution File Sucessfully" << endl;
+				cout << setw(10) << iterations
+					 << setw(15) << Min_dt
+					 << setw(15) << Error[0]
+					 << setw(15) << Error[1]
+					 << setw(15) << Error[2]
+					 << setw(15) << Error[3]
+					 << setw(20) << (timer / CLOCKS_PER_SEC)
+					 << setw(15) << Total_Time
+					 << endl;
+			}
+		} while (iterations < Total_Iterations);
+
+		cout << "Inviscid solver completed successfully after " << iterations << " iterations" << endl;
+		return true;
 	}
 	catch (const std::exception &e)
 	{
-		cerr << "Error during wall skin friction evaluation: " << e.what() << endl;
-		exit(EXIT_FAILURE);
+		cerr << "Exception in Inviscid_Solver: " << e.what() << endl;
+		return false;
 	}
-	cout << "Writing Skin Friction Coefficient\t" << CF_File << endl;
-	Write_CF_File(CF_File);
+	catch (...)
+	{
+		cerr << "Unknown exception occurred in Inviscid_Solver" << endl;
+		return false;
+	}
+}
+
+// Main story line of the NS equations based on Boundary condition type
+bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
+{
+	try
+	{
+		int Solution_Data_Type = 1;
+		iterations = 0;
+		cout << "Min_dt\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\tWall_Clock_Time\tTotal_Time" << endl;
+		do
+		{
+			int timer = clock();
+			Apply_Boundary_Conditions();
+			//		cout<<"Applied Boundary Conditions"<<endl;
+			Evaluate_Viscous_Fluxes();
+			//	cout<<"Viscous Fluxes evaluated"<<endl;
+			// Evaluates the Convective fluxes for all the cells
+			if (Is_Second_Order)
+				Evaluate_Cell_Net_Flux_2O();
+			else
+				Evaluate_Cell_Net_Flux_1O();
+
+			// Solves the first order Euler method using Explicit Scheme
+			if (Time_Accurate)
+				Runge_Kutta_Method();
+			else if (Is_Implicit_Method)
+				Implicit_Method();
+			else
+				Explicit_Method();
+			Total_Time += Min_dt;
+			Estimate_Error();
+			//		cout<<"Error Estimated"<<endl;
+			Update();
+
+			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
+			{
+				//	cout<<"Minimum Time Step\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\t Wall Clock Time\t Total Time"<<endl;
+				cout << Min_dt << "\t" << iterations << "\t Error\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
+				Write_Error_File(Error_Filename);
+				Write_Solution(Sol_Filename, Solution_Data_Type);
+				Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
+				Append_Solution(Solution_File, Final_Solution_File);
+				timer = clock();
+				exit(0);
+			}
+			else if (iterations % 500 == 0)
+			{
+				//			cout<<"Maximum and Minimum Time Step in iteration in \t"<<iterations<<"\t"<<Max_dt<<"\t"<<Min_dt<<endl;
+				Write_Error_File(Error_Filename);
+				Write_Solution(Sol_Filename, Solution_Data_Type);
+				Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
+				Append_Solution(Solution_File, Final_Solution_File);
+				// 			cout<<"Updated Solution File Sucessfully"<<endl;
+				if (Is_Viscous_Wall)
+				{
+					//				cout<<"Evaluating Skin Friction Coefficient"<<endl;
+					Evaluate_Wall_Skin_Friction();
+					//				cout<<"Writing Skin Friction Coefficient\t"<<CF_File<<endl;
+					Write_CF_File(CF_File);
+				}
+				timer = clock();
+				cout << Min_dt << "\t" << iterations << "\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
+				//			cout<<"---------------------------------------------------------------------------"<<endl;
+			}
+			iterations++;
+		} while (iterations < Total_Iterations);
+		cout << "Iterations Completed \t" << iterations << endl;
+		cout << "Evaluating Skin Friction Coefficient" << endl;
+		try
+		{
+			Evaluate_Wall_Skin_Friction();
+		}
+		catch (const std::exception &e)
+		{
+			cerr << "Error during wall skin friction evaluation: " << e.what() << endl;
+			return false;
+		}
+		cout << "Writing Skin Friction Coefficient\t" << CF_File << endl;
+		Write_CF_File(CF_File);
+
+		cout << "Viscous solver completed successfully after " << iterations << " iterations" << endl;
+		return true;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Exception in Viscous_Solver: " << e.what() << endl;
+		return false;
+	}
+	catch (...)
+	{
+		cerr << "Unknown exception occurred in Viscous_Solver" << endl;
+		return false;
+	}
 }

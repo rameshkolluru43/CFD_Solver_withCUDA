@@ -10,15 +10,7 @@
 
 void Initialize_TestCase()
 {
-
-    cout << "Checking and creating the directories for solution files" << endl;
-    createOutputDirectories();
-    // Grid_File = gridFiles[0];
-    cout << "Grid file to be read" << Grid_File << endl;
-    Form_Cells(Grid_File);
-
-    std::cout << "Grid_Type used: " << Grid_Type << std::endl;
-    std::cout << Initialize_Type << std::endl;
+    std::cout << "Initializing the Test Case: " << Test_Case << " - " << Test_Case_Name << std::endl;
 
     // Initialize solution
     if (Initialize_Type == 1)

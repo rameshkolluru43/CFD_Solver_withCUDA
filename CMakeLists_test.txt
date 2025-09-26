@@ -1,0 +1,57 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(CFD_VTK_Test LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Include Paths
+include_directories(
+    ${PROJECT_SOURCE_DIR}/include
+    ${PROJECT_SOURCE_DIR}/Basic_Function_Files
+    /opt/homebrew/include
+    /opt/homebrew/include/vtk-9.4
+    /opt/homebrew/Cellar/jsoncpp/1.9.6/include
+    /opt/homebrew/include/json
+)
+
+# Source Files needed for VTK testing
+set(TEST_SOURCES
+    test_vtk_reader.cpp
+    src/Mesh_Loader.cpp
+    src/Grid_Computations.cpp
+    src/Read_Gmsh_File.cpp
+    Basic_Function_Files/Global_Functions.cpp
+    Basic_Function_Files/Cell.cpp
+    Basic_Function_Files/Point.cpp
+    Basic_Function_Files/Edge.cpp
+    Basic_Function_Files/Face.cpp
+    Basic_Function_Files/Cell_Geometry.cpp
+    Basic_Function_Files/Utility_Files.cpp
+)
+
+# Link Directories
+link_directories(
+    /opt/homebrew/lib
+)
+
+# Test Executable
+add_executable(vtk_test ${TEST_SOURCES})
+target_compile_definitions(vtk_test PRIVATE USE_VTK=1)
+
+# Link Libraries
+target_link_libraries(vtk_test
+    jsoncpp
+    vtkCommonCore-9.4
+    vtkCommonDataModel-9.4
+    vtkCommonExecutionModel-9.4
+    vtkFiltersCore-9.4
+    vtkFiltersGeometry-9.4
+    vtkIOXML-9.4
+    vtkRenderingCore-9.4
+    vtkIOCore-9.4
+    vtkIOImage-9.4
+    vtkInteractionStyle-9.4
+    vtkRenderingOpenGL2-9.4
+    vtksys-9.4
+)

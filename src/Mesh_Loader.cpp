@@ -22,9 +22,12 @@ void Read_CSV_Mesh(const std::string &xnodesCsv, const std::string &ynodesCsv)
     }
 
     // Ensure unique sorted nodes (robustness)
-    auto uniq_sort = [](std::vector<double> &v) {
+    auto uniq_sort = [](std::vector<double> &v)
+    {
         std::sort(v.begin(), v.end());
-        v.erase(std::unique(v.begin(), v.end(), [](double a, double b) { return std::abs(a - b) < 1e-12; }), v.end());
+        v.erase(std::unique(v.begin(), v.end(), [](double a, double b)
+                            { return std::abs(a - b) < 1e-12; }),
+                v.end());
     };
     uniq_sort(xnodes);
     uniq_sort(ynodes);
@@ -96,99 +99,173 @@ void Read_CSV_Mesh(const std::string &xnodesCsv, const std::string &ynodesCsv)
     Check_Cells();
 }
 
-void Load_Mesh(const std::string &configOrMeshPath)
+bool Load_Mesh(const std::string &configOrMeshPath)
 {
-    // If JSON config, parse it and delegate
-    if (hasExt(configOrMeshPath, ".json"))
+    try
     {
-        std::ifstream jf(configOrMeshPath);
-        if (!jf.is_open())
+        // If JSON config, parse it and delegate
+        if (hasExt(configOrMeshPath, ".json"))
         {
-            std::cerr << "Could not open JSON config: " << configOrMeshPath << "\n";
-            exit(1);
-        }
-        Json::CharReaderBuilder rb;
-        Json::Value root;
-        std::string errs;
-        if (!Json::parseFromStream(rb, jf, &root, &errs))
-        {
-            std::cerr << "JSON parse error: " << errs << "\n";
-            exit(1);
-        }
-
-        if (root.isMember("mesh"))
-        {
-            const auto &mesh = root["mesh"];
-            if (mesh.isMember("xnodes") && mesh.isMember("ynodes"))
+            std::ifstream jf(configOrMeshPath);
+            if (!jf.is_open())
             {
-                Read_CSV_Mesh(mesh["xnodes"].asString(), mesh["ynodes"].asString());
-                return;
+                std::cerr << "Error: Could not open JSON config: " << configOrMeshPath << "\n";
+                return false;
             }
-            if (mesh.isMember("vtk"))
+            Json::CharReaderBuilder rb;
+            Json::Value root;
+            std::string errs;
+            if (!Json::parseFromStream(rb, jf, &root, &errs))
             {
-                Read_GmshVTK_Grid(mesh["vtk"].asString());
-                return;
+                std::cerr << "Error: JSON parse error: " << errs << "\n";
+                return false;
             }
-            if (mesh.isMember("txt"))
+
+            if (root.isMember("mesh"))
             {
-                Read_Grid(mesh["txt"].asString());
-                return;
+                const auto &mesh = root["mesh"];
+                if (mesh.isMember("xnodes") && mesh.isMember("ynodes"))
+                {
+                    Read_CSV_Mesh(mesh["xnodes"].asString(), mesh["ynodes"].asString());
+                    std::cout << "Successfully loaded CSV mesh from JSON config" << std::endl;
+                    return true;
+                }
+                if (mesh.isMember("vtk"))
+                {
+                    bool success = Read_GmshVTK_Grid(mesh["vtk"].asString());
+                    if (!success)
+                    {
+                        std::cerr << "Error: Failed to load VTK mesh from JSON config" << std::endl;
+                        return false;
+                    }
+                    std::cout << "Successfully loaded VTK mesh from JSON config" << std::endl;
+                    return true;
+                }
+                if (mesh.isMember("txt"))
+                {
+                    Read_Grid(mesh["txt"].asString());
+                    std::cout << "Successfully loaded TXT mesh from JSON config" << std::endl;
+                    return true;
+                }
             }
+
+            // Fallbacks if top-level provides direct path
+            if (root.isMember("vtk"))
+            {
+                bool success = Read_GmshVTK_Grid(root["vtk"].asString());
+                if (!success)
+                {
+                    std::cerr << "Error: Failed to load VTK mesh from JSON config (top-level)" << std::endl;
+                    return false;
+                }
+                std::cout << "Successfully loaded VTK mesh from JSON config (top-level)" << std::endl;
+                return true;
+            }
+            if (root.isMember("grid"))
+            {
+                Read_Grid(root["grid"].asString());
+                std::cout << "Successfully loaded grid mesh from JSON config (top-level)" << std::endl;
+                return true;
+            }
+
+            std::cerr << "Error: JSON did not contain recognized mesh keys. Expected mesh.xnodes/mesh.ynodes or mesh.vtk or mesh.txt\n";
+            return false;
         }
 
-        // Fallbacks if top-level provides direct path
-        if (root.isMember("vtk"))
+        // Otherwise, use file extension to dispatch
+        if (hasExt(configOrMeshPath, ".vtk"))
         {
-            Read_GmshVTK_Grid(root["vtk"].asString());
-            return;
-        }
-        if (root.isMember("grid"))
-        {
-            Read_Grid(root["grid"].asString());
-            return;
-        }
+            // Check if file exists before attempting to read
+            std::ifstream file_check(configOrMeshPath);
+            if (!file_check.good())
+            {
+                std::cerr << "Error: VTK file does not exist: " << configOrMeshPath << std::endl;
+                return false;
+            }
+            file_check.close();
 
-        std::cerr << "JSON did not contain recognized mesh keys. Expected mesh.xnodes/mesh.ynodes or mesh.vtk or mesh.txt\n";
-        exit(1);
-    }
-
-    // Otherwise, use file extension to dispatch
-    if (hasExt(configOrMeshPath, ".vtk"))
-    {
-        Read_GmshVTK_Grid(configOrMeshPath);
-    }
-    else if (hasExt(configOrMeshPath, ".txt"))
-    {
-        Read_Grid(configOrMeshPath);
-    }
-    else if (hasExt(configOrMeshPath, ".csv"))
-    {
-        // If a single CSV path is provided, assume naming convention *_x.csv and infer *_y.csv or vice versa
-        std::string xpath = configOrMeshPath;
-        std::string ypath = configOrMeshPath;
-        auto pos = xpath.find_last_of("/\\");
-        std::string dir = (pos == std::string::npos) ? std::string("") : xpath.substr(0, pos + 1);
-        std::string file = (pos == std::string::npos) ? xpath : xpath.substr(pos + 1);
-        if (file.find("x") != std::string::npos)
-        {
-            ypath = dir + std::string(file).replace(file.find("x"), 1, "y");
+            bool success = Read_GmshVTK_Grid(configOrMeshPath);
+            if (!success)
+            {
+                std::cerr << "Error: Failed to load VTK mesh: " << configOrMeshPath << std::endl;
+                return false;
+            }
+            std::cout << "Successfully loaded VTK mesh: " << configOrMeshPath << std::endl;
+            return true;
         }
-        else if (file.find("y") != std::string::npos)
+        else if (hasExt(configOrMeshPath, ".txt"))
         {
-            xpath = dir + std::string(file).replace(file.find("y"), 1, "x");
+            // Check if file exists before attempting to read
+            std::ifstream file_check(configOrMeshPath);
+            if (!file_check.good())
+            {
+                std::cerr << "Error: TXT file does not exist: " << configOrMeshPath << std::endl;
+                return false;
+            }
+            file_check.close();
+
+            Read_Grid(configOrMeshPath);
+            std::cout << "Successfully loaded TXT mesh: " << configOrMeshPath << std::endl;
+            return true;
+        }
+        else if (hasExt(configOrMeshPath, ".csv"))
+        {
+            // If a single CSV path is provided, assume naming convention *_x.csv and infer *_y.csv or vice versa
+            std::string xpath = configOrMeshPath;
+            std::string ypath = configOrMeshPath;
+            auto pos = xpath.find_last_of("/\\");
+            std::string dir = (pos == std::string::npos) ? std::string("") : xpath.substr(0, pos + 1);
+            std::string file = (pos == std::string::npos) ? xpath : xpath.substr(pos + 1);
+            if (file.find("x") != std::string::npos)
+            {
+                ypath = dir + std::string(file).replace(file.find("x"), 1, "y");
+            }
+            else if (file.find("y") != std::string::npos)
+            {
+                xpath = dir + std::string(file).replace(file.find("y"), 1, "x");
+            }
+            else
+            {
+                std::cerr << "Error: Provide both xnodes and ynodes CSV via JSON config or use '*x.csv' naming.\n";
+                return false;
+            }
+
+            // Check if both CSV files exist
+            std::ifstream xfile_check(xpath);
+            std::ifstream yfile_check(ypath);
+            if (!xfile_check.good())
+            {
+                std::cerr << "Error: X-nodes CSV file does not exist: " << xpath << std::endl;
+                return false;
+            }
+            if (!yfile_check.good())
+            {
+                std::cerr << "Error: Y-nodes CSV file does not exist: " << ypath << std::endl;
+                return false;
+            }
+            xfile_check.close();
+            yfile_check.close();
+
+            Read_CSV_Mesh(xpath, ypath);
+            std::cout << "Successfully loaded CSV mesh: " << xpath << " and " << ypath << std::endl;
+            return true;
         }
         else
         {
-            std::cerr << "Provide both xnodes and ynodes CSV via JSON config or use '*x.csv' naming.\n";
-            exit(1);
+            std::cerr << "Error: Unsupported mesh/config path: " << configOrMeshPath << "\n";
+            std::cerr << "Supported: .json (mesh.xnodes/mesh.ynodes or mesh.vtk or mesh.txt), .vtk, .txt, .csv (paired).\n";
+            return false;
         }
-        Read_CSV_Mesh(xpath, ypath);
     }
-    else
+    catch (const std::exception &e)
     {
-        std::cerr << "Unsupported mesh/config path: " << configOrMeshPath << "\n";
-        std::cerr << "Supported: .json (mesh.xnodes/mesh.ynodes or mesh.vtk or mesh.txt), .vtk, .txt, .csv (paired).\n";
-        exit(1);
+        std::cerr << "Exception in Load_Mesh: " << e.what() << std::endl;
+        return false;
+    }
+    catch (...)
+    {
+        std::cerr << "Unknown exception occurred in Load_Mesh" << std::endl;
+        return false;
     }
 }
 
@@ -229,7 +306,8 @@ static std::vector<double> readCsv1D(const std::string &path)
 
 static std::string toLower(std::string s)
 {
-    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c) { return std::tolower(c); });
+    std::transform(s.begin(), s.end(), s.begin(), [](unsigned char c)
+                   { return std::tolower(c); });
     return s;
 }
 

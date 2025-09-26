@@ -6,12 +6,12 @@
 #include "definitions.h"
 #include "Globals.h"
 /*-----------Functions required for Solver Part---------------------------*/
-void Inviscid_Solver(string &, string &);
-void Viscous_Solver(string &, string &);
+bool Inviscid_Solver(string &, string &);
+bool Viscous_Solver(string &, string &);
 void Explicit_Method();
 void Runge_Kutta_Method();
 void Implicit_Method();
-void runSolver();
+bool runSolver();
 void Lax_Fedrichs();
 
 #endif // Solver_h
