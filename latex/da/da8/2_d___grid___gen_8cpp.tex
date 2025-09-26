@@ -1,0 +1,677 @@
+\doxysection{Incompressible\+\_\+\+Solver/\+BQP-\/\+Incompressible\+\_\+\+CFD\+\_\+\+Solver/2\+D\+\_\+\+Grid\+\_\+\+Gen.cpp File Reference}
+\hypertarget{2_d___grid___gen_8cpp}{}\label{2_d___grid___gen_8cpp}\index{Incompressible\_Solver/BQP-\/Incompressible\_CFD\_Solver/2D\_Grid\_Gen.cpp@{Incompressible\_Solver/BQP-\/Incompressible\_CFD\_Solver/2D\_Grid\_Gen.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$omp.\+h$>$}\newline
+Include dependency graph for 2D\+\_\+\+Grid\+\_\+\+Gen.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{dc/d3a/2_d___grid___gen_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}~500
+\item 
+\#define \mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}~500
+\item 
+\#define \mbox{\hyperlink{2_d___grid___gen_8cpp_a598a3330b3c21701223ee0ca14316eca_a598a3330b3c21701223ee0ca14316eca}{PI}}~acos(-\/1.\+0)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_abd335e5ea78a68ce84aaaed3bb02ff19_abd335e5ea78a68ce84aaaed3bb02ff19}{read\+\_\+data}} (void)
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_a79c1733c02301f8835c579c5777f5dd6_a79c1733c02301f8835c579c5777f5dd6}{grid\+\_\+generation}} (void)
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b}{define\+\_\+regions}} (void)
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}{create\+\_\+block}} (double, double, double, double, double, int, bool, double, double, double, double)
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_a8a678b29cef212e5945fa2b46986fc01_a8a678b29cef212e5945fa2b46986fc01}{display\+\_\+results}} (void)
+\item 
+void \mbox{\hyperlink{2_d___grid___gen_8cpp_a3010147b236f4400aaaf926ab444796c_a3010147b236f4400aaaf926ab444796c}{linker\+\_\+data}} (void)
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cc3dd191f714ba4ae35b2d3ac5b557a_a8cc3dd191f714ba4ae35b2d3ac5b557a}{tid}}
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_a2b6a46c4274b223ea03fb4a7b80f4a5a_a2b6a46c4274b223ea03fb4a7b80f4a5a}{nthreads}}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\+\_\+avg}}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\+\_\+avg}}
+\item 
+int \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\item 
+double \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}} \mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!ncx@{ncx}}
+\index{ncx@{ncx}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{ncx}{ncx}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e} 
+\#define ncx~500}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!ncy@{ncy}}
+\index{ncy@{ncy}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{ncy}{ncy}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c} 
+\#define ncy~500}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a598a3330b3c21701223ee0ca14316eca_a598a3330b3c21701223ee0ca14316eca}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!PI@{PI}}
+\index{PI@{PI}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{PI}{PI}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a598a3330b3c21701223ee0ca14316eca_a598a3330b3c21701223ee0ca14316eca} 
+\#define PI~acos(-\/1.\+0)}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!create\_block@{create\_block}}
+\index{create\_block@{create\_block}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{create\_block()}{create\_block()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5} 
+void create\+\_\+block (\begin{DoxyParamCaption}\item[{double}]{CC\+\_\+x}{, }\item[{double}]{CC\+\_\+y}{, }\item[{double}]{XL\+\_\+brick}{, }\item[{double}]{YL\+\_\+brick}{, }\item[{double}]{Angle}{, }\item[{int}]{nature}{, }\item[{bool}]{supremacy}{, }\item[{double}]{Gas\+\_\+flow\+\_\+rate}{, }\item[{double}]{Fines\+\_\+flow\+\_\+rate}{, }\item[{double}]{Liquid\+\_\+flow\+\_\+rate}{, }\item[{double}]{Solid\+\_\+flow\+\_\+rate}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00182}{182}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00183\ \{}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{keywordtype}{int}\ min\_xid\ =\ (CC\_x\ -\/\ 0.5\ *\ XL\_brick)\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}};}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_xid\ =\ (CC\_x\ +\ 0.5\ *\ XL\_brick)\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}};}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordtype}{int}\ min\_yid\ =\ (CC\_y\ -\/\ 0.5\ *\ YL\_brick)\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordtype}{int}\ max\_yid\ =\ (CC\_y\ +\ 0.5\ *\ YL\_brick)\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}};\ i++)}
+\DoxyCodeLine{00191\ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}};\ j++)}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((i\ >=\ min\_xid\ \&\&\ i\ <=\ max\_xid)\ \&\&\ (j\ >=\ min\_yid\ \&\&\ j\ <=\ max\_yid))}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ ==\ -\/1)\ \&\&\ (!supremacy)\ )}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ =\ -\/1;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}}[i][j]\ =\ 0.00;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[i][j]\ =\ 0.00;\ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}[i][j]\ =\ 0.00;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ =\ nature;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ ==\ 0)}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}}[i][j]\ =\ 0.00;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[i][j]\ =\ 0.00;\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}[i][j]\ =\ 0.00;}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ ==\ 1)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}}[i][j]\ =\ Gas\_flow\_rate*cos(Angle*\mbox{\hyperlink{2_d___grid___gen_8cpp_a598a3330b3c21701223ee0ca14316eca_a598a3330b3c21701223ee0ca14316eca}{PI}}/180);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[i][j]\ =\ Gas\_flow\_rate*sin(Angle*\mbox{\hyperlink{2_d___grid___gen_8cpp_a598a3330b3c21701223ee0ca14316eca_a598a3330b3c21701223ee0ca14316eca}{PI}}/180);\ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ ==\ 2)}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}[i][j]\ =\ 0.00;\ \ \ \ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{da/da8/2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!define\_regions@{define\_regions}}
+\index{define\_regions@{define\_regions}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{define\_regions()}{define\_regions()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b} 
+void define\+\_\+regions (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ INITIAL\ STATE}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}};\ i++)}
+\DoxyCodeLine{00085\ \ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}};\ j++)}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ =\ 0;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ BOUNDARIES}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}-\/1;\ i++)}
+\DoxyCodeLine{00094\ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][0]\ \ \ \ \ \ \ \ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//\ Bottom\ Boundary}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}]\ \ \ \ \ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//\ Top\ Boundary}}
+\DoxyCodeLine{00097\ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}-\/1;\ j++)}
+\DoxyCodeLine{00099\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[0][j]\ \ \ \ \ \ \ \ \ \ \ \ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Boundary}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}][j]\ \ \ \ \ =\ -\/1;\ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ Boundary}}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ CORNERS}}
+\DoxyCodeLine{00105\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[0][0]\ \ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00106\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}][0]\ \ \ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00107\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[0][\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}]\ \ \ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00108\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}][\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}]\ \ =\ -\/1;}
+\DoxyCodeLine{00109\ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ }
+\DoxyCodeLine{00111\ \ \ \ \ }
+\DoxyCodeLine{00112\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{int}\ N\_Regions\ =\ 1;}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ N\_Regions;\ i++)}
+\DoxyCodeLine{00115\ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ CC\_x,\ CC\_y,\ CC\_z;\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ XL\_brick,\ YL\_brick,\ ZL\_brick;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Angle;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nature;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ supremacy;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Gas\_flow\_rate;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Fines\_flow\_rate;\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Liquid\_flow\_rate;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Solid\_flow\_rate;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DEFINING\ INLETS}}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ CC\_x\ \ \ \ \ \ \ \ \ \ \ \ =\ 2e-\/2;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ CC\_y\ \ \ \ \ \ \ \ \ \ \ \ =\ 15.0e-\/2;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ XL\_brick\ \ \ \ \ \ \ \ =\ 4e-\/2;}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ YL\_brick\ \ \ \ \ \ \ \ =\ 5e-\/3;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Angle\ \ \ \ \ \ \ \ \ \ \ =\ 45.0;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ nature\ \ \ \ \ \ \ \ \ \ =\ 1;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ supremacy\ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ Gas\_flow\_rate\ \ \ =\ 500.00;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ Fines\_flow\_rate\ =\ 0.00;\ }
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ Liquid\_flow\_rate=\ 0.00;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ Solid\_flow\_rate\ =\ 0.00;}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}{create\_block}}(CC\_x,\ CC\_y,\ XL\_brick,\ YL\_brick,\ Angle,\ nature,\ supremacy,\ Gas\_flow\_rate,\ Fines\_flow\_rate,\ Liquid\_flow\_rate,\ Solid\_flow\_rate);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ CC\_x\ \ \ \ \ \ \ \ \ \ \ \ =\ 2e-\/2;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ CC\_y\ \ \ \ \ \ \ \ \ \ \ \ =\ 15.5e-\/2\ +\ 0.50*\mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ XL\_brick\ \ \ \ \ \ \ \ =\ 4e-\/2;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ YL\_brick\ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ nature\ \ \ \ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ supremacy\ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ Gas\_flow\_rate\ \ \ =\ 0.00;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ Fines\_flow\_rate\ =\ 0.00;\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ Liquid\_flow\_rate=\ 0.00;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ Solid\_flow\_rate\ =\ 0.00;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}{create\_block}}(CC\_x,\ CC\_y,\ XL\_brick,\ YL\_brick,\ Angle,\ nature,\ supremacy,\ Gas\_flow\_rate,\ Fines\_flow\_rate,\ Liquid\_flow\_rate,\ Solid\_flow\_rate);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ CC\_x\ \ \ \ \ \ \ \ \ \ \ \ =\ 2e-\/2;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ CC\_y\ \ \ \ \ \ \ \ \ \ \ \ =\ 14.5e-\/2\ -\/\ 0.50*\mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ XL\_brick\ \ \ \ \ \ \ \ =\ 4e-\/2;}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ YL\_brick\ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ nature\ \ \ \ \ \ \ \ \ \ =\ -\/1;}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ supremacy\ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ Gas\_flow\_rate\ \ \ =\ 0.00;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ Fines\_flow\_rate\ =\ 0.00;\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ Liquid\_flow\_rate=\ 0.00;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ Solid\_flow\_rate\ =\ 0.00;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}{create\_block}}(CC\_x,\ CC\_y,\ XL\_brick,\ YL\_brick,\ Angle,\ nature,\ supremacy,\ Gas\_flow\_rate,\ Fines\_flow\_rate,\ Liquid\_flow\_rate,\ Solid\_flow\_rate);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ DEFINING\ OUTLETS\ }}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ CC\_x\ \ \ \ \ \ \ \ \ \ \ \ =\ 0.50\ *\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}+\mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}});}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ CC\_y\ \ \ \ \ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}\ +\ 2\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ XL\_brick\ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}\ +\ 2\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}};}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ YL\_brick\ \ \ \ \ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}};}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ nature\ \ \ \ \ \ \ \ \ \ =\ 2;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ supremacy\ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Gas\_flow\_rate\ \ \ =\ 500.00;}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ Fines\_flow\_rate\ =\ 0.00;\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ Liquid\_flow\_rate=\ 0.00;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ Solid\_flow\_rate\ =\ 0.00;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a0b162194d8b1f6e552209b7ef4b93aa5_a0b162194d8b1f6e552209b7ef4b93aa5}{create\_block}}(CC\_x,\ CC\_y,\ XL\_brick,\ YL\_brick,\ Angle,\ nature,\ supremacy,\ Gas\_flow\_rate,\ Fines\_flow\_rate,\ Liquid\_flow\_rate,\ Solid\_flow\_rate);}
+\DoxyCodeLine{00178\ \ \ \ \ \}}
+\DoxyCodeLine{00179\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=267pt]{da/da8/2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{da/da8/2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_a8a678b29cef212e5945fa2b46986fc01_a8a678b29cef212e5945fa2b46986fc01}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!display\_results@{display\_results}}
+\index{display\_results@{display\_results}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{display\_results()}{display\_results()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a8a678b29cef212e5945fa2b46986fc01_a8a678b29cef212e5945fa2b46986fc01} 
+void display\+\_\+results (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00227}{227}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00228\ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordtype}{int}\ count\ =\ 1;}
+\DoxyCodeLine{00230\ \ \ \ \ FILE\ *gp;\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00231\ \ \ \ \ gp\ =\ fopen(\textcolor{stringliteral}{"{}2.1.Domain\_State.dat"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00232\ \ \ \ \ fprintf(gp,\textcolor{stringliteral}{"{}TITLE\ =\ States\ of\ the\ domain\(\backslash\)n"{}});}
+\DoxyCodeLine{00233\ \ \ \ \ fprintf(gp,\ \textcolor{stringliteral}{"{}VARIABLES=\(\backslash\)"{}X\ (m)\(\backslash\)"{},\(\backslash\)"{}Y\ (m)\(\backslash\)"{},\(\backslash\)"{}State\(\backslash\)"{},\(\backslash\)"{}U\(\backslash\)"{},\(\backslash\)"{}V\(\backslash\)"{},\(\backslash\)"{}P\(\backslash\)"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00234\ \ \ \ \ fprintf(gp,\ \textcolor{stringliteral}{"{}ZONE\ T\ =\ \(\backslash\)"{}\%d\(\backslash\)"{},\ I=\%d,\ J=\%d\ F=POINT\(\backslash\)n"{}},count,\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}+1,\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}+1);}
+\DoxyCodeLine{00235\ \ \ \ \ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{double}\ yy\ =\ 0.5*\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[1];}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}};\ j++)}
+\DoxyCodeLine{00238\ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ xx\ \ =\ 0.5*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[1];}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}};\ i++)}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(gp,\textcolor{stringliteral}{"{}\%e\ \%e\ \%d\ \%lf\ \%lf\ \%lf\(\backslash\)n"{}},xx,\ yy,\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j],\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}}[i][j],\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[i][j],\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}[i][j]);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ xx\ \ =\ \ \ xx\ +\ 0.5*(\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i+1]);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UPDATE\ X\ POSITION}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ yy\ \ =\ \ \ yy\ +\ 0.5*(\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j+1]);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ UPDATE\ Y\ POSITION}}
+\DoxyCodeLine{00246\ \ \ \ \ \}}
+\DoxyCodeLine{00247\ \ \ \ \ fclose(gp);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00249\ \ \ \ \ gp\ =\ fopen(\textcolor{stringliteral}{"{}2.2.Domain\_State\_Visual.dat"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}+1;\ j\ >=\ 0;\ j-\/-\/)}
+\DoxyCodeLine{00251\ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}+1;\ i++)}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(gp,\textcolor{stringliteral}{"{}\%d\(\backslash\)t"{}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ fprintf(gp,\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00257\ \ \ \ \ \}}
+\DoxyCodeLine{00258\ \ \ \ \ fclose(gp);}
+\DoxyCodeLine{00259\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{da/da8/2_d___grid___gen_8cpp_a8a678b29cef212e5945fa2b46986fc01_a8a678b29cef212e5945fa2b46986fc01_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_a79c1733c02301f8835c579c5777f5dd6_a79c1733c02301f8835c579c5777f5dd6}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!grid\_generation@{grid\_generation}}
+\index{grid\_generation@{grid\_generation}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{grid\_generation()}{grid\_generation()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a79c1733c02301f8835c579c5777f5dd6_a79c1733c02301f8835c579c5777f5dd6} 
+void grid\+\_\+generation (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00051}{51}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \{\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/x-\/direction-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[0]\ \ \ =\ -\/\ 0.50\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}/double(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}});}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[0]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}});\ }
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}}\ \ \ \ =\ 0.00;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1\ ;\ i<=(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}-\/1);\ i++)}
+\DoxyCodeLine{00058\ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i]\ =\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}/double(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}});\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i]\ \ \ =\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i-\/1]\ +\ 0.5*(\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i-\/1]);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}}\ \ \ \ =\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}}\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i];}
+\DoxyCodeLine{00062\ \ \ \ \ \}\ }
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}\ +\ 0.50\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}});\ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}]=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}-\/1];}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}}\ \ \ \ =\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[0]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}{dx\_avg}})/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}});}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/y-\/direction-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0]\ \ \ =\ -\/\ 0.50\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}/double(\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[0]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}}\ \ \ \ =\ 0.0;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \ j\ =\ 1;\ j\ <=\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}-\/1);\ j++)}
+\DoxyCodeLine{00071\ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}/double(\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[j]\ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[j-\/1]\ +\ 0.5*(\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j-\/1]);\ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}}\ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}}\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j];}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}]\ \ \ \ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}\ +\ 0.50\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});\ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}]=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}];\ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}}\ \ \ \ =\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[0]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}{dy\_avg}})/(\mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});}
+\DoxyCodeLine{00079\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{da/da8/2_d___grid___gen_8cpp_a79c1733c02301f8835c579c5777f5dd6_a79c1733c02301f8835c579c5777f5dd6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_a3010147b236f4400aaaf926ab444796c_a3010147b236f4400aaaf926ab444796c}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!linker\_data@{linker\_data}}
+\index{linker\_data@{linker\_data}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{linker\_data()}{linker\_data()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a3010147b236f4400aaaf926ab444796c_a3010147b236f4400aaaf926ab444796c} 
+void linker\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00261}{261}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00262\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ FILE\ *fp;}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/GRID\ DETAILS\ FOR\ CFD\ SOLVER}}
+\DoxyCodeLine{00265\ \ \ \ \ fp\ =\ fopen(\textcolor{stringliteral}{"{}2.1.Grid\_details.link"{}},\textcolor{stringliteral}{"{}wt"{}});}
+\DoxyCodeLine{00266\ \ \ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\%d\ \%d\(\backslash\)n"{}},\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}});\ \ \ \ }
+\DoxyCodeLine{00267\ \ \ \ \ }
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}+1;\ i++)}
+\DoxyCodeLine{00269\ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\%e\ \%e\(\backslash\)n"{}},\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i],\ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}[i]\ );\ \ }
+\DoxyCodeLine{00271\ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ }
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}+1;\ j++)}
+\DoxyCodeLine{00274\ \ \ \ \ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\%e\ \%e\(\backslash\)n"{}},\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[j],\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}[j]\ );\ \ \ }
+\DoxyCodeLine{00276\ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}+1;\ i++)}
+\DoxyCodeLine{00279\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}+1;\ j++)}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\%d\(\backslash\)n"{}},\ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}{State}}[i][j]\ );}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ fclose(fp);}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/DOMAIN\ CONDITIONS}}
+\DoxyCodeLine{00287\ \ \ \ \ fp\ =\ fopen(\textcolor{stringliteral}{"{}2.2.Initial\_details.link"{}},\textcolor{stringliteral}{"{}wt"{}});}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}+1;\ i++)}
+\DoxyCodeLine{00289\ \ \ \ \ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}+1;\ j++)}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ fprintf(fp,\textcolor{stringliteral}{"{}\%e\ \%e\ \%e\(\backslash\)n"{}},\ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}{U}}[i][j],\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[i][j],\ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}[i][j]);\ \ }
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \ \ \ \ fclose(fp);}
+\DoxyCodeLine{00296\ \ \ \ \ }
+\DoxyCodeLine{00297\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{da/da8/2_d___grid___gen_8cpp_a3010147b236f4400aaaf926ab444796c_a3010147b236f4400aaaf926ab444796c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!main@{main}}
+\index{main@{main}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00033}{33}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_abd335e5ea78a68ce84aaaed3bb02ff19_abd335e5ea78a68ce84aaaed3bb02ff19}{read\_data}}();}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a79c1733c02301f8835c579c5777f5dd6_a79c1733c02301f8835c579c5777f5dd6}{grid\_generation}}();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a15bc367cec55d1080a19a6090010021b_a15bc367cec55d1080a19a6090010021b}{define\_regions}}();}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8a678b29cef212e5945fa2b46986fc01_a8a678b29cef212e5945fa2b46986fc01}{display\_results}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3010147b236f4400aaaf926ab444796c_a3010147b236f4400aaaf926ab444796c}{linker\_data}}();}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00041\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=343pt]{da/da8/2_d___grid___gen_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{2_d___grid___gen_8cpp_abd335e5ea78a68ce84aaaed3bb02ff19_abd335e5ea78a68ce84aaaed3bb02ff19}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!read\_data@{read\_data}}
+\index{read\_data@{read\_data}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{read\_data()}{read\_data()}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_abd335e5ea78a68ce84aaaed3bb02ff19_abd335e5ea78a68ce84aaaed3bb02ff19} 
+void read\+\_\+data (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00043}{43}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}{Lx}}\ \ \ \ \ \ \ \ =\ 0.50;}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}{Ly}}\ \ \ \ \ \ \ \ =\ 0.70;}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}{IMAX}}\ \ \ \ =\ 50;}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}{JMAX}}\ \ \ \ =\ 150;}
+\DoxyCodeLine{00049\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{da/da8/2_d___grid___gen_8cpp_abd335e5ea78a68ce84aaaed3bb02ff19_abd335e5ea78a68ce84aaaed3bb02ff19_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!dx@{dx}}
+\index{dx@{dx}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{dx}{dx}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be} 
+double dx\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!dx\_avg@{dx\_avg}}
+\index{dx\_avg@{dx\_avg}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{dx\_avg}{dx\_avg}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a4c6445750b7dcc783f0c2aa5f8ebf659_a4c6445750b7dcc783f0c2aa5f8ebf659} 
+double dx\+\_\+avg}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!dy@{dy}}
+\index{dy@{dy}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{dy}{dy}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067} 
+double dy\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!dy\_avg@{dy\_avg}}
+\index{dy\_avg@{dy\_avg}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{dy\_avg}{dy\_avg}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a414785a906f74e9e8134327caf0797aa_a414785a906f74e9e8134327caf0797aa} 
+double dy\+\_\+avg}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!IMAX@{IMAX}}
+\index{IMAX@{IMAX}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{IMAX}{IMAX}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a3bd0609083f123d8e3ece4535be6ee52_a3bd0609083f123d8e3ece4535be6ee52} 
+int IMAX}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!JMAX@{JMAX}}
+\index{JMAX@{JMAX}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{JMAX}{JMAX}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a224afc15d975a79c690019c6555ae5ac_a224afc15d975a79c690019c6555ae5ac} 
+int JMAX}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!Lx@{Lx}}
+\index{Lx@{Lx}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{Lx}{Lx}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_ad538aa77abb694f8faf437a41e3e8037_ad538aa77abb694f8faf437a41e3e8037} 
+double Lx}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!Ly@{Ly}}
+\index{Ly@{Ly}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{Ly}{Ly}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a9b3d111ccf7f82fb80aeb6f8b229c21b_a9b3d111ccf7f82fb80aeb6f8b229c21b} 
+double Ly}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a2b6a46c4274b223ea03fb4a7b80f4a5a_a2b6a46c4274b223ea03fb4a7b80f4a5a}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!nthreads@{nthreads}}
+\index{nthreads@{nthreads}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{nthreads}{nthreads}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a2b6a46c4274b223ea03fb4a7b80f4a5a_a2b6a46c4274b223ea03fb4a7b80f4a5a} 
+int nthreads}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!P@{P}}
+\index{P@{P}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{P}{P}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20} 
+double P\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00024}{24}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!State@{State}}
+\index{State@{State}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{State}{State}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a4c75f20a5be228245e35ea48e8218bc5_a4c75f20a5be228245e35ea48e8218bc5} 
+int State\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a8cc3dd191f714ba4ae35b2d3ac5b557a_a8cc3dd191f714ba4ae35b2d3ac5b557a}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!tid@{tid}}
+\index{tid@{tid}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{tid}{tid}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a8cc3dd191f714ba4ae35b2d3ac5b557a_a8cc3dd191f714ba4ae35b2d3ac5b557a} 
+int tid}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!U@{U}}
+\index{U@{U}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{U}{U}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a46074072724461e78ba1cf9f5232a718_a46074072724461e78ba1cf9f5232a718} 
+double U\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00022}{22}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!V@{V}}
+\index{V@{V}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{V}{V}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af} 
+double V\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00023}{23}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!x@{x}}
+\index{x@{x}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9} 
+double x\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_a5496526a1dcf4a2629e73e69b879722e_a5496526a1dcf4a2629e73e69b879722e}{ncx}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+
+\Hypertarget{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}\index{2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}!y@{y}}
+\index{y@{y}!2D\_Grid\_Gen.cpp@{2D\_Grid\_Gen.cpp}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily \label{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317} 
+double y\mbox{[}\mbox{\hyperlink{2_d___grid___gen_8cpp_ad5147559abad1416c421bfff3d2a907c_ad5147559abad1416c421bfff3d2a907c}{ncy}}+1\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{2_d___grid___gen_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{2_d___grid___gen_8cpp_source}{2\+D\+\_\+\+Grid\+\_\+\+Gen.\+cpp}}.
+

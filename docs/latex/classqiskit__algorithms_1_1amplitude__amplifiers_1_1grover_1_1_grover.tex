@@ -1,0 +1,263 @@
+\doxysection{qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover Class Reference}
+\hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover}{}\label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a99c2bf8fef0df440d4d056b6cddfc4c5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}Iterator\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None iterations=None, float\texorpdfstring{$\vert$}{|}None growth\+\_\+rate=None, bool sample\+\_\+from\+\_\+iterations=False, Base\+Sampler\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a44822b77910fda1769c173f2a0a4e44b}{sampler}}=None)
+\item 
+Base\+Sampler\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a44822b77910fda1769c173f2a0a4e44b}{sampler}} (self)
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_aad03eb832c11e2806a1b9d38d11c334c}{sampler}} (self, Base\+Sampler sampler)
+\item 
+"{}Grover\+Result"{} \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a7a219856953f256693f35b8c00ba6dd3}{amplify}} (self, \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplification__problem_1_1_amplification_problem}{Amplification\+Problem}} amplification\+\_\+problem)
+\item 
+Quantum\+Circuit \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a1c03c6360142deba37c5ba07e6077295}{construct\+\_\+circuit}} (self, \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplification__problem_1_1_amplification_problem}{Amplification\+Problem}} problem, int\texorpdfstring{$\vert$}{|}None power=None, bool measurement=False)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplitude__amplifier_1_1_amplitude_amplifier}{qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+amplitude\+\_\+amplifier.\+Amplitude\+Amplifier}}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a21e19e5eb84c643bb20ca1ac60a24551}{optimal\+\_\+num\+\_\+iterations}} (int num\+\_\+solutions, int num\+\_\+qubits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a5e0a454ad45b7951d753c1e9057fe67d}{\+\_\+iterations}}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_aba057e4eded50018dbad669a01bdda2c}\label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_aba057e4eded50018dbad669a01bdda2c} 
+Base\+Sampler\texorpdfstring{$\vert$}{|}None {\bfseries \+\_\+sampler} = \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a44822b77910fda1769c173f2a0a4e44b}{sampler}}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a8e717c4ecd8953028ab25ba3a128cb47}\label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a8e717c4ecd8953028ab25ba3a128cb47} 
+{\bfseries \+\_\+sample\+\_\+from\+\_\+iterations} = sample\+\_\+from\+\_\+iterations
+\item 
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a8cbc3fd9c719179142aefccfd7a5b644}\label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a8cbc3fd9c719179142aefccfd7a5b644} 
+{\bfseries \+\_\+iterations\+\_\+arg} = iterations
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Grover's Search algorithm.
+
+.. note::
+
+    If you want to learn more about the theory behind Grover's Search algorithm, check
+    out the `Qiskit Textbook <https://qiskit.org/textbook/ch-algorithms/grover.html>`_.
+    or the `Qiskit Tutorials
+    <https://qiskit.org/documentation/tutorials/algorithms/07_grover_examples.html>`_
+    for more concrete how-to examples.
+
+Grover's Search [1, 2] is a well known quantum algorithm that can be used for
+searching through unstructured collections of records for particular targets
+with quadratic speedup compared to classical algorithms.
+
+Given a set :math:`X` of :math:`N` elements :math:`X=\{x_1,x_2,\ldots,x_N\}`
+and a boolean function :math:`f : X \rightarrow \{0,1\}`, the goal of an
+unstructured-search problem is to find an element :math:`x^* \in X` such
+that :math:`f(x^*)=1`.
+
+The search is called *unstructured* because there are no guarantees as to how
+the database is ordered.  On a sorted database, for instance, one could perform
+binary search to find an element in :math:`\mathbb{O}(\log N)` worst-case time.
+Instead, in an unstructured-search problem, there is no prior knowledge about
+the contents of the database. With classical circuits, there is no alternative
+but to perform a linear number of queries to find the target element.
+Conversely, Grover's Search algorithm allows to solve the unstructured-search
+problem on a quantum computer in :math:`\mathcal{O}(\sqrt{N})` queries.
+
+To carry out this search a so-called oracle is required, that flags a good element/state.
+The action of the oracle :math:`\mathcal{S}_f` is
+
+.. math::
+
+    \mathcal{S}_f |x\rangle = (-1)^{f(x)} |x\rangle,
+
+i.e. it flips the phase of the state :math:`|x\rangle` if :math:`x` is a hit.
+The details of how :math:`S_f` works are unimportant to the algorithm; Grover's
+search algorithm treats the oracle as a black box.
+
+This class supports oracles in form of a :class:`~qiskit.circuit.QuantumCircuit`.
+
+With the given oracle, Grover's Search constructs the Grover operator to amplify the
+amplitudes of the good states:
+
+.. math::
+
+    \mathcal{Q} = H^{\otimes n} \mathcal{S}_0 H^{\otimes n} \mathcal{S}_f
+                = D \mathcal{S}_f,
+
+where :math:`\mathcal{S}_0` flips the phase of the all-zero state and acts as identity
+on all other states. Sometimes the first three operands are summarized as diffusion operator,
+which implements a reflection over the equal superposition state.
+
+If the number of solutions is known, we can calculate how often :math:`\mathcal{Q}` should be
+applied to find a solution with very high probability, see the method
+`optimal_num_iterations`. If the number of solutions is unknown, the algorithm tries different
+powers of Grover's operator, see the `iterations` argument, and after each iteration checks
+if a good state has been measured using `good_state`.
+
+The generalization of Grover's Search, Quantum Amplitude Amplification [3], uses a modified
+version of :math:`\mathcal{Q}` where the diffusion operator does not reflect about the
+equal superposition state, but another state specified via an operator :math:`\mathcal{A}`:
+
+.. math::
+
+    \mathcal{Q} = \mathcal{A} \mathcal{S}_0 \mathcal{A}^\dagger \mathcal{S}_f.
+
+For more information, see the :class:`~qiskit.circuit.library.GroverOperator` in the
+circuit library.
+
+References:
+    [1]: L. K. Grover (1996), A fast quantum mechanical algorithm for database search,
+        `arXiv:quant-ph/9605043 <https://arxiv.org/abs/quant-ph/9605043>`_.
+    [2]: I. Chuang & M. Nielsen, Quantum Computation and Quantum Information,
+        Cambridge: Cambridge University Press, 2000. Chapter 6.1.2.
+    [3]: Brassard, G., Hoyer, P., Mosca, M., & Tapp, A. (2000).
+        Quantum Amplitude Amplification and Estimation.
+        `arXiv:quant-ph/0005055 <http://arxiv.org/abs/quant-ph/0005055>`_.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a99c2bf8fef0df440d4d056b6cddfc4c5}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a99c2bf8fef0df440d4d056b6cddfc4c5} 
+ None qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} Iterator\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None }]{iterations}{ = {\ttfamily None}, }\item[{float \texorpdfstring{$\vert$}{|} None }]{growth\+\_\+rate}{ = {\ttfamily None}, }\item[{bool }]{sample\+\_\+from\+\_\+iterations}{ = {\ttfamily False}, }\item[{Base\+Sampler \texorpdfstring{$\vert$}{|} None }]{sampler}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        iterations: Specify the number of iterations/power of Grover's operator to be checked.
+            * If an int, only one circuit is run with that power of the Grover operator.
+            If the number of solutions is known, this option should be used with the optimal
+            power. The optimal power can be computed with ``Grover.optimal_num_iterations``.
+            * If a list, all the powers in the list are run in the specified order.
+            * If an iterator, the powers yielded by the iterator are checked, until a maximum
+            number of iterations or maximum power is reached.
+            * If ``None``, the :obj:`AmplificationProblem` provided must have an ``is_good_state``,
+            and circuits are run until that good state is reached.
+        growth_rate: If specified, the iterator is set to increasing powers of ``growth_rate``,
+            i.e. to ``int(growth_rate ** 1), int(growth_rate ** 2), ...`` until a maximum
+            number of iterations is reached.
+        sample_from_iterations: If True, instead of taking the values in ``iterations`` as
+            powers of the Grover operator, a random integer sample between 0 and smaller value
+            than the iteration is used as a power, see [1], Section 4.
+        sampler: A Sampler to use for sampling the results of the circuits.
+
+    Raises:
+        ValueError: If ``growth_rate`` is a float but not larger than 1.
+        ValueError: If both ``iterations`` and ``growth_rate`` is set.
+
+    References:
+        [1]: Boyer et al., Tight bounds on quantum searching
+             `<https://arxiv.org/abs/quant-ph/9605034>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a7a219856953f256693f35b8c00ba6dd3}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!amplify@{amplify}}
+\index{amplify@{amplify}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{amplify()}{amplify()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a7a219856953f256693f35b8c00ba6dd3} 
+ "{}Grover\+Result"{} qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+amplify (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplification__problem_1_1_amplification_problem}{Amplification\+Problem}}}]{amplification\+\_\+problem}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the Grover algorithm.
+
+Args:
+    amplification_problem: The amplification problem.
+
+Returns:
+    The result as a ``GroverResult``, where e.g. the most likely state can be queried
+    as ``result.top_measurement``.
+
+Raises:
+    ValueError: If sampler is not set.
+    AlgorithmError: If sampler job fails.
+    TypeError: If ``is_good_state`` is not provided and is required (i.e. when iterations
+    is ``None`` or a ``list``)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplitude__amplifier_1_1_amplitude_amplifier_a18ad648d1a7da79a8e0b89502b81087d}{qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+amplitude\+\_\+amplifier.\+Amplitude\+Amplifier}}.
+
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a1c03c6360142deba37c5ba07e6077295}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!construct\_circuit@{construct\_circuit}}
+\index{construct\_circuit@{construct\_circuit}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{construct\_circuit()}{construct\_circuit()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a1c03c6360142deba37c5ba07e6077295} 
+ Quantum\+Circuit qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+construct\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__amplifiers_1_1amplification__problem_1_1_amplification_problem}{Amplification\+Problem}}}]{problem}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{power}{ = {\ttfamily None}, }\item[{bool }]{measurement}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct the circuit for Grover's algorithm with ``power`` Grover operators.
+
+Args:
+    problem: The amplification problem for the algorithm.
+    power: The number of times the Grover operator is repeated. If None, this argument
+        is set to the first item in ``iterations``.
+    measurement: Boolean flag to indicate if measurement should be included in the circuit.
+
+Returns:
+    QuantumCircuit: the QuantumCircuit object for the constructed circuit
+
+Raises:
+    ValueError: If no power is passed and the iterations are not an integer.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a21e19e5eb84c643bb20ca1ac60a24551}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!optimal\_num\_iterations@{optimal\_num\_iterations}}
+\index{optimal\_num\_iterations@{optimal\_num\_iterations}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{optimal\_num\_iterations()}{optimal\_num\_iterations()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a21e19e5eb84c643bb20ca1ac60a24551} 
+ int qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+optimal\+\_\+num\+\_\+iterations (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+solutions}{, }\item[{int}]{num\+\_\+qubits}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Return the optimal number of iterations, if the number of solutions is known.
+
+Args:
+    num_solutions: The number of solutions.
+    num_qubits: The number of qubits used to encode the states.
+
+Returns:
+    The optimal number of iterations for Grover's algorithm to succeed.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a44822b77910fda1769c173f2a0a4e44b}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!sampler@{sampler}}
+\index{sampler@{sampler}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{sampler()}{sampler()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a44822b77910fda1769c173f2a0a4e44b} 
+ Base\+Sampler \texorpdfstring{$\vert$}{|} None qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+sampler (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the sampler.
+
+Returns:
+    The sampler used to run this algorithm.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_aad03eb832c11e2806a1b9d38d11c334c}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!sampler@{sampler}}
+\index{sampler@{sampler}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{sampler()}{sampler()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_aad03eb832c11e2806a1b9d38d11c334c} 
+ None qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+sampler (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Base\+Sampler}]{sampler}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set the sampler.
+
+Args:
+    sampler: The sampler used to run this algorithm.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a5e0a454ad45b7951d753c1e9057fe67d}\index{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}!\_iterations@{\_iterations}}
+\index{\_iterations@{\_iterations}!qiskit\_algorithms.amplitude\_amplifiers.grover.Grover@{qiskit\_algorithms.amplitude\_amplifiers.grover.Grover}}
+\doxysubsubsection{\texorpdfstring{\_iterations}{\_iterations}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1amplitude__amplifiers_1_1grover_1_1_grover_a5e0a454ad45b7951d753c1e9057fe67d} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+amplifiers.\+grover.\+Grover.\+\_\+iterations\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ (}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int(growth\_rate**x)\ \textcolor{keywordflow}{for}\ x\ \textcolor{keywordflow}{in}\ itertools.count(1)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/amplitude\+\_\+amplifiers/grover.\+py\end{DoxyCompactItemize}

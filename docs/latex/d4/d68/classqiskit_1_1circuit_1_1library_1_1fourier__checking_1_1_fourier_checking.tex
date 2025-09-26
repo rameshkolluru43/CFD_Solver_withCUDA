@@ -1,0 +1,83 @@
+\doxysection{qiskit.\+circuit.\+library.\+fourier\+\_\+checking.\+Fourier\+Checking Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking}{}\label{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking}\index{qiskit.circuit.library.fourier\_checking.FourierChecking@{qiskit.circuit.library.fourier\_checking.FourierChecking}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+fourier\+\_\+checking.\+Fourier\+Checking\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d4/d68/classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking_abf0bdbd94f9cc73702e64459b9197ee7_abf0bdbd94f9cc73702e64459b9197ee7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Sequence\mbox{[}int\mbox{]} f, Sequence\mbox{[}int\mbox{]} g)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Fourier checking circuit.
+
+The circuit for the Fourier checking algorithm, introduced in [1],
+involves a layer of Hadamards, the function :math:`f`, another layer of
+Hadamards, the function :math:`g`, followed by a final layer of Hadamards.
+The functions :math:`f` and :math:`g` are classical functions realized
+as phase oracles (diagonal operators with {-1, 1} on the diagonal).
+
+The probability of observing the all-zeros string is :math:`p(f,g)`.
+The algorithm solves the promise Fourier checking problem,
+which decides if f is correlated with the Fourier transform
+of g, by testing if :math:`p(f,g) <= 0.01` or :math:`p(f,g) >= 0.05`,
+promised that one or the other of these is true.
+
+The functions :math:`f` and :math:`g` are currently implemented
+from their truth tables but could be represented concisely and
+implemented efficiently for special classes of functions.
+
+Fourier checking is a special case of :math:`k`-fold forrelation [2].
+
+**Reference:**
+
+[1] S. Aaronson, BQP and the Polynomial Hierarchy, 2009 (Section 3.2).
+`arXiv:0910.4698 <https://arxiv.org/abs/0910.4698>`_
+
+[2] S. Aaronson, A. Ambainis, Forrelation: a problem that
+optimally separates quantum from classical computing, 2014.
+`arXiv:1411.5729 <https://arxiv.org/abs/1411.5729>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking_abf0bdbd94f9cc73702e64459b9197ee7_abf0bdbd94f9cc73702e64459b9197ee7}\index{qiskit.circuit.library.fourier\_checking.FourierChecking@{qiskit.circuit.library.fourier\_checking.FourierChecking}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.fourier\_checking.FourierChecking@{qiskit.circuit.library.fourier\_checking.FourierChecking}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking_abf0bdbd94f9cc73702e64459b9197ee7_abf0bdbd94f9cc73702e64459b9197ee7} 
+ None qiskit.\+circuit.\+library.\+fourier\+\_\+checking.\+Fourier\+Checking.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Sequence\mbox{[}int\mbox{]}}]{f}{, }\item[{Sequence\mbox{[}int\mbox{]}}]{g}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create Fourier checking circuit.
+
+Args:
+    f: truth table for f, length 2**n list of {1,-1}.
+    g: truth table for g, length 2**n list of {1,-1}.
+
+Raises:
+    CircuitError: if the inputs f and g are not valid.
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit.library import FourierChecking
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       f = [1, -1, -1, -1]
+       g = [1, 1, -1, -1]
+       circuit = FourierChecking(f, g)
+       _generate_circuit_library_visualization(circuit)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/fourier\+\_\+checking.\+py\end{DoxyCompactItemize}

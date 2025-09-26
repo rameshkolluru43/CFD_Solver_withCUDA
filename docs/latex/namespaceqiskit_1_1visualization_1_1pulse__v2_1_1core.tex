@@ -1,0 +1,66 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+core Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1core}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1core}\index{qiskit.visualization.pulse\_v2.core@{qiskit.visualization.pulse\_v2.core}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1core_1_1_chart}{Chart}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1core_1_1_drawer_canvas}{Drawer\+Canvas}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Core module of the pulse drawer.
+
+This module provides the `DrawerCanvas` which is a collection of `Chart` object.
+The `Chart` object is a collection of drawings. A user can assign multiple channels
+to a single chart instance. For example, we can define a chart for specific qubit
+and assign all related channels to the chart. This chart-channel mapping is defined by
+the function specified by ``layout.chart_channel_map`` of the stylesheet.
+
+Because this chart instance is decoupled from the coordinate system of the plotter,
+we can arbitrarily place charts on the plotter canvas, i.e. if we want to create 3D plot,
+each chart may be placed on the X-Z plane and charts are arranged along the Y-axis.
+Thus this data model maximizes the flexibility to generate an output image.
+
+The chart instance is not just a container of drawings, as it also performs
+data processing like binding abstract coordinates and truncating long pulses for an axis break.
+Each chart object has `.parent` which points to the `DrawerCanvas` instance so that
+each child chart can refer to the global figure settings such as time range and axis break.
+
+
+Initialization
+~~~~~~~~~~~~~~
+The `DataCanvas` and `Chart` are not exposed to users as they are implicitly
+initialized in the interface function. It is noteworthy that the data canvas is agnostic
+to plotters. This means once the canvas instance is initialized we can reuse this data
+among multiple plotters. The canvas is initialized with a stylesheet and quantum backend
+information :py:class:`~qiskit.visualization.pulse_v2.device_info.DrawerBackendInfo`.
+Chart instances are automatically generated when pulse program is loaded.
+
+    ```python
+    canvas = DrawerCanvas(stylesheet=stylesheet, device=device)
+    canvas.load_program(sched)
+    canvas.update()
+    ```
+
+Once all properties are set, `.update` method is called to apply changes to drawings.
+If the `DrawDataContainer` is initialized without backend information, the output shows
+the time in units of the system cycle time `dt` and the frequencies are initialized to zero.
+
+Update
+~~~~~~
+To update the image, a user can set new values to canvas and then call the `.update` method.
+
+    ```python
+    canvas.set_time_range(2000, 3000, seconds=False)
+    canvas.update()
+    ```
+
+All stored drawings are updated accordingly. The plotter API can access to
+drawings with `.collections` property of chart instance. This returns
+an iterator of drawing with the unique data key.
+If a plotter provides object handler for plotted shapes, the plotter API can manage
+the lookup table of the handler and the drawing by using this data key.
+\end{DoxyVerb}
+ 

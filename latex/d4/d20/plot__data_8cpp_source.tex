@@ -1,0 +1,156 @@
+\doxysection{plot\+\_\+data.\+cpp}
+\hypertarget{plot__data_8cpp_source}{}\label{plot__data_8cpp_source}\index{Basic\_Function\_Files/plot\_data.cpp@{Basic\_Function\_Files/plot\_data.cpp}}
+\mbox{\hyperlink{plot__data_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include<iostream>}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include<string>}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include<vector>}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include<fstream>}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00006}00006\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00008}\mbox{\hyperlink{plot__data_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{00008}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{plot__data_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{string}\ gridfilename,solutionfilename,final\_vtkfile,final\_structured\_vtk;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{string}\ s1,s2;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},z,v1,v2,v3,\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}},T,rho;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ nop,a,\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},c,d,e,\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}},\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}},h,j,timestep,No\_of\_Cells;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}},\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},nz;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00015}00015\ \ \ \ \ vector<double>\ pressure,temperature,density,vel1,vel2,vel3;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00016}00016\ \ \ \ \ gridfilename\_core\ =\textcolor{stringliteral}{"{}../Grid\_Files/Pipe\_Clustered2\_ld10\_61\_21\_41.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00017}00017\ \ \ \ \ solutionfilename=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_0.5\_\_RK4\_61\_21\_41\_111325.txt"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00018}00018\ \ \ \ \ gridfilename\_polar\ =\textcolor{stringliteral}{"{}../Grid\_Files/Pipe\_Clustered2\_ld10\_61\_21\_41.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00019}00019\ \ \ \ \ solutionfilename\_polar=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_0.5\_\_RK4\_61\_21\_41\_111325.txt"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00020}00020\ \ \ \ \ final\_vtkfile\_core=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_61\_21\_41\_Solution.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00021}00021\ \ \ \ \ final\_vtkfile\_polar=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_61\_21\_41\_Solution.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00022}00022\ \textcolor{comment}{//\ \ final\_structured\_vtk="{}/home2/ramesh/Desktop/Ph.D-\/Work/Research\_Code/NS\_Results/Pipe\_Trial1\_fd\_struct\_5000\_RK4\_31\_31\_71\_111325.vtk"{};}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00023}00023\ \ \ \ \ gridfilename\ =\textcolor{stringliteral}{"{}../Euler\_Cube\_Results/channel\_11\_11\_11.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00024}00024\ \ \ \ \ ifstream\ gridfile(gridfilename.c\_str(),ios::in);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00025}00025\ \textcolor{comment}{/*\ \ solutionfilename="{}../Euler\_Cube\_Results/Cube\_AUSM\_11\_11\_11.txt"{};}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00026}00026\ \textcolor{comment}{\ \ \ \ final\_vtkfile="{}../Euler\_Cube\_Results/Cube\_AUSM\_11\_11\_11\_Solution.vtk"{};}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00027}00027\ \textcolor{comment}{\ \ \ \ ifstream\ solfile(solutionfilename.c\_str(),ios::in);*/}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00028}00028\ \ \ \ \ ofstream\ Pipefile(final\_vtkfile.c\_str(),ios::out|ios::app);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00029}00029\ \textcolor{comment}{//\ \ ofstream\ Pipefile\_struct(final\_structured\_vtk,ios::out|ios::app);}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00030}00030\ \ \ \ \ \textcolor{keywordflow}{if}(Pipefile.is\_open())}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00031}00031\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Sucessfully\ opened\ Grid\ file\(\backslash\)t"{}}<<gridfilename<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(gridfile.is\_open())}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>nop>>s2;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<s2<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<nop;i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}>>z;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<z<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>No\_of\_Cells>>nop;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_of\_Cells<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_of\_Cells;i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>a>>\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}>>c>>d>>e>>\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}>>\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}}>>h>>j;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00055}00055\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<"{}\(\backslash\)t"{}<<d<<"{}\(\backslash\)t"{}<<e<<"{}\(\backslash\)t"{}<<f<<"{}\(\backslash\)t"{}<<g<<"{}\(\backslash\)t"{}<<h<<"{}\(\backslash\)t"{}<<j<<endl;}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<a<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<c<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<d<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<e<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<h<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<j<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>nop;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<nop;i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ open\ Grid\ datafile,\ Please\ check\ the\ file\ name\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ gridfile.close();}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Closed\ grid\ file\ \(\backslash\)t"{}}<<gridfilename<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(solfile.is\_open())}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Solution\ file\ opened\(\backslash\)t"{}}<<solutionfilename<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>s1>>s2>>timestep;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<s1<<\textcolor{stringliteral}{"{}\ "{}}<<s2<<\textcolor{stringliteral}{"{}\(\backslash\)tSolution\ at\ time\ step\(\backslash\)t"{}}<<timestep<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}>>\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}>>nz;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nz<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<No\_of\_Cells<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_of\_Cells;i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>a>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}>>T>>rho>>v1>>v2>>v3;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v2<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v3<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pressure.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature.push\_back(T);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density.push\_back(rho);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel1.push\_back(v1);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel2.push\_back(v2);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel3.push\_back(v3);}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ solfile.close();}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}size\ of\ presure\ data\(\backslash\)t"{}}<<pressure.size()<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ open\ solution\ file,\ Please\ check\ the\ file\ name\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}CELL\_DATA\(\backslash\)t"{}}<<pressure.size()<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Pressure\(\backslash\)t\ double\ \(\backslash\)t\ 1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<pressure.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<pressure[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ temperature\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<temperature.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<temperature[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Density\(\backslash\)tdouble\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<density.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<density[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ u\_velocity\(\backslash\)tdouble\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel1.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel1[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ v\_velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel2.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel2[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)tw\_velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00131}00131\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel3.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel3[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}VECTORS\(\backslash\)t\ Velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00137}00137\ \textcolor{comment}{//\ \ \ \ \ \ Pipefile<<"{}LOOKUP\_TABLE\ default"{}<<endl;}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel1.size();i++)}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel2[i]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<vel3[i]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<vel1[i]<<endl;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ Pipefile.close();}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00143}00143\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00145}00145\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Unable\ to\ open\ file\ to\ write\ the\ Pipe\ solution\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00147}00147\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00148}00148\ cout<<\textcolor{stringliteral}{"{}Generated\ solution\ vtk\ file\ with\ grid\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00149}00149\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{plot__data_8cpp_source_l00150}00150\ \}}
+
+\end{DoxyCode}

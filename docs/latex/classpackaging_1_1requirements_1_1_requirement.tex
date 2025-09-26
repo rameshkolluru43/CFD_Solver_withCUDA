@@ -1,0 +1,79 @@
+\doxysection{packaging.\+requirements.\+Requirement Class Reference}
+\hypertarget{classpackaging_1_1requirements_1_1_requirement}{}\label{classpackaging_1_1requirements_1_1_requirement}\index{packaging.requirements.Requirement@{packaging.requirements.Requirement}}
+Inheritance diagram for packaging.\+requirements.\+Requirement\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classpackaging_1_1requirements_1_1_requirement}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classpackaging_1_1requirements_1_1_requirement_ac7a1ef62cb418b11420467acc9e548df}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str requirement\+\_\+string)
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a81054d033973a49aeaf4f7f99bcf7d77}\label{classpackaging_1_1requirements_1_1_requirement_a81054d033973a49aeaf4f7f99bcf7d77} 
+str {\bfseries \+\_\+\+\_\+str\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a6708b6ed089a23b941832d811c8478c0}\label{classpackaging_1_1requirements_1_1_requirement_a6708b6ed089a23b941832d811c8478c0} 
+str {\bfseries \+\_\+\+\_\+repr\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a69426ed6e3cc347033b3096195023bfc}\label{classpackaging_1_1requirements_1_1_requirement_a69426ed6e3cc347033b3096195023bfc} 
+int {\bfseries \+\_\+\+\_\+hash\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_ae285c586a0e8b9e700b0f5f25e2c2671}\label{classpackaging_1_1requirements_1_1_requirement_ae285c586a0e8b9e700b0f5f25e2c2671} 
+bool {\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, Any other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_aaaadd34e0716c514cbc9db753fc86e72}\label{classpackaging_1_1requirements_1_1_requirement_aaaadd34e0716c514cbc9db753fc86e72} 
+str {\bfseries name} = parsed.\+name
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_aa82d2bbfd972bfaa940a72cbb85b9222}\label{classpackaging_1_1requirements_1_1_requirement_aa82d2bbfd972bfaa940a72cbb85b9222} 
+str\texorpdfstring{$\vert$}{|}None {\bfseries url} = parsed.\+url or None
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_adcc3e4b7bf1265c784320597454d248f}\label{classpackaging_1_1requirements_1_1_requirement_adcc3e4b7bf1265c784320597454d248f} 
+set\mbox{[}str\mbox{]} {\bfseries extras} = set(parsed.\+extras or \mbox{[}$\,$\mbox{]})
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a6db94ad0fc7b47c491c28a513d697e39}\label{classpackaging_1_1requirements_1_1_requirement_a6db94ad0fc7b47c491c28a513d697e39} 
+\mbox{\hyperlink{classpackaging_1_1specifiers_1_1_specifier_set}{Specifier\+Set}} {\bfseries specifier} = \mbox{\hyperlink{classpackaging_1_1specifiers_1_1_specifier_set}{Specifier\+Set}}(parsed.\+specifier)
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a4caeb04c4724e3dd070ffe3d514aac00}\label{classpackaging_1_1requirements_1_1_requirement_a4caeb04c4724e3dd070ffe3d514aac00} 
+\mbox{\hyperlink{classpackaging_1_1markers_1_1_marker}{Marker}}\texorpdfstring{$\vert$}{|}None {\bfseries marker} = None
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a53bfa355f227d2f1fba14494571abdf5}\label{classpackaging_1_1requirements_1_1_requirement_a53bfa355f227d2f1fba14494571abdf5} 
+str {\bfseries extras} = "{},"{}.join(sorted(self.\+extras))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_a3e2189ef001b0ee563ff402a6a240895}\label{classpackaging_1_1requirements_1_1_requirement_a3e2189ef001b0ee563ff402a6a240895} 
+Iterator\mbox{[}str\mbox{]} {\bfseries \+\_\+iter\+\_\+parts} (self, str name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Parse a requirement.
+
+Parse a given requirement string into its parts, such as name, specifier,
+URL, and extras. Raises InvalidRequirement on a badly-formed requirement
+string.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classpackaging_1_1requirements_1_1_requirement_ac7a1ef62cb418b11420467acc9e548df}\index{packaging.requirements.Requirement@{packaging.requirements.Requirement}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!packaging.requirements.Requirement@{packaging.requirements.Requirement}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classpackaging_1_1requirements_1_1_requirement_ac7a1ef62cb418b11420467acc9e548df} 
+ None packaging.\+requirements.\+Requirement.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{requirement\+\_\+string}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented in \mbox{\hyperlink{classpkg__resources_1_1_requirement_a0da94a5138dc900cbc4d51e0368ad893}{pkg\+\_\+resources.\+Requirement}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/packaging/requirements.\+py\end{DoxyCompactItemize}

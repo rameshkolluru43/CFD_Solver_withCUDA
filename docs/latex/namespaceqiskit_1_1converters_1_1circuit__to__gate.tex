@@ -1,0 +1,55 @@
+\doxysection{qiskit.\+converters.\+circuit\+\_\+to\+\_\+gate Namespace Reference}
+\hypertarget{namespaceqiskit_1_1converters_1_1circuit__to__gate}{}\label{namespaceqiskit_1_1converters_1_1circuit__to__gate}\index{qiskit.converters.circuit\_to\_gate@{qiskit.converters.circuit\_to\_gate}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1converters_1_1circuit__to__gate_a09bfdf265ace981145a046200fe8b29c}{\+\_\+check\+\_\+is\+\_\+gate}} (op)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1converters_1_1circuit__to__gate_a47fa7ce95bf5858cc78e700a81c9a0e3}{circuit\+\_\+to\+\_\+gate}} (circuit, parameter\+\_\+map=None, equivalence\+\_\+library=None, label=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Helper function for converting a circuit to a gate\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1converters_1_1circuit__to__gate_a09bfdf265ace981145a046200fe8b29c}\index{qiskit.converters.circuit\_to\_gate@{qiskit.converters.circuit\_to\_gate}!\_check\_is\_gate@{\_check\_is\_gate}}
+\index{\_check\_is\_gate@{\_check\_is\_gate}!qiskit.converters.circuit\_to\_gate@{qiskit.converters.circuit\_to\_gate}}
+\doxysubsubsection{\texorpdfstring{\_check\_is\_gate()}{\_check\_is\_gate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1converters_1_1circuit__to__gate_a09bfdf265ace981145a046200fe8b29c} 
+qiskit.\+converters.\+circuit\+\_\+to\+\_\+gate.\+\_\+check\+\_\+is\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{op}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Checks whether op can be converted to Gate.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1converters_1_1circuit__to__gate_a47fa7ce95bf5858cc78e700a81c9a0e3}\index{qiskit.converters.circuit\_to\_gate@{qiskit.converters.circuit\_to\_gate}!circuit\_to\_gate@{circuit\_to\_gate}}
+\index{circuit\_to\_gate@{circuit\_to\_gate}!qiskit.converters.circuit\_to\_gate@{qiskit.converters.circuit\_to\_gate}}
+\doxysubsubsection{\texorpdfstring{circuit\_to\_gate()}{circuit\_to\_gate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1converters_1_1circuit__to__gate_a47fa7ce95bf5858cc78e700a81c9a0e3} 
+qiskit.\+converters.\+circuit\+\_\+to\+\_\+gate.\+circuit\+\_\+to\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{parameter\+\_\+map}{ = {\ttfamily None}, }\item[{}]{equivalence\+\_\+library}{ = {\ttfamily None}, }\item[{}]{label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Build a :class:`.Gate` object from a :class:`.QuantumCircuit`.
+
+The gate is anonymous (not tied to a named quantum register),
+and so can be inserted into another circuit. The gate will
+have the same string name as the circuit.
+
+Args:
+    circuit (QuantumCircuit): the input circuit.
+    parameter_map (dict): For parameterized circuits, a mapping from
+       parameters in the circuit to parameters to be used in the gate.
+       If None, existing circuit parameters will also parameterize the
+       Gate.
+    equivalence_library (EquivalenceLibrary): Optional equivalence library
+       where the converted gate will be registered.
+    label (str): Optional gate label.
+
+Raises:
+    QiskitError: if circuit is non-unitary or if
+        parameter_map is not compatible with circuit
+
+Return:
+    Gate: a Gate equivalent to the action of the
+    input circuit. Upon decomposition, this gate will
+    yield the components comprising the original circuit.
+\end{DoxyVerb}
+ 

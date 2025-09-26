@@ -1,0 +1,120 @@
+\doxysection{qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry}{}\label{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry}\index{qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}}
+Inheritance diagram for qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.943662cm]{d5/d40/classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a78c7a745852d158c95cb6d48d5794167_a78c7a745852d158c95cb6d48d5794167}{define}} (self, Any definition, bool \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a0064f8183c70f2bb3014e32ebc8902f5_a0064f8183c70f2bb3014e32ebc8902f5}{user\+\_\+provided}})
+\item 
+inspect.\+Signature \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a1c1918661db95a3bfc4fd4158ebd97fc_a1c1918661db95a3bfc4fd4158ebd97fc}{get\+\_\+signature}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a27e15c860b8fee89fb3e7567dce1f607_a27e15c860b8fee89fb3e7567dce1f607}{get\+\_\+schedule}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a0064f8183c70f2bb3014e32ebc8902f5_a0064f8183c70f2bb3014e32ebc8902f5}{user\+\_\+provided}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A metaclass of a calibration entry.
+
+This class defines a standard model of Qiskit pulse program that is
+agnostic to the underlying in-memory representation.
+
+This entry distinguishes whether this is provided by end-users or a backend
+by :attr:`.user_provided` attribute which may be provided when
+the actual calibration data is provided to the entry with by :meth:`define`.
+
+Note that a custom entry provided by an end-user may appear in the wire-format
+as an inline calibration, e.g. :code:`defcal` of the QASM3,
+that may update the backend instruction set architecture for execution.
+
+.. note::
+
+    This and built-in subclasses are expected to be private without stable user-facing API.
+    The purpose of this class is to wrap different
+    in-memory pulse program representations in Qiskit, so that it can provide
+    the standard data model and API which are primarily used by the transpiler ecosystem.
+    It is assumed that end-users will never directly instantiate this class,
+    but :class:`.Target` or :class:`.InstructionScheduleMap` internally use this data model
+    to avoid implementing a complicated branching logic to
+    manage different calibration data formats.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a78c7a745852d158c95cb6d48d5794167_a78c7a745852d158c95cb6d48d5794167}\index{qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}!define@{define}}
+\index{define@{define}!qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}}
+\doxysubsubsection{\texorpdfstring{define()}{define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a78c7a745852d158c95cb6d48d5794167_a78c7a745852d158c95cb6d48d5794167} 
+qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry.\+define (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Any}]{definition}{, }\item[{bool}]{user\+\_\+provided}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Attach definition to the calibration entry.
+
+Args:
+    definition: Definition of this entry.
+    user_provided: If this entry is defined by user.
+        If the flag is set, this calibration may appear in the wire format
+        as an inline calibration, to override the backend instruction set architecture.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_callable_def_a314e15656e7372a52409f1740e4de95f_a314e15656e7372a52409f1740e4de95f}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Callable\+Def}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_pulse_qobj_def_a985aea93aa261a9b7b8dc0f5674742fb_a985aea93aa261a9b7b8dc0f5674742fb}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Pulse\+Qobj\+Def}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_schedule_def_af4e08ea36ca5851367c965307ee7934e_af4e08ea36ca5851367c965307ee7934e}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Schedule\+Def}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a27e15c860b8fee89fb3e7567dce1f607_a27e15c860b8fee89fb3e7567dce1f607}\index{qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}!get\_schedule@{get\_schedule}}
+\index{get\_schedule@{get\_schedule}!qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}}
+\doxysubsubsection{\texorpdfstring{get\_schedule()}{get\_schedule()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a27e15c860b8fee89fb3e7567dce1f607_a27e15c860b8fee89fb3e7567dce1f607} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry.\+get\+\_\+schedule (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate schedule from entry definition.
+
+If the pulse program is templated with :class:`.Parameter` objects,
+you can provide corresponding parameter values for this method
+to get a particular pulse program with assigned parameters.
+
+Args:
+    args: Command parameters.
+    kwargs: Command keyword parameters.
+
+Returns:
+    Pulse schedule with assigned parameters.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_callable_def_a2bc72e01b39e9ef55e917986db2f1720_a2bc72e01b39e9ef55e917986db2f1720}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Callable\+Def}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_pulse_qobj_def_ad2e7a5bfe871bc94d105d33e2790dd45_ad2e7a5bfe871bc94d105d33e2790dd45}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Pulse\+Qobj\+Def}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_schedule_def_af2c3094b485575fe25b9b4bf0f13559e_af2c3094b485575fe25b9b4bf0f13559e}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Schedule\+Def}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a1c1918661db95a3bfc4fd4158ebd97fc_a1c1918661db95a3bfc4fd4158ebd97fc}\index{qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}!get\_signature@{get\_signature}}
+\index{get\_signature@{get\_signature}!qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}}
+\doxysubsubsection{\texorpdfstring{get\_signature()}{get\_signature()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a1c1918661db95a3bfc4fd4158ebd97fc_a1c1918661db95a3bfc4fd4158ebd97fc} 
+ inspect.\+Signature qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry.\+get\+\_\+signature (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return signature object associated with entry definition.
+
+Returns:
+    Signature object.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_callable_def_a8f500b247bf839731b02a29d55cbcf0c_a8f500b247bf839731b02a29d55cbcf0c}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Callable\+Def}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_pulse_qobj_def_aac71eabb9aefd9ffa41c00611706a951_aac71eabb9aefd9ffa41c00611706a951}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Pulse\+Qobj\+Def}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_schedule_def_a39d601292d7d14ebd319e0aa05f311f7_a39d601292d7d14ebd319e0aa05f311f7}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Schedule\+Def}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a0064f8183c70f2bb3014e32ebc8902f5_a0064f8183c70f2bb3014e32ebc8902f5}\index{qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}!user\_provided@{user\_provided}}
+\index{user\_provided@{user\_provided}!qiskit.pulse.calibration\_entries.CalibrationEntry@{qiskit.pulse.calibration\_entries.CalibrationEntry}}
+\doxysubsubsection{\texorpdfstring{user\_provided()}{user\_provided()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1calibration__entries_1_1_calibration_entry_a0064f8183c70f2bb3014e32ebc8902f5_a0064f8183c70f2bb3014e32ebc8902f5} 
+ bool qiskit.\+pulse.\+calibration\+\_\+entries.\+Calibration\+Entry.\+user\+\_\+provided (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return if this entry is user defined.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_callable_def_ac096c3cb2b084795d086fd90fd236fb1_ac096c3cb2b084795d086fd90fd236fb1}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Callable\+Def}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1calibration__entries_1_1_schedule_def_a5c65472f8105b09b1abed4901a6d51e1_a5c65472f8105b09b1abed4901a6d51e1}{qiskit.\+pulse.\+calibration\+\_\+entries.\+Schedule\+Def}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/calibration\+\_\+entries.\+py\end{DoxyCompactItemize}

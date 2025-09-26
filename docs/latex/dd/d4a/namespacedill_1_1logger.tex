@@ -1,0 +1,119 @@
+\doxysection{dill.\+logger Namespace Reference}
+\hypertarget{namespacedill_1_1logger}{}\label{namespacedill_1_1logger}\index{dill.logger@{dill.logger}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdill_1_1logger_1_1_trace_adapter}{Trace\+Adapter}}
+\begin{DoxyCompactList}\small\item\em Notes about the design choices \#\#. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classdill_1_1logger_1_1_trace_formatter}{Trace\+Formatter}}
+\item 
+class \mbox{\hyperlink{classdill_1_1logger_1_1_trace_manager}{Trace\+Manager}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{namespacedill_1_1logger_adbd3ca7720c5e1c02ff9f81e89a01805_adbd3ca7720c5e1c02ff9f81e89a01805}{trace}} (Union\mbox{[}bool, Text\+IO, str, os.\+Path\+Like\mbox{]} arg=None, \texorpdfstring{$\ast$}{*}, str mode=\textquotesingle{}a\textquotesingle{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1logger_ad85c922ea2d7ba66f4cb475b547283d3}\label{namespacedill_1_1logger_ad85c922ea2d7ba66f4cb475b547283d3} 
+{\bfseries ASCII\+\_\+\+MAP} = str.\+maketrans(\{"{}│"{}\+: "{}\texorpdfstring{$\vert$}{|}"{}, "{}├"{}\+: "{}\texorpdfstring{$\vert$}{|}"{}, "{}┬"{}\+: "{}+"{}, "{}└"{}\+: "{}\`{}"{}\})
+\item 
+\Hypertarget{namespacedill_1_1logger_aa1b36fe3ff0ab5a821fee8ced34ef73d}\label{namespacedill_1_1logger_aa1b36fe3ff0ab5a821fee8ced34ef73d} 
+{\bfseries logger} = logging.\+get\+Logger(\textquotesingle{}dill\textquotesingle{})
+\item 
+\Hypertarget{namespacedill_1_1logger_ad530eeaaa9528385531c5675101a3ecf}\label{namespacedill_1_1logger_ad530eeaaa9528385531c5675101a3ecf} 
+{\bfseries propagate}
+\item 
+\Hypertarget{namespacedill_1_1logger_a9775631b5912ebcc50c56cc3cdbf08c2}\label{namespacedill_1_1logger_a9775631b5912ebcc50c56cc3cdbf08c2} 
+{\bfseries adapter} = \mbox{\hyperlink{classdill_1_1logger_1_1_trace_adapter}{Trace\+Adapter}}(logger)
+\item 
+\Hypertarget{namespacedill_1_1logger_a30c565ac8fe6bbdd7b63187f56791f1b}\label{namespacedill_1_1logger_a30c565ac8fe6bbdd7b63187f56791f1b} 
+{\bfseries stderr\+\_\+handler} = logging.\+\_\+\+Stderr\+Handler()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Logging utilities for dill.
+
+The 'logger' object is dill's top-level logger.
+
+The 'adapter' object wraps the logger and implements a 'trace()' method that
+generates a detailed tree-style trace for the pickling call at log level INFO.
+
+The 'trace()' function sets and resets dill's logger log level, enabling and
+disabling the pickling trace.
+
+The trace shows a tree structure depicting the depth of each object serialized
+*with dill save functions*, but not the ones that use save functions from
+'pickle._Pickler.dispatch'. If the information is available, it also displays
+the size in bytes that the object contributed to the pickle stream (including
+its child objects).  Sample trace output:
+
+    >>> import dill, dill.tests
+    >>> dill.detect.trace(True)
+    >>> dill.dump_session(main=dill.tests)
+    ┬ M1: <module 'dill.tests' from '.../dill/tests/__init__.py'>
+    ├┬ F2: <function _import_module at 0x7f0d2dce1b80>
+    │└ # F2 [32 B]
+    ├┬ D2: <dict object at 0x7f0d2e98a540>
+    │├┬ T4: <class '_frozen_importlib.ModuleSpec'>
+    ││└ # T4 [35 B]
+    │├┬ D2: <dict object at 0x7f0d2ef0e8c0>
+    ││├┬ T4: <class '_frozen_importlib_external.SourceFileLoader'>
+    │││└ # T4 [50 B]
+    ││├┬ D2: <dict object at 0x7f0d2e988a40>
+    │││└ # D2 [84 B]
+    ││└ # D2 [413 B]
+    │└ # D2 [763 B]
+    └ # M1 [813 B]
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedill_1_1logger_adbd3ca7720c5e1c02ff9f81e89a01805_adbd3ca7720c5e1c02ff9f81e89a01805}\index{dill.logger@{dill.logger}!trace@{trace}}
+\index{trace@{trace}!dill.logger@{dill.logger}}
+\doxysubsubsection{\texorpdfstring{trace()}{trace()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1logger_adbd3ca7720c5e1c02ff9f81e89a01805_adbd3ca7720c5e1c02ff9f81e89a01805} 
+ None dill.\+logger.\+trace (\begin{DoxyParamCaption}\item[{Union\mbox{[}bool, Text\+IO, str, os.\+Path\+Like\mbox{]} }]{arg}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{str }]{mode}{ = {\ttfamily \textquotesingle{}a\textquotesingle{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}print a trace through the stack when pickling; useful for debugging
+
+With a single boolean argument, enable or disable the tracing.
+
+Example usage:
+
+    >>> import dill
+    >>> dill.detect.trace(True)
+    >>> dill.dump_session()
+
+Alternatively, ``trace()`` can be used as a context manager. With no
+arguments, it just takes care of restoring the tracing state on exit.
+Either a file handle, or a file name and (optionally) a file mode may be
+specitfied to redirect the tracing output in the ``with`` block context. A
+log function is yielded by the manager so the user can write extra
+information to the file.
+
+Example usage:
+
+    >>> from dill import detect
+    >>> D = {'a': 42, 'b': {'x': None}}
+    >>> with detect.trace():
+    >>>     dumps(D)
+    ┬ D2: <dict object at 0x7f2721804800>
+    ├┬ D2: <dict object at 0x7f27217f5c40>
+    │└ # D2 [8 B]
+    └ # D2 [22 B]
+    >>> squared = lambda x: x**2
+    >>> with detect.trace('output.txt', mode='w') as log:
+    >>>     log("> D = %r", D)
+    >>>     dumps(D)
+    >>>     log("> squared = %r", squared)
+    >>>     dumps(squared)
+
+Arguments:
+    arg: a boolean value, or an optional file-like or path-like object for the context manager
+    mode: mode string for ``open()`` if a file name is passed as the first argument
+\end{DoxyVerb}
+ 

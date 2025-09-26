@@ -1,0 +1,128 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+synthesis.\+high\+\_\+level\+\_\+synthesis.\+HLSConfig Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config}{}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config}\index{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a51ea7847cb922a9da7d4e5bbb8c587d6}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, bool use\+\_\+default\+\_\+on\+\_\+unspecified=True, str plugin\+\_\+selection="{}sequential"{}, Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}, int\mbox{]}\texorpdfstring{$\vert$}{|}None plugin\+\_\+evaluation\+\_\+fn=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_afec8d6b6a6076a13f4a164d755aa1458}{set\+\_\+methods}} (self, hls\+\_\+name, hls\+\_\+methods)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_aa43aa01e64fc26dc842afe04b324b2c1}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_aa43aa01e64fc26dc842afe04b324b2c1} 
+{\bfseries use\+\_\+default\+\_\+on\+\_\+unspecified} = use\+\_\+default\+\_\+on\+\_\+unspecified
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_aaa7fbfbea0e780589e7984162d42a1a0}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_aaa7fbfbea0e780589e7984162d42a1a0} 
+{\bfseries plugin\+\_\+selection} = plugin\+\_\+selection
+\item 
+tuple \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a4a1ad657af356e3e4c8b029f4d6a690f}{plugin\+\_\+evaluation\+\_\+fn}}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a62e1faa5a2e22eb1129e114ed24e935e}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a62e1faa5a2e22eb1129e114ed24e935e} 
+dict {\bfseries methods} = \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The high-level-synthesis config allows to specify a list of "methods" used by
+:class:`~.HighLevelSynthesis` transformation pass to synthesize different types
+of higher-level objects.
+
+A higher-level object is an object of type :class:`~.Operation` (e.g., :class:`.Clifford` or
+:class:`.LinearFunction`).  Each object is referred to by its :attr:`~.Operation.name` field
+(e.g., ``"clifford"`` for :class:`.Clifford` objects), and the applicable synthesis methods are
+tied to this name.
+
+In the config, each method is specified in one of several ways:
+
+1. a tuple consisting of the name of a known synthesis plugin and a dictionary providing
+   additional arguments for the algorithm.
+2. a tuple consisting of an instance of :class:`.HighLevelSynthesisPlugin` and additional
+   arguments for the algorithm.
+3. a single string of a known synthesis plugin
+4. a single instance of :class:`.HighLevelSynthesisPlugin`.
+
+The following example illustrates different ways how a config file can be created::
+
+    from qiskit.transpiler.passes.synthesis.high_level_synthesis import HLSConfig
+    from qiskit.transpiler.passes.synthesis.high_level_synthesis import ACGSynthesisPermutation
+
+    # All the ways to specify hls_config are equivalent
+    hls_config = HLSConfig(permutation=[("acg", {})])
+    hls_config = HLSConfig(permutation=["acg"])
+    hls_config = HLSConfig(permutation=[(ACGSynthesisPermutation(), {})])
+    hls_config = HLSConfig(permutation=[ACGSynthesisPermutation()])
+
+The names of the synthesis plugins should be declared in ``entry-points`` table for
+``qiskit.synthesis`` in ``pyproject.toml``, in the form
+<higher-level-object-name>.<synthesis-method-name>.
+
+The standard higher-level-objects are recommended to have a synthesis method
+called "default", which would be called automatically when synthesizing these objects,
+without having to explicitly set these methods in the config.
+
+To avoid synthesizing a given higher-level-object, one can give it an empty list of methods.
+
+For an explicit example of using such config files, refer to the documentation for
+:class:`~.HighLevelSynthesis`.
+
+For an overview of the complete process of using high-level synthesis, see
+:ref:`using-high-level-synthesis-plugins`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a51ea7847cb922a9da7d4e5bbb8c587d6}\index{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a51ea7847cb922a9da7d4e5bbb8c587d6} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+high\+\_\+level\+\_\+synthesis.\+HLSConfig.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{use\+\_\+default\+\_\+on\+\_\+unspecified}{ = {\ttfamily True}, }\item[{str }]{plugin\+\_\+selection}{ = {\ttfamily "{}sequential"{}}, }\item[{Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}, int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{plugin\+\_\+evaluation\+\_\+fn}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a high-level-synthesis config.
+
+Args:
+    use_default_on_unspecified: if True, every higher-level-object without an
+        explicitly specified list of methods will be synthesized using the "default"
+        algorithm if it exists.
+    plugin_selection: if set to ``"sequential"`` (default), for every higher-level-object
+        the synthesis pass will consider the specified methods sequentially, stopping
+        at the first method that is able to synthesize the object. If set to ``"all"``,
+        all the specified methods will be considered, and the best synthesized circuit,
+        according to ``plugin_evaluation_fn`` will be chosen.
+    plugin_evaluation_fn: a callable that evaluates the quality of the synthesized
+        quantum circuit; a smaller value means a better circuit. If ``None``, the
+        quality of the circuit its size (i.e. the number of gates that it contains).
+    kwargs: a dictionary mapping higher-level-objects to lists of synthesis methods.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_afec8d6b6a6076a13f4a164d755aa1458}\index{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}!set\_methods@{set\_methods}}
+\index{set\_methods@{set\_methods}!qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}}
+\doxysubsubsection{\texorpdfstring{set\_methods()}{set\_methods()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_afec8d6b6a6076a13f4a164d755aa1458} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+high\+\_\+level\+\_\+synthesis.\+HLSConfig.\+set\+\_\+methods (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{hls\+\_\+name}{, }\item[{}]{hls\+\_\+methods}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sets the list of synthesis methods for a given higher-level-object. This overwrites
+the lists of methods if also set previously.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a4a1ad657af356e3e4c8b029f4d6a690f}\index{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}!plugin\_evaluation\_fn@{plugin\_evaluation\_fn}}
+\index{plugin\_evaluation\_fn@{plugin\_evaluation\_fn}!qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig@{qiskit.transpiler.passes.synthesis.high\_level\_synthesis.HLSConfig}}
+\doxysubsubsection{\texorpdfstring{plugin\_evaluation\_fn}{plugin\_evaluation\_fn}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1high__level__synthesis_1_1_h_l_s_config_a4a1ad657af356e3e4c8b029f4d6a690f} 
+tuple qiskit.\+transpiler.\+passes.\+synthesis.\+high\+\_\+level\+\_\+synthesis.\+HLSConfig.\+plugin\+\_\+evaluation\+\_\+fn}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ (}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ plugin\_evaluation\_fn\ \textcolor{keywordflow}{if}\ plugin\_evaluation\_fn\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ \textcolor{keyword}{lambda}\ qc:\ qc.size()}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/synthesis/high\+\_\+level\+\_\+synthesis.\+py\end{DoxyCompactItemize}

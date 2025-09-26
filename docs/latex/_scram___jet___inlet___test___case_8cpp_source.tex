@@ -1,0 +1,80 @@
+\doxysection{Scram\+\_\+\+Jet\+\_\+\+Inlet\+\_\+\+Test\+\_\+\+Case.\+cpp}
+\hypertarget{_scram___jet___inlet___test___case_8cpp_source}{}\label{_scram___jet___inlet___test___case_8cpp_source}\index{Test\_Cases/Scram\_Jet\_Inlet\_Test\_Case.cpp@{Test\_Cases/Scram\_Jet\_Inlet\_Test\_Case.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include"{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ Scram\_Jet\_Inlet()}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ Directory\_Name();}
+\DoxyCodeLine{00007\ \ \ \ \ File\_Name();}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{double}\ C=0.0;}
+\DoxyCodeLine{00009\ \ \ \ \ }
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Scramjet/Scram\_Jet\_Inlet\_Flow\_300\_100.txt"{}};}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_M9p27\_300\_100.txt"{}};}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_M9p27\_300\_100.txt"{}};}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_M9p27\_300\_100.txt"{}};\ \ }
+\DoxyCodeLine{00015\ \ \ \ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ Reads\ Input\ grid\ file\ and\ does\ the\ preprocessing\ required\ for\ grid\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ Calculates\ the\ Cell\ Normals,\ Cell\ Areas}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ Checks\ for\ Grid\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ \ \ \ \ Form\_Cells(Grid\_File);}
+\DoxyCodeLine{00022\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\_Type\ used\ \(\backslash\)t"{}}<<Grid\_Type<<endl;}
+\DoxyCodeLine{00023\ \ \ \ \ Write\_Cell\_Info(\textcolor{stringliteral}{"{}../Grid\_Files/Scramjet/Scram\_Jet\_Inlet\_Flow\_Details\_300\_100.txt"{}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ V\_D\ V(2,0.0);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}\ Initial\ Data\ for\ Solution\(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00027\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Initialize\ from\ a\ file\ or\ from\ Zero,\ Enter\ 1\ to\ read\ data\ from\ file:\(\backslash\)t"{}};}
+\DoxyCodeLine{00028\ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ cin>>Initialize\_Type;}
+\DoxyCodeLine{00030\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{if}(Initialize\_Type==1)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Initialize(Initial\_Solution\_File);\ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ Initialize(Test\_Case);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Initalizing\ Data\ with\ inlet\ conditions\ \(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ index\ =0;\ index<Total\_No\_Cells;index++)}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 2188;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ Inlet\_Mach\_No\ =\ 9.27;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ Temperature\_Static\_Inlet\ =\ 222.5;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Pressure\_Static\_Inlet/(R\_GC*Temperature\_Static\_Inlet);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ C=sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<cp<<"{}\(\backslash\)t"{}<<cv<<"{}\(\backslash\)t"{}<<R<<endl;}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*C;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ 0.5*(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Pressure\_Static\_Inlet<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Rho\_Static\_Inlet<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Temperature\_Static\_Inlet<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<C<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<V\_Magnitude\_Inlet<<endl;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ V[0]\ =\ V\_1;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V[1]\ =\ V\_2;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ Calculate\_Computational\_Variables(Pressure\_Static\_Inlet,V,Rho\_Static\_Inlet,2);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_U.size();j++)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[index][j]\ =\ Global\_U[j];}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(index,U\_Cells[index]);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_Primitive.size();j++)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[index][j]\ =\ Global\_Primitive[j];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ Identify\_Wall\_Boundary\_Faces(Grid\_Type);}
+\DoxyCodeLine{00067\ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Intialized\ Solution\ with\ inlet\ conditions,\ Identified\ Boundaries.........\ Ready\ to\ solve"{}}<<endl;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Writing\ Initial\ Solution\ to\ file\ "{}}<<endl;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ Write\_Solution(Initial\_Solution\_File,1);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,53 @@
+\doxysection{qiskit.\+primitives.\+containers.\+object\+\_\+array Namespace Reference}
+\hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1object__array}{}\label{namespaceqiskit_1_1primitives_1_1containers_1_1object__array}\index{qiskit.primitives.containers.object\_array@{qiskit.primitives.containers.object\_array}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a305a49eefba482eaa61675ffe2035e23_a305a49eefba482eaa61675ffe2035e23}{object\+\_\+array}} (Array\+Like arr, str\texorpdfstring{$\vert$}{|}None order=None, bool copy=True, Sequence\mbox{[}type\mbox{]}\texorpdfstring{$\vert$}{|}None list\+\_\+types=())
+\item 
+tuple\mbox{[}int,...\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a93e59e2e5eaea4e1f6a1adda970a93e9_a93e59e2e5eaea4e1f6a1adda970a93e9}{\+\_\+infer\+\_\+shape}} (Array\+Like obj, tuple\mbox{[}type,...\mbox{]} list\+\_\+types=())
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Object ND-array initialization function.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a93e59e2e5eaea4e1f6a1adda970a93e9_a93e59e2e5eaea4e1f6a1adda970a93e9}\index{qiskit.primitives.containers.object\_array@{qiskit.primitives.containers.object\_array}!\_infer\_shape@{\_infer\_shape}}
+\index{\_infer\_shape@{\_infer\_shape}!qiskit.primitives.containers.object\_array@{qiskit.primitives.containers.object\_array}}
+\doxysubsubsection{\texorpdfstring{\_infer\_shape()}{\_infer\_shape()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a93e59e2e5eaea4e1f6a1adda970a93e9_a93e59e2e5eaea4e1f6a1adda970a93e9} 
+ tuple\mbox{[}int, ...\mbox{]} qiskit.\+primitives.\+containers.\+object\+\_\+array.\+\_\+infer\+\_\+shape (\begin{DoxyParamCaption}\item[{Array\+Like}]{obj}{, }\item[{tuple\mbox{[}type, ...\mbox{]} }]{list\+\_\+types}{ = {\ttfamily ()}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Infer the shape of an array-like object without casting\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a305a49eefba482eaa61675ffe2035e23_a305a49eefba482eaa61675ffe2035e23}\index{qiskit.primitives.containers.object\_array@{qiskit.primitives.containers.object\_array}!object\_array@{object\_array}}
+\index{object\_array@{object\_array}!qiskit.primitives.containers.object\_array@{qiskit.primitives.containers.object\_array}}
+\doxysubsubsection{\texorpdfstring{object\_array()}{object\_array()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1object__array_a305a49eefba482eaa61675ffe2035e23_a305a49eefba482eaa61675ffe2035e23} 
+ np.\+ndarray qiskit.\+primitives.\+containers.\+object\+\_\+array.\+object\+\_\+array (\begin{DoxyParamCaption}\item[{Array\+Like}]{arr}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{order}{ = {\ttfamily None}, }\item[{bool }]{copy}{ = {\ttfamily True}, }\item[{Sequence\mbox{[}type\mbox{]} \texorpdfstring{$\vert$}{|} None }]{list\+\_\+types}{ = {\ttfamily ()}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert an array-like of objects into an object array.
+
+.. note::
+
+    If the objects in the array like input define ``__array__`` methods
+    this avoids calling them and will instead set the returned array values
+    to the Python objects themselves.
+
+Args:
+    arr: An array-like input.
+    order: Optional, the order of the returned array (C, F, A, K). If None
+           the default NumPy ordering of C is used.
+    copy: If True make a copy of the input if it is already an array.
+    list_types: Optional, a sequence of types to treat as lists of array
+        element objects when inferring the array shape from the input.
+
+Returns:
+    A NumPy ND-array with ``dtype=object``.
+
+Raises:
+    ValueError: If the input cannot be coerced into an object array.
+\end{DoxyVerb}
+ 

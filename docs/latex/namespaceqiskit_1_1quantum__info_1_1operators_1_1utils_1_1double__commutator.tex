@@ -1,0 +1,60 @@
+\doxysection{qiskit.\+quantum\+\_\+info.\+operators.\+utils.\+double\+\_\+commutator Namespace Reference}
+\hypertarget{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator}{}\label{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator}\index{qiskit.quantum\_info.operators.utils.double\_commutator@{qiskit.quantum\_info.operators.utils.double\_commutator}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Operator\+TypeT \mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator_a93422a788bb8e510837e3d5e2c4c260c}{double\+\_\+commutator}} (Operator\+TypeT a, Operator\+TypeT b, Operator\+TypeT c, \texorpdfstring{$\ast$}{*}, bool commutator=True)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator_a89fdc3c6df6abc6d07daf79083c68286}\label{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator_a89fdc3c6df6abc6d07daf79083c68286} 
+{\bfseries Operator\+TypeT} = Type\+Var("{}Operator\+Type\+T"{}, bound=\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1linear__op_1_1_linear_op}{Linear\+Op}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Double commutator function.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator_a93422a788bb8e510837e3d5e2c4c260c}\index{qiskit.quantum\_info.operators.utils.double\_commutator@{qiskit.quantum\_info.operators.utils.double\_commutator}!double\_commutator@{double\_commutator}}
+\index{double\_commutator@{double\_commutator}!qiskit.quantum\_info.operators.utils.double\_commutator@{qiskit.quantum\_info.operators.utils.double\_commutator}}
+\doxysubsubsection{\texorpdfstring{double\_commutator()}{double\_commutator()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1operators_1_1utils_1_1double__commutator_a93422a788bb8e510837e3d5e2c4c260c} 
+ Operator\+TypeT qiskit.\+quantum\+\_\+info.\+operators.\+utils.\+double\+\_\+commutator.\+double\+\_\+commutator (\begin{DoxyParamCaption}\item[{Operator\+TypeT}]{a}{, }\item[{Operator\+TypeT}]{b}{, }\item[{Operator\+TypeT}]{c}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{bool }]{commutator}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute symmetric double commutator of a, b and c.
+
+    See also Equation (13.6.18) in [1].
+
+    If `commutator` is `True`, it returns
+
+    .. math::
+
+         [[A, B], C]/2 + [A, [B, C]]/2
+         = (2ABC + 2CBA - BAC - CAB - ACB - BCA)/2.
+
+    If `commutator` is `False`, it returns
+
+    .. math::
+         \lbrace[A, B], C\rbrace/2 + \lbrace A, [B, C]\rbrace/2
+         = (2ABC - 2CBA - BAC + CAB - ACB + BCA)/2.
+
+    Args:
+        a: Operator a.
+        b: Operator b.
+        c: Operator c.
+        commutator: If ``True`` compute the double commutator,
+            if ``False`` the double anti-commutator.
+
+    Returns:
+        The double commutator
+
+    References:
+
+        [1]: R. McWeeny.
+            Methods of Molecular Quantum Mechanics.
+            2nd Edition, Academic Press, 1992.
+            ISBN 0-12-486552-6.\end{DoxyVerb}
+ 

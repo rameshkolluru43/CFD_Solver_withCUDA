@@ -1,0 +1,78 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+events Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1events}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1events}\index{qiskit.visualization.pulse\_v2.events@{qiskit.visualization.pulse\_v2.events}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1events_1_1_channel_events}{Channel\+Events}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Channel event manager for pulse schedules.
+
+This module provides a `ChannelEvents` class that manages a series of instructions for a
+pulse channel. Channel-wise filtering of the pulse program makes
+the arrangement of channels easier in the core drawer function.
+The `ChannelEvents` class is expected to be called by other programs (not by end-users).
+
+The `ChannelEvents` class instance is created with the class method ``load_program``:
+
+.. code-block:: python
+
+    event = ChannelEvents.load_program(sched, DriveChannel(0))
+
+The `ChannelEvents` is created for a specific pulse channel and loosely assorts pulse
+instructions within the channel with different visualization purposes.
+
+Phase and frequency related instructions are loosely grouped as frame changes.
+The instantaneous value of those operands are combined and provided as ``PhaseFreqTuple``.
+Instructions that have finite duration are grouped as waveforms.
+
+The grouped instructions are returned as an iterator by the corresponding method call:
+
+.. code-block:: python
+
+    for t0, frame, instruction in event.get_waveforms():
+        ...
+
+    for t0, frame_change, instructions in event.get_frame_changes():
+        ...
+
+The class method ``get_waveforms`` returns the iterator of waveform type instructions with
+the ``PhaseFreqTuple`` (frame) at the time when instruction is issued.
+This is because a pulse envelope of ``Waveform`` may be modulated with a
+phase factor $exp(-i \omega t - \phi)$ with frequency $\omega$ and phase $\phi$ and
+appear on the canvas. Thus, it is better to tell users in which phase and frequency
+the pulse envelope is modulated from a viewpoint of program debugging.
+
+On the other hand, the class method ``get_frame_changes`` returns a ``PhaseFreqTuple`` that
+represents a total amount of change at that time because it is convenient to know
+the operand value itself when we debug a program.
+
+Because frame change type instructions are usually zero duration, multiple instructions
+can be issued at the same time and those operand values should be appropriately
+combined. In Qiskit Pulse we have set and shift type instructions for the frame control,
+the set type instruction will be converted into the relevant shift amount for visualization.
+Note that these instructions are not interchangeable and the order should be kept.
+For example:
+
+.. code-block:: python
+
+    sched1 = Schedule()
+    sched1 = sched1.insert(0, ShiftPhase(-1.57, DriveChannel(0))
+    sched1 = sched1.insert(0, SetPhase(3.14, DriveChannel(0))
+
+    sched2 = Schedule()
+    sched2 = sched2.insert(0, SetPhase(3.14, DriveChannel(0))
+    sched2 = sched2.insert(0, ShiftPhase(-1.57, DriveChannel(0))
+
+In this example, ``sched1`` and ``sched2`` will have different frames.
+On the drawer canvas, the total frame change amount of +3.14 should be shown for ``sched1``,
+while ``sched2`` is +1.57. Since the `SetPhase` and the `ShiftPhase` instruction behave
+differently, we cannot simply sum up the operand values in visualization output.
+
+It should be also noted that zero duration instructions issued at the same time will be
+overlapped on the canvas. Thus it is convenient to plot a total frame change amount rather
+than plotting each operand value bound to the instruction.
+\end{DoxyVerb}
+ 

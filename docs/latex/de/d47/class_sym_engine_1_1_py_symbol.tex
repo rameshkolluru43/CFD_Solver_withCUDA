@@ -1,0 +1,147 @@
+\doxysection{Sym\+Engine\+::Py\+Symbol Class Reference}
+\hypertarget{class_sym_engine_1_1_py_symbol}{}\label{class_sym_engine_1_1_py_symbol}\index{SymEngine::PySymbol@{SymEngine::PySymbol}}
+
+
+{\ttfamily \#include $<$pywrapper.\+h$>$}
+
+
+
+Inheritance diagram for Sym\+Engine\+::Py\+Symbol\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{d1/d76/class_sym_engine_1_1_py_symbol__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sym\+Engine\+::Py\+Symbol\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=197pt]{da/d3e/class_sym_engine_1_1_py_symbol__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a23fdfc1f4bce2c4148e35facad270433_a23fdfc1f4bce2c4148e35facad270433}{Py\+Symbol}} (const std\+::string \&name, Py\+Object \texorpdfstring{$\ast$}{*}obj, bool \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\+\_\+pickle}})
+\item 
+Py\+Object \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_aaf658c0501fa3b434dec7e1e73755289_aaf658c0501fa3b434dec7e1e73755289}{get\+\_\+py\+\_\+object}} () const
+\item 
+virtual \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a8e2a70cd10ec24e7270d316564719d7e_a8e2a70cd10ec24e7270d316564719d7e}{\texorpdfstring{$\sim$}{\string~}\+Py\+Symbol}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const bool \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\+\_\+pickle}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{pywrapper_8h_source_l00030}{30}} of file \mbox{\hyperlink{pywrapper_8h_source}{pywrapper.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_sym_engine_1_1_py_symbol_a23fdfc1f4bce2c4148e35facad270433_a23fdfc1f4bce2c4148e35facad270433}\index{SymEngine::PySymbol@{SymEngine::PySymbol}!PySymbol@{PySymbol}}
+\index{PySymbol@{PySymbol}!SymEngine::PySymbol@{SymEngine::PySymbol}}
+\doxysubsubsection{\texorpdfstring{PySymbol()}{PySymbol()}}
+{\footnotesize\ttfamily \label{class_sym_engine_1_1_py_symbol_a23fdfc1f4bce2c4148e35facad270433_a23fdfc1f4bce2c4148e35facad270433} 
+Sym\+Engine\+::\+Py\+Symbol\+::\+Py\+Symbol (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name}{, }\item[{Py\+Object \texorpdfstring{$\ast$}{*}}]{obj}{, }\item[{bool}]{store\+\_\+pickle}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pywrapper_8h_source_l00036}{36}} of file \mbox{\hyperlink{pywrapper_8h_source}{pywrapper.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ Symbol(name),\ obj(obj),\ \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\_pickle}}(\mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\_pickle}})\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\_pickle}})\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ bytes\ =\ \mbox{\hyperlink{namespace_sym_engine_aee4039d0b7c7f6ab3c925dce2963b60e_aee4039d0b7c7f6ab3c925dce2963b60e}{pickle\_dumps}}(obj);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_INCREF(obj);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d47/class_sym_engine_1_1_py_symbol_a23fdfc1f4bce2c4148e35facad270433_a23fdfc1f4bce2c4148e35facad270433_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_sym_engine_1_1_py_symbol_a8e2a70cd10ec24e7270d316564719d7e_a8e2a70cd10ec24e7270d316564719d7e}\index{SymEngine::PySymbol@{SymEngine::PySymbol}!````~PySymbol@{\texorpdfstring{$\sim$}{\string~}PySymbol}}
+\index{````~PySymbol@{\texorpdfstring{$\sim$}{\string~}PySymbol}!SymEngine::PySymbol@{SymEngine::PySymbol}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}PySymbol()}{\string~PySymbol()}}
+{\footnotesize\ttfamily \label{class_sym_engine_1_1_py_symbol_a8e2a70cd10ec24e7270d316564719d7e_a8e2a70cd10ec24e7270d316564719d7e} 
+virtual Sym\+Engine\+::\+Py\+Symbol\+::\texorpdfstring{$\sim$}{\string~}\+Py\+Symbol (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line \mbox{\hyperlink{pywrapper_8h_source_l00052}{52}} of file \mbox{\hyperlink{pywrapper_8h_source}{pywrapper.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ \mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\_pickle}})\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO:\ This\ is\ never\ called\ because\ of\ the\ cyclic\ reference.}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_DECREF(obj);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_sym_engine_1_1_py_symbol_aaf658c0501fa3b434dec7e1e73755289_aaf658c0501fa3b434dec7e1e73755289}\index{SymEngine::PySymbol@{SymEngine::PySymbol}!get\_py\_object@{get\_py\_object}}
+\index{get\_py\_object@{get\_py\_object}!SymEngine::PySymbol@{SymEngine::PySymbol}}
+\doxysubsubsection{\texorpdfstring{get\_py\_object()}{get\_py\_object()}}
+{\footnotesize\ttfamily \label{class_sym_engine_1_1_py_symbol_aaf658c0501fa3b434dec7e1e73755289_aaf658c0501fa3b434dec7e1e73755289} 
+Py\+Object \texorpdfstring{$\ast$}{*} Sym\+Engine\+::\+Py\+Symbol\+::get\+\_\+py\+\_\+object (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{pywrapper_8h_source_l00044}{44}} of file \mbox{\hyperlink{pywrapper_8h_source}{pywrapper.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}{store\_pickle}})\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespace_sym_engine_ae2e1367ec77d5e659baf51db059149d8_ae2e1367ec77d5e659baf51db059149d8}{pickle\_loads}}(bytes);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_INCREF(obj);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d47/class_sym_engine_1_1_py_symbol_aaf658c0501fa3b434dec7e1e73755289_aaf658c0501fa3b434dec7e1e73755289_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95}\index{SymEngine::PySymbol@{SymEngine::PySymbol}!store\_pickle@{store\_pickle}}
+\index{store\_pickle@{store\_pickle}!SymEngine::PySymbol@{SymEngine::PySymbol}}
+\doxysubsubsection{\texorpdfstring{store\_pickle}{store\_pickle}}
+{\footnotesize\ttfamily \label{class_sym_engine_1_1_py_symbol_a4fb8f04c23eb11e84d0851301aa44f95_a4fb8f04c23eb11e84d0851301aa44f95} 
+const bool Sym\+Engine\+::\+Py\+Symbol\+::store\+\_\+pickle}
+
+
+
+Definition at line \mbox{\hyperlink{pywrapper_8h_source_l00035}{35}} of file \mbox{\hyperlink{pywrapper_8h_source}{pywrapper.\+h}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/symengine/lib/\mbox{\hyperlink{pywrapper_8h}{pywrapper.\+h}}\end{DoxyCompactItemize}

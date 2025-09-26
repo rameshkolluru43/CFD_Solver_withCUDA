@@ -1,0 +1,38 @@
+\doxysection{qiskit.\+quantum\+\_\+info.\+analysis.\+average Namespace Reference}
+\hypertarget{namespaceqiskit_1_1quantum__info_1_1analysis_1_1average}{}\label{namespaceqiskit_1_1quantum__info_1_1analysis_1_1average}\index{qiskit.quantum\_info.analysis.average@{qiskit.quantum\_info.analysis.average}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1analysis_1_1average_aca3346a76caa75429f8e84c45a67c21e}{average\+\_\+data}} (dict counts, dict\texorpdfstring{$\vert$}{|}np.\+ndarray\texorpdfstring{$\vert$}{|}list observable)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A collection of useful functions for post processing results.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1quantum__info_1_1analysis_1_1average_aca3346a76caa75429f8e84c45a67c21e}\index{qiskit.quantum\_info.analysis.average@{qiskit.quantum\_info.analysis.average}!average\_data@{average\_data}}
+\index{average\_data@{average\_data}!qiskit.quantum\_info.analysis.average@{qiskit.quantum\_info.analysis.average}}
+\doxysubsubsection{\texorpdfstring{average\_data()}{average\_data()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1analysis_1_1average_aca3346a76caa75429f8e84c45a67c21e} 
+ float qiskit.\+quantum\+\_\+info.\+analysis.\+average.\+average\+\_\+data (\begin{DoxyParamCaption}\item[{dict}]{counts}{, }\item[{dict \texorpdfstring{$\vert$}{|} np.\+ndarray \texorpdfstring{$\vert$}{|} list}]{observable}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute the mean value of an diagonal observable.
+
+Takes in a diagonal observable in dictionary, list or matrix format and then
+calculates the sum_i value(i) P(i) where value(i) is the value of the
+observable for state i.
+
+Args:
+    counts (dict): a dict of outcomes from an experiment
+    observable (dict or matrix or list): The observable to be averaged over.
+    As an example, ZZ on qubits can be given as:
+    * dict: {"00": 1, "11": 1, "01": -1, "10": -1}
+    * matrix: [[1, 0, 0, 0], [0, -1, 0, 0, ], [0, 0, -1, 0], [0, 0, 0, 1]]
+    * matrix diagonal (list): [1, -1, -1, 1]
+
+Returns:
+    Double: Average of the observable
+\end{DoxyVerb}
+ 

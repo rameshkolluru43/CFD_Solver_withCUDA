@@ -1,0 +1,115 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/d36/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a21dc7c3316f29299147daf0cca3f110f_a21dc7c3316f29299147daf0cca3f110f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\mbox{[}int\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a3d6e589736bb88daccf785602e6a4e1f_a3d6e589736bb88daccf785602e6a4e1f}{pattern}})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad731885887da308985745d10a8d79807_ad731885887da308985745d10a8d79807}{\+\_\+\+\_\+array\+\_\+\+\_\+}} (self, dtype=None, copy=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad76942d888c7a6d2458bd821fc2a4c32_ad76942d888c7a6d2458bd821fc2a4c32}{validate\+\_\+parameter}} (self, parameter)
+\item 
+np.\+ndarray\mbox{[}bool\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a3d6e589736bb88daccf785602e6a4e1f_a3d6e589736bb88daccf785602e6a4e1f}{pattern}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate}{Permutation\+Gate}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ac82a288e091896d57c878a8bb10adb3e_ac82a288e091896d57c878a8bb10adb3e}{inverse}} (self, bool annotated=False)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_aa2f9170c908620fe74ccfa598730232d}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_aa2f9170c908620fe74ccfa598730232d} 
+{\bfseries \+\_\+qasm\+\_\+decomposition} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A gate that permutes qubits.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a21dc7c3316f29299147daf0cca3f110f_a21dc7c3316f29299147daf0cca3f110f}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a21dc7c3316f29299147daf0cca3f110f_a21dc7c3316f29299147daf0cca3f110f} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list\mbox{[}int\mbox{]}}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a permutation gate.
+
+Args:
+    pattern: permutation pattern, describing which qubits occupy the
+        positions 0, 1, 2, etc. after applying the permutation, that
+        is ``pattern[k] = m`` when the permutation maps qubit ``m``
+        to position ``k``. As an example, the pattern ``[2, 4, 3, 0, 1]``
+        means that qubit ``2`` goes to position ``0``, qubit ``4``
+        goes to the position ``1``, etc.
+
+Raises:
+    CircuitError: if permutation pattern is malformed.
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+        from qiskit.circuit.quantumcircuit import QuantumCircuit
+        from qiskit.circuit.library import PermutationGate
+        A = [2, 4, 3, 0, 1]
+        permutation = PermutationGate(A)
+        circuit = QuantumCircuit(5)
+        circuit.append(permutation, [0, 1, 2, 3, 4])
+        circuit.draw("mpl")
+
+Expanded Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+        from qiskit.circuit.quantumcircuit import QuantumCircuit
+        from qiskit.circuit.library import PermutationGate
+        from qiskit.visualization.library import _generate_circuit_library_visualization
+        A = [2, 4, 3, 0, 1]
+        permutation = PermutationGate(A)
+        circuit = QuantumCircuit(5)
+        circuit.append(permutation, [0, 1, 2, 3, 4])
+
+        _generate_circuit_library_visualization(circuit.decompose())
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad731885887da308985745d10a8d79807_ad731885887da308985745d10a8d79807}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}!\_\_array\_\_@{\_\_array\_\_}}
+\index{\_\_array\_\_@{\_\_array\_\_}!qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+\doxysubsubsection{\texorpdfstring{\_\_array\_\_()}{\_\_array\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad731885887da308985745d10a8d79807_ad731885887da308985745d10a8d79807} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate.\+\_\+\+\_\+array\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dtype}{ = {\ttfamily None}, }\item[{}]{copy}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a numpy.array for the Permutation gate.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ac82a288e091896d57c878a8bb10adb3e_ac82a288e091896d57c878a8bb10adb3e}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ac82a288e091896d57c878a8bb10adb3e_ac82a288e091896d57c878a8bb10adb3e} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate}{Permutation\+Gate}} qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the inverse of the permutation.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a3d6e589736bb88daccf785602e6a4e1f_a3d6e589736bb88daccf785602e6a4e1f}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}!pattern@{pattern}}
+\index{pattern@{pattern}!qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+\doxysubsubsection{\texorpdfstring{pattern()}{pattern()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_a3d6e589736bb88daccf785602e6a4e1f_a3d6e589736bb88daccf785602e6a4e1f} 
+ np.\+ndarray\mbox{[}bool\mbox{]} qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate.\+pattern (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the permutation pattern defining this permutation.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad76942d888c7a6d2458bd821fc2a4c32_ad76942d888c7a6d2458bd821fc2a4c32}\index{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}!validate\_parameter@{validate\_parameter}}
+\index{validate\_parameter@{validate\_parameter}!qiskit.circuit.library.generalized\_gates.permutation.PermutationGate@{qiskit.circuit.library.generalized\_gates.permutation.PermutationGate}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter()}{validate\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_gate_ad76942d888c7a6d2458bd821fc2a4c32_ad76942d888c7a6d2458bd821fc2a4c32} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+Gate.\+validate\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{parameter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parameter validation.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/permutation.\+py\end{DoxyCompactItemize}

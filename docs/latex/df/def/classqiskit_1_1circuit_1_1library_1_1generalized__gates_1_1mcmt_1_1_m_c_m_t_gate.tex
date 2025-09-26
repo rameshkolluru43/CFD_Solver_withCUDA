@@ -1,0 +1,133 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{df/def/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a9817c82104c3afc2e37c9e861b7f8f57_a9817c82104c3afc2e37c9e861b7f8f57}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} gate, int num\+\_\+ctrl\+\_\+qubits, int num\+\_\+target\+\_\+qubits, int\texorpdfstring{$\vert$}{|}str\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None, str\texorpdfstring{$\vert$}{|}None label=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a599673ae683405b7e57cbc417d4a093f_a599673ae683405b7e57cbc417d4a093f}{control}} (self, num\+\_\+ctrl\+\_\+qubits=1, label=None, ctrl\+\_\+state=None, annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a4e48c399cd492cb8f283bcc02bd291cd_a4e48c399cd492cb8f283bcc02bd291cd}{inverse}} (self, bool annotated=False)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a3e0ccf037156f397313f01d29aa5b4d2}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a3e0ccf037156f397313f01d29aa5b4d2} 
+{\bfseries num\+\_\+target\+\_\+qubits} = num\+\_\+target\+\_\+qubits
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a6d1a1dadcb05774a6e92a0b4747525b8}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a6d1a1dadcb05774a6e92a0b4747525b8} 
+{\bfseries definition} = MCMTSynthesis\+Default().run(self)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a9bbd02040657ce9bd40c7ae9f3dd0fe7}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a9bbd02040657ce9bd40c7ae9f3dd0fe7} 
+{\bfseries num\+\_\+ctrl\+\_\+qubits}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a61411103b488ff4163302e663b7139c9_a61411103b488ff4163302e663b7139c9}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_af659f6d7c976943c128ce349a09ee17e_af659f6d7c976943c128ce349a09ee17e}{\+\_\+identify\+\_\+base\+\_\+gate}} (gate)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The multi-controlled multi-target gate, for an arbitrary singly controlled target gate.
+
+For example, the H gate controlled on 3 qubits and acting on 2 target qubit is represented as:
+
+.. parsed-literal::
+
+    ───■────
+       │
+    ───■────
+       │
+    ───■────
+    ┌──┴───┐
+    ┤0     ├
+    │  2-H │
+    ┤1     ├
+    └──────┘
+
+Depending on the number of available auxiliary qubits, this operation can be synthesized
+using different methods. For example, if :math:`n - 1` clean auxiliary qubits are available
+(where :math:`n` is the number of control qubits), a V-chain decomposition can be used whose
+depth is linear in :math:`n`. See also :func:`.synth_mcmt_chain`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a9817c82104c3afc2e37c9e861b7f8f57_a9817c82104c3afc2e37c9e861b7f8f57}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a9817c82104c3afc2e37c9e861b7f8f57_a9817c82104c3afc2e37c9e861b7f8f57} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}}]{gate}{, }\item[{int}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{int}]{num\+\_\+target\+\_\+qubits}{, }\item[{int \texorpdfstring{$\vert$}{|} str \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    gate: The base gate to apply on multiple target qubits, controlled by other qubits.
+        This must be a single-qubit gate or a controlled single-qubit gate.
+    num_ctrl_qubits: The number of control qubits.
+    num_target_qubits: The number of target qubits.
+    ctrl_state: The control state of the control qubits. Defaults to all closed controls.
+    label: The gate label.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_abac83bbb8775197e73afa85500dc6e69_abac83bbb8775197e73afa85500dc6e69}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a61411103b488ff4163302e663b7139c9_a61411103b488ff4163302e663b7139c9}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a61411103b488ff4163302e663b7139c9_a61411103b488ff4163302e663b7139c9} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Default definition relying on gate.control. Control state is handled by superclass.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_af659f6d7c976943c128ce349a09ee17e_af659f6d7c976943c128ce349a09ee17e}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}!\_identify\_base\_gate@{\_identify\_base\_gate}}
+\index{\_identify\_base\_gate@{\_identify\_base\_gate}!qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+\doxysubsubsection{\texorpdfstring{\_identify\_base\_gate()}{\_identify\_base\_gate()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_af659f6d7c976943c128ce349a09ee17e_af659f6d7c976943c128ce349a09ee17e} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate.\+\_\+identify\+\_\+base\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{gate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the control base gate. Note this must be a single qubit gate.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a599673ae683405b7e57cbc417d4a093f_a599673ae683405b7e57cbc417d4a093f}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}!control@{control}}
+\index{control@{control}!qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a599673ae683405b7e57cbc417d4a093f_a599673ae683405b7e57cbc417d4a093f} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate.\+control (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{num\+\_\+ctrl\+\_\+qubits}{ = {\ttfamily 1}, }\item[{}]{label}{ = {\ttfamily None}, }\item[{}]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{}]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the controlled version of the MCMT circuit.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a81a8e29816d4979751145859e7ed5a2c_a81a8e29816d4979751145859e7ed5a2c}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a4e48c399cd492cb8f283bcc02bd291cd_a4e48c399cd492cb8f283bcc02bd291cd}\index{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate@{qiskit.circuit.library.generalized\_gates.mcmt.MCMTGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1mcmt_1_1_m_c_m_t_gate_a4e48c399cd492cb8f283bcc02bd291cd_a4e48c399cd492cb8f283bcc02bd291cd} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+mcmt.\+MCMTGate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the inverse MCMT circuit.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac5112aa67def83a124c76d18f84afccf_ac5112aa67def83a124c76d18f84afccf}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/mcmt.\+py\end{DoxyCompactItemize}

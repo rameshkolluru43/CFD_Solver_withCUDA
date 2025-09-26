@@ -1,0 +1,92 @@
+\doxysection{qiskit\+\_\+algorithms.\+time\+\_\+evolvers.\+variational.\+var\+\_\+qite.\+Var\+QITE Class Reference}
+\hypertarget{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e}{}\label{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e}\index{qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE@{qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+time\+\_\+evolvers.\+variational.\+var\+\_\+qite.\+Var\+QITE\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.826087cm]{da/deb/classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e_a1d279ed2808e8f1b9bbb111ceb860c6c_a1d279ed2808e8f1b9bbb111ceb860c6c}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Quantum\+Circuit ansatz, Mapping\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, float\mbox{]}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}float\mbox{]} initial\+\_\+parameters, \mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1variational__principles_1_1imaginarye3bfb56a87d927dd22edb3aafd6ae4fa}{Imaginary\+Variational\+Principle}}\texorpdfstring{$\vert$}{|}None variational\+\_\+principle=None, Base\+Estimator\texorpdfstring{$\vert$}{|}None estimator=None, Type\mbox{[}Ode\+Solver\mbox{]}\texorpdfstring{$\vert$}{|}str ode\+\_\+solver=\mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1solvers_1_1ode_1_1forward__euler__solver_1_1_forward_euler_solver}{Forward\+Euler\+Solver}}, Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, np.\+ndarray\mbox{]}\texorpdfstring{$\vert$}{|}None lse\+\_\+solver=None, int\texorpdfstring{$\vert$}{|}None num\+\_\+timesteps=None, float imag\+\_\+part\+\_\+tol=1e-\/7, float num\+\_\+instability\+\_\+tol=1e-\/7)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Variational Quantum Imaginary Time Evolution algorithm.
+
+.. code-block::python
+
+    import numpy as np
+
+    from qiskit_algorithms import TimeEvolutionProblem, VarQITE
+    from qiskit_algorithms.time_evolvers.variational import ImaginaryMcLachlanPrinciple
+    from qiskit.circuit.library import EfficientSU2
+    from qiskit.quantum_info import SparsePauliOp, Pauli
+    from qiskit.primitives import Estimator
+
+    observable = SparsePauliOp.from_list(
+        [
+            ("II", 0.2252),
+            ("ZZ", 0.5716),
+            ("IZ", 0.3435),
+            ("ZI", -0.4347),
+            ("YY", 0.091),
+            ("XX", 0.091),
+        ]
+    )
+
+    ansatz = EfficientSU2(observable.num_qubits, reps=1)
+    init_param_values = np.ones(len(ansatz.parameters)) * np.pi/2
+    var_principle = ImaginaryMcLachlanPrinciple()
+    time = 1
+
+    # without evaluating auxiliary operators
+    evolution_problem = TimeEvolutionProblem(observable, time)
+    var_qite = VarQITE(ansatz, init_param_values, var_principle)
+    evolution_result = var_qite.evolve(evolution_problem)
+
+    # evaluating auxiliary operators
+    aux_ops = [Pauli("XX"), Pauli("YZ")]
+    evolution_problem = TimeEvolutionProblem(observable, time, aux_operators=aux_ops)
+    var_qite = VarQITE(ansatz, init_param_values, var_principle, Estimator())
+    evolution_result = var_qite.evolve(evolution_problem)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e_a1d279ed2808e8f1b9bbb111ceb860c6c_a1d279ed2808e8f1b9bbb111ceb860c6c}\index{qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE@{qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE@{qiskit\_algorithms.time\_evolvers.variational.var\_qite.VarQITE}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qite_1_1_var_q_i_t_e_a1d279ed2808e8f1b9bbb111ceb860c6c_a1d279ed2808e8f1b9bbb111ceb860c6c} 
+ None qiskit\+\_\+algorithms.\+time\+\_\+evolvers.\+variational.\+var\+\_\+qite.\+Var\+QITE.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Quantum\+Circuit}]{ansatz}{, }\item[{Mapping\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, float\mbox{]} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}float\mbox{]}}]{initial\+\_\+parameters}{, }\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1variational__principles_1_1imaginarye3bfb56a87d927dd22edb3aafd6ae4fa}{Imaginary\+Variational\+Principle}} \texorpdfstring{$\vert$}{|} None }]{variational\+\_\+principle}{ = {\ttfamily None}, }\item[{Base\+Estimator \texorpdfstring{$\vert$}{|} None }]{estimator}{ = {\ttfamily None}, }\item[{Type\mbox{[}Ode\+Solver\mbox{]} \texorpdfstring{$\vert$}{|} str }]{ode\+\_\+solver}{ = {\ttfamily \mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1solvers_1_1ode_1_1forward__euler__solver_1_1_forward_euler_solver}{Forward\+Euler\+Solver}}}, }\item[{Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, np.\+ndarray\mbox{]} \texorpdfstring{$\vert$}{|} None }]{lse\+\_\+solver}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+timesteps}{ = {\ttfamily None}, }\item[{float }]{imag\+\_\+part\+\_\+tol}{ = {\ttfamily 1e-\/7}, }\item[{float }]{num\+\_\+instability\+\_\+tol}{ = {\ttfamily 1e-\/7}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        ansatz: Ansatz to be used for variational time evolution.
+        initial_parameters: Initial parameter values for the ansatz.
+        variational_principle: Variational Principle to be used. Defaults to
+            ``ImaginaryMcLachlanPrinciple``.
+        estimator: An estimator primitive used for calculating expectation values of
+            TimeEvolutionProblem.aux_operators.
+        ode_solver: ODE solver callable that implements a SciPy ``OdeSolver`` interface or a
+            string indicating a valid method offered by SciPy.
+        lse_solver: Linear system of equations solver callable. It accepts ``A`` and ``b`` to
+            solve ``Ax=b`` and returns ``x``. If ``None``, the default ``np.linalg.lstsq``
+            solver is used.
+        num_timesteps: The number of timesteps to take. If ``None``, it is
+            automatically selected to achieve a timestep of approximately 0.01. Only
+            relevant in case of the ``ForwardEulerSolver``.
+        imag_part_tol: Allowed value of an imaginary part that can be neglected if no
+            imaginary part is expected.
+        num_instability_tol: The amount of negative value that is allowed to be
+            rounded up to 0 for quantities that are expected to be non-negative.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1time__evolvers_1_1variational_1_1var__qte_1_1_var_q_t_e_a07d89640d8e8a8bd28266b91ee14b415_a07d89640d8e8a8bd28266b91ee14b415}{qiskit\+\_\+algorithms.\+time\+\_\+evolvers.\+variational.\+var\+\_\+qte.\+Var\+QTE}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/time\+\_\+evolvers/variational/var\+\_\+qite.\+py\end{DoxyCompactItemize}

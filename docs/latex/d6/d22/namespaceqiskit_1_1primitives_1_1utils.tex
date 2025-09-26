@@ -1,0 +1,154 @@
+\doxysection{qiskit.\+primitives.\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1primitives_1_1utils}{}\label{namespaceqiskit_1_1primitives_1_1utils}\index{qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_a5e5525d159b59ad8f7316ffba1ad62d2_a5e5525d159b59ad8f7316ffba1ad62d2}{init\+\_\+circuit}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}Statevector state)
+\item 
+Sparse\+Pauli\+Op \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_a86eafe49d953745fb3375e61c35e52b3_a86eafe49d953745fb3375e61c35e52b3}{init\+\_\+observable}} (\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\texorpdfstring{$\vert$}{|}str observable)
+\item 
+dict\mbox{[}int, int\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_aa91e071dbae2e1b583948f97b2fa9967_aa91e071dbae2e1b583948f97b2fa9967}{final\+\_\+measurement\+\_\+mapping}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit)
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1utils_ac9eba5ef86e288d23e536dcd287407cc}\label{namespaceqiskit_1_1primitives_1_1utils_ac9eba5ef86e288d23e536dcd287407cc} 
+tuple {\bfseries \+\_\+bits\+\_\+key} (tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1bit_1_1_bit}{Bit}},...\mbox{]} bits, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit)
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1utils_ab612a86bee6d9efef4f7c3800c94bbd7}\label{namespaceqiskit_1_1primitives_1_1utils_ab612a86bee6d9efef4f7c3800c94bbd7} 
+{\bfseries \+\_\+format\+\_\+params} (param)
+\item 
+tuple \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_ac7078038a1393d5391e71f58bd367852_ac7078038a1393d5391e71f58bd367852}{\+\_\+circuit\+\_\+key}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, bool functional=True)
+\item 
+tuple \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_a702483a5abcd06bef01a986252dc3224_a702483a5abcd06bef01a986252dc3224}{\+\_\+observable\+\_\+key}} (Sparse\+Pauli\+Op observable)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_aec9c3281d8d0a41b09dd7cb41fdef5ca_aec9c3281d8d0a41b09dd7cb41fdef5ca}{bound\+\_\+circuit\+\_\+to\+\_\+instruction}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit)
+\item 
+Statevector \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1utils_aea4659b03fab26d744aad75cfb479e6e_aea4659b03fab26d744aad75cfb479e6e}{\+\_\+statevector\+\_\+from\+\_\+circuit}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, np.\+random.\+Generator\texorpdfstring{$\vert$}{|}None rng)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for primitives
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1primitives_1_1utils_ac7078038a1393d5391e71f58bd367852_ac7078038a1393d5391e71f58bd367852}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!\_circuit\_key@{\_circuit\_key}}
+\index{\_circuit\_key@{\_circuit\_key}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{\_circuit\_key()}{\_circuit\_key()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_ac7078038a1393d5391e71f58bd367852_ac7078038a1393d5391e71f58bd367852} 
+ tuple qiskit.\+primitives.\+utils.\+\_\+circuit\+\_\+key (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{bool }]{functional}{ = {\ttfamily True}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Private key function for QuantumCircuit.
+
+This is the workaround until :meth:`QuantumCircuit.__hash__` will be introduced.
+If key collision is found, please add elements to avoid it.
+
+Args:
+    circuit: Input quantum circuit.
+    functional: If True, the returned key only includes functional data (i.e. execution related).
+
+Returns:
+    Composite key for circuit.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_a702483a5abcd06bef01a986252dc3224_a702483a5abcd06bef01a986252dc3224}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!\_observable\_key@{\_observable\_key}}
+\index{\_observable\_key@{\_observable\_key}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{\_observable\_key()}{\_observable\_key()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_a702483a5abcd06bef01a986252dc3224_a702483a5abcd06bef01a986252dc3224} 
+ tuple qiskit.\+primitives.\+utils.\+\_\+observable\+\_\+key (\begin{DoxyParamCaption}\item[{Sparse\+Pauli\+Op}]{observable}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Private key function for SparsePauliOp.
+Args:
+    observable: Input operator.
+
+Returns:
+    Key for observables.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_aea4659b03fab26d744aad75cfb479e6e_aea4659b03fab26d744aad75cfb479e6e}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!\_statevector\_from\_circuit@{\_statevector\_from\_circuit}}
+\index{\_statevector\_from\_circuit@{\_statevector\_from\_circuit}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{\_statevector\_from\_circuit()}{\_statevector\_from\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_aea4659b03fab26d744aad75cfb479e6e_aea4659b03fab26d744aad75cfb479e6e} 
+ Statevector qiskit.\+primitives.\+utils.\+\_\+statevector\+\_\+from\+\_\+circuit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{np.\+random.\+Generator \texorpdfstring{$\vert$}{|} None }]{rng}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Generate a statevector from a circuit
+
+If the input circuit includes any resets for a some subsystem,
+:meth:`.Statevector.reset` behaves in a stochastic way in :meth:`.Statevector.evolve`.
+This function sets a random number generator to be reproducible.
+
+See :meth:`.Statevector.reset` for details.
+
+Args:
+    circuit: The quantum circuit.
+    seed: The random number generator or None.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_aec9c3281d8d0a41b09dd7cb41fdef5ca_aec9c3281d8d0a41b09dd7cb41fdef5ca}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!bound\_circuit\_to\_instruction@{bound\_circuit\_to\_instruction}}
+\index{bound\_circuit\_to\_instruction@{bound\_circuit\_to\_instruction}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{bound\_circuit\_to\_instruction()}{bound\_circuit\_to\_instruction()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_aec9c3281d8d0a41b09dd7cb41fdef5ca_aec9c3281d8d0a41b09dd7cb41fdef5ca} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}} qiskit.\+primitives.\+utils.\+bound\+\_\+circuit\+\_\+to\+\_\+instruction (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Build an :class:`~qiskit.circuit.Instruction` object from
+a :class:`~qiskit.circuit.QuantumCircuit`
+
+This is a specialized version of :func:`~qiskit.converters.circuit_to_instruction`
+to avoid deep copy. This requires a quantum circuit whose parameters are all bound.
+Because this does not take a copy of the input circuit, this assumes that the input
+circuit won't be modified.
+
+If https://github.com/Qiskit/qiskit-terra/issues/7983 is resolved,
+we can remove this function.
+
+Args:
+    circuit(QuantumCircuit): Input quantum circuit
+
+Returns:
+    An :class:`~qiskit.circuit.Instruction` object
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_aa91e071dbae2e1b583948f97b2fa9967_aa91e071dbae2e1b583948f97b2fa9967}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!final\_measurement\_mapping@{final\_measurement\_mapping}}
+\index{final\_measurement\_mapping@{final\_measurement\_mapping}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{final\_measurement\_mapping()}{final\_measurement\_mapping()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_aa91e071dbae2e1b583948f97b2fa9967_aa91e071dbae2e1b583948f97b2fa9967} 
+ dict\mbox{[}int, int\mbox{]} qiskit.\+primitives.\+utils.\+final\+\_\+measurement\+\_\+mapping (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the final measurement mapping for the circuit.
+
+Dict keys label measured qubits, whereas the values indicate the
+classical bit onto which that qubits measurement result is stored.
+
+Parameters:
+    circuit: Input quantum circuit.
+
+Returns:
+    Mapping of qubits to classical bits for final measurements.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_a5e5525d159b59ad8f7316ffba1ad62d2_a5e5525d159b59ad8f7316ffba1ad62d2}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!init\_circuit@{init\_circuit}}
+\index{init\_circuit@{init\_circuit}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{init\_circuit()}{init\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_a5e5525d159b59ad8f7316ffba1ad62d2_a5e5525d159b59ad8f7316ffba1ad62d2} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+primitives.\+utils.\+init\+\_\+circuit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} Statevector}]{state}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize state by converting the input to a quantum circuit.
+
+Args:
+    state: The state as quantum circuit or statevector.
+
+Returns:
+    The state as quantum circuit.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1utils_a86eafe49d953745fb3375e61c35e52b3_a86eafe49d953745fb3375e61c35e52b3}\index{qiskit.primitives.utils@{qiskit.primitives.utils}!init\_observable@{init\_observable}}
+\index{init\_observable@{init\_observable}!qiskit.primitives.utils@{qiskit.primitives.utils}}
+\doxysubsubsection{\texorpdfstring{init\_observable()}{init\_observable()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1utils_a86eafe49d953745fb3375e61c35e52b3_a86eafe49d953745fb3375e61c35e52b3} 
+ Sparse\+Pauli\+Op qiskit.\+primitives.\+utils.\+init\+\_\+observable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} \texorpdfstring{$\vert$}{|} str}]{observable}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize observable by converting the input to a :class:`~qiskit.quantum_info.SparsePauliOp`.
+
+Args:
+    observable: The observable.
+
+Returns:
+    The observable as :class:`~qiskit.quantum_info.SparsePauliOp`.
+
+Raises:
+    QiskitError: when observable type cannot be converted to SparsePauliOp.
+\end{DoxyVerb}
+ 

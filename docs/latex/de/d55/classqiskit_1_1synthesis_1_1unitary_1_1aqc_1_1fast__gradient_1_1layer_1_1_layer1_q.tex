@@ -1,0 +1,80 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer1Q Class Reference}
+\hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q}{}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}}
+Inheritance diagram for qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer1Q\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{de/d55/classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_ab4c5960f0c513cf27fd83ace6edad916_ab4c5960f0c513cf27fd83ace6edad916}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, int k, Optional\mbox{[}np.\+ndarray\mbox{]} g2x2=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_af2483260b99aa196b0fe37a931bd0d9e_af2483260b99aa196b0fe37a931bd0d9e}{set\+\_\+from\+\_\+matrix}} (self, np.\+ndarray mat)
+\item 
+tuple\mbox{[}np.\+ndarray, np.\+ndarray, np.\+ndarray\mbox{]} \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a16c07cd2cbee0b1a8b828257546a7da5_a16c07cd2cbee0b1a8b828257546a7da5}{get\+\_\+attr}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a23bd0637b716fbe57074574300d5d8c1}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a23bd0637b716fbe57074574300d5d8c1} 
+{\bfseries \+\_\+gmat} = np.\+full((2, 2), fill\+\_\+value=0, dtype=np.\+complex128)
+\item 
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a742c69ef4877fd5bd97aaebfb91f3370}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a742c69ef4877fd5bd97aaebfb91f3370} 
+{\bfseries \+\_\+perm} = np.\+full((dim,), fill\+\_\+value=0, dtype=np.\+int64)
+\item 
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a89bbc91bf2af7d0386357d2123d6cebe}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a89bbc91bf2af7d0386357d2123d6cebe} 
+{\bfseries \+\_\+inv\+\_\+perm} = inverse\+\_\+permutation(self.\+\_\+perm)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Layer represents a simple circuit where 1-qubit gate matrix (of size 2x2)
+interleaves with the identity ones.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_ab4c5960f0c513cf27fd83ace6edad916_ab4c5960f0c513cf27fd83ace6edad916}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_ab4c5960f0c513cf27fd83ace6edad916_ab4c5960f0c513cf27fd83ace6edad916} 
+qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer1\+Q.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{int}]{k}{, }\item[{Optional\mbox{[}np.\+ndarray\mbox{]} }]{g2x2}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: number of qubits.
+    k: index of the bit where gate is applied.
+    g2x2: 2x2 matrix that makes up this layer along with identity ones,
+          or None (should be set up later).
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a16c07cd2cbee0b1a8b828257546a7da5_a16c07cd2cbee0b1a8b828257546a7da5}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}!get\_attr@{get\_attr}}
+\index{get\_attr@{get\_attr}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}}
+\doxysubsubsection{\texorpdfstring{get\_attr()}{get\_attr()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_a16c07cd2cbee0b1a8b828257546a7da5_a16c07cd2cbee0b1a8b828257546a7da5} 
+ tuple\mbox{[}np.\+ndarray, np.\+ndarray, np.\+ndarray\mbox{]} qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer1\+Q.\+get\+\_\+attr (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}See base class description.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer_base_a235ef7ef5b23d97c25df3b45cd022dbb_a235ef7ef5b23d97c25df3b45cd022dbb}{qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer\+Base}}.
+
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_af2483260b99aa196b0fe37a931bd0d9e_af2483260b99aa196b0fe37a931bd0d9e}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}!set\_from\_matrix@{set\_from\_matrix}}
+\index{set\_from\_matrix@{set\_from\_matrix}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer.Layer1Q}}
+\doxysubsubsection{\texorpdfstring{set\_from\_matrix()}{set\_from\_matrix()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q_af2483260b99aa196b0fe37a931bd0d9e_af2483260b99aa196b0fe37a931bd0d9e} 
+qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer1\+Q.\+set\+\_\+from\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{mat}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}See base class description.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer_base_aff96167ee17a985dc5658cec890b884e_aff96167ee17a985dc5658cec890b884e}{qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+Layer\+Base}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/synthesis/unitary/aqc/fast\+\_\+gradient/layer.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,102 @@
+\doxysection{Main.\+cpp}
+\hypertarget{_main_8cpp_source}{}\label{_main_8cpp_source}\index{Euler\_Solver/Main.cpp@{Euler\_Solver/Main.cpp}}
+\mbox{\hyperlink{_main_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{../Basic\_Files/definitions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00003}\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{00003}}\ \mbox{\hyperlink{struct_inlet_condition}{InletCondition}}\ \mbox{\hyperlink{_main_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00004}\mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{00004}}\ \mbox{\hyperlink{struct_exit_condition}{ExitCondition}}\ \mbox{\hyperlink{_main_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00005}\mbox{\hyperlink{definitions_8h_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{00005}}\ \mbox{\hyperlink{struct_initial_condition}{InitialCondition}}\ \mbox{\hyperlink{_main_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00006}\mbox{\hyperlink{definitions_8h_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{00006}}\ vector<string>\ \mbox{\hyperlink{_main_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{gridFiles}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00007}\mbox{\hyperlink{definitions_8h_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{00007}}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{_main_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}},\ \mbox{\hyperlink{_main_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ =\ \textcolor{stringliteral}{"{}Default\_Test\_Case"{}},\ \mbox{\hyperlink{_main_8cpp_ad16a7808f3ef58d5f5ac5f53e9722dfb_ad16a7808f3ef58d5f5ac5f53e9722dfb}{GridVTKFile}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00009}\mbox{\hyperlink{definitions_8h_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}{00009}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}{initializeGridDimensions}}()}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00010}00010\ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00011}00011\ \ \ \ \ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00012}00012\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00013}00013\ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00015}\mbox{\hyperlink{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}{00015}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}{readInputFile}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00016}00016\ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00018}00018\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ No\ JSON\ input\ file\ provided."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00021}00021\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00022}00022\ \ \ \ \ \textcolor{keywordtype}{string}\ jsonFileName\ =\ argv[1];}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00024}00024\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00025}00025\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7}{readJSON}}(jsonFileName);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00027}00027\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00029}00029\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error\ while\ reading\ JSON\ file:\ "{}}\ <<\ e.what()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00032}00032\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00034}00034\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}.empty())}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ CF\_File\ is\ not\ set.\ Please\ check\ the\ JSON\ file\ or\ initialization."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00040}00040\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}{BCFileName}}.empty())}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00043}00043\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ BCFileName\ is\ not\ set.\ Please\ check\ the\ JSON\ file\ or\ initialization."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00046}00046\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ <=\ 0\ ||\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ <=\ 0)}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00049}00049\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Invalid\ grid\ dimensions\ (nx\_1\ or\ ny\_1\ not\ set\ correctly)."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00053}00053\ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00055}\mbox{\hyperlink{definitions_8h_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}{00055}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_main_8cpp_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}{initializeGridFiles}}()}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00056}00056\ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00057}00057\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/"{}}\ +\ \mbox{\hyperlink{_main_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}/"{}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00058}00058\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Grid\ Directory:\ "{}}\ <<\ \mbox{\hyperlink{_main_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00059}00059\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Finding\ for\ Grid\ files\ for\ size\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00060}00060\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a280972f50a7acabfa4c469610ecd1b0a_a280972f50a7acabfa4c469610ecd1b0a}{Grid\_File}}\ =\ \mbox{\hyperlink{_main_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ +\ \mbox{\hyperlink{_main_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}})\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}})\ +\ \textcolor{stringliteral}{"{}.txt"{}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00061}00061\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}}\ =\ \mbox{\hyperlink{_main_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ +\ \mbox{\hyperlink{_main_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}})\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}})\ +\ \textcolor{stringliteral}{"{}.vtk"{}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00062}00062\ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00063}00063\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00064}\mbox{\hyperlink{definitions_8h_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}{00064}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}{runSolver}}()}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00065}00065\ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00066}00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}}\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00067}00067\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Test\_Case\ is\ not\ set.\ Please\ check\ the\ JSON\ file\ or\ initialization."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Test\ Case\ Number\ starts\ from\ 1\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00071}00071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00072}00072\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac38de89cdbad5c2dcbabaab7981a32f4_ac38de89cdbad5c2dcbabaab7981a32f4}{testCase}}(\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}});}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00074}00074\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}*******-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/The\ Following\ Solver\ is\ currently\ Running-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/**********\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00076}00076\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Viscous\ Terms\ are\ Enabled\ solving\ NS\ Solver"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8803b4e843c1a418d899148a3406c47c_a8803b4e843c1a418d899148a3406c47c}{Viscous\_Solver}}(\mbox{\hyperlink{definitions_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}},\ \mbox{\hyperlink{definitions_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}});}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00079}00079\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00080}00080\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00081}00081\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Inviscid\ Solver\ -\/-\/-\/-\/\ Solving\ Euler\ Equations"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb}{Inviscid\_Solver}}(\mbox{\hyperlink{definitions_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}},\ \mbox{\hyperlink{definitions_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}});}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00085}00085\ \}}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00087}\mbox{\hyperlink{_main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{00087}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_half___cylinder_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00088}00088\ \{}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00089}00089\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}{initializeGridDimensions}}();}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00090}00090\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}{readInputFile}}(argc,\ argv);}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00091}00091\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}{initializeGridFiles}}();}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00092}00092\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa96a9a5bb016c352d845cd7e3f54d511_aa96a9a5bb016c352d845cd7e3f54d511}{readBoundaryConditions}}(\mbox{\hyperlink{definitions_8h_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}{BCFileName}},\ \mbox{\hyperlink{_main_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}},\ \mbox{\hyperlink{_main_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}});}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00093}00093\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8825b03a662b73611b55d22ef61c098b_a8825b03a662b73611b55d22ef61c098b}{readInitialConditions}}(\mbox{\hyperlink{definitions_8h_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}{InitCondFileName}},\ \mbox{\hyperlink{_main_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}});}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00094}00094\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}{runSolver}}();}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_main_8cpp_source_l00096}00096\ \}}
+
+\end{DoxyCode}

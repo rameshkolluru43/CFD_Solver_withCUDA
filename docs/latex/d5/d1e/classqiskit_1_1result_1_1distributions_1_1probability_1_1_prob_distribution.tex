@@ -1,0 +1,109 @@
+\doxysection{qiskit.\+result.\+distributions.\+probability.\+Prob\+Distribution Class Reference}
+\hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution}{}\label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution}\index{qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}}
+Inheritance diagram for qiskit.\+result.\+distributions.\+probability.\+Prob\+Distribution\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d5/d1e/classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_a8abf76f9d43a6e10bbb0730ae98600d8_a8abf76f9d43a6e10bbb0730ae98600d8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, data, shots=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aa9e0c805739ba9eb4c75c0c6d7af3ab3_aa9e0c805739ba9eb4c75c0c6d7af3ab3}{binary\+\_\+probabilities}} (self, num\+\_\+bits=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aaa5550125dbb23d3117b2d0b631c5311_aaa5550125dbb23d3117b2d0b631c5311}{hex\+\_\+probabilities}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_a0a1370dc6b3f2a1ddd2bb71073b0dc57}\label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_a0a1370dc6b3f2a1ddd2bb71073b0dc57} 
+{\bfseries shots} = shots
+\item 
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_ac8cdd759cef1a9f82f83e7dc6a73ed3d}\label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_ac8cdd759cef1a9f82f83e7dc6a73ed3d} 
+dict {\bfseries \+\_\+num\+\_\+bits} = \{int(key, 0)\+: value for key, value in data.\+items()\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_ac8cdd759cef1a9f82f83e7dc6a73ed3d}\label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_ac8cdd759cef1a9f82f83e7dc6a73ed3d} 
+int {\bfseries \+\_\+num\+\_\+bits} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_acb58f8bbb21b189ac5a0f8efd875178c}\label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_acb58f8bbb21b189ac5a0f8efd875178c} 
+{\bfseries \+\_\+bitstring\+\_\+regex} = re.\+compile(r"{}\texorpdfstring{$^\wedge$}{\string^}\mbox{[}01\mbox{]}+\$"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A generic dict-like class for probability distributions.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_a8abf76f9d43a6e10bbb0730ae98600d8_a8abf76f9d43a6e10bbb0730ae98600d8}\index{qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_a8abf76f9d43a6e10bbb0730ae98600d8_a8abf76f9d43a6e10bbb0730ae98600d8} 
+qiskit.\+result.\+distributions.\+probability.\+Prob\+Distribution.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{data}{, }\item[{}]{shots}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Builds a probability distribution object.
+
+Args:
+    data (dict): Input probability data. Where the keys
+        represent a measured classical value and the value is a
+        float for the probability of that result.
+        The keys can be one of several formats:
+
+            * A hexadecimal string of the form ``"0x4a"``
+            * A bit string e.g. ``'0b1011'`` or ``"01011"``
+            * An integer
+
+    shots (int): Number of shots the distribution was derived from.
+
+Raises:
+    TypeError: If the input keys are not a string or int
+    ValueError: If the string format of the keys is incorrect
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aa9e0c805739ba9eb4c75c0c6d7af3ab3_aa9e0c805739ba9eb4c75c0c6d7af3ab3}\index{qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}!binary\_probabilities@{binary\_probabilities}}
+\index{binary\_probabilities@{binary\_probabilities}!qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}}
+\doxysubsubsection{\texorpdfstring{binary\_probabilities()}{binary\_probabilities()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aa9e0c805739ba9eb4c75c0c6d7af3ab3_aa9e0c805739ba9eb4c75c0c6d7af3ab3} 
+qiskit.\+result.\+distributions.\+probability.\+Prob\+Distribution.\+binary\+\_\+probabilities (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{num\+\_\+bits}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Build a probabilities dictionary with binary string keys
+
+Parameters:
+    num_bits (int): number of bits in the binary bitstrings (leading
+        zeros will be padded). If None, a default value will be used.
+        If keys are given as integers or strings with binary or hex prefix,
+        the default value will be derived from the largest key present.
+        If keys are given as bitstrings without prefix,
+        the default value will be derived from the largest key length.
+
+Returns:
+    dict: A dictionary where the keys are binary strings in the format
+        ``"0110"``
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aaa5550125dbb23d3117b2d0b631c5311_aaa5550125dbb23d3117b2d0b631c5311}\index{qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}!hex\_probabilities@{hex\_probabilities}}
+\index{hex\_probabilities@{hex\_probabilities}!qiskit.result.distributions.probability.ProbDistribution@{qiskit.result.distributions.probability.ProbDistribution}}
+\doxysubsubsection{\texorpdfstring{hex\_probabilities()}{hex\_probabilities()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1result_1_1distributions_1_1probability_1_1_prob_distribution_aaa5550125dbb23d3117b2d0b631c5311_aaa5550125dbb23d3117b2d0b631c5311} 
+qiskit.\+result.\+distributions.\+probability.\+Prob\+Distribution.\+hex\+\_\+probabilities (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Build a probabilities dictionary with hexadecimal string keys
+
+Returns:
+    dict: A dictionary where the keys are hexadecimal strings in the
+        format ``"0x1a"``
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/result/distributions/probability.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,73 @@
+\doxysection{wheel.\+vendored.\+packaging.\+\_\+musllinux Namespace Reference}
+\hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux}{}\label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux}\index{wheel.vendored.packaging.\_musllinux@{wheel.vendored.packaging.\_musllinux}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1__musllinux_1_1___musl_version}{\+\_\+\+Musl\+Version}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a57264778e7036033378300e05a0a7092}\label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a57264778e7036033378300e05a0a7092} 
+Optional\mbox{[}\mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1__musllinux_1_1___musl_version}{\+\_\+\+Musl\+Version}}\mbox{]} {\bfseries \+\_\+parse\+\_\+musl\+\_\+version} (str output)
+\item 
+Optional\mbox{[}\mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1__musllinux_1_1___musl_version}{\+\_\+\+Musl\+Version}}\mbox{]} \mbox{\hyperlink{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_ab7a4d6291dd2a509007acbe02a7400d0_ab7a4d6291dd2a509007acbe02a7400d0}{\+\_\+get\+\_\+musl\+\_\+version}} (str executable)
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a1f6b9c6e7991edfc0f9da21e343e0181_a1f6b9c6e7991edfc0f9da21e343e0181}{platform\+\_\+tags}} (Sequence\mbox{[}str\mbox{]} archs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a6c01ea547cc7e00ebbc11d1a21ee84ec}\label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a6c01ea547cc7e00ebbc11d1a21ee84ec} 
+{\bfseries plat} = sysconfig.\+get\+\_\+platform()
+\item 
+\Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_ac26a189eefb53e3bd39d31b720b5e6fc}\label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_ac26a189eefb53e3bd39d31b720b5e6fc} 
+{\bfseries end}
+\item 
+\Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_abf8682eee3f96f176d58f47980b1de49}\label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_abf8682eee3f96f176d58f47980b1de49} 
+{\bfseries t}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}PEP 656 support.
+
+This module implements logic to detect if the currently running Python is
+linked against musl, and what musl version is used.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_ab7a4d6291dd2a509007acbe02a7400d0_ab7a4d6291dd2a509007acbe02a7400d0}\index{wheel.vendored.packaging.\_musllinux@{wheel.vendored.packaging.\_musllinux}!\_get\_musl\_version@{\_get\_musl\_version}}
+\index{\_get\_musl\_version@{\_get\_musl\_version}!wheel.vendored.packaging.\_musllinux@{wheel.vendored.packaging.\_musllinux}}
+\doxysubsubsection{\texorpdfstring{\_get\_musl\_version()}{\_get\_musl\_version()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_ab7a4d6291dd2a509007acbe02a7400d0_ab7a4d6291dd2a509007acbe02a7400d0} 
+ Optional\mbox{[}\mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1__musllinux_1_1___musl_version}{\+\_\+\+Musl\+Version}}\mbox{]} wheel.\+vendored.\+packaging.\+\_\+musllinux.\+\_\+get\+\_\+musl\+\_\+version (\begin{DoxyParamCaption}\item[{str}]{executable}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Detect currently-running musl runtime version.
+
+This is done by checking the specified executable's dynamic linking
+information, and invoking the loader to parse its output for a version
+string. If the loader is musl, the output would be something like::
+
+    musl libc (x86_64)
+    Version 1.2.2
+    Dynamic Program Loader
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a1f6b9c6e7991edfc0f9da21e343e0181_a1f6b9c6e7991edfc0f9da21e343e0181}\index{wheel.vendored.packaging.\_musllinux@{wheel.vendored.packaging.\_musllinux}!platform\_tags@{platform\_tags}}
+\index{platform\_tags@{platform\_tags}!wheel.vendored.packaging.\_musllinux@{wheel.vendored.packaging.\_musllinux}}
+\doxysubsubsection{\texorpdfstring{platform\_tags()}{platform\_tags()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1vendored_1_1packaging_1_1__musllinux_a1f6b9c6e7991edfc0f9da21e343e0181_a1f6b9c6e7991edfc0f9da21e343e0181} 
+ Iterator\mbox{[}str\mbox{]} wheel.\+vendored.\+packaging.\+\_\+musllinux.\+platform\+\_\+tags (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}str\mbox{]}}]{archs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate musllinux tags compatible to the current platform.
+
+:param archs: Sequence of compatible architectures.
+    The first one shall be the closest to the actual architecture and be the part of
+    platform tag after the ``linux_`` prefix, e.g. ``x86_64``.
+    The ``linux_`` prefix is assumed as a prerequisite for the current platform to
+    be musllinux-compatible.
+
+:returns: An iterator of compatible musllinux tags.
+\end{DoxyVerb}
+ 

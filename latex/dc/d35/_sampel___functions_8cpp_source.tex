@@ -1,0 +1,182 @@
+\doxysection{Sampel\+\_\+\+Functions.\+cpp}
+\hypertarget{_sampel___functions_8cpp_source}{}\label{_sampel___functions_8cpp_source}\index{Incompressible\_Solver/Sampel\_Functions.cpp@{Incompressible\_Solver/Sampel\_Functions.cpp}}
+\mbox{\hyperlink{_sampel___functions_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00001}\mbox{\hyperlink{_sampel___functions_8cpp_a0b960fdcbf57bd51aad59ceb6137400d_a0b960fdcbf57bd51aad59ceb6137400d}{00001}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_sampel___functions_8cpp_a0b960fdcbf57bd51aad59ceb6137400d_a0b960fdcbf57bd51aad59ceb6137400d}{solveMomentumImplicit}}(}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00002}00002\ \ \ \ \ \textcolor{keywordtype}{double}**\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}},\ \textcolor{keywordtype}{double}**\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}},\ \textcolor{keywordtype}{double}**\ u\_old,\ \textcolor{keywordtype}{double}**\ v\_old,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{double}**\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}},\ \textcolor{keywordtype}{double}\ dt,\ \textcolor{keywordtype}{double}\ rho,\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00004}00004\ )\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00005}00005\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00006}00006\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ -\/\ 1;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00007}00007\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Implicit\ terms:\ diffusion\ and\ pressure}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00008}00008\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ diffusion\_u\ =\ \mbox{\hyperlink{_globals_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ (u\_old[i+1][j]\ -\/\ 2\ *\ u\_old[i][j]\ +\ u\_old[i-\/1][j])\ /\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}})}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00009}00009\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{_globals_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ (u\_old[i][j+1]\ -\/\ 2\ *\ u\_old[i][j]\ +\ u\_old[i][j-\/1])\ /\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}});}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pressure\_u\ =\ (\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[i][j]\ -\/\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[i-\/1][j])\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}};}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ u-\/velocity\ using\ implicit\ formulation}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}[i][j]\ =\ (rho\ /\ dt\ *\ u\_old[i][j]\ +\ diffusion\_u\ -\/\ pressure\_u)\ /\ (rho\ /\ dt);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00016}00016\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00018}00018\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ -\/\ 1;\ ++j)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Implicit\ terms:\ diffusion\ and\ pressure\ for\ v}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ diffusion\_v\ =\ \mbox{\hyperlink{_globals_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ (v\_old[i+1][j]\ -\/\ 2\ *\ v\_old[i][j]\ +\ v\_old[i-\/1][j])\ /\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}})}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \mbox{\hyperlink{_globals_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ (v\_old[i][j+1]\ -\/\ 2\ *\ v\_old[i][j]\ +\ v\_old[i][j-\/1])\ /\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}});}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ pressure\_v\ =\ (\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[i][j]\ -\/\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[i][j-\/1])\ /\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}};}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ v-\/velocity\ using\ implicit\ formulation}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}[i][j]\ =\ (rho\ /\ dt\ *\ v\_old[i][j]\ +\ diffusion\_v\ -\/\ pressure\_v)\ /\ (rho\ /\ dt);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00030}00030\ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00032}\mbox{\hyperlink{_sampel___functions_8cpp_aae18be7f05c4034a6b712ec596da1e4c_aae18be7f05c4034a6b712ec596da1e4c}{00032}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_sampel___functions_8cpp_aae18be7f05c4034a6b712ec596da1e4c_aae18be7f05c4034a6b712ec596da1e4c}{computeIntermediateVelocity}}(}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keywordtype}{int}\ numCells,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ Cell\_Face\_Normals,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ Cell\_Face\_Areas,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ Cell\_Neighbours,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ Distance\_Bw\_Cell\_Centers,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00038}00038\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ primitive\_cells,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00039}00039\ \ \ \ \ std::vector<std::vector<double>>\&\ u\_star,\ \textcolor{comment}{//\ Output:\ Intermediate\ velocity\ (u,\ v)}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{double}\ nu,\ \textcolor{comment}{//\ Kinematic\ viscosity}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keywordtype}{double}\ dt,\ \textcolor{comment}{//\ Time\ step}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ body\_forces\ \textcolor{comment}{//\ External\ body\ forces,\ e.g.,\ gravity}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00043}00043\ )\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cell\_no\ =\ 0;\ cell\_no\ <\ numCells;\ ++cell\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ conv\_u\_x\ =\ 0.0,\ conv\_u\_y\ =\ 0.0;\ \textcolor{comment}{//\ Convective\ terms}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_u\_x\ =\ 0.0,\ diff\_u\_y\ =\ 0.0;\ \textcolor{comment}{//\ Diffusive\ terms}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ face\_no\ =\ 0;\ face\_no\ <\ 4;\ ++face\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ face\_no\ *\ 2;\ \textcolor{comment}{//\ Face\ normal\ indices}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ Cell\_Face\_Normals[cell\_no][index];\ \ \ \ \ \textcolor{comment}{//\ x-\/component\ of\ face\ normal}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ Cell\_Face\_Normals[cell\_no][index\ +\ 1];\ \textcolor{comment}{//\ y-\/component\ of\ face\ normal}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ Cell\_Face\_Areas[cell\_no][face\_no];\ \ \ \ \ \textcolor{comment}{//\ Length\ of\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighbor\ =\ Cell\_Neighbours[cell\_no][face\_no\ +\ 1];\ \textcolor{comment}{//\ Neighbor\ corresponding\ to\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ df\ =\ Distance\_Bw\_Cell\_Centers[face\_no];\ \ \ \ \ \textcolor{comment}{//\ Distance\ between\ cell\ centroids}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Velocities\ at\ the\ current\ cell\ and\ neighboring\ cell}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_P\_x\ =\ primitive\_cells[cell\_no][1];\ \textcolor{comment}{//\ u\_x\ in\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_P\_y\ =\ primitive\_cells[cell\_no][2];\ \textcolor{comment}{//\ u\_y\ in\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_N\_x\ =\ (neighbor\ >=\ 0)\ ?\ primitive\_cells[neighbor][1]\ :\ u\_P\_x;\ \textcolor{comment}{//\ u\_x\ in\ neighbor}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_N\_y\ =\ (neighbor\ >=\ 0)\ ?\ primitive\_cells[neighbor][2]\ :\ u\_P\_y;\ \textcolor{comment}{//\ u\_y\ in\ neighbor}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00061}00061\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Convective\ fluxes}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_f\_x\ =\ 0.5\ *\ (u\_P\_x\ +\ u\_N\_x);\ \textcolor{comment}{//\ Interpolated\ u\_x\ at\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_f\_y\ =\ 0.5\ *\ (u\_P\_y\ +\ u\_N\_y);\ \textcolor{comment}{//\ Interpolated\ u\_y\ at\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ conv\_u\_x\ +=\ (u\_f\_x\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ u\_f\_y\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ u\_f\_x\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Convective\ term\ for\ u\_x}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ conv\_u\_y\ +=\ (u\_f\_x\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ u\_f\_y\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ u\_f\_y\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Convective\ term\ for\ u\_y}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Diffusive\ fluxes}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ diff\_u\_x\ +=\ nu\ *\ ((u\_N\_x\ -\/\ u\_P\_x)\ /\ df)\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Diffusive\ term\ for\ u\_x}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ diff\_u\_y\ +=\ nu\ *\ ((u\_N\_y\ -\/\ u\_P\_y)\ /\ df)\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Diffusive\ term\ for\ u\_y}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ intermediate\ velocity}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ volume\ =\ Cell\_Face\_Areas[cell\_no][4];\ \textcolor{comment}{//\ Assume\ area\ (volume\ in\ 2D)\ stored\ at\ index\ 4}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ u\_star[cell\_no][0]\ =\ primitive\_cells[cell\_no][1]\ +\ dt\ *\ (-\/conv\_u\_x\ +\ diff\_u\_x\ +\ body\_forces[0]\ *\ volume);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ u\_star[cell\_no][1]\ =\ primitive\_cells[cell\_no][2]\ +\ dt\ *\ (-\/conv\_u\_y\ +\ diff\_u\_y\ +\ body\_forces[1]\ *\ volume);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00081}\mbox{\hyperlink{_sampel___functions_8cpp_acb3d8c278d2105fe344d85709013e21b_acb3d8c278d2105fe344d85709013e21b}{00081}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_sampel___functions_8cpp_acb3d8c278d2105fe344d85709013e21b_acb3d8c278d2105fe344d85709013e21b}{solvePressurePoisson}}(}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00082}00082\ \ \ \ \ \textcolor{keywordtype}{int}\ numCells,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00083}00083\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ Cell\_Face\_Normals,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00084}00084\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ Cell\_Face\_Areas,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<int>\&\ Cell\_Neighbours,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00086}00086\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<double>\&\ Distance\_Bw\_Cell\_Centers,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<std::vector<double>>\&\ u\_star,}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00088}00088\ \ \ \ \ std::vector<std::vector<double>>\&\ primitive\_cells,\ \textcolor{comment}{//\ Input/Output:\ Contains\ pressure\ values}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00089}00089\ \ \ \ \ SparseMatrix\&\ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}},\ \textcolor{comment}{//\ Sparse\ matrix\ for\ the\ pressure\ Poisson\ system}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00090}00090\ \ \ \ \ std::vector<double>\&\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},\ \textcolor{comment}{//\ Right-\/hand\ side\ of\ the\ system}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00091}00091\ \ \ \ \ \textcolor{keywordtype}{double}\ rho,\ \textcolor{comment}{//\ Fluid\ density}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00092}00092\ \ \ \ \ \textcolor{keywordtype}{double}\ dt\ \textcolor{comment}{//\ Time\ step}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00093}00093\ )\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00094}00094\ \ \ \ \ \textcolor{comment}{//\ Assemble\ the\ system}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cell\_no\ =\ 0;\ cell\_no\ <\ numCells;\ ++cell\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ diag\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ rhs\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ face\_no\ =\ 0;\ face\_no\ <\ 4;\ ++face\_no)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ face\_no\ *\ 2;\ \textcolor{comment}{//\ Face\ normal\ indices}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ Cell\_Face\_Normals[cell\_no][index];\ \ \ \ \ \textcolor{comment}{//\ x-\/component\ of\ face\ normal}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ Cell\_Face\_Normals[cell\_no][index\ +\ 1];\ \textcolor{comment}{//\ y-\/component\ of\ face\ normal}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ Cell\_Face\_Areas[cell\_no][face\_no];\ \ \ \ \ \textcolor{comment}{//\ Length\ of\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighbor\ =\ Cell\_Neighbours[cell\_no][face\_no\ +\ 1];\ \textcolor{comment}{//\ Neighbor\ corresponding\ to\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ df\ =\ Distance\_Bw\_Cell\_Centers[face\_no];\ \ \ \ \ \textcolor{comment}{//\ Distance\ between\ cell\ centroids}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Intermediate\ velocity\ flux}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ u\_f\ =\ u\_star[cell\_no][0]\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ u\_star[cell\_no][1]\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};\ \textcolor{comment}{//\ Flux\ normal\ to\ face}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ rhs\ +=\ (u\_f\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}})\ /\ dt;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pressure\ gradient\ contribution}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (neighbor\ >=\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ coeff\ =\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ /\ df;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ diag\ +=\ coeff;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}.addEntry(cell\_no,\ neighbor,\ -\/coeff);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00118}00118\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ diagonal\ and\ RHS}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}.addEntry(cell\_no,\ cell\_no,\ diag);}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}[cell\_no]\ =\ rhs\ *\ rho;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00122}00122\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00123}00123\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00124}00124\ \ \ \ \ \textcolor{comment}{//\ Solve\ the\ linear\ system\ (e.g.,\ Conjugate\ Gradient)}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00125}00125\ \ \ \ \ iterativeSolver(\mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}},\ primitive\_cells,\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}});}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00126}00126\ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00129}00129\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00130}00130\ \textcolor{comment}{//\ Pressure\ Poisson\ solver}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00131}\mbox{\hyperlink{_sampel___functions_8cpp_ad74b2925e6fa09493d0070d4e3a7f178_ad74b2925e6fa09493d0070d4e3a7f178}{00131}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_sampel___functions_8cpp_ad74b2925e6fa09493d0070d4e3a7f178_ad74b2925e6fa09493d0070d4e3a7f178}{SolvePressurePoisson}}()}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00132}00132\ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{double}\ residual\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00134}00134\ \ \ \ \ \textcolor{keywordtype}{int}\ iteration\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{while}\ (residual\ >\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_a628d801d093e5d9b41ecaa82592ee92d}{tolerance}}\ \&\&\ iteration\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ac179f158b0dfac3f42d1c68eccc245c8_ac179f158b0dfac3f42d1c68eccc245c8}{maxIterations}})}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00137}00137\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ residual\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loop\ over\ cells}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_No\ =\ 0;\ Cell\_No\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00142}00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ sumFlux\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ normalization\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00144}00144\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loop\ over\ faces\ connected\ to\ the\ cell}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Face\_No\ =0;Face\_No<4;Face\_No++)}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ Face\_No*2;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 0];\ \textcolor{comment}{//\ Normal\ in\ x\ direction\ }}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 1];\ \textcolor{comment}{//\ normal\ in\ y\ direction\ }}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];\ \textcolor{comment}{//\ area\ of\ the\ face\ in\ 2D\ the\ length\ of\ the\ face\ }}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00152}00152\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\ =\ Cell\_Neighbours[Cell\_No][Face\_No\ +\ 1];\ \textcolor{comment}{//\ Get\ the\ neighbour\ corresponding\ to\ the\ face\ of\ a\ 2D\ cell\ }}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dPN\ =\ Distance\_Bw\_Cell\_Centers[Face\_No];\ \textcolor{comment}{//\ distance\ between\ the\ cell\ center\ and\ the\ neighbouring\ cell\ center\ }}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ P\_N\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Neighbour][4];\ \textcolor{comment}{//\ Pressure\ at\ the\ Neighbour\ Cell}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SumFlux\ +=\ (\mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ /\ dPN)\ *\ P\_N;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Normalization\ +=\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}/dPN;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ div\_u\ +=\ (0.5*(u\_star[Cell\_No]\ +\ u\_star[Neighbour])\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ div\_v\ +=\ (0.5*(v\_star[Cell\_No]\ +\ v\_star[Neighbour])\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RHS\ +=\ (div\_u\ +\ div\_v)\ /\ (dt\ *\ rho);\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00166}00166\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ pressure}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ P\_Old\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Neighbour][4];\ ;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ P\_New\ =\ (SumFlux\ -\/\ cells[i].f\ *\ cells[i].volume)\ /\ normalization;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ residual}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ residual\ =\ std::max(residual,\ std::fabs(cells[i].\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ -\/\ oldPressure));}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ iteration++;}
+\DoxyCodeLine{\Hypertarget{_sampel___functions_8cpp_source_l00176}00176\ \ \ \ \ \}}
+
+\end{DoxyCode}

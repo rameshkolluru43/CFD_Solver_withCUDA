@@ -1,0 +1,57 @@
+\doxysection{qiskit.\+providers.\+fake\+\_\+provider.\+backends\+\_\+v1.\+fake\+\_\+27q\+\_\+pulse.\+fake\+\_\+27q\+\_\+pulse\+\_\+v1.\+Fake27\+QPulse\+V1 Class Reference}
+\hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1}{}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1}\index{qiskit.providers.fake\_provider.backends\_v1.fake\_27q\_pulse.fake\_27q\_pulse\_v1.Fake27QPulseV1@{qiskit.providers.fake\_provider.backends\_v1.fake\_27q\_pulse.fake\_27q\_pulse\_v1.Fake27QPulseV1}}
+Inheritance diagram for qiskit.\+providers.\+fake\+\_\+provider.\+backends\+\_\+v1.\+fake\+\_\+27q\+\_\+pulse.\+fake\+\_\+27q\+\_\+pulse\+\_\+v1.\+Fake27\+QPulse\+V1\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.921739cm]{d8/dbd/classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_aae3dc84f01323671802bad2dac3fe17e}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_aae3dc84f01323671802bad2dac3fe17e} 
+{\bfseries dirname} = os.\+path.\+dirname(\+\_\+\+\_\+file\+\_\+\+\_\+)
+\item 
+\Hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_a4a07f114770d133fe4cc58d21c0957fa}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_a4a07f114770d133fe4cc58d21c0957fa} 
+str {\bfseries conf\+\_\+filename} = "{}conf\+\_\+hanoi.\+json"{}
+\item 
+\Hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_a15400c0f6c75a41d1c0bc146e6e77c7a}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_a15400c0f6c75a41d1c0bc146e6e77c7a} 
+str {\bfseries props\+\_\+filename} = "{}props\+\_\+hanoi.\+json"{}
+\item 
+\Hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_ae633fb9724cbbc6ae66873d99f9e7371}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_ae633fb9724cbbc6ae66873d99f9e7371} 
+str {\bfseries defs\+\_\+filename} = "{}defs\+\_\+hanoi.\+json"{}
+\item 
+\Hypertarget{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_af8270b254f550f00598494a0c22af570}\label{classqiskit_1_1providers_1_1fake__provider_1_1backends__v1_1_1fake__27q__pulse_1_1fake__27q__pulse__v1_1_1_fake27_q_pulse_v1_af8270b254f550f00598494a0c22af570} 
+str {\bfseries backend\+\_\+name} = "{}fake\+\_\+27q\+\_\+pulse\+\_\+v1"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A fake **pulse** backend with the following characteristics:
+
+* num_qubits: 27
+* coupling_map:
+
+    .. code-block:: text
+
+                       06                  17
+                       ↕                    ↕
+        00 ↔ 01 ↔ 04 ↔ 07 ↔ 10 ↔ 12 ↔ 15 ↔ 18 ↔ 20 ↔ 23
+             ↕                   ↕                    ↕
+             02                  13                  24
+             ↕                   ↕                    ↕
+             03 ↔ 05 ↔ 08 ↔ 11 ↔ 14 ↔ 16 ↔ 19 ↔ 22 ↔ 25 ↔ 26
+                       ↕                    ↕
+                       09                  20
+
+* basis_gates: ``["id", "rz", "sx", "x", "cx", "reset"]``
+* scheduled instructions:
+    # ``{'id', 'rz', 'u2', 'x', 'u3', 'sx', 'measure', 'u1'}`` for all individual qubits
+    # ``{'cx'}`` for all edges
+    # ``{'measure'}`` for (0, ..., 26)
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/providers/fake\+\_\+provider/backends\+\_\+v1/fake\+\_\+27q\+\_\+pulse/fake\+\_\+27q\+\_\+pulse\+\_\+v1.\+py\end{DoxyCompactItemize}

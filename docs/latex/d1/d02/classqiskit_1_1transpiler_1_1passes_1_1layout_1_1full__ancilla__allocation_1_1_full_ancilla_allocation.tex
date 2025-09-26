@@ -1,0 +1,127 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation}{}\label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation}\index{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.948956cm]{d1/d02/classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa162aa8865fc50d6b53d569ec892a53f_aa162aa8865fc50d6b53d569ec892a53f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, coupling\+\_\+map)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a4ba1295914a722bf944c9e6aa6ec2ca7_a4ba1295914a722bf944c9e6aa6ec2ca7}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa335d7130da51dd27136aa5d0dced17e_aa335d7130da51dd27136aa5d0dced17e}{validate\+\_\+layout}} (layout\+\_\+qubits, dag\+\_\+qubits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_ae7be824033b09a0b3ca9fe638f40f049}\label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_ae7be824033b09a0b3ca9fe638f40f049} 
+{\bfseries target} = coupling\+\_\+map
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_acdaeab9b50298e73337b191b0dc01dae}\label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_acdaeab9b50298e73337b191b0dc01dae} 
+{\bfseries coupling\+\_\+map} = self.\+target.\+build\+\_\+coupling\+\_\+map()
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a4c7d83e1a86601bcbe65713d5f1daa01}\label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a4c7d83e1a86601bcbe65713d5f1daa01} 
+str {\bfseries ancilla\+\_\+name} = "{}ancilla"{}
+\item 
+list \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a64cc8dada984f7554e478eedda9a648e_a64cc8dada984f7554e478eedda9a648e}{coupling\+\_\+map}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Allocate all idle nodes from the coupling map or target as ancilla on the layout.
+
+A pass for allocating all idle physical qubits (those that exist in coupling
+map or target but not the dag circuit) as ancilla. It will also choose new
+virtual qubits to correspond to those physical ancilla.
+
+Note:
+    This is an analysis pass, and only responsible for choosing physical
+    ancilla locations and their corresponding virtual qubits.
+    A separate transformation pass must add those virtual qubits to the
+    circuit.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa162aa8865fc50d6b53d569ec892a53f_aa162aa8865fc50d6b53d569ec892a53f}\index{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa162aa8865fc50d6b53d569ec892a53f_aa162aa8865fc50d6b53d569ec892a53f} 
+qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{coupling\+\_\+map}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}FullAncillaAllocation initializer.
+
+Args:
+    coupling_map (Union[CouplingMap, Target]): directed graph representing a coupling map.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a4ba1295914a722bf944c9e6aa6ec2ca7_a4ba1295914a722bf944c9e6aa6ec2ca7}\index{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a4ba1295914a722bf944c9e6aa6ec2ca7_a4ba1295914a722bf944c9e6aa6ec2ca7} 
+qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the FullAncillaAllocation pass on `dag`.
+
+Extend the layout with new (physical qubit, virtual qubit) pairs.
+The dag signals which virtual qubits are already in the circuit.
+This pass will allocate new virtual qubits such that no collision occurs
+(i.e. Layout bijectivity is preserved)
+
+The coupling_map and layout together determine which physical qubits are free.
+
+Args:
+    dag (DAGCircuit): circuit to analyze
+
+Returns:
+    DAGCircuit: returns the same dag circuit, unmodified
+
+Raises:
+    TranspilerError: If there is not layout in the property set or not set at init time.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa335d7130da51dd27136aa5d0dced17e_aa335d7130da51dd27136aa5d0dced17e}\index{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}!validate\_layout@{validate\_layout}}
+\index{validate\_layout@{validate\_layout}!qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}}
+\doxysubsubsection{\texorpdfstring{validate\_layout()}{validate\_layout()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_aa335d7130da51dd27136aa5d0dced17e_aa335d7130da51dd27136aa5d0dced17e} 
+qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation.\+validate\+\_\+layout (\begin{DoxyParamCaption}\item[{}]{layout\+\_\+qubits}{, }\item[{}]{dag\+\_\+qubits}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Checks if all the qregs in ``layout_qregs`` already exist in ``dag_qregs``. Otherwise, raise.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a64cc8dada984f7554e478eedda9a648e_a64cc8dada984f7554e478eedda9a648e}\index{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}!coupling\_map@{coupling\_map}}
+\index{coupling\_map@{coupling\_map}!qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation@{qiskit.transpiler.passes.layout.full\_ancilla\_allocation.FullAncillaAllocation}}
+\doxysubsubsection{\texorpdfstring{coupling\_map}{coupling\_map}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1full__ancilla__allocation_1_1_full_ancilla_allocation_a64cc8dada984f7554e478eedda9a648e_a64cc8dada984f7554e478eedda9a648e} 
+list qiskit.\+transpiler.\+passes.\+layout.\+full\+\_\+ancilla\+\_\+allocation.\+Full\+Ancilla\+Allocation.\+coupling\+\_\+map}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ q\ \textcolor{keywordflow}{for}\ q\ \textcolor{keywordflow}{in}\ self.coupling\_map.physical\_qubits\ \textcolor{keywordflow}{if}\ q\ \textcolor{keywordflow}{not}\ \textcolor{keywordflow}{in}\ physical\_bits}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ ]}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/layout/full\+\_\+ancilla\+\_\+allocation.\+py\end{DoxyCompactItemize}

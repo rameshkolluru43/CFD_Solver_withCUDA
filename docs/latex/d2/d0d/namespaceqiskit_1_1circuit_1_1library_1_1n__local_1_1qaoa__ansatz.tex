@@ -1,0 +1,65 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+qaoa\+\_\+ansatz Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz}\index{qiskit.circuit.library.n\_local.qaoa\_ansatz@{qiskit.circuit.library.n\_local.qaoa\_ansatz}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz_1_1_q_a_o_a_ansatz}{QAOAAnsatz}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz_acd3f6c3b676a4d3f6499aeb92196a6d3_acd3f6c3b676a4d3f6499aeb92196a6d3}{qaoa\+\_\+ansatz}} (\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} cost\+\_\+operator, int reps=1, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}None initial\+\_\+state=None, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\texorpdfstring{$\vert$}{|}None mixer\+\_\+operator=None, bool insert\+\_\+barriers=False, str name="{}QAOA"{}, bool flatten=True)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A generalized QAOA quantum circuit with a support of custom initial states and mixers.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz_acd3f6c3b676a4d3f6499aeb92196a6d3_acd3f6c3b676a4d3f6499aeb92196a6d3}\index{qiskit.circuit.library.n\_local.qaoa\_ansatz@{qiskit.circuit.library.n\_local.qaoa\_ansatz}!qaoa\_ansatz@{qaoa\_ansatz}}
+\index{qaoa\_ansatz@{qaoa\_ansatz}!qiskit.circuit.library.n\_local.qaoa\_ansatz@{qiskit.circuit.library.n\_local.qaoa\_ansatz}}
+\doxysubsubsection{\texorpdfstring{qaoa\_ansatz()}{qaoa\_ansatz()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1qaoa__ansatz_acd3f6c3b676a4d3f6499aeb92196a6d3_acd3f6c3b676a4d3f6499aeb92196a6d3} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+n\+\_\+local.\+qaoa\+\_\+ansatz.\+qaoa\+\_\+ansatz (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}}]{cost\+\_\+operator}{, }\item[{int }]{reps}{ = {\ttfamily 1}, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+state}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} \texorpdfstring{$\vert$}{|} None }]{mixer\+\_\+operator}{ = {\ttfamily None}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{str }]{name}{ = {\ttfamily "{}QAOA"{}}, }\item[{bool }]{flatten}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A generalized QAOA quantum circuit with a support of custom initial states and mixers.
+
+    Examples:
+
+        To define the QAOA ansatz we require a cost Hamiltonian, encoding the classical
+        optimization problem:
+
+        .. plot::
+            :alt: Circuit diagram output by the previous code.
+            :include-source:
+
+            from qiskit.quantum_info import SparsePauliOp
+            from qiskit.circuit.library import qaoa_ansatz
+
+            cost_operator = SparsePauliOp(["ZZII", "IIZZ", "ZIIZ"])
+            ansatz = qaoa_ansatz(cost_operator, reps=3, insert_barriers=True)
+            ansatz.draw("mpl")
+
+    Args:
+        cost_operator: The operator representing the cost of the optimization problem, denoted as
+            :math:`U(C, \gamma)` in [1].
+        reps: The integer determining the depth of the circuit, called :math:`p` in [1].
+        initial_state: An optional initial state to use, which defaults to a layer of
+            Hadamard gates preparing the :math:`|+\rangle^{\otimes n}` state.
+            If a custom mixer is chosen, this circuit should be set to prepare its ground state,
+            to appropriately fulfill the annealing conditions.
+        mixer_operator: An optional custom mixer, which defaults to global Pauli-:math:`X`
+            rotations. This is denoted as :math:`U(B, \beta)` in [1]. If this is set,
+            the ``initial_state`` might also require modification.
+        insert_barriers: Whether to insert barriers in-between the cost and mixer operators.
+        name: The name of the circuit.
+        flatten: If ``True``, a flat circuit is returned instead of nesting it inside multiple
+            layers of gate objects. Setting this to ``False`` is significantly less performant,
+            especially for parameter binding, but can be desirable for a cleaner visualization.
+
+    References:
+
+        [1]: Farhi et al., A Quantum Approximate Optimization Algorithm.
+            `arXiv:1411.4028 <https://arxiv.org/pdf/1411.4028>`_\end{DoxyVerb}
+ 

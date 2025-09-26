@@ -1,0 +1,141 @@
+\doxysection{setuptools.\+command.\+build.\+Sub\+Command Class Reference}
+\hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command}{}\label{classsetuptools_1_1command_1_1build_1_1_sub_command}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+Inheritance diagram for setuptools.\+command.\+build.\+Sub\+Command\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{da/d25/classsetuptools_1_1command_1_1build_1_1_sub_command}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_a10491939752ebdb27325a9110172c88c_a10491939752ebdb27325a9110172c88c}{initialize\+\_\+options}} (self)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_a94ee426feebe6941b5e57ea17a7aa9f1_a94ee426feebe6941b5e57ea17a7aa9f1}{finalize\+\_\+options}} (self)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_a2cf1c7f41152d28eb737b1dd3f6e275d_a2cf1c7f41152d28eb737b1dd3f6e275d}{run}} (self)
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_ad7cede523a5069a242fb01ef63081f91_ad7cede523a5069a242fb01ef63081f91}{get\+\_\+source\+\_\+files}} (self)
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_a87aeebdef42905a61d0f3c0b802766f5_a87aeebdef42905a61d0f3c0b802766f5}{get\+\_\+outputs}} (self)
+\item 
+dict\mbox{[}str, str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1command_1_1build_1_1_sub_command_ad536c81a450a75f43d633ba796112f5e_ad536c81a450a75f43d633ba796112f5e}{get\+\_\+output\+\_\+mapping}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_a2e825f25a68b98db176786e3ba008b73}\label{classsetuptools_1_1command_1_1build_1_1_sub_command_a2e825f25a68b98db176786e3ba008b73} 
+bool {\bfseries editable\+\_\+mode} = False
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}In order to support editable installations (see :pep:`660`) all
+build subcommands **SHOULD** implement this protocol. They also **MUST** inherit
+from ``setuptools.Command``.
+
+When creating an :pep:`editable wheel <660>`, ``setuptools`` will try to evaluate
+custom ``build`` subcommands using the following procedure:
+
+1. ``setuptools`` will set the ``editable_mode`` attribute to ``True``
+2. ``setuptools`` will execute the ``run()`` command.
+
+   .. important::
+      Subcommands **SHOULD** take advantage of ``editable_mode=True`` to adequate
+      its behaviour or perform optimisations.
+
+      For example, if a subcommand doesn't need to generate an extra file and
+      all it does is to copy a source file into the build directory,
+      ``run()`` **SHOULD** simply "early return".
+
+      Similarly, if the subcommand creates files that would be placed alongside
+      Python files in the final distribution, during an editable install
+      the command **SHOULD** generate these files "in place" (i.e. write them to
+      the original source directory, instead of using the build directory).
+      Note that ``get_output_mapping()`` should reflect that and include mappings
+      for "in place" builds accordingly.
+
+3. ``setuptools`` use any knowledge it can derive from the return values of
+   ``get_outputs()`` and ``get_output_mapping()`` to create an editable wheel.
+   When relevant ``setuptools`` **MAY** attempt to use file links based on the value
+   of ``get_output_mapping()``. Alternatively, ``setuptools`` **MAY** attempt to use
+   :doc:`import hooks <python:reference/import>` to redirect any attempt to import
+   to the directory with the original source code and other files built in place.
+
+Please note that custom sub-commands **SHOULD NOT** rely on ``run()`` being
+executed (or not) to provide correct return values for ``get_outputs()``,
+``get_output_mapping()`` or ``get_source_files()``. The ``get_*`` methods should
+work independently of ``run()``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_a94ee426feebe6941b5e57ea17a7aa9f1_a94ee426feebe6941b5e57ea17a7aa9f1}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!finalize\_options@{finalize\_options}}
+\index{finalize\_options@{finalize\_options}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{finalize\_options()}{finalize\_options()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_a94ee426feebe6941b5e57ea17a7aa9f1_a94ee426feebe6941b5e57ea17a7aa9f1} 
+ None setuptools.\+command.\+build.\+Sub\+Command.\+finalize\+\_\+options (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}(Required by the original :class:`setuptools.Command` interface)\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_ad536c81a450a75f43d633ba796112f5e_ad536c81a450a75f43d633ba796112f5e}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!get\_output\_mapping@{get\_output\_mapping}}
+\index{get\_output\_mapping@{get\_output\_mapping}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{get\_output\_mapping()}{get\_output\_mapping()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_ad536c81a450a75f43d633ba796112f5e_ad536c81a450a75f43d633ba796112f5e} 
+ dict\mbox{[}str, str\mbox{]} setuptools.\+command.\+build.\+Sub\+Command.\+get\+\_\+output\+\_\+mapping (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a mapping between destination files as they would be produced by the
+build (dict keys) into the respective existing (source) files (dict values).
+Existing (source) files should be represented as strings relative to the project
+root directory.
+Destination files should be strings in the form of
+``"{build_lib}/destination/file/path"``.
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_a87aeebdef42905a61d0f3c0b802766f5_a87aeebdef42905a61d0f3c0b802766f5}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!get\_outputs@{get\_outputs}}
+\index{get\_outputs@{get\_outputs}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{get\_outputs()}{get\_outputs()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_a87aeebdef42905a61d0f3c0b802766f5_a87aeebdef42905a61d0f3c0b802766f5} 
+ list\mbox{[}str\mbox{]} setuptools.\+command.\+build.\+Sub\+Command.\+get\+\_\+outputs (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of files intended for distribution as they would have been
+produced by the build.
+These files should be strings in the form of
+``"{build_lib}/destination/file/path"``.
+
+.. note::
+   The return value of ``get_output()`` should include all files used as keys
+   in ``get_output_mapping()`` plus files that are generated during the build
+   and don't correspond to any source file already present in the project.
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_ad7cede523a5069a242fb01ef63081f91_ad7cede523a5069a242fb01ef63081f91}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!get\_source\_files@{get\_source\_files}}
+\index{get\_source\_files@{get\_source\_files}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{get\_source\_files()}{get\_source\_files()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_ad7cede523a5069a242fb01ef63081f91_ad7cede523a5069a242fb01ef63081f91} 
+ list\mbox{[}str\mbox{]} setuptools.\+command.\+build.\+Sub\+Command.\+get\+\_\+source\+\_\+files (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of all files that are used by the command to create the expected
+outputs.
+For example, if your build command transpiles Java files into Python, you should
+list here all the Java files.
+The primary purpose of this function is to help populating the ``sdist``
+with all the files necessary to build the distribution.
+All files should be strings relative to the project root directory.
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_a10491939752ebdb27325a9110172c88c_a10491939752ebdb27325a9110172c88c}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!initialize\_options@{initialize\_options}}
+\index{initialize\_options@{initialize\_options}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{initialize\_options()}{initialize\_options()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_a10491939752ebdb27325a9110172c88c_a10491939752ebdb27325a9110172c88c} 
+ None setuptools.\+command.\+build.\+Sub\+Command.\+initialize\+\_\+options (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}(Required by the original :class:`setuptools.Command` interface)\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1command_1_1build_1_1_sub_command_a2cf1c7f41152d28eb737b1dd3f6e275d_a2cf1c7f41152d28eb737b1dd3f6e275d}\index{setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}!run@{run}}
+\index{run@{run}!setuptools.command.build.SubCommand@{setuptools.command.build.SubCommand}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1command_1_1build_1_1_sub_command_a2cf1c7f41152d28eb737b1dd3f6e275d_a2cf1c7f41152d28eb737b1dd3f6e275d} 
+ None setuptools.\+command.\+build.\+Sub\+Command.\+run (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}(Required by the original :class:`setuptools.Command` interface)\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/command/build.\+py\end{DoxyCompactItemize}

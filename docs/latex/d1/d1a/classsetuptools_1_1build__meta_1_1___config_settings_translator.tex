@@ -1,0 +1,119 @@
+\doxysection{setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator Class Reference}
+\hypertarget{classsetuptools_1_1build__meta_1_1___config_settings_translator}{}\label{classsetuptools_1_1build__meta_1_1___config_settings_translator}\index{setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}}
+Inheritance diagram for setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d1/d1a/classsetuptools_1_1build__meta_1_1___config_settings_translator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1build__meta_1_1___config_settings_translator_a8cbc80899d605c2365064eb38d153ba4_a8cbc80899d605c2365064eb38d153ba4}{\+\_\+get\+\_\+config}} (self, str key, \+\_\+\+Config\+Settings config\+\_\+settings)
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1build__meta_1_1___config_settings_translator_a84ece80d1571a64dd0bcdf35cbebb951_a84ece80d1571a64dd0bcdf35cbebb951}{\+\_\+global\+\_\+args}} (self, \+\_\+\+Config\+Settings config\+\_\+settings)
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1build__meta_1_1___config_settings_translator_ae02203f377527f56d0ce9ab2772ded88_ae02203f377527f56d0ce9ab2772ded88}{\+\_\+editable\+\_\+args}} (self, \+\_\+\+Config\+Settings config\+\_\+settings)
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1build__meta_1_1___config_settings_translator_a18c73319121a754cd09ed3021fffffd3_a18c73319121a754cd09ed3021fffffd3}{\+\_\+arbitrary\+\_\+args}} (self, \+\_\+\+Config\+Settings config\+\_\+settings)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Translate ``config_settings`` into distutils-style command arguments.
+Only a limited number of options is currently supported.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1build__meta_1_1___config_settings_translator_a18c73319121a754cd09ed3021fffffd3_a18c73319121a754cd09ed3021fffffd3}\index{setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}!\_arbitrary\_args@{\_arbitrary\_args}}
+\index{\_arbitrary\_args@{\_arbitrary\_args}!setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}}
+\doxysubsubsection{\texorpdfstring{\_arbitrary\_args()}{\_arbitrary\_args()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1build__meta_1_1___config_settings_translator_a18c73319121a754cd09ed3021fffffd3_a18c73319121a754cd09ed3021fffffd3} 
+ Iterator\mbox{[}str\mbox{]} setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator.\+\_\+arbitrary\+\_\+args (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\+\_\+\+Config\+Settings}]{config\+\_\+settings}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Users may expect to pass arbitrary lists of arguments to a command
+via "--global-option" (example provided in PEP 517 of a "escape hatch").
+
+>>> fn = _ConfigSettingsTranslator()._arbitrary_args
+>>> list(fn(None))
+[]
+>>> list(fn({}))
+[]
+>>> list(fn({'--build-option': 'foo'}))
+['foo']
+>>> list(fn({'--build-option': ['foo']}))
+['foo']
+>>> list(fn({'--build-option': 'foo'}))
+['foo']
+>>> list(fn({'--build-option': 'foo bar'}))
+['foo', 'bar']
+>>> list(fn({'--global-option': 'foo'}))
+[]
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1build__meta_1_1___config_settings_translator_ae02203f377527f56d0ce9ab2772ded88_ae02203f377527f56d0ce9ab2772ded88}\index{setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}!\_editable\_args@{\_editable\_args}}
+\index{\_editable\_args@{\_editable\_args}!setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}}
+\doxysubsubsection{\texorpdfstring{\_editable\_args()}{\_editable\_args()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1build__meta_1_1___config_settings_translator_ae02203f377527f56d0ce9ab2772ded88_ae02203f377527f56d0ce9ab2772ded88} 
+ Iterator\mbox{[}str\mbox{]} setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator.\+\_\+editable\+\_\+args (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\+\_\+\+Config\+Settings}]{config\+\_\+settings}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}The ``editable_wheel`` command accepts ``editable-mode=strict``.
+
+>>> fn = _ConfigSettingsTranslator()._editable_args
+>>> list(fn(None))
+[]
+>>> list(fn({"editable-mode": "strict"}))
+['--mode', 'strict']
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1build__meta_1_1___config_settings_translator_a8cbc80899d605c2365064eb38d153ba4_a8cbc80899d605c2365064eb38d153ba4}\index{setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}!\_get\_config@{\_get\_config}}
+\index{\_get\_config@{\_get\_config}!setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}}
+\doxysubsubsection{\texorpdfstring{\_get\_config()}{\_get\_config()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1build__meta_1_1___config_settings_translator_a8cbc80899d605c2365064eb38d153ba4_a8cbc80899d605c2365064eb38d153ba4} 
+ list\mbox{[}str\mbox{]} setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator.\+\_\+get\+\_\+config (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{key}{, }\item[{\+\_\+\+Config\+Settings}]{config\+\_\+settings}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the value of a specific key in ``config_settings`` as a list of strings.
+
+>>> fn = _ConfigSettingsTranslator()._get_config
+>>> fn("--global-option", None)
+[]
+>>> fn("--global-option", {})
+[]
+>>> fn("--global-option", {'--global-option': 'foo'})
+['foo']
+>>> fn("--global-option", {'--global-option': ['foo']})
+['foo']
+>>> fn("--global-option", {'--global-option': 'foo'})
+['foo']
+>>> fn("--global-option", {'--global-option': 'foo bar'})
+['foo', 'bar']
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1build__meta_1_1___config_settings_translator_a84ece80d1571a64dd0bcdf35cbebb951_a84ece80d1571a64dd0bcdf35cbebb951}\index{setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}!\_global\_args@{\_global\_args}}
+\index{\_global\_args@{\_global\_args}!setuptools.build\_meta.\_ConfigSettingsTranslator@{setuptools.build\_meta.\_ConfigSettingsTranslator}}
+\doxysubsubsection{\texorpdfstring{\_global\_args()}{\_global\_args()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1build__meta_1_1___config_settings_translator_a84ece80d1571a64dd0bcdf35cbebb951_a84ece80d1571a64dd0bcdf35cbebb951} 
+ Iterator\mbox{[}str\mbox{]} setuptools.\+build\+\_\+meta.\+\_\+\+Config\+Settings\+Translator.\+\_\+global\+\_\+args (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\+\_\+\+Config\+Settings}]{config\+\_\+settings}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Let the user specify ``verbose`` or ``quiet`` + escape hatch via
+``--global-option``.
+Note: ``-v``, ``-vv``, ``-vvv`` have similar effects in setuptools,
+so we just have to cover the basic scenario ``-v``.
+
+>>> fn = _ConfigSettingsTranslator()._global_args
+>>> list(fn(None))
+[]
+>>> list(fn({"verbose": "False"}))
+['-q']
+>>> list(fn({"verbose": "1"}))
+['-v']
+>>> list(fn({"--verbose": None}))
+['-v']
+>>> list(fn({"verbose": "true", "--global-option": "-q --no-user-cfg"}))
+['-v', '-q', '--no-user-cfg']
+>>> list(fn({"--quiet": None}))
+['-q']
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/build\+\_\+meta.\+py\end{DoxyCompactItemize}

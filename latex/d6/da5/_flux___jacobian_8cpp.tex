@@ -1,0 +1,225 @@
+\doxysection{src/\+Flux\+\_\+\+Jacobian.cpp File Reference}
+\hypertarget{_flux___jacobian_8cpp}{}\label{_flux___jacobian_8cpp}\index{src/Flux\_Jacobian.cpp@{src/Flux\_Jacobian.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Utilities.\+h"{}}\newline
+Include dependency graph for Flux\+\_\+\+Jacobian.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d70/_flux___jacobian_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \mbox{\hyperlink{_flux___jacobian_8cpp_afbbefa55a3532b90c1fa3d4740a0b8d3_afbbefa55a3532b90c1fa3d4740a0b8d3}{Compute\+\_\+\+Flux\+\_\+\+Jacobian}} (int \&Cell\+\_\+\+No, vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&Ac, int \&Face\+\_\+\+No)
+\item 
+vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \mbox{\hyperlink{_flux___jacobian_8cpp_aacc73d4767c573d4db61bbf2e502d331_aacc73d4767c573d4db61bbf2e502d331}{Compute\+Ghost\+Cell\+\_\+\+Flux\+\_\+\+Jacobian}} (int \&Ghost\+\_\+\+Cell\+\_\+\+No, int \&Cell\+\_\+\+No, vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&Ac, int \&Face\+\_\+\+No)
+\item 
+void \mbox{\hyperlink{_flux___jacobian_8cpp_a238383134639e46e51064d66494195f9_a238383134639e46e51064d66494195f9}{Check\+Matrix\+For\+Errors}} (vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&\mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_flux___jacobian_8cpp_a238383134639e46e51064d66494195f9_a238383134639e46e51064d66494195f9}\index{Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}!CheckMatrixForErrors@{CheckMatrixForErrors}}
+\index{CheckMatrixForErrors@{CheckMatrixForErrors}!Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}}
+\doxysubsubsection{\texorpdfstring{CheckMatrixForErrors()}{CheckMatrixForErrors()}}
+{\footnotesize\ttfamily \label{_flux___jacobian_8cpp_a238383134639e46e51064d66494195f9_a238383134639e46e51064d66494195f9} 
+void Check\+Matrix\+For\+Errors (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&}]{A}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flux___jacobian_8cpp_source_l00119}{119}} of file \mbox{\hyperlink{_flux___jacobian_8cpp_source}{Flux\+\_\+\+Jacobian.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{bool}\ found\_nan\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}.size();\ i++)}
+\DoxyCodeLine{00124\ \ \ \ \ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[i].size();\ j++)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ value\ =\ \mbox{\hyperlink{_globals_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[i][j];}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::isnan(value))}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}NaN\ found\ at\ position\ ("{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ j\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\_nan\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (value\ ==\ INFINITY\ ||\ value\ ==\ -\/INFINITY)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Infinity\ found\ at\ position\ ("{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ j\ <<\ \textcolor{stringliteral}{"{})"{}}\ <<\ endl;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\_nan\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_flux___jacobian_8cpp_afbbefa55a3532b90c1fa3d4740a0b8d3_afbbefa55a3532b90c1fa3d4740a0b8d3}\index{Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}!Compute\_Flux\_Jacobian@{Compute\_Flux\_Jacobian}}
+\index{Compute\_Flux\_Jacobian@{Compute\_Flux\_Jacobian}!Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}}
+\doxysubsubsection{\texorpdfstring{Compute\_Flux\_Jacobian()}{Compute\_Flux\_Jacobian()}}
+{\footnotesize\ttfamily \label{_flux___jacobian_8cpp_afbbefa55a3532b90c1fa3d4740a0b8d3_afbbefa55a3532b90c1fa3d4740a0b8d3} 
+vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ Compute\+\_\+\+Flux\+\_\+\+Jacobian (\begin{DoxyParamCaption}\item[{int \&}]{Cell\+\_\+\+No}{, }\item[{vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&}]{Ac}{, }\item[{int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flux___jacobian_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_flux___jacobian_8cpp_source}{Flux\+\_\+\+Jacobian.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ Precomputed\ values}}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}in\ Flux\ Jacobian\ function\(\backslash\)t\ with\ Cell\ number\ "{}<<Cell\_No<<"{}\(\backslash\)tand\ face\ number\ \(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00010\ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(Ac);}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Print(Ac);}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][1];}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][2];}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{double}\ E\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][6];}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{double}\ Vt\ =\ 0.0;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<u<<"{}\(\backslash\)t"{}<<v<<"{}\(\backslash\)t"{}<<E<<"{}\(\backslash\)t"{}<<gamma<<endl;}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No\ *\ 2;}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ the\ Normals\ of\ the\ face\ and\ face\ length}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{/*nx\ =\ Cell\_Face\_Normals[Cell\_No][index+0];//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index+1];//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl*/}}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[index\ +\ 0];}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[index\ +\ 1];}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Normals\ \(\backslash\)t"{}<<nx<<"{}\(\backslash\)t"{}<<ny<<endl;}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}\ phi\ =\ 0.5\ *\ (\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1)\ *\ (\mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ +\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}});}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ +\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{double}\ a1\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ *\ E\ -\/\ phi;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{double}\ a2\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1;}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordtype}{double}\ a3\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 2;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{comment}{//\ Fill\ the\ matrix\ Ac}}
+\DoxyCodeLine{00036\ \ \ \ \ Ac[0][0]\ =\ -\/Vt;}
+\DoxyCodeLine{00037\ \ \ \ \ Ac[0][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{00038\ \ \ \ \ Ac[0][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};}
+\DoxyCodeLine{00039\ \ \ \ \ Ac[0][3]\ =\ 0;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ Ac[1][0]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ phi\ -\/\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00042\ \ \ \ \ Ac[1][1]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt\ -\/\ a3\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}};}
+\DoxyCodeLine{00043\ \ \ \ \ Ac[1][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00044\ \ \ \ \ Ac[1][3]\ =\ a2\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ Ac[2][0]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ phi\ -\/\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00047\ \ \ \ \ Ac[2][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}};}
+\DoxyCodeLine{00048\ \ \ \ \ Ac[2][2]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt\ -\/\ a3\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00049\ \ \ \ \ Ac[2][3]\ =\ a2\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ Ac[3][0]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ *\ (phi\ -\/\ a1);}
+\DoxyCodeLine{00052\ \ \ \ \ Ac[3][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ a1\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00053\ \ \ \ \ Ac[3][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ a1\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00054\ \ \ \ \ Ac[3][3]\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}THe\ value\ of\ of\ flux\ Jacobian\ matrix\ is"{}<<endl;}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Print(Ac);}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{return}\ Ac;}
+\DoxyCodeLine{00060\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{d6/da5/_flux___jacobian_8cpp_afbbefa55a3532b90c1fa3d4740a0b8d3_afbbefa55a3532b90c1fa3d4740a0b8d3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/da5/_flux___jacobian_8cpp_afbbefa55a3532b90c1fa3d4740a0b8d3_afbbefa55a3532b90c1fa3d4740a0b8d3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flux___jacobian_8cpp_aacc73d4767c573d4db61bbf2e502d331_aacc73d4767c573d4db61bbf2e502d331}\index{Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}!ComputeGhostCell\_Flux\_Jacobian@{ComputeGhostCell\_Flux\_Jacobian}}
+\index{ComputeGhostCell\_Flux\_Jacobian@{ComputeGhostCell\_Flux\_Jacobian}!Flux\_Jacobian.cpp@{Flux\_Jacobian.cpp}}
+\doxysubsubsection{\texorpdfstring{ComputeGhostCell\_Flux\_Jacobian()}{ComputeGhostCell\_Flux\_Jacobian()}}
+{\footnotesize\ttfamily \label{_flux___jacobian_8cpp_aacc73d4767c573d4db61bbf2e502d331_aacc73d4767c573d4db61bbf2e502d331} 
+vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ Compute\+Ghost\+Cell\+\_\+\+Flux\+\_\+\+Jacobian (\begin{DoxyParamCaption}\item[{int \&}]{Ghost\+\_\+\+Cell\+\_\+\+No}{, }\item[{int \&}]{Cell\+\_\+\+No}{, }\item[{vector$<$ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\+\_\+D}} $>$ \&}]{Ac}{, }\item[{int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flux___jacobian_8cpp_source_l00063}{63}} of file \mbox{\hyperlink{_flux___jacobian_8cpp_source}{Flux\+\_\+\+Jacobian.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Precomputed\ values}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}in\ Flux\ Jacobian\ function\(\backslash\)t\ with\ Cell\ number\ "{}<<Cell\_No<<"{}\(\backslash\)tand\ face\ number\ \(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(Ac);}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Print(Ac);}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_No][1];}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_No][2];}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordtype}{double}\ E\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_No][6];}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{double}\ Vt\ =\ 0.0;}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<u<<"{}\(\backslash\)t"{}<<v<<"{}\(\backslash\)t"{}<<E<<"{}\(\backslash\)t"{}<<gamma<<endl;}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No\ *\ 2;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ the\ Normals\ of\ the\ face\ and\ face\ length}}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{comment}{/*\ nx\ =\ Cell\_Face\_Normals[Cell\_No][index+0];//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index+1];//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl*/}}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[index\ +\ 0];}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[index\ +\ 1];}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Normals\ \(\backslash\)t"{}<<nx<<"{}\(\backslash\)t"{}<<ny<<endl;}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordtype}{double}\ phi\ =\ 0.5\ *\ (\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1)\ *\ (\mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ +\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}});}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ +\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{double}\ a1\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ *\ E\ -\/\ phi;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{double}\ a2\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{double}\ a3\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 2;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ Fill\ the\ matrix\ Ac}}
+\DoxyCodeLine{00093\ \ \ \ \ Ac[0][0]\ =\ -\/Vt;}
+\DoxyCodeLine{00094\ \ \ \ \ Ac[0][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{00095\ \ \ \ \ Ac[0][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};}
+\DoxyCodeLine{00096\ \ \ \ \ Ac[0][3]\ =\ 0;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ Ac[1][0]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ phi\ -\/\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00099\ \ \ \ \ Ac[1][1]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt\ -\/\ a3\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}};}
+\DoxyCodeLine{00100\ \ \ \ \ Ac[1][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00101\ \ \ \ \ Ac[1][3]\ =\ a2\ *\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ Ac[2][0]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ phi\ -\/\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00104\ \ \ \ \ Ac[2][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}};}
+\DoxyCodeLine{00105\ \ \ \ \ Ac[2][2]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt\ -\/\ a3\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}};}
+\DoxyCodeLine{00106\ \ \ \ \ Ac[2][3]\ =\ a2\ *\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ Ac[3][0]\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ *\ (phi\ -\/\ a1);}
+\DoxyCodeLine{00109\ \ \ \ \ Ac[3][1]\ =\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ a1\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00110\ \ \ \ \ Ac[3][2]\ =\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ a1\ -\/\ a2\ *\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}};}
+\DoxyCodeLine{00111\ \ \ \ \ Ac[3][3]\ =\ \mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ *\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}\ -\/\ Vt;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}THe\ value\ of\ of\ flux\ Jacobian\ matrix\ is"{}<<endl;}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Print(Ac);}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{return}\ Ac;}
+\DoxyCodeLine{00117\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=315pt]{d6/da5/_flux___jacobian_8cpp_aacc73d4767c573d4db61bbf2e502d331_aacc73d4767c573d4db61bbf2e502d331_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/da5/_flux___jacobian_8cpp_aacc73d4767c573d4db61bbf2e502d331_aacc73d4767c573d4db61bbf2e502d331_icgraph}
+\end{center}
+\end{figure}

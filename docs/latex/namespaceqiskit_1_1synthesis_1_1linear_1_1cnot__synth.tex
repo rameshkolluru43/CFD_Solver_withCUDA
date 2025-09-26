@@ -1,0 +1,50 @@
+\doxysection{qiskit.\+synthesis.\+linear.\+cnot\+\_\+synth Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1cnot__synth}{}\label{namespaceqiskit_1_1synthesis_1_1linear_1_1cnot__synth}\index{qiskit.synthesis.linear.cnot\_synth@{qiskit.synthesis.linear.cnot\_synth}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear_1_1cnot__synth_a92a548da911e36500ff950a3c6659e33}{synth\+\_\+cnot\+\_\+count\+\_\+full\+\_\+pmh}} (list\mbox{[}list\mbox{[}bool\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}np.\+ndarray\mbox{[}bool\mbox{]} state, int\texorpdfstring{$\vert$}{|}None section\+\_\+size=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Implementation of the GraySynth algorithm for synthesizing CNOT-Phase
+circuits with efficient CNOT cost, and the Patel-Hayes-Markov algorithm
+for optimal synthesis of linear (CNOT-only) reversible circuits.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1cnot__synth_a92a548da911e36500ff950a3c6659e33}\index{qiskit.synthesis.linear.cnot\_synth@{qiskit.synthesis.linear.cnot\_synth}!synth\_cnot\_count\_full\_pmh@{synth\_cnot\_count\_full\_pmh}}
+\index{synth\_cnot\_count\_full\_pmh@{synth\_cnot\_count\_full\_pmh}!qiskit.synthesis.linear.cnot\_synth@{qiskit.synthesis.linear.cnot\_synth}}
+\doxysubsubsection{\texorpdfstring{synth\_cnot\_count\_full\_pmh()}{synth\_cnot\_count\_full\_pmh()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear_1_1cnot__synth_a92a548da911e36500ff950a3c6659e33} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+linear.\+cnot\+\_\+synth.\+synth\+\_\+cnot\+\_\+count\+\_\+full\+\_\+pmh (\begin{DoxyParamCaption}\item[{list\mbox{[}list\mbox{[}bool\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} np.\+ndarray\mbox{[}bool\mbox{]}}]{state}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{section\+\_\+size}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Synthesize linear reversible circuits for all-to-all architecture
+    using Patel, Markov and Hayes method.
+
+    This function is an implementation of the Patel, Markov and Hayes algorithm from [1]
+    for optimal synthesis of linear reversible circuits for all-to-all architecture,
+    as specified by an :math:`n \times n` matrix.
+
+    Args:
+        state: :math:`n \times n` boolean invertible matrix, describing
+            the state of the input circuit.
+        section_size: The size of each section in the Patel–Markov–Hayes algorithm [1].
+            If ``None`` it is chosen to be :math:`\max(2, \alpha\log_2(n))` with
+            :math:`\alpha = 0.56`, which approximately minimizes the upper bound on the number
+            of row operations given in [1] Eq. (3).
+
+    Returns:
+        A CX-only circuit implementing the linear transformation.
+
+    Raises:
+        ValueError: When ``section_size`` is larger than the number of columns.
+
+    References:
+        1. Patel, Ketan N., Igor L. Markov, and John P. Hayes,
+           *Optimal synthesis of linear reversible circuits*,
+           Quantum Information & Computation 8.3 (2008): 282-294.
+           `arXiv:quant-ph/0302002 [quant-ph] <https://arxiv.org/abs/quant-ph/0302002>`_\end{DoxyVerb}
+ 

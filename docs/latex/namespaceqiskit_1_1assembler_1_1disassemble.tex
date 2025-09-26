@@ -1,0 +1,133 @@
+\doxysection{qiskit.\+assembler.\+disassemble Namespace Reference}
+\hypertarget{namespaceqiskit_1_1assembler_1_1disassemble}{}\label{namespaceqiskit_1_1assembler_1_1disassemble}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Union\mbox{[}Circuit\+Module, Pulse\+Module\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1assembler_1_1disassemble_a0b71d5212fcdc8e8b985d04d1c2a317d}{disassemble}} (qobj)
+\item 
+\Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_a40ed9c1cb7b6a4b4af53bc66910cc85c}\label{namespaceqiskit_1_1assembler_1_1disassemble_a40ed9c1cb7b6a4b4af53bc66910cc85c} 
+Circuit\+Module {\bfseries \+\_\+disassemble\+\_\+circuit} (qobj)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1assembler_1_1disassemble_ae67e594618c354b00addec64e005e571}{\+\_\+qobj\+\_\+to\+\_\+circuit\+\_\+cals}} (qobj, pulse\+\_\+lib)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1assembler_1_1disassemble_a54fb143f518da1462fb8d8698c565170}{\+\_\+experiments\+\_\+to\+\_\+circuits}} (qobj)
+\item 
+\Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_a4360dc78516645e95eb59a4ddcdd6a00}\label{namespaceqiskit_1_1assembler_1_1disassemble_a4360dc78516645e95eb59a4ddcdd6a00} 
+Pulse\+Module {\bfseries \+\_\+disassemble\+\_\+pulse\+\_\+schedule} (qobj)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{pulse.\+Schedule}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1assembler_1_1disassemble_af28174d94fb1f32348a29cddd91accbb}{\+\_\+experiments\+\_\+to\+\_\+schedules}} (qobj)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1assembler_1_1disassemble_a3474269de32300845f17e213104661a4}{Circuit\+Module}}
+\item 
+\Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_ac57912cce0de21eb2a153baf605ae92d}\label{namespaceqiskit_1_1assembler_1_1disassemble_ac57912cce0de21eb2a153baf605ae92d} 
+{\bfseries Pulse\+Module} = New\+Type("{}Pulse\+Module"{}, Tuple\mbox{[}List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{pulse.\+Schedule}}\mbox{]}, Dict\mbox{[}str, Any\mbox{]}, Dict\mbox{[}str, Any\mbox{]}\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Disassemble function for a qobj into a list of circuits and its config\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_a54fb143f518da1462fb8d8698c565170}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}!\_experiments\_to\_circuits@{\_experiments\_to\_circuits}}
+\index{\_experiments\_to\_circuits@{\_experiments\_to\_circuits}!qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection{\texorpdfstring{\_experiments\_to\_circuits()}{\_experiments\_to\_circuits()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1assembler_1_1disassemble_a54fb143f518da1462fb8d8698c565170} 
+qiskit.\+assembler.\+disassemble.\+\_\+experiments\+\_\+to\+\_\+circuits (\begin{DoxyParamCaption}\item[{}]{qobj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return a list of QuantumCircuit object(s) from a qobj.
+
+Args:
+    qobj (Qobj): The Qobj object to convert to QuantumCircuits
+
+Returns:
+    list: A list of QuantumCircuit objects from the qobj
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_af28174d94fb1f32348a29cddd91accbb}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}!\_experiments\_to\_schedules@{\_experiments\_to\_schedules}}
+\index{\_experiments\_to\_schedules@{\_experiments\_to\_schedules}!qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection{\texorpdfstring{\_experiments\_to\_schedules()}{\_experiments\_to\_schedules()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1assembler_1_1disassemble_af28174d94fb1f32348a29cddd91accbb} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{pulse.\+Schedule}}\mbox{]} qiskit.\+assembler.\+disassemble.\+\_\+experiments\+\_\+to\+\_\+schedules (\begin{DoxyParamCaption}\item[{}]{qobj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return a list of :class:`qiskit.pulse.Schedule` object(s) from a qobj.
+
+Args:
+    qobj (Qobj): The Qobj object to convert to pulse schedules.
+
+Returns:
+    A list of :class:`qiskit.pulse.Schedule` objects from the qobj
+
+Raises:
+    pulse.PulseError: If a parameterized instruction is supplied.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_ae67e594618c354b00addec64e005e571}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}!\_qobj\_to\_circuit\_cals@{\_qobj\_to\_circuit\_cals}}
+\index{\_qobj\_to\_circuit\_cals@{\_qobj\_to\_circuit\_cals}!qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection{\texorpdfstring{\_qobj\_to\_circuit\_cals()}{\_qobj\_to\_circuit\_cals()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1assembler_1_1disassemble_ae67e594618c354b00addec64e005e571} 
+qiskit.\+assembler.\+disassemble.\+\_\+qobj\+\_\+to\+\_\+circuit\+\_\+cals (\begin{DoxyParamCaption}\item[{}]{qobj}{, }\item[{}]{pulse\+\_\+lib}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return circuit calibrations dictionary from qobj/exp config calibrations.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_a0b71d5212fcdc8e8b985d04d1c2a317d}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}!disassemble@{disassemble}}
+\index{disassemble@{disassemble}!qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection{\texorpdfstring{disassemble()}{disassemble()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1assembler_1_1disassemble_a0b71d5212fcdc8e8b985d04d1c2a317d} 
+ Union\mbox{[}Circuit\+Module, Pulse\+Module\mbox{]} qiskit.\+assembler.\+disassemble.\+disassemble (\begin{DoxyParamCaption}\item[{}]{qobj}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Disassemble a qobj and return the circuits or pulse schedules, run_config, and user header.
+
+.. note::
+
+    ``disassemble(assemble(qc))`` is not guaranteed to produce an exactly equal circuit to the
+    input, due to limitations in the :obj:`.QasmQobj` format that need to be maintained for
+    backend system compatibility.  This is most likely to be the case when using newer features
+    of :obj:`.QuantumCircuit`.  In most cases, the output should be equivalent, if not quite
+    equal.
+
+Args:
+    qobj (Qobj): The input qobj object to disassemble
+
+Returns:
+    Union[CircuitModule, PulseModule]: The disassembled program which consists of:
+
+        * programs: A list of quantum circuits or pulse schedules
+        * run_config: The dict of the run config
+        * user_qobj_header: The dict of any user headers in the qobj
+
+Examples:
+
+    .. code-block:: python
+
+        from qiskit.circuit import QuantumRegister, ClassicalRegister, QuantumCircuit
+        from qiskit.compiler.assembler import assemble
+        from qiskit.assembler.disassemble import disassemble
+        # Create a circuit to assemble into a qobj
+        q = QuantumRegister(2)
+        c = ClassicalRegister(2)
+        qc = QuantumCircuit(q, c)
+        qc.h(q[0])
+        qc.cx(q[0], q[1])
+        qc.measure(q, c)
+        # Assemble the circuit into a Qobj
+        qobj = assemble(qc, shots=2000, memory=True)
+        # Disassemble the qobj back into a circuit
+        circuits, run_config_out, headers = disassemble(qobj)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1assembler_1_1disassemble_a3474269de32300845f17e213104661a4}\index{qiskit.assembler.disassemble@{qiskit.assembler.disassemble}!CircuitModule@{CircuitModule}}
+\index{CircuitModule@{CircuitModule}!qiskit.assembler.disassemble@{qiskit.assembler.disassemble}}
+\doxysubsubsection{\texorpdfstring{CircuitModule}{CircuitModule}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1assembler_1_1disassemble_a3474269de32300845f17e213104661a4} 
+qiskit.\+assembler.\+disassemble.\+Circuit\+Module}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ NewType(}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}CircuitModule"{}},\ Tuple[List[QuantumCircuit],\ Dict[str,\ Any],\ Dict[str,\ Any]]}
+\DoxyCodeLine{00003\ )}
+
+\end{DoxyCode}

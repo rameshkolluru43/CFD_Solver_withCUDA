@@ -1,0 +1,61 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+drawings Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1drawings}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1drawings}\index{qiskit.visualization.pulse\_v2.drawings@{qiskit.visualization.pulse\_v2.drawings}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_box_data}{Box\+Data}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_elementary_data}{Elementary\+Data}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_line_data}{Line\+Data}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{Text\+Data}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Drawing objects for pulse drawer.
+
+Drawing objects play two important roles:
+    - Allowing unittests of visualization module. Usually it is hard for image files to be tested.
+    - Removing program parser from each plotter interface. We can easily add new plotter.
+
+This module is based on the structure of matplotlib as it is the primary plotter
+of the pulse drawer. However this interface is agnostic to the actual plotter.
+
+Design concept
+~~~~~~~~~~~~~~
+When we think about dynamically updating drawings, it will be most efficient to
+update only the changed properties of drawings rather than regenerating entirely from scratch.
+Thus the core :py:class:`qiskit.visualization.pulse_v2.core.DrawerCanvas` generates
+all possible drawings in the beginning and then the canvas instance manages
+visibility of each drawing according to the end-user request.
+
+Data key
+~~~~~~~~
+In the abstract class ``ElementaryData`` common attributes to represent a drawing are
+specified. In addition, drawings have the `data_key` property that returns an
+unique hash of the object for comparison.
+This key is generated from a data type and the location of the drawing in the canvas.
+See py:mod:`qiskit.visualization.pulse_v2.types` for detail on the data type.
+If a data key cannot distinguish two independent objects, you need to add a new data type.
+The data key may be used in the plotter interface to identify the object.
+
+Drawing objects
+~~~~~~~~~~~~~~~
+To support not only `matplotlib` but also multiple plotters, those drawings should be
+universal and designed without strong dependency on modules in `matplotlib`.
+This means drawings that represent primitive geometries are preferred.
+It should be noted that there will be no unittest for each plotter API, which takes
+drawings and outputs image data, we should avoid adding a complicated geometry
+that has a context of the pulse program.
+
+For example, a pulse envelope is complex valued number array and may be represented
+by two lines with different colors associated with the real and the imaginary component.
+We can use two line-type objects rather than defining a new drawing that takes
+complex value. As many plotters don't support an API that visualizes complex-valued
+data arrays, if we introduced such a drawing and wrote a custom wrapper function
+on top of the existing API, it could be difficult to prevent bugs with the CI tools
+due to lack of the effective unittest.
+\end{DoxyVerb}
+ 

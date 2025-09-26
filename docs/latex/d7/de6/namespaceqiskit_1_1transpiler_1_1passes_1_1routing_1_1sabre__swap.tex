@@ -1,0 +1,57 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+sabre\+\_\+swap Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap}{}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap}\index{qiskit.transpiler.passes.routing.sabre\_swap@{qiskit.transpiler.passes.routing.sabre\_swap}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_1_1_sabre_swap}{Sabre\+Swap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_abbf33fadd1225a66a5e5cabb96e98b7c}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_abbf33fadd1225a66a5e5cabb96e98b7c} 
+{\bfseries \+\_\+build\+\_\+sabre\+\_\+dag} (dag, num\+\_\+physical\+\_\+qubits, qubit\+\_\+indices)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_a850e6c04c9c8470c3e2c7aea53830dbc_a850e6c04c9c8470c3e2c7aea53830dbc}{\+\_\+apply\+\_\+sabre\+\_\+result}} (out\+\_\+dag, in\+\_\+dag, sabre\+\_\+result, initial\+\_\+layout, physical\+\_\+qubits, circuit\+\_\+to\+\_\+dag\+\_\+dict)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_a4c160f2ae6ac3c95370c4a2e44524c5a}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_a4c160f2ae6ac3c95370c4a2e44524c5a} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Routing via SWAP insertion using the SABRE method from Li et al.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_a850e6c04c9c8470c3e2c7aea53830dbc_a850e6c04c9c8470c3e2c7aea53830dbc}\index{qiskit.transpiler.passes.routing.sabre\_swap@{qiskit.transpiler.passes.routing.sabre\_swap}!\_apply\_sabre\_result@{\_apply\_sabre\_result}}
+\index{\_apply\_sabre\_result@{\_apply\_sabre\_result}!qiskit.transpiler.passes.routing.sabre\_swap@{qiskit.transpiler.passes.routing.sabre\_swap}}
+\doxysubsubsection{\texorpdfstring{\_apply\_sabre\_result()}{\_apply\_sabre\_result()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1sabre__swap_a850e6c04c9c8470c3e2c7aea53830dbc_a850e6c04c9c8470c3e2c7aea53830dbc} 
+qiskit.\+transpiler.\+passes.\+routing.\+sabre\+\_\+swap.\+\_\+apply\+\_\+sabre\+\_\+result (\begin{DoxyParamCaption}\item[{}]{out\+\_\+dag}{, }\item[{}]{in\+\_\+dag}{, }\item[{}]{sabre\+\_\+result}{, }\item[{}]{initial\+\_\+layout}{, }\item[{}]{physical\+\_\+qubits}{, }\item[{}]{circuit\+\_\+to\+\_\+dag\+\_\+dict}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Apply the ``SabreResult`` to ``out_dag``, mutating it in place.  This function in effect
+performs the :class:`.ApplyLayout` transpiler pass with ``initial_layout`` and the Sabre routing
+simultaneously, though it assumes that ``out_dag`` has already been prepared as containing the
+right physical qubits.
+
+Mutates ``out_dag`` in place and returns it.  Mutates ``initial_layout`` in place as scratch
+space.
+
+Args:
+    out_dag (DAGCircuit): the physical DAG that the output should be written to.
+    in_dag (DAGCircuit): the source of the nodes that are being routed.
+    sabre_result (tuple[SwapMap, Sequence[int], NodeBlockResults]): the result object from the
+        Rust run of the Sabre routing algorithm.
+    initial_layout (NLayout): a Rust-space mapping of virtual indices (i.e. those of the qubits
+        in ``in_dag``) to physical ones.
+    physical_qubits (list[Qubit]): an indexable sequence of :class:`.circuit.Qubit` objects
+        representing the physical qubits of the circuit.  Note that disjoint-coupling
+        handling can mean that these are not strictly a "canonical physical register" in order.
+    circuit_to_dag_dict (Mapping[int, DAGCircuit]): a mapping of the Python object identity
+        (as returned by :func:`id`) of a control-flow block :class:`.QuantumCircuit` to a
+        :class:`.DAGCircuit` that represents the same thing.
+\end{DoxyVerb}
+ 

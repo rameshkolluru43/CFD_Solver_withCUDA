@@ -1,0 +1,111 @@
+\doxysection{qiskit.\+synthesis.\+discrete\+\_\+basis.\+generate\+\_\+basis\+\_\+approximations Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations}{}\label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations}\index{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_aca732396b1907e6e0289820fd8ea8f0c}\label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_aca732396b1907e6e0289820fd8ea8f0c} 
+{\bfseries \+\_\+check\+\_\+candidate} (candidate, existing\+\_\+sequences, tol=1e-\/10)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a8b441e8ec0e96a2d392229f088e43089}\label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a8b441e8ec0e96a2d392229f088e43089} 
+{\bfseries \+\_\+check\+\_\+candidate\+\_\+greedy} (candidate, existing\+\_\+sequences, tol=1e-\/10)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a34e2c418583c01219af408fbb55c9cfa_a34e2c418583c01219af408fbb55c9cfa}{\+\_\+check\+\_\+candidate\+\_\+kdtree}} (candidate, existing\+\_\+sequences, tol=1e-\/10)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a84239bd57127e92b81567aa47858b80d}\label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a84239bd57127e92b81567aa47858b80d} 
+{\bfseries \+\_\+process\+\_\+node} (Node node, list\mbox{[}str\mbox{]} basis, list\mbox{[}\mbox{\hyperlink{classqiskit_1_1synthesis_1_1discrete__basis_1_1gate__sequence_1_1_gate_sequence}{Gate\+Sequence}}\mbox{]} sequences)
+\item 
+list\mbox{[}\mbox{\hyperlink{classqiskit_1_1synthesis_1_1discrete__basis_1_1gate__sequence_1_1_gate_sequence}{Gate\+Sequence}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a70cb9d8ae95cc417a47cc7dd8b7e81fe_a70cb9d8ae95cc417a47cc7dd8b7e81fe}{generate\+\_\+basic\+\_\+approximations}} (list\mbox{[}str\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} basis\+\_\+gates, int depth, str\texorpdfstring{$\vert$}{|}None filename=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a0eb6e257f1eea9e3ba4c3d4cc0056359}\label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a0eb6e257f1eea9e3ba4c3d4cc0056359} 
+{\bfseries Node} = collections.\+namedtuple("{}Node"{}, ("{}labels"{}, "{}sequence"{}, "{}children"{}))
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a4c6f2dc3c385c904e7b72901e8eb34d0_a4c6f2dc3c385c904e7b72901e8eb34d0}{\+\_\+1q\+\_\+inverses}}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a1d2b774f4fc3092b850e317acea181ec_a1d2b774f4fc3092b850e317acea181ec}{\+\_\+1q\+\_\+gates}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Functions to generate the basic approximations of single qubit gates for Solovay-Kitaev.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a34e2c418583c01219af408fbb55c9cfa_a34e2c418583c01219af408fbb55c9cfa}\index{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}!\_check\_candidate\_kdtree@{\_check\_candidate\_kdtree}}
+\index{\_check\_candidate\_kdtree@{\_check\_candidate\_kdtree}!qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}}
+\doxysubsubsection{\texorpdfstring{\_check\_candidate\_kdtree()}{\_check\_candidate\_kdtree()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a34e2c418583c01219af408fbb55c9cfa_a34e2c418583c01219af408fbb55c9cfa} 
+qiskit.\+synthesis.\+discrete\+\_\+basis.\+generate\+\_\+basis\+\_\+approximations.\+\_\+check\+\_\+candidate\+\_\+kdtree (\begin{DoxyParamCaption}\item[{}]{candidate}{, }\item[{}]{existing\+\_\+sequences}{, }\item[{}]{tol}{ = {\ttfamily 1e-\/10}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Check if there's a candidate implementing the same matrix up to ``tol``.
+
+This uses a k-d tree search and is much faster than the greedy, list-based search.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a70cb9d8ae95cc417a47cc7dd8b7e81fe_a70cb9d8ae95cc417a47cc7dd8b7e81fe}\index{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}!generate\_basic\_approximations@{generate\_basic\_approximations}}
+\index{generate\_basic\_approximations@{generate\_basic\_approximations}!qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}}
+\doxysubsubsection{\texorpdfstring{generate\_basic\_approximations()}{generate\_basic\_approximations()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a70cb9d8ae95cc417a47cc7dd8b7e81fe_a70cb9d8ae95cc417a47cc7dd8b7e81fe} 
+ list\mbox{[}\mbox{\hyperlink{classqiskit_1_1synthesis_1_1discrete__basis_1_1gate__sequence_1_1_gate_sequence}{Gate\+Sequence}}\mbox{]} qiskit.\+synthesis.\+discrete\+\_\+basis.\+generate\+\_\+basis\+\_\+approximations.\+generate\+\_\+basic\+\_\+approximations (\begin{DoxyParamCaption}\item[{list\mbox{[}str \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]}}]{basis\+\_\+gates}{, }\item[{int}]{depth}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{filename}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generates a list of :class:`GateSequence`\\ s with the gates in ``basis_gates``.
+
+Args:
+    basis_gates: The gates from which to create the sequences of gates.
+    depth: The maximum depth of the approximations.
+    filename: If provided, the basic approximations are stored in this file.
+
+Returns:
+    List of :class:`GateSequence`\\ s using the gates in ``basis_gates``.
+
+Raises:
+    ValueError: If ``basis_gates`` contains an invalid gate identifier.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a1d2b774f4fc3092b850e317acea181ec_a1d2b774f4fc3092b850e317acea181ec}\index{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}!\_1q\_gates@{\_1q\_gates}}
+\index{\_1q\_gates@{\_1q\_gates}!qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}}
+\doxysubsubsection{\texorpdfstring{\_1q\_gates}{\_1q\_gates}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a1d2b774f4fc3092b850e317acea181ec_a1d2b774f4fc3092b850e317acea181ec} 
+dict qiskit.\+synthesis.\+discrete\+\_\+basis.\+generate\+\_\+basis\+\_\+approximations.\+\_\+1q\+\_\+gates\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}i"{}}:\ gates.IGate(),}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}x"{}}:\ gates.XGate(),}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}y"{}}:\ gates.YGate(),}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}z"{}}:\ gates.ZGate(),}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}h"{}}:\ gates.HGate(),}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}t"{}}:\ gates.TGate(),}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}tdg"{}}:\ gates.TdgGate(),}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}s"{}}:\ gates.SGate(),}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}sdg"{}}:\ gates.SdgGate(),}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{"{}sx"{}}:\ gates.SXGate(),}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{"{}sxdg"{}}:\ gates.SXdgGate(),}
+\DoxyCodeLine{00013\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a4c6f2dc3c385c904e7b72901e8eb34d0_a4c6f2dc3c385c904e7b72901e8eb34d0}\index{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}!\_1q\_inverses@{\_1q\_inverses}}
+\index{\_1q\_inverses@{\_1q\_inverses}!qiskit.synthesis.discrete\_basis.generate\_basis\_approximations@{qiskit.synthesis.discrete\_basis.generate\_basis\_approximations}}
+\doxysubsubsection{\texorpdfstring{\_1q\_inverses}{\_1q\_inverses}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1discrete__basis_1_1generate__basis__approximations_a4c6f2dc3c385c904e7b72901e8eb34d0_a4c6f2dc3c385c904e7b72901e8eb34d0} 
+dict qiskit.\+synthesis.\+discrete\+\_\+basis.\+generate\+\_\+basis\+\_\+approximations.\+\_\+1q\+\_\+inverses\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}i"{}}:\ \textcolor{stringliteral}{"{}i"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}x"{}}:\ \textcolor{stringliteral}{"{}x"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}y"{}}:\ \textcolor{stringliteral}{"{}y"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}z"{}}:\ \textcolor{stringliteral}{"{}z"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}h"{}}:\ \textcolor{stringliteral}{"{}h"{}},}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}t"{}}:\ \textcolor{stringliteral}{"{}tdg"{}},}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}tdg"{}}:\ \textcolor{stringliteral}{"{}t"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}s"{}}:\ \textcolor{stringliteral}{"{}sdg"{}},}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}sdg"{}}:\ \textcolor{stringliteral}{"{}s"{}},}
+\DoxyCodeLine{00011\ \}}
+
+\end{DoxyCode}

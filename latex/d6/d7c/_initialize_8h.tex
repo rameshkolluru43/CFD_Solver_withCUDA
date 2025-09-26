@@ -1,0 +1,187 @@
+\doxysection{include/\+Initialize.h File Reference}
+\hypertarget{_initialize_8h}{}\label{_initialize_8h}\index{include/Initialize.h@{include/Initialize.h}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+Include dependency graph for Initialize.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d55/_initialize_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{de/d39/_initialize_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_initialize_8h_a42cb5f656867daa19d10969c1b5d31dd_a42cb5f656867daa19d10969c1b5d31dd}{Initialize}} (const int \&)
+\item 
+void \mbox{\hyperlink{_initialize_8h_ab6d50a512fea2b0ec59487494bbdfe9d_ab6d50a512fea2b0ec59487494bbdfe9d}{Initialize}} (const string \&)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_initialize_8h_a42cb5f656867daa19d10969c1b5d31dd_a42cb5f656867daa19d10969c1b5d31dd}\index{Initialize.h@{Initialize.h}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!Initialize.h@{Initialize.h}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_initialize_8h_a42cb5f656867daa19d10969c1b5d31dd_a42cb5f656867daa19d10969c1b5d31dd} 
+void Initialize (\begin{DoxyParamCaption}\item[{const int \&}]{Test\+\_\+\+Case}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_initialize_8cpp_source_l00054}{54}} of file \mbox{\hyperlink{_initialize_8cpp_source}{Initialize.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Allocating\ Memory\ for\ Physical\ Cells\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ <<\ endl;}
+\DoxyCodeLine{00057\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Total\ Number\ of\ Cells\ including\ Ghost\ Cells\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a7689f7130d7313a5b13b20977c515129_a7689f7130d7313a5b13b20977c515129}{Total\_No\_Cells}}\ <<\ endl;}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a31051e4b77d4ed6f2d83cdc2ccb75b1f_a31051e4b77d4ed6f2d83cdc2ccb75b1f}{Flux\_L}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ab397d09d4fbb3b1af3e0e773401f63bc_ab397d09d4fbb3b1af3e0e773401f63bc}{Flux\_R}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a5bfe7c593d2723ebd8fbe47ef8b1431e_a5bfe7c593d2723ebd8fbe47ef8b1431e}{U\_L}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a7b08599582e51d0d176ec64d31a28174_a7b08599582e51d0d176ec64d31a28174}{U\_R}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_af5806236cf95c8e0c792328ff82f691d_af5806236cf95c8e0c792328ff82f691d}{v\_bool}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ \textcolor{keyword}{false});}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.resize(11,\ 0.0);}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}.resize(2,\ 0.0);}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}.resize(2,\ 0.0);}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}.resize(2,\ 0.0);}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a28a122cad6e9d4ea770d05805512362f_a28a122cad6e9d4ea770d05805512362f}{Viscous\_Flux}}.resize(\mbox{\hyperlink{_initialize_8cpp_a193163c57e259a063635c98392c1695b_a193163c57e259a063635c98392c1695b}{NUM\_FLUX\_COMPONENTS}},\ 0.0);}
+\DoxyCodeLine{00071\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_af4b0969675c1f154eba6109119a0ea41_af4b0969675c1f154eba6109119a0ea41}{Grad\_Var}}.resize(2,\ 0.0);}
+\DoxyCodeLine{00072\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\_I}}\ Second\_Neighbours(4,\ 0.0);}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_abb02c98a37c3cb9ca258dfea247d2331_abb02c98a37c3cb9ca258dfea247d2331}{S}}.resize(6,\ 0.0);}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}am\ here"{}<<endl;}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a5a272aec1ddd5277d82b37bf71018cd2_a5a272aec1ddd5277d82b37bf71018cd2}{CF}}.push\_back(0.0);}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ cout\ <<\ \mbox{\hyperlink{_initialize_8cpp_a5a272aec1ddd5277d82b37bf71018cd2_a5a272aec1ddd5277d82b37bf71018cd2}{CF}}.size()\ <<\ endl;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ index\ =\ 0;\ index\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ index++)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a175e52f4923506bea1684f14a2144064_a175e52f4923506bea1684f14a2144064}{Cells\_DelT}}.push\_back(0.0);}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ index\ =\ 0;\ index\ <\ \mbox{\hyperlink{_globals_8h_a7689f7130d7313a5b13b20977c515129_a7689f7130d7313a5b13b20977c515129}{Total\_No\_Cells}};\ index++)}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a759119dbe949e064fcf54c202409ebaf_a759119dbe949e064fcf54c202409ebaf}{Cells\_DelU}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}});}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a1997e5b6d42b522b0f2ed722d7de27b1_a1997e5b6d42b522b0f2ed722d7de27b1}{Cells\_Face\_Boundary\_Type}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_af5806236cf95c8e0c792328ff82f691d_af5806236cf95c8e0c792328ff82f691d}{v\_bool}});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}});}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a0d06660dc2f561b8ccc188781bc1c98a_a0d06660dc2f561b8ccc188781bc1c98a}{U\_Cells\_RK\_1}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}});}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_aed053c58fd5058024bd54b70b06222e2_aed053c58fd5058024bd54b70b06222e2}{U\_Cells\_RK\_2}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}});}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}});}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}.push\_back(\mbox{\hyperlink{_initialize_8cpp_a28a122cad6e9d4ea770d05805512362f_a28a122cad6e9d4ea770d05805512362f}{Viscous\_Flux}});}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Identify\_Wall\_Boundary\_Faces(Grid\_Type);}}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}am\ here"{}<<endl;}}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00096\ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0;\ Cell\_Index\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_Index++)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_viscous___functions_8h_a8d0266da95dde41c267e5f779a10c036_a8d0266da95dde41c267e5f779a10c036}{Identify\_Neighbours\_For\_Second\_Gradients}}(Cell\_Index);}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Memory\ Allocation\ Done\ for\ all\ Cells\(\backslash\)n"{}};}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_initialize_8cpp_a426307b97d41dfc3f00591d3412c7410_a426307b97d41dfc3f00591d3412c7410}{Is\_Implicit\_Method}})}
+\DoxyCodeLine{00103\ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Memory\ for\ creating\ Jacobian\ and\ A\ and\ b\ matrices\ started\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}.resize(4,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4,\ 0.0));}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}.resize(4\ *\ \mbox{\hyperlink{_globals_8h_a7689f7130d7313a5b13b20977c515129_a7689f7130d7313a5b13b20977c515129}{Total\_No\_Cells}},\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}(4\ *\ \mbox{\hyperlink{_globals_8h_a7689f7130d7313a5b13b20977c515129_a7689f7130d7313a5b13b20977c515129}{Total\_No\_Cells}},\ 0.0));}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}.resize(4\ *\ \mbox{\hyperlink{_globals_8h_a7689f7130d7313a5b13b20977c515129_a7689f7130d7313a5b13b20977c515129}{Total\_No\_Cells}},\ 0.0);}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Memory\ for\ creating\ Jacobian\ and\ A\ and\ b\ matrices\ ended\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{d6/d7c/_initialize_8h_a42cb5f656867daa19d10969c1b5d31dd_a42cb5f656867daa19d10969c1b5d31dd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d7c/_initialize_8h_a42cb5f656867daa19d10969c1b5d31dd_a42cb5f656867daa19d10969c1b5d31dd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_initialize_8h_ab6d50a512fea2b0ec59487494bbdfe9d_ab6d50a512fea2b0ec59487494bbdfe9d}\index{Initialize.h@{Initialize.h}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!Initialize.h@{Initialize.h}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_initialize_8h_ab6d50a512fea2b0ec59487494bbdfe9d_ab6d50a512fea2b0ec59487494bbdfe9d} 
+void Initialize (\begin{DoxyParamCaption}\item[{const string \&}]{file\+\_\+name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_initialize_8cpp_source_l00119}{119}} of file \mbox{\hyperlink{_initialize_8cpp_source}{Initialize.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ ifstream\ ipfile(file\_name.c\_str(),\ ios::in);}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{int}\ n1,\ n2,\ n3,\ N\_Cells,\ CellIndex;}
+\DoxyCodeLine{00123\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}(2,\ 0.0);}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ =\ 0.0,\ Rho\ =\ 0.0,\ T\ =\ 0.0,\ v1\ =\ 0.0,\ v2\ =\ 0.0,\ dt\ =\ 0.0,\ P0\ =\ 0.0;}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_acc3c3292e370176c51c654a01e651e24_acc3c3292e370176c51c654a01e651e24}{Initialize}}(\mbox{\hyperlink{_initialize_8cpp_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}});}
+\DoxyCodeLine{00126\ \ \ \ \ cout\ <<\ file\_name\ <<\ endl;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}\ (ipfile.is\_open())}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}File\ opened\ for\ initialization\(\backslash\)t"{}}\ <<\ file\_name\ <<\ endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ ipfile\ >>\ n1\ >>\ n2\ >>\ n3;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ cout\ <<\ n1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ n2\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ n3\ <<\ endl;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ ipfile\ >>\ N\_Cells;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Total\ Number\ of\ Cells\(\backslash\)t"{}}\ <<\ N\_Cells\ <<\ endl;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ ipfile\ >>\ \mbox{\hyperlink{_initialize_8cpp_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Solution\ Initialized\ from\ Iteration\ Number\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_initialize_8cpp_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <<\ endl;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (N\_Cells\ ==\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Physical\ Cells\ are\ equal\(\backslash\)n"{}};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ index\ =\ 0;\ index\ <\ N\_Cells;\ index++)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ipfile\ >>\ CellIndex\ >>\ dt\ >>\ Rho\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ >>\ T\ >>\ v1\ >>\ v2\ >>\ \mbox{\hyperlink{_initialize_8cpp_abb04f5f017f41f350a3d81fecdbfa762_abb04f5f017f41f350a3d81fecdbfa762}{M}}\ >>\ P0;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<index<<"{}\(\backslash\)t"{}<<Rho<<"{}\(\backslash\)t"{}<<T<<"{}\(\backslash\)t"{}<<P<<"{}\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<endl;}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[0]\ =\ v1;}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}}[1]\ =\ v2;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_primitive___computational_8h_a1bbe558508f486bbe3cd55baf794242a_a1bbe558508f486bbe3cd55baf794242a}{Calculate\_Computational\_Variables}}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a42822ae479bd894515806b9ee0c457af_a42822ae479bd894515806b9ee0c457af}{V}},\ Rho,\ 2);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}}.size();\ j++)}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[index][j]\ =\ \mbox{\hyperlink{_initialize_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_a81aa306643e0c9fbb5313733a12cfd3c}{Global\_U}}[j];}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_primitive___computational_8h_af42607ca44a8dfe13e9a71c50b06a069_af42607ca44a8dfe13e9a71c50b06a069}{Calculate\_Primitive\_Variables}}(index,\ \mbox{\hyperlink{_initialize_8cpp_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[index]);}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{_initialize_8cpp_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ j++)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_initialize_8cpp_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[index][j]\ =\ \mbox{\hyperlink{_initialize_8cpp_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[j];}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Mismatch\ in\ Solution\ file.........Please\ verify\ that\ correct\ solution\ file\ is\ given\ for\ input\(\backslash\)n"{}};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Initialization\ done\ from\ file\(\backslash\)t"{}}\ <<\ file\_name\ <<\ endl;}
+\DoxyCodeLine{00159\ \ \ \ \ \}}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00161\ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Could\ not\ Open\ Inputfile\ for\ reading.........\ Please\ check\ \ the\ file\ name\(\backslash\)n"{}};}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ cout\ <<\ file\_name\ <<\ endl;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{//\ \ Print(U\_Cells);}}
+\DoxyCodeLine{00167\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d6/d7c/_initialize_8h_ab6d50a512fea2b0ec59487494bbdfe9d_ab6d50a512fea2b0ec59487494bbdfe9d_cgraph}
+\end{center}
+\end{figure}

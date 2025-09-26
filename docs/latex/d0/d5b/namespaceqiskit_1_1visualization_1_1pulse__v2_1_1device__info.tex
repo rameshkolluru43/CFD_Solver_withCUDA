@@ -1,0 +1,36 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+device\+\_\+info Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1device__info}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1device__info}\index{qiskit.visualization.pulse\_v2.device\_info@{qiskit.visualization.pulse\_v2.device\_info}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{Drawer\+Backend\+Info}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_open_pulse_backend_info}{Open\+Pulse\+Backend\+Info}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A collection of backend information formatted to generate drawing data.
+
+This instance will be provided to generator functions. The module provides an abstract
+class :py:class:``DrawerBackendInfo`` with necessary methods to generate drawing objects.
+
+Because the data structure of backend class may depend on providers, this abstract class
+has an abstract factory method `create_from_backend`. Each subclass should provide
+the factory method which conforms to the associated provider. By default we provide
+:py:class:``OpenPulseBackendInfo`` class that has the factory method taking backends
+satisfying OpenPulse specification [1].
+
+This class can be also initialized without the factory method by manually specifying
+required information. This may be convenient for visualizing a pulse program for simulator
+backend that only has a device Hamiltonian information. This requires two mapping objects
+for channel/qubit and channel/frequency along with the system cycle time.
+
+If those information are not provided, this class will be initialized with a set of
+empty data and the drawer illustrates a pulse program without any specific information.
+
+Reference:
+- [1] Qiskit Backend Specifications for OpenQASM and OpenPulse Experiments,
+    https://arxiv.org/abs/1809.03452
+\end{DoxyVerb}
+ 

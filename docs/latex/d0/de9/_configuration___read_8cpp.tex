@@ -1,0 +1,273 @@
+\doxysection{Euler\+\_\+\+Solver/\+Configuration\+\_\+\+Read.cpp File Reference}
+\hypertarget{_configuration___read_8cpp}{}\label{_configuration___read_8cpp}\index{Euler\_Solver/Configuration\_Read.cpp@{Euler\_Solver/Configuration\_Read.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Configuration\+\_\+\+Read.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/db5/_configuration___read_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{d4/de2/_configuration___read_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_configuration___read_8cpp_a365a58e5697ffb999a600a9d30768424_a365a58e5697ffb999a600a9d30768424}{read\+JSON}} (const std\+::string \&json\+File\+Name)
+\item 
+void \mbox{\hyperlink{_configuration___read_8cpp_a32d98c169e6f866c6411c53d5758292e_a32d98c169e6f866c6411c53d5758292e}{test\+Case}} (int \&\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\+\_\+\+Case}})
+\item 
+map$<$ string, string $>$ \mbox{\hyperlink{_configuration___read_8cpp_affaad6bfcb9586153195cf4d903367e3_affaad6bfcb9586153195cf4d903367e3}{Read\+Config\+File}} (const string \&filename)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{_configuration___read_8cpp_af94dea3b6869b7eeefb45a18854ef8ec_af94dea3b6869b7eeefb45a18854ef8ec}{Limiter\+\_\+\+Zeta}}
+\item 
+double \mbox{\hyperlink{_configuration___read_8cpp_ab435b6b5b81471746864b30d6361f9e7_ab435b6b5b81471746864b30d6361f9e7}{Limiter\+\_\+\+Zeta1}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_configuration___read_8cpp_affaad6bfcb9586153195cf4d903367e3_affaad6bfcb9586153195cf4d903367e3}\index{Configuration\_Read.cpp@{Configuration\_Read.cpp}!ReadConfigFile@{ReadConfigFile}}
+\index{ReadConfigFile@{ReadConfigFile}!Configuration\_Read.cpp@{Configuration\_Read.cpp}}
+\doxysubsubsection{\texorpdfstring{ReadConfigFile()}{ReadConfigFile()}}
+{\footnotesize\ttfamily \label{_configuration___read_8cpp_affaad6bfcb9586153195cf4d903367e3_affaad6bfcb9586153195cf4d903367e3} 
+map$<$ string, string $>$ Read\+Config\+File (\begin{DoxyParamCaption}\item[{const string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00131}{131}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ map<string,\ string>\ config;}
+\DoxyCodeLine{00134\ \ \ \ \ ifstream\ file(filename);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00137\ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ open\ configuration\ file\ "{}}\ <<\ filename\ <<\ endl;}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00140\ \ \ \ \ \}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{while}\ (getline(file,\ line))}
+\DoxyCodeLine{00144\ \ \ \ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (line.empty()\ ||\ line[0]\ ==\ \textcolor{charliteral}{'\#'})}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ Skip\ empty\ lines\ and\ comments}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ delimiter\ =\ line.find(\textcolor{charliteral}{'='});}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (delimiter\ ==\ string::npos)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ key\ =\ line.substr(0,\ delimiter);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ value\ =\ line.substr(delimiter\ +\ 1);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Trim\ whitespace\ from\ key\ and\ value}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ key.erase(key.find\_last\_not\_of(\textcolor{stringliteral}{"{}\ \(\backslash\)t"{}})\ +\ 1);}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ value.erase(0,\ value.find\_first\_not\_of(\textcolor{stringliteral}{"{}\ \(\backslash\)t"{}}));}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ value.erase(value.find\_last\_not\_of(\textcolor{stringliteral}{"{}\ \(\backslash\)t"{}})\ +\ 1);}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ config[key]\ =\ value;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ file.close();}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{return}\ config;}
+\DoxyCodeLine{00163\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_configuration___read_8cpp_a365a58e5697ffb999a600a9d30768424_a365a58e5697ffb999a600a9d30768424}\index{Configuration\_Read.cpp@{Configuration\_Read.cpp}!readJSON@{readJSON}}
+\index{readJSON@{readJSON}!Configuration\_Read.cpp@{Configuration\_Read.cpp}}
+\doxysubsubsection{\texorpdfstring{readJSON()}{readJSON()}}
+{\footnotesize\ttfamily \label{_configuration___read_8cpp_a365a58e5697ffb999a600a9d30768424_a365a58e5697ffb999a600a9d30768424} 
+void read\+JSON (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{json\+File\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Open\ JSON\ file}}
+\DoxyCodeLine{00011\ \ \ \ \ std::ifstream\ fileStream(jsonFileName);}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordflow}{if}\ (!fileStream.is\_open())}
+\DoxyCodeLine{00013\ \ \ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ JSON\ input\ file\ not\ found."{}});}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00018\ \ \ \ \ Json::Value\ root;}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(fileStream,\ root))}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ JSON\ input."{}});}
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ TestCase\ section}}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}}\ =\ root[\textcolor{stringliteral}{"{}TestCase"{}}][\textcolor{stringliteral}{"{}Test\_Case"{}}].asInt();}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ =\ root[\textcolor{stringliteral}{"{}TestCase"{}}][\textcolor{stringliteral}{"{}Test\_Case\_Name"{}}].asString();}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9a4ce39dbb48e9dd9f62d461e256dd00_a9a4ce39dbb48e9dd9f62d461e256dd00}{Grid\_Size}}\ =\ root[\textcolor{stringliteral}{"{}TestCase"{}}][\textcolor{stringliteral}{"{}Grid\_Size"{}}].asInt();}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ =\ root[\textcolor{stringliteral}{"{}TestCase"{}}][\textcolor{stringliteral}{"{}desiredX"{}}].asInt();}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ =\ root[\textcolor{stringliteral}{"{}TestCase"{}}][\textcolor{stringliteral}{"{}desiredY"{}}].asInt();}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ Simulation\ section}}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a6e77f7fb49e765164f8c6a23058c74c6_a6e77f7fb49e765164f8c6a23058c74c6}{Initialize\_Type}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}Initialize\_Type"{}}].asInt();}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa1c5ac03605c26b61d86e3e918ad9a30_aa1c5ac03605c26b61d86e3e918ad9a30}{Total\_Iterations}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}Total\_Iterations"{}}].asInt();}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a426307b97d41dfc3f00591d3412c7410_a426307b97d41dfc3f00591d3412c7410}{Is\_Implicit\_Method}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}Is\_Implicit\_Method"{}}].asBool();}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a98de75e9ddabbd880babfe5b86cde1c3_a98de75e9ddabbd880babfe5b86cde1c3}{CFL}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}CFL"{}}].asDouble();}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac73e9317475aaeed74748ed67cba4814_ac73e9317475aaeed74748ed67cba4814}{Terminating\_Time}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}Terminating\_Time"{}}].asDouble();}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a525ca572f2e23ce640ad1069a3875213_a525ca572f2e23ce640ad1069a3875213}{Is\_Time\_Dependent}}\ =\ root[\textcolor{stringliteral}{"{}Simulation"{}}][\textcolor{stringliteral}{"{}Is\_Time\_Dependent"{}}].asBool();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ Solver\ section}}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a7d5151252be0e274cc270b9d06d95d61_a7d5151252be0e274cc270b9d06d95d61}{Limiter\_Case}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Limiter\_Case"{}}].asInt();}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{definitions_8h_acf16a5c869b1562de7a7780d6d9758b3_acf16a5c869b1562de7a7780d6d9758b3}{Area\_Weighted\_Average}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Area\_Weighted\_Average"{}}].asInt();}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8181b30bc71775084f8a8e3a0ae670b0_a8181b30bc71775084f8a8e3a0ae670b0}{Flux\_Type}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Flux\_Type"{}}].asInt();}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Is\_Second\_Order"{}}].asBool();}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9f80ffa45f3aab47b152327af8f0f823_a9f80ffa45f3aab47b152327af8f0f823}{Time\_Accurate}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Time\_Accurate"{}}].asBool();}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aecd87652ffbad654364f3d7aca5de72f_aecd87652ffbad654364f3d7aca5de72f}{Local\_Time\_Stepping}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Local\_Time\_Stepping"{}}].asBool();}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a7e64fcbce75cb4bbebf6c4f057b9c6bf_a7e64fcbce75cb4bbebf6c4f057b9c6bf}{Non\_Dimensional\_Form}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Non\_Dimensional\_Form"{}}].asBool();}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aea330d66b525a50c0b181d4734f3ec14_aea330d66b525a50c0b181d4734f3ec14}{Is\_WENO}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Is\_WENO"{}}].asBool();}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5dd3fd6466feff5e324330be2880b00c_a5dd3fd6466feff5e324330be2880b00c}{Is\_Char}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Is\_Char"{}}].asBool();}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Dissipation\_Type"{}}].asInt();}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae3291d658c8a36a8b81387eb491e7857_ae3291d658c8a36a8b81387eb491e7857}{Is\_MOVERS\_1}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Is\_MOVERS\_1"{}}].asBool();}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{definitions_8h_acbd504e8fa55661884965a35457ccaed_acbd504e8fa55661884965a35457ccaed}{Enable\_Entropy\_Fix}}\ =\ root[\textcolor{stringliteral}{"{}Solver"{}}][\textcolor{stringliteral}{"{}Enable\_Entropy\_Fix"{}}].asBool();}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ from\ the\ Boundary\_Conditions\ section}}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa88f905e9c827c44260e081aa390e44d_aa88f905e9c827c44260e081aa390e44d}{Is\_Inlet\_SubSonic}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Is\_Inlet\_SubSonic"{}}].asBool();}
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{definitions_8h_abdbdb3329e719d2f3146a9c7493c511c_abdbdb3329e719d2f3146a9c7493c511c}{Is\_Exit\_SubSonic}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Is\_Exit\_SubSonic"{}}].asBool();}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Is\_Viscous\_Wall"{}}].asBool();}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd0e5a394d40c779b4222335243645be_afd0e5a394d40c779b4222335243645be}{has\_Symmetry\_BC}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}has\_Symmetry\_BC"{}}].asBool();}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{definitions_8h_af859eb8025751b9e7eb24d11616e46a2_af859eb8025751b9e7eb24d11616e46a2}{Enable\_Far\_Field}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Enable\_Far\_Field"{}}].asBool();}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Is\_2D\_Flow"{}}].asBool();}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}{BCFileName}}\ =\ root[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}BC\_File\_Name"{}}].asString();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \mbox{\hyperlink{definitions_8h_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}{InitCondFileName}}\ =\ root[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Initial\_Condition\_File"{}}].asString();}
+\DoxyCodeLine{00063\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_af94dea3b6869b7eeefb45a18854ef8ec_af94dea3b6869b7eeefb45a18854ef8ec}{Limiter\_Zeta}}\ =\ root[\textcolor{stringliteral}{"{}LimiterCoefficients"{}}][\textcolor{stringliteral}{"{}Limiter\_Zeta"{}}].asDouble();}
+\DoxyCodeLine{00064\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ab435b6b5b81471746864b30d6361f9e7_ab435b6b5b81471746864b30d6361f9e7}{Limiter\_Zeta1}}\ =\ root[\textcolor{stringliteral}{"{}LimiterCoefficients"{}}][\textcolor{stringliteral}{"{}Limiter\_Zeta1"{}}].asDouble();}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Extract\ values\ for\ the\ limiter\ coefficients}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Print\ values\ for\ verification}}
+\DoxyCodeLine{00068\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Grid\ Size:\ "{}}\ <<\ \mbox{\hyperlink{definitions_8h_a9a4ce39dbb48e9dd9f62d461e256dd00_a9a4ce39dbb48e9dd9f62d461e256dd00}{Grid\_Size}}\ <<\ std::endl;}
+\DoxyCodeLine{00069\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Total\ Iterations:\ "{}}\ <<\ \mbox{\hyperlink{definitions_8h_aa1c5ac03605c26b61d86e3e918ad9a30_aa1c5ac03605c26b61d86e3e918ad9a30}{Total\_Iterations}}\ <<\ std::endl;}
+\DoxyCodeLine{00070\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Is\ Implicit\ Method:\ "{}}\ <<\ (\mbox{\hyperlink{definitions_8h_a426307b97d41dfc3f00591d3412c7410_a426307b97d41dfc3f00591d3412c7410}{Is\_Implicit\_Method}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00071\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}CFL:\ "{}}\ <<\ \mbox{\hyperlink{definitions_8h_a98de75e9ddabbd880babfe5b86cde1c3_a98de75e9ddabbd880babfe5b86cde1c3}{CFL}}\ <<\ std::endl;}
+\DoxyCodeLine{00072\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Test\ Case\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}}\ <<\ std::endl;}
+\DoxyCodeLine{00073\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Test\ Case\ Name\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ <<\ std::endl;}
+\DoxyCodeLine{00074\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Initialize\ Type\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a6e77f7fb49e765164f8c6a23058c74c6_a6e77f7fb49e765164f8c6a23058c74c6}{Initialize\_Type}}\ <<\ std::endl;}
+\DoxyCodeLine{00075\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Terminating\ Time\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_ac73e9317475aaeed74748ed67cba4814_ac73e9317475aaeed74748ed67cba4814}{Terminating\_Time}}\ <<\ std::endl;}
+\DoxyCodeLine{00076\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Is\ Time\ Dependent\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_a525ca572f2e23ce640ad1069a3875213_a525ca572f2e23ce640ad1069a3875213}{Is\_Time\_Dependent}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00077\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Limiter\ Case\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a7d5151252be0e274cc270b9d06d95d61_a7d5151252be0e274cc270b9d06d95d61}{Limiter\_Case}}\ <<\ std::endl;}
+\DoxyCodeLine{00078\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Area\ Weighted\ Average\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_acf16a5c869b1562de7a7780d6d9758b3_acf16a5c869b1562de7a7780d6d9758b3}{Area\_Weighted\_Average}}\ <<\ std::endl;}
+\DoxyCodeLine{00079\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Flux\ Type\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a8181b30bc71775084f8a8e3a0ae670b0_a8181b30bc71775084f8a8e3a0ae670b0}{Flux\_Type}}\ <<\ std::endl;}
+\DoxyCodeLine{00080\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Is\ Second\ Order\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00081\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Time\ Accurate\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_a9f80ffa45f3aab47b152327af8f0f823_a9f80ffa45f3aab47b152327af8f0f823}{Time\_Accurate}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00082\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Local\ Time\ Stepping\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_aecd87652ffbad654364f3d7aca5de72f_aecd87652ffbad654364f3d7aca5de72f}{Local\_Time\_Stepping}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00083\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Non\ Dimensional\ Form\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_a7e64fcbce75cb4bbebf6c4f057b9c6bf_a7e64fcbce75cb4bbebf6c4f057b9c6bf}{Non\_Dimensional\_Form}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00084\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Is\ WENO\ \(\backslash\)t"{}}\ <<\ (\mbox{\hyperlink{definitions_8h_aea330d66b525a50c0b181d4734f3ec14_aea330d66b525a50c0b181d4734f3ec14}{Is\_WENO}}\ ?\ \textcolor{stringliteral}{"{}True"{}}\ :\ \textcolor{stringliteral}{"{}False"{}})\ <<\ std::endl;}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//\ Optionally,\ you\ can\ use\ the\ extracted\ values\ to\ configure\ your\ simulation\ further.}}
+\DoxyCodeLine{00087\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_configuration___read_8cpp_a32d98c169e6f866c6411c53d5758292e_a32d98c169e6f866c6411c53d5758292e}\index{Configuration\_Read.cpp@{Configuration\_Read.cpp}!testCase@{testCase}}
+\index{testCase@{testCase}!Configuration\_Read.cpp@{Configuration\_Read.cpp}}
+\doxysubsubsection{\texorpdfstring{testCase()}{testCase()}}
+{\footnotesize\ttfamily \label{_configuration___read_8cpp_a32d98c169e6f866c6411c53d5758292e_a32d98c169e6f866c6411c53d5758292e} 
+void test\+Case (\begin{DoxyParamCaption}\item[{int \&}]{Test\+\_\+\+Case}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00089}{89}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ Test\ case\ switch}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}})}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6cb651752c2dd1cb946428572cfb769_ad6cb651752c2dd1cb946428572cfb769}{Half\_Cylinder\_Flow}}();}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a286a95bfcac44ff19264008ffd9506ed_a286a95bfcac44ff19264008ffd9506ed}{Shock\_Reflection\_2D}}();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_af85931ed4e293dce5c8e4acafecd54b5_af85931ed4e293dce5c8e4acafecd54b5}{Ramp\_15\_Degree}}();}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f68d17ee33caeda5da8c4270441108c_a5f68d17ee33caeda5da8c4270441108c}{Forward\_Facing\_Step}}();}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2846385536010070f9204ef415a83d7d_a2846385536010070f9204ef415a83d7d}{Air\_Foil}}();}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a634f5b7cf63cab96d3b48ed0b4df6ad4_a634f5b7cf63cab96d3b48ed0b4df6ad4}{Shock\_Tube\_2D}}();}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a986df1d2277d1fc7e22408557f29c135_a986df1d2277d1fc7e22408557f29c135}{Channel\_Flow}}();}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{case}\ 9:}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a49bbbeed352ab44d6248954f9d5391b0_a49bbbeed352ab44d6248954f9d5391b0}{Scram\_Jet\_Inlet}}();}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_abaa8184c0dd8aa3fdc37d585f0a7d0cc_abaa8184c0dd8aa3fdc37d585f0a7d0cc}{Flow\_Over\_Bump}}();}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{case}\ 11:}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a41030236ecf9b4d95159d7227a838eab_a41030236ecf9b4d95159d7227a838eab}{Slip\_Flow\_2D}}();}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_af85931ed4e293dce5c8e4acafecd54b5_af85931ed4e293dce5c8e4acafecd54b5}{Ramp\_15\_Degree}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/de9/_configuration___read_8cpp_a32d98c169e6f866c6411c53d5758292e_a32d98c169e6f866c6411c53d5758292e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/de9/_configuration___read_8cpp_a32d98c169e6f866c6411c53d5758292e_a32d98c169e6f866c6411c53d5758292e_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_configuration___read_8cpp_af94dea3b6869b7eeefb45a18854ef8ec_af94dea3b6869b7eeefb45a18854ef8ec}\index{Configuration\_Read.cpp@{Configuration\_Read.cpp}!Limiter\_Zeta@{Limiter\_Zeta}}
+\index{Limiter\_Zeta@{Limiter\_Zeta}!Configuration\_Read.cpp@{Configuration\_Read.cpp}}
+\doxysubsubsection{\texorpdfstring{Limiter\_Zeta}{Limiter\_Zeta}}
+{\footnotesize\ttfamily \label{_configuration___read_8cpp_af94dea3b6869b7eeefb45a18854ef8ec_af94dea3b6869b7eeefb45a18854ef8ec} 
+double Limiter\+\_\+\+Zeta}
+
+
+\begin{DoxyParams}{Parameters}
+{\em json\+File\+Name} & The JSON file name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void No return value
+\end{DoxyReturn}
+This function reads the JSON file and sets the parameters for the solver and all other parameters 
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+\Hypertarget{_configuration___read_8cpp_ab435b6b5b81471746864b30d6361f9e7_ab435b6b5b81471746864b30d6361f9e7}\index{Configuration\_Read.cpp@{Configuration\_Read.cpp}!Limiter\_Zeta1@{Limiter\_Zeta1}}
+\index{Limiter\_Zeta1@{Limiter\_Zeta1}!Configuration\_Read.cpp@{Configuration\_Read.cpp}}
+\doxysubsubsection{\texorpdfstring{Limiter\_Zeta1}{Limiter\_Zeta1}}
+{\footnotesize\ttfamily \label{_configuration___read_8cpp_ab435b6b5b81471746864b30d6361f9e7_ab435b6b5b81471746864b30d6361f9e7} 
+double Limiter\+\_\+\+Zeta1}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+

@@ -1,0 +1,119 @@
+\doxysection{qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate}\index{qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_abaf3a3b12dc27dac6e98e5f372a2105f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\texorpdfstring{$\vert$}{|}np.\+ndarray adjacency\+\_\+matrix)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a3bf0420f0d1255b82d1d96cbdf4ffdae}{validate\+\_\+parameter}} (self, parameter)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a9e33ab6e15b75641c0bf2706e91216e1}{adjacency\+\_\+matrix}} (self)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a9eb6a91520c3f185092afa71cd481a26}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a9eb6a91520c3f185092afa71cd481a26} 
+{\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a6ec9ec9e947b1d639a7a94aa1fef3cd4}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a6ec9ec9e947b1d639a7a94aa1fef3cd4} 
+{\bfseries num\+\_\+qubits}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a85622acacf742391b40a485d866fd60a}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a85622acacf742391b40a485d866fd60a} 
+{\bfseries definition} = circuit
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a529f035f2bc1fa2bc2d5e5b9a5cd6c2d}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a529f035f2bc1fa2bc2d5e5b9a5cd6c2d} 
+{\bfseries adjacency\+\_\+matrix} = other.\+adjacency\+\_\+matrix)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a7618717b8913adff7411369d6a76133d}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a7618717b8913adff7411369d6a76133d} 
+{\bfseries \+\_\+define} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A gate representing a graph state.
+
+Given a graph G = (V, E), with the set of vertices V and the set of edges E,
+the corresponding graph state is defined as
+
+.. math::
+
+    |G\rangle = \prod_{(a,b) \in E} CZ_{(a,b)} {|+\rangle}^{\otimes V}
+
+Such a state can be prepared by first preparing all qubits in the :math:`+`
+state, then applying a :math:`CZ` gate for each corresponding graph edge.
+
+Graph state preparation circuits are Clifford circuits, and thus
+easy to simulate classically. However, by adding a layer of measurements
+in a product basis at the end, there is evidence that the circuit becomes
+hard to simulate [2].
+
+**Reference Circuit:**
+
+.. plot::
+    :alt: Circuit diagram output by the previous code.
+    :include-source:
+
+    from qiskit.circuit import QuantumCircuit
+    from qiskit.circuit.library import GraphStateGate
+    import rustworkx as rx
+
+    G = rx.generators.cycle_graph(5)
+    circuit = QuantumCircuit(5)
+    circuit.append(GraphStateGate(rx.adjacency_matrix(G)), [0, 1, 2, 3, 4])
+    circuit.decompose().draw('mpl')
+
+**References:**
+
+[1] M. Hein, J. Eisert, H.J. Briegel, Multi-party Entanglement in Graph States,
+    `arXiv:0307130 <https://arxiv.org/pdf/quant-ph/0307130.pdf>`_
+[2] D. Koh, Further Extensions of Clifford Circuits & their Classical Simulation Complexities.
+    `arXiv:1512.07892 <https://arxiv.org/pdf/1512.07892.pdf>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_abaf3a3b12dc27dac6e98e5f372a2105f}\index{qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_abaf3a3b12dc27dac6e98e5f372a2105f} 
+ None qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list \texorpdfstring{$\vert$}{|} np.\+ndarray}]{adjacency\+\_\+matrix}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    adjacency_matrix: input graph as n-by-n list of 0-1 lists
+
+Raises:
+    CircuitError: If adjacency_matrix is not symmetric.
+
+The gate represents a graph state with the given adjacency matrix.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a9e33ab6e15b75641c0bf2706e91216e1}\index{qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}!adjacency\_matrix@{adjacency\_matrix}}
+\index{adjacency\_matrix@{adjacency\_matrix}!qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}}
+\doxysubsubsection{\texorpdfstring{adjacency\_matrix()}{adjacency\_matrix()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a9e33ab6e15b75641c0bf2706e91216e1} 
+qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+Gate.\+adjacency\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the adjacency matrix.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a3bf0420f0d1255b82d1d96cbdf4ffdae}\index{qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}!validate\_parameter@{validate\_parameter}}
+\index{validate\_parameter@{validate\_parameter}!qiskit.circuit.library.graph\_state.GraphStateGate@{qiskit.circuit.library.graph\_state.GraphStateGate}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter()}{validate\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_gate_a3bf0420f0d1255b82d1d96cbdf4ffdae} 
+qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+Gate.\+validate\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{parameter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parameter validation\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/graph\+\_\+state.\+py\end{DoxyCompactItemize}

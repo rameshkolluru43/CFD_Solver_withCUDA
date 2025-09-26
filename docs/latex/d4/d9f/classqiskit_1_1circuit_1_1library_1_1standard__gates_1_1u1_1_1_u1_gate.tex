@@ -1,0 +1,218 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d4/d9f/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a69e627b52bf3b86ea2f09ef4985f96f7_a69e627b52bf3b86ea2f09ef4985f96f7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Parameter\+Value\+Type theta, str\texorpdfstring{$\vert$}{|}None label=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae68d7fbeca7dc66a022fada76f7e81c5_ae68d7fbeca7dc66a022fada76f7e81c5}{control}} (self, int num\+\_\+ctrl\+\_\+qubits=1, str\texorpdfstring{$\vert$}{|}None label=None, str\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a16f66420d341cecfe72e82827c80286f_a16f66420d341cecfe72e82827c80286f}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_abf42648c81ac0c2bf4456949799d2e78_abf42648c81ac0c2bf4456949799d2e78}{\+\_\+\+\_\+array\+\_\+\+\_\+}} (self, dtype=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a76b66503b29572348ce176cfb016bb68_a76b66503b29572348ce176cfb016bb68}{copy}}=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ac53d41855e9a48d829282ea3f46b9b0b_ac53d41855e9a48d829282ea3f46b9b0b}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a5ebba7d24d08bd91f6e1712100010769}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a5ebba7d24d08bd91f6e1712100010769} 
+{\bfseries definition} = qc
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae050fd23619939c34c033b0a7db99afe_ae050fd23619939c34c033b0a7db99afe}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a77403d5a8dae059afca3f4783d45d6bf}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a77403d5a8dae059afca3f4783d45d6bf} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+U1\+Gate
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Single-qubit rotation about the Z axis.
+
+This is a diagonal gate. It can be implemented virtually in hardware
+via framechanges (i.e. at zero error and duration).
+
+.. warning::
+
+   This gate is deprecated. Instead, the following replacements should be used
+
+   .. math::
+
+       U1(\theta) = P(\theta)= U(0,0,\theta)
+
+   .. code-block:: python
+
+      circuit = QuantumCircuit(1)
+      circuit.p(lambda, 0) # or circuit.u(0, 0, lambda, 0)
+
+
+
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌───────┐
+    q_0: ┤ U1(θ) ├
+         └───────┘
+
+**Matrix Representation:**
+
+.. math::
+
+    U1(\theta) =
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & e^{i\theta}
+        \end{pmatrix}
+
+**Examples:**
+
+    .. math::
+
+        U1(\theta = \pi) = Z
+
+    .. math::
+
+        U1(\theta = \pi/2) = S
+
+    .. math::
+
+        U1(\theta = \pi/4) = T
+
+.. seealso::
+
+    :class:`~qiskit.circuit.library.standard_gates.RZGate`:
+    This gate is equivalent to RZ up to a phase factor.
+
+        .. math::
+
+            U1(\theta) = e^{i{\theta}/2} RZ(\theta)
+
+    :class:`~qiskit.circuit.library.standard_gates.U3Gate`:
+    U3 is a generalization of U2 that covers all single-qubit rotations,
+    using two X90 pulses.
+
+    Reference for virtual Z gate implementation:
+    `1612.00858 <https://arxiv.org/abs/1612.00858>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a69e627b52bf3b86ea2f09ef4985f96f7_a69e627b52bf3b86ea2f09ef4985f96f7}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a69e627b52bf3b86ea2f09ef4985f96f7_a69e627b52bf3b86ea2f09ef4985f96f7} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Parameter\+Value\+Type}]{theta}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new U1 gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_abf42648c81ac0c2bf4456949799d2e78_abf42648c81ac0c2bf4456949799d2e78}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!\_\_array\_\_@{\_\_array\_\_}}
+\index{\_\_array\_\_@{\_\_array\_\_}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_array\_\_()}{\_\_array\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_abf42648c81ac0c2bf4456949799d2e78_abf42648c81ac0c2bf4456949799d2e78} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+\_\+\+\_\+array\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dtype}{ = {\ttfamily None}, }\item[{}]{copy}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a numpy.array for the U1 gate.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ac53d41855e9a48d829282ea3f46b9b0b_ac53d41855e9a48d829282ea3f46b9b0b}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ac53d41855e9a48d829282ea3f46b9b0b_ac53d41855e9a48d829282ea3f46b9b0b} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae050fd23619939c34c033b0a7db99afe_ae050fd23619939c34c033b0a7db99afe}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae050fd23619939c34c033b0a7db99afe_ae050fd23619939c34c033b0a7db99afe} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae68d7fbeca7dc66a022fada76f7e81c5_ae68d7fbeca7dc66a022fada76f7e81c5}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!control@{control}}
+\index{control@{control}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_ae68d7fbeca7dc66a022fada76f7e81c5_ae68d7fbeca7dc66a022fada76f7e81c5} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+control (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{num\+\_\+ctrl\+\_\+qubits}{ = {\ttfamily 1}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a (multi-)controlled-U1 gate.
+
+Args:
+    num_ctrl_qubits: number of control qubits.
+    label: An optional label for the gate [Default: ``None``]
+    ctrl_state: control state expressed as integer,
+        string (e.g.``'110'``), or ``None``. If ``None``, use all 1s.
+    annotated: indicates whether the controlled gate should be implemented
+        as an annotated gate.
+
+Returns:
+    ControlledGate: controlled version of this gate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a81a8e29816d4979751145859e7ed5a2c_a81a8e29816d4979751145859e7ed5a2c}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a16f66420d341cecfe72e82827c80286f_a16f66420d341cecfe72e82827c80286f}\index{qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.standard\_gates.u1.U1Gate@{qiskit.circuit.library.standard\_gates.u1.U1Gate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u1_1_1_u1_gate_a16f66420d341cecfe72e82827c80286f_a16f66420d341cecfe72e82827c80286f} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u1.\+U1\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverted U1 gate (:math:`U1(\lambda)^{\dagger} = U1(-\lambda))`
+
+Args:
+annotated: when set to ``True``, this is typically used to return an
+    :class:`.AnnotatedOperation` with an inverse modifier set instead of a concrete
+    :class:`.Gate`. However, for this class this argument is ignored as the inverse
+    of this gate is always a :class:`.U1Gate` with inverse parameter values.
+
+Returns:
+U1Gate: inverse gate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/u1.\+py\end{DoxyCompactItemize}

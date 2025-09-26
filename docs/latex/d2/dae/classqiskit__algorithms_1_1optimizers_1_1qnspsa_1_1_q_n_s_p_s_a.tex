@@ -1,0 +1,211 @@
+\doxysection{qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA Class Reference}
+\hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a}{}\label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a}\index{qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{d2/dae/classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_a14ffc89be54683a98ecdbd678c57ef0b_a14ffc89be54683a98ecdbd678c57ef0b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, FIDELITY fidelity, int maxiter=100, bool blocking=True, float\texorpdfstring{$\vert$}{|}None allowed\+\_\+increase=None, float\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}$\,$\mbox{]}, Iterator\mbox{]}\texorpdfstring{$\vert$}{|}None learning\+\_\+rate=None, float\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}$\,$\mbox{]}, Iterator\mbox{]}\texorpdfstring{$\vert$}{|}None perturbation=None, int\texorpdfstring{$\vert$}{|}dict\mbox{[}int, int\mbox{]} resamplings=1, int\texorpdfstring{$\vert$}{|}None perturbation\+\_\+dims=None, float\texorpdfstring{$\vert$}{|}None regularization=None, int hessian\+\_\+delay=0, Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, np.\+ndarray\mbox{]}\texorpdfstring{$\vert$}{|}None lse\+\_\+solver=None, np.\+ndarray\texorpdfstring{$\vert$}{|}None initial\+\_\+hessian=None, CALLBACK\texorpdfstring{$\vert$}{|}None callback=None, TERMINATIONCHECKER\texorpdfstring{$\vert$}{|}None termination\+\_\+checker=None)
+\item 
+dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa3deeb7f29e34704deeea0f770799bc3_aa3deeb7f29e34704deeea0f770799bc3}{settings}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, float\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa8f35bf238b4f1f85fbf5c3caf344af8_aa8f35bf238b4f1f85fbf5c3caf344af8}{get\+\_\+fidelity}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, \texorpdfstring{$\ast$}{*}, Base\+Sampler\texorpdfstring{$\vert$}{|}None sampler=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aac2ce42e29afe744d38361036c2b0cd5}\label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aac2ce42e29afe744d38361036c2b0cd5} 
+{\bfseries fidelity} = fidelity
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_ada27cf0f3eac19b1a87c863cb416dbe5_ada27cf0f3eac19b1a87c863cb416dbe5}{\+\_\+point\+\_\+sample}} (self, loss, x, eps, delta1, delta2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Quantum Natural SPSA (QN-SPSA) optimizer.
+
+The QN-SPSA optimizer [1] is a stochastic optimizer that belongs to the family of gradient
+descent methods. This optimizer is based on SPSA but attempts to improve the convergence by
+sampling the **natural gradient** instead of the vanilla, first-order gradient. It achieves
+this by approximating Hessian of the ``fidelity`` of the ansatz circuit.
+
+Compared to natural gradients, which require :math:`\mathcal{O}(d^2)` expectation value
+evaluations for a circuit with :math:`d` parameters, QN-SPSA only requires
+:math:`\mathcal{O}(1)` and can therefore significantly speed up the natural gradient calculation
+by sacrificing some accuracy. Compared to SPSA, QN-SPSA requires 4 additional function
+evaluations of the fidelity.
+
+The stochastic approximation of the natural gradient can be systematically improved by
+increasing the number of ``resamplings``. This leads to a Monte Carlo-style convergence to
+the exact, analytic value.
+
+.. note::
+
+    This component has some function that is normally random. If you want to reproduce behavior
+    then you should set the random number generator seed in the algorithm_globals
+    (``qiskit_algorithms.utils.algorithm_globals.random_seed = seed``).
+
+Examples:
+
+    This short example runs QN-SPSA for the ground state calculation of the ``Z ^ Z``
+    observable where the ansatz is a ``PauliTwoDesign`` circuit.
+
+    .. code-block:: python
+
+        import numpy as np
+        from qiskit_algorithms.optimizers import QNSPSA
+        from qiskit.circuit.library import PauliTwoDesign
+        from qiskit.primitives import Estimator, Sampler
+        from qiskit.quantum_info import Pauli
+
+        # problem setup
+        ansatz = PauliTwoDesign(2, reps=1, seed=2)
+        observable = Pauli("ZZ")
+        initial_point = np.random.random(ansatz.num_parameters)
+
+        # loss function
+        estimator = Estimator()
+
+        def loss(x):
+            result = estimator.run([ansatz], [observable], [x]).result()
+            return np.real(result.values[0])
+
+        # fidelity for estimation of the geometric tensor
+        sampler = Sampler()
+        fidelity = QNSPSA.get_fidelity(ansatz, sampler)
+
+        # run QN-SPSA
+        qnspsa = QNSPSA(fidelity, maxiter=300)
+        result = qnspsa.optimize(ansatz.num_parameters, loss, initial_point=initial_point)
+
+References:
+
+    [1] J. Gacon et al, "Simultaneous Perturbation Stochastic Approximation of the Quantum
+    Fisher Information", `arXiv:2103.09232 <https://arxiv.org/abs/2103.09232>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_a14ffc89be54683a98ecdbd678c57ef0b_a14ffc89be54683a98ecdbd678c57ef0b}\index{qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_a14ffc89be54683a98ecdbd678c57ef0b_a14ffc89be54683a98ecdbd678c57ef0b} 
+ None qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{FIDELITY}]{fidelity}{, }\item[{int }]{maxiter}{ = {\ttfamily 100}, }\item[{bool }]{blocking}{ = {\ttfamily True}, }\item[{float \texorpdfstring{$\vert$}{|} None }]{allowed\+\_\+increase}{ = {\ttfamily None}, }\item[{float \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}$\,$\mbox{]}, Iterator\mbox{]} \texorpdfstring{$\vert$}{|} None }]{learning\+\_\+rate}{ = {\ttfamily None}, }\item[{float \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}$\,$\mbox{]}, Iterator\mbox{]} \texorpdfstring{$\vert$}{|} None }]{perturbation}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} dict\mbox{[}int, int\mbox{]} }]{resamplings}{ = {\ttfamily 1}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{perturbation\+\_\+dims}{ = {\ttfamily None}, }\item[{float \texorpdfstring{$\vert$}{|} None }]{regularization}{ = {\ttfamily None}, }\item[{int }]{hessian\+\_\+delay}{ = {\ttfamily 0}, }\item[{Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, np.\+ndarray\mbox{]} \texorpdfstring{$\vert$}{|} None }]{lse\+\_\+solver}{ = {\ttfamily None}, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+hessian}{ = {\ttfamily None}, }\item[{CALLBACK \texorpdfstring{$\vert$}{|} None }]{callback}{ = {\ttfamily None}, }\item[{TERMINATIONCHECKER \texorpdfstring{$\vert$}{|} None }]{termination\+\_\+checker}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        fidelity: A function to compute the fidelity of the ansatz state with itself for
+            two different sets of parameters.
+        maxiter: The maximum number of iterations. Note that this is not the maximal number
+            of function evaluations.
+        blocking: If True, only accepts updates that improve the loss (up to some allowed
+            increase, see next argument).
+        allowed_increase: If ``blocking`` is ``True``, this argument determines by how much
+            the loss can increase with the proposed parameters and still be accepted.
+            If ``None``, the allowed increases is calibrated automatically to be twice the
+            approximated standard deviation of the loss function.
+        learning_rate: The update step is the learning rate is multiplied with the gradient.
+            If the learning rate is a float, it remains constant over the course of the
+            optimization. It can also be a callable returning an iterator which yields the
+            learning rates for each optimization step.
+            If ``learning_rate`` is set ``perturbation`` must also be provided.
+        perturbation: Specifies the magnitude of the perturbation for the finite difference
+            approximation of the gradients. Can be either a float or a generator yielding
+            the perturbation magnitudes per step.
+            If ``perturbation`` is set ``learning_rate`` must also be provided.
+        resamplings: The number of times the gradient (and Hessian) is sampled using a random
+            direction to construct a gradient estimate. Per default the gradient is estimated
+            using only one random direction. If an integer, all iterations use the same number
+            of resamplings. If a dictionary, this is interpreted as
+            ``{iteration: number of resamplings per iteration}``.
+        perturbation_dims: The number of perturbed dimensions. Per default, all dimensions
+            are perturbed, but a smaller, fixed number can be perturbed. If set, the perturbed
+            dimensions are chosen uniformly at random.
+        regularization: To ensure the preconditioner is symmetric and positive definite, the
+            identity times a small coefficient is added to it. This generator yields that
+            coefficient.
+        hessian_delay: Start multiplying the gradient with the inverse Hessian only after a
+            certain number of iterations. The Hessian is still evaluated and therefore this
+            argument can be useful to first get a stable average over the last iterations before
+            using it as preconditioner.
+        lse_solver: The method to solve for the inverse of the Hessian. Per default an
+            exact LSE solver is used, but can e.g. be overwritten by a minimization routine.
+        initial_hessian: The initial guess for the Hessian. By default the identity matrix
+            is used.
+        callback: A callback function passed information in each iteration step. The
+            information is, in this order: the parameters, the function value, the number
+            of function evaluations, the stepsize, whether the step was accepted.
+        termination_checker: A callback function executed at the end of each iteration step. The
+            arguments are, in this order: the parameters, the function value, the number
+            of function evaluations, the stepsize, whether the step was accepted. If the callback
+            returns True, the optimization is terminated.
+            To prevent additional evaluations of the objective method, if the objective has not yet
+            been evaluated, the objective is estimated by taking the mean of the objective
+            evaluations used in the estimate of the gradient.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1spsa_1_1_s_p_s_a_a772aebc6a743ffbd944655a6683ffae1_a772aebc6a743ffbd944655a6683ffae1}{qiskit\+\_\+algorithms.\+optimizers.\+spsa.\+SPSA}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_ada27cf0f3eac19b1a87c863cb416dbe5_ada27cf0f3eac19b1a87c863cb416dbe5}\index{qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}!\_point\_sample@{\_point\_sample}}
+\index{\_point\_sample@{\_point\_sample}!qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}}
+\doxysubsubsection{\texorpdfstring{\_point\_sample()}{\_point\_sample()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_ada27cf0f3eac19b1a87c863cb416dbe5_ada27cf0f3eac19b1a87c863cb416dbe5} 
+qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA.\+\_\+point\+\_\+sample (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{loss}{, }\item[{}]{x}{, }\item[{}]{eps}{, }\item[{}]{delta1}{, }\item[{}]{delta2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A single sample of the gradient at position ``x`` in direction ``delta``.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1spsa_1_1_s_p_s_a_a80f6fa2e48810ccdc92589d009fabd59_a80f6fa2e48810ccdc92589d009fabd59}{qiskit\+\_\+algorithms.\+optimizers.\+spsa.\+SPSA}}.
+
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa8f35bf238b4f1f85fbf5c3caf344af8_aa8f35bf238b4f1f85fbf5c3caf344af8}\index{qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}!get\_fidelity@{get\_fidelity}}
+\index{get\_fidelity@{get\_fidelity}!qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}}
+\doxysubsubsection{\texorpdfstring{get\_fidelity()}{get\_fidelity()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa8f35bf238b4f1f85fbf5c3caf344af8_aa8f35bf238b4f1f85fbf5c3caf344af8} 
+ Callable\mbox{[}\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]}, float\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA.\+get\+\_\+fidelity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{Base\+Sampler \texorpdfstring{$\vert$}{|} None }]{sampler}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Get a function to compute the fidelity of ``circuit`` with itself.
+
+    Let ``circuit`` be a parameterized quantum circuit performing the operation
+    :math:`U(\theta)` given a set of parameters :math:`\theta`. Then this method returns
+    a function to evaluate
+
+    .. math::
+
+        F(\theta, \phi) = \big|\langle 0 | U^\dagger(\theta) U(\phi) |0\rangle  \big|^2.
+
+    The output of this function can be used as input for the ``fidelity`` to the
+    :class:`~.QNSPSA` optimizer.
+
+    Args:
+        circuit: The circuit preparing the parameterized ansatz.
+        sampler: A sampler primitive to sample from a quantum state.
+
+    Returns:
+        A handle to the function :math:`F`.\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa3deeb7f29e34704deeea0f770799bc3_aa3deeb7f29e34704deeea0f770799bc3}\index{qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}!settings@{settings}}
+\index{settings@{settings}!qiskit\_algorithms.optimizers.qnspsa.QNSPSA@{qiskit\_algorithms.optimizers.qnspsa.QNSPSA}}
+\doxysubsubsection{\texorpdfstring{settings()}{settings()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1qnspsa_1_1_q_n_s_p_s_a_aa3deeb7f29e34704deeea0f770799bc3_aa3deeb7f29e34704deeea0f770799bc3} 
+ dict\mbox{[}str, Any\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+qnspsa.\+QNSPSA.\+settings (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The optimizer settings in a dictionary format.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1spsa_1_1_s_p_s_a_ac0700dbef50560746521888fda8e7662_ac0700dbef50560746521888fda8e7662}{qiskit\+\_\+algorithms.\+optimizers.\+spsa.\+SPSA}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/optimizers/qnspsa.\+py\end{DoxyCompactItemize}

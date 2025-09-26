@@ -1,0 +1,62 @@
+\doxysection{more\+\_\+itertools.\+more.\+time\+\_\+limited Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1time__limited}{}\label{classmore__itertools_1_1more_1_1time__limited}\index{more\_itertools.more.time\_limited@{more\_itertools.more.time\_limited}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a843c1e513a2ed6d4cb34c8cd16039ca3}\label{classmore__itertools_1_1more_1_1time__limited_a843c1e513a2ed6d4cb34c8cd16039ca3} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, limit\+\_\+seconds, iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a5525aa53adc4de21c05a7883d8e3712d}\label{classmore__itertools_1_1more_1_1time__limited_a5525aa53adc4de21c05a7883d8e3712d} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_af30cfd130474d600a6b59e2715efbdce}\label{classmore__itertools_1_1more_1_1time__limited_af30cfd130474d600a6b59e2715efbdce} 
+{\bfseries \+\_\+\+\_\+next\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a2f052adef60d6193f1055518b676a953}\label{classmore__itertools_1_1more_1_1time__limited_a2f052adef60d6193f1055518b676a953} 
+int {\bfseries limit\+\_\+seconds} = limit\+\_\+seconds
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a072e70b665ecf2433c3ed64596b355e7}\label{classmore__itertools_1_1more_1_1time__limited_a072e70b665ecf2433c3ed64596b355e7} 
+bool {\bfseries timed\+\_\+out} = False
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a71831a00d3ae276db11d6a41acb8a05e}\label{classmore__itertools_1_1more_1_1time__limited_a71831a00d3ae276db11d6a41acb8a05e} 
+{\bfseries \+\_\+iterable} = iter(iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1time__limited_a08408957626ee4e23124959d043e881f}\label{classmore__itertools_1_1more_1_1time__limited_a08408957626ee4e23124959d043e881f} 
+{\bfseries \+\_\+start\+\_\+time} = monotonic()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Yield items from *iterable* until *limit_seconds* have passed.
+If the time limit expires before all items have been yielded, the
+``timed_out`` parameter will be set to ``True``.
+
+>>> from time import sleep
+>>> def generator():
+...     yield 1
+...     yield 2
+...     sleep(0.2)
+...     yield 3
+>>> iterable = time_limited(0.1, generator())
+>>> list(iterable)
+[1, 2]
+>>> iterable.timed_out
+True
+
+Note that the time is checked before each item is yielded, and iteration
+stops if  the time elapsed is greater than *limit_seconds*. If your time
+limit is 1 second, but it takes 2 seconds to generate the first item from
+the iterable, the function will run for 2 seconds and not yield anything.
+As a special case, when *limit_seconds* is zero, the iterator never
+returns anything.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

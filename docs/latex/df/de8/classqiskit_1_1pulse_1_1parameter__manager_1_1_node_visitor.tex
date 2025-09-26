@@ -1,0 +1,106 @@
+\doxysection{qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor}{}\label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+Inheritance diagram for qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.904762cm]{df/de8/classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ad0ee8b69ef1a4d1313a3b468da860b6e_ad0ee8b69ef1a4d1313a3b468da860b6e}{visit}} (self, Any node)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a8be3a7408c5ee5b4c0cbfe743c1016a8_a8be3a7408c5ee5b4c0cbfe743c1016a8}{visit\+\_\+\+Schedule\+Block}} (self, \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} node)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a2cb1ba5f93bb35b6c4260a05957b140c_a2cb1ba5f93bb35b6c4260a05957b140c}{visit\+\_\+\+Schedule}} (self, \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} node)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ac6478b1c82f3b9db8836a2d4903b1c84_ac6478b1c82f3b9db8836a2d4903b1c84}{generic\+\_\+visit}} (self, Any node)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_abd41ac2d7d19c1633d1e781667e2399c_abd41ac2d7d19c1633d1e781667e2399c}{\+\_\+get\+\_\+visitor}} (self, node\+\_\+class)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A node visitor base class that walks instruction data in a pulse program and calls
+visitor functions for every node.
+
+Though this class implementation is based on Python AST, each node doesn't have
+a dedicated node class due to the lack of an abstract syntax tree for pulse programs in
+Qiskit. Instead of parsing pulse programs, this visitor class finds the associated visitor
+function based on class name of the instruction node, i.e. ``Play``, ``Call``, etc...
+The `.visit` method recursively checks superclass of given node since some parametrized
+components such as ``DriveChannel`` may share a common superclass with other subclasses.
+In this example, we can just define ``visit_Channel`` method instead of defining
+the same visitor function for every subclasses.
+
+Some instructions may have special logic or data structure to store parameter objects,
+and visitor functions for these nodes should be individually defined.
+
+Because pulse programs can be nested into another pulse program,
+the visitor function should be able to recursively call proper visitor functions.
+If visitor function is not defined for a given node, ``generic_visit``
+method is called. Usually, this method is provided for operating on object defined
+outside of the Qiskit Pulse module.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_abd41ac2d7d19c1633d1e781667e2399c_abd41ac2d7d19c1633d1e781667e2399c}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}!\_get\_visitor@{\_get\_visitor}}
+\index{\_get\_visitor@{\_get\_visitor}!qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{\_get\_visitor()}{\_get\_visitor()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_abd41ac2d7d19c1633d1e781667e2399c_abd41ac2d7d19c1633d1e781667e2399c} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor.\+\_\+get\+\_\+visitor (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{node\+\_\+class}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to recursively investigate superclass visitor method.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ac6478b1c82f3b9db8836a2d4903b1c84_ac6478b1c82f3b9db8836a2d4903b1c84}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}!generic\_visit@{generic\_visit}}
+\index{generic\_visit@{generic\_visit}!qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{generic\_visit()}{generic\_visit()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ac6478b1c82f3b9db8836a2d4903b1c84_ac6478b1c82f3b9db8836a2d4903b1c84} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor.\+generic\+\_\+visit (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Any}]{node}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Called if no explicit visitor function exists for a node.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_getter_ad671b9f36a2c8e7f39e9ac0e1dd7da28_ad671b9f36a2c8e7f39e9ac0e1dd7da28}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Getter}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_setter_abc0bfa9df9234403a79782ebfcdd2893_abc0bfa9df9234403a79782ebfcdd2893}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Setter}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ad0ee8b69ef1a4d1313a3b468da860b6e_ad0ee8b69ef1a4d1313a3b468da860b6e}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}!visit@{visit}}
+\index{visit@{visit}!qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit()}{visit()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_ad0ee8b69ef1a4d1313a3b468da860b6e_ad0ee8b69ef1a4d1313a3b468da860b6e} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor.\+visit (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Any}]{node}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Visit a node.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a2cb1ba5f93bb35b6c4260a05957b140c_a2cb1ba5f93bb35b6c4260a05957b140c}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}!visit\_Schedule@{visit\_Schedule}}
+\index{visit\_Schedule@{visit\_Schedule}!qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit\_Schedule()}{visit\_Schedule()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a2cb1ba5f93bb35b6c4260a05957b140c_a2cb1ba5f93bb35b6c4260a05957b140c} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor.\+visit\+\_\+\+Schedule (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}}]{node}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Visit ``Schedule``. Recursively visit schedule children and overwrite.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_getter_ae71c6c4686542ba514f4f39503cf4af0_ae71c6c4686542ba514f4f39503cf4af0}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Getter}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_setter_af5077f007633a58713adb0f14edfceb7_af5077f007633a58713adb0f14edfceb7}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Setter}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a8be3a7408c5ee5b4c0cbfe743c1016a8_a8be3a7408c5ee5b4c0cbfe743c1016a8}\index{qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}!visit\_ScheduleBlock@{visit\_ScheduleBlock}}
+\index{visit\_ScheduleBlock@{visit\_ScheduleBlock}!qiskit.pulse.parameter\_manager.NodeVisitor@{qiskit.pulse.parameter\_manager.NodeVisitor}}
+\doxysubsubsection{\texorpdfstring{visit\_ScheduleBlock()}{visit\_ScheduleBlock()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_node_visitor_a8be3a7408c5ee5b4c0cbfe743c1016a8_a8be3a7408c5ee5b4c0cbfe743c1016a8} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Node\+Visitor.\+visit\+\_\+\+Schedule\+Block (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}}}]{node}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Visit ``ScheduleBlock``. Recursively visit context blocks and overwrite.
+
+.. note:: ``ScheduleBlock`` can have parameters in blocks and its alignment.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_getter_a6387c4e37cdcd86d87c9a65668cf3245_a6387c4e37cdcd86d87c9a65668cf3245}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Getter}}, and \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_setter_a456c07691b35627246860fe029fab983_a456c07691b35627246860fe029fab983}{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Setter}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/parameter\+\_\+manager.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,485 @@
+\doxysection{WENO2\+D.\+cpp}
+\hypertarget{_w_e_n_o2_d_8cpp_source}{}\label{_w_e_n_o2_d_8cpp_source}\index{Basic\_Files/WENO2D.cpp@{Basic\_Files/WENO2D.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{void}\ WENO\_Reconstruction(\textcolor{keywordtype}{double}\ \&\ a,\textcolor{keywordtype}{double}\ \&b,\textcolor{keywordtype}{double}\ \&\ c,\textcolor{keywordtype}{double}\ \&\ d,\textcolor{keywordtype}{double}\ \&\ e,\ \textcolor{keywordtype}{int}\ \&\ shift\ ,\textcolor{keywordtype}{double}\ \&\ U\ )}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{double}\ d0=\ 0.0,\ d1=\ 0.0,\ d2=\ 0.0,\ b0=\ 0.0,\ b1=\ 0.0,\ b2=\ 0.0,\ a0=\ 0.0,\ a1=\ 0.0,\ a2=\ 0.0;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ v0\ =\ 0.0,\ v1\ =\ 0.0,\ v2\ =\ 0.0,\ w0\ =\ 0.0,\ w1\ =\ 0.0,\ w2\ =\ 0.0,\ sum\ =\ 0.0,epsilon\ =\ 1e-\/6;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ p\ =\ 2;\ \ }
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(shift)}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ for\ Left\ Values}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d0\ =\ 3.0/10.0;d1\ =\ 6.0/10.0;d2=1.0/10.0;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2\ =\ (2.0*a\ \ -\/\ 7.0*b\ \ +\ 11.0*c)/6.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v1\ =\ (-\/1.0*b\ +\ 5.0*c\ \ +\ 2.0*d)/6.0;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v0\ =\ (2.0*c\ \ +\ 5.0*d\ \ -\/\ 1.0*e)/6.0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ for\ Right\ Values}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d0\ =\ 1.0/10.0;d1\ =\ 6.0/10.0;d2=3.0/10.0;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v2\ =\ (-\/1.0*a\ \ \ +\ 5.0*b\ \ +\ 2.0*c)/6.0;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v1\ =\ (2.0*b\ \ \ \ +\ 5.0*c\ \ -\/\ 1.0*d)/6.0;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v0\ =\ (11.0*c\ \ \ -\/\ 7.0*d\ \ +\ 2.0*e)/6.0;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ b2\ =\ (13.0/12.0)*pow((a\ -\/\ 2.0*b\ +\ c),2)\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ +(1.0/4.0)*pow((a\ -\/\ 4.0*b\ +\ 3.0*c),2);}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ b1\ =\ (13.0/12.0)*pow((b\ -\/\ 2.0*c\ +\ d),2)\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ +(1.0/4.0)*pow((b\ \ -\/\ d),2);}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ b0\ =\ (13.0/12.0)*pow((c\ -\/\ 2.0*d\ +\ e),2)\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ +(1.0/4.0)*pow((3.0*c\ -\/\ 4.0*d\ +\ e),2);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ a0\ =\ d0/pow((epsilon\ +\ b0),p);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ a1\ =\ d1/pow((epsilon\ +\ b1),p);}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ a2\ =\ d2/pow((epsilon\ +\ b2),p);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ sum\ =\ a0\ +\ a1\ +\ a2;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ w0\ =\ a0/sum;\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ w1\ =\ a1/sum;\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ w2\ =\ a2/sum;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ U\ =\ w0*v0\ +\ w1*v1\ +\ w2*v2;}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{void}\ Get\_LR(\ \textcolor{keywordtype}{int}\ \&\ CellNo,\ \textcolor{keywordtype}{int}\ \&\ Neighbour,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\ V\_D\ \&\ L\ ,\ V\_D\ \&\ IL\ )}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{double}\ dL=0.0,uL=0.0,vL=0.0,aL=0.0,dR=0.0,uR=0.0,vR=0.0,aR=0.0,h=0.0;}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ ek=0.0,vn=0.0,nx=0.0,ny=0.0;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{double}\ a\_RL=0.0,u\_RL=0.0,v\_RL=0.0,t2,t1;}
+\DoxyCodeLine{00059\ \ \ \ \ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ cout<<"{}in\ Get\ LR"{}<<endl;}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ cout<<CellNo<<"{}\(\backslash\)t"{}<<Neighbour<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<index<<endl;}}
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ dL\ =\ Primitive\_Cells[CellNo][0];}
+\DoxyCodeLine{00064\ \ \ \ \ uL\ =\ Primitive\_Cells[CellNo][1];}
+\DoxyCodeLine{00065\ \ \ \ \ vL\ =\ Primitive\_Cells[CellNo][2];}
+\DoxyCodeLine{00066\ \ \ \ \ aL\ =\ Primitive\_Cells[CellNo][5];}
+\DoxyCodeLine{00067\ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ dR\ =\ 0.0*Primitive\_Cells[Neighbour][0];}
+\DoxyCodeLine{00069\ \ \ \ \ uR\ =\ 0.0*Primitive\_Cells[Neighbour][1];}
+\DoxyCodeLine{00070\ \ \ \ \ vR\ =\ 0.0*Primitive\_Cells[Neighbour][2];}
+\DoxyCodeLine{00071\ \ \ \ \ aR\ =\ 0.0*Primitive\_Cells[Neighbour][5];}
+\DoxyCodeLine{00072\ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ u\_RL\ =\ (uL*sqrt(dL)\ +\ uR*sqrt(dR))/(sqrt(dL)\ +\ sqrt(dR));}
+\DoxyCodeLine{00075\ \ \ \ \ v\_RL\ =\ (vL*sqrt(dL)\ +\ vR*sqrt(dR))/(sqrt(dL)\ +\ sqrt(dR));\ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ a\_RL\ =\ (aL*sqrt(dL)\ +\ aR*sqrt(dR))/(sqrt(dL)\ +\ sqrt(dR));\ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ nx\ =\ Cell\_Face\_Normals[CellNo][index+0];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00080\ \ \ \ \ ny\ =\ Cell\_Face\_Normals[CellNo][index+1];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ \ cout<<"{}\ Cell\ Normals\(\backslash\)t"{}<<nx<<"{}\(\backslash\)t"{}<<ny<<endl;}}
+\DoxyCodeLine{00083\ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ vn\ \ =\ (u\_RL*nx\ +\ v\_RL*ny);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ V\ dot\ n\ =\ (u\ dy\ -\/\ v\ dx)\ /\ dl}}
+\DoxyCodeLine{00085\ \ \ \ \ ek\ =\ 0.5*(u\_RL*u\_RL\ +\ v\_RL*v\_RL);}
+\DoxyCodeLine{00086\ \ \ \ \ h\ =\ (a\_RL*a\_RL/gamma\_M\_1)\ +\ ek;}
+\DoxyCodeLine{00087\ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ t1\ =0.5/a\_RL*a\_RL;}
+\DoxyCodeLine{00089\ \ \ \ \ t2\ =\ gamma\_M\_1*t1;\ \ }
+\DoxyCodeLine{00090\ \ \ \ \ }
+\DoxyCodeLine{00091\ \ \ \ \ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ Matrix\ to\ Conserved\ to\ Characteristic\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ L[0]\ =\ 1.0\ -\/\ 2.0*t2*ek;\ \ \ \ \ \ \ \ \ L[4]\ =\ 2.0*t2*u\_RL;\ \ \ \ \ \ \ \ \ \ \ \ \ L[8]\ =\ 2.0*t2*v\_RL;\ \ \ \ \ \ \ \ \ \ \ \ \ L[12]\ =\ -\/2.0*t2;}
+\DoxyCodeLine{00095\ \ \ \ \ L[1]\ =\ v\_RL*nx\ -\/\ u\_RL*ny;\ \ \ \ \ \ \ L[5]\ =\ ny;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ L[9]\ =\ -\/nx;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ L[13]\ =\ 0.0;\ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ L[2]\ =\ t2*ek\ -\/\ a\_RL*vn*t1;\ \ \ \ \ \ L[6]\ =\ -\/t2*u\_RL\ +\ a\_RL*t1*nx;\ \ \ L[10]\ =\ -\/t2*v\_RL\ +\ a\_RL*t1*ny;\ \ L[14]\ =\ t2;}
+\DoxyCodeLine{00097\ \ \ \ \ L[3]\ =\ t2*ek\ +\ a\_RL*vn*t1;\ \ \ \ \ \ L[7]\ =\ -\/t2*u\_RL\ -\/\ a\_RL*t1*nx;\ \ \ L[11]\ =\ -\/t2*v\_RL\ -\/\ a\_RL*t1*ny;\ \ L[15]\ =\ t2;}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ \ Print(L);}}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;i<16;i++)}
+\DoxyCodeLine{00101\ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isnan(L[i]))}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Nan\ occurred\ here\ in\ L\ \(\backslash\)t"{}}<<i<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<L[i]<<endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{//\ Matrix\ to\ convert\ characteristic\ to\ conserved}}
+\DoxyCodeLine{00110\ \ \ \ \ IL[0]\ =\ 1.0;\ \ \ \ IL[4]\ =\ 0.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[8]\ \ =\ 1.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[12]\ =\ 1.0;}
+\DoxyCodeLine{00111\ \ \ \ \ IL[1]\ =\ u\_RL;\ \ \ IL[5]\ =\ ny;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[9]\ \ =\ u\_RL\ +\ a\_RL*nx;\ \ \ \ IL[13]\ =\ u\_RL\ -\/\ a\_RL*nx;}
+\DoxyCodeLine{00112\ \ \ \ \ IL[2]\ =\ v\_RL;\ \ \ IL[6]\ =\ -\/nx;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[10]\ =\ v\_RL\ +\ a\_RL*ny;\ \ \ \ IL[14]\ =\ v\_RL\ -\/\ a\_RL*ny;}
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ \ IL[1]\ =\ vn;\ \ \ \ \ IL[5]\ =\ ny;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[9]\ \ =\ vn\ +\ a\_RL*nx;\ \ \ \ \ \ IL[13]\ =\ vn\ -\/\ a\_RL*nx;}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ \ IL[2]\ =\ vn;\ \ \ \ \ IL[6]\ =\ -\/nx;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ IL[10]\ =\ vn\ +\ a\_RL*ny;\ \ \ \ \ \ IL[14]\ =\ vn\ -\/\ a\_RL*ny;}}
+\DoxyCodeLine{00115\ \ \ \ \ IL[3]\ =\ ek;\ \ \ \ \ IL[7]\ =\ u\_RL*ny\ -\/\ v\_RL*nx;\ \ IL[11]\ =\ h\ +\ a\_RL*vn;\ \ \ \ \ \ \ IL[15]\ =\ h\ -\/\ a\_RL*vn;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \textcolor{comment}{//\ \ \ \ \ \ Print(IL);}}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;i<16;i++)}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isnan(IL[i]))}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Nan\ occurred\ here\ in\ IL\ \(\backslash\)t"{}}<<i<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<IL[i]<<endl;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \}}
+\DoxyCodeLine{00127\ \ \ \ \ }
+\DoxyCodeLine{00128\ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \textcolor{keywordtype}{void}\ MatVecMul(V\_D\ \&\ A,\ V\_D\ \&\ x\ ,V\_D\ \ \&\ B)}
+\DoxyCodeLine{00131\ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ B.size();}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =0;i<size;i++)}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ B[i]\ =\ 0.0;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;j<size;j++)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<i\ +\ size\ *\ j<<"{}\(\backslash\)t"{}<<j<<endl;}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ B[i]\ +=\ A[i\ +\ size\ *\ j]*x[j];}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{void}\ Get\_Reconstructed\_U(\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\ \textcolor{keywordtype}{int}\ \&\ i1,\ \textcolor{keywordtype}{int}\ \&i2,\ \textcolor{keywordtype}{int}\ \&i3,\ \textcolor{keywordtype}{int}\ \&\ i4\ ,\ \textcolor{keywordtype}{int}\ \&i5,\ \textcolor{keywordtype}{int}\ \&\ LR,\ V\_D\ \&\ U)}
+\DoxyCodeLine{00145\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordtype}{int}\ Neighbour\ =\ 0;}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{switch}(Face\_No)}
+\DoxyCodeLine{00149\ \ \ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\ =\ Cell\_Neighbours[Cell\_No][1];}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\ =\ Cell\_Neighbours[Cell\_No][2];}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\ =\ Cell\_Neighbours[Cell\_No][3];}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\ =\ Cell\_Neighbours[Cell\_No][4];}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \}}
+\DoxyCodeLine{00164\ \ \ \ \ \ }
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ V\_D\ U1(4,0.0),U2(4,0.0),U3(4,0.0),U4(4,0.0),U5(4,0.0);}
+\DoxyCodeLine{00167\ \ \ \ \ V\_D\ W1(4,0.0),W2(4,0.0),W3(4,0.0),W4(4,0.0),W5(4,0.0),W(4,0.0);}
+\DoxyCodeLine{00168\ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ V\_D\ L(16,0.0),InvL(16,0.0);}
+\DoxyCodeLine{00170\ \ \ \ \ }
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ \ cout<<"{}Starting\ reconstruction"{}<<endl;}}
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ \ cout<<i1<<"{}\(\backslash\)t"{}<<i2<<"{}\(\backslash\)t"{}<<i3<<"{}\(\backslash\)t"{}<<i4<<"{}\(\backslash\)t"{}<<i5<<endl;}}
+\DoxyCodeLine{00173\ \ \ \ \ Calculate\_Computational\_Variables(i1,U1);}
+\DoxyCodeLine{00174\ \ \ \ \ Calculate\_Computational\_Variables(i2,U2);}
+\DoxyCodeLine{00175\ \ \ \ \ Calculate\_Computational\_Variables(i3,U3);}
+\DoxyCodeLine{00176\ \ \ \ \ Calculate\_Computational\_Variables(i4,U4);}
+\DoxyCodeLine{00177\ \ \ \ \ Calculate\_Computational\_Variables(i5,U5);}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Char)}
+\DoxyCodeLine{00180\ \ \ \ \ \{}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ Get\_LR(Cell\_No,Neighbour,Face\_No,L,InvL);}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ MatVecMul(L,U1,W1);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ MatVecMul(L,U2,W2);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ MatVecMul(L,U3,W3);}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ MatVecMul(L,U4,W4);}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ MatVecMul(L,U5,W5);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;i<4;i++)}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ WENO\_Reconstruction(W1[i],W2[i],W3[i],W4[i],W5[i],LR,W[i]);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ MatVecMul(InvL,W,U);}
+\DoxyCodeLine{00192\ \ \ \ \ \}}
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;i<4;i++)}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ WENO\_Reconstruction(U1[i],U2[i],U3[i],U4[i],U5[i],LR,U[i]);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{void}\ WENO\_Reconstruction\_X(\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&Face\_No,V\_D\ \&\ U\_L,V\_D\ \&\ U\_R)}
+\DoxyCodeLine{00204\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordtype}{int}\ im3=0,\ im2=0,\ im1=0,\ ip2=0,\ ip1=0,\ ip3=0,jm3=0,\ jm2=0,\ jm1=0,\ jp2=0,\ jp1=0,\ jp3=0,LR=0;}
+\DoxyCodeLine{00206\ \ \ \ \ }
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ Obtaining\ the\ indicies\ of\ neighbour\ cells}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ \ cout<<"{}In\ weno\ construction\ x\(\backslash\)t"{}<<\ Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;\ \ \ \ }}
+\DoxyCodeLine{00210\ \ \ \ \ }
+\DoxyCodeLine{00211\ \ \ \ \ im1\ =\ Cell\_Neighbours[Cell\_No][1];}
+\DoxyCodeLine{00212\ \ \ \ \ ip1\ =\ Cell\_Neighbours[Cell\_No][3];}
+\DoxyCodeLine{00213\ \ \ \ \ jm1\ =\ Cell\_Neighbours[Cell\_No][2];}
+\DoxyCodeLine{00214\ \ \ \ \ jp1\ =\ Cell\_Neighbours[Cell\_No][4];}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{if}(im1>=No\_Physical\_Cells)}
+\DoxyCodeLine{00217\ \ \ \ \ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{comment}{//left\ most\ boundary\ im1\ is\ ghost\ cell\ then\ im2\ \ and\ im3\ =\ im1}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ im2\ =\ im1;\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ im3\ =\ im1;}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00224\ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ im2\ =\ Cell\_Neighbours[im1][1];}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(im2>=No\_Physical\_Cells)}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ im3\ =\ im2;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ im3\ =\ Cell\_Neighbours[im2][1];}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00234\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00235\ \ \ \ \ }
+\DoxyCodeLine{00236\ \textcolor{comment}{//\ \ cout<<"{}left\ side\ stencil\ fixed"{}<<endl;}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{if}(ip1>=No\_Physical\_Cells)}
+\DoxyCodeLine{00238\ \ \ \ \ \{}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ ip2\ =\ ip1;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ ip3\ =\ ip1;}
+\DoxyCodeLine{00241\ \ \ \ \ \}}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00243\ \ \ \ \ \{}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ ip2\ =\ Cell\_Neighbours[ip1][3];}
+\DoxyCodeLine{00245\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}value\ of\ ip2\(\backslash\)t"{}<<ip2<<endl;}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ip2>=No\_Physical\_Cells)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ ip3\ =\ ip2;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ ip3\ =Cell\_Neighbours[ip2][3];}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}value\ of\ ip3\(\backslash\)t"{}<<ip3<<endl;}}
+\DoxyCodeLine{00255\ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ }
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ For\ \ y\ direction\ neighbours}}
+\DoxyCodeLine{00258\ \ \ \ \ \textcolor{keywordflow}{if}(jm1>=No\_Physical\_Cells)}
+\DoxyCodeLine{00259\ \ \ \ \ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{comment}{//left\ most\ boundary\ im1\ is\ ghost\ cell\ then\ im2\ \ and\ im3\ =\ im1}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ jm2\ =\ jm1;\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ jm3\ =\ jm1;}
+\DoxyCodeLine{00263\ \ \ \ \ \}}
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00265\ \ \ \ \ \{}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ jm2\ =\ Cell\_Neighbours[jm1][2];}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(jm2>=No\_Physical\_Cells)}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ jm3\ =\ jm2;}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ jm3\ =\ Cell\_Neighbours[jm2][2];}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00276\ \ \ \ \ }
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{if}(jp1>=No\_Physical\_Cells)}
+\DoxyCodeLine{00279\ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ jp2\ =\ jp1;}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ jp3\ =\ jp1;}
+\DoxyCodeLine{00282\ \ \ \ \ \}}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00284\ \ \ \ \ \{\ \ \ \ \ \ \ }
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ jp2\ =\ Cell\_Neighbours[jp1][4];}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(jp2>=No\_Physical\_Cells)}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ jp3\ =\ jp2;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ jp3\ =Cell\_Neighbours[jp2][4];}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00294\ \ \ \ \ \}}
+\DoxyCodeLine{00295\ \textcolor{comment}{//\ \ cout<<"{}In\ weno\ construction\ x\(\backslash\)t"{}<<\ Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00296\ \textcolor{comment}{//\ \ cout<<im3<<"{}\(\backslash\)t"{}<<im2<<"{}\(\backslash\)t"{}<<im1<<"{}\(\backslash\)t"{}<<ip1<<"{}\(\backslash\)t"{}<<ip2<<"{}\(\backslash\)t"{}<<ip3<<endl;}}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordflow}{switch}(Face\_No)}
+\DoxyCodeLine{00298\ \ \ \ \ \{}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ }
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 0;}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,im3,im2,im1,Cell\_No,ip1,LR,U\_L);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 1;}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,im2,im1,Cell\_No,ip1,ip2,LR,U\_R);}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 0;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,jm3,jm2,jm1,Cell\_No,jp1,LR,U\_L);}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 1;}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,jm2,jm1,Cell\_No,jp1,jp2,LR,U\_R);}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 0;}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,im2,im1,Cell\_No,ip1,ip2,LR,U\_L);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 1;}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,im1,Cell\_No,ip1,ip2,ip3,LR,U\_R);}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 0;}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,jm2,jm1,Cell\_No,jp1,jp2,LR,U\_L);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LR\ =\ 1;}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Get\_Reconstructed\_U(Cell\_No,Face\_No,jm1,Cell\_No,jp1,jp2,jp3,LR,U\_R);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \}}
+\DoxyCodeLine{00328\ }
+\DoxyCodeLine{00329\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_WENO()}
+\DoxyCodeLine{00330\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordtype}{int}\ N\_1=0,N\_2=0,N\_3=0,N\_4=0;\ \ \ \ \textcolor{comment}{//\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Current\_Cell\_No=0;Current\_Cell\_No<No\_Physical\_Cells;Current\_Cell\_No++)}
+\DoxyCodeLine{00334\ \ \ \ \ \{}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ N\_1\ =\ Cell\_Neighbours[Current\_Cell\_No][1];\ \ \ \ \ \ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ N\_2\ =\ Cell\_Neighbours[Current\_Cell\_No][2];\ \ \ \ \ \ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ N\_3\ =\ Cell\_Neighbours[Current\_Cell\_No][3];\ \ \ \ \ \ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ N\_4\ =\ Cell\_Neighbours[Current\_Cell\_No][4];\ \ \ \ \ \ \textcolor{comment}{//(i,j+1,k)\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00342\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}here\ \(\backslash\)t"{}<<Current\_Cell\_No<<endl;}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ 0;i<4;i++)}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][i]\ =\ 0.0;}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ Calculate\_Face\_WENO\_Flux(Current\_Cell\_No,N\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][i]\ +=\ Average\_Convective\_Flux[i]\ -\/\ Dissipative\_Flux[i];}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00354\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2\ //Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_WENO\_Flux(Current\_Cell\_No,N\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][i]\ +=\ Average\_Convective\_Flux[i]\ -\/\ Dissipative\_Flux[i];}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00362\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ //Average\ Convective\ Flux\ Face\ \ 2\ \ }}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_WENO\_Flux(Current\_Cell\_No,N\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][i]\ +=\ Average\_Convective\_Flux[i]\ -\/\ Dissipative\_Flux[i];}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00370\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ //Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_WENO\_Flux(Current\_Cell\_No,N\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][i]\ +=\ Average\_Convective\_Flux[i]\ -\/\ Dissipative\_Flux[i];}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Time\_Step(Current\_Cell\_No);}
+\DoxyCodeLine{00378\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Evaluated\ time\ step\ for\ cell\ no\(\backslash\)t"{}<<Current\_Cell\_No<<endl;}}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00381\ \ \ \ \ }
+\DoxyCodeLine{00382\ \}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{keywordtype}{void}\ Calculate\_Face\_WENO\_Flux(\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\ \textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\textcolor{keywordtype}{bool}\ \ Is\_Wall\_Face)}
+\DoxyCodeLine{00385\ \{}
+\DoxyCodeLine{00386\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00387\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Evaluating\ Average\ Fluxes\ endl\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00388\ \ \ \ \ Rho\_L=0.0,T\_L=0.0,P\_L=0.0,u\_L=0.0,v\_L=0.0,Vdotn\_L=0.0,nx=0.0,ny=0.0,Vmag\_L=0.0,C\_L=0.0;}
+\DoxyCodeLine{00389\ \ \ \ \ Rho\_R=0.0,T\_R=0.0,P\_R=0.0,u\_R=0.0,v\_R=0.0,Vdotn\_R=0.0,Vmag\_R\ =\ 0.0,dl\ =0.0;}
+\DoxyCodeLine{00390\ \ \ \ \ }
+\DoxyCodeLine{00391\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ double\ Avg\_Rho=0.0,Avg\_u=0.0,Avg\_v=0.0,Avg\_P=0.0;}}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_L[i]\ =\ 0.0;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[i]\ =\ 0.0;}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[i]\ =\ 0.0;}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[i]\ =\ 0.0;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[i]\ =\ 0.0;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ U\_R[i]\ =\ 0.0;}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ WENO\_Reconstruction\_X(Cell\_No,Face\_No,U\_L,U\_R);}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00409\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}COmpleted\ weno\ reconstruction"{}<<endl;}}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Cell\_No,U\_L);}
+\DoxyCodeLine{00411\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ Left\ state\ variables\ }}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ Rho\_L\ =\ Global\_Primitive[0];\ \ \ \ }
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ P\_L\ =Global\_Primitive[4];\ \ \ \ \ \ \ }
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ u\_L\ =Global\_Primitive[1];\ \ \ }
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ v\_L\ =Global\_Primitive[2];}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ C\_L\ =Global\_Primitive[5];}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(N\_Cell\_No,U\_R);}
+\DoxyCodeLine{00418\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ Right\ state\ variables\ \ \ \ \ }}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ Rho\_R\ =Global\_Primitive[0];\ }
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ P\_R\ =Global\_Primitive[4];}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ u\_R\ =Global\_Primitive[1];}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ v\_R\ =Global\_Primitive[2];}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ C\_R\ =Global\_Primitive[5];}
+\DoxyCodeLine{00424\ \ \ \ \ }
+\DoxyCodeLine{00425\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ the\ Normals\ of\ the\ face\ and\ face\ length\ \ \ }}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][index+0];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index+1];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/length\ of\ the\ face}}
+\DoxyCodeLine{00429\ \ \ \ \ }
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ Vdotn\_L\ \ =\ (u\_L*nx\ +\ v\_L*ny);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ V\ dot\ n\ =\ (u\ dy\ -\/\ v\ dx)\ /\ dl}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ Vdotn\_R\ \ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{comment}{//\ \ \ \ \ Velocity\ Magnitudes\ for\ Left\ and\ Right\ states\ of\ the\ face\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00434\ }
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00437\ \ \ \ \ }
+\DoxyCodeLine{00438\ \textcolor{comment}{//\ \ \ \ \ \ if\ the\ face\ is\ a\ wall\ face\ then\ the\ pressure\ and\ Temperature\ are\ extrapolated\ from\ cell\ centers\ first\ order\ extrapolation\ for\ pressure\ and\ Temperature}}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Wall\_Face)}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ P\_R\ =\ P\_L;}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00444\ \textcolor{comment}{//\ \ \ \ \ \ Left\ state\ Flux\ F\_L\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_L[0]\ =\ Rho\_L*Vdotn\_L*dl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_L[1]\ =\ Rho\_L*u\_L*Vdotn\_L*dl\ +\ P\_L*nx*dl;\ \ \ }
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_L[2]\ =\ Rho\_L*v\_L*Vdotn\_L*dl\ +\ P\_L*ny*dl;\ \ \ \ \ \ \ }
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_L[3]\ =\ (gamma1*P\_L\ +\ Rho\_L*Vmag\_L\ )*Vdotn\_L*dl;\ }
+\DoxyCodeLine{00450\ \textcolor{comment}{//\ \ Right\ state\ flux\ F\_R}}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[0]\ =\ Rho\_R*Vdotn\_R*dl;}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[1]\ =\ Rho\_R*u\_R*Vdotn\_R*dl\ +\ P\_R*nx*dl;}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[2]\ =\ Rho\_R*v\_R*Vdotn\_R*dl\ +\ P\_R*ny*dl;}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[3]\ =\ (gamma1*P\_R\ +\ Rho\_R*Vmag\_R)*Vdotn\_R*dl;\ }
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Wave\ Speed\ evaluation}}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[0]\ =\ (fabs(Vdotn\_L)\ -\/\ C\_L)*dl;}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[1]\ =\ (fabs(Vdotn\_L)\ +\ C\_L)*dl;}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[2]\ =\ fabs(Vdotn\_L)*dl;}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[3]\ =\ (fabs(Vdotn\_R)\ -\/\ C\_R)*dl;}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[4]\ =\ (fabs(Vdotn\_R)\ +\ C\_R)*dl;}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[5]\ =\ fabs(Vdotn\_R)*dl;}
+\DoxyCodeLine{00464\ }
+\DoxyCodeLine{00465\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Finding\ Minimum\ and\ Maximum\ Wave\ speeds\ from\ neighbouring\ cells}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[0],S[1],\ S[2],Max1);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ Eigen\ values}}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[3],S[4],\ S[5],Max2);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(Max1,\ Max2\ ,\ max\_eigen\_value);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ and\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00471\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Max1<<"{}\(\backslash\)t"{}<<Max2<<"{}\(\backslash\)t"{}<<max\_eigen\_value<<endl;}}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00474\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[i]\ =\ 0.5*(Flux\_L[i]\ +\ Flux\_R[i]);}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[i]\ =\ 0.5*max\_eigen\_value*(U\_R[i]-\/U\_L[i]);}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00478\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Complted\ Net\ fluxes"{}<<endl;}}
+\DoxyCodeLine{00479\ \}}
+
+\end{DoxyCode}

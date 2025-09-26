@@ -1,0 +1,53 @@
+\doxysection{Numerical\+\_\+\+Methods/\+Residual\+\_\+\+Smoothing.cpp File Reference}
+\hypertarget{_residual___smoothing_8cpp}{}\label{_residual___smoothing_8cpp}\index{Numerical\_Methods/Residual\_Smoothing.cpp@{Numerical\_Methods/Residual\_Smoothing.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+Include dependency graph for Residual\+\_\+\+Smoothing.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df6/_residual___smoothing_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}{Smooth\+\_\+\+Residuals}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}\index{Residual\_Smoothing.cpp@{Residual\_Smoothing.cpp}!Smooth\_Residuals@{Smooth\_Residuals}}
+\index{Smooth\_Residuals@{Smooth\_Residuals}!Residual\_Smoothing.cpp@{Residual\_Smoothing.cpp}}
+\doxysubsubsection{\texorpdfstring{Smooth\_Residuals()}{Smooth\_Residuals()}}
+{\footnotesize\ttfamily \label{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf} 
+void Smooth\+\_\+\+Residuals (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_residual___smoothing_8cpp_source_l00004}{4}} of file \mbox{\hyperlink{_residual___smoothing_8cpp_source}{Residual\+\_\+\+Smoothing.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{int}\ i1=0,i2=0,i3=0,i4=0,i5=0,i6=0;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ omega=0.5;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_No=0;Cell\_No<\mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};Cell\_No++)}
+\DoxyCodeLine{00009\ \ \ \ \ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ i1\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][1];i2\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][2];i3\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][3];}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ i4\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][4];i5\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][5];i6\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][6];}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ Smoothed\_Cells\_Net\_Flux[Cell\_No][i]\ =\ ((1.0-\/omega)/6.0)*(}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i1][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i2][i]}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i3][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i4][i]}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i5][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i6][i])\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ omega*\mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Cell\_No][i];}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_No=0;Cell\_No<\mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};Cell\_No++)}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Cell\_No][i]=Smoothed\_Cells\_Net\_Flux[Cell\_No][i];}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \}}
+
+\end{DoxyCode}

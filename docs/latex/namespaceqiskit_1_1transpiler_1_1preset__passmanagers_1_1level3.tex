@@ -1,0 +1,47 @@
+\doxysection{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level3 Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level3}{}\label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level3}\index{qiskit.transpiler.preset\_passmanagers.level3@{qiskit.transpiler.preset\_passmanagers.level3}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} \mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level3_ae2f11df712442f0014ceba3432113fdc}{level\+\_\+3\+\_\+pass\+\_\+manager}} (\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}} pass\+\_\+manager\+\_\+config)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Pass manager for optimization level 3, providing heavy optimization.
+
+Level 3 pass manager: heavy optimization by noise adaptive qubit mapping and
+gate cancellation using commutativity rules and unitary synthesis.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level3_ae2f11df712442f0014ceba3432113fdc}\index{qiskit.transpiler.preset\_passmanagers.level3@{qiskit.transpiler.preset\_passmanagers.level3}!level\_3\_pass\_manager@{level\_3\_pass\_manager}}
+\index{level\_3\_pass\_manager@{level\_3\_pass\_manager}!qiskit.transpiler.preset\_passmanagers.level3@{qiskit.transpiler.preset\_passmanagers.level3}}
+\doxysubsubsection{\texorpdfstring{level\_3\_pass\_manager()}{level\_3\_pass\_manager()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level3_ae2f11df712442f0014ceba3432113fdc} 
+ \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level3.\+level\+\_\+3\+\_\+pass\+\_\+manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}}}]{pass\+\_\+manager\+\_\+config}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Level 3 pass manager: heavy optimization by noise adaptive qubit mapping and
+gate cancellation using commutativity rules and unitary synthesis.
+
+This pass manager applies the user-given initial layout. If none is given, a search
+for a perfect layout (i.e. one that satisfies all 2-qubit interactions) is conducted.
+If no such layout is found, and device calibration information is available, the
+circuit is mapped to the qubits with best readouts and to CX gates with highest fidelity.
+
+The pass manager then transforms the circuit to match the coupling constraints.
+It is then unrolled to the basis, and any flipped cx directions are fixed.
+Finally, optimizations in the form of commutative gate cancellation, resynthesis
+of two-qubit unitary blocks, and redundant reset removal are performed.
+
+Args:
+    pass_manager_config: configuration of the pass manager.
+
+Returns:
+    a level 3 pass manager.
+
+Raises:
+    TranspilerError: if the passmanager config is invalid.
+\end{DoxyVerb}
+ 

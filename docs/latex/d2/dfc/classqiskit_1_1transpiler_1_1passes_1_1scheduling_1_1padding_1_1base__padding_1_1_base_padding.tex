@@ -1,0 +1,186 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.814815cm]{d2/dfc/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ac4128600bb05c770f148dc933a3c73fd_ac4128600bb05c770f148dc933a3c73fd}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ab1c0e840367b83b99ae9a34e9f8554d8_ab1c0e840367b83b99ae9a34e9f8554d8}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a5c99efd0a2341a7d023bfc70dbedf8e8}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a5c99efd0a2341a7d023bfc70dbedf8e8} 
+{\bfseries target} = target
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a80a70603d020c6e81bf31100ffa537de}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a80a70603d020c6e81bf31100ffa537de} 
+{\bfseries property\+\_\+set}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a502710ab742534c202c157c08fc651b8_a502710ab742534c202c157c08fc651b8}{\+\_\+pre\+\_\+runhook}} (self, DAGCircuit dag)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a9e49e02d5d7e6230c91ddffbede4c985_a9e49e02d5d7e6230c91ddffbede4c985}{\+\_\+apply\+\_\+scheduled\+\_\+op}} (self, DAGCircuit dag, int t\+\_\+start, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}} oper, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}\mbox{]} qubits, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}\mbox{]} clbits=())
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ae72c79c349b33f27ab0084b14aa3a0c7_ae72c79c349b33f27ab0084b14aa3a0c7}{\+\_\+pad}} (self, DAGCircuit dag, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}} qubit, int t\+\_\+start, int t\+\_\+end, DAGNode next\+\_\+node, DAGNode prev\+\_\+node)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The base class of padding pass.
+
+This pass requires one of scheduling passes to be executed before itself.
+Since there are multiple scheduling strategies, the selection of scheduling
+pass is left in the hands of the pass manager designer.
+Once a scheduling analysis pass is run, ``node_start_time`` is generated
+in the :attr:`property_set`.  This information is represented by a python dictionary of
+the expected instruction execution times keyed on the node instances.
+Entries in the dictionary are only created for non-delay nodes.
+The padding pass expects all ``DAGOpNode`` in the circuit to be scheduled.
+
+This base class doesn't define any sequence to interleave, but it manages
+the location where the sequence is inserted, and provides a set of information necessary
+to construct the proper sequence. Thus, a subclass of this pass just needs to implement
+:meth:`_pad` method, in which the subclass constructs a circuit block to insert.
+This mechanism removes lots of boilerplate logic to manage whole DAG circuits.
+
+Note that padding pass subclasses should define interleaving sequences satisfying:
+
+    - Interleaved sequence does not change start time of other nodes
+    - Interleaved sequence should have total duration of the provided ``time_interval``.
+
+Any manipulation violating these constraints may prevent this base pass from correctly
+tracking the start time of each instruction,
+which may result in violation of hardware alignment constraints.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ac4128600bb05c770f148dc933a3c73fd_ac4128600bb05c770f148dc933a3c73fd}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ac4128600bb05c770f148dc933a3c73fd_ac4128600bb05c770f148dc933a3c73fd} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}BasePadding initializer.
+
+Args:
+    target: The :class:`~.Target` representing the target backend.
+        If it supplied and it does not support delay instruction on a qubit,
+        padding passes do not pad any idle time of the qubit.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_afa51e680c10dfa4f00d18a38e73212f0_afa51e680c10dfa4f00d18a38e73212f0}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling}}, and \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1pad__delay_1_1_pad_delay_af18b21bf3712ae3e97597b64e573b41c_af18b21bf3712ae3e97597b64e573b41c}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+pad\+\_\+delay.\+Pad\+Delay}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a9e49e02d5d7e6230c91ddffbede4c985_a9e49e02d5d7e6230c91ddffbede4c985}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}!\_apply\_scheduled\_op@{\_apply\_scheduled\_op}}
+\index{\_apply\_scheduled\_op@{\_apply\_scheduled\_op}!qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+\doxysubsubsection{\texorpdfstring{\_apply\_scheduled\_op()}{\_apply\_scheduled\_op()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a9e49e02d5d7e6230c91ddffbede4c985_a9e49e02d5d7e6230c91ddffbede4c985} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding.\+\_\+apply\+\_\+scheduled\+\_\+op (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{, }\item[{int}]{t\+\_\+start}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}}}]{oper}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}} \texorpdfstring{$\vert$}{|} Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}\mbox{]}}]{qubits}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}} \texorpdfstring{$\vert$}{|} Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}\mbox{]} }]{clbits}{ = {\ttfamily ()}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Add new operation to DAG with scheduled information.
+
+This is identical to apply_operation_back + updating the node_start_time property.
+
+Args:
+    dag: DAG circuit on which the sequence is applied.
+    t_start: Start time of new node.
+    oper: New operation that is added to the DAG circuit.
+    qubits: The list of qubits that the operation acts on.
+    clbits: The list of clbits that the operation acts on.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ae72c79c349b33f27ab0084b14aa3a0c7_ae72c79c349b33f27ab0084b14aa3a0c7}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}!\_pad@{\_pad}}
+\index{\_pad@{\_pad}!qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+\doxysubsubsection{\texorpdfstring{\_pad()}{\_pad()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ae72c79c349b33f27ab0084b14aa3a0c7_ae72c79c349b33f27ab0084b14aa3a0c7} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding.\+\_\+pad (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}}]{qubit}{, }\item[{int}]{t\+\_\+start}{, }\item[{int}]{t\+\_\+end}{, }\item[{DAGNode}]{next\+\_\+node}{, }\item[{DAGNode}]{prev\+\_\+node}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Interleave instruction sequence in between two nodes.
+
+.. note::
+    If a DAGOpNode is added here, it should update node_start_time property
+    in the property set so that the added node is also scheduled.
+    This is achieved by adding operation via :meth:`_apply_scheduled_op`.
+
+.. note::
+
+    This method doesn't check if the total duration of new DAGOpNode added here
+    is identical to the interval (``t_end - t_start``).
+    A developer of the pass must guarantee this is satisfied.
+    If the duration is greater than the interval, your circuit may be
+    compiled down to the target code with extra duration on the backend compiler,
+    which is then played normally without error. However, the outcome of your circuit
+    might be unexpected due to erroneous scheduling.
+
+Args:
+    dag: DAG circuit that sequence is applied.
+    qubit: The wire that the sequence is applied on.
+    t_start: Absolute start time of this interval.
+    t_end: Absolute end time of this interval.
+    next_node: Node that follows the sequence.
+    prev_node: Node ahead of the sequence.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad26e09d22142cb7387204dbdb2183bce_ad26e09d22142cb7387204dbdb2183bce}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling}}, and \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1pad__delay_1_1_pad_delay_a5f69a1202d669588d19f855fcd0da51c_a5f69a1202d669588d19f855fcd0da51c}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+pad\+\_\+delay.\+Pad\+Delay}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a502710ab742534c202c157c08fc651b8_a502710ab742534c202c157c08fc651b8}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}!\_pre\_runhook@{\_pre\_runhook}}
+\index{\_pre\_runhook@{\_pre\_runhook}!qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+\doxysubsubsection{\texorpdfstring{\_pre\_runhook()}{\_pre\_runhook()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a502710ab742534c202c157c08fc651b8_a502710ab742534c202c157c08fc651b8} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding.\+\_\+pre\+\_\+runhook (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Extra routine inserted before running the padding pass.
+
+Args:
+    dag: DAG circuit on which the sequence is applied.
+
+Raises:
+    TranspilerError: If the whole circuit or instruction is not scheduled.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa27a719f33bfd8f51cb84d2caffaa608_aa27a719f33bfd8f51cb84d2caffaa608}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ab1c0e840367b83b99ae9a34e9f8554d8_ab1c0e840367b83b99ae9a34e9f8554d8}\index{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding@{qiskit.transpiler.passes.scheduling.padding.base\_padding.BasePadding}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ab1c0e840367b83b99ae9a34e9f8554d8_ab1c0e840367b83b99ae9a34e9f8554d8} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the padding pass on ``dag``.
+
+Args:
+    dag: DAG to be checked.
+
+Returns:
+    DAGCircuit: DAG with idle time filled with instructions.
+
+Raises:
+    TranspilerError: When a particular node is not scheduled, likely some transform pass
+        is inserted before this node is called.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/padding/base\+\_\+padding.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,92 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+alap.\+ALAPSchedule Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule}\index{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule@{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+alap.\+ALAPSchedule\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.163355cm]{d1/de3/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a5be6f0633f3021060ee1b34f98160e87_a5be6f0633f3021060ee1b34f98160e87}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a58a1718bfa1be392cc6029b472363b57_a58a1718bfa1be392cc6029b472363b57}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a1dbee7bf0477dd9a02b84431b8edbc0e}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a1dbee7bf0477dd9a02b84431b8edbc0e} 
+{\bfseries CONDITIONAL\+\_\+\+SUPPORTED}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}ALAP Scheduling pass, which schedules the **stop** time of instructions as late as possible.
+
+See :class:`~qiskit.transpiler.passes.scheduling.base_scheduler.BaseSchedulerTransform` for the
+detailed behavior of the control flow operation, i.e. ``c_if``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a5be6f0633f3021060ee1b34f98160e87_a5be6f0633f3021060ee1b34f98160e87}\index{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule@{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.alap.ALAPSchedule@{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a5be6f0633f3021060ee1b34f98160e87_a5be6f0633f3021060ee1b34f98160e87} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alap.\+ALAPSchedule.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{durations}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{clbit\+\_\+write\+\_\+latency}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Scheduler initializer.
+
+Args:
+    durations: Durations of instructions to be used in scheduling
+    clbit_write_latency: A control flow constraints. Because standard superconducting
+        quantum processor implement dispersive QND readout, the actual data transfer
+        to the clbit happens after the round-trip stimulus signal is buffered
+        and discriminated into quantum state.
+        The interval ``[t0, t0 + clbit_write_latency]`` is regarded as idle time
+        for clbits associated with the measure instruction.
+        This defaults to 0 dt which is identical to Qiskit Pulse scheduler.
+    conditional_latency: A control flow constraints. This value represents
+        a latency of reading a classical register for the conditional operation.
+        The gate operation occurs after this latency. This appears as a delay
+        in front of the DAGOpNode of the gate.
+        This defaults to 0 dt.
+    target: The :class:`~.Target` representing the target backend, if both
+        ``durations`` and this are specified then this argument will take
+        precedence and ``durations`` will be ignored.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1base__scheduler_1_1_base_scheduler_transform_a728b26514f7f180c2bb66e194a9eb147_a728b26514f7f180c2bb66e194a9eb147}{qiskit.\+transpiler.\+passes.\+scheduling.\+base\+\_\+scheduler.\+Base\+Scheduler\+Transform}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a58a1718bfa1be392cc6029b472363b57_a58a1718bfa1be392cc6029b472363b57}\index{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule@{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.alap.ALAPSchedule@{qiskit.transpiler.passes.scheduling.alap.ALAPSchedule}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alap_1_1_a_l_a_p_schedule_a58a1718bfa1be392cc6029b472363b57_a58a1718bfa1be392cc6029b472363b57} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alap.\+ALAPSchedule.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the ALAPSchedule pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to schedule.
+
+Returns:
+    DAGCircuit: A scheduled DAG.
+
+Raises:
+    TranspilerError: if the circuit is not mapped on physical qubits.
+    TranspilerError: if conditional bit is added to non-supported instruction.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1base__scheduler_1_1_base_scheduler_transform_afc5c004ae12072f8a9bc2ba7f49473c9_afc5c004ae12072f8a9bc2ba7f49473c9}{qiskit.\+transpiler.\+passes.\+scheduling.\+base\+\_\+scheduler.\+Base\+Scheduler\+Transform}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/alap.\+py\end{DoxyCompactItemize}

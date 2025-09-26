@@ -1,0 +1,66 @@
+\doxysection{platformdirs.\+windows Namespace Reference}
+\hypertarget{namespaceplatformdirs_1_1windows}{}\label{namespaceplatformdirs_1_1windows}\index{platformdirs.windows@{platformdirs.windows}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classplatformdirs_1_1windows_1_1_windows}{Windows}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{namespaceplatformdirs_1_1windows_afca159417af85ed272a716b43712153c_afca159417af85ed272a716b43712153c}{get\+\_\+win\+\_\+folder\+\_\+from\+\_\+env\+\_\+vars}} (str csidl\+\_\+name)
+\item 
+str\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{namespaceplatformdirs_1_1windows_aed0b317e6d9e67fde7b1c8041101fd05_aed0b317e6d9e67fde7b1c8041101fd05}{get\+\_\+win\+\_\+folder\+\_\+if\+\_\+csidl\+\_\+name\+\_\+not\+\_\+env\+\_\+var}} (str csidl\+\_\+name)
+\item 
+str \mbox{\hyperlink{namespaceplatformdirs_1_1windows_a07de3345fb7cb4d55b3d35be3730c1a6_a07de3345fb7cb4d55b3d35be3730c1a6}{get\+\_\+win\+\_\+folder\+\_\+from\+\_\+registry}} (str csidl\+\_\+name)
+\item 
+str \mbox{\hyperlink{namespaceplatformdirs_1_1windows_a2caa1363ff94c1dd95d455777fbf2fb1_a2caa1363ff94c1dd95d455777fbf2fb1}{get\+\_\+win\+\_\+folder\+\_\+via\+\_\+ctypes}} (str csidl\+\_\+name)
+\item 
+\Hypertarget{namespaceplatformdirs_1_1windows_aaf41e51e0f2a1bc1c848d074ac2c4a2f}\label{namespaceplatformdirs_1_1windows_aaf41e51e0f2a1bc1c848d074ac2c4a2f} 
+Callable\mbox{[}\mbox{[}str\mbox{]}, str\mbox{]} {\bfseries \+\_\+pick\+\_\+get\+\_\+win\+\_\+folder} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceplatformdirs_1_1windows_a0ed25cf300d9e62b83d5369be1b9b9cf}\label{namespaceplatformdirs_1_1windows_a0ed25cf300d9e62b83d5369be1b9b9cf} 
+{\bfseries get\+\_\+win\+\_\+folder} = lru\+\_\+cache(maxsize=None)(\+\_\+pick\+\_\+get\+\_\+win\+\_\+folder())
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Windows.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceplatformdirs_1_1windows_afca159417af85ed272a716b43712153c_afca159417af85ed272a716b43712153c}\index{platformdirs.windows@{platformdirs.windows}!get\_win\_folder\_from\_env\_vars@{get\_win\_folder\_from\_env\_vars}}
+\index{get\_win\_folder\_from\_env\_vars@{get\_win\_folder\_from\_env\_vars}!platformdirs.windows@{platformdirs.windows}}
+\doxysubsubsection{\texorpdfstring{get\_win\_folder\_from\_env\_vars()}{get\_win\_folder\_from\_env\_vars()}}
+{\footnotesize\ttfamily \label{namespaceplatformdirs_1_1windows_afca159417af85ed272a716b43712153c_afca159417af85ed272a716b43712153c} 
+ str platformdirs.\+windows.\+get\+\_\+win\+\_\+folder\+\_\+from\+\_\+env\+\_\+vars (\begin{DoxyParamCaption}\item[{str}]{csidl\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get folder from environment variables.\end{DoxyVerb}
+ \Hypertarget{namespaceplatformdirs_1_1windows_a07de3345fb7cb4d55b3d35be3730c1a6_a07de3345fb7cb4d55b3d35be3730c1a6}\index{platformdirs.windows@{platformdirs.windows}!get\_win\_folder\_from\_registry@{get\_win\_folder\_from\_registry}}
+\index{get\_win\_folder\_from\_registry@{get\_win\_folder\_from\_registry}!platformdirs.windows@{platformdirs.windows}}
+\doxysubsubsection{\texorpdfstring{get\_win\_folder\_from\_registry()}{get\_win\_folder\_from\_registry()}}
+{\footnotesize\ttfamily \label{namespaceplatformdirs_1_1windows_a07de3345fb7cb4d55b3d35be3730c1a6_a07de3345fb7cb4d55b3d35be3730c1a6} 
+ str platformdirs.\+windows.\+get\+\_\+win\+\_\+folder\+\_\+from\+\_\+registry (\begin{DoxyParamCaption}\item[{str}]{csidl\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get folder from the registry.
+
+This is a fallback technique at best. I'm not sure if using the registry for these guarantees us the correct answer
+for all CSIDL_* names.\end{DoxyVerb}
+ \Hypertarget{namespaceplatformdirs_1_1windows_aed0b317e6d9e67fde7b1c8041101fd05_aed0b317e6d9e67fde7b1c8041101fd05}\index{platformdirs.windows@{platformdirs.windows}!get\_win\_folder\_if\_csidl\_name\_not\_env\_var@{get\_win\_folder\_if\_csidl\_name\_not\_env\_var}}
+\index{get\_win\_folder\_if\_csidl\_name\_not\_env\_var@{get\_win\_folder\_if\_csidl\_name\_not\_env\_var}!platformdirs.windows@{platformdirs.windows}}
+\doxysubsubsection{\texorpdfstring{get\_win\_folder\_if\_csidl\_name\_not\_env\_var()}{get\_win\_folder\_if\_csidl\_name\_not\_env\_var()}}
+{\footnotesize\ttfamily \label{namespaceplatformdirs_1_1windows_aed0b317e6d9e67fde7b1c8041101fd05_aed0b317e6d9e67fde7b1c8041101fd05} 
+ str \texorpdfstring{$\vert$}{|} None platformdirs.\+windows.\+get\+\_\+win\+\_\+folder\+\_\+if\+\_\+csidl\+\_\+name\+\_\+not\+\_\+env\+\_\+var (\begin{DoxyParamCaption}\item[{str}]{csidl\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get a folder for a CSIDL name that does not exist as an environment variable.\end{DoxyVerb}
+ \Hypertarget{namespaceplatformdirs_1_1windows_a2caa1363ff94c1dd95d455777fbf2fb1_a2caa1363ff94c1dd95d455777fbf2fb1}\index{platformdirs.windows@{platformdirs.windows}!get\_win\_folder\_via\_ctypes@{get\_win\_folder\_via\_ctypes}}
+\index{get\_win\_folder\_via\_ctypes@{get\_win\_folder\_via\_ctypes}!platformdirs.windows@{platformdirs.windows}}
+\doxysubsubsection{\texorpdfstring{get\_win\_folder\_via\_ctypes()}{get\_win\_folder\_via\_ctypes()}}
+{\footnotesize\ttfamily \label{namespaceplatformdirs_1_1windows_a2caa1363ff94c1dd95d455777fbf2fb1_a2caa1363ff94c1dd95d455777fbf2fb1} 
+ str platformdirs.\+windows.\+get\+\_\+win\+\_\+folder\+\_\+via\+\_\+ctypes (\begin{DoxyParamCaption}\item[{str}]{csidl\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get folder with ctypes.\end{DoxyVerb}
+ 

@@ -1,0 +1,101 @@
+\doxysection{setuptools.\+\_\+distutils.\+cygwinccompiler Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler}{}\label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler}\index{setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1cygwinccompiler_1_1_cygwin_c_compiler}{Cygwin\+CCompiler}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1cygwinccompiler_1_1_mingw32_c_compiler}{Mingw32\+CCompiler}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a68dcc98d3c2edb41c017ac5cf1fb7496_a68dcc98d3c2edb41c017ac5cf1fb7496}{get\+\_\+msvcr}} ()
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a960fe0bb8e323c3a37609a408cf1cafc_a960fe0bb8e323c3a37609a408cf1cafc}{check\+\_\+config\+\_\+h}} ()
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_abe45bad14cfe63307bcfe9dea539cd8d_abe45bad14cfe63307bcfe9dea539cd8d}{is\+\_\+cygwincc}} (cc)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_ac170456c40d766be891f0c9b664d46d6_ac170456c40d766be891f0c9b664d46d6}{\+\_\+runtime\+\_\+library\+\_\+dirs\+\_\+msg}}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a3f8a62885ece4bd1dba569745ea38292}\label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a3f8a62885ece4bd1dba569745ea38292} 
+str {\bfseries CONFIG\+\_\+\+H\+\_\+\+OK} = "{}ok"{}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a96223f4fdba852b5cd12f956c1967b15}\label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a96223f4fdba852b5cd12f956c1967b15} 
+str {\bfseries CONFIG\+\_\+\+H\+\_\+\+NOTOK} = "{}not ok"{}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_ac4184b5ac4809d829a945d279f756778}\label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_ac4184b5ac4809d829a945d279f756778} 
+str {\bfseries CONFIG\+\_\+\+H\+\_\+\+UNCERTAIN} = "{}uncertain"{}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a117be4f8224630c226e952a4d91ddb3f}\label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a117be4f8224630c226e952a4d91ddb3f} 
+{\bfseries get\+\_\+versions} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}distutils.cygwinccompiler
+
+Provides the CygwinCCompiler class, a subclass of UnixCCompiler that
+handles the Cygwin port of the GNU C compiler to Windows.  It also contains
+the Mingw32CCompiler class which handles the mingw32 port of GCC (same as
+cygwin in no-cygwin mode).
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a960fe0bb8e323c3a37609a408cf1cafc_a960fe0bb8e323c3a37609a408cf1cafc}\index{setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}!check\_config\_h@{check\_config\_h}}
+\index{check\_config\_h@{check\_config\_h}!setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}}
+\doxysubsubsection{\texorpdfstring{check\_config\_h()}{check\_config\_h()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a960fe0bb8e323c3a37609a408cf1cafc_a960fe0bb8e323c3a37609a408cf1cafc} 
+setuptools.\+\_\+distutils.\+cygwinccompiler.\+check\+\_\+config\+\_\+h (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Check if the current Python installation appears amenable to building
+extensions with GCC.
+
+Returns a tuple (status, details), where 'status' is one of the following
+constants:
+
+- CONFIG_H_OK: all is well, go ahead and compile
+- CONFIG_H_NOTOK: doesn't look good
+- CONFIG_H_UNCERTAIN: not sure -- unable to read pyconfig.h
+
+'details' is a human-readable string explaining the situation.
+
+Note there are two ways to conclude "OK": either 'sys.version' contains
+the string "GCC" (implying that this Python was built with GCC), or the
+installed "pyconfig.h" contains the string "__GNUC__".
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a68dcc98d3c2edb41c017ac5cf1fb7496_a68dcc98d3c2edb41c017ac5cf1fb7496}\index{setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}!get\_msvcr@{get\_msvcr}}
+\index{get\_msvcr@{get\_msvcr}!setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}}
+\doxysubsubsection{\texorpdfstring{get\_msvcr()}{get\_msvcr()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_a68dcc98d3c2edb41c017ac5cf1fb7496_a68dcc98d3c2edb41c017ac5cf1fb7496} 
+setuptools.\+\_\+distutils.\+cygwinccompiler.\+get\+\_\+msvcr (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}No longer needed, but kept for backward compatibility.\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_abe45bad14cfe63307bcfe9dea539cd8d_abe45bad14cfe63307bcfe9dea539cd8d}\index{setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}!is\_cygwincc@{is\_cygwincc}}
+\index{is\_cygwincc@{is\_cygwincc}!setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}}
+\doxysubsubsection{\texorpdfstring{is\_cygwincc()}{is\_cygwincc()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_abe45bad14cfe63307bcfe9dea539cd8d_abe45bad14cfe63307bcfe9dea539cd8d} 
+setuptools.\+\_\+distutils.\+cygwinccompiler.\+is\+\_\+cygwincc (\begin{DoxyParamCaption}\item[{}]{cc}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Try to determine if the compiler that would be used is from cygwin.\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_ac170456c40d766be891f0c9b664d46d6_ac170456c40d766be891f0c9b664d46d6}\index{setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}!\_runtime\_library\_dirs\_msg@{\_runtime\_library\_dirs\_msg}}
+\index{\_runtime\_library\_dirs\_msg@{\_runtime\_library\_dirs\_msg}!setuptools.\_distutils.cygwinccompiler@{setuptools.\_distutils.cygwinccompiler}}
+\doxysubsubsection{\texorpdfstring{\_runtime\_library\_dirs\_msg}{\_runtime\_library\_dirs\_msg}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1cygwinccompiler_ac170456c40d766be891f0c9b664d46d6_ac170456c40d766be891f0c9b664d46d6} 
+tuple setuptools.\+\_\+distutils.\+cygwinccompiler.\+\_\+runtime\+\_\+library\+\_\+dirs\+\_\+msg\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}Unable\ to\ set\ runtime\ library\ search\ path\ on\ Windows,\ "{}}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}usually\ indicated\ by\ \`{}runtime\_library\_dirs`\ parameter\ to\ Extension"{}}}
+\DoxyCodeLine{00004\ )}
+
+\end{DoxyCode}

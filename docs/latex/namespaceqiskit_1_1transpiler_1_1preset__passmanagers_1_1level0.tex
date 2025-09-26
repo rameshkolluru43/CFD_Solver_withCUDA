@@ -1,0 +1,42 @@
+\doxysection{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level0 Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level0}{}\label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level0}\index{qiskit.transpiler.preset\_passmanagers.level0@{qiskit.transpiler.preset\_passmanagers.level0}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} \mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level0_a525562720877fa9712070be9ea503058}{level\+\_\+0\+\_\+pass\+\_\+manager}} (\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}} pass\+\_\+manager\+\_\+config)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Pass manager for optimization level 0, providing no explicit optimization.
+
+Level 0 pass manager: no explicit optimization other than mapping to backend.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level0_a525562720877fa9712070be9ea503058}\index{qiskit.transpiler.preset\_passmanagers.level0@{qiskit.transpiler.preset\_passmanagers.level0}!level\_0\_pass\_manager@{level\_0\_pass\_manager}}
+\index{level\_0\_pass\_manager@{level\_0\_pass\_manager}!qiskit.transpiler.preset\_passmanagers.level0@{qiskit.transpiler.preset\_passmanagers.level0}}
+\doxysubsubsection{\texorpdfstring{level\_0\_pass\_manager()}{level\_0\_pass\_manager()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level0_a525562720877fa9712070be9ea503058} 
+ \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level0.\+level\+\_\+0\+\_\+pass\+\_\+manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}}}]{pass\+\_\+manager\+\_\+config}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Level 0 pass manager: no explicit optimization other than mapping to backend.
+
+This pass manager applies the user-given initial layout. If none is given, a trivial
+layout consisting of mapping the i-th virtual qubit to the i-th physical qubit is used.
+Any unused physical qubit is allocated as ancilla space.
+
+The pass manager then unrolls the circuit to the desired basis, and transforms the
+circuit to match the coupling map.
+
+Args:
+    pass_manager_config: configuration of the pass manager.
+
+Returns:
+    a level 0 pass manager.
+
+Raises:
+    TranspilerError: if the passmanager config is invalid.
+\end{DoxyVerb}
+ 

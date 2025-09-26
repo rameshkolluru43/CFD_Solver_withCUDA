@@ -1,0 +1,250 @@
+\doxysection{qiskit.\+pulse.\+library.\+samplers.\+decorators Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators}{}\label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a37662b797dfce79a2dedd7175602c4ea_a37662b797dfce79a2dedd7175602c4ea}{functional\+\_\+pulse}} (Callable func)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a19fcfd2556718d2fe3553515a30b97ed_a19fcfd2556718d2fe3553515a30b97ed}{\+\_\+update\+\_\+annotations}} (Callable discretized\+\_\+pulse)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a712bbb8c7496304eaf431723a79bc155_a712bbb8c7496304eaf431723a79bc155}{\+\_\+update\+\_\+docstring}} (Callable discretized\+\_\+pulse, Callable sampler\+\_\+inst)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a70a06adb9377c8416a704585e7aa520b_a70a06adb9377c8416a704585e7aa520b}{sampler}} (Callable sample\+\_\+function)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_acbf4d9b655726d82cf0655a58525887e_acbf4d9b655726d82cf0655a58525887e}{left}} (Callable continuous\+\_\+pulse)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_ae4ba97b60b8e0fcea5613430c20d70f9_ae4ba97b60b8e0fcea5613430c20d70f9}{right}} (Callable continuous\+\_\+pulse)
+\item 
+Callable \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a3a4aa480541bb45182273fc46a775ea3_a3a4aa480541bb45182273fc46a775ea3}{midpoint}} (Callable continuous\+\_\+pulse)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Sampler decorator module for sampling of continuous pulses to discrete pulses to be
+exposed to user.
+
+Some atypical boilerplate has been added to solve the problem of decorators not preserving
+their wrapped function signatures. Below we explain the problem that samplers solve and how
+we implement this.
+
+A sampler is a function that takes an continuous pulse function with signature:
+    ```python
+    def f(times: np.ndarray, *args, **kwargs) -> np.ndarray:
+        ...
+    ```
+and returns a new function:
+    def f(duration: int, *args, **kwargs) -> Waveform:
+        ...
+
+Samplers are used to build up pulse waveforms from continuous pulse functions.
+
+In Python the creation of a dynamic function that wraps another function will cause
+the underlying signature and documentation of the underlying function to be overwritten.
+In order to circumvent this issue the Python standard library provides the decorator
+`functools.wraps` which allows the programmer to expose the names and signature of the
+wrapped function as those of the dynamic function.
+
+Samplers are implemented by creating a function with signature
+    @sampler
+    def left(continuous_pulse: Callable, duration: int, *args, **kwargs)
+        ...
+
+This will create a sampler function for `left`. Since it is a dynamic function it would not
+have the docstring of `left` available too `help`. This could be fixed by wrapping with
+`functools.wraps` in the `sampler`, but this would then cause the signature to be that of the
+sampler function which is called on the continuous pulse, below:
+    `(continuous_pulse: Callable, duration: int, *args, **kwargs)``
+This is not correct for the sampler as the output sampled functions accept only a function.
+For the standard sampler we get around this by not using `functools.wraps` and
+explicitly defining our samplers such as `left`, `right` and `midpoint` and
+calling `sampler` internally on the function that implements the sampling schemes such as
+`left_sample`, `right_sample` and `midpoint_sample` respectively. See `left` for an example of this.
+
+
+In this way our standard samplers will expose the proper help signature, but a user can
+still create their own sampler with
+    @sampler
+    def custom_sampler(time, *args, **kwargs):
+        ...
+However, in this case it will be missing documentation of the underlying sampling methods.
+We believe that the definition of custom samplers will be rather infrequent.
+
+However, users will frequently apply sampler instances too continuous pulses. Therefore, a different
+approach was required for sampled continuous functions (the output of an continuous pulse function
+decorated by a sampler instance).
+
+A sampler instance is a decorator that may be used to wrap continuous pulse functions such as
+linear below:
+```python
+    @left
+    def linear(times: np.ndarray, m: float, b: float) -> np.ndarray:
+        ```Linear test function
+        Args:
+            times: Input times.
+            m: Slope.
+            b: Intercept
+        Returns:
+            np.ndarray
+        ```
+        return m*times+b
+```
+Which after decoration may be called with a duration rather than an array of times
+    ```python
+    duration = 10
+    pulse_envelope = linear(10, 0.1, 0.1)
+    ```
+If one calls help on `linear` they will find
+    ```
+    linear(duration:int, *args, **kwargs) -> numpy.ndarray
+    Discretized continuous pulse function: `linear` using
+    sampler: `_left`.
+
+     The first argument (time) of the continuous pulse function has been replaced with
+     a discretized `duration` of type (int).
+
+     Args:
+         duration (int)
+         *args: Remaining arguments of continuous pulse function.
+                See continuous pulse function documentation below.
+         **kwargs: Remaining kwargs of continuous pulse function.
+                   See continuous pulse function documentation below.
+
+     Sampled continuous function:
+
+        function linear in module test.python.pulse.test_samplers
+        linear(x:numpy.ndarray, m:float, b:float) -> numpy.ndarray
+            Linear test function
+            Args:
+                x: Input times.
+                m: Slope.
+                b: Intercept
+            Returns:
+                np.ndarray
+    ```
+This is partly because `functools.wraps` has been used on the underlying function.
+This in itself is not sufficient as the signature of the sampled function has
+`duration`, whereas the signature of the continuous function is `time`.
+
+This is achieved by removing `__wrapped__` set by `functools.wraps` in order to preserve
+the correct signature and also applying `_update_annotations` and `_update_docstring`
+to the generated function which corrects the function annotations and adds an informative
+docstring respectively.
+
+The user therefore has access to the correct sampled function docstring in its entirety, while
+still seeing the signature for the continuous pulse function and all of its arguments.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a19fcfd2556718d2fe3553515a30b97ed_a19fcfd2556718d2fe3553515a30b97ed}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!\_update\_annotations@{\_update\_annotations}}
+\index{\_update\_annotations@{\_update\_annotations}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{\_update\_annotations()}{\_update\_annotations()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a19fcfd2556718d2fe3553515a30b97ed_a19fcfd2556718d2fe3553515a30b97ed} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+\_\+update\+\_\+annotations (\begin{DoxyParamCaption}\item[{Callable}]{discretized\+\_\+pulse}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Update annotations of discretized continuous pulse function with duration.
+
+Args:
+    discretized_pulse: Discretized decorated continuous pulse.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a712bbb8c7496304eaf431723a79bc155_a712bbb8c7496304eaf431723a79bc155}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!\_update\_docstring@{\_update\_docstring}}
+\index{\_update\_docstring@{\_update\_docstring}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{\_update\_docstring()}{\_update\_docstring()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a712bbb8c7496304eaf431723a79bc155_a712bbb8c7496304eaf431723a79bc155} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+\_\+update\+\_\+docstring (\begin{DoxyParamCaption}\item[{Callable}]{discretized\+\_\+pulse}{, }\item[{Callable}]{sampler\+\_\+inst}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Update annotations of discretized continuous pulse function.
+
+Args:
+    discretized_pulse: Discretized decorated continuous pulse.
+    sampler_inst: Applied sampler.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a37662b797dfce79a2dedd7175602c4ea_a37662b797dfce79a2dedd7175602c4ea}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!functional\_pulse@{functional\_pulse}}
+\index{functional\_pulse@{functional\_pulse}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{functional\_pulse()}{functional\_pulse()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a37662b797dfce79a2dedd7175602c4ea_a37662b797dfce79a2dedd7175602c4ea} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+functional\+\_\+pulse (\begin{DoxyParamCaption}\item[{Callable}]{func}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A decorator for generating Waveform from python callable.
+
+Args:
+    func: A function describing pulse envelope.
+
+Raises:
+    PulseError: when invalid function is specified.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_acbf4d9b655726d82cf0655a58525887e_acbf4d9b655726d82cf0655a58525887e}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!left@{left}}
+\index{left@{left}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{left()}{left()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_acbf4d9b655726d82cf0655a58525887e_acbf4d9b655726d82cf0655a58525887e} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+left (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Left sampling strategy decorator.
+
+See `pulse.samplers.sampler` for more information.
+
+For `duration`, return:
+$$\{f(t) \in \mathbb{C} | t \in \mathbb{Z} \wedge  0<=t<\texttt{duration}\}$$
+
+Args:
+continuous_pulse: To sample.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a3a4aa480541bb45182273fc46a775ea3_a3a4aa480541bb45182273fc46a775ea3}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!midpoint@{midpoint}}
+\index{midpoint@{midpoint}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{midpoint()}{midpoint()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a3a4aa480541bb45182273fc46a775ea3_a3a4aa480541bb45182273fc46a775ea3} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+midpoint (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Midpoint sampling strategy decorator.
+
+See `pulse.samplers.sampler` for more information.
+
+For `duration`, return:
+$$\{f(t+0.5) \in \mathbb{C} | t \in \mathbb{Z} \wedge  0<=t<\texttt{duration}\}$$
+
+Args:
+continuous_pulse: To sample.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_ae4ba97b60b8e0fcea5613430c20d70f9_ae4ba97b60b8e0fcea5613430c20d70f9}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!right@{right}}
+\index{right@{right}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{right()}{right()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_ae4ba97b60b8e0fcea5613430c20d70f9_ae4ba97b60b8e0fcea5613430c20d70f9} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+right (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Right sampling strategy decorator.
+
+See `pulse.samplers.sampler` for more information.
+
+For `duration`, return:
+$$\{f(t) \in \mathbb{C} | t \in \mathbb{Z} \wedge  0<t<=\texttt{duration}\}$$
+
+Args:
+continuous_pulse: To sample.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a70a06adb9377c8416a704585e7aa520b_a70a06adb9377c8416a704585e7aa520b}\index{qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}!sampler@{sampler}}
+\index{sampler@{sampler}!qiskit.pulse.library.samplers.decorators@{qiskit.pulse.library.samplers.decorators}}
+\doxysubsubsection{\texorpdfstring{sampler()}{sampler()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1decorators_a70a06adb9377c8416a704585e7aa520b_a70a06adb9377c8416a704585e7aa520b} 
+ Callable qiskit.\+pulse.\+library.\+samplers.\+decorators.\+sampler (\begin{DoxyParamCaption}\item[{Callable}]{sample\+\_\+function}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sampler decorator base method.
+
+Samplers are used for converting an continuous function to a discretized pulse.
+
+They operate on a function with the signature:
+    `def f(times: np.ndarray, *args, **kwargs) -> np.ndarray`
+Where `times` is a numpy array of floats with length n_times and the output array
+is a complex numpy array with length n_times. The output of the decorator is an
+instance of `FunctionalPulse` with signature:
+    `def g(duration: int, *args, **kwargs) -> Waveform`
+
+Note if your continuous pulse function outputs a `complex` scalar rather than a
+`np.ndarray`, you should first vectorize it before applying a sampler.
+
+
+This class implements the sampler boilerplate for the sampler.
+
+Args:
+    sample_function: A sampler function to be decorated.
+\end{DoxyVerb}
+ 

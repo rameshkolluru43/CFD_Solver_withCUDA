@@ -1,0 +1,136 @@
+\doxysection{qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d2/df4/classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a1bd0848c06a0e527175c3593e7a85948_a1bd0848c06a0e527175c3593e7a85948}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_aa9f73a83046b8564f8a00ae7aaec4e3a_aa9f73a83046b8564f8a00ae7aaec4e3a}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a69e144a9229e747aec11101fad5f8786}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a69e144a9229e747aec11101fad5f8786} 
+{\bfseries definition} = circuit
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_abc58666661f9e94e20114641cabf4647}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_abc58666661f9e94e20114641cabf4647} 
+{\bfseries num\+\_\+qubits} = other.\+num\+\_\+qubits
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a571178064ea3f2050e12259a13ab2568_a571178064ea3f2050e12259a13ab2568}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A 2n-qubit Boolean function that computes the inner product of
+two n-qubit vectors over :math:`F_2`.
+
+This implementation is a phase oracle which computes the following transform.
+
+.. math::
+
+    \mathcal{IP}_{2n} : F_2^{2n} \rightarrow {-1, 1}
+    \mathcal{IP}_{2n}(x_1, \cdots, x_n, y_1, \cdots, y_n) = (-1)^{x.y}
+
+The corresponding unitary is a diagonal, which induces a -1 phase on any inputs
+where the inner product of the top and bottom registers is 1. Otherwise, it keeps
+the input intact.
+
+.. parsed-literal::
+
+
+    q0_0: ─■──────────
+           │
+    q0_1: ─┼──■───────
+           │  │
+    q0_2: ─┼──┼──■────
+           │  │  │
+    q0_3: ─┼──┼──┼──■─
+           │  │  │  │
+    q1_0: ─■──┼──┼──┼─
+              │  │  │
+    q1_1: ────■──┼──┼─
+                 │  │
+    q1_2: ───────■──┼─
+                    │
+    q1_3: ──────────■─
+
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit import QuantumCircuit
+       from qiskit.circuit.library import InnerProductGate
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       circuit = QuantumCircuit(8)
+       circuit.append(InnerProductGate(4), [0, 1, 2, 3, 4, 5, 6, 7])
+       _generate_circuit_library_visualization(circuit)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a1bd0848c06a0e527175c3593e7a85948_a1bd0848c06a0e527175c3593e7a85948}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a1bd0848c06a0e527175c3593e7a85948_a1bd0848c06a0e527175c3593e7a85948} 
+ None qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: width of top and bottom registers (half total number of qubits).
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_aa9f73a83046b8564f8a00ae7aaec4e3a_aa9f73a83046b8564f8a00ae7aaec4e3a}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_aa9f73a83046b8564f8a00ae7aaec4e3a_aa9f73a83046b8564f8a00ae7aaec4e3a} 
+qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a571178064ea3f2050e12259a13ab2568_a571178064ea3f2050e12259a13ab2568}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProductGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_gate_a571178064ea3f2050e12259a13ab2568_a571178064ea3f2050e12259a13ab2568} 
+qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/boolean\+\_\+logic/inner\+\_\+product.\+py\end{DoxyCompactItemize}

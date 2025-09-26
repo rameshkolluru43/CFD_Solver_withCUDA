@@ -1,0 +1,109 @@
+\doxysection{text.\+Folded\+Case Class Reference}
+\hypertarget{classtext_1_1_folded_case}{}\label{classtext_1_1_folded_case}\index{text.FoldedCase@{text.FoldedCase}}
+Inheritance diagram for text.\+Folded\+Case\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d2/d99/classtext_1_1_folded_case}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtext_1_1_folded_case_aee93cf92072179dc87607c5360feb682}\label{classtext_1_1_folded_case_aee93cf92072179dc87607c5360feb682} 
+{\bfseries \+\_\+\+\_\+lt\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a65e91dda392d5131af16edff5cbe0807}\label{classtext_1_1_folded_case_a65e91dda392d5131af16edff5cbe0807} 
+{\bfseries \+\_\+\+\_\+gt\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_ac15dfb8d2f080e0278140d9325c2d2a7}\label{classtext_1_1_folded_case_ac15dfb8d2f080e0278140d9325c2d2a7} 
+{\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a96ed13e056c925b39ba13c1dde256339}\label{classtext_1_1_folded_case_a96ed13e056c925b39ba13c1dde256339} 
+{\bfseries \+\_\+\+\_\+ne\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a24047ce7cc9ddbd17af17f156f0f0cac}\label{classtext_1_1_folded_case_a24047ce7cc9ddbd17af17f156f0f0cac} 
+{\bfseries \+\_\+\+\_\+hash\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a98b3bfc763f01200bc4c4020f4588061}\label{classtext_1_1_folded_case_a98b3bfc763f01200bc4c4020f4588061} 
+{\bfseries \+\_\+\+\_\+contains\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a7a173614737839b56eac5af5f779630e}\label{classtext_1_1_folded_case_a7a173614737839b56eac5af5f779630e} 
+{\bfseries in\+\_\+} (self, other)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a5aa4460551221f3548f0f182ddc6bbe9}\label{classtext_1_1_folded_case_a5aa4460551221f3548f0f182ddc6bbe9} 
+{\bfseries casefold} (self)
+\item 
+\Hypertarget{classtext_1_1_folded_case_ae70c7131c332d0a42df46af93caabb16}\label{classtext_1_1_folded_case_ae70c7131c332d0a42df46af93caabb16} 
+{\bfseries index} (self, sub)
+\item 
+\Hypertarget{classtext_1_1_folded_case_a3c89dd0f69b75897f6841ec755a7931f}\label{classtext_1_1_folded_case_a3c89dd0f69b75897f6841ec755a7931f} 
+{\bfseries split} (self, splitter=\textquotesingle{} \textquotesingle{}, maxsplit=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A case insensitive string class; behaves just like str
+except compares equal when the only variation is case.
+
+>>> s = FoldedCase('hello world')
+
+>>> s == 'Hello World'
+True
+
+>>> 'Hello World' == s
+True
+
+>>> s != 'Hello World'
+False
+
+>>> s.index('O')
+4
+
+>>> s.split('O')
+['hell', ' w', 'rld']
+
+>>> sorted(map(FoldedCase, ['GAMMA', 'alpha', 'Beta']))
+['alpha', 'Beta', 'GAMMA']
+
+Sequence membership is straightforward.
+
+>>> "Hello World" in [s]
+True
+>>> s in ["Hello World"]
+True
+
+Allows testing for set inclusion, but candidate and elements
+must both be folded.
+
+>>> FoldedCase("Hello World") in {s}
+True
+>>> s in {FoldedCase("Hello World")}
+True
+
+String inclusion works as long as the FoldedCase object
+is on the right.
+
+>>> "hello" in FoldedCase("Hello World")
+True
+
+But not if the FoldedCase object is on the left:
+
+>>> FoldedCase('hello') in 'Hello World'
+False
+
+In that case, use ``in_``:
+
+>>> FoldedCase('hello').in_('Hello World')
+True
+
+>>> FoldedCase('hello') > FoldedCase('Hello')
+False
+
+>>> FoldedCase('ß') == FoldedCase('ss')
+True
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/text/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

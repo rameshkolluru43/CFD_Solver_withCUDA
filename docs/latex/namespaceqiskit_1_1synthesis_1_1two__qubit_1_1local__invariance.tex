@@ -1,0 +1,60 @@
+\doxysection{qiskit.\+synthesis.\+two\+\_\+qubit.\+local\+\_\+invariance Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance}{}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance}\index{qiskit.synthesis.two\_qubit.local\_invariance@{qiskit.synthesis.two\_qubit.local\_invariance}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_a6233a3a4794d935a0c82a4cb4a1fce23}{two\+\_\+qubit\+\_\+local\+\_\+invariants}} (np.\+ndarray U)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_ae3d809388150de2d9e595f7e9ff48f3b}{local\+\_\+equivalence}} (np.\+ndarray weyl)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Routines that use local invariants to compute properties
+of two-qubit unitary operators.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_ae3d809388150de2d9e595f7e9ff48f3b}\index{qiskit.synthesis.two\_qubit.local\_invariance@{qiskit.synthesis.two\_qubit.local\_invariance}!local\_equivalence@{local\_equivalence}}
+\index{local\_equivalence@{local\_equivalence}!qiskit.synthesis.two\_qubit.local\_invariance@{qiskit.synthesis.two\_qubit.local\_invariance}}
+\doxysubsubsection{\texorpdfstring{local\_equivalence()}{local\_equivalence()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_ae3d809388150de2d9e595f7e9ff48f3b} 
+ np.\+ndarray qiskit.\+synthesis.\+two\+\_\+qubit.\+local\+\_\+invariance.\+local\+\_\+equivalence (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{weyl}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes the equivalent local invariants from the
+Weyl coordinates.
+
+Args:
+    weyl (ndarray): Weyl coordinates.
+
+Returns:
+    ndarray: Local equivalent coordinates [g0, g1, g3].
+
+Notes:
+    This uses Eq. 30 from Zhang et al, PRA 67, 042313 (2003),
+    but we multiply weyl coordinates by 2 since we are
+    working in the reduced chamber.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_a6233a3a4794d935a0c82a4cb4a1fce23}\index{qiskit.synthesis.two\_qubit.local\_invariance@{qiskit.synthesis.two\_qubit.local\_invariance}!two\_qubit\_local\_invariants@{two\_qubit\_local\_invariants}}
+\index{two\_qubit\_local\_invariants@{two\_qubit\_local\_invariants}!qiskit.synthesis.two\_qubit.local\_invariance@{qiskit.synthesis.two\_qubit.local\_invariance}}
+\doxysubsubsection{\texorpdfstring{two\_qubit\_local\_invariants()}{two\_qubit\_local\_invariants()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1local__invariance_a6233a3a4794d935a0c82a4cb4a1fce23} 
+ np.\+ndarray qiskit.\+synthesis.\+two\+\_\+qubit.\+local\+\_\+invariance.\+two\+\_\+qubit\+\_\+local\+\_\+invariants (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{U}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes the local invariants for a two-qubit unitary.
+
+Args:
+    U (ndarray): Input two-qubit unitary.
+
+Returns:
+    ndarray: NumPy array of local invariants [g0, g1, g2].
+
+Raises:
+    ValueError: Input not a 2q unitary.
+
+Notes:
+    Y. Makhlin, Quant. Info. Proc. 1, 243-252 (2002).
+    Zhang et al., Phys Rev A. 67, 042313 (2003).
+\end{DoxyVerb}
+ 

@@ -1,0 +1,172 @@
+\doxysection{Flux\+\_\+\+Types/\+Roe\+\_\+\+Scheme.cpp File Reference}
+\hypertarget{_roe___scheme_8cpp}{}\label{_roe___scheme_8cpp}\index{Flux\_Types/Roe\_Scheme.cpp@{Flux\_Types/Roe\_Scheme.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Roe\+\_\+\+Scheme.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dc/da0/_roe___scheme_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{d0/d6c/_roe___scheme_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_roe___scheme_8cpp_a9c59619af968242393e11841b8a177af_a9c59619af968242393e11841b8a177af}{ROE}} (const int \&Cell\+\_\+\+No, int \&N\+\_\+\+Cell\+\_\+\+No, const int \&Face\+\_\+\+No)
+\item 
+void \mbox{\hyperlink{_roe___scheme_8cpp_ae1ea8008753b5cd1a6b353c362cb372d_ae1ea8008753b5cd1a6b353c362cb372d}{ROE\+\_\+2O}} (const int \&Cell\+\_\+\+No, int \&N\+\_\+\+Cell\+\_\+\+No, const int \&Face\+\_\+\+No)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_roe___scheme_8cpp_a9c59619af968242393e11841b8a177af_a9c59619af968242393e11841b8a177af}\index{Roe\_Scheme.cpp@{Roe\_Scheme.cpp}!ROE@{ROE}}
+\index{ROE@{ROE}!Roe\_Scheme.cpp@{Roe\_Scheme.cpp}}
+\doxysubsubsection{\texorpdfstring{ROE()}{ROE()}}
+{\footnotesize\ttfamily \label{_roe___scheme_8cpp_a9c59619af968242393e11841b8a177af_a9c59619af968242393e11841b8a177af} 
+void ROE (\begin{DoxyParamCaption}\item[{const int \&}]{Cell\+\_\+\+No}{, }\item[{int \&}]{N\+\_\+\+Cell\+\_\+\+No}{, }\item[{const int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_roe___scheme_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_roe___scheme_8cpp_source}{Roe\+\_\+\+Scheme.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Variables\ required\ for\ Calculating\ Roe\ Averages}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ Variables\ for\ Eigenvalues}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Lambda1=0.0,Lambda2=0.0,Lambda3=0.0,Lambda4=0.0,Term1=0.0,Term2=0.0;}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ R11=0.0,R12=0.0,R13=0.0,R14=0.0,R21=0.0,R22=0.0,R23=0.0,R24=0.0,R31=0.0,R32=0.0,R33=0.0,R34=0.0,R41=0.0,R42=0.0,R43=0.0,R44=0.0,sqrt\_Rho\_L=0.0,sqrt\_Rho\_R=0.0;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ \ Variables\ for\ Roe\ Averages}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}=0.0,\mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}=0.0,\mbox{\hyperlink{definitions_8h_a8da13b2094003b076d1ad9db3062107a_a8da13b2094003b076d1ad9db3062107a}{Roe\_Rho}}=0.0,\mbox{\hyperlink{definitions_8h_a7702143053612680ee7d9cd2359eb5a9_a7702143053612680ee7d9cd2359eb5a9}{Roe\_H}}=0.0,\mbox{\hyperlink{definitions_8h_ae311f824a98b94080a8057060ba02106_ae311f824a98b94080a8057060ba02106}{Roe\_Vmag}}=0.0,\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}}=0.0,\mbox{\hyperlink{definitions_8h_a456fddf8fd69637dc58ec00271128171_a456fddf8fd69637dc58ec00271128171}{Ut}}=0.0,\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}=0.0;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a598e18d134b2fb37b84b30928535e742_a598e18d134b2fb37b84b30928535e742}{Rho\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a0756be3b232be0a1599985325ae985d2_a0756be3b232be0a1599985325ae985d2}{Rho\_R}}=0.0,\mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}=0.0,\mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}}=0.0,\mbox{\hyperlink{definitions_8h_a63fd864f6e915d6569314dda14f56fe1_a63fd864f6e915d6569314dda14f56fe1}{P\_L}}=0.0,\mbox{\hyperlink{definitions_8h_acdcec36a7e4c833067cba4863e874bad_acdcec36a7e4c833067cba4863e874bad}{P\_R}}=0.0,\mbox{\hyperlink{definitions_8h_af74d07f8a4ed56915e6eb30b12e1fda5_af74d07f8a4ed56915e6eb30b12e1fda5}{H\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a2802c041ca2f91eb91bdaba7b1183374_a2802c041ca2f91eb91bdaba7b1183374}{H\_R}}=0.0,\mbox{\hyperlink{definitions_8h_a443aac08689a1a4e5b89f2ccdfb3f3fb_a443aac08689a1a4e5b89f2ccdfb3f3fb}{Vmag\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a49a3516f430442bdedeffa14455d91aa_a49a3516f430442bdedeffa14455d91aa}{Vmag\_R}}=0.0;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aac171c52d410c2c0d5acf5b6af0bdced_aac171c52d410c2c0d5acf5b6af0bdced}{max\_eigen\_value}}\ =0.0,\mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}=0.0,\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}=0.0,\mbox{\hyperlink{definitions_8h_a07882b1b8e8ac163bfd79bc0a4f189f3_a07882b1b8e8ac163bfd79bc0a4f189f3}{Vdotn\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a78acea579d78e15dc91fab16156e8768_a78acea579d78e15dc91fab16156e8768}{Vdotn\_R}}=0.0,\mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}=0.0,\mbox{\hyperlink{definitions_8h_a1e4ab202bb14a24802a9891ac580667b_a1e4ab202bb14a24802a9891ac580667b}{C\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a0d017554ad3a338a400635ed0934ceb3_a0d017554ad3a338a400635ed0934ceb3}{C\_R}}=0.0,\mbox{\hyperlink{definitions_8h_a661735b9e9c261762c9e9fb29516d8bb_a661735b9e9c261762c9e9fb29516d8bb}{mev\_L}}=0.0,\mbox{\hyperlink{definitions_8h_a042e4fecbd90b55ac1a90451887d0516_a042e4fecbd90b55ac1a90451887d0516}{mev\_R}}=0.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ alpha\_1=0.0,alpha\_2=0.0,alpha\_3=0.0,alpha\_4=0.0,du=0.0,dv=0.0,dP=0.0,dRho=0.0,dUn=0.0,dUt=0.0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ \ \ \ Initializing\ the\ Cell\ dissipation\ to\ be\ zero\ to\ avoid\ any\ type\ of\ over\ writing}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0]\ =\ 0.0;}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1]\ =\ 0.0;}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2]\ =\ 0.0;}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3]\ =\ 0.0;\ \ \ \ \ \ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Face\ Normals\ \ \ \ \ }}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*nx\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+0];}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+1];}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];*/}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[Face\_No*2+0];}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Normals[Face\_No*2+1];}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[Face\_No];}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ Right\ state\ Variables\ }}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a0756be3b232be0a1599985325ae985d2_a0756be3b232be0a1599985325ae985d2}{Rho\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][0];}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][1];}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][2];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_acdcec36a7e4c833067cba4863e874bad_acdcec36a7e4c833067cba4863e874bad}{P\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][4];}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a0d017554ad3a338a400635ed0934ceb3_a0d017554ad3a338a400635ed0934ceb3}{C\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][5];}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a49a3516f430442bdedeffa14455d91aa_a49a3516f430442bdedeffa14455d91aa}{Vmag\_R}}\ =\ 0.5*(\mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}*\mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}\ +\ \mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}}*\mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}});}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2802c041ca2f91eb91bdaba7b1183374_a2802c041ca2f91eb91bdaba7b1183374}{H\_R}}\ =\ ((\mbox{\hyperlink{definitions_8h_a0d017554ad3a338a400635ed0934ceb3_a0d017554ad3a338a400635ed0934ceb3}{C\_R}}*\mbox{\hyperlink{definitions_8h_a0d017554ad3a338a400635ed0934ceb3_a0d017554ad3a338a400635ed0934ceb3}{C\_R}})/(\mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1.0))\ +\ \mbox{\hyperlink{definitions_8h_a49a3516f430442bdedeffa14455d91aa_a49a3516f430442bdedeffa14455d91aa}{Vmag\_R}};}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ Left\ State\ Variables}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a598e18d134b2fb37b84b30928535e742_a598e18d134b2fb37b84b30928535e742}{Rho\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][0];}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][1];}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][2];}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a63fd864f6e915d6569314dda14f56fe1_a63fd864f6e915d6569314dda14f56fe1}{P\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][4];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a443aac08689a1a4e5b89f2ccdfb3f3fb_a443aac08689a1a4e5b89f2ccdfb3f3fb}{Vmag\_L}}\ =\ 0.5*(\mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}}*\mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}}\ +\ \mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}}*\mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}});}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_af74d07f8a4ed56915e6eb30b12e1fda5_af74d07f8a4ed56915e6eb30b12e1fda5}{H\_L}}\ =\ ((\mbox{\hyperlink{definitions_8h_a1e4ab202bb14a24802a9891ac580667b_a1e4ab202bb14a24802a9891ac580667b}{C\_L}}*\mbox{\hyperlink{definitions_8h_a1e4ab202bb14a24802a9891ac580667b_a1e4ab202bb14a24802a9891ac580667b}{C\_L}})/(\mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1.0))\ +\ \mbox{\hyperlink{definitions_8h_a443aac08689a1a4e5b89f2ccdfb3f3fb_a443aac08689a1a4e5b89f2ccdfb3f3fb}{Vmag\_L}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ sqrt\_Rho\_R\ =sqrt(\mbox{\hyperlink{definitions_8h_a0756be3b232be0a1599985325ae985d2_a0756be3b232be0a1599985325ae985d2}{Rho\_R}});}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ sqrt\_Rho\_L\ =sqrt(\mbox{\hyperlink{definitions_8h_a598e18d134b2fb37b84b30928535e742_a598e18d134b2fb37b84b30928535e742}{Rho\_L}});}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ Term1\ =\ 1.0/(sqrt\_Rho\_L\ +\ sqrt\_Rho\_R);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ \ Evaluating\ the\ Roe\ averages\ }}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8da13b2094003b076d1ad9db3062107a_a8da13b2094003b076d1ad9db3062107a}{Roe\_Rho}}\ =\ sqrt(\mbox{\hyperlink{definitions_8h_a598e18d134b2fb37b84b30928535e742_a598e18d134b2fb37b84b30928535e742}{Rho\_L}}*\mbox{\hyperlink{definitions_8h_a0756be3b232be0a1599985325ae985d2_a0756be3b232be0a1599985325ae985d2}{Rho\_R}});}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ =\ Term1\ *(\mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}*sqrt\_Rho\_R\ +\ \mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}}*sqrt\_Rho\_L);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}\ =\ Term1\ *(\mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}}*sqrt\_Rho\_R\ +\ \mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}}*sqrt\_Rho\_L);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a7702143053612680ee7d9cd2359eb5a9_a7702143053612680ee7d9cd2359eb5a9}{Roe\_H}}\ =\ Term1\ *(\mbox{\hyperlink{definitions_8h_a2802c041ca2f91eb91bdaba7b1183374_a2802c041ca2f91eb91bdaba7b1183374}{H\_R}}*sqrt\_Rho\_R\ +\ \mbox{\hyperlink{definitions_8h_af74d07f8a4ed56915e6eb30b12e1fda5_af74d07f8a4ed56915e6eb30b12e1fda5}{H\_L}}*sqrt\_Rho\_L);}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae311f824a98b94080a8057060ba02106_ae311f824a98b94080a8057060ba02106}{Roe\_Vmag}}\ =\ 0.5*(\mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}*\mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ +\ \mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}*\mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}});}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}}\ =\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*\mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ +\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*\mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a456fddf8fd69637dc58ec00271128171_a456fddf8fd69637dc58ec00271128171}{Ut}}\ =\ -\/\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*\mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ +\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*\mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}\ =\ sqrt((\mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1.0)*(\mbox{\hyperlink{definitions_8h_a7702143053612680ee7d9cd2359eb5a9_a7702143053612680ee7d9cd2359eb5a9}{Roe\_H}}\ -\/\ \mbox{\hyperlink{definitions_8h_ae311f824a98b94080a8057060ba02106_ae311f824a98b94080a8057060ba02106}{Roe\_Vmag}}));}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ du\ =\ (\mbox{\hyperlink{definitions_8h_a641a82374b82b8c08207e9a2b18b624a_a641a82374b82b8c08207e9a2b18b624a}{u\_R}}\ -\/\ \mbox{\hyperlink{definitions_8h_a66b4427284879d25bbe5f0372d40f99e_a66b4427284879d25bbe5f0372d40f99e}{u\_L}});}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dv\ =\ (\mbox{\hyperlink{definitions_8h_a95853781c0cface75d7e8cf0669ca14c_a95853781c0cface75d7e8cf0669ca14c}{v\_R}}\ -\/\ \mbox{\hyperlink{definitions_8h_a5f34adb831ec4790fcfd1bceadb9308b_a5f34adb831ec4790fcfd1bceadb9308b}{v\_L}});}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dP\ =\ (\mbox{\hyperlink{definitions_8h_acdcec36a7e4c833067cba4863e874bad_acdcec36a7e4c833067cba4863e874bad}{P\_R}}\ -\/\ \mbox{\hyperlink{definitions_8h_a63fd864f6e915d6569314dda14f56fe1_a63fd864f6e915d6569314dda14f56fe1}{P\_L}});}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dRho\ =\ (\mbox{\hyperlink{definitions_8h_a0756be3b232be0a1599985325ae985d2_a0756be3b232be0a1599985325ae985d2}{Rho\_R}}\ -\/\ \mbox{\hyperlink{definitions_8h_a598e18d134b2fb37b84b30928535e742_a598e18d134b2fb37b84b30928535e742}{Rho\_L}});}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ dUn\ =\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*du\ +\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*dv;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ dUt\ =\ -\/\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*du\ +\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*dv;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ Eigen\ Vector\ Evaluation\ }}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ R11\ =\ 1.0;\ R12\ =\ \mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ -\/\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}};\ R13\ =\ \mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}\ -\/\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}};\ R14=\ \mbox{\hyperlink{definitions_8h_a7702143053612680ee7d9cd2359eb5a9_a7702143053612680ee7d9cd2359eb5a9}{Roe\_H}}\ -\/\ \mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}*\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}};\ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u\ -\/a}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ R21\ =\ 1.0;\ R22\ =\ \mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ ;\ R23\ =\ \mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}\ ;\ R24=\ \mbox{\hyperlink{definitions_8h_ae311f824a98b94080a8057060ba02106_ae311f824a98b94080a8057060ba02106}{Roe\_Vmag}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ R31\ =\ 0.0;\ R32\ =\ -\/\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};\ R33\ =\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};\ R34\ =\ \mbox{\hyperlink{definitions_8h_a456fddf8fd69637dc58ec00271128171_a456fddf8fd69637dc58ec00271128171}{Ut}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ R41\ =\ 1.0;\ R42\ =\ \mbox{\hyperlink{definitions_8h_ae8b0b56a0f9e09af77295bd3b5d1e095_ae8b0b56a0f9e09af77295bd3b5d1e095}{Roe\_u}}\ +\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}};\ R43\ =\ \mbox{\hyperlink{definitions_8h_a668dca300fe4c3c977ed5986070c0688_a668dca300fe4c3c977ed5986070c0688}{Roe\_v}}\ +\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}};\ R44=\ \mbox{\hyperlink{definitions_8h_a7702143053612680ee7d9cd2359eb5a9_a7702143053612680ee7d9cd2359eb5a9}{Roe\_H}}\ +\ \mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}*\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}};\ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u\ +\ a}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ Evaluating\ Wave\ Strengths\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ Term2\ =\ 1.0/(\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}});}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ alpha\_1\ =\ 0.5*Term2*(dP\ -\/\ \mbox{\hyperlink{definitions_8h_a8da13b2094003b076d1ad9db3062107a_a8da13b2094003b076d1ad9db3062107a}{Roe\_Rho}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}*dUn);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ alpha\_2\ =\ dRho\ -\/\ Term2*dP;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ alpha\_3\ =\ \mbox{\hyperlink{definitions_8h_a8da13b2094003b076d1ad9db3062107a_a8da13b2094003b076d1ad9db3062107a}{Roe\_Rho}}*dUt;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ alpha\_4\ =\ 0.5*Term2*(dP\ +\ \mbox{\hyperlink{definitions_8h_a8da13b2094003b076d1ad9db3062107a_a8da13b2094003b076d1ad9db3062107a}{Roe\_Rho}}*\mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}}*dUn);}
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ \ Evaluating\ Eigen\ Values\ }}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ Lambda1\ =\ fabs(\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}}\ -\/\ \mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ Lambda2\ =\ fabs(\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ Lambda3\ =\ fabs(\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ Lambda4\ =\ fabs(\mbox{\hyperlink{definitions_8h_a3886c7ed3c761f0a0e59efb518c03c00_a3886c7ed3c761f0a0e59efb518c03c00}{Un}}\ +\ \mbox{\hyperlink{definitions_8h_aa9f31849cd8e55b00737cd04106954dc_aa9f31849cd8e55b00737cd04106954dc}{Roe\_a}});\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{//\ \ \ \ \ \ Evaluating\ the\ Eigen\ Values\ }}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0]\ =\ 0.5*(Lambda1*alpha\_1*R11\ +\ Lambda2*alpha\_2*R21\ +Lambda3*alpha\_3*R31\ +\ Lambda4*alpha\_4*R41)*\mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1]\ =\ 0.5*(Lambda1*alpha\_1*R12\ +\ Lambda2*alpha\_2*R22\ +Lambda3*alpha\_3*R32\ +\ Lambda4*alpha\_4*R42)*\mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2]\ =\ 0.5*(Lambda1*alpha\_1*R13\ +\ Lambda2*alpha\_2*R23\ +Lambda3*alpha\_3*R33\ +\ Lambda4*alpha\_4*R43)*\mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3]\ =\ 0.5*(Lambda1*alpha\_1*R14\ +\ Lambda2*alpha\_2*R24\ +Lambda3*alpha\_3*R34\ +\ Lambda4*alpha\_4*R44)*\mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d7e/_roe___scheme_8cpp_a9c59619af968242393e11841b8a177af_a9c59619af968242393e11841b8a177af_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_roe___scheme_8cpp_ae1ea8008753b5cd1a6b353c362cb372d_ae1ea8008753b5cd1a6b353c362cb372d}\index{Roe\_Scheme.cpp@{Roe\_Scheme.cpp}!ROE\_2O@{ROE\_2O}}
+\index{ROE\_2O@{ROE\_2O}!Roe\_Scheme.cpp@{Roe\_Scheme.cpp}}
+\doxysubsubsection{\texorpdfstring{ROE\_2O()}{ROE\_2O()}}
+{\footnotesize\ttfamily \label{_roe___scheme_8cpp_ae1ea8008753b5cd1a6b353c362cb372d_ae1ea8008753b5cd1a6b353c362cb372d} 
+void ROE\+\_\+2O (\begin{DoxyParamCaption}\item[{const int \&}]{Cell\+\_\+\+No}{, }\item[{int \&}]{N\+\_\+\+Cell\+\_\+\+No}{, }\item[{const int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_roe___scheme_8cpp_source_l00105}{105}} of file \mbox{\hyperlink{_roe___scheme_8cpp_source}{Roe\+\_\+\+Scheme.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d7e/_roe___scheme_8cpp_ae1ea8008753b5cd1a6b353c362cb372d_ae1ea8008753b5cd1a6b353c362cb372d_icgraph}
+\end{center}
+\end{figure}

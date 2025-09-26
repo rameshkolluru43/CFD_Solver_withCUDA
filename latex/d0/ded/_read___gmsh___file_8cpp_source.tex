@@ -1,0 +1,710 @@
+\doxysection{Read\+\_\+\+Gmsh\+\_\+\+File.\+cpp}
+\hypertarget{_read___gmsh___file_8cpp_source}{}\label{_read___gmsh___file_8cpp_source}\index{src/Read\_Gmsh\_File.cpp@{src/Read\_Gmsh\_File.cpp}}
+\mbox{\hyperlink{_read___gmsh___file_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_globals_8h}{Globals.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_utilities_8h}{Utilities.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_grid_8h}{Grid.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00006}00006\ \textcolor{comment}{//\ The\ function\ reads\ the\ grid\ file\ and\ stores\ the\ points,\ cells\ and\ boundary\ cells\ in\ the\ respective\ vectors}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00007}00007\ \textcolor{comment}{//\ The\ function\ is\ incomplete\ and\ not\ generic\ to\ read\ all\ kind\ of\ cells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00008}00008\ \textcolor{comment}{//\ Function\ to\ read\ the\ Gmsh\ grid\ file}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00009}00009\ \textcolor{comment}{//\ The\ function\ reads\ the\ grid\ file\ and\ stores\ the\ points,\ cells\ and\ boundary\ cells\ in\ the\ respective\ vectors}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00010}00010\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00011}\mbox{\hyperlink{_grid_8h_ac52640cd7cb369164c5ede8b208f0785_ac52640cd7cb369164c5ede8b208f0785}{00011}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a18c26bf3782f581573a5750c5b693fe2_a18c26bf3782f581573a5750c5b693fe2}{Read\_GmshVTK\_Grid}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&GridFileName)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00012}00012\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00013}00013\ \ \ \ \ ifstream\ file(GridFileName);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00015}00015\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Could\ not\ open\ the\ file!\ Check\ the\ file\ path:\ "{}}\ <<\ GridFileName\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00019}00019\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00020}00020\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00022}00022\ \ \ \ \ vector<double>\ Points;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{int}\ No\_of\_Points\ =\ 0,\ No\_of\_Cells\ =\ 0,\ NumEntries\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{//\ Mapping\ VTK\ cell\ types\ to\ node\ counts}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00026}00026\ \ \ \ \ std::map<int,\ int>\ cellTypeToNodeCount\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \{1,\ 1\},\ \{3,\ 2\},\ \{5,\ 3\},\ \{8,\ 4\},\ \{9,\ 8\},\ \{19,\ 8\},\ \{11,\ 10\},\ \{12,\ 6\}\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00029}00029\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Reading\ "{}}\ <<\ GridFileName\ <<\ \textcolor{stringliteral}{"{}\ ..."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ stringstream\ ss(line);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ keyword;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ ss\ >>\ keyword;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00036}00036\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}POINTS"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ No\_of\_Points;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Points:\ "{}}\ <<\ No\_of\_Points\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00041}00041\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ Points.reserve(3\ *\ No\_of\_Points);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},\ z;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Points;\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ >>\ z;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Points.insert(Points.end(),\ \{x,\ y,\ z\});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}CELLS"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ No\_of\_Cells\ >>\ NumEntries;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Cells:\ "{}}\ <<\ No\_of\_Cells\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Cells;\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vector<int>\ nodeIndices(\mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{_globals_8h_aff0d62fe47891e971ee7161fb743726a_aff0d62fe47891e971ee7161fb743726a}{nodeIndex}}\ :\ nodeIndices)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ \mbox{\hyperlink{_globals_8h_aff0d62fe47891e971ee7161fb743726a_aff0d62fe47891e971ee7161fb743726a}{nodeIndex}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}}\ ==\ 2)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}}.push\_back(\mbox{\hyperlink{class_cell}{Cell}}(\mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}},\ i,\ nodeIndices));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}}\ ==\ 3\ ||\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}}\ ==\ 4)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.push\_back(\mbox{\hyperlink{class_cell}{Cell}}(\mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}},\ i\ -\/\ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}}.size(),\ nodeIndices));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}CELL\_TYPES"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Reading\ Cell\ Types"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00080}00080\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Cells;\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellType;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ cellType;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellType\ ==\ 3)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}}[i].cellType\ =\ cellType;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cellType\ ==\ 5\ ||\ cellType\ ==\ 8)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i\ -\/\ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}}.size()].cellType\ =\ cellType;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00096}00096\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00098}00098\ \ \ \ \ file.close();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00099}00099\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00100}00100\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Cells\ of\ each\ type:\ "{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00101}00101\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Line:\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00102}00102\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Triangle/Quadrilateral:\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00105}00105\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}2D\ Grid\ is\ being\ read"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00108}00108\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00110}00110\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}3D\ Grid\ is\ being\ read"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00112}00112\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00114}00114\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_aa3cbdec71b7c56f603b53acd3ce5a070_aa3cbdec71b7c56f603b53acd3ce5a070}{Identify\_Cells}}(Points,\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}},\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00115}00115\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Identifying\ Cells\ is\ done"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00116}00116\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_a9ee7224f2c410fa22e26e50b31924869_a9ee7224f2c410fa22e26e50b31924869}{Identify\_Neighbours}}(Points,\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \mbox{\hyperlink{_globals_8h_a168b899e6f2be0f9d433faca2d755fa1_a168b899e6f2be0f9d433faca2d755fa1}{Boundary\_Cells}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00117}00117\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Identifying\ Neighbours\ is\ done"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00118}00118\ \ \ \ \ \textcolor{comment}{//\ Identifying\ and\ classifying\ the\ boundaries}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00119}00119\ \ \ \ \ \textcolor{keywordtype}{double}\ Xmin,\ Xmax,\ Ymin,\ Ymax,\ Zmin,\ Zmax;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00120}00120\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_ae9fe416efcf214282b13d235773a6bf6_ae9fe416efcf214282b13d235773a6bf6}{BoundingBox}}(Points,\ Xmin,\ Xmax,\ Ymin,\ Ymax,\ Zmin,\ Zmax);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00121}00121\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_ab9ea50ddf9e2981b178f5999ddfcb7b3_ab9ea50ddf9e2981b178f5999ddfcb7b3}{Classify\_Domain\_Boundaries}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ Xmin,\ Xmax,\ Ymin,\ Ymax);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00122}00122\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_a4f897fcec439c37558a5d9fd94abf2e0_a4f897fcec439c37558a5d9fd94abf2e0}{Create\_Boundary\_Cells\_Lists}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}},\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}},\ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00123}00123\ \ \ \ \ \textcolor{comment}{//\ Sort\_Neighbours(Cells);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00124}00124\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00125}00125\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ code\ */}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a6917acdc5103b75446a8901d4566ef79_a6917acdc5103b75446a8901d4566ef79}{Print}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00128}00128\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00129}00129\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00131}\mbox{\hyperlink{_grid_8h_acb3c036cb0c4ce0430f4829581d7b375_acb3c036cb0c4ce0430f4829581d7b375}{00131}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_aa3cbdec71b7c56f603b53acd3ce5a070_aa3cbdec71b7c56f603b53acd3ce5a070}{Identify\_Cells}}(\mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&Points,\ vector<Cell>\ \&\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}},\ \textcolor{keywordtype}{int}\ \&\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00132}00132\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size()\ ==\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Physical\ Cells\ are\ correct\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00135}00135\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00136}00136\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00137}00137\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Physical\ Cells\ are\ not\ correct\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00139}00139\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00140}00140\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Identifying\ Cells"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00141}00141\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00142}00142\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00143}00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].NoBoundaryFaces\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00144}00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00145}00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00146}00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ ==\ 3\ \&\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].numNodes\ ==\ 3)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellType\ =\ 5;\ \textcolor{comment}{//\ Triangle}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellID\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ ==\ 4\ \&\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].numNodes\ ==\ 4)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellType\ =\ 8;\ \textcolor{comment}{//\ Quadrilateral}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellID\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ ==\ 2\ \&\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].numNodes\ ==\ 2)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellType\ =\ 3;\ \textcolor{comment}{//\ Line}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].cellID\ =\ i;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Cell\ Type\ is\ not\ correct\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].numNodes\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Dimension\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ ==\ 3)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].numFaces\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node1\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node2\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node3\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00182}00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print(Cells[i].nodeIndices);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_grid_8h_ad048c4c7032bee7cbfb2c383b95ae7da_ad048c4c7032bee7cbfb2c383b95ae7da}{Sort\_Points\_AntiClockWise}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices,\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print(Cells[i].nodeIndices);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_grid_8h_a2d284e26ddef582519953e8b8300184e_a2d284e26ddef582519953e8b8300184e}{Construct\_Cell}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i]);\ \textcolor{comment}{//\ Construct\ the\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Store\ the\ vertices\ of\ the\ cell\ for\ Triangle\ only\ three\ vertices\ will\ be\ there}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ ==\ 4)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00190}00190\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node1\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node2\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node3\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node4\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices[3];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node1\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node2\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node3\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node4]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node4\ +\ 1]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices.push\_back(Points[3\ *\ node4\ +\ 2]);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print(Cells[i].nodeIndices);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_grid_8h_ad048c4c7032bee7cbfb2c383b95ae7da_ad048c4c7032bee7cbfb2c383b95ae7da}{Sort\_Points\_AntiClockWise}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices,\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print(Cells[i].nodeIndices);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_grid_8h_a2d284e26ddef582519953e8b8300184e_a2d284e26ddef582519953e8b8300184e}{Construct\_Cell}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i]);\ \textcolor{comment}{//\ Construct\ the\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 3D\ Flow}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00217}00217\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00218}00218\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00219}00219\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00220}\mbox{\hyperlink{_grid_8h_aff2ba3eadad2eedd8d979c782cb55ec6_aff2ba3eadad2eedd8d979c782cb55ec6}{00220}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a9ee7224f2c410fa22e26e50b31924869_a9ee7224f2c410fa22e26e50b31924869}{Identify\_Neighbours}}(\mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&Points,\ vector<Cell>\ \&\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ vector<Cell>\ \&BLineCells)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00221}00221\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00222}00222\ \ \ \ \ std::map<std::pair<int,\ int>,\ \textcolor{keywordtype}{int}>\ faceToCell;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00223}00223\ \ \ \ \ std::map<std::pair<int,\ int>,\ std::set<int>>\ faceToCells;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00224}00224\ \ \ \ \ std::unordered\_map<std::pair<int,\ int>,\ bool,\ \mbox{\hyperlink{structhash__pair}{hash\_pair}}>\ boundaryFaceMap;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00225}00225\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00226}00226\ \ \ \ \ \textcolor{keywordtype}{int}\ tracker\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00227}00227\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00228}00228\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Identifying\ Neighbours"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00229}00229\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Cells\ Size\ is\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00230}00230\ \ \ \ \ \textcolor{keywordtype}{int}\ GhostCellIndex\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00231}00231\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00232}00232\ \ \ \ \ \textcolor{comment}{//\ Maps\ to\ store\ the\ face\ to\ cell\ mapping}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00233}00233\ \ \ \ \ \mbox{\hyperlink{_read___gmsh___file_8cpp_adc1985827312d4d72fa6eb4ce492fc5e_adc1985827312d4d72fa6eb4ce492fc5e}{mapFacesToCells}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ faceToCells);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00234}00234\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00235}00235\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ all\ the\ cells\ have\ neighbours\ equal\ to\ the\ number\ of\ nodes\ otherwise\ insert\ ghost\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00236}00236\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00237}00237\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours.size()\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].NoBoundaryFaces\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size()\ -\/\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours.size();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours.push\_back(GhostCellIndex);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].hasBoundaryface\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GhostCellIndex++;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours.size()\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size());}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00248}00248\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00249}00249\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00250}00250\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00251}\mbox{\hyperlink{_grid_8h_a53a4744e060da6476fcdb39ba9c1d9d6_a53a4744e060da6476fcdb39ba9c1d9d6}{00251}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_af431b1d80abfe99d04add2b224fd3262_af431b1d80abfe99d04add2b224fd3262}{Identify\_ParentCell}}(vector<Cell>\ \&BCells,\ vector<Cell>\ \&triQuadCells)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00252}00252\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00253}00253\ \ \ \ \ \textcolor{comment}{//\ Identify\ the\ parent\ cell\ of\ the\ boundary\ cells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00254}00254\ \ \ \ \ \textcolor{comment}{//\ The\ parent\ cell\ of\ the\ boundary\ cell\ is\ the\ cell\ which\ has\ the\ boundary\ cell\ as\ its\ face}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00255}00255\ \ \ \ \ \textcolor{comment}{//\ create\ a\ hash\ map\ for\ the\ boundary\ cell\ to\ its\ parent\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00256}00256\ \ \ \ \ std::unordered\_map<int,\ int>\ boundaryCellToParentCell;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00257}00257\ \ \ \ \ \textcolor{comment}{//\ get\ the\ faces\ of\ the\ boundary\ cells\ and\ compare\ it\ with\ the\ faces\ of\ the\ triQuadCells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00258}00258\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ BCells.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00259}00259\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ vector<pair<int,\ int>>\ faces;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ faces\ (edges)\ for\ the\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (BCells[i].nodeIndices.size()\ ==\ 2)\ \textcolor{comment}{//\ Line\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ faces\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(BCells[i].nodeIndices[0],\ BCells[i].nodeIndices[1]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(BCells[i].nodeIndices[0],\ BCells[i].nodeIndices[1])\}\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compare\ the\ faces\ of\ the\ boundary\ cell\ with\ the\ faces\ of\ the\ triQuadCells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ vector<pair<int,\ int>>\ triQuadFaces;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00269}00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ triQuadCells.size();\ j++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00271}00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (triQuadCells[j].nodeIndices.size()\ ==\ 3)\ \textcolor{comment}{//\ Triangle}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00272}00272\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ triQuadFaces\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00274}00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[0],\ triQuadCells[j].nodeIndices[1]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[0],\ triQuadCells[j].nodeIndices[1])\},}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[1],\ triQuadCells[j].nodeIndices[2]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[1],\ triQuadCells[j].nodeIndices[2])\},}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[2],\ triQuadCells[j].nodeIndices[0]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[2],\ triQuadCells[j].nodeIndices[0])\}\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (triQuadCells[j].nodeIndices.size()\ ==\ 4)\ \textcolor{comment}{//\ Quadrilateral}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ triQuadFaces\ =\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00281}00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[0],\ triQuadCells[j].nodeIndices[1]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[0],\ triQuadCells[j].nodeIndices[1])\},}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[1],\ triQuadCells[j].nodeIndices[2]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[1],\ triQuadCells[j].nodeIndices[2])\},}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[2],\ triQuadCells[j].nodeIndices[3]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[2],\ triQuadCells[j].nodeIndices[3])\},}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00284}00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{min(triQuadCells[j].nodeIndices[3],\ triQuadCells[j].nodeIndices[0]),\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(triQuadCells[j].nodeIndices[3],\ triQuadCells[j].nodeIndices[0])\}\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compare\ the\ faces\ of\ the\ boundary\ cell\ with\ the\ faces\ of\ the\ triQuadCells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00287}00287\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ can\ this\ be\ done\ using\ hash\ map}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00288}00288\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ k\ =\ 0;\ k\ <\ faces.size();\ k++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00289}00289\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00290}00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ l\ =\ 0;\ l\ <\ triQuadFaces.size();\ l++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00291}00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00292}00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (faces[k]\ ==\ triQuadFaces[l])}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00293}00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00294}00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaryCellToParentCell[i]\ =\ j;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00295}00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00296}00296\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00297}00297\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00298}00298\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00299}00299\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00300}00300\ \ \ \ \ \textcolor{comment}{//\ Print\ the\ boundary\ cell\ and\ its\ parent\ cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00301}00301\ \ \ \ \ \textcolor{comment}{//\ \ \ \ for\ (auto\ it\ =\ boundaryCellToParentCell.begin();\ it\ !=\ boundaryCellToParentCell.end();\ ++it)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00302}00302\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00303}00303\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ cout\ <<\ "{}Boundary\ Cell\ "{}\ <<\ it-\/>first\ <<\ "{}\ Parent\ Cell\ "{}\ <<\ it-\/>second\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00304}00304\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00305}00305\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00306}00306\ \textcolor{comment}{//\ Function\ to\ generate\ face-\/to-\/cell\ mapping\ and\ detect\ neighbors}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00307}\mbox{\hyperlink{_read___gmsh___file_8cpp_adc1985827312d4d72fa6eb4ce492fc5e_adc1985827312d4d72fa6eb4ce492fc5e}{00307}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_adc1985827312d4d72fa6eb4ce492fc5e_adc1985827312d4d72fa6eb4ce492fc5e}{mapFacesToCells}}(vector<Cell>\ \&cells,\ map<pair<int,\ int>,\ set<int>>\ \&faceToCells)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00308}00308\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00309}00309\ \ \ \ \ \textcolor{keywordtype}{bool}\ restartNeeded\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00310}00310\ \ \ \ \ set<pair<int,\ int>>\ nonManifoldFaces;\ \textcolor{comment}{//\ Store\ faces\ that\ are\ shared\ by\ more\ than\ two\ cells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00311}00311\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00312}00312\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ cellID\ =\ 0;\ cellID\ <\ cells.size();\ ++cellID)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00313}00313\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00314}00314\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&cellNodes\ =\ cells[cellID].nodeIndices;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00315}00315\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Cell\ ID:\ "{}\ <<\ cellID\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00316}00316\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ For\ each\ cell\ go\ through\ its\ nodes\ and\ create\ a\ faces}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00317}00317\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ cellNodes.size();\ ++i)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00318}00318\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00319}00319\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node1\ =\ cellNodes[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00320}00320\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ node2\ =\ cellNodes[(i\ +\ 1)\ \%\ cellNodes.size()];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00321}00321\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00322}00322\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Ensure\ consistent\ ordering\ of\ face}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00323}00323\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (node1\ >\ node2)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00324}00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ swap(node1,\ node2);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00325}00325\ \ \ \ \ \ \ \ \ \ \ \ \ pair<int,\ int>\ face\ =\ \{node1,\ node2\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00326}00326\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00327}00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ face\ nodes}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00328}00328\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Face\ Nodes:\ "{}\ <<\ node1\ <<\ "{}\(\backslash\)t"{}\ <<\ node2\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00329}00329\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ search\ face\ in\ the\ list\ of\ faces}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00330}00330\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ faceToCells.find(face);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00331}00331\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (it\ !=\ faceToCells.end())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00332}00332\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00333}00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ face\ is\ already\ stored,\ meaning\ it's\ shared}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00334}00334\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set<int>\ \&sharedCells\ =\ it-\/>second;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00335}00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sharedCells.insert(cellID);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00336}00336\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00337}00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sharedCells.size()\ ==\ 2)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00338}00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00339}00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ face\ is\ now\ shared\ between\ exactly\ two\ cells\ (valid)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00340}00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ it\ =\ sharedCells.begin();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00341}00341\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ firstCell\ =\ *it++;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00342}00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ secondCell\ =\ *it;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00343}00343\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00344}00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ✅\ Use\ push\_back()\ instead\ of\ overwriting\ Neighbours[i]}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00345}00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (find(cells[firstCell].Neighbours.begin(),\ cells[firstCell].Neighbours.end(),\ secondCell)\ ==\ cells[firstCell].Neighbours.end())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00346}00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00347}00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cells[firstCell].Neighbours.push\_back(secondCell);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00348}00348\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00349}00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (find(cells[secondCell].Neighbours.begin(),\ cells[secondCell].Neighbours.end(),\ firstCell)\ ==\ cells[secondCell].Neighbours.end())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00350}00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00351}00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cells[secondCell].Neighbours.push\_back(firstCell);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00352}00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00353}00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}First\ Cell:\ "{}\ <<\ firstCell\ <<\ "{}\(\backslash\)tSecond\ Cell:\ "{}\ <<\ secondCell\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00354}00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00355}00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (sharedCells.size()\ >\ 2)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00356}00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00357}00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ 🚨\ Face\ is\ shared\ by\ more\ than\ two\ cells\ (Non-\/Manifold\ case)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00358}00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Face\ is\ shared\ by\ more\ than\ two\ cells:\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00359}00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ c\ :\ sharedCells)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00360}00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ c\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00361}00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00362}00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nonManifoldFaces.insert(face);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00363}00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00364}00364\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00365}00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00366}00366\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00367}00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ the\ face\ is\ new,\ add\ it\ to\ the\ map}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00368}00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ faceToCells[face]\ =\ \{\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{int}\textcolor{keyword}{>}(cellID)\};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00369}00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}New\ Face:\ "{}\ <<\ cellID\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00370}00370\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00371}00371\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00372}00372\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00373}00373\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00374}00374\ \ \ \ \ \textcolor{comment}{//\ 🚨\ Log\ non-\/manifold\ faces\ instead\ of\ causing\ infinite\ loop}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00375}00375\ \ \ \ \ \textcolor{keywordflow}{if}\ (!nonManifoldFaces.empty())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00376}00376\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00377}00377\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Warning:\ Non-\/manifold\ faces\ detected!\ These\ faces\ are\ shared\ by\ more\ than\ two\ cells:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00378}00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&face\ :\ nonManifoldFaces)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00379}00379\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00380}00380\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Face\ ("{}}\ <<\ face.first\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ face.second\ <<\ \textcolor{stringliteral}{"{})\ shared\ by\ multiple\ cells.\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00381}00381\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00382}00382\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00383}00383\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00384}00384\ \textcolor{comment}{//\ Function\ to\ print\ a\ Cell}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00385}\mbox{\hyperlink{_utilities_8h_ab99e8cb72920f40ab696f1de5fcaa47a_ab99e8cb72920f40ab696f1de5fcaa47a}{00385}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a611404ed219cd91fe765c665b1983e05_a611404ed219cd91fe765c665b1983e05}{printCellEntry}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_cell}{Cell}}\ \&entry)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00386}00386\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00387}00387\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Cell\ Type:\ "{}}\ <<\ entry.\mbox{\hyperlink{class_cell_a47f2bbf9727441b8a29ea4955938e16a_a47f2bbf9727441b8a29ea4955938e16a}{cellType}}\ <<\ \textcolor{stringliteral}{"{},\ Cell\ ID:\ "{}}\ <<\ entry.\mbox{\hyperlink{class_cell_ab3aecc9b39def0a1444b4c2c7cddf059_ab3aecc9b39def0a1444b4c2c7cddf059}{cellID}}\ <<\ \textcolor{stringliteral}{"{}\ \ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00388}00388\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00389}00389\ \ \ \ \ \textcolor{comment}{//\ Print\ node\ indices}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00390}00390\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Node\ Indices:\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00391}00391\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ node\ :\ entry.\mbox{\hyperlink{class_cell_a9a43c6b77731522f18e54e86af4dcef4_a9a43c6b77731522f18e54e86af4dcef4}{nodeIndices}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00392}00392\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00393}00393\ \ \ \ \ \ \ \ \ cout\ <<\ node\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00394}00394\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00395}00395\ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00396}00396\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Gmsh\ Indices\ are\ :\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00397}00397\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ node\ :\ entry.\mbox{\hyperlink{class_cell_a9a43c6b77731522f18e54e86af4dcef4_a9a43c6b77731522f18e54e86af4dcef4}{nodeIndices}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00398}00398\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00399}00399\ \ \ \ \ \ \ \ \ cout\ <<\ node\ +\ 1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00400}00400\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00401}00401\ \ \ \ \ \textcolor{comment}{//\ Print\ neighbors}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00402}00402\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Neighbours:\ \(\backslash\)t"{}}\ <<\ entry.\mbox{\hyperlink{class_cell_a5b0e3afecd22c421e3de82b0646ff849_a5b0e3afecd22c421e3de82b0646ff849}{Neighbours}}.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00403}00403\ \ \ \ \ \textcolor{keywordflow}{if}\ (entry.\mbox{\hyperlink{class_cell_a5b0e3afecd22c421e3de82b0646ff849_a5b0e3afecd22c421e3de82b0646ff849}{Neighbours}}.empty())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00404}00404\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00405}00405\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}None"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00406}00406\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00407}00407\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00408}00408\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00409}00409\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ neighbor\ :\ entry.\mbox{\hyperlink{class_cell_a5b0e3afecd22c421e3de82b0646ff849_a5b0e3afecd22c421e3de82b0646ff849}{Neighbours}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00410}00410\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00411}00411\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00412}00412\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00413}00413\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00414}00414\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Face\ Normals\ are\ :\ "{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00415}00415\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ entry.\mbox{\hyperlink{class_cell_a752ae4d146364fd407698e1ac94fed5d_a752ae4d146364fd407698e1ac94fed5d}{Face\_Normals}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00416}00416\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00417}00417\ \ \ \ \ \ \ \ \ cout\ <<\ entry.\mbox{\hyperlink{class_cell_a752ae4d146364fd407698e1ac94fed5d_a752ae4d146364fd407698e1ac94fed5d}{Face\_Normals}}[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00418}00418\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00419}00419\ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00420}00420\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00421}00421\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00422}\mbox{\hyperlink{_grid_8h_a0fd6f86ee4e99c422cbce9973c60e629_a0fd6f86ee4e99c422cbce9973c60e629}{00422}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_ae9fe416efcf214282b13d235773a6bf6_ae9fe416efcf214282b13d235773a6bf6}{BoundingBox}}(\mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&Points,\ \textcolor{keywordtype}{double}\ \&Xmin,\ \textcolor{keywordtype}{double}\ \&Xmax,\ \textcolor{keywordtype}{double}\ \&Ymin,\ \textcolor{keywordtype}{double}\ \&Ymax,\ \textcolor{keywordtype}{double}\ \&Zmin,\ \textcolor{keywordtype}{double}\ \&Zmax)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00423}00423\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00424}00424\ \ \ \ \ \textcolor{comment}{//\ obtain\ the\ bounding\ box\ of\ the\ domain\ by\ looping\ over\ all\ the\ points}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00425}00425\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ Points.size();\ i\ +=\ 3)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00426}00426\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00427}00427\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (i\ ==\ 0)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00428}00428\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00429}00429\ \ \ \ \ \ \ \ \ \ \ \ \ Xmin\ =\ Points[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00430}00430\ \ \ \ \ \ \ \ \ \ \ \ \ Xmax\ =\ Points[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00431}00431\ \ \ \ \ \ \ \ \ \ \ \ \ Ymin\ =\ Points[i\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00432}00432\ \ \ \ \ \ \ \ \ \ \ \ \ Ymax\ =\ Points[i\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00433}00433\ \ \ \ \ \ \ \ \ \ \ \ \ Zmin\ =\ Points[i\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00434}00434\ \ \ \ \ \ \ \ \ \ \ \ \ Zmax\ =\ Points[i\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00435}00435\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00436}00436\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00437}00437\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00438}00438\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i]\ <\ Xmin)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00439}00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Xmin\ =\ Points[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00440}00440\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i]\ >\ Xmax)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00441}00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Xmax\ =\ Points[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00442}00442\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i\ +\ 1]\ <\ Ymin)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00443}00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Ymin\ =\ Points[i\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00444}00444\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i\ +\ 1]\ >\ Ymax)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00445}00445\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Ymax\ =\ Points[i\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00446}00446\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i\ +\ 2]\ <\ Zmin)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00447}00447\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Zmin\ =\ Points[i\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00448}00448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Points[i\ +\ 2]\ >\ Zmax)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00449}00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Zmax\ =\ Points[i\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00450}00450\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00451}00451\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00452}00452\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Xmin:\ "{}}\ <<\ Xmin\ <<\ \textcolor{stringliteral}{"{}\ Xmax:\ "{}}\ <<\ Xmax\ <<\ \textcolor{stringliteral}{"{}\ Ymin:\ "{}}\ <<\ Ymin\ <<\ \textcolor{stringliteral}{"{}\ Ymax:\ "{}}\ <<\ Ymax\ <<\ \textcolor{stringliteral}{"{}\ Zmin:\ "{}}\ <<\ Zmin\ <<\ \textcolor{stringliteral}{"{}\ Zmax:\ "{}}\ <<\ Zmax\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00453}00453\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00454}00454\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00455}\mbox{\hyperlink{_grid_8h_a5e5a4794eb811a705980baff6f290885_a5e5a4794eb811a705980baff6f290885}{00455}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a479221cfa9ea6632fafe97bbcae57c64_a479221cfa9ea6632fafe97bbcae57c64}{Read\_GmshMESH\_Grid}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&GridFileName)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00456}00456\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00457}00457\ \ \ \ \ \textcolor{comment}{//\ This\ function\ reads\ a\ native\ .msh\ file\ generated\ by\ Gmsh}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00458}00458\ \ \ \ \ ifstream\ file(GridFileName);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00459}00459\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00460}00460\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00461}00461\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Could\ not\ open\ the\ file!\ Check\ the\ file\ path:\ "{}}\ <<\ GridFileName\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00462}00462\ \ \ \ \ \ \ \ \ exit(1);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00463}00463\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00464}00464\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac4895cd9edd008eeb23ba97f59e07fb6_ac4895cd9edd008eeb23ba97f59e07fb6}{Is\_2D\_Flow}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00465}00465\ \ \ \ \ \textcolor{keywordtype}{string}\ line;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00466}00466\ \ \ \ \ vector<double>\ Points;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00467}00467\ \ \ \ \ vector<Cell>\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}},\ Boundary\_LineCells;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00468}00468\ \ \ \ \ \textcolor{keywordtype}{int}\ No\_of\_Points\ =\ 0,\ No\_of\_Cells\ =\ 0,\ NumEntries\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00469}00469\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00470}00470\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00471}\mbox{\hyperlink{_grid_8h_a38a4451e69558f05db1752b9483b738a_a38a4451e69558f05db1752b9483b738a}{00471}}\ std::string\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a994cf9f1092af359f042b96b997c5adc_a994cf9f1092af359f042b96b997c5adc}{Get\_Boundary\_Type}}(\mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&p1,\ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&p2,\ \textcolor{keywordtype}{double}\ \&minX,\ \textcolor{keywordtype}{double}\ \&maxX,\ \textcolor{keywordtype}{double}\ \&minY,\ \textcolor{keywordtype}{double}\ \&maxY,\ \textcolor{keywordtype}{bool}\ isBoundaryFace)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00472}00472\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00473}00473\ \ \ \ \ \textcolor{keywordflow}{if}\ (p1.empty()\ ||\ p2.empty())}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00474}00474\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00475}00475\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ One\ of\ the\ points\ is\ empty."{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00476}00476\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}INVALID"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00477}00477\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00478}00478\ \ \ \ \ \textcolor{comment}{//\ Print(p1);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00479}00479\ \ \ \ \ \textcolor{comment}{//\ Print(p2);}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00480}00480\ \ \ \ \ \textcolor{keywordflow}{if}\ (!isBoundaryFace)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00481}00481\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}INTERNAL"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00482}00482\ \ \ \ \ \textcolor{keywordflow}{if}\ (std::abs(p1[0]\ -\/\ minX)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}}\ \&\&\ std::abs(p2[0]\ -\/\ minX)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00483}00483\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}LEFT"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00484}00484\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::abs(p1[0]\ -\/\ maxX)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}}\ \&\&\ std::abs(p2[0]\ -\/\ maxX)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00485}00485\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}RIGHT"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00486}00486\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::abs(p1[1]\ -\/\ minY)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}}\ \&\&\ std::abs(p2[1]\ -\/\ minY)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00487}00487\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}BOTTOM"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00488}00488\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::abs(p1[1]\ -\/\ maxY)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}}\ \&\&\ std::abs(p2[1]\ -\/\ maxY)\ <\ \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00489}00489\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}TOP"{}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00490}00490\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00491}00491\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}WALL"{}};\ \textcolor{comment}{//\ Internal\ wall\ or\ embedded\ obstacle}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00492}00492\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00493}00493\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00494}\mbox{\hyperlink{_grid_8h_ae37f8d28020cf0bed54ec51eecd835ad_ae37f8d28020cf0bed54ec51eecd835ad}{00494}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_ab9ea50ddf9e2981b178f5999ddfcb7b3_ab9ea50ddf9e2981b178f5999ddfcb7b3}{Classify\_Domain\_Boundaries}}(std::vector<Cell>\ \&\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ \textcolor{keywordtype}{double}\ \&minX,\ \textcolor{keywordtype}{double}\ \&maxX,\ \textcolor{keywordtype}{double}\ \&minY,\ \textcolor{keywordtype}{double}\ \&maxY)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00495}00495\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00496}00496\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ p1(3,\ 0.0),\ p2(3,\ 0.0);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00497}00497\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00498}00498\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00499}00499\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00500}00500\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].hasBoundaryface)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00501}00501\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00502}00502\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00503}00503\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Cell\ ID:\ "{}\ <<\ Cells[i].cellID\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00504}00504\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Has\ boundary\ face\ :\ "{}\ <<\ Cells[i].hasBoundaryface\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00505}00505\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}No\ of\ Boundary\ Faces\ :\ "{}\ <<\ Cells[i].NoBoundaryFaces\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00506}00506\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ Reset\ all\ face\ flags}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00507}00507\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Left\_Face\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00508}00508\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Right\_Face\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00509}00509\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Top\_Face\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00510}00510\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Bottom\_Face\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00511}00511\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Interior\_Face\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00512}00512\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00513}00513\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours[0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00514}00514\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours[1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00515}00515\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours[2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00516}00516\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Neighbours[3];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00517}00517\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00518}00518\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Which\ Neighhour\ index\ is\ greater\ than\ the\ Number\_Physical\_Cells\ or\ Cells.size()}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00519}00519\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ Neighbour\_1\ <<\ "{}\(\backslash\)t"{}\ <<\ Neighbour\_2\ <<\ "{}\(\backslash\)t"{}\ <<\ Neighbour\_3\ <<\ "{}\(\backslash\)t"{}\ <<\ Neighbour\_4\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00520}00520\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].nodeIndices.size();}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00521}00521\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ numEdges\ =\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00522}00522\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00523}00523\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isDomainBoundary\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00524}00524\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00525}00525\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ e\ =\ 0;\ e\ <\ numEdges;\ e++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00526}00526\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00527}00527\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idx1\ =\ (e\ \%\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}})\ *\ 3;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00528}00528\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ idx2\ =\ ((e\ +\ 1)\ \%\ \mbox{\hyperlink{_globals_8h_aa253071e8bc5ba6c124e70c2aa373017_aa253071e8bc5ba6c124e70c2aa373017}{numNodes}})\ *\ 3;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00529}00529\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00530}00530\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ p1}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00531}00531\ \ \ \ \ \ \ \ \ \ \ \ \ p1[0]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx1\ +\ 0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00532}00532\ \ \ \ \ \ \ \ \ \ \ \ \ p1[1]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx1\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00533}00533\ \ \ \ \ \ \ \ \ \ \ \ \ p1[2]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx1\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00534}00534\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00535}00535\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Extract\ p2}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00536}00536\ \ \ \ \ \ \ \ \ \ \ \ \ p2[0]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx2\ +\ 0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00537}00537\ \ \ \ \ \ \ \ \ \ \ \ \ p2[1]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx2\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00538}00538\ \ \ \ \ \ \ \ \ \ \ \ \ p2[2]\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Cell\_Vertices[idx2\ +\ 2];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00539}00539\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00540}00540\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ boundary\ type\ of\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00541}00541\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ btype\ =\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a994cf9f1092af359f042b96b997c5adc_a994cf9f1092af359f042b96b997c5adc}{Get\_Boundary\_Type}}(p1,\ p2,\ minX,\ maxX,\ minY,\ maxY,\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].hasBoundaryface);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00542}00542\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00543}00543\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (btype\ ==\ \textcolor{stringliteral}{"{}LEFT"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00544}00544\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00545}00545\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Left\_Face\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00546}00546\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isDomainBoundary\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00547}00547\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00548}00548\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (btype\ ==\ \textcolor{stringliteral}{"{}RIGHT"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00549}00549\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00550}00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Right\_Face\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00551}00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isDomainBoundary\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00552}00552\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00553}00553\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (btype\ ==\ \textcolor{stringliteral}{"{}TOP"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00554}00554\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00555}00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Top\_Face\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00556}00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isDomainBoundary\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00557}00557\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00558}00558\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (btype\ ==\ \textcolor{stringliteral}{"{}BOTTOM"{}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00559}00559\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00560}00560\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Bottom\_Face\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00561}00561\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isDomainBoundary\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00562}00562\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00563}00563\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00564}00564\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ it's\ a\ boundary\ cell\ but\ no\ face\ lies\ on\ the\ domain\ boundary,\ it's\ an\ internal\ boundary\ (like\ an\ obstacle)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00565}00565\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!isDomainBoundary)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00566}00566\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00567}00567\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Interior\_Face\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00568}00568\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00569}00569\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ Cells[i].Left\_Face\ <<\ "{}\(\backslash\)t"{}\ <<\ Cells[i].Bottom\_Face\ <<\ "{}\(\backslash\)t"{}\ <<\ Cells[i].Right\_Face\ <<\ "{}\(\backslash\)t"{}\ <<\ Cells[i].Top\_Face\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00570}00570\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00571}00571\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00572}00572\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00573}\mbox{\hyperlink{_grid_8h_a540ada9189efeda1922327bd4cc34b27_a540ada9189efeda1922327bd4cc34b27}{00573}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a4f897fcec439c37558a5d9fd94abf2e0_a4f897fcec439c37558a5d9fd94abf2e0}{Create\_Boundary\_Cells\_Lists}}(vector<Cell>\ \&\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}},\ vector<int>\ \&\mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}},\ vector<int>\ \&\mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}},\ vector<int>\ \&\mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00574}00574\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00575}00575\ \ \ \ \ \textcolor{comment}{//\ Mapping\ Cells\ with\ faces\ Left\ -\/\ face\ no\ 0\ bottom\ -\/\ face\ no\ 1}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00576}00576\ \ \ \ \ \textcolor{comment}{//\ right\ -\/\ face\ no\ 2\ top\ -\/\ face\ no\ 3}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00577}00577\ \ \ \ \ \textcolor{comment}{//\ Ghost\ cells\ are\ numberd\ after\ No\_Physical\_Cells}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00578}00578\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Creating\ Boundary\ Cells\ Lists"{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00579}00579\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Size\ of\ Cells\ is\ :\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00580}00580\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00581}00581\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00582}00582\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ cout\ <<\ "{}Cell\ ID:\ "{}\ <<\ Cells[i].cellID\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00583}00583\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ "{}Has\ boundary\ face\ :\ "{}\ <<\ Cells[i].hasBoundaryface\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00584}00584\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ "{}No\ of\ Boundary\ Faces\ :\ "{}\ <<\ Cells[i].NoBoundaryFaces\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00585}00585\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ Cells[i].Left\_Face\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00586}00586\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ Cells[i].Right\_Face\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00587}00587\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ Cells[i].Top\_Face\ <<\ endl;}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00588}00588\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout\ <<\ Cells[i].Bottom\_Face\ <<\ endl;*/}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00589}00589\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00590}00590\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Left\_Face)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00591}00591\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00592}00592\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00593}00593\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.push\_back(0);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00594}00594\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00595}00595\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Right\_Face)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00596}00596\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00597}00597\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00598}00598\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.push\_back(2);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00599}00599\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00600}00600\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Top\_Face)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00601}00601\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00602}00602\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00603}00603\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(3);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00604}00604\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00605}00605\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Bottom\_Face)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00606}00606\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00607}00607\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00608}00608\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(1);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00609}00609\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00610}00610\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i].Interior\_Face)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00611}00611\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00612}00612\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(i);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00613}00613\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.push\_back(1);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00614}00614\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00615}00615\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00616}00616\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Inlet\ Boundary\ Cells:\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00617}00617\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Exit\ Boundary\ Cells:\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00618}00618\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Wall\ Boundary\ Cells:\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.size()\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00619}00619\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00620}00620\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00621}00621\ \textcolor{comment}{//\ Helper:\ Given\ a\ face's\ normal\ (nx,\ ny),\ returns\ a\ priority\ integer:}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00622}00622\ \textcolor{comment}{//\ \ 1\ -\/>\ left,\ 2\ -\/>\ bottom,\ 3\ -\/>\ right,\ 4\ -\/>\ top.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00623}00623\ \textcolor{comment}{//\ The\ assignment\ is\ made\ by\ comparing\ the\ normal's\ angle\ with\ the\ target\ angles:}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00624}00624\ \textcolor{comment}{//\ left:\ π\ (or\ –π),\ bottom:\ -\/π/2,\ right:\ 0,\ top:\ π/2.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00625}\mbox{\hyperlink{_grid_8h_a9f0ea56a12f561069ebe367403ec62ec_a9f0ea56a12f561069ebe367403ec62ec}{00625}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a7cad5b6a9eb2a5101ab6bbbc89a45667_a7cad5b6a9eb2a5101ab6bbbc89a45667}{compute\_face\_priority}}(\textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}},\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00626}00626\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00627}00627\ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ angle\ in\ radians;\ range\ is\ (-\/PI,\ PI]}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00628}00628\ \ \ \ \ \textcolor{keywordtype}{double}\ angle\ =\ std::atan2(\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00629}00629\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00630}00630\ \ \ \ \ \textcolor{comment}{//\ For\ the\ left\ face,\ we\ want\ to\ consider\ angles\ near\ π\ and\ -\/π\ as\ equivalent.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00631}00631\ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_left\ =\ fabs(angle\ -\/\ M\_PI);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00632}00632\ \ \ \ \ \textcolor{keywordflow}{if}\ (angle\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00633}00633\ \ \ \ \ \ \ \ \ diff\_left\ =\ std::min(diff\_left,\ fabs(angle\ +\ M\_PI));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00634}00634\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00635}00635\ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_bottom\ =\ fabs(angle\ -\/\ (-\/M\_PI\ /\ 2));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00636}00636\ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_right\ =\ fabs(angle\ -\/\ 0);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00637}00637\ \ \ \ \ \textcolor{keywordtype}{double}\ diff\_top\ =\ fabs(angle\ -\/\ (M\_PI\ /\ 2));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00638}00638\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00639}00639\ \ \ \ \ \textcolor{comment}{//\ Start\ by\ assuming\ left\ has\ the\ smallest\ difference.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00640}00640\ \ \ \ \ \textcolor{keywordtype}{int}\ priority\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00641}00641\ \ \ \ \ \textcolor{keywordtype}{double}\ minDiff\ =\ diff\_left;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00642}00642\ \ \ \ \ \textcolor{keywordflow}{if}\ (diff\_bottom\ <\ minDiff)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00643}00643\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00644}00644\ \ \ \ \ \ \ \ \ minDiff\ =\ diff\_bottom;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00645}00645\ \ \ \ \ \ \ \ \ priority\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00646}00646\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00647}00647\ \ \ \ \ \textcolor{keywordflow}{if}\ (diff\_right\ <\ minDiff)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00648}00648\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00649}00649\ \ \ \ \ \ \ \ \ minDiff\ =\ diff\_right;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00650}00650\ \ \ \ \ \ \ \ \ priority\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00651}00651\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00652}00652\ \ \ \ \ \textcolor{keywordflow}{if}\ (diff\_top\ <\ minDiff)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00653}00653\ \ \ \ \ \{\ \textcolor{comment}{/*\ minDiff\ =\ diff\_top;\ */}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00654}00654\ \ \ \ \ \ \ \ \ priority\ =\ 4;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00655}00655\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00656}00656\ \ \ \ \ \textcolor{keywordflow}{return}\ priority;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00657}00657\ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00658}00658\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00659}00659\ \textcolor{comment}{//\ Sort\_Neighbours\ reorders\ each\ cell's\ Neighbours\ vector\ so\ that\ the}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00660}00660\ \textcolor{comment}{//\ indices\ (or\ ghost\ marker\ -\/1)\ are\ arranged\ in\ the\ following\ order:}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00661}00661\ \textcolor{comment}{//\ left\ face,\ bottom\ face,\ right\ face,\ top\ face.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00662}00662\ \textcolor{comment}{//\ It\ uses\ the\ cell's\ Face\_Normals\ (assumed\ to\ be\ a\ vector\ of\ 2D\ vectors)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00663}00663\ \textcolor{comment}{//\ to\ decide\ each\ face's\ orientation.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00664}\mbox{\hyperlink{_grid_8h_a841d95f21c205d75e9fcda81dcb1e000_a841d95f21c205d75e9fcda81dcb1e000}{00664}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a89fac6d9d87d8b3f9e588f13e6a5ac9f_a89fac6d9d87d8b3f9e588f13e6a5ac9f}{Sort\_Neighbours}}(vector<Cell>\ \&\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00665}00665\ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00666}00666\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00667}00667\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00668}00668\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_cell}{Cell}}\ \&cell\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00669}00669\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Assume\ that\ the\ number\ of\ faces\ is\ stored\ in\ cell.numFaces}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00670}00670\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ (or,\ equivalently,\ cell.nodeIndices.size()\ for\ many\ cell\ types).}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00671}00671\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ nFaces\ =\ cell.\mbox{\hyperlink{class_cell_abee7307065f9a6e48c16aaa8ec4b0312_abee7307065f9a6e48c16aaa8ec4b0312}{numFaces}};}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00672}00672\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00673}00673\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Build\ a\ vector\ of\ (faceIndex,\ priority)\ pairs.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00674}00674\ \ \ \ \ \ \ \ \ vector<pair<int,\ int>>\ facePriority;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00675}00675\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ =\ 0;\ \mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ <\ nFaces;\ \mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00676}00676\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00677}00677\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ face\ normal.\ We\ assume\ that\ Face\_Normals[f]}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00678}00678\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ is\ a\ vector<double>\ of\ at\ least\ 2\ values:\ [nx,\ ny].}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00679}00679\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ cell.\mbox{\hyperlink{class_cell_a752ae4d146364fd407698e1ac94fed5d_a752ae4d146364fd407698e1ac94fed5d}{Face\_Normals}}[\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ *\ 2\ +\ 0];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00680}00680\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ cell.\mbox{\hyperlink{class_cell_a752ae4d146364fd407698e1ac94fed5d_a752ae4d146364fd407698e1ac94fed5d}{Face\_Normals}}[\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ *\ 2\ +\ 1];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00681}00681\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ priority\ =\ \mbox{\hyperlink{_read___gmsh___file_8cpp_a7cad5b6a9eb2a5101ab6bbbc89a45667_a7cad5b6a9eb2a5101ab6bbbc89a45667}{compute\_face\_priority}}(\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}},\ \mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00682}00682\ \ \ \ \ \ \ \ \ \ \ \ \ facePriority.push\_back(make\_pair(\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}},\ priority));}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00683}00683\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00684}00684\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00685}00685\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Sort\ faces\ based\ on\ the\ computed\ priority.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00686}00686\ \ \ \ \ \ \ \ \ std::sort(facePriority.begin(),\ facePriority.end(),}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00687}00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ pair<int,\ int>\ \&a,\ \textcolor{keyword}{const}\ pair<int,\ int>\ \&\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}})}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00688}00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00689}00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ return\ a.second\ <\ b.second;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00690}00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \});}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00691}00691\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00692}00692\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rebuild\ a\ sorted\ neighbour\ vector.\ The\ ghost\ cell\ value\ (-\/1)}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00693}00693\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ stays\ attached\ to\ its\ face.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00694}00694\ \ \ \ \ \ \ \ \ vector<int>\ sortedNeighbours(nFaces,\ -\/1);}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00695}00695\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ idx\ =\ 0;\ idx\ <\ facePriority.size();\ idx++)}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00696}00696\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00697}00697\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ origFaceIndex\ =\ facePriority[idx].first;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00698}00698\ \ \ \ \ \ \ \ \ \ \ \ \ sortedNeighbours[idx]\ =\ cell.\mbox{\hyperlink{class_cell_a5b0e3afecd22c421e3de82b0646ff849_a5b0e3afecd22c421e3de82b0646ff849}{Neighbours}}[origFaceIndex];}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00699}00699\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00700}00700\ }
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00701}00701\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ cell's\ neighbour\ vector.}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00702}00702\ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_a5b0e3afecd22c421e3de82b0646ff849_a5b0e3afecd22c421e3de82b0646ff849}{Neighbours}}\ =\ sortedNeighbours;}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00703}00703\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_read___gmsh___file_8cpp_source_l00704}00704\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,31 @@
+\doxysection{Residual\+\_\+\+Smoothing.\+cpp}
+\hypertarget{_residual___smoothing_8cpp_source}{}\label{_residual___smoothing_8cpp_source}\index{Numerical\_Methods/Residual\_Smoothing.cpp@{Numerical\_Methods/Residual\_Smoothing.cpp}}
+\mbox{\hyperlink{_residual___smoothing_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00004}\mbox{\hyperlink{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}{00004}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}{Smooth\_Residuals}}()}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00005}00005\ \{}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{keywordtype}{int}\ i1=0,i2=0,i3=0,i4=0,i5=0,i6=0;}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00007}00007\ \ \ \ \ \textcolor{keywordtype}{double}\ omega=0.5;}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00008}00008\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_No=0;Cell\_No<\mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00009}00009\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ i1\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][1];i2\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][2];i3\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][3];}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ i4\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][4];i5\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][5];i6\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][6];}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ Smoothed\_Cells\_Net\_Flux[Cell\_No][i]\ =\ ((1.0-\/omega)/6.0)*(}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i1][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i2][i]}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i3][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i4][i]}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i5][i]\ +\ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[i6][i])\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ omega*\mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Cell\_No][i];}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_No=0;Cell\_No<\mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00020}00020\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Cell\_No][i]=Smoothed\_Cells\_Net\_Flux[Cell\_No][i];}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_residual___smoothing_8cpp_source_l00025}00025\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,95 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2 Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2}\index{qiskit.circuit.library.n\_local.efficient\_su2@{qiskit.circuit.library.n\_local.efficient\_su2}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2}{Efficient\+SU2}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_a4dba0f7f62dbbe34edb1c0149674fb11}{efficient\+\_\+su2}} (int num\+\_\+qubits, str\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}str\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]}\texorpdfstring{$\vert$}{|}None su2\+\_\+gates=None,(Block\+Entanglement\texorpdfstring{$\vert$}{|}Iterable\mbox{[}Block\+Entanglement\mbox{]}\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}int\mbox{]}, Block\+Entanglement\texorpdfstring{$\vert$}{|}Iterable\mbox{[}Block\+Entanglement\mbox{]}\mbox{]}) entanglement="{}reverse\+\_\+linear"{}, int reps=3, bool skip\+\_\+unentangled\+\_\+qubits=False, bool skip\+\_\+final\+\_\+rotation\+\_\+layer=False, str parameter\+\_\+prefix="{}θ"{}, bool insert\+\_\+barriers=False, str name="{}Efficient\+SU2"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The EfficientSU2 2-local circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_a4dba0f7f62dbbe34edb1c0149674fb11}\index{qiskit.circuit.library.n\_local.efficient\_su2@{qiskit.circuit.library.n\_local.efficient\_su2}!efficient\_su2@{efficient\_su2}}
+\index{efficient\_su2@{efficient\_su2}!qiskit.circuit.library.n\_local.efficient\_su2@{qiskit.circuit.library.n\_local.efficient\_su2}}
+\doxysubsubsection{\texorpdfstring{efficient\_su2()}{efficient\_su2()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_a4dba0f7f62dbbe34edb1c0149674fb11} 
+qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2.\+efficient\+\_\+su2 (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{str \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} \texorpdfstring{$\vert$}{|} Iterable\mbox{[}str \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{su2\+\_\+gates}{ = {\ttfamily None}, }\item[{(         Block\+Entanglement         \texorpdfstring{$\vert$}{|} Iterable\mbox{[}Block\+Entanglement\mbox{]}         \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}int\mbox{]}, Block\+Entanglement \texorpdfstring{$\vert$}{|} Iterable\mbox{[}Block\+Entanglement\mbox{]}\mbox{]}     ) }]{entanglement}{ = {\ttfamily "{}reverse\+\_\+linear"{}}, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{bool }]{skip\+\_\+unentangled\+\_\+qubits}{ = {\ttfamily False}, }\item[{bool }]{skip\+\_\+final\+\_\+rotation\+\_\+layer}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{str }]{name}{ = {\ttfamily "{}EfficientSU2"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The hardware-efficient :math:`SU(2)` 2-local circuit.
+
+    The ``efficient_su2`` circuit consists of layers of single qubit operations spanned by
+    :math:`SU(2)` and CX entanglements. This is a heuristic pattern that can be used to prepare trial
+    wave functions for variational quantum algorithms or classification circuit for machine learning.
+
+    :math:`SU(2)` is the special unitary group of degree 2, its elements are :math:`2 \times 2`
+    unitary matrices with determinant 1, such as the Pauli rotation gates.
+
+    On 3 qubits and using the Pauli :math:`Y` and :math:`Z` rotations as single qubit gates, the
+    this circuit is represented by:
+
+    .. parsed-literal::
+
+        ┌──────────┐┌──────────┐ ░            ░       ░ ┌───────────┐┌───────────┐
+        ┤ RY(θ[0]) ├┤ RZ(θ[3]) ├─░────────■───░─ ... ─░─┤ RY(θ[12]) ├┤ RZ(θ[15]) ├
+        ├──────────┤├──────────┤ ░      ┌─┴─┐ ░       ░ ├───────────┤├───────────┤
+        ┤ RY(θ[1]) ├┤ RZ(θ[4]) ├─░───■──┤ X ├─░─ ... ─░─┤ RY(θ[13]) ├┤ RZ(θ[16]) ├
+        ├──────────┤├──────────┤ ░ ┌─┴─┐└───┘ ░       ░ ├───────────┤├───────────┤
+        ┤ RY(θ[2]) ├┤ RZ(θ[5]) ├─░─┤ X ├──────░─ ... ─░─┤ RY(θ[14]) ├┤ RZ(θ[17]) ├
+        └──────────┘└──────────┘ ░ └───┘      ░       ░ └───────────┘└───────────┘
+
+    Examples:
+
+        Per default, the ``"reverse_linear"`` entanglement is used, which, in the case of
+        CX gates, is equivalent to an all-to-all entanglement:
+
+        .. plot::
+            :alt: Circuit diagram output by the previous code.
+            :include-source:
+            :context:
+
+            from qiskit.circuit.library import efficient_su2
+
+            circuit = efficient_su2(3, reps=1)
+            circuit.draw("mpl")
+
+        To specify which SU(2) gates should be used in the rotation layer, we can set the
+        ``su2_gates`` argument. In addition, we can change the entanglement structure.
+        For example:
+
+        .. plot::
+            :alt: Circuit diagram output by the previous code.
+            :include-source:
+            :context: close-figs
+
+            circuit = efficient_su2(4, su2_gates=["rx", "y"], entanglement="circular", reps=1)
+            circuit.draw("mpl")
+
+    Args:
+        num_qubits: The number of qubits.
+        su2_gates: The :math:`SU(2)` single qubit gates to apply in single qubit gate layers.
+            If only one gate is provided, the same gate is applied to each qubit.
+            If a list of gates is provided, all gates are applied to each qubit in the provided
+            order.
+        reps: Specifies how often the structure of a rotation layer followed by an entanglement
+            layer is repeated.
+        entanglement: The indices specifying on which qubits the input blocks act.
+            See :func:`.n_local` for detailed information.
+        skip_final_rotation_layer: Whether a final rotation layer is added to the circuit.
+        skip_unentangled_qubits: If ``True``, the rotation gates act only on qubits that
+            are entangled. If ``False``, the rotation gates act on all qubits.
+        parameter_prefix: The name of the free parameters.
+        insert_barriers: If True, barriers are inserted in between each layer. If False,
+            no barriers are inserted.
+        name: The name of the circuit.
+
+    Returns:
+        An efficient-SU(2) circuit.\end{DoxyVerb}
+ 

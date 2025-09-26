@@ -1,0 +1,241 @@
+\doxysection{Boundary\+\_\+\+Conditions/\+Boundary\+\_\+\+Conditions.cpp File Reference}
+\hypertarget{_boundary___conditions_8cpp}{}\label{_boundary___conditions_8cpp}\index{Boundary\_Conditions/Boundary\_Conditions.cpp@{Boundary\_Conditions/Boundary\_Conditions.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Boundary\+\_\+\+Conditions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d54/_boundary___conditions_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{de/d4e/_boundary___conditions_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}{Apply\+\_\+\+Boundary\+\_\+\+Conditions}} ()
+\item 
+bool \mbox{\hyperlink{_boundary___conditions_8cpp_af0957f05bfa011bfb517b04a4d7864a1_af0957f05bfa011bfb517b04a4d7864a1}{read\+Boundary\+Conditions}} (const std\+::string \&filename, \mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inlet\+Cond}}, \mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&\mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exit\+Cond}})
+\item 
+bool \mbox{\hyperlink{_boundary___conditions_8cpp_a2d32130200c60d2eda217d312910b972_a2d32130200c60d2eda217d312910b972}{read\+Initial\+Conditions}} (const std\+::string \&filename, \mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&initial\+Cond)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}{BCFile\+Name}}
+\item 
+string \mbox{\hyperlink{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}{Init\+Cond\+File\+Name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!Apply\_Boundary\_Conditions@{Apply\_Boundary\_Conditions}}
+\index{Apply\_Boundary\_Conditions@{Apply\_Boundary\_Conditions}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Apply\_Boundary\_Conditions()}{Apply\_Boundary\_Conditions()}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa} 
+void Apply\+\_\+\+Boundary\+\_\+\+Conditions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Applying\ Boundary\ Conditions\(\backslash\)n"{};}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_aa88f905e9c827c44260e081aa390e44d_aa88f905e9c827c44260e081aa390e44d}{Is\_Inlet\_SubSonic}})}
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subsonic\_Inlet\_Boundary\_Condition();}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a223563e3f71e9357055943bd2bbf8003_a223563e3f71e9357055943bd2bbf8003}{Subsonic\_Inlet\_Condition}}(\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}},\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}});}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Supersonic\_Inlet\_Boundary\_Condition();}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aeabb185d028ff0d92b1f080de6dfe9e5_aeabb185d028ff0d92b1f080de6dfe9e5}{Supersonic\_Inlet\_Condition}}(\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}},\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}});}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_abdbdb3329e719d2f3146a9c7493c511c_abdbdb3329e719d2f3146a9c7493c511c}{Is\_Exit\_SubSonic}})}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subsonic\_Exit\_Boundary\_Condition(i);}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a200490ce85f126503add88e25c5c3c34_a200490ce85f126503add88e25c5c3c34}{Subsonic\_Exit\_Condition}}(\mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}},\ \mbox{\hyperlink{definitions_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}});}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Supersonic\_Exit\_Boundary\_Condition(i);}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9a667f569fefbd832cb6eb2a5edece97_a9a667f569fefbd832cb6eb2a5edece97}{Supersonic\_Exit\_Condition}}(\mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}},\ \mbox{\hyperlink{definitions_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}});}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00040\ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Inlet\ and\ Exit\ applied"{}<<endl;}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00043\ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Viscous\ wall\ enabled"{}<<endl;}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7}{Viscous\_Wall\_Boundary\_Condition}}();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921}{InViscid\_Wall\_Boundary\_Condition}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Boundary\ Conditions\ Properly\ applied"{}<<endl;}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_afd0e5a394d40c779b4222335243645be_afd0e5a394d40c779b4222335243645be}{has\_Symmetry\_BC}})}
+\DoxyCodeLine{00054\ \ \ \ \ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4}{Symmetry\_Boundary\_Condition}}();}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1e/_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1e/_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_boundary___conditions_8cpp_af0957f05bfa011bfb517b04a4d7864a1_af0957f05bfa011bfb517b04a4d7864a1}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!readBoundaryConditions@{readBoundaryConditions}}
+\index{readBoundaryConditions@{readBoundaryConditions}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{readBoundaryConditions()}{readBoundaryConditions()}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_af0957f05bfa011bfb517b04a4d7864a1_af0957f05bfa011bfb517b04a4d7864a1} 
+bool read\+Boundary\+Conditions (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&}]{inlet\+Cond}{, }\item[{\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&}]{exit\+Cond}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00062}{62}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00066\ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file:\ "{}}\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00071\ \ \ \ \ Json::Value\ BoundaryConditions;}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(file,\ BoundaryConditions))}
+\DoxyCodeLine{00073\ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ JSON\ input."{}});}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{comment}{//\ Extract\ inlet\ conditions}}
+\DoxyCodeLine{00078\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a2058f3c845b38d2d202a1354a33b6f90_a2058f3c845b38d2d202a1354a33b6f90}{P}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00079\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a0ef148160b70b827a186c45a3f17855c_a0ef148160b70b827a186c45a3f17855c}{M}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00083\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a02e72d48d1b067ced5f907777302ba97_a02e72d48d1b067ced5f907777302ba97}{T}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}Temperature\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00084\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a05be0bd83ff045a8c6e6ffbe57859c53_a05be0bd83ff045a8c6e6ffbe57859c53}{T\_inf}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}T\_inf"{}}].asDouble();}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_ae99254daa40c1610522f9bc04c3ccdda_ae99254daa40c1610522f9bc04c3ccdda}{P\_inf}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}P\_inf"{}}].asDouble();}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a01c0cd7f4f9b859e63ac800ecf191a37_a01c0cd7f4f9b859e63ac800ecf191a37}{Rho\_inf}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}inlet\_conditions"{}}][\textcolor{stringliteral}{"{}Rho\_inf"{}}].asDouble();}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Extract\ exit\ conditions}}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a3a0937d51c21c0a4c380143a290f2251_a3a0937d51c21c0a4c380143a290f2251}{P}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}exit\_pressure"{}}].asDouble();}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_aa71ceaf713ecbe1ba0b019e4c06e1f6f_aa71ceaf713ecbe1ba0b019e4c06e1f6f}{Rho}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}exit\_density"{}}].asDouble();}
+\DoxyCodeLine{00091\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a1b9cbb5e7c0cc96a81a286e7139166c4_a1b9cbb5e7c0cc96a81a286e7139166c4}{T}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}exit\_temperature"{}}].asDouble();}
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a24520fef548942327926122aa8558b32_a24520fef548942327926122aa8558b32}{M}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}exit\_mach\_no"{}}].asDouble();}
+\DoxyCodeLine{00093\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a9252e24f70fd31d6fb4103949c06956b_a9252e24f70fd31d6fb4103949c06956b}{u}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a6bb912ad139b589f7a2dfec37e5304cb_a6bb912ad139b589f7a2dfec37e5304cb}{v}}\ =\ BoundaryConditions[\textcolor{stringliteral}{"{}exit\_conditions"{}}][\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00097\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{d0/d1e/_boundary___conditions_8cpp_af0957f05bfa011bfb517b04a4d7864a1_af0957f05bfa011bfb517b04a4d7864a1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_boundary___conditions_8cpp_a2d32130200c60d2eda217d312910b972_a2d32130200c60d2eda217d312910b972}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!readInitialConditions@{readInitialConditions}}
+\index{readInitialConditions@{readInitialConditions}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{readInitialConditions()}{readInitialConditions()}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_a2d32130200c60d2eda217d312910b972_a2d32130200c60d2eda217d312910b972} 
+bool read\+Initial\+Conditions (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{\mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&}]{initial\+Cond}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00100}{100}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00104\ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file:\ "{}}\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00109\ \ \ \ \ Json::Value\ InitialConditions;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(file,\ InitialConditions))}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ JSON\ input."{}});}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{comment}{//\ Extract\ inlet\ conditions}}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ initialCond.testCase\ =\ InitialConditions["{}initial\_conditions"{}]["{}test\_case"{}].asInt();}}
+\DoxyCodeLine{00117\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aa8a2943613c6ba434289ca7a0ae43a7c_aa8a2943613c6ba434289ca7a0ae43a7c}{P}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00118\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_afcf20f2805c27f146bb4421a9d03c56d_afcf20f2805c27f146bb4421a9d03c56d}{Rho}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00119\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a8d16e061869729ba5b636add3f19f163_a8d16e061869729ba5b636add3f19f163}{M}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00120\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a6d80e46e1530b7635a7bce0bf1828580_a6d80e46e1530b7635a7bce0bf1828580}{u}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00121\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a3170fee1cec1b853f869b7f31cb785e0_a3170fee1cec1b853f869b7f31cb785e0}{v}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00122\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a4215fa9461f58e6b3aa789edb172ef63_a4215fa9461f58e6b3aa789edb172ef63}{T}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Temperature\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00123\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a7363589f2df9c9a99c1dc6a235ca1a33_a7363589f2df9c9a99c1dc6a235ca1a33}{T\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}T\_inf"{}}].asDouble();}
+\DoxyCodeLine{00124\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aaf05a51c302939306b197217456ba1b7_aaf05a51c302939306b197217456ba1b7}{P\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}P\_inf"{}}].asDouble();}
+\DoxyCodeLine{00125\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a0c33671d10ca354e68a8aeaba4fceae5_a0c33671d10ca354e68a8aeaba4fceae5}{Rho\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Rho\_inf"{}}].asDouble();}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00128\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1e/_boundary___conditions_8cpp_a2d32130200c60d2eda217d312910b972_a2d32130200c60d2eda217d312910b972_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!BCFileName@{BCFileName}}
+\index{BCFileName@{BCFileName}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{BCFileName}{BCFileName}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158} 
+string BCFile\+Name}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+\Hypertarget{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!InitCondFileName@{InitCondFileName}}
+\index{InitCondFileName@{InitCondFileName}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{InitCondFileName}{InitCondFileName}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048} 
+string Init\+Cond\+File\+Name}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+

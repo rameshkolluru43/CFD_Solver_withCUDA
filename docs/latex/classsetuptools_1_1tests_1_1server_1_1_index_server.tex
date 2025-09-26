@@ -1,0 +1,53 @@
+\doxysection{setuptools.\+tests.\+server.\+Index\+Server Class Reference}
+\hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server}{}\label{classsetuptools_1_1tests_1_1server_1_1_index_server}\index{setuptools.tests.server.IndexServer@{setuptools.tests.server.IndexServer}}
+Inheritance diagram for setuptools.\+tests.\+server.\+Index\+Server\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsetuptools_1_1tests_1_1server_1_1_index_server}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_acae9cff4b8dc7072e72cf9326e8a0c3b}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_acae9cff4b8dc7072e72cf9326e8a0c3b} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, server\+\_\+address=(\textquotesingle{}\textquotesingle{}, 0), Request\+Handler\+Class=http.\+server.\+Simple\+HTTPRequest\+Handler)
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_a64fc82388b5df2b194c140a5eb66be0b}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_a64fc82388b5df2b194c140a5eb66be0b} 
+{\bfseries start} (self)
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_ae1b7ecfef038647b3fb040dcd2eec9f7}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_ae1b7ecfef038647b3fb040dcd2eec9f7} 
+{\bfseries stop} (self)
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_afaa55c7f1562acd3e36766df7d7ce25f}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_afaa55c7f1562acd3e36766df7d7ce25f} 
+{\bfseries base\+\_\+url} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_a8fd984714ac210062a2c15b115f1c950}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_a8fd984714ac210062a2c15b115f1c950} 
+{\bfseries thread} = threading.\+Thread(target=self.\+serve\+\_\+forever)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1server_1_1_index_server_a42c731a37e0864a85643af2294c7359e}\label{classsetuptools_1_1tests_1_1server_1_1_index_server_a42c731a37e0864a85643af2294c7359e} 
+bool {\bfseries \+\_\+run} = True
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Basic single-threaded http server simulating a package index
+
+You can use this server in unittest like this::
+    s = IndexServer()
+    s.start()
+    index_url = s.base_url() + 'mytestindex'
+    # do some test requests to the index
+    # The index files should be located in setuptools/tests/indexes
+    s.stop()
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/tests/server.\+py\end{DoxyCompactItemize}

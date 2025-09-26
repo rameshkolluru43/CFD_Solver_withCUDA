@@ -1,0 +1,2 @@
+set(__QT_DEPLOY_TARGET_FindQuadNeighbors_FILE /Users/rameshkolluru/BQPDrive/QPDE_FVM_Solver_Integrated/QPDE_FVM_CFD_Solver/Gmsh_Grids/build/FindQuadNeighbors)
+set(__QT_DEPLOY_TARGET_FindQuadNeighbors_TYPE EXECUTABLE)

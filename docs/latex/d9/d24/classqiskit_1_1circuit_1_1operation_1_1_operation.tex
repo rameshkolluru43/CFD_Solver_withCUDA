@@ -1,0 +1,91 @@
+\doxysection{qiskit.\+circuit.\+operation.\+Operation Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1operation_1_1_operation}{}\label{classqiskit_1_1circuit_1_1operation_1_1_operation}\index{qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}}
+Inheritance diagram for qiskit.\+circuit.\+operation.\+Operation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=8.888889cm]{d9/d24/classqiskit_1_1circuit_1_1operation_1_1_operation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation_a6079109783ec1d160521e3ed7daec48f_a6079109783ec1d160521e3ed7daec48f}{name}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation_aabf813ad707f5df98324f683d7d37509_aabf813ad707f5df98324f683d7d37509}{num\+\_\+qubits}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation_aaaebabb265f13bd6ef8eed57e3123c9b_aaaebabb265f13bd6ef8eed57e3123c9b}{num\+\_\+clbits}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Quantum operation interface.
+
+The minimal interface that any object must fulfil in order to be added to a
+:class:`.QuantumCircuit`.
+
+Concrete instances of this interface include :class:`~qiskit.circuit.Gate`,
+:class:`~qiskit.circuit.Reset`, :class:`~qiskit.circuit.Barrier`,
+:class:`~qiskit.circuit.Measure`, and operators such as :class:`~qiskit.quantum_info.Clifford`.
+
+The main purpose is to allow abstract mathematical objects to be added directly onto
+abstract circuits, and for the exact syntheses of these to be determined later, during
+compilation.
+
+Example:
+
+    Add a Clifford and a Toffoli gate to a :class:`QuantumCircuit`.
+
+    .. plot::
+       :alt: Circuit diagram output by the previous code.
+       :include-source:
+
+       from qiskit import QuantumCircuit
+       from qiskit.quantum_info import Clifford, random_clifford
+
+       qc = QuantumCircuit(3)
+       cliff = random_clifford(2)
+       qc.append(cliff, [0, 1])
+       qc.ccx(0, 1, 2)
+       qc.draw('mpl')
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1operation_1_1_operation_a6079109783ec1d160521e3ed7daec48f_a6079109783ec1d160521e3ed7daec48f}\index{qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}!name@{name}}
+\index{name@{name}!qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1operation_1_1_operation_a6079109783ec1d160521e3ed7daec48f_a6079109783ec1d160521e3ed7daec48f} 
+qiskit.\+circuit.\+operation.\+Operation.\+name (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Unique string identifier for operation type.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1annotated__operation_1_1_annotated_operation_a008ad63c9008605ffa7531fef3653ce2_a008ad63c9008605ffa7531fef3653ce2}{qiskit.\+circuit.\+annotated\+\_\+operation.\+Annotated\+Operation}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ad784964d68d2651d14b8365a70496a42_ad784964d68d2651d14b8365a70496a42}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_abac4dd4bb569c80cf365388fa412367c_abac4dd4bb569c80cf365388fa412367c}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a16754e010ce12ad17c2a0d04a32e23bc_a16754e010ce12ad17c2a0d04a32e23bc}{qiskit.\+circuit.\+instruction.\+Instruction}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a113bebe83f0444b7ccd321aefd5dd1cf_a113bebe83f0444b7ccd321aefd5dd1cf}{qiskit.\+circuit.\+instruction.\+Instruction}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1clifford_1_1_clifford_a3993db0bd98527099c364fd50201484a_a3993db0bd98527099c364fd50201484a}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+clifford.\+Clifford}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1operation_1_1_operation_aaaebabb265f13bd6ef8eed57e3123c9b_aaaebabb265f13bd6ef8eed57e3123c9b}\index{qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}!num\_clbits@{num\_clbits}}
+\index{num\_clbits@{num\_clbits}!qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}}
+\doxysubsubsection{\texorpdfstring{num\_clbits()}{num\_clbits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1operation_1_1_operation_aaaebabb265f13bd6ef8eed57e3123c9b_aaaebabb265f13bd6ef8eed57e3123c9b} 
+qiskit.\+circuit.\+operation.\+Operation.\+num\+\_\+clbits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Number of classical bits.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1annotated__operation_1_1_annotated_operation_a33e638808bb79c313dfdea279a36e507_a33e638808bb79c313dfdea279a36e507}{qiskit.\+circuit.\+annotated\+\_\+operation.\+Annotated\+Operation}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_afb9a5ed3895aea8624115861b20c1cd9_afb9a5ed3895aea8624115861b20c1cd9}{qiskit.\+circuit.\+instruction.\+Instruction}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55fbbdd9b78a6887448411d7549f1a7a_a55fbbdd9b78a6887448411d7549f1a7a}{qiskit.\+circuit.\+instruction.\+Instruction}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1clifford_1_1_clifford_a69face0a549300deca2970ac8a0cde3f_a69face0a549300deca2970ac8a0cde3f}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+clifford.\+Clifford}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1operation_1_1_operation_aabf813ad707f5df98324f683d7d37509_aabf813ad707f5df98324f683d7d37509}\index{qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}!num\_qubits@{num\_qubits}}
+\index{num\_qubits@{num\_qubits}!qiskit.circuit.operation.Operation@{qiskit.circuit.operation.Operation}}
+\doxysubsubsection{\texorpdfstring{num\_qubits()}{num\_qubits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1operation_1_1_operation_aabf813ad707f5df98324f683d7d37509_aabf813ad707f5df98324f683d7d37509} 
+qiskit.\+circuit.\+operation.\+Operation.\+num\+\_\+qubits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Number of qubits.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1annotated__operation_1_1_annotated_operation_af55090144307ccb624451195768a124a_af55090144307ccb624451195768a124a}{qiskit.\+circuit.\+annotated\+\_\+operation.\+Annotated\+Operation}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0d9dae0bf93629c1376331e1f1345192_a0d9dae0bf93629c1376331e1f1345192}{qiskit.\+circuit.\+instruction.\+Instruction}}, and \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a9e69fb9c742e141d4f54a781f2dfb2c5_a9e69fb9c742e141d4f54a781f2dfb2c5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/operation.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,66 @@
+\doxysection{qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+paths Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths}{}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths}\index{qiskit.synthesis.two\_qubit.xx\_decompose.paths@{qiskit.synthesis.two\_qubit.xx\_decompose.paths}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_a0fda0c9c9a16afcd3aa030caee1475fe_a0fda0c9c9a16afcd3aa030caee1475fe}{get\+\_\+augmented\+\_\+coordinate}} (target\+\_\+coordinate, strengths)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_abf7d3cc2c524d846499fac7b5c568f95_abf7d3cc2c524d846499fac7b5c568f95}{decomposition\+\_\+hop}} (target\+\_\+coordinate, strengths)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_abb714340eae0194039a53f303bff698c}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_abb714340eae0194039a53f303bff698c} 
+{\bfseries xx\+\_\+region\+\_\+polytope}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_a0103af8286a1a5274715db0cc4d0c5f8}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_a0103af8286a1a5274715db0cc4d0c5f8} 
+{\bfseries xx\+\_\+lift\+\_\+polytope}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Routines for producing right-angled paths through the Weyl alcove.  Consider a set of native
+interactions with an associated minimal covering set of minimum-cost circuit polytopes, as well as a
+target coordinate.  The coverage set associates to the target coordinate a circuit type
+C = (O1 ... On) consisting of a sequence of native interactions Oj.  A _path_ is a sequence
+(I P1 ... Pn) of intermediate Weyl points, where Pj is accessible from P(j-1) by Oj.  A path is said
+to be _right-angled_ when at each step one coordinate is fixed (up to possible Weyl reflection) when
+expressed in canonical coordinates.
+
+The key inputs to our method are:
+
++ A family of "b coordinates" which describe the target canonical coordinate.
++ A family of "a coordinates" which describe the source canonical coordinate.
++ A sequence of interaction strengths for which the b-coordinate can be modeled, with one selected
+  to be stripped from the sequence ("beta").  The others are bundled as the sum of the
+  sequence (s+), its maximum value (s1), and its second maximum value (s2).
+
+Given the b-coordinate and a set of intersection strengths, the procedure for backsolving for the
+a-coordinates is then extracted from the monodromy polytope.
+
+NOTE: The constants in this file are auto-generated and are not meant to be edited by hand / read.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_abf7d3cc2c524d846499fac7b5c568f95_abf7d3cc2c524d846499fac7b5c568f95}\index{qiskit.synthesis.two\_qubit.xx\_decompose.paths@{qiskit.synthesis.two\_qubit.xx\_decompose.paths}!decomposition\_hop@{decomposition\_hop}}
+\index{decomposition\_hop@{decomposition\_hop}!qiskit.synthesis.two\_qubit.xx\_decompose.paths@{qiskit.synthesis.two\_qubit.xx\_decompose.paths}}
+\doxysubsubsection{\texorpdfstring{decomposition\_hop()}{decomposition\_hop()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_abf7d3cc2c524d846499fac7b5c568f95_abf7d3cc2c524d846499fac7b5c568f95} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+paths.\+decomposition\+\_\+hop (\begin{DoxyParamCaption}\item[{}]{target\+\_\+coordinate}{, }\item[{}]{strengths}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a `target_coordinate` and a list of interaction `strengths`, produces a new canonical
+coordinate which is one step back along `strengths`.
+
+`target_coordinate` is taken to be in positive canonical coordinates, and the entries of
+strengths are taken to be [0, pi], so that (sj / 2, 0, 0) is a positive canonical coordinate.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_a0fda0c9c9a16afcd3aa030caee1475fe_a0fda0c9c9a16afcd3aa030caee1475fe}\index{qiskit.synthesis.two\_qubit.xx\_decompose.paths@{qiskit.synthesis.two\_qubit.xx\_decompose.paths}!get\_augmented\_coordinate@{get\_augmented\_coordinate}}
+\index{get\_augmented\_coordinate@{get\_augmented\_coordinate}!qiskit.synthesis.two\_qubit.xx\_decompose.paths@{qiskit.synthesis.two\_qubit.xx\_decompose.paths}}
+\doxysubsubsection{\texorpdfstring{get\_augmented\_coordinate()}{get\_augmented\_coordinate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1paths_a0fda0c9c9a16afcd3aa030caee1475fe_a0fda0c9c9a16afcd3aa030caee1475fe} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+paths.\+get\+\_\+augmented\+\_\+coordinate (\begin{DoxyParamCaption}\item[{}]{target\+\_\+coordinate}{, }\item[{}]{strengths}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Assembles a coordinate in the system used by `xx_region_polytope`.
+\end{DoxyVerb}
+ 

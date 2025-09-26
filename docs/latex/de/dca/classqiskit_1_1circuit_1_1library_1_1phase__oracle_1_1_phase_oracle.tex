@@ -1,0 +1,140 @@
+\doxysection{qiskit.\+circuit.\+library.\+phase\+\_\+oracle.\+Phase\+Oracle Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle}{}\label{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle}\index{qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+phase\+\_\+oracle.\+Phase\+Oracle\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{de/dca/classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a44e9473c4aea6371a329b1098850da47_a44e9473c4aea6371a329b1098850da47}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Union\mbox{[}str, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalfunction_1_1classical__element_1_1_classical_element}{Classical\+Element}}\mbox{]} expression, Optional\mbox{[}Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalfunction_1_1boolean__expression_1_1_boolean_expression}{Boolean\+Expression}}\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} synthesizer=None, list var\+\_\+order=None)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a14f59041d872491c58625c3761030bd4_a14f59041d872491c58625c3761030bd4}{evaluate\+\_\+bitstring}} (self, str bitstring)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a2298ce78b46c4e49dbe83e5f27d59a04_a2298ce78b46c4e49dbe83e5f27d59a04}{from\+\_\+dimacs\+\_\+file}} (cls, str filename)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a4eac69673e51ff1875e465db650755bc}\label{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a4eac69673e51ff1875e465db650755bc} 
+{\bfseries boolean\+\_\+expression} = expression
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Phase Oracle.
+
+The Phase Oracle object constructs circuits for any arbitrary
+input logical expressions. A logical expression is composed of logical operators
+`&` (`AND`), `|` (`OR`), `~` (`NOT`), and `^` (`XOR`).
+as well as symbols for literals (variables).
+For example, `'a & b'`, and `(v0 | ~v1) & (~v2 & v3)`
+are both valid string representation of boolean logical expressions.
+
+For convenience, this oracle, in addition to parsing arbitrary logical expressions,
+also supports input strings in the `DIMACS CNF format
+<http://www.satcompetition.org/2009/format-benchmarks2009.html>`__,
+which is the standard format for specifying SATisfiability (SAT) problem instances in
+`Conjunctive Normal Form (CNF) <https://en.wikipedia.org/wiki/Conjunctive_normal_form>`__,
+which is a conjunction of one or more clauses, where a clause is a disjunction of one
+or more literals. See :meth:`qiskit.circuit.library.phase_oracle.PhaseOracle.from_dimacs_file`.
+
+From 16 variables on, possible performance issues should be expected when using the
+default synthesizer.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a44e9473c4aea6371a329b1098850da47_a44e9473c4aea6371a329b1098850da47}\index{qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a44e9473c4aea6371a329b1098850da47_a44e9473c4aea6371a329b1098850da47} 
+ None qiskit.\+circuit.\+library.\+phase\+\_\+oracle.\+Phase\+Oracle.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Union\mbox{[}str, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalfunction_1_1classical__element_1_1_classical_element}{Classical\+Element}}\mbox{]}}]{expression}{, }\item[{Optional\mbox{[}Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalfunction_1_1boolean__expression_1_1_boolean_expression}{Boolean\+Expression}}\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} }]{synthesizer}{ = {\ttfamily None}, }\item[{list }]{var\+\_\+order}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates a PhaseOracle object
+
+Args:
+    expression: A Python-like boolean expression.
+    synthesizer: Optional. A function to convert a BooleanExpression into a QuantumCircuit
+       If None is provided, Tweedledum's `pkrm_synth` with `phase_esop` will be used.
+    var_order(list): A list with the order in which variables will be created.
+       (default: by appearance)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a14f59041d872491c58625c3761030bd4_a14f59041d872491c58625c3761030bd4}\index{qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}!evaluate\_bitstring@{evaluate\_bitstring}}
+\index{evaluate\_bitstring@{evaluate\_bitstring}!qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}}
+\doxysubsubsection{\texorpdfstring{evaluate\_bitstring()}{evaluate\_bitstring()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a14f59041d872491c58625c3761030bd4_a14f59041d872491c58625c3761030bd4} 
+ bool qiskit.\+circuit.\+library.\+phase\+\_\+oracle.\+Phase\+Oracle.\+evaluate\+\_\+bitstring (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{bitstring}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Evaluate the oracle on a bitstring.
+This evaluation is done classically without any quantum circuit.
+
+Args:
+    bitstring: The bitstring for which to evaluate. The input bitstring is expected to be
+        in little-endian order.
+
+Returns:
+    True if the bitstring is a good state, False otherwise.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a2298ce78b46c4e49dbe83e5f27d59a04_a2298ce78b46c4e49dbe83e5f27d59a04}\index{qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}!from\_dimacs\_file@{from\_dimacs\_file}}
+\index{from\_dimacs\_file@{from\_dimacs\_file}!qiskit.circuit.library.phase\_oracle.PhaseOracle@{qiskit.circuit.library.phase\_oracle.PhaseOracle}}
+\doxysubsubsection{\texorpdfstring{from\_dimacs\_file()}{from\_dimacs\_file()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1phase__oracle_1_1_phase_oracle_a2298ce78b46c4e49dbe83e5f27d59a04_a2298ce78b46c4e49dbe83e5f27d59a04} 
+qiskit.\+circuit.\+library.\+phase\+\_\+oracle.\+Phase\+Oracle.\+from\+\_\+dimacs\+\_\+file (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{str}]{filename}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a PhaseOracle from the string in the DIMACS format.
+
+    It is possible to build a PhaseOracle from a file in `DIMACS CNF format
+    <http://www.satcompetition.org/2009/format-benchmarks2009.html>`__,
+    which is the standard format for specifying SATisfiability (SAT) problem instances in
+    `Conjunctive Normal Form (CNF) <https://en.wikipedia.org/wiki/Conjunctive_normal_form>`__,
+    which is a conjunction of one or more clauses, where a clause is a disjunction of one
+    or more literals.
+
+    The following is an example of a CNF expressed in the DIMACS format:
+
+    .. code:: text
+
+      c DIMACS CNF file with 3 satisfying assignments: 1 -2 3, -1 -2 -3, 1 2 -3.
+      p cnf 3 5
+      -1 -2 -3 0
+      1 -2 3 0
+      1 2 -3 0
+      1 -2 -3 0
+      -1 2 3 0
+
+    The first line, following the `c` character, is a comment. The second line specifies that
+    the CNF is over three boolean variables --- let us call them  :math:`x_1, x_2, x_3`, and
+    contains five clauses.  The five clauses, listed afterwards, are implicitly joined by the
+    logical `AND` operator, :math:`\land`, while the variables in each clause, represented by
+    their indices, are implicitly disjoined by the logical `OR` operator, :math:`lor`. The
+    :math:`-` symbol preceding a boolean variable index corresponds to the logical `NOT`
+    operator, :math:`lnot`. Character `0` (zero) marks the end of each clause.  Essentially,
+    the code above corresponds to the following CNF:
+
+    :math:`(\lnot x_1 \lor \lnot x_2 \lor \lnot x_3)
+    \land (x_1 \lor \lnot x_2 \lor x_3)
+    \land (x_1 \lor x_2 \lor \lnot x_3)
+    \land (x_1 \lor \lnot x_2 \lor \lnot x_3)
+    \land (\lnot x_1 \lor x_2 \lor x_3)`.
+
+
+    Args:
+        filename: A file in DIMACS format.
+
+    Returns:
+        PhaseOracle: A quantum circuit with a phase oracle.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/phase\+\_\+oracle.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,100 @@
+\doxysection{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Gaussian\+Square Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square}{}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square}\index{qiskit.pulse.library.symbolic\_pulses.GaussianSquare@{qiskit.pulse.library.symbolic\_pulses.GaussianSquare}}
+Inheritance diagram for qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Gaussian\+Square\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.675159cm]{d6/d56/classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}{Scalable\+Symbolic\+Pulse}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a32d1b77ecc19a99003e40ca347a71aea_a32d1b77ecc19a99003e40ca347a71aea}{\+\_\+\+\_\+new\+\_\+\+\_\+}} (cls, int\texorpdfstring{$\vert$}{|}Parameter\+Value\+Type duration, Parameter\+Value\+Type amp, Parameter\+Value\+Type sigma, Parameter\+Value\+Type\texorpdfstring{$\vert$}{|}None width=None, Parameter\+Value\+Type angle=0.\+0, Parameter\+Value\+Type\texorpdfstring{$\vert$}{|}None risefall\+\_\+sigma\+\_\+ratio=None, str\texorpdfstring{$\vert$}{|}None name=None, bool\texorpdfstring{$\vert$}{|}None limit\+\_\+amplitude=None)
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a10f0faade97530f9ce674c9229cab879}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a10f0faade97530f9ce674c9229cab879} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a6c37ca23ae02b31f87bd9cb772c99f4c}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a6c37ca23ae02b31f87bd9cb772c99f4c} 
+str {\bfseries alias} = "{}Gaussian\+Square"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A square pulse with a Gaussian shaped risefall on both sides lifted such that
+its first sample is zero.
+
+Exactly one of the ``risefall_sigma_ratio`` and ``width`` parameters has to be specified.
+
+If ``risefall_sigma_ratio`` is not None and ``width`` is None:
+
+.. math::
+
+    \\begin{aligned}
+    \\text{risefall} &= \\text{risefall\\_sigma\\_ratio} \\times \\text{sigma}\\\\
+    \\text{width} &= \\text{duration} - 2 \\times \\text{risefall}
+    \\end{aligned}
+
+If ``width`` is not None and ``risefall_sigma_ratio`` is None:
+
+.. math:: \\text{risefall} = \\frac{\\text{duration} - \\text{width}}{2}
+
+In both cases, the lifted gaussian square pulse :math:`f'(x)` is defined as:
+
+.. math::
+
+    \\begin{aligned}
+    f'(x) &= \\begin{cases}\
+        \\exp\\biggl(-\\frac12 \\frac{(x - \\text{risefall})^2}{\\text{sigma}^2}\\biggr)\
+            & x < \\text{risefall}\\\\
+        1\
+            & \\text{risefall} \\le x < \\text{risefall} + \\text{width}\\\\
+        \\exp\\biggl(-\\frac12\
+                \\frac{{\\bigl(x - (\\text{risefall} + \\text{width})\\bigr)}^2}\
+                      {\\text{sigma}^2}\
+                \\biggr)\
+            & \\text{risefall} + \\text{width} \\le x\
+    \\end{cases}\\\\
+    f(x) &= \\text{A} \\times \\frac{f'(x) - f'(-1)}{1-f'(-1)},\
+        \\quad 0 \\le x < \\text{duration}
+    \\end{aligned}
+
+where :math:`f'(x)` is the gaussian square waveform without lifting or amplitude scaling, and
+:math:`\\text{A} = \\text{amp} \\times \\exp\\left(i\\times\\text{angle}\\right)`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a32d1b77ecc19a99003e40ca347a71aea_a32d1b77ecc19a99003e40ca347a71aea}\index{qiskit.pulse.library.symbolic\_pulses.GaussianSquare@{qiskit.pulse.library.symbolic\_pulses.GaussianSquare}!\_\_new\_\_@{\_\_new\_\_}}
+\index{\_\_new\_\_@{\_\_new\_\_}!qiskit.pulse.library.symbolic\_pulses.GaussianSquare@{qiskit.pulse.library.symbolic\_pulses.GaussianSquare}}
+\doxysubsubsection{\texorpdfstring{\_\_new\_\_()}{\_\_new\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_gaussian_square_a32d1b77ecc19a99003e40ca347a71aea_a32d1b77ecc19a99003e40ca347a71aea} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}{Scalable\+Symbolic\+Pulse}} qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Gaussian\+Square.\+\_\+\+\_\+new\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{int \texorpdfstring{$\vert$}{|} Parameter\+Value\+Type}]{duration}{, }\item[{Parameter\+Value\+Type}]{amp}{, }\item[{Parameter\+Value\+Type}]{sigma}{, }\item[{Parameter\+Value\+Type \texorpdfstring{$\vert$}{|} None }]{width}{ = {\ttfamily None}, }\item[{Parameter\+Value\+Type }]{angle}{ = {\ttfamily 0.0}, }\item[{Parameter\+Value\+Type \texorpdfstring{$\vert$}{|} None }]{risefall\+\_\+sigma\+\_\+ratio}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{limit\+\_\+amplitude}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new pulse instance.
+
+Args:
+    duration: Pulse length in terms of the sampling period `dt`.
+    amp: The magnitude of the amplitude of the Gaussian and square pulse.
+    sigma: A measure of how wide or narrow the Gaussian risefall is; see the class
+           docstring for more details.
+    width: The duration of the embedded square pulse.
+    angle: The angle of the complex amplitude of the pulse. Default value 0.
+    risefall_sigma_ratio: The ratio of each risefall duration to sigma.
+    name: Display name for this pulse envelope.
+    limit_amplitude: If ``True``, then limit the amplitude of the
+        waveform to 1. The default is ``True`` and the amplitude is constrained to 1.
+
+Returns:
+    ScalableSymbolicPulse instance.
+
+Raises:
+    PulseError: When width and risefall_sigma_ratio are both empty or both non-empty.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/library/symbolic\+\_\+pulses.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,18 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+optimization.\+normalize\+\_\+rx\+\_\+angle Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1optimization_1_1normalize__rx__angle}{}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1optimization_1_1normalize__rx__angle}\index{qiskit.transpiler.passes.optimization.normalize\_rx\_angle@{qiskit.transpiler.passes.optimization.normalize\_rx\_angle}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1normalize__rx__angle_1_1_normalize_r_x_angle}{Normalize\+RXAngle}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Performs three optimizations to reduce the number of pulse calibrations for
+the single-pulse RX gates:
+Wrap RX Gate rotation angles into [0, pi] by sandwiching them with RZ gates.
+Convert RX(pi/2) to SX, and RX(pi) to X if the calibrations exist in the target.
+Quantize the RX rotation angles by assigning the same value for the angles
+that differ within a resolution provided by the user.
+\end{DoxyVerb}
+ 

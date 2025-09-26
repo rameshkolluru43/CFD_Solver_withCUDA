@@ -1,0 +1,102 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+aqc.\+aqc.\+AQC Class Reference}
+\hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c}{}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c}\index{qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_ac9144929c7298550c12077105aa500cb_ac9144929c7298550c12077105aa500cb}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_minimizer}{Minimizer}}\texorpdfstring{$\vert$}{|}None optimizer=None, int\texorpdfstring{$\vert$}{|}None seed=None)
+\item 
+None \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a3598d34bf1f2cfe5ebafcb8e7fb322ce_a3598d34bf1f2cfe5ebafcb8e7fb322ce}{compile\+\_\+unitary}} (self, np.\+ndarray target\+\_\+matrix, \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1approximate_1_1_approximate_circuit}{Approximate\+Circuit}} approximate\+\_\+circuit, \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1approximate_1_1_approximating_objective}{Approximating\+Objective}} approximating\+\_\+objective, np.\+ndarray\texorpdfstring{$\vert$}{|}None initial\+\_\+point=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a0dafc482d3ea4266bb4b69197ead1ce0_a0dafc482d3ea4266bb4b69197ead1ce0}{\+\_\+optimizer}}
+\item 
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_ab85eabd59008af563772531e86d59456}\label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_ab85eabd59008af563772531e86d59456} 
+{\bfseries \+\_\+seed} = seed
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A generic implementation of the Approximate Quantum Compiler. This implementation is agnostic of
+the underlying implementation of the approximate circuit, objective, and optimizer. Users may
+pass corresponding implementations of the abstract classes:
+
+* The *optimizer* is an implementation of the :class:`~.Minimizer` protocol, a callable used to run
+  the optimization process. The choice of optimizer may affect overall convergence, required time
+  for the optimization process and achieved objective value.
+
+* The *approximate circuit* represents a template which parameters we want to optimize.  Currently,
+  there's only one implementation based on 4-rotations CNOT unit blocks:
+  :class:`.CNOTUnitCircuit`. See the paper for more details.
+
+* The *approximate objective* is tightly coupled with the approximate circuit implementation and
+  provides two methods for computing objective function and gradient with respect to approximate
+  circuit parameters. This objective is passed to the optimizer. Currently, there are two
+  implementations based on 4-rotations CNOT unit blocks: :class:`.DefaultCNOTUnitObjective` and
+  its accelerated version :class:`.FastCNOTUnitObjective`. Both implementations share the same
+  idea of maximization the Hilbert-Schmidt product between the target matrix and its
+  approximation. The former implementation approach should be considered as a baseline one. It
+  may suffer from performance issues, and is mostly suitable for a small number of qubits
+  (up to 5 or 6), whereas the latter, accelerated one, can be applied to larger problems.
+
+* One should take into consideration the exponential growth of matrix size with the number of
+  qubits because the implementation not only creates a potentially large target matrix, but
+  also allocates a number of temporary memory buffers comparable in size to the target matrix.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_ac9144929c7298550c12077105aa500cb_ac9144929c7298550c12077105aa500cb}\index{qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_ac9144929c7298550c12077105aa500cb_ac9144929c7298550c12077105aa500cb} 
+qiskit.\+synthesis.\+unitary.\+aqc.\+aqc.\+AQC.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_minimizer}{Minimizer}} \texorpdfstring{$\vert$}{|} None }]{optimizer}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    optimizer: an optimizer to be used in the optimization procedure of the search for
+        the best approximate circuit. By default, the scipy minimizer with the
+        ``L-BFGS-B`` method is used with max iterations set to 1000.
+    seed: a seed value to be used by a random number generator.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a3598d34bf1f2cfe5ebafcb8e7fb322ce_a3598d34bf1f2cfe5ebafcb8e7fb322ce}\index{qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}!compile\_unitary@{compile\_unitary}}
+\index{compile\_unitary@{compile\_unitary}!qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}}
+\doxysubsubsection{\texorpdfstring{compile\_unitary()}{compile\_unitary()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a3598d34bf1f2cfe5ebafcb8e7fb322ce_a3598d34bf1f2cfe5ebafcb8e7fb322ce} 
+ None qiskit.\+synthesis.\+unitary.\+aqc.\+aqc.\+AQC.\+compile\+\_\+unitary (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{target\+\_\+matrix}{, }\item[{\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1approximate_1_1_approximate_circuit}{Approximate\+Circuit}}}]{approximate\+\_\+circuit}{, }\item[{\mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1approximate_1_1_approximating_objective}{Approximating\+Objective}}}]{approximating\+\_\+objective}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+point}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Approximately compiles a circuit represented as a unitary matrix by solving an optimization
+problem defined by ``approximating_objective`` and using ``approximate_circuit`` as a
+template for the approximate circuit.
+
+Args:
+    target_matrix: a unitary matrix to approximate.
+    approximate_circuit: a template circuit that will be filled with the parameter values
+        obtained in the optimization procedure.
+    approximating_objective: a definition of the optimization problem.
+    initial_point: initial values of angles/parameters to start optimization from.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a0dafc482d3ea4266bb4b69197ead1ce0_a0dafc482d3ea4266bb4b69197ead1ce0}\index{qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}!\_optimizer@{\_optimizer}}
+\index{\_optimizer@{\_optimizer}!qiskit.synthesis.unitary.aqc.aqc.AQC@{qiskit.synthesis.unitary.aqc.aqc.AQC}}
+\doxysubsubsection{\texorpdfstring{\_optimizer}{\_optimizer}}
+{\footnotesize\ttfamily \label{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1aqc_1_1_a_q_c_a0dafc482d3ea4266bb4b69197ead1ce0_a0dafc482d3ea4266bb4b69197ead1ce0} 
+qiskit.\+synthesis.\+unitary.\+aqc.\+aqc.\+AQC.\+\_\+optimizer\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ optimizer\ \textcolor{keywordflow}{or}\ partial(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ scipy.optimize.minimize,\ args=(),\ method=\textcolor{stringliteral}{"{}L-\/BFGS-\/B"{}},\ options=\{\textcolor{stringliteral}{"{}maxiter"{}}:\ 1000\}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/synthesis/unitary/aqc/aqc.\+py\end{DoxyCompactItemize}

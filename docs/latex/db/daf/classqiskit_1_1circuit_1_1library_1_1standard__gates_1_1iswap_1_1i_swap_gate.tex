@@ -1,0 +1,190 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate}\index{qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.054507cm]{db/daf/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_ae9c48bffb8e6a86e01a6828afa98c4bd_ae9c48bffb8e6a86e01a6828afa98c4bd}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Optional\mbox{[}str\mbox{]} label=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a27271b3b2c4e09f6b98c4ce6a7435cad_a27271b3b2c4e09f6b98c4ce6a7435cad}{power}} (self, float exponent, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a43e224e547f2f3a27403cb4e2cee2854_a43e224e547f2f3a27403cb4e2cee2854}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_af854e57f72c44297eb74c46176eb0854}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_af854e57f72c44297eb74c46176eb0854} 
+{\bfseries definition} = qc
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_af3b14f261ba37ece3d37d0a26b6f89b4_af3b14f261ba37ece3d37d0a26b6f89b4}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_afa08c83155b4dab33f2ada47dd828cb7}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_afa08c83155b4dab33f2ada47dd828cb7} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+ISwap\+Gate
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a1b44d451f9af29144486afcf9620f084}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a1b44d451f9af29144486afcf9620f084} 
+{\bfseries \+\_\+singleton\+\_\+lookup\+\_\+key} = stdlib\+\_\+singleton\+\_\+key()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}iSWAP gate.
+
+A 2-qubit XX+YY interaction.
+This is a Clifford and symmetric gate. Its action is to swap two qubit
+states and phase the :math:`|01\rangle` and :math:`|10\rangle`
+amplitudes by i.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.iswap` method.
+
+**Circuit Symbol:**
+
+.. code-block:: text
+
+    q_0: ─⨂─
+          │
+    q_1: ─⨂─
+
+**Reference Implementation:**
+
+.. code-block:: text
+
+         ┌───┐┌───┐     ┌───┐
+    q_0: ┤ S ├┤ H ├──■──┤ X ├─────
+         ├───┤└───┘┌─┴─┐└─┬─┘┌───┐
+    q_1: ┤ S ├─────┤ X ├──■──┤ H ├
+         └───┘     └───┘     └───┘
+
+**Matrix Representation:**
+
+.. math::
+
+    iSWAP = R_{XX+YY}\left(-\frac{\pi}{2}\right)
+      = \exp\left(i \frac{\pi}{4} \left(X{\otimes}X+Y{\otimes}Y\right)\right) =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & i & 0 \\
+            0 & i & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+
+This gate is equivalent to a SWAP up to a diagonal.
+
+.. math::
+
+     iSWAP =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+     .  \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & i & 0 & 0 \\
+            0 & 0 & i & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_ae9c48bffb8e6a86e01a6828afa98c4bd_ae9c48bffb8e6a86e01a6828afa98c4bd}\index{qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_ae9c48bffb8e6a86e01a6828afa98c4bd_ae9c48bffb8e6a86e01a6828afa98c4bd} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Optional\mbox{[}str\mbox{]} }]{label}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new iSwap gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a43e224e547f2f3a27403cb4e2cee2854_a43e224e547f2f3a27403cb4e2cee2854}\index{qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a43e224e547f2f3a27403cb4e2cee2854_a43e224e547f2f3a27403cb4e2cee2854} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_af3b14f261ba37ece3d37d0a26b6f89b4_af3b14f261ba37ece3d37d0a26b6f89b4}\index{qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_af3b14f261ba37ece3d37d0a26b6f89b4_af3b14f261ba37ece3d37d0a26b6f89b4} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}gate iswap a,b {
+    s q[0];
+    s q[1];
+    h q[0];
+    cx q[0],q[1];
+    cx q[1],q[0];
+    h q[1];
+}
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a27271b3b2c4e09f6b98c4ce6a7435cad_a27271b3b2c4e09f6b98c4ce6a7435cad}\index{qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}!power@{power}}
+\index{power@{power}!qiskit.circuit.library.standard\_gates.iswap.iSwapGate@{qiskit.circuit.library.standard\_gates.iswap.iSwapGate}}
+\doxysubsubsection{\texorpdfstring{power()}{power()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1iswap_1_1i_swap_gate_a27271b3b2c4e09f6b98c4ce6a7435cad_a27271b3b2c4e09f6b98c4ce6a7435cad} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+iswap.\+i\+Swap\+Gate.\+power (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{exponent}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Raise this gate to the power of ``exponent``.
+
+Implemented either as a unitary gate (ref. :class:`~.library.UnitaryGate`)
+or as an annotated operation (ref. :class:`.AnnotatedOperation`). In the case of several standard
+gates, such as :class:`.RXGate`, when the power of a gate can be expressed in terms of another
+standard gate that is returned directly.
+
+Args:
+    exponent (float): the power to raise the gate to
+    annotated (bool): indicates whether the power gate can be implemented
+        as an annotated operation. In the case of several standard
+        gates, such as :class:`.RXGate`, this argument is ignored when
+        the power of a gate can be expressed in terms of another
+        standard gate.
+
+Returns:
+    An operation implementing ``gate^exponent``
+
+Raises:
+    CircuitError: If gate is not unitary
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_adc8678114c6cfd9c47a47f6b02f0abb8_adc8678114c6cfd9c47a47f6b02f0abb8}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/iswap.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,85 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+optimization.\+inverse\+\_\+cancellation.\+Inverse\+Cancellation Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation}{}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation}\index{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation@{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+optimization.\+inverse\+\_\+cancellation.\+Inverse\+Cancellation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.854305cm]{d0/d8c/classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a7539c7aa43d4ae05c0b01e02ea90632c_a7539c7aa43d4ae05c0b01e02ea90632c}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, List\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}, Tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]}\mbox{]}\mbox{]} gates\+\_\+to\+\_\+cancel)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_aea7aa0321b98e8b47cca88db27497c55_aea7aa0321b98e8b47cca88db27497c55}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a68f929532bd5820d0cda2ae8ba2ebc9b}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a68f929532bd5820d0cda2ae8ba2ebc9b} 
+list {\bfseries self\+\_\+inverse\+\_\+gates} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a9a008cac5fcc1fa0c4d546d29f1658f1}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a9a008cac5fcc1fa0c4d546d29f1658f1} 
+list {\bfseries inverse\+\_\+gate\+\_\+pairs} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a0a2ce46702c6d8d8c78e941ed2fb636e}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a0a2ce46702c6d8d8c78e941ed2fb636e} 
+{\bfseries self\+\_\+inverse\+\_\+gate\+\_\+names} = set()
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a76711e39ecaf4e3f813358567a5801d9}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a76711e39ecaf4e3f813358567a5801d9} 
+{\bfseries inverse\+\_\+gate\+\_\+pairs\+\_\+names} = set()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Cancel specific Gates which are inverses of each other when they occur back-to-
+back.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a7539c7aa43d4ae05c0b01e02ea90632c_a7539c7aa43d4ae05c0b01e02ea90632c}\index{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation@{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation@{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_a7539c7aa43d4ae05c0b01e02ea90632c_a7539c7aa43d4ae05c0b01e02ea90632c} 
+qiskit.\+transpiler.\+passes.\+optimization.\+inverse\+\_\+cancellation.\+Inverse\+Cancellation.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{List\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}, Tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]}\mbox{]}\mbox{]}}]{gates\+\_\+to\+\_\+cancel}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize InverseCancellation pass.
+
+Args:
+    gates_to_cancel: List describing the gates to cancel. Each element of the
+        list is either a single gate or a pair of gates. If a single gate, then
+        it should be self-inverse. If a pair of gates, then the gates in the
+        pair should be inverses of each other.
+
+Raises:
+    TranspilerError: Input is not a self-inverse gate or a pair of inverse gates.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_aea7aa0321b98e8b47cca88db27497c55_aea7aa0321b98e8b47cca88db27497c55}\index{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation@{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation@{qiskit.transpiler.passes.optimization.inverse\_cancellation.InverseCancellation}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1inverse__cancellation_1_1_inverse_cancellation_aea7aa0321b98e8b47cca88db27497c55_aea7aa0321b98e8b47cca88db27497c55} 
+qiskit.\+transpiler.\+passes.\+optimization.\+inverse\+\_\+cancellation.\+Inverse\+Cancellation.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the InverseCancellation pass on `dag`.
+
+Args:
+    dag: the directed acyclic graph to run on.
+
+Returns:
+    DAGCircuit: Transformed DAG.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/optimization/inverse\+\_\+cancellation.\+py\end{DoxyCompactItemize}

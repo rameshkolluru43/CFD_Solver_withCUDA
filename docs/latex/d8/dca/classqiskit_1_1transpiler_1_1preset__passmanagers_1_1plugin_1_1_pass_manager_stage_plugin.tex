@@ -1,0 +1,53 @@
+\doxysection{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+plugin.\+Pass\+Manager\+Stage\+Plugin Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin}{}\label{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin}\index{qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin@{qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin}}
+Inheritance diagram for qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+plugin.\+Pass\+Manager\+Stage\+Plugin\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.080000cm]{d8/dca/classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_pass_manager}{Pass\+Manager}} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin_ab22977bdc09442654df5384302f35f6e_ab22977bdc09442654df5384302f35f6e}{pass\+\_\+manager}} (self, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}} pass\+\_\+manager\+\_\+config, Optional\mbox{[}int\mbox{]} optimization\+\_\+level=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A ``PassManagerStagePlugin`` is a plugin interface object for using custom
+stages in :func:`~.transpile`.
+
+A ``PassManagerStagePlugin`` object can be added to an external package and
+integrated into the :func:`~.transpile` function with an entry point. This
+will enable users to use the output of :meth:`.pass_manager` to implement
+a stage in the compilation process.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin_ab22977bdc09442654df5384302f35f6e_ab22977bdc09442654df5384302f35f6e}\index{qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin@{qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin}!pass\_manager@{pass\_manager}}
+\index{pass\_manager@{pass\_manager}!qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin@{qiskit.transpiler.preset\_passmanagers.plugin.PassManagerStagePlugin}}
+\doxysubsubsection{\texorpdfstring{pass\_manager()}{pass\_manager()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1plugin_1_1_pass_manager_stage_plugin_ab22977bdc09442654df5384302f35f6e_ab22977bdc09442654df5384302f35f6e} 
+ \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_pass_manager}{Pass\+Manager}} qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+plugin.\+Pass\+Manager\+Stage\+Plugin.\+pass\+\_\+manager (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}}}]{pass\+\_\+manager\+\_\+config}{, }\item[{Optional\mbox{[}int\mbox{]} }]{optimization\+\_\+level}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This method is designed to return a :class:`~.PassManager` for the stage this implements
+
+Args:
+    pass_manager_config: A configuration object that defines all the target device
+        specifications and any user specified options to :func:`~.transpile` or
+        :func:`~.generate_preset_pass_manager`
+    optimization_level: The optimization level of the transpilation, if set this
+        should be used to set values for any tunable parameters to trade off runtime
+        for potential optimization. Valid values should be ``0``, ``1``, ``2``, or ``3``
+        and the higher the number the more optimization is expected.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_alap_scheduling_pass_manager_a5ac36b61ee6c4a5937be8c8d95b2a1d5_a5ac36b61ee6c4a5937be8c8d95b2a1d5}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Alap\+Scheduling\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_asap_scheduling_pass_manager_ae0246abb6b9e4112418e4832c79151bc_ae0246abb6b9e4112418e4832c79151bc}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Asap\+Scheduling\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_basic_swap_pass_manager_aef89b4aa0eb9e1174fe8e23e11ba6aa5_aef89b4aa0eb9e1174fe8e23e11ba6aa5}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Basic\+Swap\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_basis_translator_pass_manager_aac22e219d8fb059904121399d393f00f_aac22e219d8fb059904121399d393f00f}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Basis\+Translator\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_default_init_pass_manager_ac7c254b9c6f741cfe8e662e18c9ec63a_ac7c254b9c6f741cfe8e662e18c9ec63a}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Default\+Init\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_default_layout_pass_manager_a321103cb9b4b56ef95b5485ca502eb4d_a321103cb9b4b56ef95b5485ca502eb4d}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Default\+Layout\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_default_scheduling_pass_manager_ac4aa51233079cbf387f61a9af87e09a6_ac4aa51233079cbf387f61a9af87e09a6}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Default\+Scheduling\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_dense_layout_pass_manager_ab7c3839f5063f5e416b68462f181b800_ab7c3839f5063f5e416b68462f181b800}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Dense\+Layout\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_lookahead_swap_pass_manager_a69693828ce0ae7f5387b5c592a2ded77_a69693828ce0ae7f5387b5c592a2ded77}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Lookahead\+Swap\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_none_routing_pass_manager_a9367f66a7d5de1bf6aa6f0adc90e8c9f_a9367f66a7d5de1bf6aa6f0adc90e8c9f}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+None\+Routing\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_optimization_pass_manager_a9a16ef8876bf5916b94a37f11d43249c_a9a16ef8876bf5916b94a37f11d43249c}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Optimization\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_sabre_layout_pass_manager_aba7ac99d940ed619ee80d1329a2fd92f_aba7ac99d940ed619ee80d1329a2fd92f}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Sabre\+Layout\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_sabre_swap_pass_manager_a635f0ff1be31f03b821032897e19d4bb_a635f0ff1be31f03b821032897e19d4bb}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Sabre\+Swap\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_stochastic_swap_pass_manager_ad3b55058e2741f5adf1edcd7a5aa8806_ad3b55058e2741f5adf1edcd7a5aa8806}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Stochastic\+Swap\+Pass\+Manager}}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_trivial_layout_pass_manager_a1e8745e62a0cca687022fb9415b961bd_a1e8745e62a0cca687022fb9415b961bd}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Trivial\+Layout\+Pass\+Manager}}, and \mbox{\hyperlink{classqiskit_1_1transpiler_1_1preset__passmanagers_1_1builtin__plugins_1_1_unitary_synthesis_pass_manager_a7274e6249c53d04c0dca667d55953178_a7274e6249c53d04c0dca667d55953178}{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+builtin\+\_\+plugins.\+Unitary\+Synthesis\+Pass\+Manager}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/preset\+\_\+passmanagers/plugin.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,96 @@
+\doxysection{qiskit.\+circuit.\+library.\+hidden\+\_\+linear\+\_\+function.\+Hidden\+Linear\+Function Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function}{}\label{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function}\index{qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction@{qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+hidden\+\_\+linear\+\_\+function.\+Hidden\+Linear\+Function\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d1/d04/classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function_ad63ed28179c9a6858d36823a852b8c33_ad63ed28179c9a6858d36823a852b8c33}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\texorpdfstring{$\vert$}{|}np.\+ndarray adjacency\+\_\+matrix)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function_af4409c3f92739630fa788b561c1c5f89}\label{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function_af4409c3f92739630fa788b561c1c5f89} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Circuit to solve the hidden linear function problem.
+
+The 2D Hidden Linear Function problem is determined by a 2D adjacency
+matrix A, where only elements that are nearest-neighbor on a grid have
+non-zero entries. Each row/column corresponds to one binary variable
+:math:`x_i`.
+
+The hidden linear function problem is as follows:
+
+Consider the quadratic form
+
+.. math::
+
+    q(x) = \sum_{i,j=1}^{n}{x_i x_j} ~(\mathrm{mod}~ 4)
+
+and restrict :math:`q(x)` onto the nullspace of A. This results in a linear
+function.
+
+.. math::
+
+    2 \sum_{i=1}^{n}{z_i x_i} ~(\mathrm{mod}~ 4)  \forall  x \in \mathrm{Ker}(A)
+
+and the goal is to recover this linear function (equivalently a vector
+:math:`[z_0, ..., z_{n-1}]`). There can be multiple solutions.
+
+In [1] it is shown that the present circuit solves this problem
+on a quantum computer in constant depth, whereas any corresponding
+solution on a classical computer would require circuits that grow
+logarithmically with :math:`n`. Thus this circuit is an example
+of quantum advantage with shallow circuits.
+
+**Reference Circuit:**
+
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit.library import HiddenLinearFunction
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       A = [[1, 1, 0], [1, 0, 1], [0, 1, 1]]
+       circuit = HiddenLinearFunction(A)
+       _generate_circuit_library_visualization(circuit)
+
+**Reference:**
+
+[1] S. Bravyi, D. Gosset, R. Koenig, Quantum Advantage with Shallow Circuits, 2017.
+`arXiv:1704.00690 <https://arxiv.org/abs/1704.00690>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function_ad63ed28179c9a6858d36823a852b8c33_ad63ed28179c9a6858d36823a852b8c33}\index{qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction@{qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction@{qiskit.circuit.library.hidden\_linear\_function.HiddenLinearFunction}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1hidden__linear__function_1_1_hidden_linear_function_ad63ed28179c9a6858d36823a852b8c33_ad63ed28179c9a6858d36823a852b8c33} 
+ None qiskit.\+circuit.\+library.\+hidden\+\_\+linear\+\_\+function.\+Hidden\+Linear\+Function.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list \texorpdfstring{$\vert$}{|} np.\+ndarray}]{adjacency\+\_\+matrix}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new HLF circuit.
+
+Args:
+    adjacency_matrix: a symmetric n-by-n list of 0-1 lists.
+        n will be the number of qubits.
+
+Raises:
+    CircuitError: If A is not symmetric.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/hidden\+\_\+linear\+\_\+function.\+py\end{DoxyCompactItemize}

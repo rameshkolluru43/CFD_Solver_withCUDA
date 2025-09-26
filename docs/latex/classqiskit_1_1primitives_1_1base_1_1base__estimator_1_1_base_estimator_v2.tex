@@ -1,0 +1,61 @@
+\doxysection{qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V2 Class Reference}
+\hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2}{}\label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2}\index{qiskit.primitives.base.base\_estimator.BaseEstimatorV2@{qiskit.primitives.base.base\_estimator.BaseEstimatorV2}}
+Inheritance diagram for qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V2\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.372881cm]{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive__job_1_1_base_primitive_job}{Base\+Primitive\+Job}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1primitive__result_1_1_primitive_result}{Primitive\+Result}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1pub__result_1_1_pub_result}{Pub\+Result}}\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2_acbbe289879d2ef27807c13d2cf3e7a46}{run}} (self, Iterable\mbox{[}Estimator\+Pub\+Like\mbox{]} pubs, \texorpdfstring{$\ast$}{*}, float\texorpdfstring{$\vert$}{|}None precision=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2_a8b5e117ee94417cf163b2218ae63af52}\label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2_a8b5e117ee94417cf163b2218ae63af52} 
+type\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1data__bin_1_1_data_bin}{Data\+Bin}}\mbox{]} {\bfseries \+\_\+make\+\_\+data\+\_\+bin} (\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1estimator__pub_1_1_estimator_pub}{Estimator\+Pub}} \+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Estimator V2 base class.
+
+An estimator estimates expectation values for provided quantum circuit and
+observable combinations.
+
+An Estimator implementation must treat the :meth:`.run` method ``precision=None``
+kwarg as using a default ``precision`` value.  The default value and methods to
+set it can be determined by the Estimator implementor.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2_acbbe289879d2ef27807c13d2cf3e7a46}\index{qiskit.primitives.base.base\_estimator.BaseEstimatorV2@{qiskit.primitives.base.base\_estimator.BaseEstimatorV2}!run@{run}}
+\index{run@{run}!qiskit.primitives.base.base\_estimator.BaseEstimatorV2@{qiskit.primitives.base.base\_estimator.BaseEstimatorV2}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v2_acbbe289879d2ef27807c13d2cf3e7a46} 
+ \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive__job_1_1_base_primitive_job}{Base\+Primitive\+Job}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1primitive__result_1_1_primitive_result}{Primitive\+Result}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1pub__result_1_1_pub_result}{Pub\+Result}}\mbox{]}\mbox{]} qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V2.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Iterable\mbox{[}Estimator\+Pub\+Like\mbox{]}}]{pubs}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{float \texorpdfstring{$\vert$}{|} None }]{precision}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Estimate expectation values for each provided pub (Primitive Unified Bloc).
+
+Args:
+    pubs: An iterable of pub-like objects, such as tuples ``(circuit, observables)``
+          or ``(circuit, observables, parameter_values)``.
+    precision: The target precision for expectation value estimates of each
+               run Estimator Pub that does not specify its own precision. If None
+               the estimator's default precision value will be used.
+
+Returns:
+    A job object that contains results.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1primitives_1_1backend__estimator__v2_1_1_backend_estimator_v2_af33f9e2932114052fcd5e55e1533f65e}{qiskit.\+primitives.\+backend\+\_\+estimator\+\_\+v2.\+Backend\+Estimator\+V2}}, and \mbox{\hyperlink{classqiskit_1_1primitives_1_1statevector__estimator_1_1_statevector_estimator_a81c89535b7bbe8c38bfada2b9a7102ea}{qiskit.\+primitives.\+statevector\+\_\+estimator.\+Statevector\+Estimator}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/primitives/base/base\+\_\+estimator.\+py\end{DoxyCompactItemize}

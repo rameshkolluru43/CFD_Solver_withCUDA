@@ -1,0 +1,91 @@
+\doxysection{qiskit.\+pulse.\+transforms.\+dag Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1transforms_1_1dag}{}\label{namespaceqiskit_1_1pulse_1_1transforms_1_1dag}\index{qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+rx.\+Py\+DAG \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4d3f5486c06f3a2b235af189fd5c5261_a4d3f5486c06f3a2b235af189fd5c5261}{block\+\_\+to\+\_\+dag}} (\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} block)
+\item 
+rx.\+Py\+DAG \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4764f6473dbc9273a4e078708607069b_a4764f6473dbc9273a4e078708607069b}{\+\_\+sequential\+\_\+allocation}} (block)
+\item 
+rx.\+Py\+DAG \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a1032028b6569776394f9e430081b4c59_a1032028b6569776394f9e430081b4c59}{\+\_\+parallel\+\_\+allocation}} (block)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A collection of functions to convert ScheduleBlock to DAG representation.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a1032028b6569776394f9e430081b4c59_a1032028b6569776394f9e430081b4c59}\index{qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}!\_parallel\_allocation@{\_parallel\_allocation}}
+\index{\_parallel\_allocation@{\_parallel\_allocation}!qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}}
+\doxysubsubsection{\texorpdfstring{\_parallel\_allocation()}{\_parallel\_allocation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a1032028b6569776394f9e430081b4c59_a1032028b6569776394f9e430081b4c59} 
+ rx.\+Py\+DAG qiskit.\+pulse.\+transforms.\+dag.\+\_\+parallel\+\_\+allocation (\begin{DoxyParamCaption}\item[{}]{block}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to create a DAG of a parallel alignment context.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4764f6473dbc9273a4e078708607069b_a4764f6473dbc9273a4e078708607069b}\index{qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}!\_sequential\_allocation@{\_sequential\_allocation}}
+\index{\_sequential\_allocation@{\_sequential\_allocation}!qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}}
+\doxysubsubsection{\texorpdfstring{\_sequential\_allocation()}{\_sequential\_allocation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4764f6473dbc9273a4e078708607069b_a4764f6473dbc9273a4e078708607069b} 
+ rx.\+Py\+DAG qiskit.\+pulse.\+transforms.\+dag.\+\_\+sequential\+\_\+allocation (\begin{DoxyParamCaption}\item[{}]{block}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to create a DAG of a sequential alignment context.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4d3f5486c06f3a2b235af189fd5c5261_a4d3f5486c06f3a2b235af189fd5c5261}\index{qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}!block\_to\_dag@{block\_to\_dag}}
+\index{block\_to\_dag@{block\_to\_dag}!qiskit.pulse.transforms.dag@{qiskit.pulse.transforms.dag}}
+\doxysubsubsection{\texorpdfstring{block\_to\_dag()}{block\_to\_dag()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1transforms_1_1dag_a4d3f5486c06f3a2b235af189fd5c5261_a4d3f5486c06f3a2b235af189fd5c5261} 
+ rx.\+Py\+DAG qiskit.\+pulse.\+transforms.\+dag.\+block\+\_\+to\+\_\+dag (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}}}]{block}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert schedule block instruction into DAG.
+
+``ScheduleBlock`` can be represented as a DAG as needed.
+For example, equality of two programs are efficiently checked on DAG representation.
+
+.. code-block:: python
+
+    from qiskit import pulse
+
+    my_gaussian0 = pulse.Gaussian(100, 0.5, 20)
+    my_gaussian1 = pulse.Gaussian(100, 0.3, 10)
+
+    with pulse.build() as sched1:
+        with pulse.align_left():
+            pulse.play(my_gaussian0, pulse.DriveChannel(0))
+            pulse.shift_phase(1.57, pulse.DriveChannel(2))
+            pulse.play(my_gaussian1, pulse.DriveChannel(1))
+
+    with pulse.build() as sched2:
+        with pulse.align_left():
+            pulse.shift_phase(1.57, pulse.DriveChannel(2))
+            pulse.play(my_gaussian1, pulse.DriveChannel(1))
+            pulse.play(my_gaussian0, pulse.DriveChannel(0))
+
+Here the ``sched1 `` and ``sched2`` are different implementations of the same program,
+but it is difficult to confirm on the list representation.
+
+Another example is instruction optimization.
+
+.. code-block:: python
+
+    from qiskit import pulse
+
+    with pulse.build() as sched:
+        with pulse.align_left():
+            pulse.shift_phase(1.57, pulse.DriveChannel(1))
+            pulse.play(my_gaussian0, pulse.DriveChannel(0))
+            pulse.shift_phase(-1.57, pulse.DriveChannel(1))
+
+In above program two ``shift_phase`` instructions can be cancelled out because
+they are consecutive on the same drive channel.
+This can be easily found on the DAG representation.
+
+Args:
+    block ("ScheduleBlock"): A schedule block to be converted.
+
+Returns:
+    Instructions in DAG representation.
+
+Raises:
+    PulseError: When the context is invalid subclass.
+\end{DoxyVerb}
+ 

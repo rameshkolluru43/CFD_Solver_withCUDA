@@ -1,0 +1,78 @@
+\doxysection{importlib\+\_\+metadata.\+Prepared Class Reference}
+\hypertarget{classimportlib__metadata_1_1_prepared}{}\label{classimportlib__metadata_1_1_prepared}\index{importlib\_metadata.Prepared@{importlib\_metadata.Prepared}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_prepared_a0b3b29ab2bd8f25acfe6f4adac3cc1c9}\label{classimportlib__metadata_1_1_prepared_a0b3b29ab2bd8f25acfe6f4adac3cc1c9} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, Optional\mbox{[}str\mbox{]} name)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_prepared_a9f412978244387a3cd25cfdc1481a1b6}\label{classimportlib__metadata_1_1_prepared_a9f412978244387a3cd25cfdc1481a1b6} 
+{\bfseries \+\_\+\+\_\+bool\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimportlib__metadata_1_1_prepared_a2b9ea6b818a3dafe90c17373e255a327}{normalize}} (name)
+\item 
+\mbox{\hyperlink{classimportlib__metadata_1_1_prepared_a703f8a8208506f2af533238ce1ad83b5}{legacy\+\_\+normalize}} (name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_prepared_a93a9fc3c3aaaf0715b17b97b957cc95f}\label{classimportlib__metadata_1_1_prepared_a93a9fc3c3aaaf0715b17b97b957cc95f} 
+{\bfseries name} = name
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_prepared_a3c258fe910a06fc0702f8061399d6748}\label{classimportlib__metadata_1_1_prepared_a3c258fe910a06fc0702f8061399d6748} 
+{\bfseries normalized} = None
+\item 
+\Hypertarget{classimportlib__metadata_1_1_prepared_aa8f47d51e1525bc45412d2883e6042d1}\label{classimportlib__metadata_1_1_prepared_aa8f47d51e1525bc45412d2883e6042d1} 
+{\bfseries legacy\+\_\+normalized} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A prepared search query for metadata on a possibly-named package.
+
+Pre-calculates the normalization to prevent repeated operations.
+
+>>> none = Prepared(None)
+>>> none.normalized
+>>> none.legacy_normalized
+>>> bool(none)
+False
+>>> sample = Prepared('Sample__Pkg-name.foo')
+>>> sample.normalized
+'sample_pkg_name_foo'
+>>> sample.legacy_normalized
+'sample__pkg_name.foo'
+>>> bool(sample)
+True
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimportlib__metadata_1_1_prepared_a703f8a8208506f2af533238ce1ad83b5}\index{importlib\_metadata.Prepared@{importlib\_metadata.Prepared}!legacy\_normalize@{legacy\_normalize}}
+\index{legacy\_normalize@{legacy\_normalize}!importlib\_metadata.Prepared@{importlib\_metadata.Prepared}}
+\doxysubsubsection{\texorpdfstring{legacy\_normalize()}{legacy\_normalize()}}
+{\footnotesize\ttfamily \label{classimportlib__metadata_1_1_prepared_a703f8a8208506f2af533238ce1ad83b5} 
+importlib\+\_\+metadata.\+Prepared.\+legacy\+\_\+normalize (\begin{DoxyParamCaption}\item[{}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Normalize the package name as found in the convention in
+older packaging tools versions and specs.
+\end{DoxyVerb}
+ \Hypertarget{classimportlib__metadata_1_1_prepared_a2b9ea6b818a3dafe90c17373e255a327}\index{importlib\_metadata.Prepared@{importlib\_metadata.Prepared}!normalize@{normalize}}
+\index{normalize@{normalize}!importlib\_metadata.Prepared@{importlib\_metadata.Prepared}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \label{classimportlib__metadata_1_1_prepared_a2b9ea6b818a3dafe90c17373e255a327} 
+importlib\+\_\+metadata.\+Prepared.\+normalize (\begin{DoxyParamCaption}\item[{}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}PEP 503 normalization plus dashes as underscores.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/importlib\+\_\+metadata/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

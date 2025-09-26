@@ -1,0 +1,52 @@
+\doxysection{Far\+\_\+\+Field\+\_\+\+Boundary\+\_\+\+Condition.\+cpp}
+\hypertarget{_far___field___boundary___condition_8cpp_source}{}\label{_far___field___boundary___condition_8cpp_source}\index{Boundary\_Conditions/Far\_Field\_Boundary\_Condition.cpp@{Boundary\_Conditions/Far\_Field\_Boundary\_Condition.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{void}\ Far\_Field\_Boundary\_Condition(\textcolor{keywordtype}{int}\ \&\ Case\_Type)}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keywordtype}{void}\ Super\_Sonic\_Inflow(\textcolor{keywordtype}{int}\ \&\ Cell\_No,\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\ \textcolor{keywordtype}{int}\ \&\ Ghost\_Cell\_Index)}
+\DoxyCodeLine{00011\ \{}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \ \ cout<<"{}Incoming\ Flow\ bc\(\backslash\)n"{}<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00013\ \ \ \textcolor{keywordtype}{double}\ Rho=0.0,P=0.0,u=0.0,v=0.0,vmag=0.0,T=0.0;}
+\DoxyCodeLine{00014\ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ v\ =\ -\/161.67;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ u\ =\ 915.0;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ P\ =\ 213947.0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ T\ =\ 377.0;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Rho\ =\ P/(R\_GC*T);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ vmag\ =\ 0.5*(u*u\ +\ v*v);}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ =\ Rho;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ =\ Rho*u;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ =\ Rho*v;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ =\ Rho*(cv*T\ +\ vmag);}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Cell\_No,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ \ Print(Primitive\_Cells[Ghost\_Cell\_Index]);}}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ SuperSonic\_outflow()}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00036\ \}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ SubSonic\_Inflow()}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00041\ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}\ SubSonic\_Outflow()}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00046\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,139 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d6/dfe/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_aaf486da7b19afc10ca3e51cd4129f68c_aaf486da7b19afc10ca3e51cd4129f68c}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Sequence\mbox{[}complex\mbox{]} diag)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac08401918099ada9836f1627d104b799_ac08401918099ada9836f1627d104b799}{validate\+\_\+parameter}} (self, parameter)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac400ac3a69fa955bfdd0ebacd180ab89_ac400ac3a69fa955bfdd0ebacd180ab89}{inverse}} (self, bool annotated=False)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a7f250981e0e0e624acd9122aa850be5f}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a7f250981e0e0e624acd9122aa850be5f} 
+{\bfseries definition} = circuit
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a2e73257857bb500345256472400e7e76_a2e73257857bb500345256472400e7e76}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a4b92e2676ca15fb3998790c719212ec2_a4b92e2676ca15fb3998790c719212ec2}{\+\_\+check\+\_\+input}} (diag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A generic diagonal quantum gate.
+
+Matrix form:
+
+.. math::
+    \text{DiagonalGate}\ q_0, q_1, .., q_{n-1} =
+        \begin{pmatrix}
+            D[0]    & 0         & \dots     & 0 \\
+            0       & D[1]      & \dots     & 0 \\
+            \vdots  & \vdots    & \ddots    & 0 \\
+            0       & 0         & \dots     & D[n-1]
+        \end{pmatrix}
+
+Diagonal gates are useful as representations of Boolean functions,
+as they can map from :math:`\{0,1\}^{2^n}` to :math:`\{0,1\}^{2^n}` space. For example a phase
+oracle can be seen as a diagonal gate with :math:`\{1, -1\}` on the diagonals. Such
+an oracle will induce a :math:`+1` or :math`-1` phase on the amplitude of any corresponding
+basis state.
+
+Diagonal gates appear in many classically hard oracular problems such as
+Forrelation or Hidden Shift circuits.
+
+Diagonal gates are represented and simulated more efficiently than a dense
+:math:`2^n \times 2^n` unitary matrix.
+
+The reference implementation is via the method described in
+Theorem 7 of [1]. The code is based on Emanuel Malvetti's semester thesis
+at ETH in 2018, supervised by Raban Iten and Prof. Renato Renner.
+
+**Reference:**
+
+[1] Shende et al., Synthesis of Quantum Logic Circuits, 2009
+`arXiv:0406176 <https://arxiv.org/pdf/quant-ph/0406176.pdf>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_aaf486da7b19afc10ca3e51cd4129f68c_aaf486da7b19afc10ca3e51cd4129f68c}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_aaf486da7b19afc10ca3e51cd4129f68c_aaf486da7b19afc10ca3e51cd4129f68c} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Sequence\mbox{[}complex\mbox{]}}]{diag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        diag: list of the :math:`2^k` diagonal entries (for a diagonal gate on :math:`k` qubits).\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a4b92e2676ca15fb3998790c719212ec2_a4b92e2676ca15fb3998790c719212ec2}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}!\_check\_input@{\_check\_input}}
+\index{\_check\_input@{\_check\_input}!qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+\doxysubsubsection{\texorpdfstring{\_check\_input()}{\_check\_input()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a4b92e2676ca15fb3998790c719212ec2_a4b92e2676ca15fb3998790c719212ec2} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate.\+\_\+check\+\_\+input (\begin{DoxyParamCaption}\item[{}]{diag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\begin{DoxyVerb}Check if ``diag`` is in valid format.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a2e73257857bb500345256472400e7e76_a2e73257857bb500345256472400e7e76}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_a2e73257857bb500345256472400e7e76_a2e73257857bb500345256472400e7e76} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac400ac3a69fa955bfdd0ebacd180ab89_ac400ac3a69fa955bfdd0ebacd180ab89}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac400ac3a69fa955bfdd0ebacd180ab89_ac400ac3a69fa955bfdd0ebacd180ab89} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the inverse of the diagonal gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac08401918099ada9836f1627d104b799_ac08401918099ada9836f1627d104b799}\index{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}!validate\_parameter@{validate\_parameter}}
+\index{validate\_parameter@{validate\_parameter}!qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate@{qiskit.circuit.library.generalized\_gates.diagonal.DiagonalGate}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter()}{validate\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1diagonal_1_1_diagonal_gate_ac08401918099ada9836f1627d104b799_ac08401918099ada9836f1627d104b799} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+diagonal.\+Diagonal\+Gate.\+validate\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{parameter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Diagonal Gate parameter should accept complex
+(in addition to the Gate parameter types) and always return build-in complex.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_aec00645163d8a429066ca7d69b7e403b_aec00645163d8a429066ca7d69b7e403b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/diagonal.\+py\end{DoxyCompactItemize}

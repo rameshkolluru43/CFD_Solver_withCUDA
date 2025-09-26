@@ -1,0 +1,496 @@
+\doxysection{include/definitions.h File Reference}
+\hypertarget{definitions_8h}{}\label{definitions_8h}\index{include/definitions.h@{include/definitions.h}}
+
+
+Header file containing global constants, structures, and function declarations for the solver.  
+
+
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$cstdio$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$cfloat$>$}\newline
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$vtk\+Smart\+Pointer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid\+Reader.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Id\+List.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Cell\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Points.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Feature\+Edges.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+XMLPoly\+Data\+Writer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Poly\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$boost/regex.\+hpp$>$}\newline
+{\ttfamily \#include $<$jsoncpp/json.\+h$>$}\newline
+{\ttfamily \#include $<$jsoncpp/reader.\+h$>$}\newline
+{\ttfamily \#include $<$jsoncpp/value.\+h$>$}\newline
+{\ttfamily \#include $<$jsoncpp/writer.\+h$>$}\newline
+Include dependency graph for definitions.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d18/definitions_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/dea/definitions_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a44b92d40663e50ac09e79dfc86eb8733_a44b92d40663e50ac09e79dfc86eb8733}{radian}}~M\+\_\+\+PI / 180.\+0
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}~1.\+4
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\+\_\+\+M\+\_\+1}}~(\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} -\/ 1.\+0)
+\item 
+\#define \mbox{\hyperlink{definitions_8h_ac5b9f5f309cf70595eb01c9584d8ac9e_ac5b9f5f309cf70595eb01c9584d8ac9e}{gamma1}}~\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} / \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\+\_\+\+M\+\_\+1}}
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}}~287.\+0
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a8e0fbe20f00d120156ea1d9a3d978d30_a8e0fbe20f00d120156ea1d9a3d978d30}{cp}}~\mbox{\hyperlink{definitions_8h_ac5b9f5f309cf70595eb01c9584d8ac9e_ac5b9f5f309cf70595eb01c9584d8ac9e}{gamma1}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}}
+\item 
+\#define \mbox{\hyperlink{definitions_8h_afda53ce1b6e1c5ca8994382c92e4aaee_afda53ce1b6e1c5ca8994382c92e4aaee}{cv}}~\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}} / (\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} -\/ 1.\+0)
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a4ec8af063c07b84498d4a7bf9b2a7ddd_a4ec8af063c07b84498d4a7bf9b2a7ddd}{gamma\+\_\+R}}~\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}}
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}{EPSILON}}~1e-\/6
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a0afa21b4ab7344b82772f8ecb0d4a4d0_a0afa21b4ab7344b82772f8ecb0d4a4d0}{Phi}}(r)
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114}{Sign}}(a)
+\item 
+\#define \mbox{\hyperlink{definitions_8h_ae49eb5905c0ec86d9d5366ab026b417f_ae49eb5905c0ec86d9d5366ab026b417f}{T\+\_\+\+S\+\_\+\+Mu}}~110.\+4
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a47fcdd49bebc780b380889c7d9219676_a47fcdd49bebc780b380889c7d9219676}{T\+\_\+\+S\+\_\+K}}~194.\+4
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a6a1247f50df9b4c773a116a7cfd7b0cb_a6a1247f50df9b4c773a116a7cfd7b0cb}{C\+\_\+1}}~1.\+458e-\/6
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a6baa73c9cfbddaff09bea6c9a0ebb693_a6baa73c9cfbddaff09bea6c9a0ebb693}{T\+\_\+ref}}~288.\+15
+\item 
+\#define \mbox{\hyperlink{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}{Face\+\_\+0}}~0
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}{Face\+\_\+1}}~1
+\item 
+\#define \mbox{\hyperlink{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}{Face\+\_\+2}}~2
+\item 
+\#define \mbox{\hyperlink{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}{Face\+\_\+3}}~3
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{definitions_8h_a61f5af48c54dc9ba10dcb5bb9a7158d0_a61f5af48c54dc9ba10dcb5bb9a7158d0}{Get\+\_\+\+Error\+File\+Name}} ()
+\item 
+string \mbox{\hyperlink{definitions_8h_a866f2ffdc28c047f242a08db259b24db_a866f2ffdc28c047f242a08db259b24db}{Get\+\_\+\+Final\+\_\+\+Solution\+\_\+\+File\+Name}} ()
+\item 
+string \mbox{\hyperlink{definitions_8h_afa5fbb35ed97869a5f05d75906fc81c2_afa5fbb35ed97869a5f05d75906fc81c2}{Get\+\_\+\+Initial\+\_\+\+Solution\+\_\+\+File\+Name}} ()
+\item 
+string \mbox{\hyperlink{definitions_8h_a8c9fdc6225991f88b06be90831485fba_a8c9fdc6225991f88b06be90831485fba}{Get\+\_\+\+Grid\+\_\+\+Vtk\+File}} ()
+\item 
+string \mbox{\hyperlink{definitions_8h_a4246926212f70e58cc40a68f32074175_a4246926212f70e58cc40a68f32074175}{Get\+\_\+\+Solution\+File}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Header file containing global constants, structures, and function declarations for the solver. 
+
+This file includes all necessary libraries, defines global constants, declares global variables, and provides function prototypes required for the solver. It also contains detailed documentation for the structures and functions used in the computational domain and boundary condition handling.\hypertarget{definitions_8h_Libraries}{}\doxysubsection{\texorpdfstring{Libraries}{Libraries}}\label{definitions_8h_Libraries}
+Includes standard C++ libraries, VTK libraries, Boost, and JSONCPP for various functionalities.\hypertarget{definitions_8h_Global}{}\doxysubsection{\texorpdfstring{Constants}{Constants}}\label{definitions_8h_Global}
+Defines mathematical constants, physical constants, and other macros used throughout the code.\hypertarget{definitions_8h_Structures}{}\doxysubsection{\texorpdfstring{Structures}{Structures}}\label{definitions_8h_Structures}
+
+\begin{DoxyItemize}
+\item {\ttfamily \doxylink{struct_boundary_info}{Boundary\+Info}}\+: Stores boundary information for different regions.
+\item {\ttfamily \doxylink{struct_inlet_condition}{Inlet\+Condition}}\+: Represents inlet boundary conditions.
+\item {\ttfamily \doxylink{struct_exit_condition}{Exit\+Condition}}\+: Represents exit boundary conditions.
+\item {\ttfamily \doxylink{struct_initial_condition}{Initial\+Condition}}\+: Represents initial conditions for the simulation.
+\item {\ttfamily \doxylink{class_cell}{Cell}}\+: Represents a computational cell with properties, connectivity, and geometric attributes.
+\end{DoxyItemize}\hypertarget{definitions_8h_Global}{}\doxysubsection{\texorpdfstring{Constants}{Constants}}\label{definitions_8h_Global}
+Declares numerous global variables for storing simulation data, grid information, solver parameters, and boundary conditions.\hypertarget{definitions_8h_Functions}{}\doxysubsection{\texorpdfstring{Functions}{Functions}}\label{definitions_8h_Functions}
+
+\begin{DoxyItemize}
+\item \doxylink{class_grid}{Grid} and \doxylink{class_cell}{Cell} Construction\+:
+\begin{DoxyItemize}
+\item Functions for reading grid files, constructing cells, identifying neighbors, and computing centroids.
+\end{DoxyItemize}
+\item Solver Functions\+:
+\begin{DoxyItemize}
+\item Functions for solving inviscid and viscous flows, updating variables, and evaluating fluxes.
+\end{DoxyItemize}
+\item Boundary Conditions\+:
+\begin{DoxyItemize}
+\item Functions for applying various boundary conditions (e.\+g., wall, inlet, exit, symmetry).
+\end{DoxyItemize}
+\item Utility Functions\+:
+\begin{DoxyItemize}
+\item Functions for vector operations, sorting points, and evaluating gradients.
+\end{DoxyItemize}
+\item Output Functions\+:
+\begin{DoxyItemize}
+\item Functions for writing solution data, error files, and VTK files.
+\end{DoxyItemize}
+\item Test Case Functions\+:
+\begin{DoxyItemize}
+\item Functions for creating test case directories and handling specific test cases.
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{definitions_8h_Notes}{}\doxysubsection{\texorpdfstring{Notes}{Notes}}\label{definitions_8h_Notes}
+
+\begin{DoxyItemize}
+\item The file uses extensive use of {\ttfamily extern} to declare global variables and structures.
+\item The file is designed to be included in multiple source files for modularity.
+\item Ensure proper initialization of global variables before using them in the solver. 
+\end{DoxyItemize}
+
+Definition in file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{definitions_8h_a6a1247f50df9b4c773a116a7cfd7b0cb_a6a1247f50df9b4c773a116a7cfd7b0cb}\index{definitions.h@{definitions.h}!C\_1@{C\_1}}
+\index{C\_1@{C\_1}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{C\_1}{C\_1}}
+{\footnotesize\ttfamily \label{definitions_8h_a6a1247f50df9b4c773a116a7cfd7b0cb_a6a1247f50df9b4c773a116a7cfd7b0cb} 
+\#define C\+\_\+1~1.\+458e-\/6}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00066}{66}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a8e0fbe20f00d120156ea1d9a3d978d30_a8e0fbe20f00d120156ea1d9a3d978d30}\index{definitions.h@{definitions.h}!cp@{cp}}
+\index{cp@{cp}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{cp}{cp}}
+{\footnotesize\ttfamily \label{definitions_8h_a8e0fbe20f00d120156ea1d9a3d978d30_a8e0fbe20f00d120156ea1d9a3d978d30} 
+\#define cp~\mbox{\hyperlink{definitions_8h_ac5b9f5f309cf70595eb01c9584d8ac9e_ac5b9f5f309cf70595eb01c9584d8ac9e}{gamma1}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}}}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00052}{52}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_afda53ce1b6e1c5ca8994382c92e4aaee_afda53ce1b6e1c5ca8994382c92e4aaee}\index{definitions.h@{definitions.h}!cv@{cv}}
+\index{cv@{cv}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{cv}{cv}}
+{\footnotesize\ttfamily \label{definitions_8h_afda53ce1b6e1c5ca8994382c92e4aaee_afda53ce1b6e1c5ca8994382c92e4aaee} 
+\#define cv~\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}} / (\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} -\/ 1.\+0)}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00053}{53}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70}\index{definitions.h@{definitions.h}!EPSILON@{EPSILON}}
+\index{EPSILON@{EPSILON}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{EPSILON}{EPSILON}}
+{\footnotesize\ttfamily \label{definitions_8h_a002b2f4894492820fe708b1b7e7c5e70_a002b2f4894492820fe708b1b7e7c5e70} 
+\#define EPSILON~1e-\/6}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00055}{55}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}\index{definitions.h@{definitions.h}!Face\_0@{Face\_0}}
+\index{Face\_0@{Face\_0}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Face\_0}{Face\_0}}
+{\footnotesize\ttfamily \label{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911} 
+\#define Face\+\_\+0~0}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00070}{70}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}\index{definitions.h@{definitions.h}!Face\_1@{Face\_1}}
+\index{Face\_1@{Face\_1}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Face\_1}{Face\_1}}
+{\footnotesize\ttfamily \label{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7} 
+\#define Face\+\_\+1~1}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00071}{71}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}\index{definitions.h@{definitions.h}!Face\_2@{Face\_2}}
+\index{Face\_2@{Face\_2}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Face\_2}{Face\_2}}
+{\footnotesize\ttfamily \label{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5} 
+\#define Face\+\_\+2~2}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00072}{72}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}\index{definitions.h@{definitions.h}!Face\_3@{Face\_3}}
+\index{Face\_3@{Face\_3}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Face\_3}{Face\_3}}
+{\footnotesize\ttfamily \label{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d} 
+\#define Face\+\_\+3~3}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00073}{73}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}\index{definitions.h@{definitions.h}!gamma@{gamma}}
+\index{gamma@{gamma}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{gamma}{gamma}}
+{\footnotesize\ttfamily \label{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d} 
+\#define gamma~1.\+4}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00048}{48}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_ac5b9f5f309cf70595eb01c9584d8ac9e_ac5b9f5f309cf70595eb01c9584d8ac9e}\index{definitions.h@{definitions.h}!gamma1@{gamma1}}
+\index{gamma1@{gamma1}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{gamma1}{gamma1}}
+{\footnotesize\ttfamily \label{definitions_8h_ac5b9f5f309cf70595eb01c9584d8ac9e_ac5b9f5f309cf70595eb01c9584d8ac9e} 
+\#define gamma1~\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} / \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\+\_\+\+M\+\_\+1}}}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00050}{50}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}\index{definitions.h@{definitions.h}!gamma\_M\_1@{gamma\_M\_1}}
+\index{gamma\_M\_1@{gamma\_M\_1}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{gamma\_M\_1}{gamma\_M\_1}}
+{\footnotesize\ttfamily \label{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff} 
+\#define gamma\+\_\+\+M\+\_\+1~(\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} -\/ 1.\+0)}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00049}{49}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a4ec8af063c07b84498d4a7bf9b2a7ddd_a4ec8af063c07b84498d4a7bf9b2a7ddd}\index{definitions.h@{definitions.h}!gamma\_R@{gamma\_R}}
+\index{gamma\_R@{gamma\_R}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{gamma\_R}{gamma\_R}}
+{\footnotesize\ttfamily \label{definitions_8h_a4ec8af063c07b84498d4a7bf9b2a7ddd_a4ec8af063c07b84498d4a7bf9b2a7ddd} 
+\#define gamma\+\_\+R~\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}{R\+\_\+\+GC}}}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00054}{54}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a0afa21b4ab7344b82772f8ecb0d4a4d0_a0afa21b4ab7344b82772f8ecb0d4a4d0}\index{definitions.h@{definitions.h}!Phi@{Phi}}
+\index{Phi@{Phi}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Phi}{Phi}}
+{\footnotesize\ttfamily \label{definitions_8h_a0afa21b4ab7344b82772f8ecb0d4a4d0_a0afa21b4ab7344b82772f8ecb0d4a4d0} 
+\#define Phi(\begin{DoxyParamCaption}\item[{}]{r}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((r\ >=\ 1)\ ?\ 1\ :\ ((r\ <\ 1)\ \&\ (r\ >\ 0))\ ?\ r\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 0)}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00059}{59}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ Phi(r)\ ((r\ >=\ 1)\ ?\ 1\ :\ ((r\ <\ 1)\ \&\ (r\ >\ 0))\ ?\ r\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 0)}}
+
+\end{DoxyCode}
+\Hypertarget{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399}\index{definitions.h@{definitions.h}!R\_GC@{R\_GC}}
+\index{R\_GC@{R\_GC}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{R\_GC}{R\_GC}}
+{\footnotesize\ttfamily \label{definitions_8h_a90f943126d79031ff729db29ea695399_a90f943126d79031ff729db29ea695399} 
+\#define R\+\_\+\+GC~287.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00051}{51}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a44b92d40663e50ac09e79dfc86eb8733_a44b92d40663e50ac09e79dfc86eb8733}\index{definitions.h@{definitions.h}!radian@{radian}}
+\index{radian@{radian}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{radian}{radian}}
+{\footnotesize\ttfamily \label{definitions_8h_a44b92d40663e50ac09e79dfc86eb8733_a44b92d40663e50ac09e79dfc86eb8733} 
+\#define radian~M\+\_\+\+PI / 180.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00047}{47}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114}\index{definitions.h@{definitions.h}!Sign@{Sign}}
+\index{Sign@{Sign}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Sign}{Sign}}
+{\footnotesize\ttfamily \label{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114} 
+\#define Sign(\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{((a\ >\ 0.0)\ -\/\ (a\ <\ 0.0))}
+
+\end{DoxyCode}
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00061}{61}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a6baa73c9cfbddaff09bea6c9a0ebb693_a6baa73c9cfbddaff09bea6c9a0ebb693}\index{definitions.h@{definitions.h}!T\_ref@{T\_ref}}
+\index{T\_ref@{T\_ref}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{T\_ref}{T\_ref}}
+{\footnotesize\ttfamily \label{definitions_8h_a6baa73c9cfbddaff09bea6c9a0ebb693_a6baa73c9cfbddaff09bea6c9a0ebb693} 
+\#define T\+\_\+ref~288.\+15}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00067}{67}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_a47fcdd49bebc780b380889c7d9219676_a47fcdd49bebc780b380889c7d9219676}\index{definitions.h@{definitions.h}!T\_S\_K@{T\_S\_K}}
+\index{T\_S\_K@{T\_S\_K}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{T\_S\_K}{T\_S\_K}}
+{\footnotesize\ttfamily \label{definitions_8h_a47fcdd49bebc780b380889c7d9219676_a47fcdd49bebc780b380889c7d9219676} 
+\#define T\+\_\+\+S\+\_\+K~194.\+4}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00065}{65}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+\Hypertarget{definitions_8h_ae49eb5905c0ec86d9d5366ab026b417f_ae49eb5905c0ec86d9d5366ab026b417f}\index{definitions.h@{definitions.h}!T\_S\_Mu@{T\_S\_Mu}}
+\index{T\_S\_Mu@{T\_S\_Mu}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{T\_S\_Mu}{T\_S\_Mu}}
+{\footnotesize\ttfamily \label{definitions_8h_ae49eb5905c0ec86d9d5366ab026b417f_ae49eb5905c0ec86d9d5366ab026b417f} 
+\#define T\+\_\+\+S\+\_\+\+Mu~110.\+4}
+
+
+
+Definition at line \mbox{\hyperlink{definitions_8h_source_l00064}{64}} of file \mbox{\hyperlink{definitions_8h_source}{definitions.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{definitions_8h_a61f5af48c54dc9ba10dcb5bb9a7158d0_a61f5af48c54dc9ba10dcb5bb9a7158d0}\index{definitions.h@{definitions.h}!Get\_ErrorFileName@{Get\_ErrorFileName}}
+\index{Get\_ErrorFileName@{Get\_ErrorFileName}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get\_ErrorFileName()}{Get\_ErrorFileName()}}
+{\footnotesize\ttfamily \label{definitions_8h_a61f5af48c54dc9ba10dcb5bb9a7158d0_a61f5af48c54dc9ba10dcb5bb9a7158d0} 
+string Get\+\_\+\+Error\+File\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00627}{627}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00628\ \{}
+\DoxyCodeLine{00629\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}};}
+\DoxyCodeLine{00630\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{d6/dc2/definitions_8h_a61f5af48c54dc9ba10dcb5bb9a7158d0_a61f5af48c54dc9ba10dcb5bb9a7158d0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{definitions_8h_a866f2ffdc28c047f242a08db259b24db_a866f2ffdc28c047f242a08db259b24db}\index{definitions.h@{definitions.h}!Get\_Final\_Solution\_FileName@{Get\_Final\_Solution\_FileName}}
+\index{Get\_Final\_Solution\_FileName@{Get\_Final\_Solution\_FileName}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get\_Final\_Solution\_FileName()}{Get\_Final\_Solution\_FileName()}}
+{\footnotesize\ttfamily \label{definitions_8h_a866f2ffdc28c047f242a08db259b24db_a866f2ffdc28c047f242a08db259b24db} 
+string Get\+\_\+\+Final\+\_\+\+Solution\+\_\+\+File\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00632}{632}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00633\ \{}
+\DoxyCodeLine{00634\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}};}
+\DoxyCodeLine{00635\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{d6/dc2/definitions_8h_a866f2ffdc28c047f242a08db259b24db_a866f2ffdc28c047f242a08db259b24db_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{definitions_8h_a8c9fdc6225991f88b06be90831485fba_a8c9fdc6225991f88b06be90831485fba}\index{definitions.h@{definitions.h}!Get\_Grid\_VtkFile@{Get\_Grid\_VtkFile}}
+\index{Get\_Grid\_VtkFile@{Get\_Grid\_VtkFile}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get\_Grid\_VtkFile()}{Get\_Grid\_VtkFile()}}
+{\footnotesize\ttfamily \label{definitions_8h_a8c9fdc6225991f88b06be90831485fba_a8c9fdc6225991f88b06be90831485fba} 
+string Get\+\_\+\+Grid\+\_\+\+Vtk\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00642}{642}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00643\ \{}
+\DoxyCodeLine{00644\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_globals_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}};}
+\DoxyCodeLine{00645\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{d6/dc2/definitions_8h_a8c9fdc6225991f88b06be90831485fba_a8c9fdc6225991f88b06be90831485fba_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{definitions_8h_afa5fbb35ed97869a5f05d75906fc81c2_afa5fbb35ed97869a5f05d75906fc81c2}\index{definitions.h@{definitions.h}!Get\_Initial\_Solution\_FileName@{Get\_Initial\_Solution\_FileName}}
+\index{Get\_Initial\_Solution\_FileName@{Get\_Initial\_Solution\_FileName}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get\_Initial\_Solution\_FileName()}{Get\_Initial\_Solution\_FileName()}}
+{\footnotesize\ttfamily \label{definitions_8h_afa5fbb35ed97869a5f05d75906fc81c2_afa5fbb35ed97869a5f05d75906fc81c2} 
+string Get\+\_\+\+Initial\+\_\+\+Solution\+\_\+\+File\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00637}{637}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00638\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}};}
+\DoxyCodeLine{00640\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{d6/dc2/definitions_8h_afa5fbb35ed97869a5f05d75906fc81c2_afa5fbb35ed97869a5f05d75906fc81c2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{definitions_8h_a4246926212f70e58cc40a68f32074175_a4246926212f70e58cc40a68f32074175}\index{definitions.h@{definitions.h}!Get\_SolutionFile@{Get\_SolutionFile}}
+\index{Get\_SolutionFile@{Get\_SolutionFile}!definitions.h@{definitions.h}}
+\doxysubsubsection{\texorpdfstring{Get\_SolutionFile()}{Get\_SolutionFile()}}
+{\footnotesize\ttfamily \label{definitions_8h_a4246926212f70e58cc40a68f32074175_a4246926212f70e58cc40a68f32074175} 
+string Get\+\_\+\+Solution\+File (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00647}{647}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00648\ \{}
+\DoxyCodeLine{00649\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}};}
+\DoxyCodeLine{00650\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=317pt]{d6/dc2/definitions_8h_a4246926212f70e58cc40a68f32074175_a4246926212f70e58cc40a68f32074175_icgraph}
+\end{center}
+\end{figure}

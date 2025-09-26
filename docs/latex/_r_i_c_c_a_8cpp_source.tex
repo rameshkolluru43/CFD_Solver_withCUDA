@@ -1,0 +1,228 @@
+\doxysection{RICCA.\+cpp}
+\hypertarget{_r_i_c_c_a_8cpp_source}{}\label{_r_i_c_c_a_8cpp_source}\index{Flux\_Types/RICCA.cpp@{Flux\_Types/RICCA.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{void}\ Condition\_For\_RICCA(\textcolor{keywordtype}{double}\ \&\ d\_U,\ \textcolor{keywordtype}{double}\ \&\ d\_F,\textcolor{keywordtype}{double}\ \&\ Vn\_L,\textcolor{keywordtype}{double}\ \&\ Vn\_R,\ \textcolor{keywordtype}{double}\ \&\ dP,\textcolor{keywordtype}{double}\ \&\ Rho\_I,\textcolor{keywordtype}{double}\ \&\ P\_I,\textcolor{keywordtype}{double}\ \&\ Alpha)}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{double}\ epsilon\ =\ 1e-\/8,\ Max=0.0,ita=1.0;}
+\DoxyCodeLine{00007\ \textcolor{comment}{//***************************************************************************************************************}}
+\DoxyCodeLine{00008\ \ \ \ \ Alpha\ =\ 0.0;}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dP<epsilon)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ dP=0.0;}
+\DoxyCodeLine{00011\ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ Max\ =\ max(fabs(Vn\_L),fabs(Vn\_R));}
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ \ Max\ =\ 0.5*(fabs(Vn\_L)\ +\ fabs(Vn\_R));}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{if}((fabs(d\_F)\ <\ epsilon\ and\ fabs(d\_U)\ <\ epsilon))}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ Alpha\ =\ 0.5*(fabs(Vn\_L)\ +\ fabs(Vn\_R));}
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ \ \ \ \ \ Alpha\ =\ min(fabs(Vn\_L),fabs(Vn\_R));\ \ \ }}
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00020\ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ Alpha\ =\ \ Max\ +\ ita*Sign(dP)*sqrt(gamma*P\_I/Rho\_I);\ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ }
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{void}\ RICCA(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ P\_I=0.0,dP=0.0,Rho\_I;}
+\DoxyCodeLine{00029\ \textcolor{comment}{//***************************************************************************************************************}}
+\DoxyCodeLine{00030\ \ \ \ \ Rho\_L=0.0,P\_L=0.0,u\_L=0.0,v\_L=0.0,Vdotn\_L=0.0,nx=0.0,ny=0.0,Vmag\_L=0.0;}
+\DoxyCodeLine{00031\ \ \ \ \ Rho\_R=0.0,P\_R=0.0,u\_R=0.0,v\_R=0.0,Vdotn\_R=0.0,Vmag\_R\ =\ 0.0,dl\ =0.0;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ Mod\_Alpha0=0.0,Mod\_Alpha1=0.0,Mod\_Alpha2=0.0,Mod\_Alpha3=0.0,d\_F\_0=0.0,d\_F\_1=0.0,d\_F\_2=0.0,d\_F\_3=0.0,d\_U\_0=0.0,d\_U\_1=0.0,d\_U\_2=0.0,d\_U\_3=0.0,d\_Var=0.0;}
+\DoxyCodeLine{00034\ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ U\_L[0]=0.0;U\_L[1]=0.0;U\_L[2]=0.0;U\_L[3]=0.0;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ U\_R[0]=0.0;U\_R[1]=0.0;U\_R[2]=0.0;U\_R[3]=0.0;}
+\DoxyCodeLine{00040\ \ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]=0.0;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]=0.0;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]=0.0;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]=0.0;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \ \ \ \ \ Left\ state\ Variables,\ Density,\ Pressure,\ u,\ v,\ speed\ of\ cound\ C\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ Rho\_L\ =\ Primitive\_Cells[Cell\_No][0];\ \ \ \ }
+\DoxyCodeLine{00050\ \ \ \ \ P\_L\ =\ Primitive\_Cells[Cell\_No][4];\ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ \ \ u\_L\ =\ Primitive\_Cells[Cell\_No][1];\ \ }
+\DoxyCodeLine{00052\ \ \ \ \ v\_L\ =\ Primitive\_Cells[Cell\_No][2];\ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \ \ \ \ Right\ state\ Variables,\ Density,\ Pressure,\ u,\ v,\ speed\ of\ cound\ C\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_R\ =\ Primitive\_Cells[N\_Cell\_No][0];\ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ P\_R\ =\ Primitive\_Cells[N\_Cell\_No][4];}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ u\_R\ =\ Primitive\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ v\_R\ =\ Primitive\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Evaluating\ Conserved\ variable\ Difference\ between\ Left\ and\ Right\ faces\ }}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_0\ =\ (Rho\_R-\/Rho\_L);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_1\ =\ (Rho\_R*u\_R\ -\/\ Rho\_L*u\_L);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_2\ =\ (Rho\_R*v\_R\ -\/\ Rho\_L*v\_L);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_3\ =\ ((P\_R/(gamma-\/1.0))\ +\ 0.5*(Rho\_R*(u\_R*u\_R\ +\ v\_R*v\_R)))-\/((P\_L/(gamma-\/1.0))\ +\ 0.5*(Rho\_L*(u\_L*u\_L\ +\ v\_L*v\_L)));}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ }
+\DoxyCodeLine{00069\ \textcolor{comment}{//\ \ cout<<u\_L<<"{}\(\backslash\)t"{}<<u\_R<<"{}\(\backslash\)t"{}<<v\_L<<"{}\(\backslash\)t"{}<<v\_R<<endl;}}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ \ \ nx\ and\ ny\ are\ normals\ to\ the\ face\ and\ dl\ -\/\ face\ length\ \ }}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 0];}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 1];}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ cout<<nx<<"{}\(\backslash\)t"{}<<ny<<"{}\(\backslash\)t"{}<<dl<<endl;}}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ Normal\ Velocity\ taking\ Left\ state\ Velocity\ and\ Right\ State\ Velocity\ of\ an\ interface}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_L\ \ =\ (u\_L*nx\ +\ v\_L*ny);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_R\ \ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ \ \ \ Magnitudes\ of\ Velocity\ on\ Left\ side\ and\ Right\ side\ of\ an\ interface\ \ }}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Evaluating\ Flux\ Difference\ between\ Left\ and\ Right\ Faces\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_0\ =\ (Rho\_R*Vdotn\_R\ -\/\ Rho\_L*Vdotn\_L)*dl;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_1\ =\ (Rho\_R*u\_R*Vdotn\_R\ +\ P\_R*nx\ -\/\ Rho\_L*u\_L*Vdotn\_L\ +\ P\_L*nx)*dl;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_2\ =\ (Rho\_R*v\_R*Vdotn\_R\ +\ P\_R*ny\ -\/\ Rho\_L*v\_L*Vdotn\_L\ +\ P\_L*ny)*dl;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_3\ =\ ((((P\_R/(gamma-\/1.0))\ +\ Rho\_R*Vmag\_R)\ +\ P\_R)*Vdotn\_R\ -\/\ (((P\_L/(gamma-\/1.0))\ +\ Rho\_L*Vmag\_L)\ +\ P\_L)*Vdotn\_L)*dl;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_0<<"{}\(\backslash\)t"{}<<d\_U\_1<<"{}\(\backslash\)t"{}<<d\_U\_2<<"{}\(\backslash\)t"{}<<d\_U\_3<<endl;}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ dP\ =\ fabs(P\_L\ -\/\ P\_R);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ P\_I\ =\ 0.5*(P\_L\ +\ P\_R);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ Rho\_I\ =\ 0.5*(Rho\_L\ +\ Rho\_R);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ \ \ \ \ \ Condition\ for\ Smooth\ Region}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U\_0,d\_F\_0,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha0);\ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U\_1,d\_F\_1,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha1);\ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U\_2,d\_F\_2,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha2);\ \ \ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U\_3,d\_F\_3,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha3);\ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<fabs(Vdotn\_L)<<"{}\(\backslash\)t"{}<<fabs(Vdotn\_R)<<"{}\(\backslash\)t"{}<<Max<<"{}\(\backslash\)t"{}<<Sign(dP)<<"{}\(\backslash\)t"{}<<sqrt(gamma*P\_I/Rho\_I)<<endl;\ \ \ \ }}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ \ \ \ \ \ cout<<\ Mod\_Alpha0<<"{}\(\backslash\)t"{}<<\ Mod\_Alpha1<<"{}\(\backslash\)t"{}<<Mod\_Alpha2<<"{}\(\backslash\)t"{}<<Mod\_Alpha3<<endl;}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.5*Mod\_Alpha0*dl*d\_U\_0;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.5*Mod\_Alpha1*dl*d\_U\_1;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.5*Mod\_Alpha2*dl*d\_U\_2;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.5*Mod\_Alpha3*dl*d\_U\_3;}
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ \ \ \ \ \ \ \ \ \ if(Cell\_No\ ==\ 2050)}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}1\(\backslash\)t"{}<<Mod\_Alpha0<<endl;}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}2\(\backslash\)t"{}<<Mod\_Alpha1<<endl;}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}3\(\backslash\)t"{}<<Mod\_Alpha2<<endl;}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}4\(\backslash\)t"{}<<Mod\_Alpha3<<endl;}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dU\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_0<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dU\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_1<<endl;}}
+\DoxyCodeLine{00123\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dU\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_2<<endl;}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dU\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_3<<endl;}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dF\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_F\_0<<endl;}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dF\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_F\_1<<endl;}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dF\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_F\_2<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dF\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_F\_3<<endl;}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dFd\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Dissipative\_Flux[0]<<endl;}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dFd\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Dissipative\_Flux[1]<<endl;\ \ \ \ }}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dFd\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Dissipative\_Flux[2]<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}dFd\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Dissipative\_Flux[3]<<endl;}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{00134\ \}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{void}\ RICCA\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00138\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ P\_I=0.0,dP=0.0,Rho\_I;}
+\DoxyCodeLine{00140\ \textcolor{comment}{//***************************************************************************************************************}}
+\DoxyCodeLine{00141\ \ \ \ \ Rho\_L=0.0,P\_L=0.0,u\_L=0.0,v\_L=0.0,Vdotn\_L=0.0,nx=0.0,ny=0.0,Vmag\_L=0.0;}
+\DoxyCodeLine{00142\ \ \ \ \ Rho\_R=0.0,P\_R=0.0,u\_R=0.0,v\_R=0.0,Vdotn\_R=0.0,Vmag\_R\ =\ 0.0,dl\ =0.0;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ Mod\_Alpha0=0.0,Mod\_Alpha1=0.0,Mod\_Alpha2=0.0,Mod\_Alpha3=0.0,d\_F\_0=0.0,d\_F\_1=0.0,d\_F\_2=0.0,d\_F\_3=0.0,d\_U\_0=0.0,d\_U\_1=0.0,d\_U\_2=0.0,d\_U\_3=0.0,d\_Var=0.0;}
+\DoxyCodeLine{00145\ \ \ \ \ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ \ \ vector<double>d\_U(4,0.0);}
+\DoxyCodeLine{00149\ \ \ \ \ }
+\DoxyCodeLine{00150\ \ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]=0.0;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]=0.0;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]=0.0;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]=0.0;}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ \ \ \ \ Left\ state\ Variables,\ Density,\ Pressure,\ u,\ v,\ speed\ of\ cound\ C\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ Rho\_L\ =\ Primitive\_Cells[Cell\_No][0];\ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ P\_L\ =\ Primitive\_Cells[Cell\_No][4];\ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ u\_L\ =\ Primitive\_Cells[Cell\_No][1];\ \ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ v\_L\ =\ Primitive\_Cells[Cell\_No][2];\ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{comment}{//\ \ \ \ \ \ Right\ state\ Variables,\ Density,\ Pressure,\ u,\ v,\ speed\ of\ cound\ C\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_R\ =\ Primitive\_Cells[N\_Cell\_No][0];\ \ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ P\_R\ =\ Primitive\_Cells[N\_Cell\_No][4];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ u\_R\ =\ Primitive\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ v\_R\ =\ Primitive\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Evaluating\ Conserved\ variable\ Difference\ between\ Left\ and\ Right\ faces\ }}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00173\ \ \ \ \ }
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ \ cout<<u\_L<<"{}\(\backslash\)t"{}<<u\_R<<"{}\(\backslash\)t"{}<<v\_L<<"{}\(\backslash\)t"{}<<v\_R<<endl;}}
+\DoxyCodeLine{00175\ \textcolor{comment}{//\ \ \ \ \ \ nx\ and\ ny\ are\ normals\ to\ the\ face\ and\ dl\ -\/\ face\ length\ \ }}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 0];}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index\ +\ 1];}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ \ cout<<nx<<"{}\(\backslash\)t"{}<<ny<<"{}\(\backslash\)t"{}<<dl<<endl;}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ \ \ \ \ \ Normal\ Velocity\ taking\ Left\ state\ Velocity\ and\ Right\ State\ Velocity\ of\ an\ interface}}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_L\ \ =\ (u\_L*nx\ +\ v\_L*ny);}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_R\ \ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00185\ \ \ \ \ }
+\DoxyCodeLine{00186\ \textcolor{comment}{//\ \ \ \ \ \ Magnitudes\ of\ Velocity\ on\ Left\ side\ and\ Right\ side\ of\ an\ interface\ \ }}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00191\ \ }
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Evaluating\ Flux\ Difference\ between\ Left\ and\ Right\ Faces\ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00193\ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_0\ =\ (Rho\_R*Vdotn\_R\ -\/\ Rho\_L*Vdotn\_L)*dl;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_1\ =\ (Rho\_R*u\_R*Vdotn\_R\ +\ P\_R*nx\ -\/\ Rho\_L*u\_L*Vdotn\_L\ +\ P\_L*nx)*dl;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_2\ =\ (Rho\_R*v\_R*Vdotn\_R\ +\ P\_R*ny\ -\/\ Rho\_L*v\_L*Vdotn\_L\ +\ P\_L*ny)*dl;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ d\_F\_3\ =\ ((((P\_R/(gamma-\/1.0))\ +\ Rho\_R*Vmag\_R)\ +\ P\_R)*Vdotn\_R\ -\/\ (((P\_L/(gamma-\/1.0))\ +\ Rho\_L*Vmag\_L)\ +\ P\_L)*Vdotn\_L)*dl;}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<d\_U\_0<<"{}\(\backslash\)t"{}<<d\_U\_1<<"{}\(\backslash\)t"{}<<d\_U\_2<<"{}\(\backslash\)t"{}<<d\_U\_3<<endl;}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ dP\ =\ fabs(P\_L\ -\/\ P\_R);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ P\_I\ =\ 0.5*(P\_L\ +\ P\_R);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ Rho\_I\ =\ 0.5*(Rho\_L\ +\ Rho\_R);}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ Second\_Order\_Limiter(Cell\_No,Face\_No,d\_U);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ \ \ \ \ \ Condition\ for\ Smooth\ Region}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U[0],d\_F\_0,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha0);\ \ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U[1],d\_F\_1,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha1);\ \ }
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U[2],d\_F\_2,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha2);\ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ Condition\_For\_RICCA(d\_U[3],d\_F\_3,Vdotn\_L,Vdotn\_R,dP,Rho\_I,P\_I,Mod\_Alpha3);\ \ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<fabs(Vdotn\_L)<<"{}\(\backslash\)t"{}<<fabs(Vdotn\_R)<<"{}\(\backslash\)t"{}<<Max<<"{}\(\backslash\)t"{}<<Sign(dP)<<"{}\(\backslash\)t"{}<<sqrt(gamma*P\_I/Rho\_I)<<endl;\ \ \ \ }}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00216\ \textcolor{comment}{//\ \ \ \ \ \ cout<<\ Mod\_Alpha0<<"{}\(\backslash\)t"{}<<\ Mod\_Alpha1<<"{}\(\backslash\)t"{}<<Mod\_Alpha2<<"{}\(\backslash\)t"{}<<Mod\_Alpha3<<endl;}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.5*Mod\_Alpha0*dl*d\_U[0];}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.5*Mod\_Alpha1*dl*d\_U[1];}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.5*Mod\_Alpha2*dl*d\_U[2];}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.5*Mod\_Alpha3*dl*d\_U[3];}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00222\ \ \ \ \ \}}
+
+\end{DoxyCode}

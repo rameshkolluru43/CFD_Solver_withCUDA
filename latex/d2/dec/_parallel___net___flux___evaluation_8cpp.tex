@@ -1,0 +1,317 @@
+\doxysection{Parallel\+\_\+\+Method\+\_\+\+Kernels/\+Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.cpp File Reference}
+\hypertarget{_parallel___net___flux___evaluation_8cpp}{}\label{_parallel___net___flux___evaluation_8cpp}\index{Parallel\_Method\_Kernels/Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Method\_Kernels/Parallel\_Net\_Flux\_Evaluation.cpp}}
+{\ttfamily \#include $<$cuda\+\_\+runtime.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include "{}Flux.\+h"{}}\newline
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Timestep.\+h"{}}\newline
+Include dependency graph for Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d63/_parallel___net___flux___evaluation_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aa78b073fcb78672beab584d252ece062_aa78b073fcb78672beab584d252ece062}{Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1\+O\+\_\+\+CUDA\+\_\+\+Launch}} (int \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\+\_\+\+Physical\+\_\+\+Cells}}, int \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\+\_\+\+Type}}, float(\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\+\_\+\+Net\+\_\+\+Flux}})\mbox{[}4\mbox{]})
+\item 
+void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a01ce03b934864fc027375eecc740deb3_a01ce03b934864fc027375eecc740deb3}{Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+2\+O\+\_\+\+CUDA\+\_\+\+Launch}} (int \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\+\_\+\+Physical\+\_\+\+Cells}}, int \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\+\_\+\+Type}}, float(\texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\+\_\+\+Net\+\_\+\+Flux}})\mbox{[}4\mbox{]})
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3}{LLF\+\_\+\+Device}} (const int \&i, int \&j, const int \&\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}})
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61}{Calculate\+\_\+\+Flux\+\_\+\+For\+\_\+\+All\+\_\+\+Faces\+\_\+\+Device}} (int Current\+\_\+\+Cell\+\_\+\+No, int \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\+\_\+\+Type}})
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c}{Net\+\_\+\+Flux\+\_\+\+Kernel}} (int No\+\_\+\+Cells, int \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\+\_\+\+Type}})
+\item 
+void \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a8877ff1f2ac3e0c6cea010a1b61be639_a8877ff1f2ac3e0c6cea010a1b61be639}{Launch\+\_\+\+Flux\+\_\+\+Kernel}} (\mbox{\hyperlink{class_cell}{Cell}} \texorpdfstring{$\ast$}{*}h\+\_\+\+Cells, int(\texorpdfstring{$\ast$}{*}h\+\_\+\+BC\+\_\+\+Type)\mbox{[}4\mbox{]}, int No\+\_\+\+Cells, int Diss\+\_\+\+Type)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}} \mbox{[}MAX\+\_\+\+CELLS\mbox{]}\mbox{[}4\mbox{]}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{class_cell}{Cell}} \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\+\_\+\+Cells}} \mbox{[}MAX\+\_\+\+CELLS\mbox{]}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ int \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a0c5b8755d22bed3b860c5d5eb28a5e70_a0c5b8755d22bed3b860c5d5eb28a5e70}{d\+\_\+\+Cells\+\_\+\+Face\+\_\+\+Boundary\+\_\+\+Type}} \mbox{[}MAX\+\_\+\+CELLS\mbox{]}\mbox{[}4\mbox{]}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aea1ab7092442de419d31f9ddb83a09b3_aea1ab7092442de419d31f9ddb83a09b3}{d\+\_\+\+Average\+\_\+\+Convective\+\_\+\+Flux}} \mbox{[}4\mbox{]}
+\item 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a3269772d8d2e267c63346f118edbe83a_a3269772d8d2e267c63346f118edbe83a}{d\+\_\+\+Dissipative\+\_\+\+Flux}} \mbox{[}4\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!Calculate\_Flux\_For\_All\_Faces\_Device@{Calculate\_Flux\_For\_All\_Faces\_Device}}
+\index{Calculate\_Flux\_For\_All\_Faces\_Device@{Calculate\_Flux\_For\_All\_Faces\_Device}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{Calculate\_Flux\_For\_All\_Faces\_Device()}{Calculate\_Flux\_For\_All\_Faces\_Device()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void Calculate\+\_\+\+Flux\+\_\+\+For\+\_\+\+All\+\_\+\+Faces\+\_\+\+Device (\begin{DoxyParamCaption}\item[{int}]{Current\+\_\+\+Cell\+\_\+\+No}{, }\item[{int}]{Dissipation\+\_\+\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00052}{52}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ Neighbours[4];}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ =\ 0;\ \mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}\ <\ 4;\ ++\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}})}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ Neighbours[\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}]\ =\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[Current\_Cell\_No].Neighbours[\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}];}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Face\_No\ =\ 0;\ Face\_No\ <\ 4;\ ++Face\_No)}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Neigh\ =\ Neighbours[Face\_No];}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ is\_boundary\ =\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a0c5b8755d22bed3b860c5d5eb28a5e70_a0c5b8755d22bed3b860c5d5eb28a5e70}{d\_Cells\_Face\_Boundary\_Type}}[Current\_Cell\_No][Face\_No];}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux\_Device(Current\_Cell\_No,\ Neigh,\ Face\_No,\ is\_boundary);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}})}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3}{LLF\_Device}}(Current\_Cell\_No,\ Neigh,\ Face\_No);}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ other\ dissipation\ types\ here}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3}{LLF\_Device}}(Current\_Cell\_No,\ Neigh,\ Face\_No);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}}[Current\_Cell\_No][i]\ +=}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aea1ab7092442de419d31f9ddb83a09b3_aea1ab7092442de419d31f9ddb83a09b3}{d\_Average\_Convective\_Flux}}[i]\ -\/\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a3269772d8d2e267c63346f118edbe83a_a3269772d8d2e267c63346f118edbe83a}{d\_Dissipative\_Flux}}[i];}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_aa78b073fcb78672beab584d252ece062_aa78b073fcb78672beab584d252ece062}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch@{Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch}}
+\index{Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch@{Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch()}{Evaluate\_Cell\_Net\_Flux\_1O\_CUDA\_Launch()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_aa78b073fcb78672beab584d252ece062_aa78b073fcb78672beab584d252ece062} 
+void Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1\+O\+\_\+\+CUDA\+\_\+\+Launch (\begin{DoxyParamCaption}\item[{int}]{No\+\_\+\+Physical\+\_\+\+Cells}{, }\item[{int}]{Dissipation\+\_\+\+Type}{, }\item[{float(\texorpdfstring{$\ast$}{*})}]{Cells\+\_\+\+Net\+\_\+\+Flux}{\mbox{[}4\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{int}\ threadsPerBlock\ =\ 256;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{int}\ blocksPerGrid\ =\ (\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ +\ threadsPerBlock\ -\/\ 1)\ /\ threadsPerBlock;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O\_CUDA<<<blocksPerGrid,\ threadsPerBlock>>>(\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}},\ \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}},\ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}});}
+\DoxyCodeLine{00026\ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00027\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a01ce03b934864fc027375eecc740deb3_a01ce03b934864fc027375eecc740deb3}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch@{Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch}}
+\index{Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch@{Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch()}{Evaluate\_Cell\_Net\_Flux\_2O\_CUDA\_Launch()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a01ce03b934864fc027375eecc740deb3_a01ce03b934864fc027375eecc740deb3} 
+void Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+2\+O\+\_\+\+CUDA\+\_\+\+Launch (\begin{DoxyParamCaption}\item[{int}]{No\+\_\+\+Physical\+\_\+\+Cells}{, }\item[{int}]{Dissipation\+\_\+\+Type}{, }\item[{float(\texorpdfstring{$\ast$}{*})}]{Cells\+\_\+\+Net\+\_\+\+Flux}{\mbox{[}4\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00029}{29}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordtype}{int}\ threadsPerBlock\ =\ 256;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{int}\ blocksPerGrid\ =\ (\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ +\ threadsPerBlock\ -\/\ 1)\ /\ threadsPerBlock;}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O\_CUDA<<<blocksPerGrid,\ threadsPerBlock>>>(\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}},\ \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}},\ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}});}
+\DoxyCodeLine{00035\ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00036\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a8877ff1f2ac3e0c6cea010a1b61be639_a8877ff1f2ac3e0c6cea010a1b61be639}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!Launch\_Flux\_Kernel@{Launch\_Flux\_Kernel}}
+\index{Launch\_Flux\_Kernel@{Launch\_Flux\_Kernel}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{Launch\_Flux\_Kernel()}{Launch\_Flux\_Kernel()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a8877ff1f2ac3e0c6cea010a1b61be639_a8877ff1f2ac3e0c6cea010a1b61be639} 
+void Launch\+\_\+\+Flux\+\_\+\+Kernel (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_cell}{Cell}} \texorpdfstring{$\ast$}{*}}]{h\+\_\+\+Cells}{, }\item[{int(\texorpdfstring{$\ast$}{*})}]{h\+\_\+\+BC\+\_\+\+Type}{\mbox{[}4\mbox{]}, }\item[{int}]{No\+\_\+\+Cells}{, }\item[{int}]{Diss\+\_\+\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00098}{98}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00099\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \mbox{\hyperlink{class_cell}{Cell}}\ *d\_Cells\_host;}
+\DoxyCodeLine{00101\ \ \ \ \ int\ (*d\_BC\_Type)[4];}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}\ **)\&d\_Cells\_host,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_cell}{Cell}})\ *\ No\_Cells);}
+\DoxyCodeLine{00104\ \ \ \ \ cudaMemcpyToSymbol(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}},\ h\_Cells,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{class_cell}{Cell}})\ *\ No\_Cells);}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}\ **)\&d\_BC\_Type,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})\ *\ No\_Cells\ *\ 4);}
+\DoxyCodeLine{00107\ \ \ \ \ cudaMemcpyToSymbol(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a0c5b8755d22bed3b860c5d5eb28a5e70_a0c5b8755d22bed3b860c5d5eb28a5e70}{d\_Cells\_Face\_Boundary\_Type}},\ h\_BC\_Type,\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{int})\ *\ No\_Cells\ *\ 4);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{int}\ threads\ =\ 256;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{int}\ blocks\ =\ (No\_Cells\ +\ threads\ -\/\ 1)\ /\ threads;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c}{Net\_Flux\_Kernel<<<blocks,\ threads>}}>>(No\_Cells,\ Diss\_Type);}
+\DoxyCodeLine{00113\ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ cudaFree(d\_Cells\_host);}
+\DoxyCodeLine{00116\ \ \ \ \ cudaFree(d\_BC\_Type);}
+\DoxyCodeLine{00117\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a8877ff1f2ac3e0c6cea010a1b61be639_a8877ff1f2ac3e0c6cea010a1b61be639_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!LLF\_Device@{LLF\_Device}}
+\index{LLF\_Device@{LLF\_Device}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{LLF\_Device()}{LLF\_Device()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ void LLF\+\_\+\+Device (\begin{DoxyParamCaption}\item[{const int \&}]{i}{, }\item[{int \&}]{j}{, }\item[{const int \&}]{f}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00038}{38}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Example\ LLF\ flux\ computation\ (simplified)}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ Fetch\ state\ vectors\ from\ Cells[i]\ and\ Cells[j]}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ rhoL\ =\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[i].U[0];}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{double}\ rhoR\ =\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[j].U[0];}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordtype}{double}\ max\_lambda\ =\ \mbox{\hyperlink{_source_8cpp_ad1286ce446bd24bcbdfecfe85808c943_ad1286ce446bd24bcbdfecfe85808c943}{max}}(abs(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[i].a),\ abs(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[j].a));}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ 4;\ ++k)}
+\DoxyCodeLine{00047\ \ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a3269772d8d2e267c63346f118edbe83a_a3269772d8d2e267c63346f118edbe83a}{d\_Dissipative\_Flux}}[k]\ =\ 0.5\ *\ max\_lambda\ *\ (\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[j].U[k]\ -\/\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}{d\_Cells}}[i].U[k]);}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a6e8c2c479b19bc33170be3295e64dbf3_a6e8c2c479b19bc33170be3295e64dbf3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!Net\_Flux\_Kernel@{Net\_Flux\_Kernel}}
+\index{Net\_Flux\_Kernel@{Net\_Flux\_Kernel}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{Net\_Flux\_Kernel()}{Net\_Flux\_Kernel()}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c} 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void Net\+\_\+\+Flux\+\_\+\+Kernel (\begin{DoxyParamCaption}\item[{int}]{No\+\_\+\+Cells}{, }\item[{int}]{Dissipation\+\_\+\+Type}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00085}{85}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{int}\ cell\_id\ =\ blockIdx.x\ *\ blockDim.x\ +\ threadIdx.x;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (cell\_id\ >=\ No\_Cells)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}}[cell\_id][i]\ =\ 0.0;}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_a1b25896fdbdd6ee6538b22ddac946a61_a1b25896fdbdd6ee6538b22ddac946a61}{Calculate\_Flux\_For\_All\_Faces\_Device}}(cell\_id,\ \mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}});}
+\DoxyCodeLine{00095\ \ \ \ \ Evaluate\_Time\_Step\_Device(cell\_id);}
+\DoxyCodeLine{00096\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{d2/dec/_parallel___net___flux___evaluation_8cpp_a102865a10b7fc2d76a6939a03d58970c_a102865a10b7fc2d76a6939a03d58970c_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_aea1ab7092442de419d31f9ddb83a09b3_aea1ab7092442de419d31f9ddb83a09b3}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!d\_Average\_Convective\_Flux@{d\_Average\_Convective\_Flux}}
+\index{d\_Average\_Convective\_Flux@{d\_Average\_Convective\_Flux}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{d\_Average\_Convective\_Flux}{d\_Average\_Convective\_Flux}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_aea1ab7092442de419d31f9ddb83a09b3_aea1ab7092442de419d31f9ddb83a09b3} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double d\+\_\+\+Average\+\_\+\+Convective\+\_\+\+Flux\mbox{[}4\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!d\_Cells@{d\_Cells}}
+\index{d\_Cells@{d\_Cells}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{d\_Cells}{d\_Cells}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a365876151b285f1dc9ad62b6eba96ff1_a365876151b285f1dc9ad62b6eba96ff1} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ \mbox{\hyperlink{class_cell}{Cell}} d\+\_\+\+Cells\mbox{[}MAX\+\_\+\+CELLS\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a0c5b8755d22bed3b860c5d5eb28a5e70_a0c5b8755d22bed3b860c5d5eb28a5e70}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!d\_Cells\_Face\_Boundary\_Type@{d\_Cells\_Face\_Boundary\_Type}}
+\index{d\_Cells\_Face\_Boundary\_Type@{d\_Cells\_Face\_Boundary\_Type}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{d\_Cells\_Face\_Boundary\_Type}{d\_Cells\_Face\_Boundary\_Type}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a0c5b8755d22bed3b860c5d5eb28a5e70_a0c5b8755d22bed3b860c5d5eb28a5e70} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ int d\+\_\+\+Cells\+\_\+\+Face\+\_\+\+Boundary\+\_\+\+Type\mbox{[}MAX\+\_\+\+CELLS\mbox{]}\mbox{[}4\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!d\_Cells\_Net\_Flux@{d\_Cells\_Net\_Flux}}
+\index{d\_Cells\_Net\_Flux@{d\_Cells\_Net\_Flux}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{d\_Cells\_Net\_Flux}{d\_Cells\_Net\_Flux}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux\mbox{[}MAX\+\_\+\+CELLS\mbox{]}\mbox{[}4\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+
+\Hypertarget{_parallel___net___flux___evaluation_8cpp_a3269772d8d2e267c63346f118edbe83a_a3269772d8d2e267c63346f118edbe83a}\index{Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}!d\_Dissipative\_Flux@{d\_Dissipative\_Flux}}
+\index{d\_Dissipative\_Flux@{d\_Dissipative\_Flux}!Parallel\_Net\_Flux\_Evaluation.cpp@{Parallel\_Net\_Flux\_Evaluation.cpp}}
+\doxysubsubsection{\texorpdfstring{d\_Dissipative\_Flux}{d\_Dissipative\_Flux}}
+{\footnotesize\ttfamily \label{_parallel___net___flux___evaluation_8cpp_a3269772d8d2e267c63346f118edbe83a_a3269772d8d2e267c63346f118edbe83a} 
+\+\_\+\+\_\+device\+\_\+\+\_\+ double d\+\_\+\+Dissipative\+\_\+\+Flux\mbox{[}4\mbox{]}}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source_l00017}{17}} of file \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_source}{Parallel\+\_\+\+Net\+\_\+\+Flux\+\_\+\+Evaluation.\+cpp}}.
+

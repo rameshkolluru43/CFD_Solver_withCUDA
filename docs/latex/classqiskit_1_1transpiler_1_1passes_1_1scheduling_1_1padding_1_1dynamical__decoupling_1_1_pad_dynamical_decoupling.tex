@@ -1,0 +1,347 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.814815cm]{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_afa51e680c10dfa4f00d18a38e73212f0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1instruction__durations_1_1_instruction_durations}{Instruction\+Durations}} durations=None, list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} dd\+\_\+sequence=None, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}None qubits=None, list\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}None spacing=None, bool skip\+\_\+reset\+\_\+qubits=True, int pulse\+\_\+alignment=1, str extra\+\_\+slack\+\_\+distribution="{}middle"{}, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target=None)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ab1c0e840367b83b99ae9a34e9f8554d8}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_transformation_pass}{qiskit.\+transpiler.\+basepasses.\+Transformation\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+tuple\mbox{[}Pass\+Manager\+IR, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_transformation_pass_a559becd7bab5a4ab0c8ad5c1ff88fe69}{execute}} (self, Pass\+Manager\+IR passmanager\+\_\+ir, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}} state, Callable callback=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_transformation_pass_a8a34dc684c6577dec271507146da06f0}{update\+\_\+status}} (self, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}} state, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_run_state}{Run\+State}} run\+\_\+state)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+\+\_\+hash\+\_\+\+\_\+} (self)
+\item 
+{\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_afea202bc1018ca7817e23153728f3190}{is\+\_\+transformation\+\_\+pass}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_a1a5930c538d429138747bc8681fb19b9}{is\+\_\+analysis\+\_\+pass}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_a8f5f44232e4373ca648799df8acea217}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_property_set}{Property\+Set}}\texorpdfstring{$\vert$}{|}dict\texorpdfstring{$\vert$}{|}None property\+\_\+set=None)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_generic_pass}{qiskit.\+passmanager.\+base\+\_\+tasks.\+Generic\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+str \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_generic_pass_a9ed8ea0f740f38f8fd395ee70c909a22}{name}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_task}{qiskit.\+passmanager.\+base\+\_\+tasks.\+Task}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_meta_pass}{qiskit.\+transpiler.\+basepasses.\+Meta\+Pass}}}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a93516b483778bd285a6ac36157e8afa9}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a93516b483778bd285a6ac36157e8afa9} 
+list {\bfseries \+\_\+dd\+\_\+sequence} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries target} = target
+\item 
+{\bfseries property\+\_\+set}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_transformation_pass}{qiskit.\+transpiler.\+basepasses.\+Transformation\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries preserves}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+list {\bfseries preserves} = \mbox{[}$\,$\mbox{]}
+\item 
+{\bfseries property\+\_\+set} = property\+\_\+set\+\_\+
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_generic_pass}{qiskit.\+passmanager.\+base\+\_\+tasks.\+Generic\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries property\+\_\+set} = \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_property_set}{Property\+Set}}()
+\item 
+list {\bfseries requires} = \mbox{[}$\,$\mbox{]}
+\item 
+tuple\mbox{[}Pass\+Manager\+IR, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_generic_pass_acf0da598a50c95433b0c5b6ff523eaec}{requires}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aea6d3bf9f24fe72ac7c8d7e20a3d0d95}{\+\_\+update\+\_\+inst\+\_\+durations}} (self, dag)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa27a719f33bfd8f51cb84d2caffaa608}{\+\_\+pre\+\_\+runhook}} (self, DAGCircuit dag)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad26e09d22142cb7387204dbdb2183bce}{\+\_\+pad}} (self, DAGCircuit dag, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}} qubit, int t\+\_\+start, int t\+\_\+end, DAGNode next\+\_\+node, DAGNode prev\+\_\+node)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a9e49e02d5d7e6230c91ddffbede4c985}{\+\_\+apply\+\_\+scheduled\+\_\+op}} (self, DAGCircuit dag, int t\+\_\+start, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}} oper, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}\mbox{]} qubits, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}\mbox{]} clbits=())
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+tuple \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa7f755de4d2ae3900ad90da4e708892b}{\+\_\+resolve\+\_\+params}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} gate)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_meta_pass}{qiskit.\+transpiler.\+basepasses.\+Meta\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+freeze\+\_\+init\+\_\+parameters} (class\+\_\+, args, kwargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_abd6fd452d45afec770e15851e95a2350}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_abd6fd452d45afec770e15851e95a2350} 
+{\bfseries \+\_\+durations} = durations
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad34fdabf5aa5ca45e620caa0a5e7cef0}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad34fdabf5aa5ca45e620caa0a5e7cef0} 
+{\bfseries \+\_\+dd\+\_\+sequence} = dd\+\_\+sequence
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_af58523d7bdb6350783d5713c5288f9e1}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_af58523d7bdb6350783d5713c5288f9e1} 
+{\bfseries \+\_\+qubits} = qubits
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a5c5fc1b076d9026ac460a5c9d0e8ec5d}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a5c5fc1b076d9026ac460a5c9d0e8ec5d} 
+{\bfseries \+\_\+skip\+\_\+reset\+\_\+qubits} = skip\+\_\+reset\+\_\+qubits
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a015632d5f08e2507a9b2f261434f9858}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a015632d5f08e2507a9b2f261434f9858} 
+{\bfseries \+\_\+alignment} = pulse\+\_\+alignment
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a3171b288c764e0fe25751ccdeead2373}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a3171b288c764e0fe25751ccdeead2373} 
+list {\bfseries \+\_\+spacing} = spacing
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a1c87c35d233d8f02208b386036001590}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a1c87c35d233d8f02208b386036001590} 
+str {\bfseries \+\_\+extra\+\_\+slack\+\_\+distribution} = extra\+\_\+slack\+\_\+distribution
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_acdd4767c0b3b2213a630251c631c6db9}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_acdd4767c0b3b2213a630251c631c6db9} 
+set\mbox{[}int\mbox{]} {\bfseries \+\_\+no\+\_\+dd\+\_\+qubits} = set()
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ac0b093a4cc1c9764cee52fc2f4544ed7}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ac0b093a4cc1c9764cee52fc2f4544ed7} 
+dict {\bfseries \+\_\+dd\+\_\+sequence\+\_\+lengths} = \{\}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a551f88d61efecfaed230e02925103f0b}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_a551f88d61efecfaed230e02925103f0b} 
+int {\bfseries \+\_\+sequence\+\_\+phase} = 0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+hash} = hash(None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Dynamical decoupling insertion pass.
+
+This pass works on a scheduled, physical circuit. It scans the circuit for
+idle periods of time (i.e. those containing delay instructions) and inserts
+a DD sequence of gates in those spots. These gates amount to the identity,
+so do not alter the logical action of the circuit, but have the effect of
+mitigating decoherence in those idle periods.
+
+As a special case, the pass allows a length-1 sequence (e.g. ``[XGate()]``).
+In this case the DD insertion happens only when the gate inverse can be
+absorbed into a neighboring gate in the circuit (so we would still be
+replacing Delay with something that is equivalent to the identity).
+This can be used, for instance, as a Hahn echo.
+
+This pass ensures that the inserted sequence preserves the circuit exactly
+(including global phase).
+
+.. plot::
+   :alt: Output from the previous code.
+   :include-source:
+
+    import numpy as np
+    from qiskit.circuit import QuantumCircuit
+    from qiskit.circuit.library import XGate
+    from qiskit.transpiler import PassManager, InstructionDurations
+    from qiskit.transpiler.passes import ALAPScheduleAnalysis, PadDynamicalDecoupling
+    from qiskit.visualization import timeline_drawer
+    circ = QuantumCircuit(4)
+    circ.h(0)
+    circ.cx(0, 1)
+    circ.cx(1, 2)
+    circ.cx(2, 3)
+    circ.measure_all()
+    durations = InstructionDurations(
+        [("h", 0, 50), ("cx", [0, 1], 700), ("reset", None, 10),
+         ("cx", [1, 2], 200), ("cx", [2, 3], 300),
+         ("x", None, 50), ("measure", None, 1000)]
+    )
+
+    # balanced X-X sequence on all qubits
+    dd_sequence = [XGate(), XGate()]
+    pm = PassManager([ALAPScheduleAnalysis(durations),
+                      PadDynamicalDecoupling(durations, dd_sequence)])
+    circ_dd = pm.run(circ)
+    timeline_drawer(circ_dd)
+
+    # Uhrig sequence on qubit 0
+    n = 8
+    dd_sequence = [XGate()] * n
+    def uhrig_pulse_location(k):
+        return np.sin(np.pi * (k + 1) / (2 * n + 2)) ** 2
+    spacing = []
+    for k in range(n):
+        spacing.append(uhrig_pulse_location(k) - sum(spacing))
+    spacing.append(1 - sum(spacing))
+    pm = PassManager(
+        [
+            ALAPScheduleAnalysis(durations),
+            PadDynamicalDecoupling(durations, dd_sequence, qubits=[0], spacing=spacing),
+        ]
+    )
+    circ_dd = pm.run(circ)
+    timeline_drawer(circ_dd)
+
+.. note::
+
+    You may need to call alignment pass before running dynamical decoupling to guarantee
+    your circuit satisfies acquisition alignment constraints.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_afa51e680c10dfa4f00d18a38e73212f0}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_afa51e680c10dfa4f00d18a38e73212f0} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1instruction__durations_1_1_instruction_durations}{Instruction\+Durations}} }]{durations}{ = {\ttfamily None}, }\item[{list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} }]{dd\+\_\+sequence}{ = {\ttfamily None}, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{qubits}{ = {\ttfamily None}, }\item[{list\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} None }]{spacing}{ = {\ttfamily None}, }\item[{bool }]{skip\+\_\+reset\+\_\+qubits}{ = {\ttfamily True}, }\item[{int }]{pulse\+\_\+alignment}{ = {\ttfamily 1}, }\item[{str }]{extra\+\_\+slack\+\_\+distribution}{ = {\ttfamily "{}middle"{}}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Dynamical decoupling initializer.
+
+Args:
+    durations: Durations of instructions to be used in scheduling.
+    dd_sequence: Sequence of gates to apply in idle spots.
+    qubits: Physical qubits on which to apply DD.
+        If None, all qubits will undergo DD (when possible).
+    spacing: A list of spacings between the DD gates.
+        The available slack will be divided according to this.
+        The list length must be one more than the length of dd_sequence,
+        and the elements must sum to 1. If None, a balanced spacing
+        will be used [d/2, d, d, ..., d, d, d/2].
+    skip_reset_qubits: If True, does not insert DD on idle periods that
+        immediately follow initialized/reset qubits
+        (as qubits in the ground state are less susceptible to decoherence).
+    pulse_alignment: The hardware constraints for gate timing allocation.
+        This is usually provided from ``backend.configuration().timing_constraints``.
+        If provided, the delay length, i.e. ``spacing``, is implicitly adjusted to
+        satisfy this constraint.
+    extra_slack_distribution: The option to control the behavior of DD sequence generation.
+        The duration of the DD sequence should be identical to an idle time in the
+        scheduled quantum circuit, however, the delay in between gates comprising the sequence
+        should be integer number in units of dt, and it might be further truncated
+        when ``pulse_alignment`` is specified. This sometimes results in the duration of
+        the created sequence being shorter than the idle time
+        that you want to fill with the sequence, i.e. `extra slack`.
+        This option takes following values.
+
+            - "middle": Put the extra slack to the interval at the middle of the sequence.
+            - "edges": Divide the extra slack as evenly as possible into
+              intervals at beginning and end of the sequence.
+    target: The :class:`~.Target` representing the target backend.
+        Target takes precedence over other arguments when they can be inferred from target.
+        Therefore specifying target as well as other arguments like ``durations`` or
+        ``pulse_alignment`` will cause those other arguments to be ignored.
+
+Raises:
+    TranspilerError: When invalid DD sequence is specified.
+    TranspilerError: When pulse gate with the duration which is
+        non-multiple of the alignment constraint value is found.
+    TypeError: If ``dd_sequence`` is not specified
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ac4128600bb05c770f148dc933a3c73fd}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad26e09d22142cb7387204dbdb2183bce}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}!\_pad@{\_pad}}
+\index{\_pad@{\_pad}!qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+\doxysubsubsection{\texorpdfstring{\_pad()}{\_pad()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_ad26e09d22142cb7387204dbdb2183bce} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling.\+\_\+pad (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumregister_1_1_qubit}{Qubit}}}]{qubit}{, }\item[{int}]{t\+\_\+start}{, }\item[{int}]{t\+\_\+end}{, }\item[{DAGNode}]{next\+\_\+node}{, }\item[{DAGNode}]{prev\+\_\+node}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Interleave instruction sequence in between two nodes.
+
+.. note::
+    If a DAGOpNode is added here, it should update node_start_time property
+    in the property set so that the added node is also scheduled.
+    This is achieved by adding operation via :meth:`_apply_scheduled_op`.
+
+.. note::
+
+    This method doesn't check if the total duration of new DAGOpNode added here
+    is identical to the interval (``t_end - t_start``).
+    A developer of the pass must guarantee this is satisfied.
+    If the duration is greater than the interval, your circuit may be
+    compiled down to the target code with extra duration on the backend compiler,
+    which is then played normally without error. However, the outcome of your circuit
+    might be unexpected due to erroneous scheduling.
+
+Args:
+    dag: DAG circuit that sequence is applied.
+    qubit: The wire that the sequence is applied on.
+    t_start: Absolute start time of this interval.
+    t_end: Absolute end time of this interval.
+    next_node: Node that follows the sequence.
+    prev_node: Node ahead of the sequence.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_ae72c79c349b33f27ab0084b14aa3a0c7}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa27a719f33bfd8f51cb84d2caffaa608}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}!\_pre\_runhook@{\_pre\_runhook}}
+\index{\_pre\_runhook@{\_pre\_runhook}!qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+\doxysubsubsection{\texorpdfstring{\_pre\_runhook()}{\_pre\_runhook()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa27a719f33bfd8f51cb84d2caffaa608} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling.\+\_\+pre\+\_\+runhook (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Extra routine inserted before running the padding pass.
+
+Args:
+    dag: DAG circuit on which the sequence is applied.
+
+Raises:
+    TranspilerError: If the whole circuit or instruction is not scheduled.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1base__padding_1_1_base_padding_a502710ab742534c202c157c08fc651b8}{qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+base\+\_\+padding.\+Base\+Padding}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa7f755de4d2ae3900ad90da4e708892b}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}!\_resolve\_params@{\_resolve\_params}}
+\index{\_resolve\_params@{\_resolve\_params}!qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+\doxysubsubsection{\texorpdfstring{\_resolve\_params()}{\_resolve\_params()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aa7f755de4d2ae3900ad90da4e708892b} 
+ tuple qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling.\+\_\+resolve\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}}]{gate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return gate params with any bound parameters replaced with floats\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aea6d3bf9f24fe72ac7c8d7e20a3d0d95}\index{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}!\_update\_inst\_durations@{\_update\_inst\_durations}}
+\index{\_update\_inst\_durations@{\_update\_inst\_durations}!qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling@{qiskit.transpiler.passes.scheduling.padding.dynamical\_decoupling.PadDynamicalDecoupling}}
+\doxysubsubsection{\texorpdfstring{\_update\_inst\_durations()}{\_update\_inst\_durations()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1padding_1_1dynamical__decoupling_1_1_pad_dynamical_decoupling_aea6d3bf9f24fe72ac7c8d7e20a3d0d95} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+padding.\+dynamical\+\_\+decoupling.\+Pad\+Dynamical\+Decoupling.\+\_\+update\+\_\+inst\+\_\+durations (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Update instruction durations with circuit information. If the dag contains gate
+calibrations and no instruction durations were provided through the target or as a
+standalone input, the circuit calibration durations will be used.
+The priority order for instruction durations is: target > standalone > circuit.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/padding/dynamical\+\_\+decoupling.\+py\end{DoxyCompactItemize}

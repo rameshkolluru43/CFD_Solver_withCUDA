@@ -1,0 +1,86 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+check\+\_\+durations.\+Instruction\+Duration\+Check Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check}\index{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck@{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+check\+\_\+durations.\+Instruction\+Duration\+Check\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.621622cm]{db/d64/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a9dd97355948e8e2c49bb4d5bd547e87f_a9dd97355948e8e2c49bb4d5bd547e87f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int acquire\+\_\+alignment=1, int pulse\+\_\+alignment=1, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a5ae092b08cf064e671c746ebb360d201_a5ae092b08cf064e671c746ebb360d201}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a1244b46d9478377367282cf5ea18591a}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a1244b46d9478377367282cf5ea18591a} 
+int {\bfseries acquire\+\_\+align} = acquire\+\_\+alignment
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_aca2a32018fe56723197503af7f98b95f}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_aca2a32018fe56723197503af7f98b95f} 
+{\bfseries pulse\+\_\+align} = pulse\+\_\+alignment
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Duration validation pass for reschedule.
+
+This pass investigates the input quantum circuit and checks if the circuit requires
+rescheduling for execution. Note that this pass can be triggered without scheduling.
+This pass only checks the duration of delay instructions and user defined pulse gates,
+which report duration values without pre-scheduling.
+
+This pass assumes backend supported instructions, i.e. basis gates, have no violation
+of the hardware alignment constraints, which is true in general.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a9dd97355948e8e2c49bb4d5bd547e87f_a9dd97355948e8e2c49bb4d5bd547e87f}\index{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck@{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck@{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a9dd97355948e8e2c49bb4d5bd547e87f_a9dd97355948e8e2c49bb4d5bd547e87f} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+check\+\_\+durations.\+Instruction\+Duration\+Check.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{acquire\+\_\+alignment}{ = {\ttfamily 1}, }\item[{int }]{pulse\+\_\+alignment}{ = {\ttfamily 1}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new duration validation pass.
+
+The alignment values depend on the control electronics of your quantum processor.
+
+Args:
+    acquire_alignment: Integer number representing the minimum time resolution to
+        trigger acquisition instruction in units of ``dt``.
+    pulse_alignment: Integer number representing the minimum time resolution to
+        trigger gate instruction in units of ``dt``.
+    target: The :class:`~.Target` representing the target backend, if
+        ``target`` is specified then this argument will take
+        precedence and ``acquire_alignment`` and ``pulse_alignment`` will be ignored.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a5ae092b08cf064e671c746ebb360d201_a5ae092b08cf064e671c746ebb360d201}\index{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck@{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck@{qiskit.transpiler.passes.scheduling.alignments.check\_durations.InstructionDurationCheck}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1check__durations_1_1_instruction_duration_check_a5ae092b08cf064e671c746ebb360d201_a5ae092b08cf064e671c746ebb360d201} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+check\+\_\+durations.\+Instruction\+Duration\+Check.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run duration validation passes.
+
+Args:
+    dag: DAG circuit to check instruction durations.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/alignments/check\+\_\+durations.\+py\end{DoxyCompactItemize}

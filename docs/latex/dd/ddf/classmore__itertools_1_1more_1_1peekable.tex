@@ -1,0 +1,147 @@
+\doxysection{more\+\_\+itertools.\+more.\+peekable Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1peekable}{}\label{classmore__itertools_1_1more_1_1peekable}\index{more\_itertools.more.peekable@{more\_itertools.more.peekable}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a77fdfc79402e079181fad3c5f1181354}\label{classmore__itertools_1_1more_1_1peekable_a77fdfc79402e079181fad3c5f1181354} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_ae891bd63e9940d863c8ebdf0e75a2617}\label{classmore__itertools_1_1more_1_1peekable_ae891bd63e9940d863c8ebdf0e75a2617} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a7fa3eb1bf55e667713d9fd9fbcef858e}\label{classmore__itertools_1_1more_1_1peekable_a7fa3eb1bf55e667713d9fd9fbcef858e} 
+{\bfseries \+\_\+\+\_\+bool\+\_\+\+\_\+} (self)
+\item 
+\mbox{\hyperlink{classmore__itertools_1_1more_1_1peekable_a17f39918dde4f68842ac4fad28c9f6e6_a17f39918dde4f68842ac4fad28c9f6e6}{peek}} (self, default=\+\_\+marker)
+\item 
+\mbox{\hyperlink{classmore__itertools_1_1more_1_1peekable_aa512e08db60dc1c36d9e867b68251f1a_aa512e08db60dc1c36d9e867b68251f1a}{prepend}} (self, \texorpdfstring{$\ast$}{*}items)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a8053ccf26523c58ef5539fa4dfe3c6d9}\label{classmore__itertools_1_1more_1_1peekable_a8053ccf26523c58ef5539fa4dfe3c6d9} 
+{\bfseries \+\_\+\+\_\+next\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a2244bfd6fd94b12e2881117f1eeb2819}\label{classmore__itertools_1_1more_1_1peekable_a2244bfd6fd94b12e2881117f1eeb2819} 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_af5fc3da3af06234b602dc255b762a86f}\label{classmore__itertools_1_1more_1_1peekable_af5fc3da3af06234b602dc255b762a86f} 
+{\bfseries \+\_\+get\+\_\+slice} (self, index)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a492ffb0049ae54139eab01ca1f7f1877}\label{classmore__itertools_1_1more_1_1peekable_a492ffb0049ae54139eab01ca1f7f1877} 
+{\bfseries \+\_\+it} = iter(iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_aac3492c75d624e90138efb51faf3496b}\label{classmore__itertools_1_1more_1_1peekable_aac3492c75d624e90138efb51faf3496b} 
+{\bfseries \+\_\+cache} = deque()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Wrap an iterator to allow lookahead and prepending elements.
+
+Call :meth:`peek` on the result to get the value that will be returned
+by :func:`next`. This won't advance the iterator:
+
+    >>> p = peekable(['a', 'b'])
+    >>> p.peek()
+    'a'
+    >>> next(p)
+    'a'
+
+Pass :meth:`peek` a default value to return that instead of raising
+``StopIteration`` when the iterator is exhausted.
+
+    >>> p = peekable([])
+    >>> p.peek('hi')
+    'hi'
+
+peekables also offer a :meth:`prepend` method, which "inserts" items
+at the head of the iterable:
+
+    >>> p = peekable([1, 2, 3])
+    >>> p.prepend(10, 11, 12)
+    >>> next(p)
+    10
+    >>> p.peek()
+    11
+    >>> list(p)
+    [11, 12, 1, 2, 3]
+
+peekables can be indexed. Index 0 is the item that will be returned by
+:func:`next`, index 1 is the item after that, and so on:
+The values up to the given index will be cached.
+
+    >>> p = peekable(['a', 'b', 'c', 'd'])
+    >>> p[0]
+    'a'
+    >>> p[1]
+    'b'
+    >>> next(p)
+    'a'
+
+Negative indexes are supported, but be aware that they will cache the
+remaining items in the source iterator, which may require significant
+storage.
+
+To check whether a peekable is exhausted, check its truth value:
+
+    >>> p = peekable(['a', 'b'])
+    >>> if p:  # peekable has items
+    ...     list(p)
+    ['a', 'b']
+    >>> if not p:  # peekable is exhausted
+    ...     list(p)
+    []\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classmore__itertools_1_1more_1_1peekable_a17f39918dde4f68842ac4fad28c9f6e6_a17f39918dde4f68842ac4fad28c9f6e6}\index{more\_itertools.more.peekable@{more\_itertools.more.peekable}!peek@{peek}}
+\index{peek@{peek}!more\_itertools.more.peekable@{more\_itertools.more.peekable}}
+\doxysubsubsection{\texorpdfstring{peek()}{peek()}}
+{\footnotesize\ttfamily \label{classmore__itertools_1_1more_1_1peekable_a17f39918dde4f68842ac4fad28c9f6e6_a17f39918dde4f68842ac4fad28c9f6e6} 
+more\+\_\+itertools.\+more.\+peekable.\+peek (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{default}{ = {\ttfamily \+\_\+marker}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the item that will be next returned from ``next()``.
+
+Return ``default`` if there are no items left. If ``default`` is not
+provided, raise ``StopIteration``.\end{DoxyVerb}
+ \Hypertarget{classmore__itertools_1_1more_1_1peekable_aa512e08db60dc1c36d9e867b68251f1a_aa512e08db60dc1c36d9e867b68251f1a}\index{more\_itertools.more.peekable@{more\_itertools.more.peekable}!prepend@{prepend}}
+\index{prepend@{prepend}!more\_itertools.more.peekable@{more\_itertools.more.peekable}}
+\doxysubsubsection{\texorpdfstring{prepend()}{prepend()}}
+{\footnotesize\ttfamily \label{classmore__itertools_1_1more_1_1peekable_aa512e08db60dc1c36d9e867b68251f1a_aa512e08db60dc1c36d9e867b68251f1a} 
+more\+\_\+itertools.\+more.\+peekable.\+prepend (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{items}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Stack up items to be the next ones returned from ``next()`` or
+``self.peek()``. The items will be returned in
+first in, first out order::
+
+    >>> p = peekable([1, 2, 3])
+    >>> p.prepend(10, 11, 12)
+    >>> next(p)
+    10
+    >>> list(p)
+    [11, 12, 1, 2, 3]
+
+It is possible, by prepending items, to "resurrect" a peekable that
+previously raised ``StopIteration``.
+
+    >>> p = peekable([])
+    >>> next(p)
+    Traceback (most recent call last):
+      ...
+    StopIteration
+    >>> p.prepend(1)
+    >>> next(p)
+    1
+    >>> next(p)
+    Traceback (most recent call last):
+      ...
+    StopIteration\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

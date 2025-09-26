@@ -1,0 +1,153 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+basis.\+basis\+\_\+translator.\+Basis\+Translator Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator}{}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator}\index{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator@{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+basis.\+basis\+\_\+translator.\+Basis\+Translator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.307692cm]{dc/d48/classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ac8866ea8da0298b8427d7a7a1ece3ec7_ac8866ea8da0298b8427d7a7a1ece3ec7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, equivalence\+\_\+library, target\+\_\+basis, target=None, min\+\_\+qubits=0)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_adb909e3525e7d942d049c86e90794078_adb909e3525e7d942d049c86e90794078}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ad4038656acee889e87e796763f1af7dc}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ad4038656acee889e87e796763f1af7dc} 
+{\bfseries \+\_\+equiv\+\_\+lib} = equivalence\+\_\+library
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_af5cd2441e68ae1233e615b8f1eba7486}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_af5cd2441e68ae1233e615b8f1eba7486} 
+{\bfseries \+\_\+target\+\_\+basis} = target\+\_\+basis
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ad3caa7f694d00ff990761f6024c81f55}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ad3caa7f694d00ff990761f6024c81f55} 
+{\bfseries \+\_\+target} = target
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a23b388355f45e0a3cb65db9402be1ccb}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a23b388355f45e0a3cb65db9402be1ccb} 
+{\bfseries \+\_\+non\+\_\+global\+\_\+operations} = None
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a8d181ba678507085edb2688d82ee4897}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a8d181ba678507085edb2688d82ee4897} 
+dict {\bfseries \+\_\+qargs\+\_\+with\+\_\+non\+\_\+global\+\_\+operation} = \{\}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a0e8148c1f50355021d12e43f8449c197}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_a0e8148c1f50355021d12e43f8449c197} 
+{\bfseries \+\_\+min\+\_\+qubits} = min\+\_\+qubits
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Translates gates to a target basis by searching for a set of translations
+from a given EquivalenceLibrary.
+
+This pass operates in several steps:
+
+* Determine the source basis from the input circuit.
+* Perform a Dijkstra search over basis sets, starting from the device's
+  target_basis new gates are being generated using the rules from the provided
+  EquivalenceLibrary and the search stops if all gates in the source basis have
+  been generated.
+* The found path, as a set of rules from the EquivalenceLibrary, is composed
+  into a set of gate replacement rules.
+* The composed replacement rules are applied in-place to each op node which
+  is not already in the target_basis.
+
+If the target keyword argument is specified and that
+:class:`~qiskit.transpiler.Target` objects contains operations
+which are non-global (i.e. they are defined only for a subset of qubits),
+as calculated by :meth:`~qiskit.transpiler.Target.get_non_global_operation_names`,
+this pass will attempt to match the output translation to those constraints.
+For 1 qubit operations this is straightforward, the pass will perform a
+search using the union of the set of global operations with the set of operations
+defined solely on that qubit. For multi-qubit gates this is a bit more involved,
+while the behavior is initially similar to the single qubit case, just using all
+the qubits the operation is run on (where order is not significant) isn't sufficient.
+We also need to consider any potential local qubits defined on subsets of the
+quantum arguments for the multi-qubit operation. This means the target used for the
+search of a non-global multi-qubit gate is the union of global operations, non-global
+multi-qubit gates sharing the same qubits, and any non-global gates defined on
+any subset of the qubits used.
+
+
+.. note::
+
+    In the case of non-global operations it is possible for a single
+    execution of this pass to output an incomplete translation if any
+    non-global gates are defined on qubits that are a subset of a larger
+    multi-qubit gate. For example, if you have a ``u`` gate only defined on
+    qubit 0 and an ``x`` gate only on qubit 1 it is possible when
+    translating a 2 qubit operation on qubit 0 and 1 that the output might
+    have ``u`` on qubit 1 and ``x`` on qubit 0. Typically running this pass
+    a second time will correct these issues.
+
+.. _translation_errors:
+
+Translation Errors
+------------------
+
+This pass will error if there is no path to translate an input gate to
+the specified basis. However, during a typical/default preset passmanager
+this pass gets run multiple times at different stages of the compilation
+pipeline. This means that potentially the input gates that are getting
+translated were not in the input circuit to :func:`~.transpile` as they
+were generated by an intermediate transform in the circuit.
+
+When this error occurs it typically means that either the target basis
+is not universal or there are additional equivalence rules needed in the
+:class:`~.EquivalenceLibrary` instance being used by the
+:class:`~.BasisTranslator` pass. You can refer to
+:ref:`custom_basis_gates` for details on adding custom equivalence rules.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ac8866ea8da0298b8427d7a7a1ece3ec7_ac8866ea8da0298b8427d7a7a1ece3ec7}\index{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator@{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator@{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_ac8866ea8da0298b8427d7a7a1ece3ec7_ac8866ea8da0298b8427d7a7a1ece3ec7} 
+qiskit.\+transpiler.\+passes.\+basis.\+basis\+\_\+translator.\+Basis\+Translator.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{equivalence\+\_\+library}{, }\item[{}]{target\+\_\+basis}{, }\item[{}]{target}{ = {\ttfamily None}, }\item[{}]{min\+\_\+qubits}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize a BasisTranslator instance.
+
+Args:
+    equivalence_library (EquivalenceLibrary): The equivalence library
+        which will be used by the BasisTranslator pass. (Instructions in
+        this library will not be unrolled by this pass.)
+    target_basis (list[str]): Target basis names to unroll to, e.g. ``['u3', 'cx']``.
+    target (Target): The backend compilation target
+    min_qubits (int): The minimum number of qubits for operations in the input
+        dag to translate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_adb909e3525e7d942d049c86e90794078_adb909e3525e7d942d049c86e90794078}\index{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator@{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator@{qiskit.transpiler.passes.basis.basis\_translator.BasisTranslator}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator_adb909e3525e7d942d049c86e90794078_adb909e3525e7d942d049c86e90794078} 
+qiskit.\+transpiler.\+passes.\+basis.\+basis\+\_\+translator.\+Basis\+Translator.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Translate an input DAGCircuit to the target basis.
+
+Args:
+    dag (DAGCircuit): input dag
+
+Raises:
+    TranspilerError: if the target basis cannot be reached
+
+Returns:
+    DAGCircuit: translated circuit.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/basis/basis\+\_\+translator.\+py\end{DoxyCompactItemize}

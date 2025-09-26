@@ -1,0 +1,99 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations}{}\label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a4abab4bcb011b43ad00d4683328495e7_a4abab4bcb011b43ad00d4683328495e7}{place\+\_\+unitary}} (np.\+ndarray unitary, int n, int j)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_adc4c1862abd5431cd4a9a709478f2e71_adc4c1862abd5431cd4a9a709478f2e71}{place\+\_\+cnot}} (int n, int j, int k)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a0821c960f97c86e5446ee1f5f855ca62_a0821c960f97c86e5446ee1f5f855ca62}{rx\+\_\+matrix}} (float phi)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_ae5a1bafcc934fbcba0d82126896c57b3_ae5a1bafcc934fbcba0d82126896c57b3}{ry\+\_\+matrix}} (float phi)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a899b66204ceac04bc45c440f064905ba_a899b66204ceac04bc45c440f064905ba}{rz\+\_\+matrix}} (float phi)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}These are a number of elementary functions that are required for the AQC routines to work.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_adc4c1862abd5431cd4a9a709478f2e71_adc4c1862abd5431cd4a9a709478f2e71}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}!place\_cnot@{place\_cnot}}
+\index{place\_cnot@{place\_cnot}!qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection{\texorpdfstring{place\_cnot()}{place\_cnot()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_adc4c1862abd5431cd4a9a709478f2e71_adc4c1862abd5431cd4a9a709478f2e71} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations.\+place\+\_\+cnot (\begin{DoxyParamCaption}\item[{int}]{n}{, }\item[{int}]{j}{, }\item[{int}]{k}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Places a CNOT from j to k.
+
+Args:
+    n: number of qubits.
+    j: control qubit.
+    k: target qubit.
+
+Returns:
+    a unitary of n qubits with CNOT placed at ``j`` and ``k``.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a4abab4bcb011b43ad00d4683328495e7_a4abab4bcb011b43ad00d4683328495e7}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}!place\_unitary@{place\_unitary}}
+\index{place\_unitary@{place\_unitary}!qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection{\texorpdfstring{place\_unitary()}{place\_unitary()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a4abab4bcb011b43ad00d4683328495e7_a4abab4bcb011b43ad00d4683328495e7} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations.\+place\+\_\+unitary (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{unitary}{, }\item[{int}]{n}{, }\item[{int}]{j}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes I(j - 1) tensor product U tensor product I(n - j), where U is a unitary matrix
+of size ``(2, 2)``.
+
+Args:
+    unitary: a unitary matrix of size ``(2, 2)``.
+    n: num qubits.
+    j: position where to place a unitary.
+
+Returns:
+    a unitary of n qubits with u in position j.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a0821c960f97c86e5446ee1f5f855ca62_a0821c960f97c86e5446ee1f5f855ca62}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}!rx\_matrix@{rx\_matrix}}
+\index{rx\_matrix@{rx\_matrix}!qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection{\texorpdfstring{rx\_matrix()}{rx\_matrix()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a0821c960f97c86e5446ee1f5f855ca62_a0821c960f97c86e5446ee1f5f855ca62} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations.\+rx\+\_\+matrix (\begin{DoxyParamCaption}\item[{float}]{phi}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes an RX rotation by the angle of ``phi``.
+
+Args:
+    phi: rotation angle.
+
+Returns:
+    an RX rotation matrix.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_ae5a1bafcc934fbcba0d82126896c57b3_ae5a1bafcc934fbcba0d82126896c57b3}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}!ry\_matrix@{ry\_matrix}}
+\index{ry\_matrix@{ry\_matrix}!qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection{\texorpdfstring{ry\_matrix()}{ry\_matrix()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_ae5a1bafcc934fbcba0d82126896c57b3_ae5a1bafcc934fbcba0d82126896c57b3} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations.\+ry\+\_\+matrix (\begin{DoxyParamCaption}\item[{float}]{phi}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes an RY rotation by the angle of ``phi``.
+
+Args:
+    phi: rotation angle.
+
+Returns:
+    an RY rotation matrix.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a899b66204ceac04bc45c440f064905ba_a899b66204ceac04bc45c440f064905ba}\index{qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}!rz\_matrix@{rz\_matrix}}
+\index{rz\_matrix@{rz\_matrix}!qiskit.synthesis.unitary.aqc.elementary\_operations@{qiskit.synthesis.unitary.aqc.elementary\_operations}}
+\doxysubsubsection{\texorpdfstring{rz\_matrix()}{rz\_matrix()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1elementary__operations_a899b66204ceac04bc45c440f064905ba_a899b66204ceac04bc45c440f064905ba} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+elementary\+\_\+operations.\+rz\+\_\+matrix (\begin{DoxyParamCaption}\item[{float}]{phi}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes an RZ rotation by the angle of ``phi``.
+
+Args:
+    phi: rotation angle.
+
+Returns:
+    an RZ rotation matrix.
+\end{DoxyVerb}
+ 

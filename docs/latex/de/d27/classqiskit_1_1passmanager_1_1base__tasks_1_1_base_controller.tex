@@ -1,0 +1,108 @@
+\doxysection{qiskit.\+passmanager.\+base\+\_\+tasks.\+Base\+Controller Class Reference}
+\hypertarget{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller}{}\label{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller}\index{qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}}
+Inheritance diagram for qiskit.\+passmanager.\+base\+\_\+tasks.\+Base\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.176871cm]{de/d27/classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a6790aa1c6cbd2271d776763d40b04bca_a6790aa1c6cbd2271d776763d40b04bca}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, dict\mbox{[}str, Any\mbox{]}\texorpdfstring{$\vert$}{|}None options=None)
+\item 
+Generator\mbox{[}\mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_task}{Task}}, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}, None\mbox{]} \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a94f743d31f2aa30af03d602945e74abb_a94f743d31f2aa30af03d602945e74abb}{iter\+\_\+tasks}} (self, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}} state)
+\item 
+tuple\mbox{[}Pass\+Manager\+IR, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a322635a0878e6c560ac98ecc7724f96d_a322635a0878e6c560ac98ecc7724f96d}{execute}} (self, Pass\+Manager\+IR passmanager\+\_\+ir, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}} state, Callable callback=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_ab9656a82834a72a1dd8e8d814dcd62de}\label{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_ab9656a82834a72a1dd8e8d814dcd62de} 
+{\bfseries \+\_\+options} = options or \{\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Base class of controller.
+
+A controller is built with a collection of pass manager tasks,
+and a subclass provides a custom logic to choose next task to run.
+Note a controller can be nested into another controller,
+and a controller itself doesn't provide any subroutine to modify the input IR.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a6790aa1c6cbd2271d776763d40b04bca_a6790aa1c6cbd2271d776763d40b04bca}\index{qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a6790aa1c6cbd2271d776763d40b04bca_a6790aa1c6cbd2271d776763d40b04bca} 
+qiskit.\+passmanager.\+base\+\_\+tasks.\+Base\+Controller.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{dict\mbox{[}str, Any\mbox{]} \texorpdfstring{$\vert$}{|} None }]{options}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new flow controller.
+
+Args:
+    options: Option for this flow controller.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_conditional_controller_aa9ff76134b1032302406560a4fbecaaf_aa9ff76134b1032302406560a4fbecaaf}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Conditional\+Controller}}, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_do_while_controller_a743098de3e4b5d1a4c5ac072536ccc9e_a743098de3e4b5d1a4c5ac072536ccc9e}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Do\+While\+Controller}}, and \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_flow_controller_linear_a5162e94551858afdb8308a4f59100d49_a5162e94551858afdb8308a4f59100d49}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Flow\+Controller\+Linear}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a322635a0878e6c560ac98ecc7724f96d_a322635a0878e6c560ac98ecc7724f96d}\index{qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}!execute@{execute}}
+\index{execute@{execute}!qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}}
+\doxysubsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a322635a0878e6c560ac98ecc7724f96d_a322635a0878e6c560ac98ecc7724f96d} 
+ tuple\mbox{[}Pass\+Manager\+IR, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}\mbox{]} qiskit.\+passmanager.\+base\+\_\+tasks.\+Base\+Controller.\+execute (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Pass\+Manager\+IR}]{passmanager\+\_\+ir}{, }\item[{\mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}}]{state}{, }\item[{Callable }]{callback}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Execute optimization task for input Qiskit IR.
+
+Args:
+    passmanager_ir: Qiskit IR to optimize.
+    state: State associated with workflow execution by the pass manager itself.
+    callback: A callback function which is caller per execution of optimization task.
+
+Returns:
+    Optimized Qiskit IR and state of the workflow.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_task_ac2a700acaf0e38faf47fde3456e16982_ac2a700acaf0e38faf47fde3456e16982}{qiskit.\+passmanager.\+base\+\_\+tasks.\+Task}}.
+
+\Hypertarget{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a94f743d31f2aa30af03d602945e74abb_a94f743d31f2aa30af03d602945e74abb}\index{qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}!iter\_tasks@{iter\_tasks}}
+\index{iter\_tasks@{iter\_tasks}!qiskit.passmanager.base\_tasks.BaseController@{qiskit.passmanager.base\_tasks.BaseController}}
+\doxysubsubsection{\texorpdfstring{iter\_tasks()}{iter\_tasks()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1passmanager_1_1base__tasks_1_1_base_controller_a94f743d31f2aa30af03d602945e74abb_a94f743d31f2aa30af03d602945e74abb} 
+ Generator\mbox{[}\mbox{\hyperlink{classqiskit_1_1passmanager_1_1base__tasks_1_1_task}{Task}}, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}, None\mbox{]} qiskit.\+passmanager.\+base\+\_\+tasks.\+Base\+Controller.\+iter\+\_\+tasks (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1passmanager_1_1compilation__status_1_1_pass_manager_state}{Pass\+Manager\+State}}}]{state}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A custom logic to choose a next task to run.
+
+Controller subclass can consume the state to build a proper task pipeline.  The updated
+state after a task execution will be fed back in as the "return" value of any ``yield``
+statements.  This indicates the order of task execution is only determined at running time.
+This method is not allowed to mutate the given state object.
+
+Args:
+    state: The state of the passmanager workflow at the beginning of this flow controller's
+        execution.
+
+Receives:
+    state: the state of pass manager after the execution of the last task that was yielded.
+        The generator does not need to inspect this if it is irrelevant to its logic, nor
+        update it.
+
+Yields:
+    Task: Next task to run.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_conditional_controller_aed73e526c01b77405c538fcd5e0436bd_aed73e526c01b77405c538fcd5e0436bd}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Conditional\+Controller}}, \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_do_while_controller_a1f4805523caa9c376c085a1e1fb0a856_a1f4805523caa9c376c085a1e1fb0a856}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Do\+While\+Controller}}, and \mbox{\hyperlink{classqiskit_1_1passmanager_1_1flow__controllers_1_1_flow_controller_linear_a86de4d2eedef7402e216858f80904a38_a86de4d2eedef7402e216858f80904a38}{qiskit.\+passmanager.\+flow\+\_\+controllers.\+Flow\+Controller\+Linear}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/passmanager/base\+\_\+tasks.\+py\end{DoxyCompactItemize}

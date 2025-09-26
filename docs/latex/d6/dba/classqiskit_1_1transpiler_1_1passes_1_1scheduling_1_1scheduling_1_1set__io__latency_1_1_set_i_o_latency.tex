@@ -1,0 +1,91 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+scheduling.\+set\+\_\+io\+\_\+latency.\+Set\+IOLatency Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency}\index{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency@{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+scheduling.\+set\+\_\+io\+\_\+latency.\+Set\+IOLatency\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.900452cm]{d6/dba/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a0cae40dc6398264dd8628889f80bffd9_a0cae40dc6398264dd8628889f80bffd9}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int clbit\+\_\+write\+\_\+latency=0, int conditional\+\_\+latency=0)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a4739080a570c701c3020c95c74a58364_a4739080a570c701c3020c95c74a58364}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_ae0989abb56d35512d49740678604f751}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_ae0989abb56d35512d49740678604f751} 
+{\bfseries \+\_\+conditional\+\_\+latency} = conditional\+\_\+latency
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_af448749ea0f8588b2802e203152ccde4}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_af448749ea0f8588b2802e203152ccde4} 
+{\bfseries \+\_\+clbit\+\_\+write\+\_\+latency} = clbit\+\_\+write\+\_\+latency
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Set IOLatency information to the input circuit.
+
+The ``clbit_write_latency`` and ``conditional_latency`` are added to
+the property set of pass manager. This information can be shared among the passes
+that perform scheduling on instructions acting on classical registers.
+
+Once these latencies are added to the property set, this information
+is also copied to the output circuit object as protected attributes,
+so that it can be utilized outside the transpilation,
+for example, the timeline visualization can use latency to accurately show
+time occupation by instructions on the classical registers.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a0cae40dc6398264dd8628889f80bffd9_a0cae40dc6398264dd8628889f80bffd9}\index{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency@{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency@{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a0cae40dc6398264dd8628889f80bffd9_a0cae40dc6398264dd8628889f80bffd9} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+scheduling.\+set\+\_\+io\+\_\+latency.\+Set\+IOLatency.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{clbit\+\_\+write\+\_\+latency}{ = {\ttfamily 0}, }\item[{int }]{conditional\+\_\+latency}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create pass with latency information.
+
+Args:
+    clbit_write_latency: A control flow constraints. Because standard superconducting
+        quantum processor implement dispersive QND readout, the actual data transfer
+        to the clbit happens after the round-trip stimulus signal is buffered
+        and discriminated into quantum state.
+        The interval ``[t0, t0 + clbit_write_latency]`` is regarded as idle time
+        for clbits associated with the measure instruction.
+        This defaults to 0 dt which is identical to Qiskit Pulse scheduler.
+    conditional_latency: A control flow constraints. This value represents
+        a latency of reading a classical register for the conditional operation.
+        The gate operation occurs after this latency. This appears as a delay
+        in front of the DAGOpNode of the gate.
+        This defaults to 0 dt.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a4739080a570c701c3020c95c74a58364_a4739080a570c701c3020c95c74a58364}\index{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency@{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency@{qiskit.transpiler.passes.scheduling.scheduling.set\_io\_latency.SetIOLatency}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1scheduling_1_1set__io__latency_1_1_set_i_o_latency_a4739080a570c701c3020c95c74a58364_a4739080a570c701c3020c95c74a58364} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+scheduling.\+set\+\_\+io\+\_\+latency.\+Set\+IOLatency.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Add IO latency information.
+
+Args:
+    dag: Input DAG circuit.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/scheduling/set\+\_\+io\+\_\+latency.\+py\end{DoxyCompactItemize}

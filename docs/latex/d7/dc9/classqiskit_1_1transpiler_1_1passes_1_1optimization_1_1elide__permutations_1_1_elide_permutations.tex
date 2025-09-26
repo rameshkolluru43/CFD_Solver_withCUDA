@@ -1,0 +1,68 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+optimization.\+elide\+\_\+permutations.\+Elide\+Permutations Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations}{}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations}\index{qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations@{qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+optimization.\+elide\+\_\+permutations.\+Elide\+Permutations\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.958042cm]{d7/dc9/classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations_a1ec2932ec713138f750a8ce8d93185d7_a1ec2932ec713138f750a8ce8d93185d7}{run}} (self, dag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Remove permutation operations from a pre-layout circuit
+
+This pass is intended to be run before a layout (mapping virtual qubits
+to physical qubits) is set during the transpilation pipeline. This
+pass iterates over the :class:`~.DAGCircuit` and when a :class:`~.SwapGate`
+or :class:`~.PermutationGate` are encountered it permutes the virtual qubits in
+the circuit and removes the swap gate. This will effectively remove any
+:class:`~SwapGate`\s or :class:`~PermutationGate` in the circuit prior to running
+layout. If this pass is run after a layout has been set it will become a no-op
+(and log a warning) as this optimization is not sound after physical qubits are
+selected and there are connectivity constraints to adhere to.
+
+For tracking purposes this pass sets 3 values in the property set if there
+are any :class:`~.SwapGate` or :class:`~.PermutationGate` objects in the circuit
+and the pass isn't a no-op.
+
+* ``original_layout``: The trivial :class:`~.Layout` for the input to this pass being run
+* ``original_qubit_indices``: The mapping of qubit objects to positional indices for the state
+    of the circuit as input to this pass.
+* ``virtual_permutation_layout``: A :class:`~.Layout` object mapping input qubits to the output
+    state after eliding permutations.
+
+These three properties are needed for the transpiler to track the permutations in the out
+:attr:`.QuantumCircuit.layout` attribute. The elision of permutations is equivalent to a
+``final_layout`` set by routing and all three of these attributes are needed in the case
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations_a1ec2932ec713138f750a8ce8d93185d7_a1ec2932ec713138f750a8ce8d93185d7}\index{qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations@{qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations@{qiskit.transpiler.passes.optimization.elide\_permutations.ElidePermutations}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1elide__permutations_1_1_elide_permutations_a1ec2932ec713138f750a8ce8d93185d7_a1ec2932ec713138f750a8ce8d93185d7} 
+qiskit.\+transpiler.\+passes.\+optimization.\+elide\+\_\+permutations.\+Elide\+Permutations.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the ElidePermutations pass on ``dag``.
+
+Args:
+    dag (DAGCircuit): the DAG to be optimized.
+
+Returns:
+    DAGCircuit: the optimized DAG.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/optimization/elide\+\_\+permutations.\+py\end{DoxyCompactItemize}

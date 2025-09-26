@@ -1,0 +1,60 @@
+\doxysection{dill.\+logger.\+Trace\+Adapter Class Reference}
+\hypertarget{classdill_1_1logger_1_1_trace_adapter}{}\label{classdill_1_1logger_1_1_trace_adapter}\index{dill.logger.TraceAdapter@{dill.logger.TraceAdapter}}
+
+
+Notes about the design choices \#\#.  
+
+
+Inheritance diagram for dill.\+logger.\+Trace\+Adapter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdill_1_1logger_1_1_trace_adapter}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_a1fa84139e389d849cb698283ccaeac12}\label{classdill_1_1logger_1_1_trace_adapter_a1fa84139e389d849cb698283ccaeac12} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, logger)
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_af1ff99e56c09702f282ceca4b51c9fa1}\label{classdill_1_1logger_1_1_trace_adapter_af1ff99e56c09702f282ceca4b51c9fa1} 
+{\bfseries add\+Handler} (self, handler)
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_a7532a7dd47c11ace30544835e1919275}\label{classdill_1_1logger_1_1_trace_adapter_a7532a7dd47c11ace30544835e1919275} 
+{\bfseries remove\+Handler} (self, handler)
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_ac8135703b00402061d0a8769bf1fa80f}\label{classdill_1_1logger_1_1_trace_adapter_ac8135703b00402061d0a8769bf1fa80f} 
+{\bfseries process} (self, msg, kwargs)
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_a0685b983b59bb61aa5bb873893dbbaa0}\label{classdill_1_1logger_1_1_trace_adapter_a0685b983b59bb61aa5bb873893dbbaa0} 
+{\bfseries trace\+\_\+setup} (self, pickler)
+\item 
+\Hypertarget{classdill_1_1logger_1_1_trace_adapter_a54c49abb924c4173c00fdaf0b57f6b14}\label{classdill_1_1logger_1_1_trace_adapter_a54c49abb924c4173c00fdaf0b57f6b14} 
+{\bfseries trace} (self, pickler, msg, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Notes about the design choices \#\#. 
+
+\begin{DoxyVerb}Tracks object tree depth and calculates pickled object size.
+
+A single instance of this wraps the module's logger, as the logging API
+doesn't allow setting it directly with a custom Logger subclass.  The added
+'trace()' method receives a pickle instance as the first argument and
+creates extra values to be added in the LogRecord from it, then calls
+'info()'.
+
+Usage of logger with 'trace()' method:
+
+>>> from dill.logger import adapter as logger  #NOTE: not dill.logger.logger
+>>> ...
+>>> def save_atype(pickler, obj):
+>>>     logger.trace(pickler, "Message with %s and %r etc. placeholders", 'text', obj)
+>>>     ...
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/dill/logger.\+py\end{DoxyCompactItemize}

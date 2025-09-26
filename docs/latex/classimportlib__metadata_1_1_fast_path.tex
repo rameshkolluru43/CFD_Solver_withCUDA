@@ -1,0 +1,62 @@
+\doxysection{importlib\+\_\+metadata.\+Fast\+Path Class Reference}
+\hypertarget{classimportlib__metadata_1_1_fast_path}{}\label{classimportlib__metadata_1_1_fast_path}\index{importlib\_metadata.FastPath@{importlib\_metadata.FastPath}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a2eb991051744ad96d8fa72229e3110fe}\label{classimportlib__metadata_1_1_fast_path_a2eb991051744ad96d8fa72229e3110fe} 
+{\bfseries \+\_\+\+\_\+new\+\_\+\+\_\+} (cls, root)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a8f7f1ac429870a743b2a5dcded26369a}\label{classimportlib__metadata_1_1_fast_path_a8f7f1ac429870a743b2a5dcded26369a} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, root)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a7c4dcad354158ea0fb1cbbc4a8eab88b}\label{classimportlib__metadata_1_1_fast_path_a7c4dcad354158ea0fb1cbbc4a8eab88b} 
+{\bfseries joinpath} (self, child)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_afa8c12b6b630fb24e601204e4c3f14a1}\label{classimportlib__metadata_1_1_fast_path_afa8c12b6b630fb24e601204e4c3f14a1} 
+{\bfseries children} (self)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a3cf5409e3a4446288e5d4e1bc46827f0}\label{classimportlib__metadata_1_1_fast_path_a3cf5409e3a4446288e5d4e1bc46827f0} 
+{\bfseries zip\+\_\+children} (self)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_af74b78a5453638d41e557774a45e872f}\label{classimportlib__metadata_1_1_fast_path_af74b78a5453638d41e557774a45e872f} 
+{\bfseries search} (self, name)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a507d27d40534462efbbad3e0b5534ec9}\label{classimportlib__metadata_1_1_fast_path_a507d27d40534462efbbad3e0b5534ec9} 
+{\bfseries mtime} (self)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_ade3a0c6ebc0a5a8084dc521e357ee26e}\label{classimportlib__metadata_1_1_fast_path_ade3a0c6ebc0a5a8084dc521e357ee26e} 
+{\bfseries lookup} (self, mtime)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a13d061bb542eb34929ba2ede43dabf00}\label{classimportlib__metadata_1_1_fast_path_a13d061bb542eb34929ba2ede43dabf00} 
+{\bfseries root} = root
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_aa5fc9ed97d2413b5fa28c06ae7415147}\label{classimportlib__metadata_1_1_fast_path_aa5fc9ed97d2413b5fa28c06ae7415147} 
+{\bfseries joinpath} = zip\+\_\+path.\+joinpath
+\item 
+\Hypertarget{classimportlib__metadata_1_1_fast_path_a90974ee46be844d820c85847eace8f03}\label{classimportlib__metadata_1_1_fast_path_a90974ee46be844d820c85847eace8f03} 
+{\bfseries mtime}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Micro-optimized class for searching a root for children.
+
+Root is a path on the file system that may contain metadata
+directories either as natural directories or within a zip file.
+
+>>> FastPath('').children()
+['...']
+
+FastPath objects are cached and recycled for any given root.
+
+>>> FastPath('foobar') is FastPath('foobar')
+True
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/importlib\+\_\+metadata/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

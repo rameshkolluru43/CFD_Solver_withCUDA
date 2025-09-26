@@ -1,0 +1,385 @@
+\doxysection{Gradients.\+cpp}
+\hypertarget{_gradients_8cpp_source}{}\label{_gradients_8cpp_source}\index{Basic\_Files/Gradients.cpp@{Basic\_Files/Gradients.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Viscous\ flux\ requires\ gradient\ of\ primitive\ variables\ \ \ grad\_u\ =\ del\_u/del\_x\ \ \ \ i\ \ \ +\ \ \ del\_u/del\_y\ \ \ \ \ j}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grad\_v\ =\ del\_v/del\_x\ \ \ \ i\ \ \ +\ \ \ del\_v/del\_y\ \ \ \ \ j}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grad\_T\ =\ del\_T/del\_x\ \ \ \ i\ \ \ +\ \ \ del\_T/del\_y\ \ \ \ \ j}}
+\DoxyCodeLine{00008\ \textcolor{comment}{}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_Gradient[0]\ =\ del\_u/del\_X}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_Gradient[1]\ =\ del\_u/del\_y\ \ \ \ \ }}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_Gradient[0]\ =\ del\_v/del\_X}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_Gradient[1]\ =\ del\_v/del\_y}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_Gradient[0]\ =\ del\_T/del\_X}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_Gradient[1]\ =\ del\_T/del\_y}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{void}\ Identify\_Neighbours\_For\_Second\_Gradients(\textcolor{keywordtype}{int}\ \&\ Current\_Cell\_Index)}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ This\ function\ identifies\ the\ secondary\ Neighbours\ of\ the\ Cells\ to\ evaluate\ the\ second\ gradient\ \ \ }}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//\ This\ function\ given\ (i,j)\ it\ identifies\ (i-\/1,j-\/1),\ (i+1,j-\/1),\ (i+1,j+1),\ (i-\/1,j+1)}}
+\DoxyCodeLine{00023\ \ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0,Neighbour\_5=0,Neighbour\_6=0,Neighbour\_7=0,Neighbour\_8=0;\ \ \ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ (i-\/1,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j+1)}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j)}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ (i-\/1,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j-\/1)}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*/}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ Obtaining\ The\ neighbours\ for\ a\ given\ cell}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ }}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_Index][1];\ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_Index][2];}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i+1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)}}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_Index][3];\ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_Index][4];}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Current\_Cell\_Index<<"{}\(\backslash\)tCell\ Neighbours\(\backslash\)t"{}<<Neighbour\_1<<"{}\(\backslash\)t"{}<<Neighbour\_2<<"{}\(\backslash\)t"{}<<Neighbour\_3<<"{}\(\backslash\)t"{}<<Neighbour\_4<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ Neighbour\_5(i-\/1,j-\/1),\ Neighbour\_6(i+1,j-\/1),\ Neighbour\_7(i+1,j+1)\ and\ Neighbour\_8(i-\/1,j+1)\ are\ the\ secondary\ Cells\ used\ for\ Find\ the\ Gradients\ -\/-\/-\/\ extended\ Stencil}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ if\ N1\ and\ N2\ are\ Ghost\ Cells\ meaning\ Left\ Bottom\ Corner}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Neighbour\_1\ >=\ No\_Physical\_Cells\ and\ Neighbour\_2\ >=\ No\_Physical\_Cells)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Neighbour\_2;\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_4][1];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \textcolor{comment}{//\ if\ N2\ and\ N3\ are\ Ghost\ Cells\ Meaning\ Right\ Bottom\ Corner}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Neighbour\_2\ >=\ No\_Physical\_Cells\ and\ Neighbour\_3\ >=\ No\_Physical\_Cells)}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_6\ =\ Neighbour\_2;}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_4][3];}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00056\ \textcolor{comment}{//\ if\ N3\ and\ N4\ are\ Ghost\ Cells\ Meaning\ Right\ Top\ Corner\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Neighbour\_3\ >=\ No\_Physical\_Cells\ and\ Neighbour\_4\ >=\ No\_Physical\_Cells)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_2][3];}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Neighbour\_4;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ if\ N1\ and\ N4\ are\ Ghost\ Cells\ Meaning\ Left\ Top\ Corner}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Neighbour\_1\ >=\ No\_Physical\_Cells\ and\ Neighbour\_4\ >=\ No\_Physical\_Cells)}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_2][1];}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Neighbour\_4;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ if\ N1,\ N2,\ N3\ and\ N4\ are\ interior\ cells\ then\ }}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Neighbour\_1>=No\_Physical\_Cells\ and\ Current\_Cell\_Index\ >\ 0)\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Face\ or\ Face\ 0\ -\/-\/-\/\ Left\ boundary\ apart\ from\ corners}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_2][1];\ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_4][1];\ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];\ \ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Neighbour\_3\ >=No\_Physical\_Cells)\ \ \ \ \textcolor{comment}{//\ Right\ Face\ or\ Face\ 2\ -\/-\/\ Right\ boundary\ apart\ from\ corners}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];\ \ \ \ \ \ Neighbour\_6\ =\ Neighbour\_2;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];\ \ \ \ \ \ Neighbour\_7\ =\ Neighbour\_4;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (Neighbour\_2>=No\_Physical\_Cells)\ \textcolor{comment}{//\ Bottom\ Face\ or\ Face\ 1}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];\ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];\ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Neighbour\_4\ >=\ No\_Physical\_Cells)\ \textcolor{comment}{//\ Top\ Face\ or\ Face\ 3}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];\ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];\ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ Condition\ for\ the\ Cells\ not\ near\ the\ boundary\ }}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cell\_Neighbours[Neighbour\_1][2];\ \ \ \ \ \ Neighbour\_6\ =\ Cell\_Neighbours[Neighbour\_3][2];}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_8\ =\ Cell\_Neighbours[Neighbour\_1][4];\ \ \ \ \ \ Neighbour\_7\ =\ Cell\_Neighbours[Neighbour\_3][4];\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][0]\ =\ Neighbour\_5;}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][1]\ =\ Neighbour\_6;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][2]\ =\ Neighbour\_7;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][3]\ =\ Neighbour\_8;}
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Secondary\ Neighbours\(\backslash\)t"{}<<Neighbour\_5<<"{}\(\backslash\)t"{}<<Neighbour\_6<<"{}\(\backslash\)t"{}<<Neighbour\_7<<"{}\(\backslash\)t"{}<<Neighbour\_8<<endl;}}
+\DoxyCodeLine{00108\ \ \ \ \ }
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{keywordtype}{void}\ Calculate\_Gradient\_On\_Face(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Current\_Cell\_Index,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Grad\_Type,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00113\ \{}
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ This\ Function\ Evaluates\ the\ gradient\ on\ the\ face\ of\ the\ cell\ for\ the\ variable\ using\ Green-\/Gauss\ Method\ using\ Co-\/Volume\ method.*/}\ }
+\DoxyCodeLine{00115\ \ \ \ \ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{double}\ nx\_0=0.0,ny\_0=0.0,dl\_0=0.0,nx\_1=0.0,ny\_1=0.0,dl\_1=0.0,nx\_2=0.0,ny\_2=0.0,dl\_2=0.0,nx\_3=0.0,ny\_3=0.0,dl\_3=0.0,Co\_Volume\_Inv\_Area=0.0;}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{double}\ Vertex\_Average\_o=0.0,Vertex\_Average\_a=0.0,Vertex\_Average\_b=0.0,Vertex\_Average\_c=0.0;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{double}\ Cell\_Average\_CC=0.0,Cell\_Average\_N1=0.0,Cell\_Average\_N2=0.0,Cell\_Average\_N3=0.0,Cell\_Average\_N4=0.0;}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{double}\ Cell\_Average\_N5=0.0,Cell\_Average\_N6=0.0,Cell\_Average\_N7=0.0,Cell\_Average\_N8=0.0;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{double}\ av1=0.0,av2=0.0,av3=0.0,av4=0.0;}
+\DoxyCodeLine{00121\ \ \ \ \ \ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0,Neighbour\_5=0,Neighbour\_6=0,Neighbour\_7=0,Neighbour\_8=0;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{double}\ WCC=1.0,WN1=1.0,WN2=1.0,WN3=1.0,WN4=1.0,WN5=1.0,WN6=1.0,WN7=1.0,WN8=1.0;}
+\DoxyCodeLine{00123\ \ \ \ \ }
+\DoxyCodeLine{00124\ \textcolor{comment}{//\ Following\ Neighbouring\ information\ is\ required\ for\ gradient\ computation}}
+\DoxyCodeLine{00125\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ \ (i-\/1,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j+1)}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j)}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ \ \ \ (i-\/1,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j-\/1)}}
+\DoxyCodeLine{00129\ \textcolor{comment}{*/}\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \textcolor{comment}{//\ Obtaining\ The\ neighbours\ for\ a\ given\ cell}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ }}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_Index][1];\ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_Index][2];}
+\DoxyCodeLine{00133\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i+1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)}}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_Index][3];\ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_Index][4];}
+\DoxyCodeLine{00135\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ }}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ Neighbour\_5\ =\ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][0];\ \ \ \ Neighbour\_6\ =\ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][1];}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ (i+1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ Neighbour\_7\ =\ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][2];\ \ \ \ Neighbour\_8\ =\ Cells\_Secondary\_Neighbours[Current\_Cell\_Index][3];}
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Current\_Cell\_Index<<"{}\(\backslash\)tCell\ Neighbours\(\backslash\)t"{}<<Neighbour\_5<<"{}\(\backslash\)t"{}<<Neighbour\_6<<"{}\(\backslash\)t"{}<<Neighbour\_7<<"{}\(\backslash\)t"{}<<Neighbour\_8<<endl;}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ Obtaining\ The\ Cell\ Averages\ from\ Immediate\ Neighbours\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ Cell\_Average\_CC\ =\ Primitive\_Cells[Current\_Cell\_Index][Grad\_Type];}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ Cell\_Average\_N1\ =\ Primitive\_Cells[Neighbour\_1][Grad\_Type];\ \ Cell\_Average\_N2\ =\ Primitive\_Cells[Neighbour\_2][Grad\_Type];\ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ Cell\_Average\_N3\ =\ Primitive\_Cells[Neighbour\_3][Grad\_Type];\ \ Cell\_Average\_N4\ =\ Primitive\_Cells[Neighbour\_4][Grad\_Type];}
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ Average\ values\ at\ the\ vertices\ o,a,b,c\ for\ the\ given\ cell}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ Cell\_Average\_N5\ =\ Primitive\_Cells[Neighbour\_5][Grad\_Type];\ \ Cell\_Average\_N6\ =\ Primitive\_Cells[Neighbour\_6][Grad\_Type];\ \ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ Cell\_Average\_N7\ =\ Primitive\_Cells[Neighbour\_7][Grad\_Type];\ \ Cell\_Average\_N8\ =\ Primitive\_Cells[Neighbour\_8][Grad\_Type];}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ }
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ Finding\ Aera\ Weighted\ Average\ value\ at\ the\ vertices\ of\ the\ face\ o,a,b,c\ \ }}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{switch}(Area\_Weighted\_Average)}
+\DoxyCodeLine{00153\ \ \ \ \ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ Area\ Weigheted\ Average}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ WCC\ =\ Cells\_Area[Current\_Cell\_Index]\ ;\ }
+\DoxyCodeLine{00156\ \ \ \ \ \ \ WN1\ =\ Cells\_Area[Neighbour\_1];\ \ \ \ WN2\ =\ Cells\_Area[Neighbour\_2];\ WN3\ =\ Cells\_Area[Neighbour\_3];\ WN4\ =\ Cells\_Area[Neighbour\_4];}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ WN5\ =\ Cells\_Area[Neighbour\_5];\ \ \ \ WN6\ =\ Cells\_Area[Neighbour\_6];\ WN7\ =\ Cells\_Area[Neighbour\_7];\ WN8\ =\ Cells\_Area[Neighbour\_8];}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ Inverse\ Area\ Weighted\ Average}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ WCC\ =\ 1.0/Cells\_Area[Current\_Cell\_Index]\ ;\ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ WN1\ =\ 1.0/Cells\_Area[Neighbour\_1];\ \ \ \ WN2\ =\ 1.0/Cells\_Area[Neighbour\_2];\ WN3\ =\ 1.0/Cells\_Area[Neighbour\_3];\ WN4\ =\ 1.0/Cells\_Area[Neighbour\_4];}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ WN5\ =\ 1.0/Cells\_Area[Neighbour\_5];\ \ \ \ WN6\ =\ 1.0/Cells\_Area[Neighbour\_6];\ WN7\ =\ 1.0/Cells\_Area[Neighbour\_7];\ WN8\ =\ 1.0/Cells\_Area[Neighbour\_8];}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00164\ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//Equal\ weights}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ WCC\ =\ 1.0;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ WN1\ =\ 1.0;\ \ \ \ WN2\ =\ 1.0;\ WN3\ =\ 1.0;\ WN4\ =\ 1.0;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ WN5\ =\ 1.0;\ \ \ \ WN6\ =\ 1.0;\ WN7\ =\ 1.0;\ WN8\ =\ 1.0;}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00171\ \ \ \ \ }
+\DoxyCodeLine{00172\ \textcolor{comment}{//\ \ cout<<"{}************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ \ cout<<"{}Size\ of\ Co\_Volume\ Cell\ face\ normals\(\backslash\)t"{}<<Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index].size()<<endl;}}
+\DoxyCodeLine{00174\ \ \ \ \ nx\_0\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 0];\ \ \ \ \ \ \textcolor{comment}{//\ Co-\/Volume\ Face\ 0}}
+\DoxyCodeLine{00175\ \ \ \ \ ny\_0\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 1];}
+\DoxyCodeLine{00176\ \ \ \ \ dl\_0\ =\ Co\_Volume\_Cell\_Face\_Areas[Current\_Cell\_Index][Face\_No*4\ +\ 0];}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00178\ \ \ \ \ nx\_1\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 2];\ \ \ \ \ \ \textcolor{comment}{//\ Co-\/Volume\ Face\ 1}}
+\DoxyCodeLine{00179\ \ \ \ \ ny\_1\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 3];}
+\DoxyCodeLine{00180\ \ \ \ \ dl\_1\ =\ Co\_Volume\_Cell\_Face\_Areas[Current\_Cell\_Index][Face\_No*4\ +\ 1];}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00182\ \ \ \ \ nx\_2\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 4];\ \ \ \ \ \ \textcolor{comment}{//\ Co-\/Volume\ Face\ 2}}
+\DoxyCodeLine{00183\ \ \ \ \ ny\_2\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 5];}
+\DoxyCodeLine{00184\ \ \ \ \ dl\_2\ =\ Co\_Volume\_Cell\_Face\_Areas[Current\_Cell\_Index][Face\_No*4\ +\ 2];}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00186\ \ \ \ \ nx\_3\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 6];\ \ \ \ \ \ \textcolor{comment}{//\ Co-\/Volume\ Face\ 3}}
+\DoxyCodeLine{00187\ \ \ \ \ ny\_3\ =\ Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index][Face\_No*8\ +\ 7];}
+\DoxyCodeLine{00188\ \ \ \ \ dl\_3\ =\ Co\_Volume\_Cell\_Face\_Areas[Current\_Cell\_Index][Face\_No*4\ +\ 3];}
+\DoxyCodeLine{00189\ \ \ \ \ }
+\DoxyCodeLine{00190\ \textcolor{comment}{//\ \ cout<<"{}co\ volume\ area\ size\(\backslash\)t"{}<<Co\_Volume\_Cell\_Area[Current\_Cell\_Index].size()<<endl;}}
+\DoxyCodeLine{00191\ \ \ \ \ Co\_Volume\_Inv\_Area\ =\ 1.0/\ Co\_Volume\_Cell\_Area[Current\_Cell\_Index][Face\_No];}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{keywordflow}{switch}(Face\_No)}
+\DoxyCodeLine{00194\ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \ \textcolor{comment}{//\ For\ Face\_0\ \ }}
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ 0\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ Vertex\_Average\_o\ =\ (WCC*Cell\_Average\_CC\ +\ WN1*Cell\_Average\_N1\ +\ WN2*Cell\_Average\_N2\ +\ WN5*Cell\_Average\_N5)/(WCC\ +\ WN1\ +\ WN2\ +\ WN5);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ Vertex\_Average\_c\ =\ (WCC*Cell\_Average\_CC\ +\ WN1*Cell\_Average\_N1\ +\ WN4*Cell\_Average\_N4\ +\ WN8*Cell\_Average\_N8)/(WCC\ +\ WN1\ +\ WN4\ +\ WN8);}
+\DoxyCodeLine{00200\ \ \ \ \ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ av2\ =\ 0.5*(Cell\_Average\_N1\ +\ Vertex\_Average\_o);\ \ \ \ \ \textcolor{comment}{//\ Average\ for\ Face\ 0}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ av3\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_o);\ \ \ \ \ \textcolor{comment}{//\ Average\ for\ Face\ 1\ }}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ av4\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_c);\ \ \ \ \ \textcolor{comment}{//\ Average\ for\ Face\ 2\ }}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ av1\ =\ 0.5*(Cell\_Average\_N1\ +\ Vertex\_Average\_c);\ \ \ \ \ \textcolor{comment}{//\ Average\ for\ Face\ 3\ \ \ }}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ For\ Face\_1\ \ \ }}
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Neighbours\(\backslash\)t"{}<<Neighbour\_1<<"{}\(\backslash\)t"{}<<Neighbour\_2<<"{}\(\backslash\)t"{}<<Neighbour\_3<<"{}\(\backslash\)t"{}<<Neighbour\_4<<"{}\(\backslash\)t"{}<<Neighbour\_5<<"{}\(\backslash\)t"{}<<Neighbour\_6<<"{}\(\backslash\)t"{}<<Neighbour\_7<<"{}\(\backslash\)t"{}<<Neighbour\_8<<endl;}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Average\_o\ =\ (WCC*Cell\_Average\_CC\ +\ WN1*Cell\_Average\_N1\ +\ WN2*Cell\_Average\_N2\ +\ WN5*Cell\_Average\_N5)/(WCC\ +\ WN1\ +\ WN2\ +\ WN5);}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Average\_a\ =\ (WCC*Cell\_Average\_CC\ +\ WN2*Cell\_Average\_N2\ +\ WN3*Cell\_Average\_N3\ +\ WN6*Cell\_Average\_N6)/(WCC\ +\ WN2\ +\ WN3\ +\ WN6);\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ No\(\backslash\)t"{}<<Face\_No<<"{}Vertex\ Averages\(\backslash\)t"{}<<Vertex\_Average\_o<<"{}\(\backslash\)t"{}<<Vertex\_Average\_a<<"{}\(\backslash\)t"{}<<Vertex\_Average\_b<<"{}\(\backslash\)t"{}<<Vertex\_Average\_c<<endl;}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ av2\ =\ 0.5*(Cell\_Average\_N2\ +\ Vertex\_Average\_o);\ \ \ \ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ av3\ =\ 0.5*(Cell\_Average\_N2\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ av4\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ av1\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_o);}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ For\ Face\_2\ \ \ }}
+\DoxyCodeLine{00217\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Face\ 2\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ Vertex\_Average\_a\ =\ (WCC*Cell\_Average\_CC\ +\ WN2*Cell\_Average\_N2\ +\ WN3*Cell\_Average\_N3\ +\ WN6*Cell\_Average\_N6)/(WCC\ +\ WN2\ +\ WN3\ +\ WN6);}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ Vertex\_Average\_b\ =\ (WCC*Cell\_Average\_CC\ +\ WN3*Cell\_Average\_N3\ +\ WN4*Cell\_Average\_N4\ +\ WN7*Cell\_Average\_N7)/(WCC\ +\ WN3\ +\ WN4\ +\ WN7);}
+\DoxyCodeLine{00221\ }
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ av2\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_a);\ \ \ \ \ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ av3\ =\ 0.5*(Cell\_Average\_N3\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ av4\ =\ 0.5*(Cell\_Average\_N3\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ av1\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00226\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<av1<<"{}\(\backslash\)t"{}<<av2<<"{}\(\backslash\)t"{}<<av3<<"{}\(\backslash\)t"{}<<av4<<endl;\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \ \ \ \ \textcolor{comment}{//\ For\ Face\_3\ \ \ }}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ Vertex\_Average\_b\ =\ (WCC*Cell\_Average\_CC\ +\ WN3*Cell\_Average\_N3\ +\ WN4*Cell\_Average\_N4\ +\ WN7*Cell\_Average\_N7)/(WCC\ +\ WN3\ +\ WN4\ +\ WN7);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ Vertex\_Average\_c\ =\ (WCC*Cell\_Average\_CC\ +\ WN1*Cell\_Average\_N1\ +\ WN4*Cell\_Average\_N4\ +\ WN8*Cell\_Average\_N8)/(WCC\ +\ WN1\ +\ WN4\ +\ WN8);}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ av2\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_c);\ \ \ \ \ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ av3\ =\ 0.5*(Cell\_Average\_CC\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ av4\ =\ 0.5*(Cell\_Average\_N4\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ av1\ =\ 0.5*(Cell\_Average\_N4\ +\ Vertex\_Average\_c);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \ \ \ \ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ u\_Gradient[0]\ =0.0;\ u\_Gradient[1]\ =0.0;}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ v\_Gradient[0]\ =0.0;\ v\_Gradient[1]\ =0.0;}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ T\_Gradient[0]\ =0.0;\ T\_Gradient[1]\ =0.0;\ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordflow}{switch}(Grad\_Type)}
+\DoxyCodeLine{00244\ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ u\ Velocity}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_Gradient[0]\ =\ (av1*nx\_0*dl\_0\ +\ av2*nx\_1*dl\_1\ +\ av3*nx\_2*dl\_2\ +\ av4*nx\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_Gradient[1]\ =\ (av1*ny\_0*dl\_0\ +\ av2*ny\_1*dl\_1\ +\ av3*ny\_2*dl\_2\ +\ av4*ny\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ \ if(Cells\_Face\_Boundary\_Type[Current\_Cell\_Index][Face\_No])}}
+\DoxyCodeLine{00250\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00251\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<Current\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00252\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Face\ No\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)tu\ velocity\ gradients\(\backslash\)t"{}<<u\_Gradient[0]<<"{}\(\backslash\)t"{}<<u\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00253\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Face\ No\(\backslash\)t"{}<<Face\_No<<"{}Vertex\ Averages\(\backslash\)t"{}<<Vertex\_Average\_o<<"{}\(\backslash\)t"{}<<Vertex\_Average\_a<<endl;}}
+\DoxyCodeLine{00254\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Neighbour\ Values"{}<<endl;}}
+\DoxyCodeLine{00255\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Cell\_Average\_CC<<"{}\(\backslash\)t"{}<<Cell\_Average\_N1<<"{}\(\backslash\)t"{}<<Cell\_Average\_N5<<"{}\(\backslash\)t"{}<<Cell\_Average\_N2<<endl;}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Cell\_Average\_CC<<"{}\(\backslash\)t"{}<<Cell\_Average\_N2<<"{}\(\backslash\)t"{}<<Cell\_Average\_N3<<"{}\(\backslash\)t"{}<<Cell\_Average\_N6<<endl;}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<av1<<"{}\(\backslash\)t"{}<<av2<<"{}\(\backslash\)t"{}<<av3<<"{}\(\backslash\)t"{}<<av4<<endl;}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<nx\_0<<"{}\(\backslash\)t"{}<<ny\_0<<"{}\(\backslash\)t"{}<<nx\_1<<"{}\(\backslash\)t"{}<<ny\_1<<"{}\(\backslash\)t"{}<<nx\_2<<"{}\(\backslash\)t"{}<<ny\_2<<"{}\(\backslash\)t"{}<<nx\_3<<"{}\(\backslash\)t"{}<<ny\_3<<endl;}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Face\ Lengths\(\backslash\)t"{}<<dl\_0<<"{}\(\backslash\)t"{}<<dl\_1<<"{}\(\backslash\)t"{}<<dl\_2<<"{}\(\backslash\)t"{}<<dl\_3<<endl;}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Co\ Volume\ Inv\ Area\(\backslash\)t"{}<<Co\_Volume\_Inv\_Area<<endl;\ }}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}*********************************************************"{}<<endl;\ \ \ \ }}
+\DoxyCodeLine{00262\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ v\ Velocity\ for\ a\ particular\ face}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_Gradient[0]\ =\ (av1*nx\_0*dl\_0\ +\ av2*nx\_1*dl\_1\ +\ av3*nx\_2*dl\_2\ +\ av4*nx\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_Gradient[1]\ =\ (av1*ny\_0*dl\_0\ +\ av2*ny\_1*dl\_1\ +\ av3*ny\_2*dl\_2\ +\ av4*ny\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}v\ gradient\(\backslash\)t"{}<<v\_Gradient[0]<<"{}\(\backslash\)t"{}<<v\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ of\ Temperature\ on\ a\ particular\ face\ }}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_Gradient[0]\ =\ (av1*nx\_0*dl\_0\ +\ av2*nx\_1*dl\_1\ +\ av3*nx\_2*dl\_2\ +\ av4*nx\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ T\_Gradient[1]\ =\ (av1*ny\_0*dl\_0\ +\ av2*ny\_1*dl\_1\ +\ av3*ny\_2*dl\_2\ +\ av4*ny\_3*dl\_3)*Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}T\ gradient\(\backslash\)t"{}<<T\_Gradient[0]<<"{}\(\backslash\)t"{}<<T\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00276\ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}///////////////////////////////////////////////////////////////"{}\ <<endl;}}
+\DoxyCodeLine{00278\ \ \ \ \ }
+\DoxyCodeLine{00279\ \}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{comment}{//\ Calculates\ Viscous\ flux\ from\ a\ face\ by\ evaluating\ average\ gradients\ on\ the\ face\ and\ also\ evaluates\ heat\ flux\ from\ the\ face}}
+\DoxyCodeLine{00283\ \textcolor{keywordtype}{void}\ Viscous\_Flux\_on\_Face(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&Face\_No)}
+\DoxyCodeLine{00284\ \{}
+\DoxyCodeLine{00285\ \ \textcolor{comment}{//\ cout<<"{}Calculating\ Viscous\ flux\ for\ Cell\ No\(\backslash\)t"{}<<Cell\_No<<"{}\(\backslash\)t\ on\ face\ \(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00286\ \ \ \ \ \textcolor{keywordtype}{double}\ u11,u12,u21,u22,T11,T12,T21,T22;}
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{double}\ v1=0.0,v2=0.0,mu=0.0;}
+\DoxyCodeLine{00288\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2,Grad\_Type=0,N\_Cell\_No=0;}
+\DoxyCodeLine{00289\ \ \ \ \ }
+\DoxyCodeLine{00290\ \ \ \ \ Qx=0.0;\ Qy=0.0;}
+\DoxyCodeLine{00291\ \ \ \ \ }
+\DoxyCodeLine{00292\ \textcolor{comment}{//\ Normals\ and\ Face\ Area\ (in\ 2D\ Length\ of\ the\ face)\ }}
+\DoxyCodeLine{00293\ \ \ \ \ }
+\DoxyCodeLine{00294\ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][index+0];}
+\DoxyCodeLine{00295\ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index+1];}
+\DoxyCodeLine{00296\ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \textcolor{comment}{//\ Fetching\ the\ Corresponding\ Neighbours\ for\ the\ given\ cell\ and\ given\ face\ \ }}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordflow}{switch}(Face\_No)}
+\DoxyCodeLine{00300\ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ Cell\_Neighbours[Cell\_No][1];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ Cell\_Neighbours[Cell\_No][2];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ Cell\_Neighbours[Cell\_No][3];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ Cell\_Neighbours[Cell\_No][4];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00305\ \ \ \ \ \}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{comment}{//\ Find\ the\ arthematic\ average\ of\ the\ velocities\ and\ Temperature\ on\ the\ Face}}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00309\ \ \ \ \ v1\ =\ 0.5*(Primitive\_Cells[Cell\_No][1]\ +\ Primitive\_Cells[N\_Cell\_No][1]);}
+\DoxyCodeLine{00310\ \ \ \ \ v2\ =\ 0.5*(Primitive\_Cells[Cell\_No][2]\ +\ Primitive\_Cells[N\_Cell\_No][2]);}
+\DoxyCodeLine{00311\ \ \ \ \ mu\ \ =\ 0.5*(Primitive\_Cells[Cell\_No][8]\ +\ Primitive\_Cells[N\_Cell\_No][8]);}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \textcolor{comment}{//\ \ cout<<"{}Velocities\ on\ Face\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<endl;\ \ \ }}
+\DoxyCodeLine{00314\ \ \ \ \ }
+\DoxyCodeLine{00315\ \ \ \ \ }
+\DoxyCodeLine{00316\ \ \ \ \ Grad\_Type\ =\ 1;\ \ \textcolor{comment}{//\ U\ velocity\ Gradient\ \ \ \ \ \ //\ Finds\ the\ u\ Velocity\ gradient\ on\ the\ face\ required}}
+\DoxyCodeLine{00317\ \ \ \ \ Calculate\_Gradient\_On\_Face(Cell\_No,Grad\_Type,Face\_No);}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ u11\ =\ u\_Gradient[0];\ \ \ \ u12\ =\ u\_Gradient[1];\ \ \ \ }
+\DoxyCodeLine{00319\ \ \ \ \ Grad\_Type\ =\ 2;\ \textcolor{comment}{//\ V\ Velocity\ Gradient\ }}
+\DoxyCodeLine{00320\ \ \ \ \ Calculate\_Gradient\_On\_Face(Cell\_No,Grad\_Type,Face\_No);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ u21\ =\ v\_Gradient[0];\ \ \ \ u22\ =\ v\_Gradient[1];\ \ \ \ }
+\DoxyCodeLine{00322\ \ \ \ \ Grad\_Type\ =\ 3;\ \textcolor{comment}{//\ Temperature\ Gradient}}
+\DoxyCodeLine{00323\ \ \ \ \ Calculate\_Gradient\_On\_Face(Cell\_No,Grad\_Type,Face\_No);}
+\DoxyCodeLine{00324\ \textcolor{comment}{//\ \ cout<<"{}Gradients\(\backslash\)t"{}<<Cell\_No<<"{}\(\backslash\)t"{}<<u11<<"{}\(\backslash\)t"{}<<u12<<"{}\(\backslash\)t"{}<<u21<<"{}\(\backslash\)t"{}<<u22<<"{}\(\backslash\)t"{}<<T\_Gradient[0]<<"{}\(\backslash\)t"{}<<T\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00325\ \textcolor{comment}{//\ \ cout<<T<<"{}\(\backslash\)t"{}<<mu<<"{}\(\backslash\)t"{}<<Re<<"{}\(\backslash\)t"{}<<Pr<<endl;}}
+\DoxyCodeLine{00326\ \ \ \ \ T11\ =\ (2.0/3.0)*mu*Inv\_Re*(2.0*u11\ -\/\ u22);\ }
+\DoxyCodeLine{00327\ \ \ \ \ T12\ =\ mu*Inv\_Re*(u12\ +\ u21);}
+\DoxyCodeLine{00328\ \ \ \ \ T21\ =\ T12;}
+\DoxyCodeLine{00329\ \ \ \ \ T22\ =\ (2.0/3.0)*mu*Inv\_Re*(2.0*u22\ -\/\ u11);}
+\DoxyCodeLine{00330\ \textcolor{comment}{//\ \ cout<<T11<<"{}\(\backslash\)t"{}<<T12<<"{}\(\backslash\)t"{}<<T21<<"{}\(\backslash\)t"{}<<T22<<endl;}}
+\DoxyCodeLine{00331\ \textcolor{comment}{//\ \ K1\ =\ mu/(gamma\_M\_1*M\_ref*M\_ref*Re*Pr);\ }}
+\DoxyCodeLine{00332\ \ \ \ \ Qx\ =\ K1*T\_Gradient[0];}
+\DoxyCodeLine{00333\ \ \ \ \ Qy\ =\ K1*T\_Gradient[1];}
+\DoxyCodeLine{00334\ }
+\DoxyCodeLine{00335\ \ \ \ \ Cells\_Viscous\_Flux[Cell\_No][0]\ +=\ 0.0;}
+\DoxyCodeLine{00336\ \ \ \ \ Cells\_Viscous\_Flux[Cell\_No][1]\ +=\ (T11*nx\ +\ T21*ny)*dl;\ \textcolor{comment}{//\ Ti1Ai}}
+\DoxyCodeLine{00337\ \ \ \ \ Cells\_Viscous\_Flux[Cell\_No][2]\ +=\ (T12*nx\ +\ T22*ny)*dl;\ \textcolor{comment}{//\ Ti2Ai}}
+\DoxyCodeLine{00338\ \ \ \ \ Cells\_Viscous\_Flux[Cell\_No][3]\ +=\ ((T11*v1\ +\ T12*v2\ \ +\ Qx)*nx*dl\ +\ (T21*v1\ +\ T22*v2\ \ +\ Qy)*ny*dl);}
+\DoxyCodeLine{00339\ \ \ \ \ }
+\DoxyCodeLine{00340\ \textcolor{comment}{/*\ \ if(Cells\_Face\_Boundary\_Type[Cell\_No][Face\_No])}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout<<"{}Gradients\(\backslash\)t"{}<<u11<<"{}\(\backslash\)t"{}<<u12<<"{}\(\backslash\)t"{}<<u21<<"{}\(\backslash\)t"{}<<u22<<"{}\(\backslash\)t"{}<<T\_Gradient[0]<<"{}\(\backslash\)t"{}<<T\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00344\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ }
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{if}(isnan(T11)\ or\ isnan(T21)\ or\ isnan(T22)\ or\ isnan(Qx)\ or\ isnan(Qy)\ )}
+\DoxyCodeLine{00348\ \ \ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Cell\_No<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Face\_No<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T11<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T12<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T21<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T22<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Qx<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Qy<<endl;}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<mu<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Inv\_Re<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<K1<<endl;}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<u11<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<u12<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<u21<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<u22<<endl;}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00355\ \ \ \ \ \}}
+\DoxyCodeLine{00356\ \}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ \textcolor{comment}{//\ \ This\ calculates\ Viscous\ flux\ on\ each\ face\ by\ averaging\ corresponding\ gradients\ evaluated\ at\ cell\ centers.}}
+\DoxyCodeLine{00360\ \textcolor{keywordtype}{void}\ Evaluate\_Viscous\_Fluxes()}
+\DoxyCodeLine{00361\ \{}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{comment}{//\ \ cout<<\ "{}Evaluating\ Viscous\ Fluxes\(\backslash\)n"{};}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Current\_Cell\_Index=0;Current\_Cell\_Index<No\_Physical\_Cells;Current\_Cell\_Index++)}
+\DoxyCodeLine{00365\ \ \ \ \ \{}
+\DoxyCodeLine{00366\ \textcolor{comment}{//\ Resetting\ all\ viscous\ flux\ to\ zero\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ Cells\_Viscous\_Flux[Current\_Cell\_Index][0]=0.0;}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ Cells\_Viscous\_Flux[Current\_Cell\_Index][1]=0.0;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ Cells\_Viscous\_Flux[Current\_Cell\_Index][2]=0.0;}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ Cells\_Viscous\_Flux[Current\_Cell\_Index][3]=0.0;}
+\DoxyCodeLine{00371\ \textcolor{comment}{//\ Evaluating\ Viscous\ flux\ which\ includes\ heat\ flux\ on\ each\ face\ for\ a\ given\ cell\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ Viscous\_Flux\_on\_Face(Current\_Cell\_Index,Face\_0);}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ Viscous\_Flux\_on\_Face(Current\_Cell\_Index,Face\_1);}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ Viscous\_Flux\_on\_Face(Current\_Cell\_Index,Face\_2);}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ Viscous\_Flux\_on\_Face(Current\_Cell\_Index,Face\_3);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00377\ \ \ \ \ \}}
+\DoxyCodeLine{00378\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Evaluating\ Viscous\ Fluxes\ Done"{}<<endl;\ \ \ \ }}
+\DoxyCodeLine{00379\ \}}
+
+\end{DoxyCode}

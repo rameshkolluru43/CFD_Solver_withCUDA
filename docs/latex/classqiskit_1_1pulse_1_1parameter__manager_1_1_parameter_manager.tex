@@ -1,0 +1,164 @@
+\doxysection{qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager}{}\label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0a0faa7a0de90320098e4d1b5e232220}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self)
+\item 
+set\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_aa0d6f42ab334c19476cb3f5132819dfd}{parameters}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e1ffabefcfafd3e6e03cbb61b81eb63}{clear}} (self)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e350000eeb90cc1763ea0dac6367a61}{is\+\_\+parameterized}} (self)
+\item 
+list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_abf5fd26c846a6f8e151e23a332c5d60f}{get\+\_\+parameters}} (self, str parameter\+\_\+name)
+\item 
+Any \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a881d379eb6144cc16f95091d5d5ad2a2}{assign\+\_\+parameters}} (self, Any pulse\+\_\+program, dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parametervector_1_1_parameter_vector}{Parameter\+Vector}}\texorpdfstring{$\vert$}{|}str, Parameter\+Value\+Type\texorpdfstring{$\vert$}{|}Sequence\mbox{[}Parameter\+Value\+Type\mbox{]},\mbox{]} value\+\_\+dict)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0c51cb2da738bce7a030fff3fb88d8b0}{update\+\_\+parameter\+\_\+table}} (self, Any new\+\_\+node)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a4e85445719f0ccd88c5b95c5d5b25089}\label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a4e85445719f0ccd88c5b95c5d5b25089} 
+{\bfseries parameters}
+\item 
+dict \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a60b0616ac10c2cf52bec749af3ec8237}{parameters}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Mapping\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, Parameter\+Value\+Type\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a19ad1e9e9a86af5a899e6c0a695ee3dc}{\+\_\+unroll\+\_\+param\+\_\+dict}} (self, Mapping\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parametervector_1_1_parameter_vector}{Parameter\+Vector}}\texorpdfstring{$\vert$}{|}str, Parameter\+Value\+Type\texorpdfstring{$\vert$}{|}Sequence\mbox{[}Parameter\+Value\+Type\mbox{]}\mbox{]} parameter\+\_\+binds)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a13053a1f44bdbc73ff0a0d9214024f7a}\label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a13053a1f44bdbc73ff0a0d9214024f7a} 
+{\bfseries \+\_\+parameters} = set()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Helper class to manage parameter objects associated with arbitrary pulse programs.
+
+This object is implicitly initialized with the parameter object storage
+that stores parameter objects added to the parent pulse program.
+
+Parameter assignment logic is implemented based on the visitor pattern.
+Instruction data and its location are not directly associated with this object.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0a0faa7a0de90320098e4d1b5e232220}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0a0faa7a0de90320098e4d1b5e232220} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new parameter table for pulse programs.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a19ad1e9e9a86af5a899e6c0a695ee3dc}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!\_unroll\_param\_dict@{\_unroll\_param\_dict}}
+\index{\_unroll\_param\_dict@{\_unroll\_param\_dict}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{\_unroll\_param\_dict()}{\_unroll\_param\_dict()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a19ad1e9e9a86af5a899e6c0a695ee3dc} 
+ Mapping\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, Parameter\+Value\+Type\mbox{]} qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+\_\+unroll\+\_\+param\+\_\+dict (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Mapping\mbox{[}             \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1parametervector_1_1_parameter_vector}{Parameter\+Vector}} \texorpdfstring{$\vert$}{|} str, Parameter\+Value\+Type \texorpdfstring{$\vert$}{|} Sequence\mbox{[}Parameter\+Value\+Type\mbox{]}         \mbox{]}}]{parameter\+\_\+binds}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Unroll parameter dictionary to a map from parameter to value.
+
+Args:
+    parameter_binds: A dictionary from parameter to value or a list of values.
+
+Returns:
+    A dictionary from parameter to value.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a881d379eb6144cc16f95091d5d5ad2a2}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!assign\_parameters@{assign\_parameters}}
+\index{assign\_parameters@{assign\_parameters}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{assign\_parameters()}{assign\_parameters()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a881d379eb6144cc16f95091d5d5ad2a2} 
+ Any qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+assign\+\_\+parameters (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Any}]{pulse\+\_\+program}{, }\item[{dict\mbox{[}             \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1parametervector_1_1_parameter_vector}{Parameter\+Vector}} \texorpdfstring{$\vert$}{|} str,             Parameter\+Value\+Type \texorpdfstring{$\vert$}{|} Sequence\mbox{[}Parameter\+Value\+Type\mbox{]},         \mbox{]}}]{value\+\_\+dict}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Modify and return program data with parameters assigned according to the input.
+
+Args:
+    pulse_program: Arbitrary pulse program associated with this manager instance.
+    value_dict: A mapping from Parameters to either numeric values or another
+        Parameter expression.
+
+Returns:
+    Updated program data.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e1ffabefcfafd3e6e03cbb61b81eb63}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!clear@{clear}}
+\index{clear@{clear}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e1ffabefcfafd3e6e03cbb61b81eb63} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+clear (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Remove the parameters linked to this manager.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_abf5fd26c846a6f8e151e23a332c5d60f}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!get\_parameters@{get\_parameters}}
+\index{get\_parameters@{get\_parameters}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{get\_parameters()}{get\_parameters()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_abf5fd26c846a6f8e151e23a332c5d60f} 
+ list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\mbox{]} qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+get\+\_\+parameters (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{parameter\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get parameter object bound to this schedule by string name.
+
+Because different ``Parameter`` objects can have the same name,
+this method returns a list of ``Parameter`` s for the provided name.
+
+Args:
+    parameter_name: Name of parameter.
+
+Returns:
+    Parameter objects that have corresponding name.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e350000eeb90cc1763ea0dac6367a61}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!is\_parameterized@{is\_parameterized}}
+\index{is\_parameterized@{is\_parameterized}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{is\_parameterized()}{is\_parameterized()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a1e350000eeb90cc1763ea0dac6367a61} 
+ bool qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+is\+\_\+parameterized (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return True iff the instruction is parameterized.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_aa0d6f42ab334c19476cb3f5132819dfd}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!parameters@{parameters}}
+\index{parameters@{parameters}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{parameters()}{parameters()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_aa0d6f42ab334c19476cb3f5132819dfd} 
+ set\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\mbox{]} qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+parameters (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parameters which determine the schedule behavior.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0c51cb2da738bce7a030fff3fb88d8b0}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!update\_parameter\_table@{update\_parameter\_table}}
+\index{update\_parameter\_table@{update\_parameter\_table}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{update\_parameter\_table()}{update\_parameter\_table()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a0c51cb2da738bce7a030fff3fb88d8b0} 
+qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+update\+\_\+parameter\+\_\+table (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Any}]{new\+\_\+node}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A helper function to update parameter table with given data node.
+
+Args:
+    new_node: A new data node to be added.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a60b0616ac10c2cf52bec749af3ec8237}\index{qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}!parameters@{parameters}}
+\index{parameters@{parameters}!qiskit.pulse.parameter\_manager.ParameterManager@{qiskit.pulse.parameter\_manager.ParameterManager}}
+\doxysubsubsection{\texorpdfstring{parameters}{parameters}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1parameter__manager_1_1_parameter_manager_a60b0616ac10c2cf52bec749af3ec8237} 
+dict qiskit.\+pulse.\+parameter\+\_\+manager.\+Parameter\+Manager.\+parameters}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ param.vector.name:\ param.vector}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ param\ \textcolor{keywordflow}{in}\ self.parameters}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ isinstance(param,\ ParameterVectorElement)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/parameter\+\_\+manager.\+py\end{DoxyCompactItemize}

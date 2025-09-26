@@ -1,0 +1,72 @@
+\doxysection{importlib\+\_\+metadata.\+Sectioned Class Reference}
+\hypertarget{classimportlib__metadata_1_1_sectioned}{}\label{classimportlib__metadata_1_1_sectioned}\index{importlib\_metadata.Sectioned@{importlib\_metadata.Sectioned}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_sectioned_a456b6343fec760b9dc587d022c847392}\label{classimportlib__metadata_1_1_sectioned_a456b6343fec760b9dc587d022c847392} 
+{\bfseries section\+\_\+pairs} (cls, text)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_sectioned_af12c68fcfe50d93d1bd4f9617eb5fe28}\label{classimportlib__metadata_1_1_sectioned_af12c68fcfe50d93d1bd4f9617eb5fe28} 
+{\bfseries read} (text, filter\+\_\+=None)
+\item 
+\Hypertarget{classimportlib__metadata_1_1_sectioned_a0702397ccccd618c411d28b66f1a4176}\label{classimportlib__metadata_1_1_sectioned_a0702397ccccd618c411d28b66f1a4176} 
+{\bfseries valid} (str line)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classimportlib__metadata_1_1_sectioned_a7d9496610fb9d482e72f0977bbc19066}{\+\_\+sample}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A simple entry point config parser for performance
+
+>>> for item in Sectioned.read(Sectioned._sample):
+...     print(item)
+Pair(name='sec1', value='# comments ignored')
+Pair(name='sec1', value='a = 1')
+Pair(name='sec1', value='b = 2')
+Pair(name='sec2', value='a = 2')
+
+>>> res = Sectioned.section_pairs(Sectioned._sample)
+>>> item = next(res)
+>>> item.name
+'sec1'
+>>> item.value
+Pair(name='a', value='1')
+>>> item = next(res)
+>>> item.value
+Pair(name='b', value='2')
+>>> item = next(res)
+>>> item.name
+'sec2'
+>>> item.value
+Pair(name='a', value='2')
+>>> list(res)
+[]
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classimportlib__metadata_1_1_sectioned_a7d9496610fb9d482e72f0977bbc19066}\index{importlib\_metadata.Sectioned@{importlib\_metadata.Sectioned}!\_sample@{\_sample}}
+\index{\_sample@{\_sample}!importlib\_metadata.Sectioned@{importlib\_metadata.Sectioned}}
+\doxysubsubsection{\texorpdfstring{\_sample}{\_sample}}
+{\footnotesize\ttfamily \label{classimportlib__metadata_1_1_sectioned_a7d9496610fb9d482e72f0977bbc19066} 
+importlib\+\_\+metadata.\+Sectioned.\+\_\+sample\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ textwrap.dedent(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ ).lstrip()}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/importlib\+\_\+metadata/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

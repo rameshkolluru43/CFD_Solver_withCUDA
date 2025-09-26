@@ -1,0 +1,103 @@
+\doxysection{qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker}{}\label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a88ff08b7fc45b7b83e592f3fd5718917}\label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a88ff08b7fc45b7b83e592f3fd5718917} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, dict standard\+\_\+gate\+\_\+commutations=None, int cache\+\_\+max\+\_\+entries=10 \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}6, \texorpdfstring{$\ast$}{*}, Optional\mbox{[}Set\mbox{[}str\mbox{]}\mbox{]} gates=None)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_af158d5abb41920a9beee0b67dcef5f05_af158d5abb41920a9beee0b67dcef5f05}{commute\+\_\+nodes}} (self, op1, op2, int max\+\_\+num\+\_\+qubits=3)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_aad2ac6935ecec0b0bb134e9aa8348b64_aad2ac6935ecec0b0bb134e9aa8348b64}{commute}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}} op1, List qargs1, List cargs1, \mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}} op2, List qargs2, List cargs2, int max\+\_\+num\+\_\+qubits=3)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_adc4e951bac3e117d23fde7ac9f086848_adc4e951bac3e117d23fde7ac9f086848}{num\+\_\+cached\+\_\+entries}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a120aa5ef9e4405c882eb19fd69dd3c82_a120aa5ef9e4405c882eb19fd69dd3c82}{clear\+\_\+cached\+\_\+commutations}} (self)
+\item 
+Union\mbox{[}bool, None\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a8ee57ba7d8aed7781454f84d138b283c_a8ee57ba7d8aed7781454f84d138b283c}{check\+\_\+commutation\+\_\+entries}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}} first\+\_\+op, List first\+\_\+qargs, \mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}} second\+\_\+op, List second\+\_\+qargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_af62a9573faca8ed827fc7be48c339039}\label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_af62a9573faca8ed827fc7be48c339039} 
+{\bfseries cc} = Rust\+Checker(standard\+\_\+gate\+\_\+commutations, cache\+\_\+max\+\_\+entries, gates)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This code is essentially copy-pasted from commutative_analysis.py.
+This code cleverly hashes commutativity and non-commutativity results between DAG nodes and seems
+quite efficient for large Clifford circuits.
+They may be other possible efficiency improvements: using rule-based commutativity analysis,
+evicting from the cache less useful entries, etc.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a8ee57ba7d8aed7781454f84d138b283c_a8ee57ba7d8aed7781454f84d138b283c}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}!check\_commutation\_entries@{check\_commutation\_entries}}
+\index{check\_commutation\_entries@{check\_commutation\_entries}!qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection{\texorpdfstring{check\_commutation\_entries()}{check\_commutation\_entries()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a8ee57ba7d8aed7781454f84d138b283c_a8ee57ba7d8aed7781454f84d138b283c} 
+ Union\mbox{[}bool, None\mbox{]} qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker.\+check\+\_\+commutation\+\_\+entries (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}}}]{first\+\_\+op}{, }\item[{List}]{first\+\_\+qargs}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}}}]{second\+\_\+op}{, }\item[{List}]{second\+\_\+qargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns stored commutation relation if any
+
+Args:
+    first_op: first operation.
+    first_qargs: first operation's qubits.
+    second_op: second operation.
+    second_qargs: second operation's qubits.
+
+Return:
+    bool: True if the gates commute and false if it is not the case.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a120aa5ef9e4405c882eb19fd69dd3c82_a120aa5ef9e4405c882eb19fd69dd3c82}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}!clear\_cached\_commutations@{clear\_cached\_commutations}}
+\index{clear\_cached\_commutations@{clear\_cached\_commutations}!qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection{\texorpdfstring{clear\_cached\_commutations()}{clear\_cached\_commutations()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_a120aa5ef9e4405c882eb19fd69dd3c82_a120aa5ef9e4405c882eb19fd69dd3c82} 
+qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker.\+clear\+\_\+cached\+\_\+commutations (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Clears the dictionary holding cached commutations\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_aad2ac6935ecec0b0bb134e9aa8348b64_aad2ac6935ecec0b0bb134e9aa8348b64}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}!commute@{commute}}
+\index{commute@{commute}!qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection{\texorpdfstring{commute()}{commute()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_aad2ac6935ecec0b0bb134e9aa8348b64_aad2ac6935ecec0b0bb134e9aa8348b64} 
+ bool qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker.\+commute (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}}}]{op1}{, }\item[{List}]{qargs1}{, }\item[{List}]{cargs1}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1operation_1_1_operation}{Operation}}}]{op2}{, }\item[{List}]{qargs2}{, }\item[{List}]{cargs2}{, }\item[{int }]{max\+\_\+num\+\_\+qubits}{ = {\ttfamily 3}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Checks if two Operations commute. The return value of `True` means that the operations
+truly commute, and the return value of `False` means that either the operations do not
+commute or that the commutation check was skipped (for example, when the operations
+have conditions or have too many qubits).
+
+Args:
+    op1: first operation.
+    qargs1: first operation's qubits.
+    cargs1: first operation's clbits.
+    op2: second operation.
+    qargs2: second operation's qubits.
+    cargs2: second operation's clbits.
+    max_num_qubits: the maximum number of qubits to consider, the check may be skipped if
+        the number of qubits for either operation exceeds this amount.
+
+Returns:
+    bool: whether two operations commute.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_af158d5abb41920a9beee0b67dcef5f05_af158d5abb41920a9beee0b67dcef5f05}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}!commute\_nodes@{commute\_nodes}}
+\index{commute\_nodes@{commute\_nodes}!qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection{\texorpdfstring{commute\_nodes()}{commute\_nodes()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_af158d5abb41920a9beee0b67dcef5f05_af158d5abb41920a9beee0b67dcef5f05} 
+ bool qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker.\+commute\+\_\+nodes (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{op1}{, }\item[{}]{op2}{, }\item[{int }]{max\+\_\+num\+\_\+qubits}{ = {\ttfamily 3}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Checks if two DAGOpNodes commute.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_adc4e951bac3e117d23fde7ac9f086848_adc4e951bac3e117d23fde7ac9f086848}\index{qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}!num\_cached\_entries@{num\_cached\_entries}}
+\index{num\_cached\_entries@{num\_cached\_entries}!qiskit.circuit.commutation\_checker.CommutationChecker@{qiskit.circuit.commutation\_checker.CommutationChecker}}
+\doxysubsubsection{\texorpdfstring{num\_cached\_entries()}{num\_cached\_entries()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1commutation__checker_1_1_commutation_checker_adc4e951bac3e117d23fde7ac9f086848_adc4e951bac3e117d23fde7ac9f086848} 
+qiskit.\+circuit.\+commutation\+\_\+checker.\+Commutation\+Checker.\+num\+\_\+cached\+\_\+entries (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns number of cached entries\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/commutation\+\_\+checker.\+py\end{DoxyCompactItemize}

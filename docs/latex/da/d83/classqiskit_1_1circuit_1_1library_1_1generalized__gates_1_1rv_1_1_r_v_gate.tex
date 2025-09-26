@@ -1,0 +1,134 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate}\index{qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{da/d83/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a67e9ab346c5d2bf3491a054629857a14_a67e9ab346c5d2bf3491a054629857a14}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, float v\+\_\+x, float v\+\_\+y, float v\+\_\+z, str basis="{}U"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a2adc66a8d24849abd340d7dcc8882341_a2adc66a8d24849abd340d7dcc8882341}{inverse}} (self, bool annotated=False)
+\item 
+numpy.\+ndarray \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_abbcd37c9b76c4bc781b63024eba819c6_abbcd37c9b76c4bc781b63024eba819c6}{to\+\_\+matrix}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a9fb557e734e568487c0c02e548e4a528}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a9fb557e734e568487c0c02e548e4a528} 
+{\bfseries definition} = self.\+\_\+decomposer(self.\+to\+\_\+matrix())
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a7dfac5e0fd2e1fb30d57fb1963c6f7da_a7dfac5e0fd2e1fb30d57fb1963c6f7da}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_ae4fa55e61077c15c5b084549320b5aa2}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_ae4fa55e61077c15c5b084549320b5aa2} 
+{\bfseries \+\_\+decomposer} = One\+Qubit\+Euler\+Decomposer(basis=basis)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Rotation around arbitrary rotation axis :math:`\vec{v}` where :math:`\|\vec{v}\|_2` is
+angle of rotation in radians.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.rv` method.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌─────────────────┐
+    q_0: ┤ RV(v_x,v_y,v_z) ├
+         └─────────────────┘
+
+**Matrix Representation:**
+
+.. math::
+
+    \newcommand{\rotationangle}{\frac{\|\vec{v}\|_2}{2}}
+        R(\vec{v}) = e^{-i \vec{v}\cdot\vec{\sigma} / 2} =
+            \begin{pmatrix}
+                \cos\left(\rotationangle\right)
+                -i \frac{v_z}{\|\vec{v}\|_2} \sin\left(\rotationangle\right)
+                & -(i \frac{v_x}{\|\vec{v}\|_2}
+                + \frac{v_y}{\|\vec{v}\|_2}) \sin\left(\rotationangle\right) \\
+                -(i \frac{v_x}{\|\vec{v}\|_2}
+                - \frac{v_y}{\|\vec{v}\|_2}) \sin\left(\rotationangle\right)
+                & \cos\left(\rotationangle\right)
+                + i \frac{v_z}{\|\vec{v}\|_2} \sin\left(\rotationangle\right)
+            \end{pmatrix}
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a67e9ab346c5d2bf3491a054629857a14_a67e9ab346c5d2bf3491a054629857a14}\index{qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a67e9ab346c5d2bf3491a054629857a14_a67e9ab346c5d2bf3491a054629857a14} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{v\+\_\+x}{, }\item[{float}]{v\+\_\+y}{, }\item[{float}]{v\+\_\+z}{, }\item[{str }]{basis}{ = {\ttfamily "{}U"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    v_x: x-component
+    v_y: y-component
+    v_z: z-component
+    basis: basis (see
+        :class:`~qiskit.synthesis.one_qubit.one_qubit_decompose.OneQubitEulerDecomposer`)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a7dfac5e0fd2e1fb30d57fb1963c6f7da_a7dfac5e0fd2e1fb30d57fb1963c6f7da}\index{qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a7dfac5e0fd2e1fb30d57fb1963c6f7da_a7dfac5e0fd2e1fb30d57fb1963c6f7da} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a2adc66a8d24849abd340d7dcc8882341_a2adc66a8d24849abd340d7dcc8882341}\index{qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_a2adc66a8d24849abd340d7dcc8882341_a2adc66a8d24849abd340d7dcc8882341} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Invert this gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_abbcd37c9b76c4bc781b63024eba819c6_abbcd37c9b76c4bc781b63024eba819c6}\index{qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}!to\_matrix@{to\_matrix}}
+\index{to\_matrix@{to\_matrix}!qiskit.circuit.library.generalized\_gates.rv.RVGate@{qiskit.circuit.library.generalized\_gates.rv.RVGate}}
+\doxysubsubsection{\texorpdfstring{to\_matrix()}{to\_matrix()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1rv_1_1_r_v_gate_abbcd37c9b76c4bc781b63024eba819c6_abbcd37c9b76c4bc781b63024eba819c6} 
+ numpy.\+ndarray qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+rv.\+RVGate.\+to\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a numpy.array for the R(v) gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a1cee1222e8501345fde2a50ed397ee95_a1cee1222e8501345fde2a50ed397ee95}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/rv.\+py\end{DoxyCompactItemize}

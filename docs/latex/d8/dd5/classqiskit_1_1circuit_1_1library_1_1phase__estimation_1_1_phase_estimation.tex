@@ -1,0 +1,85 @@
+\doxysection{qiskit.\+circuit.\+library.\+phase\+\_\+estimation.\+Phase\+Estimation Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation}{}\label{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation}\index{qiskit.circuit.library.phase\_estimation.PhaseEstimation@{qiskit.circuit.library.phase\_estimation.PhaseEstimation}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+phase\+\_\+estimation.\+Phase\+Estimation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d8/dd5/classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation_aa9bfefe37a4f4efc12dee9ded9cf4614_aa9bfefe37a4f4efc12dee9ded9cf4614}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+evaluation\+\_\+qubits, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a6ef89efa8f25e7514f9183dd897ebf02_a6ef89efa8f25e7514f9183dd897ebf02}{unitary}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}None iqft=None, str name="{}QPE"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Phase Estimation circuit.
+
+In the Quantum Phase Estimation (QPE) algorithm [1, 2, 3], the Phase Estimation circuit is used
+to estimate the phase :math:`\phi` of an eigenvalue :math:`e^{2\pi i\phi}` of a unitary operator
+:math:`U`, provided with the corresponding eigenstate :math:`|\psi\rangle`.
+That is
+
+.. math::
+
+    U|\psi\rangle = e^{2\pi i\phi} |\psi\rangle
+
+This estimation (and thereby this circuit) is a central routine to several well-known
+algorithms, such as Shor's algorithm or Quantum Amplitude Estimation.
+
+**References:**
+
+[1]: Kitaev, A. Y. (1995). Quantum measurements and the Abelian Stabilizer Problem. 1–22.
+    `quant-ph/9511026 <http://arxiv.org/abs/quant-ph/9511026>`_
+
+[2]: Michael A. Nielsen and Isaac L. Chuang. 2011.
+     Quantum Computation and Quantum Information: 10th Anniversary Edition (10th ed.).
+     Cambridge University Press, New York, NY, USA.
+
+[3]: Qiskit
+    `textbook <https://github.com/Qiskit/textbook/blob/main/notebooks/ch-algorithms/
+    quantum-phase-estimation.ipynb>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation_aa9bfefe37a4f4efc12dee9ded9cf4614_aa9bfefe37a4f4efc12dee9ded9cf4614}\index{qiskit.circuit.library.phase\_estimation.PhaseEstimation@{qiskit.circuit.library.phase\_estimation.PhaseEstimation}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.phase\_estimation.PhaseEstimation@{qiskit.circuit.library.phase\_estimation.PhaseEstimation}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation_aa9bfefe37a4f4efc12dee9ded9cf4614_aa9bfefe37a4f4efc12dee9ded9cf4614} 
+ None qiskit.\+circuit.\+library.\+phase\+\_\+estimation.\+Phase\+Estimation.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+evaluation\+\_\+qubits}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{unitary}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} None }]{iqft}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}QPE"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_evaluation_qubits: The number of evaluation qubits.
+    unitary: The unitary operation :math:`U` which will be repeated and controlled.
+    iqft: A inverse Quantum Fourier Transform, per default the inverse of
+        :class:`~qiskit.circuit.library.QFT` is used. Note that the QFT should not include
+        the usual swaps!
+    name: The name of the circuit.
+
+.. note::
+
+    The inverse QFT should not include a swap of the qubit order.
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit import QuantumCircuit
+       from qiskit.circuit.library import PhaseEstimation
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       unitary = QuantumCircuit(2)
+       unitary.x(0)
+       unitary.y(1)
+       circuit = PhaseEstimation(3, unitary)
+       _generate_circuit_library_visualization(circuit)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/phase\+\_\+estimation.\+py\end{DoxyCompactItemize}

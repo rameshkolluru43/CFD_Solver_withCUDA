@@ -1,0 +1,421 @@
+\doxysection{Flow\+\_\+\+Over\+\_\+\+Cylinder/\+Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.cpp File Reference}
+\hypertarget{_flow___over___cylinder__1_8cpp}{}\label{_flow___over___cylinder__1_8cpp}\index{Flow\_Over\_Cylinder/Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder/Flow\_Over\_Cylinder\_1.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Function\+\_\+\+Files/\+Geometry\+\_\+\+Header.\+h"{}}\newline
+Include dependency graph for Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/d1d/_flow___over___cylinder__1_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}{Generate\+\_\+\+Arc}} (double \&radius, int \&N\+\_\+\+Points, vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&Arc, int \&sign, \mbox{\hyperlink{class_point}{Point}} \&P\+\_\+\+Ref)
+\item 
+void \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_ab766fe53fa00a373d26fe7b0ea437c7e_ab766fe53fa00a373d26fe7b0ea437c7e}{Generate\+\_\+\+Arc}} (int \&N\+\_\+\+Points, vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&Arc, \mbox{\hyperlink{class_point}{Point}} \&Initial\+\_\+\+Point, \mbox{\hyperlink{class_point}{Point}} \&Final\+\_\+\+Point)
+\item 
+void \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_ab650ab603fec98e6c793a154c525d9d9_ab650ab603fec98e6c793a154c525d9d9}{Generate\+\_\+\+Arc}} (\mbox{\hyperlink{class_point}{Point}} \&P1, \mbox{\hyperlink{class_point}{Point}} \&P2, int \&N\+\_\+\+Points, vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&Arc, double \&Percent\+\_\+\+Chord)
+\item 
+void \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\+\_\+\+List}} (vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&List1, vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&List2)
+\item 
+void \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a8ee981e0b0c6268774eb6bd3bbd0ba13_a8ee981e0b0c6268774eb6bd3bbd0ba13}{Reverse\+\_\+\+List}} (vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&List)
+\item 
+int \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!Append\_List@{Append\_List}}
+\index{Append\_List@{Append\_List}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{Append\_List()}{Append\_List()}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58} 
+void Append\+\_\+\+List (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{List1}{, }\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{List2}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00084}{84}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00085\ \{}
+\DoxyCodeLine{00086\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Appending\ Lists\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00087\ \ \ \ \ List1[List1.size()-\/1].Print();}
+\DoxyCodeLine{00088\ \ \ \ \ List2[0].Print();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{if}(List1[List1.size()-\/1]==List2[0])}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=1;i<List2.size();i++)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ List1.push\_back(List2[i]);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<List2.size();i++)}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ List1.push\_back(List2[i]);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{d2/daf/_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!Generate\_Arc@{Generate\_Arc}}
+\index{Generate\_Arc@{Generate\_Arc}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{Generate\_Arc()}{Generate\_Arc()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7} 
+void Generate\+\_\+\+Arc (\begin{DoxyParamCaption}\item[{double \&}]{radius}{, }\item[{int \&}]{N\+\_\+\+Points}{, }\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{Arc}{, }\item[{int \&}]{sign}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{P\+\_\+\+Ref}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00004}{4}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}};}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}(sign)}
+\DoxyCodeLine{00008\ \ \ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double}\ theta=180;theta>=0;theta-\/=(180.0/(N\_Points-\/1)))}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}(radius,theta,1);}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \ \ \ \ Arc.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ +\ P\_Ref);}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{double}\ theta=0.0;theta<=180.0;theta+=(180.0/(N\_Points-\/1)))}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}(radius,theta,1);}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ P+=P\_Ref;}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}.Print();}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ Arc.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00024\ \ \ \ \ \}}
+\DoxyCodeLine{00025\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{d2/daf/_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flow___over___cylinder__1_8cpp_ab766fe53fa00a373d26fe7b0ea437c7e_ab766fe53fa00a373d26fe7b0ea437c7e}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!Generate\_Arc@{Generate\_Arc}}
+\index{Generate\_Arc@{Generate\_Arc}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{Generate\_Arc()}{Generate\_Arc()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_ab766fe53fa00a373d26fe7b0ea437c7e_ab766fe53fa00a373d26fe7b0ea437c7e} 
+void Generate\+\_\+\+Arc (\begin{DoxyParamCaption}\item[{int \&}]{N\+\_\+\+Points}{, }\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{Arc}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{Initial\+\_\+\+Point}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{Final\+\_\+\+Point}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00027}{27}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}};}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}=0.0,\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}=0.0,\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}=0.0,a,\mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},c;}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ =\ (Final\_Point.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()\ -\/\ Initial\_Point.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}())/(N\_Points-\/1);}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}\ =\ (Final\_Point.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()\ -\/\ Initial\_Point.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}())/(N\_Points-\/1);}
+\DoxyCodeLine{00033\ \ \ \ \ cout<<N\_Points<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}<<endl;}
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ Arc.push\_back(Initial\_Point);}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<N\_Points;i++)}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ \ \ \ \ if(i*dx<=0.1)}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ y\ =0.29;}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ \ \ \ \ else}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ a\ =\ 0.29;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ =\ -\/2.0*a\ +\ tan(25*\mbox{\hyperlink{definitions_8h_a44b92d40663e50ac09e79dfc86eb8733_a44b92d40663e50ac09e79dfc86eb8733}{radian}});}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ c\ =\ a\ -\/\ tan(25*\mbox{\hyperlink{definitions_8h_a44b92d40663e50ac09e79dfc86eb8733_a44b92d40663e50ac09e79dfc86eb8733}{radian}});}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ =\ a\ +\ \mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}*i*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ +\ c*pow(i*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}},2);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}(i*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}},\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},0.0);}
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ \ \ \ \ P.Print();}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ Arc.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});\ }
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \textcolor{comment}{//\ \ \ \ \ \ Arc.push\_back(Final\_Point);}}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d2/daf/_flow___over___cylinder__1_8cpp_ab766fe53fa00a373d26fe7b0ea437c7e_ab766fe53fa00a373d26fe7b0ea437c7e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flow___over___cylinder__1_8cpp_ab650ab603fec98e6c793a154c525d9d9_ab650ab603fec98e6c793a154c525d9d9}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!Generate\_Arc@{Generate\_Arc}}
+\index{Generate\_Arc@{Generate\_Arc}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{Generate\_Arc()}{Generate\_Arc()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_ab650ab603fec98e6c793a154c525d9d9_ab650ab603fec98e6c793a154c525d9d9} 
+void Generate\+\_\+\+Arc (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{P1}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{P2}{, }\item[{int \&}]{N\+\_\+\+Points}{, }\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{Arc}{, }\item[{double \&}]{Percent\+\_\+\+Chord}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00052}{52}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00053\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}};}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{double}\ Radius\ =0.0,\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}=0.0,\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}=0.0,Chord\_Length=0.0,Y\_Max=0.0,Tan\_Theta;}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ P2.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00058\ \ \ \ \ P1.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ =\ P2.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()\ -\/\ P1.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}();}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}\ =\ P2.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()\ -\/\ P1.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}();}
+\DoxyCodeLine{00061\ \ \ \ \ cout<<\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}<<endl;}
+\DoxyCodeLine{00062\ \ \ \ \ Chord\_Length\ =\ sqrt(\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}*\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}});}
+\DoxyCodeLine{00063\ \ \ \ \ cout<<Chord\_Length<<endl;}
+\DoxyCodeLine{00064\ \ \ \ \ Y\_Max\ =\ (Percent\_Chord/100.0)*Chord\_Length;}
+\DoxyCodeLine{00065\ \ \ \ \ Tan\_Theta\ =\ Y\_Max/(0.5*Chord\_Length);}
+\DoxyCodeLine{00066\ \ \ \ \ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ \ cout<<Y\_Max<<"{}\(\backslash\)t"{}<<Tan\_Theta<<endl;}}
+\DoxyCodeLine{00068\ \ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}\ =\ Chord\_Length/(N\_Points-\/1);}
+\DoxyCodeLine{00070\ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<N\_Points;i++)}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}}=Percent\_Chord*sin((M\_PI)*(i*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}}/Chord\_Length));\ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}(P1.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+i*\mbox{\hyperlink{2_d___grid___gen_8cpp_aaddbab8bdeea8ca9b115d2e9d2e9c2be_aaddbab8bdeea8ca9b115d2e9d2e9c2be}{dx}},P1.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a8cb7de5ba0de2586802079e2a2419067_a8cb7de5ba0de2586802079e2a2419067}{dy}},0.0);}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ \ \ \ \ \ P.Print();}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ Arc.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ }
+\DoxyCodeLine{00081\ \ \ \ \ }
+\DoxyCodeLine{00082\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{d2/daf/_flow___over___cylinder__1_8cpp_ab650ab603fec98e6c793a154c525d9d9_ab650ab603fec98e6c793a154c525d9d9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flow___over___cylinder__1_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!main@{main}}
+\index{main@{main}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00117}{117}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00118\ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{class_grid}{Grid}}\ Grid\_Flow\_Over\_Cylinder;}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{string}\ Solver\_Input\_File,Grid\_View\_File;}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ Solver\_Input\_File=\textcolor{stringliteral}{"{}../Grid\_Files/Flow\_Over\_Cylinder\_Files/Double\_Bump\_301\_301.txt"{}};}
+\DoxyCodeLine{00124\ \ \ \ \ Grid\_View\_File=\textcolor{stringliteral}{"{}../Grid\_Files/Flow\_Over\_Cylinder\_Files/Double\_301\_301.vtk"{}};}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ Solver\_Input\_File="{}../Grid\_Files/Expansion\_Ramp\_Files/Expansion\_Ramp\_1001\_1001.txt"{};}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ Grid\_View\_File="{}../Grid\_Files/Expansion\_Ramp\_Files/Expansion\_Ramp\_1001\_1001.vtk"{};}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordtype}{int}\ Nop\_Circle,Nop\_X,Nop\_X1,Nop\_Y,sign=0,Total\_Points\_X,\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}};}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordtype}{double}\ Radius1,Chord\_Length,Percent\_Chord=0.285,Percent\_Chord1=-\/0.285;}
+\DoxyCodeLine{00132\ \ \ \ \ \mbox{\hyperlink{class_line}{Line}}\ L1,L2,L3,L4,L5,L6;}
+\DoxyCodeLine{00133\ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ P1,P2,P3,P4,P5,P6,P7,P8;}
+\DoxyCodeLine{00134\ \ \ \ \ vector<Point>\ Line\_List1,Line\_List2,Line\_List3,Line\_List4,Grid\_Plane\_List,Arc\_Point\_List1,Arc\_Point\_List2,Temp\_List,Arc\_Point\_List;}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordtype}{bool}\ Is\_Periodic\_Boundary\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \ \ \ \ Chord\_Length\ =\ 1.0;}
+\DoxyCodeLine{00138\ \ \ \ \ Radius1\ =\ 0.06;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ Nop\_X\ =\ 101;}
+\DoxyCodeLine{00141\ \ \ \ \ Nop\_X1\ =\ 101;}
+\DoxyCodeLine{00142\ \ \ \ \ Nop\_Circle\ =\ 101;}
+\DoxyCodeLine{00143\ \ \ \ \ Nop\_Y\ =\ 101;}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ Total\_Points\_X\ =\ 2*Nop\_X\ +\ Nop\_Circle\ -\/\ 2;}}
+\DoxyCodeLine{00145\ \ \ \ \ Total\_Points\_X\ =\ Nop\_X1\ +\ Nop\_X\ +\ Nop\_Circle\ -\/\ 2;}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}}\ =\ 2;}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{switch}(\mbox{\hyperlink{definitions_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}})}
+\DoxyCodeLine{00148\ \ \ \ \ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ for\ flow\ over\ a\ circular\ bump}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ P1(0.0*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ P2\ (0.2*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ P3(0.6*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ P4(1.0*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ P5(1.0*Chord\_Length,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ P6(0.0*Chord\_Length,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00156\ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ L1.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P1,P2,Nop\_X);\ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{comment}{//\ \ Generate\_Arc(,Nop\_Circle,Arc\_Point\_List,sign,P2);}}
+\DoxyCodeLine{00159\ \textcolor{comment}{//\ \ \ \ \ \ Generate\_Arc(P2,P3,Nop\_Circle,Arc\_Point\_List,Percent\_Chord);}}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}{Generate\_Arc}}(P2,P3,Nop\_Circle,Arc\_Point\_List,Percent\_Chord);\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ L2.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P3,P4,Nop\_X1);}
+\DoxyCodeLine{00162\ \ \ \ \ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ L3.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P4,P5,Nop\_Y);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ L4.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P5,P6,Total\_Points\_X);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ L5.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P6,P1,Nop\_Y);}
+\DoxyCodeLine{00166\ \ \ \ \ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ Line\_List1\ =\ L1.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List1,Arc\_Point\_List);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ Temp\_List\ =\ L2.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List1,Temp\_List);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ Line\_List2\ =\ L3.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ Line\_List3\ =\ L4.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ Line\_List4\ =\ L5.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ cout<<Line\_List1.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List2.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List3.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List4.size()<<endl;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder(Line\_List1,Line\_List2,Line\_List3,Line\_List4);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{Generate\_Grid}}(Is\_Periodic\_Boundary);}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ Grid\_Plane\_List\ =\ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ada712360e862dad0f75e839a3c52fc14_ada712360e862dad0f75e839a3c52fc14}{Get\_Grid\_List}}();}
+\DoxyCodeLine{00178\ \ \ \ \ }
+\DoxyCodeLine{00179\ \ \ \ \ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_acb3c036cb0c4ce0430f4829581d7b375_acb3c036cb0c4ce0430f4829581d7b375}{Identify\_Cells}}(Total\_Points\_X,Nop\_Y);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aff2ba3eadad2eedd8d979c782cb55ec6_aff2ba3eadad2eedd8d979c782cb55ec6}{Identify\_Neighbours}}(Total\_Points\_X,Nop\_Y);}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a9ea27b1ee84e8c88611feddac621c2a3_a9ea27b1ee84e8c88611feddac621c2a3}{write\_VTK}}(Total\_Points\_X,Nop\_Y,Grid\_Plane\_List,Grid\_View\_File);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a7baf55700c2b5381dad50d86595147ce_a7baf55700c2b5381dad50d86595147ce}{write\_inputfile}}(Total\_Points\_X,Nop\_Y,Grid\_Plane\_List,Solver\_Input\_File);\ }
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ for\ flow\ over\ a\ Double\ circular\ bump}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ P1(0.0*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ P2(0.5*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ P3(1.5*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ P4(2.5*Chord\_Length,0.0,0.0);}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ P5(0.0,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ P6(1.0*Chord\_Length,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ P7(2.0*Chord\_Length,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ P8(2.5*Chord\_Length,1.0*Chord\_Length,0.0);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00197\ \ \ \ \ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ L1.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P1,P2,Nop\_X);\ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}{Generate\_Arc}}(P2,P3,Nop\_Circle,Arc\_Point\_List1,Percent\_Chord);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ L2.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P3,P4,Nop\_X1);}
+\DoxyCodeLine{00201\ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ L3.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P4,P8,Nop\_Y);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ L4.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P5,P6,Nop\_X);\ \ \ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}{Generate\_Arc}}(P6,P7,Nop\_Circle,Arc\_Point\_List2,Percent\_Chord1);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ L5.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P7,P8,Nop\_X1);}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ L6.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P5,P1,Nop\_Y);}
+\DoxyCodeLine{00211\ \ \ \ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ Line\_List1\ =\ L1.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List1,Arc\_Point\_List1);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ Temp\_List\ =\ L2.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List1,Temp\_List);}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ Line\_List2\ =\ L3.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ Line\_List3\ =\ L4.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List3,Arc\_Point\_List2);}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ Temp\_List\ =\ L5.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a36606ab9028521932c9b05107d8e2c58_a36606ab9028521932c9b05107d8e2c58}{Append\_List}}(Line\_List3,Temp\_List);}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a8ee981e0b0c6268774eb6bd3bbd0ba13_a8ee981e0b0c6268774eb6bd3bbd0ba13}{Reverse\_List}}(Line\_List3);\ \ \ \ \ \ \ }
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ Line\_List4\ =\ L6.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ cout<<Line\_List1.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List2.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List3.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List4.size()<<endl;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder(Line\_List1,Line\_List2,Line\_List3,Line\_List4);}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{Generate\_Grid}}(Is\_Periodic\_Boundary);}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ Grid\_Plane\_List\ =\ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ada712360e862dad0f75e839a3c52fc14_ada712360e862dad0f75e839a3c52fc14}{Get\_Grid\_List}}();}
+\DoxyCodeLine{00232\ \ \ \ \ }
+\DoxyCodeLine{00233\ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_acb3c036cb0c4ce0430f4829581d7b375_acb3c036cb0c4ce0430f4829581d7b375}{Identify\_Cells}}(Total\_Points\_X,Nop\_Y);}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aff2ba3eadad2eedd8d979c782cb55ec6_aff2ba3eadad2eedd8d979c782cb55ec6}{Identify\_Neighbours}}(Total\_Points\_X,Nop\_Y);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a9ea27b1ee84e8c88611feddac621c2a3_a9ea27b1ee84e8c88611feddac621c2a3}{write\_VTK}}(Total\_Points\_X,Nop\_Y,Grid\_Plane\_List,Grid\_View\_File);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a7baf55700c2b5381dad50d86595147ce_a7baf55700c2b5381dad50d86595147ce}{write\_inputfile}}(Total\_Points\_X,Nop\_Y,Grid\_Plane\_List,Solver\_Input\_File);\ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ For\ flow\ over\ a\ expansion\ Ramp}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ P1(0.0,0.29,0.0);\ \ \ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ P2\ (1.0,0.0,0.0);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ P3(1.0,1.0,0.0);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ P4(0.0,1.0,0.0);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ Nop\_X\ =\ 1001;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ Nop\_Y\ =\ 1001;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{comment}{//\ \ Generate\_Arc(,Nop\_Circle,Arc\_Point\_List,sign,P2);}}
+\DoxyCodeLine{00248\ \textcolor{comment}{//\ \ \ \ \ \ Generate\_Arc(P1,P2,Nop\_X,Line\_List1,Percent\_Chord);}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_a198e232411110d9bb41f8028ce67ccd7_a198e232411110d9bb41f8028ce67ccd7}{Generate\_Arc}}(Nop\_X,Line\_List1,P1,P2);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ P2\ =\ Line\_List1[Nop\_X-\/1];}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ P2.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ L2.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P2,P3,Nop\_Y);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ L3.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P3,P4,Nop\_X);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ L4.\mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}}(P4,P1,Nop\_Y);}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Size\ of\ Arc\ points\ list\(\backslash\)t"{}}<<Line\_List1.size()<<endl;}
+\DoxyCodeLine{00256\ \textcolor{comment}{//\ \ \ \ \ \ for(unsigned\ int\ i=0;i<Line\_List1.size();i++)}}
+\DoxyCodeLine{00257\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Line\_List1[i].Print();}}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Last\ point\ on\ the\ arc\(\backslash\)t"{}};}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ Line\_List1[Nop\_X-\/1].Print();\ cout<<endl;}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ Line\_List2\ =\ L2.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Line\_List2[0].Print();}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ Line\_List3\ =\ L3.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ Line\_List4\ =\ L4.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ cout<<Line\_List1.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List2.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List3.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Line\_List4.size()<<endl;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder(Line\_List1,Line\_List2,Line\_List3,Line\_List4);}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{Generate\_Grid}}(Is\_Periodic\_Boundary);}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ Grid\_Plane\_List\ =\ Grid\_Flow\_Over\_Cylinder.\mbox{\hyperlink{class_grid_ada712360e862dad0f75e839a3c52fc14_ada712360e862dad0f75e839a3c52fc14}{Get\_Grid\_List}}();}
+\DoxyCodeLine{00269\ \ \ \ \ }
+\DoxyCodeLine{00270\ \ \ \ \ }
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_acb3c036cb0c4ce0430f4829581d7b375_acb3c036cb0c4ce0430f4829581d7b375}{Identify\_Cells}}(Nop\_X,Nop\_Y);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aff2ba3eadad2eedd8d979c782cb55ec6_aff2ba3eadad2eedd8d979c782cb55ec6}{Identify\_Neighbours}}(Nop\_X,Nop\_Y);}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a9ea27b1ee84e8c88611feddac621c2a3_a9ea27b1ee84e8c88611feddac621c2a3}{write\_VTK}}(Nop\_X,Nop\_Y,Grid\_Plane\_List,Grid\_View\_File);}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_geometry___header_8h_a7baf55700c2b5381dad50d86595147ce_a7baf55700c2b5381dad50d86595147ce}{write\_inputfile}}(Nop\_X,Nop\_Y,Grid\_Plane\_List,Solver\_Input\_File);\ \ }
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ }
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00280\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00281\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/daf/_flow___over___cylinder__1_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_flow___over___cylinder__1_8cpp_a8ee981e0b0c6268774eb6bd3bbd0ba13_a8ee981e0b0c6268774eb6bd3bbd0ba13}\index{Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}!Reverse\_List@{Reverse\_List}}
+\index{Reverse\_List@{Reverse\_List}!Flow\_Over\_Cylinder\_1.cpp@{Flow\_Over\_Cylinder\_1.cpp}}
+\doxysubsubsection{\texorpdfstring{Reverse\_List()}{Reverse\_List()}}
+{\footnotesize\ttfamily \label{_flow___over___cylinder__1_8cpp_a8ee981e0b0c6268774eb6bd3bbd0ba13_a8ee981e0b0c6268774eb6bd3bbd0ba13} 
+void Reverse\+\_\+\+List (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source_l00105}{105}} of file \mbox{\hyperlink{_flow___over___cylinder__1_8cpp_source}{Flow\+\_\+\+Over\+\_\+\+Cylinder\+\_\+1.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00106\ \{}
+\DoxyCodeLine{00107\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reversing\ the\ list\ of\ points"{}}<<endl;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ List.size();}
+\DoxyCodeLine{00109\ \ \ \ \ vector<Point>\ Temp\_List;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ size-\/1;i>=0;i-\/-\/)}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ Temp\_List.push\_back(List[i]);}
+\DoxyCodeLine{00113\ \ \ \ \ \}}
+\DoxyCodeLine{00114\ \ \ \ \ List\ =\ Temp\_List;}
+\DoxyCodeLine{00115\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=227pt]{d2/daf/_flow___over___cylinder__1_8cpp_a8ee981e0b0c6268774eb6bd3bbd0ba13_a8ee981e0b0c6268774eb6bd3bbd0ba13_icgraph}
+\end{center}
+\end{figure}

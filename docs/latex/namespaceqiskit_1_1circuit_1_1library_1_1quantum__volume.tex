@@ -1,0 +1,55 @@
+\doxysection{qiskit.\+circuit.\+library.\+quantum\+\_\+volume Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1quantum__volume}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1quantum__volume}\index{qiskit.circuit.library.quantum\_volume@{qiskit.circuit.library.quantum\_volume}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1quantum__volume_1_1_quantum_volume}{Quantum\+Volume}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1quantum__volume_ab06e0e472c4a33dfc68ad850f79c817b}{quantum\+\_\+volume}} (int num\+\_\+qubits, int\texorpdfstring{$\vert$}{|}None depth=None, int\texorpdfstring{$\vert$}{|}np.\+random.\+Generator\texorpdfstring{$\vert$}{|}None seed=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Quantum Volume model circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1quantum__volume_ab06e0e472c4a33dfc68ad850f79c817b}\index{qiskit.circuit.library.quantum\_volume@{qiskit.circuit.library.quantum\_volume}!quantum\_volume@{quantum\_volume}}
+\index{quantum\_volume@{quantum\_volume}!qiskit.circuit.library.quantum\_volume@{qiskit.circuit.library.quantum\_volume}}
+\doxysubsubsection{\texorpdfstring{quantum\_volume()}{quantum\_volume()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1quantum__volume_ab06e0e472c4a33dfc68ad850f79c817b} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+quantum\+\_\+volume.\+quantum\+\_\+volume (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{depth}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} np.\+random.\+Generator \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A quantum volume model circuit.
+
+The model circuits are random instances of circuits used to measure
+the Quantum Volume metric, as introduced in [1].
+
+The model circuits consist of layers of Haar random
+elements of SU(4) applied between corresponding pairs
+of qubits in a random bipartition.
+
+This function is multithreaded and will launch a thread pool with threads equal to the number
+of CPUs by default. You can tune the number of threads with the ``RAYON_NUM_THREADS``
+environment variable. For example, setting ``RAYON_NUM_THREADS=4`` would limit the thread pool
+to 4 threads.
+
+**Reference Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import quantum_volume
+   circuit = quantum_volume(5, 6, seed=10)
+   circuit.draw('mpl')
+
+**References:**
+
+[1] A. Cross et al. Validating quantum computers using
+randomized model circuits, Phys. Rev. A 100, 032328 (2019).
+`arXiv:1811.12926 <https://arxiv.org/abs/1811.12926>`__
+\end{DoxyVerb}
+ 

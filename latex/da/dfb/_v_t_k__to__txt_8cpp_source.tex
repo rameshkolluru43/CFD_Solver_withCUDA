@@ -1,0 +1,120 @@
+\doxysection{VTK\+\_\+to\+\_\+txt.\+cpp}
+\hypertarget{_v_t_k__to__txt_8cpp_source}{}\label{_v_t_k__to__txt_8cpp_source}\index{Gmsh\_Grids/VTK\_to\_txt.cpp@{Gmsh\_Grids/VTK\_to\_txt.cpp}}
+\mbox{\hyperlink{_v_t_k__to__txt_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <vtkSmartPointer.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <vtkUnstructuredGridReader.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <vtkUnstructuredGrid.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <vtkCellArray.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <vtkIdList.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <vtkPointData.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <vtkCellData.h>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <set>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00011}00011\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00013}00013\ \textcolor{comment}{//\ Function\ to\ sort\ edge\ (pair\ of\ nodes)\ for\ consistency}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00014}\mbox{\hyperlink{_v_t_k__to__txt_8cpp_aba6fd229034c24391b7652041cdea692_aba6fd229034c24391b7652041cdea692}{00014}}\ std::pair<vtkIdType,\ vtkIdType>\ \mbox{\hyperlink{_v_t_k__to__txt_8cpp_aba6fd229034c24391b7652041cdea692_aba6fd229034c24391b7652041cdea692}{sortEdge}}(vtkIdType\ id1,\ vtkIdType\ id2)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{if}\ (id1\ >\ id2)\ std::swap(id1,\ id2);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{return}\ \{id1,\ id2\};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00017}00017\ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00019}\mbox{\hyperlink{_v_t_k__to__txt_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{00019}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_half___cylinder_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{comment}{//\ Check\ for\ input\ file}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Usage:\ "{}}\ <<\ argv[0]\ <<\ \textcolor{stringliteral}{"{}\ <filename.vtk>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00024}00024\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00026}00026\ \ \ \ \ \textcolor{comment}{//\ Step\ 1:\ Read\ the\ .vtk\ file}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00027}00027\ \ \ \ \ std::string\ filename\ =\ argv[1];}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00028}00028\ \ \ \ \ \textcolor{keyword}{auto}\ reader\ =\ vtkSmartPointer<vtkUnstructuredGridReader>::New();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00029}00029\ \ \ \ \ reader-\/>SetFileName(filename.c\_str());}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00030}00030\ \ \ \ \ reader-\/>Update();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00032}00032\ \ \ \ \ \textcolor{comment}{//\ Step\ 2:\ Get\ the\ unstructured\ grid}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00033}00033\ \ \ \ \ \textcolor{keyword}{auto}\ unstructuredGrid\ =\ reader-\/>GetOutput();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00034}00034\ \ \ \ \ \textcolor{keywordflow}{if}\ (!unstructuredGrid)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unable\ to\ read\ the\ unstructured\ grid\ from\ the\ file."{}}\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00037}00037\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ Step\ 3:\ Access\ points\ and\ cells}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{keyword}{auto}\ points\ =\ unstructuredGrid-\/>GetPoints();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00041}00041\ \ \ \ \ \textcolor{keyword}{auto}\ cells\ =\ unstructuredGrid-\/>GetCells();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00042}00042\ \ \ \ \ vtkIdType\ numCells\ =\ unstructuredGrid-\/>GetNumberOfCells();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00043}00043\ \ \ \ \ vtkIdType\ numPoints\ =\ points-\/>GetNumberOfPoints();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00045}00045\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ cells:\ "{}}\ <<\ numCells\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00046}00046\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ points:\ "{}}\ <<\ numPoints\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Step\ 4:\ Map\ edges\ to\ cells\ for\ neighbor\ detection}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00049}00049\ \ \ \ \ std::map<std::pair<vtkIdType,\ vtkIdType>,\ std::vector<vtkIdType>>\ edgeToCells;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ cellId\ =\ 0;\ cellId\ <\ numCells;\ ++cellId)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ cell\ =\ unstructuredGrid-\/>GetCell(cellId);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ vtkIdType\ numPointsInCell\ =\ cell-\/>GetNumberOfPoints();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ pointIds\ =\ cell-\/>GetPointIds();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00054}00054\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Create\ edges\ for\ the\ cell}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ numPointsInCell;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ id1\ =\ pointIds-\/>GetId(i);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ id2\ =\ pointIds-\/>GetId((i\ +\ 1)\ \%\ numPointsInCell);\ \ \textcolor{comment}{//\ Wrap\ around\ for\ closed\ loop}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ edgeToCells[\mbox{\hyperlink{_v_t_k__to__txt_8cpp_aba6fd229034c24391b7652041cdea692_aba6fd229034c24391b7652041cdea692}{sortEdge}}(id1,\ id2)].push\_back(cellId);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00061}00061\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00063}00063\ \ \ \ \ \textcolor{comment}{//\ Step\ 5:\ Identify\ neighbors\ for\ each\ cell}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00064}00064\ \ \ \ \ std::vector<std::set<vtkIdType>>\ cellNeighbors(numCells);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [edge,\ connectedCells]\ :\ edgeToCells)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (connectedCells.size()\ >\ 1)\ \{\ \ \textcolor{comment}{//\ Shared\ edge\ indicates\ neighboring\ cells}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ cell\ :\ connectedCells)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ neighbor\ :\ connectedCells)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cell\ !=\ neighbor)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellNeighbors[cell].insert(neighbor);}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00075}00075\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00076}00076\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00077}00077\ \ \ \ \ \textcolor{comment}{//\ Output\ neighbors\ for\ each\ cell}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00078}00078\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nCell\ Neighbors:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ cellId\ =\ 0;\ cellId\ <\ numCells;\ ++cellId)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Cell\ "{}}\ <<\ cellId\ <<\ \textcolor{stringliteral}{"{}\ neighbors:\ "{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ neighbor\ :\ cellNeighbors[cellId])\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ std::cout\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00085}00085\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{comment}{//\ Step\ 6:\ Identify\ boundary\ edges}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00088}00088\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBoundary\ Edges:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00089}00089\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ [edge,\ connectedCells]\ :\ edgeToCells)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (connectedCells.size()\ ==\ 1)\ \{\ \ \textcolor{comment}{//\ Boundary\ edge\ has\ only\ one\ connected\ cell}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Edge\ ("{}}\ <<\ edge.first\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ edge.second\ <<\ \textcolor{stringliteral}{"{})\ belongs\ to\ Cell\ "{}}\ <<\ connectedCells[0]\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00093}00093\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00095}00095\ \ \ \ \ \textcolor{comment}{//\ Step\ 7:\ Access\ point\ and\ cell\ data\ for\ boundary\ conditions}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00096}00096\ \ \ \ \ \textcolor{keyword}{auto}\ pointData\ =\ unstructuredGrid-\/>GetPointData();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00097}00097\ \ \ \ \ \textcolor{keyword}{auto}\ cellData\ =\ unstructuredGrid-\/>GetCellData();}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (pointData)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nPoint\ Data\ Arrays:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ pointData-\/>GetNumberOfArrays();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Array\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ pointData-\/>GetArrayName(i)\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00104}00104\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{if}\ (cellData)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nCell\ Data\ Arrays:\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ cellData-\/>GetNumberOfArrays();\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Array\ "{}}\ <<\ i\ <<\ \textcolor{stringliteral}{"{}:\ "{}}\ <<\ cellData-\/>GetArrayName(i)\ <<\ std::endl;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00111}00111\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00113}00113\ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_SUCCESS;}
+\DoxyCodeLine{\Hypertarget{_v_t_k__to__txt_8cpp_source_l00114}00114\ \}}
+
+\end{DoxyCode}

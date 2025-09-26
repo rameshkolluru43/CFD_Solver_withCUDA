@@ -1,0 +1,75 @@
+\doxysection{qiskit.\+pulse.\+library.\+samplers.\+strategies Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies}{}\label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies}\index{qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_ace4f81d2d4b5e3fd7ef9080a9892a8ed_ace4f81d2d4b5e3fd7ef9080a9892a8ed}{left\+\_\+sample}} (Callable continuous\+\_\+pulse, int duration, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a3143554c479e19c2ae3d1e23ef18067d_a3143554c479e19c2ae3d1e23ef18067d}{right\+\_\+sample}} (Callable continuous\+\_\+pulse, int duration, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a008f5ff67134076a08ec893ec5903de9_a008f5ff67134076a08ec893ec5903de9}{midpoint\+\_\+sample}} (Callable continuous\+\_\+pulse, int duration, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Sampler strategy module for sampler functions.
+
+Sampler functions have signature.
+    ```python
+    def sampler_function(continuous_pulse: Callable, duration: int, *args, **kwargs) -> np.ndarray:
+        ...
+    ```
+where the supplied `continuous_pulse` is a function with signature:
+    ```python
+    def f(times: np.ndarray, *args, **kwargs) -> np.ndarray:
+        ...
+    ```
+The sampler will call the `continuous_pulse` function with a set of times it will decide
+according to the sampling strategy it implements along with the passed `args` and `kwargs`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_ace4f81d2d4b5e3fd7ef9080a9892a8ed_ace4f81d2d4b5e3fd7ef9080a9892a8ed}\index{qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}!left\_sample@{left\_sample}}
+\index{left\_sample@{left\_sample}!qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}}
+\doxysubsubsection{\texorpdfstring{left\_sample()}{left\_sample()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_ace4f81d2d4b5e3fd7ef9080a9892a8ed_ace4f81d2d4b5e3fd7ef9080a9892a8ed} 
+ np.\+ndarray qiskit.\+pulse.\+library.\+samplers.\+strategies.\+left\+\_\+sample (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{, }\item[{int}]{duration}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Left sample a continuous function.
+
+Args:
+    continuous_pulse: Continuous pulse function to sample.
+    duration: Duration to sample for.
+    *args: Continuous pulse function args.
+    **kwargs: Continuous pulse function kwargs.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a008f5ff67134076a08ec893ec5903de9_a008f5ff67134076a08ec893ec5903de9}\index{qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}!midpoint\_sample@{midpoint\_sample}}
+\index{midpoint\_sample@{midpoint\_sample}!qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}}
+\doxysubsubsection{\texorpdfstring{midpoint\_sample()}{midpoint\_sample()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a008f5ff67134076a08ec893ec5903de9_a008f5ff67134076a08ec893ec5903de9} 
+ np.\+ndarray qiskit.\+pulse.\+library.\+samplers.\+strategies.\+midpoint\+\_\+sample (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{, }\item[{int}]{duration}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sampling strategy for decorator.
+
+Args:
+    continuous_pulse: Continuous pulse function to sample.
+    duration: Duration to sample for.
+    *args: Continuous pulse function args.
+    **kwargs: Continuous pulse function kwargs.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a3143554c479e19c2ae3d1e23ef18067d_a3143554c479e19c2ae3d1e23ef18067d}\index{qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}!right\_sample@{right\_sample}}
+\index{right\_sample@{right\_sample}!qiskit.pulse.library.samplers.strategies@{qiskit.pulse.library.samplers.strategies}}
+\doxysubsubsection{\texorpdfstring{right\_sample()}{right\_sample()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1library_1_1samplers_1_1strategies_a3143554c479e19c2ae3d1e23ef18067d_a3143554c479e19c2ae3d1e23ef18067d} 
+ np.\+ndarray qiskit.\+pulse.\+library.\+samplers.\+strategies.\+right\+\_\+sample (\begin{DoxyParamCaption}\item[{Callable}]{continuous\+\_\+pulse}{, }\item[{int}]{duration}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sampling strategy for decorator.
+
+Args:
+    continuous_pulse: Continuous pulse function to sample.
+    duration: Duration to sample for.
+    *args: Continuous pulse function args.
+    **kwargs: Continuous pulse function kwargs.
+\end{DoxyVerb}
+ 

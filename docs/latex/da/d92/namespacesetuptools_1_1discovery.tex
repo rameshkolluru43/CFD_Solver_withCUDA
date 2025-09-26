@@ -1,0 +1,146 @@
+\doxysection{setuptools.\+discovery Namespace Reference}
+\hypertarget{namespacesetuptools_1_1discovery}{}\label{namespacesetuptools_1_1discovery}\index{setuptools.discovery@{setuptools.discovery}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___filter}{\+\_\+\+Filter}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___finder}{\+\_\+\+Finder}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_config_discovery}{Config\+Discovery}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_flat_layout_module_finder}{Flat\+Layout\+Module\+Finder}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_flat_layout_package_finder}{Flat\+Layout\+Package\+Finder}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_module_finder}{Module\+Finder}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_package_finder}{Package\+Finder}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_p_e_p420_package_finder}{PEP420\+Package\+Finder}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1discovery_a03e970d067022774001b5630da3707af}\label{namespacesetuptools_1_1discovery_a03e970d067022774001b5630da3707af} 
+bool {\bfseries \+\_\+valid\+\_\+name} (Str\+Path path)
+\item 
+\Hypertarget{namespacesetuptools_1_1discovery_a6fbc98b7b6946e68f025b15fd10b62f2}\label{namespacesetuptools_1_1discovery_a6fbc98b7b6946e68f025b15fd10b62f2} 
+list\mbox{[}str\mbox{]} {\bfseries \+\_\+find\+\_\+packages\+\_\+within} (str root\+\_\+pkg, Str\+Path pkg\+\_\+dir)
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{namespacesetuptools_1_1discovery_a26cd7082c9c3fc25967067f1c5494629_a26cd7082c9c3fc25967067f1c5494629}{remove\+\_\+nested\+\_\+packages}} (list\mbox{[}str\mbox{]} packages)
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{namespacesetuptools_1_1discovery_adcf1d49e1f0933858f1450b0f43d2079_adcf1d49e1f0933858f1450b0f43d2079}{remove\+\_\+stubs}} (list\mbox{[}str\mbox{]} packages)
+\item 
+str\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{namespacesetuptools_1_1discovery_af2662eb4f3548ef6dcfc9f35e8788abc_af2662eb4f3548ef6dcfc9f35e8788abc}{find\+\_\+parent\+\_\+package}} (list\mbox{[}str\mbox{]} packages, Mapping\mbox{[}str, str\mbox{]} package\+\_\+dir, Str\+Path root\+\_\+dir)
+\item 
+str \mbox{\hyperlink{namespacesetuptools_1_1discovery_a71190bb360ce727e8647dd37fbc143ce_a71190bb360ce727e8647dd37fbc143ce}{find\+\_\+package\+\_\+path}} (str name, Mapping\mbox{[}str, str\mbox{]} package\+\_\+dir, Str\+Path root\+\_\+dir)
+\item 
+\Hypertarget{namespacesetuptools_1_1discovery_a72c29d3d134b5e2f421c461c7dee55b3}\label{namespacesetuptools_1_1discovery_a72c29d3d134b5e2f421c461c7dee55b3} 
+dict\mbox{[}str, str\mbox{]} {\bfseries construct\+\_\+package\+\_\+dir} (list\mbox{[}str\mbox{]} packages, Str\+Path package\+\_\+path)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1discovery_a8ce1f228a832d9afef9405c06c1f43f3}\label{namespacesetuptools_1_1discovery_a8ce1f228a832d9afef9405c06c1f43f3} 
+{\bfseries chain\+\_\+iter} = itertools.\+chain.\+from\+\_\+iterable
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Automatic discovery of Python modules and packages (for inclusion in the
+distribution) and other config values.
+
+For the purposes of this module, the following nomenclature is used:
+
+- "src-layout": a directory representing a Python project that contains a "src"
+  folder. Everything under the "src" folder is meant to be included in the
+  distribution when packaging the project. Example::
+
+    .
+    ├── tox.ini
+    ├── pyproject.toml
+    └── src/
+        └── mypkg/
+            ├── __init__.py
+            ├── mymodule.py
+            └── my_data_file.txt
+
+- "flat-layout": a Python project that does not use "src-layout" but instead
+  have a directory under the project root for each package::
+
+    .
+    ├── tox.ini
+    ├── pyproject.toml
+    └── mypkg/
+        ├── __init__.py
+        ├── mymodule.py
+        └── my_data_file.txt
+
+- "single-module": a project that contains a single Python script direct under
+  the project root (no directory used)::
+
+    .
+    ├── tox.ini
+    ├── pyproject.toml
+    └── mymodule.py\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1discovery_a71190bb360ce727e8647dd37fbc143ce_a71190bb360ce727e8647dd37fbc143ce}\index{setuptools.discovery@{setuptools.discovery}!find\_package\_path@{find\_package\_path}}
+\index{find\_package\_path@{find\_package\_path}!setuptools.discovery@{setuptools.discovery}}
+\doxysubsubsection{\texorpdfstring{find\_package\_path()}{find\_package\_path()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1discovery_a71190bb360ce727e8647dd37fbc143ce_a71190bb360ce727e8647dd37fbc143ce} 
+ str setuptools.\+discovery.\+find\+\_\+package\+\_\+path (\begin{DoxyParamCaption}\item[{str}]{name}{, }\item[{Mapping\mbox{[}str, str\mbox{]}}]{package\+\_\+dir}{, }\item[{Str\+Path }]{root\+\_\+dir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a package name, return the path where it should be found on
+disk, considering the ``package_dir`` option.
+
+>>> path = find_package_path("my.pkg", {"": "root/is/nested"}, ".")
+>>> path.replace(os.sep, "/")
+'./root/is/nested/my/pkg'
+
+>>> path = find_package_path("my.pkg", {"my": "root/is/nested"}, ".")
+>>> path.replace(os.sep, "/")
+'./root/is/nested/pkg'
+
+>>> path = find_package_path("my.pkg", {"my.pkg": "root/is/nested"}, ".")
+>>> path.replace(os.sep, "/")
+'./root/is/nested'
+
+>>> path = find_package_path("other.pkg", {"my.pkg": "root/is/nested"}, ".")
+>>> path.replace(os.sep, "/")
+'./other/pkg'
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1discovery_af2662eb4f3548ef6dcfc9f35e8788abc_af2662eb4f3548ef6dcfc9f35e8788abc}\index{setuptools.discovery@{setuptools.discovery}!find\_parent\_package@{find\_parent\_package}}
+\index{find\_parent\_package@{find\_parent\_package}!setuptools.discovery@{setuptools.discovery}}
+\doxysubsubsection{\texorpdfstring{find\_parent\_package()}{find\_parent\_package()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1discovery_af2662eb4f3548ef6dcfc9f35e8788abc_af2662eb4f3548ef6dcfc9f35e8788abc} 
+ str \texorpdfstring{$\vert$}{|} None setuptools.\+discovery.\+find\+\_\+parent\+\_\+package (\begin{DoxyParamCaption}\item[{list\mbox{[}str\mbox{]}}]{packages}{, }\item[{Mapping\mbox{[}str, str\mbox{]}}]{package\+\_\+dir}{, }\item[{Str\+Path }]{root\+\_\+dir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Find the parent package that is not a namespace.\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1discovery_a26cd7082c9c3fc25967067f1c5494629_a26cd7082c9c3fc25967067f1c5494629}\index{setuptools.discovery@{setuptools.discovery}!remove\_nested\_packages@{remove\_nested\_packages}}
+\index{remove\_nested\_packages@{remove\_nested\_packages}!setuptools.discovery@{setuptools.discovery}}
+\doxysubsubsection{\texorpdfstring{remove\_nested\_packages()}{remove\_nested\_packages()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1discovery_a26cd7082c9c3fc25967067f1c5494629_a26cd7082c9c3fc25967067f1c5494629} 
+ list\mbox{[}str\mbox{]} setuptools.\+discovery.\+remove\+\_\+nested\+\_\+packages (\begin{DoxyParamCaption}\item[{list\mbox{[}str\mbox{]}}]{packages}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Remove nested packages from a list of packages.
+
+>>> remove_nested_packages(["a", "a.b1", "a.b2", "a.b1.c1"])
+['a']
+>>> remove_nested_packages(["a", "b", "c.d", "c.d.e.f", "g.h", "a.a1"])
+['a', 'b', 'c.d', 'g.h']
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1discovery_adcf1d49e1f0933858f1450b0f43d2079_adcf1d49e1f0933858f1450b0f43d2079}\index{setuptools.discovery@{setuptools.discovery}!remove\_stubs@{remove\_stubs}}
+\index{remove\_stubs@{remove\_stubs}!setuptools.discovery@{setuptools.discovery}}
+\doxysubsubsection{\texorpdfstring{remove\_stubs()}{remove\_stubs()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1discovery_adcf1d49e1f0933858f1450b0f43d2079_adcf1d49e1f0933858f1450b0f43d2079} 
+ list\mbox{[}str\mbox{]} setuptools.\+discovery.\+remove\+\_\+stubs (\begin{DoxyParamCaption}\item[{list\mbox{[}str\mbox{]}}]{packages}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Remove type stubs (:pep:`561`) from a list of packages.
+
+>>> remove_stubs(["a", "a.b", "a-stubs", "a-stubs.b.c", "b", "c-stubs"])
+['a', 'a.b', 'b']
+\end{DoxyVerb}
+ 

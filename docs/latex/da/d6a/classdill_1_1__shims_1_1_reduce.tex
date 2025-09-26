@@ -1,0 +1,69 @@
+\doxysection{dill.\+\_\+shims.\+Reduce Class Reference}
+\hypertarget{classdill_1_1__shims_1_1_reduce}{}\label{classdill_1_1__shims_1_1_reduce}\index{dill.\_shims.Reduce@{dill.\_shims.Reduce}}
+Inheritance diagram for dill.\+\_\+shims.\+Reduce\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{da/d6a/classdill_1_1__shims_1_1_reduce}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdill_1_1__shims_1_1_reduce_a6e1649abf5b83c8c716303a3d3c1cb67_a6e1649abf5b83c8c716303a3d3c1cb67}{\+\_\+\+\_\+new\+\_\+\+\_\+}} (cls, \texorpdfstring{$\ast$}{*}reduction, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a71c1fe425e2ee0616b395b42766b94c2}\label{classdill_1_1__shims_1_1_reduce_a71c1fe425e2ee0616b395b42766b94c2} 
+{\bfseries \+\_\+\+\_\+repr\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a43dd45b4718f06fd2792ee52e124ee61}\label{classdill_1_1__shims_1_1_reduce_a43dd45b4718f06fd2792ee52e124ee61} 
+{\bfseries \+\_\+\+\_\+copy\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a36e6fa4947052b7268070aa67801f52e}\label{classdill_1_1__shims_1_1_reduce_a36e6fa4947052b7268070aa67801f52e} 
+{\bfseries \+\_\+\+\_\+deepcopy\+\_\+\+\_\+} (self, memo)
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a74b5e3743517b4c891165ee4c00af370}\label{classdill_1_1__shims_1_1_reduce_a74b5e3743517b4c891165ee4c00af370} 
+{\bfseries \+\_\+\+\_\+reduce\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a652d951d9857b5c10ee0839a6a3f228c}\label{classdill_1_1__shims_1_1_reduce_a652d951d9857b5c10ee0839a6a3f228c} 
+{\bfseries \+\_\+\+\_\+reduce\+\_\+ex\+\_\+\+\_\+} (self, protocol)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdill_1_1__shims_1_1_reduce_ad9dd5db6a3eeafc171d2db85e44056fc}\label{classdill_1_1__shims_1_1_reduce_ad9dd5db6a3eeafc171d2db85e44056fc} 
+{\bfseries reduction} = reduction
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Reduce objects are wrappers used for compatibility enforcement during
+unpickle-time. They should only be used in calls to pickler.save and
+other Reduce objects. They are only evaluated within unpickler.load.
+
+Pickling a Reduce object makes the two implementations equivalent:
+
+pickler.save(Reduce(*reduction))
+
+pickler.save_reduce(*reduction, obj=reduction)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdill_1_1__shims_1_1_reduce_a6e1649abf5b83c8c716303a3d3c1cb67_a6e1649abf5b83c8c716303a3d3c1cb67}\index{dill.\_shims.Reduce@{dill.\_shims.Reduce}!\_\_new\_\_@{\_\_new\_\_}}
+\index{\_\_new\_\_@{\_\_new\_\_}!dill.\_shims.Reduce@{dill.\_shims.Reduce}}
+\doxysubsubsection{\texorpdfstring{\_\_new\_\_()}{\_\_new\_\_()}}
+{\footnotesize\ttfamily \label{classdill_1_1__shims_1_1_reduce_a6e1649abf5b83c8c716303a3d3c1cb67_a6e1649abf5b83c8c716303a3d3c1cb67} 
+dill.\+\_\+shims.\+Reduce.\+\_\+\+\_\+new\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{\texorpdfstring{$\ast$}{*}}]{reduction}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    *reduction: a tuple that matches the format given here:
+      https://docs.python.org/3/library/pickle.html#object.__reduce__
+    is_callable: a bool to indicate that the object created by
+      unpickling `reduction` is callable. If true, the current Reduce
+      is allowed to be used as the function in further save_reduce calls
+      or Reduce objects.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/dill/\+\_\+shims.\+py\end{DoxyCompactItemize}

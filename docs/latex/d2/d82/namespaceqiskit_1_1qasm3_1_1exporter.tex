@@ -1,0 +1,158 @@
+\doxysection{qiskit.\+qasm3.\+exporter Namespace Reference}
+\hypertarget{namespaceqiskit_1_1qasm3_1_1exporter}{}\label{namespaceqiskit_1_1qasm3_1_1exporter}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1___expr_builder}{\+\_\+\+Expr\+Builder}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_build_scope}{Build\+Scope}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_exporter}{Exporter}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_gate_info}{Gate\+Info}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_q_a_s_m3_builder}{QASM3\+Builder}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_symbol_table}{Symbol\+Table}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} \mbox{\hyperlink{namespaceqiskit_1_1qasm3_1_1exporter_a066166427a909a9b0fcb3acb90828399_a066166427a909a9b0fcb3acb90828399}{\+\_\+gate\+\_\+canonical\+\_\+form}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} gate)
+\item 
+Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1qasm3_1_1ast_1_1_classical_declaration}{ast.\+Classical\+Declaration}}, None\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1qasm3_1_1exporter_abfee49d9dd184fae2879033f99f0c18a_abfee49d9dd184fae2879033f99f0c18a}{\+\_\+infer\+\_\+variable\+\_\+declaration}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}} parameter, \mbox{\hyperlink{classqiskit_1_1qasm3_1_1ast_1_1_identifier}{ast.\+Identifier}} parameter\+\_\+name)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a34237d63676717e68201765defdaf854}\label{namespaceqiskit_1_1qasm3_1_1exporter_a34237d63676717e68201765defdaf854} 
+{\bfseries \+\_\+lift\+\_\+condition} (condition)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a7e23b923f2d535daa4c5fff3358a7cb3}\label{namespaceqiskit_1_1qasm3_1_1exporter_a7e23b923f2d535daa4c5fff3358a7cb3} 
+\mbox{\hyperlink{classqiskit_1_1qasm3_1_1ast_1_1_classical_type}{ast.\+Classical\+Type}} {\bfseries \+\_\+build\+\_\+ast\+\_\+type} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1types_1_1types_1_1_type}{types.\+Type}} type\+\_\+)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a7e0e66d00dea796ba3c675f7843fb414}\label{namespaceqiskit_1_1qasm3_1_1exporter_a7e0e66d00dea796ba3c675f7843fb414} 
+{\bfseries \+\_\+\+RESERVED\+\_\+\+KEYWORDS}
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_ab5bbebd5e47b71c616f3bf8914f8231e}\label{namespaceqiskit_1_1qasm3_1_1exporter_ab5bbebd5e47b71c616f3bf8914f8231e} 
+{\bfseries \+\_\+\+VALID\+\_\+\+DECLARABLE\+\_\+\+IDENTIFIER} = re.\+compile(r"{}(\mbox{[}\textbackslash{}w\mbox{]}\mbox{[}\textbackslash{}w\textbackslash{}d\mbox{]}\texorpdfstring{$\ast$}{*})"{}, flags=re.\+U)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_af459b4f6d6d889cf463ed76b7d3cae0b}\label{namespaceqiskit_1_1qasm3_1_1exporter_af459b4f6d6d889cf463ed76b7d3cae0b} 
+{\bfseries \+\_\+\+VALID\+\_\+\+HARDWARE\+\_\+\+QUBIT} = re.\+compile(r"{}\textbackslash{}\$\mbox{[}\textbackslash{}d\mbox{]}+"{}, flags=re.\+U)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a847abe00bf23072b05b6917173d4d24a}\label{namespaceqiskit_1_1qasm3_1_1exporter_a847abe00bf23072b05b6917173d4d24a} 
+{\bfseries \+\_\+\+BAD\+\_\+\+IDENTIFIER\+\_\+\+CHARACTERS} = re.\+compile(r"{}\mbox{[}\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}w\textbackslash{}d\mbox{]}"{}, flags=re.\+U)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a0c63e5c81896e5d309f66b7f21c793d9}\label{namespaceqiskit_1_1qasm3_1_1exporter_a0c63e5c81896e5d309f66b7f21c793d9} 
+tuple {\bfseries \+\_\+\+FIXED\+\_\+\+PARAMETERS} = (\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}p0"{}), \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}p1"{}), \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}p2"{}), \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}p3"{}))
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1qasm3_1_1exporter_a5c1c927a14aa7dd084d041d01c912614_a5c1c927a14aa7dd084d041d01c912614}{\+\_\+\+CANONICAL\+\_\+\+STANDARD\+\_\+\+GATES}}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1qasm3_1_1exporter_ae64dbc4b37fb9c244dfef5d8a5667b80_ae64dbc4b37fb9c244dfef5d8a5667b80}{\+\_\+\+CANONICAL\+\_\+\+CONTROLLED\+\_\+\+STANDARD\+\_\+\+GATES}}
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a4f24223584811bcd915134395149e63a}\label{namespaceqiskit_1_1qasm3_1_1exporter_a4f24223584811bcd915134395149e63a} 
+dict {\bfseries \+\_\+\+KNOWN\+\_\+\+INCLUDES}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1qasm3_1_1exporter_ad2dec32bfca51b3ba4f413d2dea7a75d_ad2dec32bfca51b3ba4f413d2dea7a75d}{\+\_\+\+BUILTIN\+\_\+\+GATES}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}QASM3 Exporter\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a066166427a909a9b0fcb3acb90828399_a066166427a909a9b0fcb3acb90828399}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}!\_gate\_canonical\_form@{\_gate\_canonical\_form}}
+\index{\_gate\_canonical\_form@{\_gate\_canonical\_form}!qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection{\texorpdfstring{\_gate\_canonical\_form()}{\_gate\_canonical\_form()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm3_1_1exporter_a066166427a909a9b0fcb3acb90828399_a066166427a909a9b0fcb3acb90828399} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} qiskit.\+qasm3.\+exporter.\+\_\+gate\+\_\+canonical\+\_\+form (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}}]{gate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the canonical form of a gate.
+
+This is the gate object that should be used to provide the OpenQASM 3 definition of a gate (but
+not the call site; that's the input object).  This lets us return a re-parametrised gate in
+terms of general parameters, in cases where we can be sure that that is valid.  This is
+currently only Qiskit standard gates.  This lets multiple call-site gates match the same symbol,
+in the case of parametric gates.
+
+The definition source provides the number of qubits, the parameter signature and the body of the
+`gate` statement.  It does not provide the name of the symbol being defined.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_abfee49d9dd184fae2879033f99f0c18a_abfee49d9dd184fae2879033f99f0c18a}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}!\_infer\_variable\_declaration@{\_infer\_variable\_declaration}}
+\index{\_infer\_variable\_declaration@{\_infer\_variable\_declaration}!qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection{\texorpdfstring{\_infer\_variable\_declaration()}{\_infer\_variable\_declaration()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm3_1_1exporter_abfee49d9dd184fae2879033f99f0c18a_abfee49d9dd184fae2879033f99f0c18a} 
+ Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1qasm3_1_1ast_1_1_classical_declaration}{ast.\+Classical\+Declaration}}, None\mbox{]} qiskit.\+qasm3.\+exporter.\+\_\+infer\+\_\+variable\+\_\+declaration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}}]{parameter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1qasm3_1_1ast_1_1_identifier}{ast.\+Identifier}} }]{parameter\+\_\+name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Attempt to infer what type a parameter should be declared as to work with a circuit.
+
+This is very simplistic; it assumes all parameters are real numbers that need to be input to the
+program, unless one is used as a loop variable, in which case it shouldn't be declared at all,
+because the ``for`` loop declares it implicitly (per the Qiskit/qe-compiler reading of the
+OpenQASM spec at openqasm/openqasm@8ee55ec).
+
+.. note::
+
+    This is a hack around not having a proper type system implemented in Terra, and really this
+    whole function should be removed in favour of proper symbol-table building and lookups.
+    This function is purely to try and hack the parameters for ``for`` loops into the exporter
+    for now.
+
+Args:
+    circuit: The global-scope circuit, which is the base of the exported program.
+    parameter: The parameter to infer the type of.
+    parameter_name: The name of the parameter to use in the declaration.
+
+Returns:
+    A suitable :obj:`.ast.ClassicalDeclaration` node, or, if the parameter should *not* be
+    declared, then ``None``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_ad2dec32bfca51b3ba4f413d2dea7a75d_ad2dec32bfca51b3ba4f413d2dea7a75d}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}!\_BUILTIN\_GATES@{\_BUILTIN\_GATES}}
+\index{\_BUILTIN\_GATES@{\_BUILTIN\_GATES}!qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection{\texorpdfstring{\_BUILTIN\_GATES}{\_BUILTIN\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm3_1_1exporter_ad2dec32bfca51b3ba4f413d2dea7a75d_ad2dec32bfca51b3ba4f413d2dea7a75d} 
+dict qiskit.\+qasm3.\+exporter.\+\_\+\+BUILTIN\+\_\+\+GATES\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}U"{}}:\ \_CANONICAL\_STANDARD\_GATES[StandardGate.UGate],}
+\DoxyCodeLine{00003\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_ae64dbc4b37fb9c244dfef5d8a5667b80_ae64dbc4b37fb9c244dfef5d8a5667b80}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}!\_CANONICAL\_CONTROLLED\_STANDARD\_GATES@{\_CANONICAL\_CONTROLLED\_STANDARD\_GATES}}
+\index{\_CANONICAL\_CONTROLLED\_STANDARD\_GATES@{\_CANONICAL\_CONTROLLED\_STANDARD\_GATES}!qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection{\texorpdfstring{\_CANONICAL\_CONTROLLED\_STANDARD\_GATES}{\_CANONICAL\_CONTROLLED\_STANDARD\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm3_1_1exporter_ae64dbc4b37fb9c244dfef5d8a5667b80_ae64dbc4b37fb9c244dfef5d8a5667b80} 
+dict qiskit.\+qasm3.\+exporter.\+\_\+\+CANONICAL\+\_\+\+CONTROLLED\+\_\+\+STANDARD\+\_\+\+GATES\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ standard:\ [}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ standard.gate\_class(*\_FIXED\_PARAMETERS[:\ standard.num\_params],\ ctrl\_state=ctrl\_state)}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ ctrl\_state\ \textcolor{keywordflow}{in}\ range(1\ <<\ standard.num\_ctrl\_qubits)}
+\DoxyCodeLine{00005\ \ \ \ \ ]}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordflow}{for}\ standard\ \textcolor{keywordflow}{in}\ StandardGate.all\_gates()}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{if}\ standard.is\_controlled\_gate}
+\DoxyCodeLine{00008\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1qasm3_1_1exporter_a5c1c927a14aa7dd084d041d01c912614_a5c1c927a14aa7dd084d041d01c912614}\index{qiskit.qasm3.exporter@{qiskit.qasm3.exporter}!\_CANONICAL\_STANDARD\_GATES@{\_CANONICAL\_STANDARD\_GATES}}
+\index{\_CANONICAL\_STANDARD\_GATES@{\_CANONICAL\_STANDARD\_GATES}!qiskit.qasm3.exporter@{qiskit.qasm3.exporter}}
+\doxysubsubsection{\texorpdfstring{\_CANONICAL\_STANDARD\_GATES}{\_CANONICAL\_STANDARD\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm3_1_1exporter_a5c1c927a14aa7dd084d041d01c912614_a5c1c927a14aa7dd084d041d01c912614} 
+dict qiskit.\+qasm3.\+exporter.\+\_\+\+CANONICAL\+\_\+\+STANDARD\+\_\+\+GATES\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ standard:\ standard.gate\_class(*\_FIXED\_PARAMETERS[:\ standard.num\_params])}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{keywordflow}{for}\ standard\ \textcolor{keywordflow}{in}\ StandardGate.all\_gates()}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{keywordflow}{if}\ \textcolor{keywordflow}{not}\ standard.is\_controlled\_gate}
+\DoxyCodeLine{00005\ \}}
+
+\end{DoxyCode}

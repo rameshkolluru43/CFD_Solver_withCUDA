@@ -1,0 +1,218 @@
+\doxysection{qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools Namespace Reference}
+\hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools}{}\label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aef965633bd082aef0d9d34d40692dc3d}{single\+\_\+gate\+\_\+matrix}} (str gate, list\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}None params=None)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a366c0913efc1b08cc8fcb8a105aad344}{einsum\+\_\+matmul\+\_\+index}} (list\mbox{[}int\mbox{]} gate\+\_\+indices, int number\+\_\+of\+\_\+qubits)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a5a405ff4325552b6bebc92f2dedbb86c}{einsum\+\_\+vecmul\+\_\+index}} (list\mbox{[}int\mbox{]} gate\+\_\+indices, int number\+\_\+of\+\_\+qubits)
+\item 
+tuple\mbox{[}str, str, str, str\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a95fa5f85f7131ac08c3270cceaa18af3}{\+\_\+einsum\+\_\+matmul\+\_\+index\+\_\+helper}} (list\mbox{[}int\mbox{]} gate\+\_\+indices, int number\+\_\+of\+\_\+qubits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a15e66c320e0a4efd4e98b240e7a8ef36}{SINGLE\+\_\+\+QUBIT\+\_\+\+GATES}}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aa6bbc43b2d4756b500baebac294b23e9}{TWO\+\_\+\+QUBIT\+\_\+\+GATES}}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_abdad0311a9400af6bf3aeccf59f22c16}{TWO\+\_\+\+QUBIT\+\_\+\+GATES\+\_\+\+WITH\+\_\+\+PARAMETERS}}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_ab8403dbafa09123d187ae85014c754f6}{THREE\+\_\+\+QUBIT\+\_\+\+GATES}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Contains functions used by the basic provider simulators.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a95fa5f85f7131ac08c3270cceaa18af3}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!\_einsum\_matmul\_index\_helper@{\_einsum\_matmul\_index\_helper}}
+\index{\_einsum\_matmul\_index\_helper@{\_einsum\_matmul\_index\_helper}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{\_einsum\_matmul\_index\_helper()}{\_einsum\_matmul\_index\_helper()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a95fa5f85f7131ac08c3270cceaa18af3} 
+ tuple\mbox{[}str, str, str, str\mbox{]} qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+\_\+einsum\+\_\+matmul\+\_\+index\+\_\+helper (\begin{DoxyParamCaption}\item[{list\mbox{[}int\mbox{]}}]{gate\+\_\+indices}{, }\item[{int }]{number\+\_\+of\+\_\+qubits}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return the index string for Numpy.einsum matrix multiplication.
+
+The returned indices are to perform a matrix multiplication A.v where
+the matrix A is an M-qubit matrix, matrix v is an N-qubit vector, and
+M <= N, and identity matrices are implied on the subsystems where A has no
+support on v.
+
+Args:
+    gate_indices (list[int]): the indices of the right matrix subsystems
+                               to contract with the left matrix.
+    number_of_qubits (int): the total number of qubits for the right matrix.
+
+Returns:
+    tuple: (mat_left, mat_right, tens_in, tens_out) of index strings for
+    that may be combined into a Numpy.einsum function string.
+
+Raises:
+    QiskitError: if the total number of qubits plus the number of
+    contracted indices is greater than 26.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a366c0913efc1b08cc8fcb8a105aad344}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!einsum\_matmul\_index@{einsum\_matmul\_index}}
+\index{einsum\_matmul\_index@{einsum\_matmul\_index}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{einsum\_matmul\_index()}{einsum\_matmul\_index()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a366c0913efc1b08cc8fcb8a105aad344} 
+ str qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+einsum\+\_\+matmul\+\_\+index (\begin{DoxyParamCaption}\item[{list\mbox{[}int\mbox{]}}]{gate\+\_\+indices}{, }\item[{int}]{number\+\_\+of\+\_\+qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the index string for Numpy.einsum matrix-matrix multiplication.
+
+The returned indices are to perform a matrix multiplication A.B where
+the matrix A is an M-qubit matrix, matrix B is an N-qubit matrix, and
+M <= N, and identity matrices are implied on the subsystems where A has no
+support on B.
+
+Args:
+    gate_indices (list[int]): the indices of the right matrix subsystems
+                               to contract with the left matrix.
+    number_of_qubits (int): the total number of qubits for the right matrix.
+
+Returns:
+    str: An indices string for the Numpy.einsum function.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a5a405ff4325552b6bebc92f2dedbb86c}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!einsum\_vecmul\_index@{einsum\_vecmul\_index}}
+\index{einsum\_vecmul\_index@{einsum\_vecmul\_index}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{einsum\_vecmul\_index()}{einsum\_vecmul\_index()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a5a405ff4325552b6bebc92f2dedbb86c} 
+ str qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+einsum\+\_\+vecmul\+\_\+index (\begin{DoxyParamCaption}\item[{list\mbox{[}int\mbox{]}}]{gate\+\_\+indices}{, }\item[{int}]{number\+\_\+of\+\_\+qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the index string for Numpy.einsum matrix-vector multiplication.
+
+The returned indices are to perform a matrix multiplication A.v where
+the matrix A is an M-qubit matrix, vector v is an N-qubit vector, and
+M <= N, and identity matrices are implied on the subsystems where A has no
+support on v.
+
+Args:
+    gate_indices (list[int]): the indices of the right matrix subsystems
+                              to contract with the left matrix.
+    number_of_qubits (int): the total number of qubits for the right matrix.
+
+Returns:
+    str: An indices string for the Numpy.einsum function.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aef965633bd082aef0d9d34d40692dc3d}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!single\_gate\_matrix@{single\_gate\_matrix}}
+\index{single\_gate\_matrix@{single\_gate\_matrix}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{single\_gate\_matrix()}{single\_gate\_matrix()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aef965633bd082aef0d9d34d40692dc3d} 
+ np.\+ndarray qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+single\+\_\+gate\+\_\+matrix (\begin{DoxyParamCaption}\item[{str}]{gate}{, }\item[{list\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} None }]{params}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the matrix for a single qubit.
+
+Args:
+    gate: the single qubit gate name
+    params: the operation parameters op['params']
+Returns:
+    array: A numpy array representing the matrix
+Raises:
+    QiskitError: If a gate outside the supported set is passed in for the
+        ``Gate`` argument.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a15e66c320e0a4efd4e98b240e7a8ef36}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!SINGLE\_QUBIT\_GATES@{SINGLE\_QUBIT\_GATES}}
+\index{SINGLE\_QUBIT\_GATES@{SINGLE\_QUBIT\_GATES}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{SINGLE\_QUBIT\_GATES}{SINGLE\_QUBIT\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_a15e66c320e0a4efd4e98b240e7a8ef36} 
+dict qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+SINGLE\+\_\+\+QUBIT\+\_\+\+GATES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}U"{}}:\ gates.UGate,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}u"{}}:\ gates.UGate,}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}u1"{}}:\ gates.U1Gate,}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}u2"{}}:\ gates.U2Gate,}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}u3"{}}:\ gates.U3Gate,}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}h"{}}:\ gates.HGate,}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}p"{}}:\ gates.PhaseGate,}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}s"{}}:\ gates.SGate,}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}sdg"{}}:\ gates.SdgGate,}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{"{}sx"{}}:\ gates.SXGate,}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{"{}sxdg"{}}:\ gates.SXdgGate,}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{"{}t"{}}:\ gates.TGate,}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{stringliteral}{"{}tdg"{}}:\ gates.TdgGate,}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{stringliteral}{"{}x"{}}:\ gates.XGate,}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{stringliteral}{"{}y"{}}:\ gates.YGate,}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{stringliteral}{"{}z"{}}:\ gates.ZGate,}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{stringliteral}{"{}id"{}}:\ gates.IGate,}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{stringliteral}{"{}i"{}}:\ gates.IGate,}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{stringliteral}{"{}r"{}}:\ gates.RGate,}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{stringliteral}{"{}rx"{}}:\ gates.RXGate,}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{stringliteral}{"{}ry"{}}:\ gates.RYGate,}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{stringliteral}{"{}rz"{}}:\ gates.RZGate,}
+\DoxyCodeLine{00024\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_ab8403dbafa09123d187ae85014c754f6}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!THREE\_QUBIT\_GATES@{THREE\_QUBIT\_GATES}}
+\index{THREE\_QUBIT\_GATES@{THREE\_QUBIT\_GATES}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{THREE\_QUBIT\_GATES}{THREE\_QUBIT\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_ab8403dbafa09123d187ae85014c754f6} 
+dict qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+THREE\+\_\+\+QUBIT\+\_\+\+GATES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}ccx"{}}:\ gates.CCXGate().to\_matrix(),}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}ccz"{}}:\ gates.CCZGate().to\_matrix(),}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}rccx"{}}:\ gates.RCCXGate().to\_matrix(),}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}cswap"{}}:\ gates.CSwapGate().to\_matrix(),}
+\DoxyCodeLine{00006\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aa6bbc43b2d4756b500baebac294b23e9}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!TWO\_QUBIT\_GATES@{TWO\_QUBIT\_GATES}}
+\index{TWO\_QUBIT\_GATES@{TWO\_QUBIT\_GATES}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{TWO\_QUBIT\_GATES}{TWO\_QUBIT\_GATES}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_aa6bbc43b2d4756b500baebac294b23e9} 
+dict qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+TWO\+\_\+\+QUBIT\+\_\+\+GATES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}CX"{}}:\ gates.CXGate().to\_matrix(),}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}cx"{}}:\ gates.CXGate().to\_matrix(),}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}ecr"{}}:\ gates.ECRGate().to\_matrix(),}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}cy"{}}:\ gates.CYGate().to\_matrix(),}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}cz"{}}:\ gates.CZGate().to\_matrix(),}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}swap"{}}:\ gates.SwapGate().to\_matrix(),}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}iswap"{}}:\ gates.iSwapGate().to\_matrix(),}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}ch"{}}:\ gates.CHGate().to\_matrix(),}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}cs"{}}:\ gates.CSGate().to\_matrix(),}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{"{}csdg"{}}:\ gates.CSdgGate().to\_matrix(),}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{"{}csx"{}}:\ gates.CSXGate().to\_matrix(),}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{"{}dcx"{}}:\ gates.DCXGate().to\_matrix(),}
+\DoxyCodeLine{00014\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_abdad0311a9400af6bf3aeccf59f22c16}\index{qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}!TWO\_QUBIT\_GATES\_WITH\_PARAMETERS@{TWO\_QUBIT\_GATES\_WITH\_PARAMETERS}}
+\index{TWO\_QUBIT\_GATES\_WITH\_PARAMETERS@{TWO\_QUBIT\_GATES\_WITH\_PARAMETERS}!qiskit.providers.basic\_provider.basic\_provider\_tools@{qiskit.providers.basic\_provider.basic\_provider\_tools}}
+\doxysubsubsection{\texorpdfstring{TWO\_QUBIT\_GATES\_WITH\_PARAMETERS}{TWO\_QUBIT\_GATES\_WITH\_PARAMETERS}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1basic__provider_1_1basic__provider__tools_abdad0311a9400af6bf3aeccf59f22c16} 
+dict qiskit.\+providers.\+basic\+\_\+provider.\+basic\+\_\+provider\+\_\+tools.\+TWO\+\_\+\+QUBIT\+\_\+\+GATES\+\_\+\+WITH\+\_\+\+PARAMETERS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}cp"{}}:\ gates.CPhaseGate,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}crx"{}}:\ gates.CRXGate,}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}cry"{}}:\ gates.CRYGate,}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}crz"{}}:\ gates.CRZGate,}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}cu"{}}:\ gates.CUGate,}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}cu1"{}}:\ gates.CU1Gate,}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{stringliteral}{"{}cu3"{}}:\ gates.CU3Gate,}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{stringliteral}{"{}rxx"{}}:\ gates.RXXGate,}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{stringliteral}{"{}ryy"{}}:\ gates.RYYGate,}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{stringliteral}{"{}rzz"{}}:\ gates.RZZGate,}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{stringliteral}{"{}rzx"{}}:\ gates.RZXGate,}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{stringliteral}{"{}xx\_minus\_yy"{}}:\ gates.XXMinusYYGate,}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{stringliteral}{"{}xx\_plus\_yy"{}}:\ gates.XXPlusYYGate,}
+\DoxyCodeLine{00015\ \}}
+
+\end{DoxyCode}

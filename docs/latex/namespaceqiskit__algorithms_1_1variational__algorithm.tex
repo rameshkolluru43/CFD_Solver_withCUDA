@@ -1,0 +1,28 @@
+\doxysection{qiskit\+\_\+algorithms.\+variational\+\_\+algorithm Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1variational__algorithm}{}\label{namespaceqiskit__algorithms_1_1variational__algorithm}\index{qiskit\_algorithms.variational\_algorithm@{qiskit\_algorithms.variational\_algorithm}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1variational__algorithm_1_1_variational_algorithm}{Variational\+Algorithm}}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1variational__algorithm_1_1_variational_result}{Variational\+Result}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Variational Algorithm Base Class.
+
+This class can be used an interface for working with Variation Algorithms, such as VQE,
+QAOA, or QSVM, and also provides helper utilities for implementing new variational algorithms.
+Writing a new variational algorithm is a simple as extending this class, implementing a cost
+function for the new algorithm to pass to the optimizer, and running :meth:`find_minimum` method
+of this class to carry out the optimization. Alternatively, all of the functions below can be
+overridden to opt-out of this infrastructure but still meet the interface requirements.
+
+.. note::
+
+    This component has some function that is normally random. If you want to reproduce behavior
+    then you should set the random number generator seed in the algorithm_globals
+    (``qiskit_algorithms.utils.algorithm_globals.random_seed = seed``).
+\end{DoxyVerb}
+ 

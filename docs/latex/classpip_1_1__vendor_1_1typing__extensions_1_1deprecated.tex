@@ -1,0 +1,70 @@
+\doxysection{pip.\+\_\+vendor.\+typing\+\_\+extensions.\+deprecated Class Reference}
+\hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated}{}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated}\index{pip.\_vendor.typing\_extensions.deprecated@{pip.\_vendor.typing\_extensions.deprecated}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a2d4514302843c4c83800311ef5677aa6}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a2d4514302843c4c83800311ef5677aa6} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, str message, \texorpdfstring{$\ast$}{*}, typing.\+Optional\mbox{[}typing.\+Type\mbox{[}Warning\mbox{]}\mbox{]} category=Deprecation\+Warning, int stacklevel=1)
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a88347d868f2fa4ac537b64bf3cde92fa}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a88347d868f2fa4ac537b64bf3cde92fa} 
+\+\_\+T {\bfseries \+\_\+\+\_\+call\+\_\+\+\_\+} (self, \+\_\+T arg)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a02c8a9e4c737a3b99364adc3656820fd}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_a02c8a9e4c737a3b99364adc3656820fd} 
+{\bfseries message} = message
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_aa1adea329a7f9ea0ca082f4c50f62319}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_aa1adea329a7f9ea0ca082f4c50f62319} 
+{\bfseries category} = category
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_ac2e36674db4508f1731d441b0ea62d72}\label{classpip_1_1__vendor_1_1typing__extensions_1_1deprecated_ac2e36674db4508f1731d441b0ea62d72} 
+{\bfseries stacklevel} = stacklevel
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Indicate that a class, function or overload is deprecated.
+
+When this decorator is applied to an object, the type checker
+will generate a diagnostic on usage of the deprecated object.
+
+Usage:
+
+    @deprecated("Use B instead")
+    class A:
+        pass
+
+    @deprecated("Use g instead")
+    def f():
+        pass
+
+    @overload
+    @deprecated("int support is deprecated")
+    def g(x: int) -> int: ...
+    @overload
+    def g(x: str) -> int: ...
+
+The warning specified by *category* will be emitted at runtime
+on use of deprecated objects. For functions, that happens on calls;
+for classes, on instantiation and on creation of subclasses.
+If the *category* is ``None``, no warning is emitted at runtime.
+The *stacklevel* determines where the
+warning is emitted. If it is ``1`` (the default), the warning
+is emitted at the direct caller of the deprecated object; if it
+is higher, it is emitted further up the stack.
+Static type checker behavior is not affected by the *category*
+and *stacklevel* arguments.
+
+The deprecation message passed to the decorator is saved in the
+``__deprecated__`` attribute on the decorated object.
+If applied to an overload, the decorator
+must be after the ``@overload`` decorator for the attribute to
+exist on the overload as returned by ``get_overloads()``.
+
+See PEP 702 for details.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/pip/\+\_\+vendor/typing\+\_\+extensions.\+py\end{DoxyCompactItemize}

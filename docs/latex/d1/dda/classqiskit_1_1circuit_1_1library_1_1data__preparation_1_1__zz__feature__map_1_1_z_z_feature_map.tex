@@ -1,0 +1,122 @@
+\doxysection{qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+\_\+zz\+\_\+feature\+\_\+map.\+ZZFeature\+Map Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map}{}\label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map}\index{qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap@{qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+\_\+zz\+\_\+feature\+\_\+map.\+ZZFeature\+Map\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.211009cm]{d1/dda/classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map_a22dabcce4d184ff243a24602ea2c43df_a22dabcce4d184ff243a24602ea2c43df}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1pauli__feature__map_1_1_pauli_feature_map_af45b63dbad6e3199f8ff438b28d1ff7a_af45b63dbad6e3199f8ff438b28d1ff7a}{feature\+\_\+dimension}}, int reps=2, Union\mbox{[}str, Dict\mbox{[}int, List\mbox{[}Tuple\mbox{[}int\mbox{]}\mbox{]}\mbox{]}, Callable\mbox{[}\mbox{[}int\mbox{]}, Union\mbox{[}str, Dict\mbox{[}int, List\mbox{[}Tuple\mbox{[}int\mbox{]}\mbox{]}\mbox{]}\mbox{]}\mbox{]},\mbox{]} entanglement="{}full"{}, Optional\mbox{[}Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, float\mbox{]}\mbox{]} data\+\_\+map\+\_\+func=None, str parameter\+\_\+prefix="{}x"{}, bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a89ce32d1f086ad4b5aa78cfd37c9a253_a89ce32d1f086ad4b5aa78cfd37c9a253}{insert\+\_\+barriers}}=False, str name="{}ZZFeature\+Map"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Second-order Pauli-Z evolution circuit.
+
+For 3 qubits and 1 repetition and linear entanglement the circuit is represented by:
+
+.. code-block:: text
+
+    ┌───┐┌────────────────┐
+    ┤ H ├┤ P(2.0*φ(x[0])) ├──■───────────────────────────■───────────────────────────────────
+    ├───┤├────────────────┤┌─┴─┐┌─────────────────────┐┌─┴─┐
+    ┤ H ├┤ P(2.0*φ(x[1])) ├┤ X ├┤ P(2.0*φ(x[0],x[1])) ├┤ X ├──■───────────────────────────■──
+    ├───┤├────────────────┤└───┘└─────────────────────┘└───┘┌─┴─┐┌─────────────────────┐┌─┴─┐
+    ┤ H ├┤ P(2.0*φ(x[2])) ├─────────────────────────────────┤ X ├┤ P(2.0*φ(x[1],x[2])) ├┤ X ├
+    └───┘└────────────────┘                                 └───┘└─────────────────────┘└───┘
+
+where :math:`\varphi` is a classical non-linear function, which defaults to :math:`\varphi(x) = x`
+if and :math:`\varphi(x,y) = (\pi - x)(\pi - y)`.
+
+Examples:
+
+.. code-block::
+
+     from qiskit.circuit.library import ZZFeatureMap
+     prep = ZZFeatureMap(2, reps=1)
+     print(prep.decompose())
+
+.. code-block:: text
+
+          ┌───┐┌─────────────┐
+     q_0: ┤ H ├┤ P(2.0*x[0]) ├──■──────────────────────────────────────■──
+          ├───┤├─────────────┤┌─┴─┐┌────────────────────────────────┐┌─┴─┐
+     q_1: ┤ H ├┤ P(2.0*x[1]) ├┤ X ├┤ P(2.0*(pi - x[0])*(pi - x[1])) ├┤ X ├
+          └───┘└─────────────┘└───┘└────────────────────────────────┘└───┘
+
+.. code-block::
+
+     from qiskit.circuit.library import EfficientSU2
+     classifier = ZZFeatureMap(3).compose(EfficientSU2(3))
+     classifier.num_parameters
+
+.. code-block:: text
+
+     27
+
+.. code-block::
+
+     classifier.parameters  # 'x' for the data preparation, 'θ' for the SU2 parameters
+
+.. code-block:: text
+
+     ParameterView([
+         ParameterVectorElement(x[0]), ParameterVectorElement(x[1]),
+         ParameterVectorElement(x[2]), ParameterVectorElement(θ[0]),
+         ParameterVectorElement(θ[1]), ParameterVectorElement(θ[2]),
+         ParameterVectorElement(θ[3]), ParameterVectorElement(θ[4]),
+         ParameterVectorElement(θ[5]), ParameterVectorElement(θ[6]),
+         ParameterVectorElement(θ[7]), ParameterVectorElement(θ[8]),
+         ParameterVectorElement(θ[9]), ParameterVectorElement(θ[10]),
+         ParameterVectorElement(θ[11]), ParameterVectorElement(θ[12]),
+         ParameterVectorElement(θ[13]), ParameterVectorElement(θ[14]),
+         ParameterVectorElement(θ[15]), ParameterVectorElement(θ[16]),
+         ParameterVectorElement(θ[17]), ParameterVectorElement(θ[18]),
+         ParameterVectorElement(θ[19]), ParameterVectorElement(θ[20]),
+         ParameterVectorElement(θ[21]), ParameterVectorElement(θ[22]),
+         ParameterVectorElement(θ[23])
+     ])
+
+.. code-block::
+
+     classifier.count_ops()
+
+.. code-block:: text
+
+    OrderedDict([('ZZFeatureMap', 1), ('EfficientSU2', 1)])\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map_a22dabcce4d184ff243a24602ea2c43df_a22dabcce4d184ff243a24602ea2c43df}\index{qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap@{qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap@{qiskit.circuit.library.data\_preparation.\_zz\_feature\_map.ZZFeatureMap}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1__zz__feature__map_1_1_z_z_feature_map_a22dabcce4d184ff243a24602ea2c43df_a22dabcce4d184ff243a24602ea2c43df} 
+ None qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+\_\+zz\+\_\+feature\+\_\+map.\+ZZFeature\+Map.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{feature\+\_\+dimension}{, }\item[{int }]{reps}{ = {\ttfamily 2}, }\item[{Union\mbox{[}             str,             Dict\mbox{[}int, List\mbox{[}Tuple\mbox{[}int\mbox{]}\mbox{]}\mbox{]},             Callable\mbox{[}\mbox{[}int\mbox{]}, Union\mbox{[}str, Dict\mbox{[}int, List\mbox{[}Tuple\mbox{[}int\mbox{]}\mbox{]}\mbox{]}\mbox{]}\mbox{]},         \mbox{]} }]{entanglement}{ = {\ttfamily "{}full"{}}, }\item[{Optional\mbox{[}Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, float\mbox{]}\mbox{]} }]{data\+\_\+map\+\_\+func}{ = {\ttfamily None}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}x"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{str }]{name}{ = {\ttfamily "{}ZZFeatureMap"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new second-order Pauli-Z expansion.
+
+Args:
+    feature_dimension: Number of features.
+    reps: The number of repeated circuits, has a min. value of 1.
+    entanglement: Specifies the entanglement structure. Refer to
+        :class:`~qiskit.circuit.library.PauliFeatureMap` for detail.
+    data_map_func: A mapping function for data x.
+    parameter_prefix: The prefix used if default parameters are generated.
+    insert_barriers: If True, barriers are inserted in between the evolution instructions
+        and hadamard layers.
+
+Raises:
+    ValueError: If the feature dimension is smaller than 2.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1pauli__feature__map_1_1_pauli_feature_map_ac03f7365980be9af2a90fa5dd2708019_ac03f7365980be9af2a90fa5dd2708019}{qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+pauli\+\_\+feature\+\_\+map.\+Pauli\+Feature\+Map}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/data\+\_\+preparation/\+\_\+zz\+\_\+feature\+\_\+map.\+py\end{DoxyCompactItemize}

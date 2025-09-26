@@ -1,0 +1,75 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRX Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x}\index{qiskit.circuit.library.generalized\_gates.gr.GRX@{qiskit.circuit.library.generalized\_gates.gr.GRX}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRX\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d7/dea/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x_aa620a73ce1d0c597a67d4213ac3ead33_aa620a73ce1d0c597a67d4213ac3ead33}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, float theta)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Global RX gate.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌──────────┐
+    q_0: ┤0         ├
+         │          │
+    q_1: ┤1  GRX(ϴ) ├
+         │          │
+    q_2: ┤2         ├
+         └──────────┘
+
+The global RX gate is native to atomic systems (ion traps, cold neutrals). The global RX
+can be applied to multiple qubits simultaneously.
+
+In the one-qubit case, this is equivalent to an RX(theta) operations,
+and is thus reduced to the RXGate. The global RX gate is a direct sum of RX
+operations on all individual qubits.
+
+.. math::
+
+    GRX(\theta) = \exp(-i \sum_{i=1}^{n} X_i \theta/2)
+
+**Expanded Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+    from qiskit.circuit.library import GRX
+    from qiskit.visualization.library import _generate_circuit_library_visualization
+    import numpy as np
+    circuit = GRX(num_qubits=3, theta=np.pi/4)
+    _generate_circuit_library_visualization(circuit)\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x_aa620a73ce1d0c597a67d4213ac3ead33_aa620a73ce1d0c597a67d4213ac3ead33}\index{qiskit.circuit.library.generalized\_gates.gr.GRX@{qiskit.circuit.library.generalized\_gates.gr.GRX}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.gr.GRX@{qiskit.circuit.library.generalized\_gates.gr.GRX}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x_aa620a73ce1d0c597a67d4213ac3ead33_aa620a73ce1d0c597a67d4213ac3ead33} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRX.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{float}]{theta}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new Global RX (GRX) gate.
+
+Args:
+    num_qubits: number of qubits.
+    theta: rotation angle about x-axis
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a1320aacc40e1f9d44d04d1e4a8db41bb_a1320aacc40e1f9d44d04d1e4a8db41bb}{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GR}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/gr.\+py\end{DoxyCompactItemize}

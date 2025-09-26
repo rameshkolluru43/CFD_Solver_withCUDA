@@ -1,0 +1,408 @@
+\doxysection{Basic\+\_\+\+Function\+\_\+\+Files/\+Test\+\_\+\+Cell\+\_\+\+Numbering.cpp File Reference}
+\hypertarget{_test___cell___numbering_8cpp}{}\label{_test___cell___numbering_8cpp}\index{Basic\_Function\_Files/Test\_Cell\_Numbering.cpp@{Basic\_Function\_Files/Test\_Cell\_Numbering.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+Include dependency graph for Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{dc/dbc/_test___cell___numbering_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_test___cell___numbering_8cpp_a286e86c9333afd36da544bcc4bdce9b0_a286e86c9333afd36da544bcc4bdce9b0}{Process\+\_\+\+Cells\+\_\+and\+\_\+\+Assign\+\_\+\+Neighbours}} (int \&Nx, int \&Ny)
+\item 
+void \mbox{\hyperlink{_test___cell___numbering_8cpp_a5a94439a5e62fcfdb764689e6fc51155_a5a94439a5e62fcfdb764689e6fc51155}{Identify\+\_\+\+Cells}} (int \&Nx, int \&Ny)
+\item 
+void \mbox{\hyperlink{_test___cell___numbering_8cpp_adaeb2c11f40af023fdaa332f839cb80e_adaeb2c11f40af023fdaa332f839cb80e}{Assign\+\_\+\+Neighbours}} (int \&Nx, int \&Ny)
+\item 
+int \mbox{\hyperlink{_test___cell___numbering_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}}
+\item 
+vector$<$ int $>$ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\+\_\+\+Cells}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_test___cell___numbering_8cpp_adaeb2c11f40af023fdaa332f839cb80e_adaeb2c11f40af023fdaa332f839cb80e}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Assign\_Neighbours@{Assign\_Neighbours}}
+\index{Assign\_Neighbours@{Assign\_Neighbours}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Assign\_Neighbours()}{Assign\_Neighbours()}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_adaeb2c11f40af023fdaa332f839cb80e_adaeb2c11f40af023fdaa332f839cb80e} 
+void Assign\+\_\+\+Neighbours (\begin{DoxyParamCaption}\item[{int \&}]{Nx}{, }\item[{int \&}]{Ny}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00195}{195}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00196\ \{}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordtype}{int}\ index0,index1,index2,index3,index4;}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =0;j<(Ny-\/1);j++)}
+\DoxyCodeLine{00199\ \ \ \ \ \{}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<(Nx-\/1);i++)}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ index0\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ j*(Nx-\/1)];\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Current\ cell\ \ \ \ \ (i,j,k)}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i==0)}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index1\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}[j];}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index1\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[(i-\/1)\ +\ j*(Nx-\/1)];\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ Cell\ \ \ \ \ \ \ \ (i-\/1,j,k)}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==0)}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index2\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}[i];}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index2\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i+\ (j-\/1)*(Nx-\/1)];\ \ \ \ \ \textcolor{comment}{//\ Bottom\ cell\ \ \ \ \ \ (i,j-\/1,k)}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i==(Nx-\/2))}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index3\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}[j];}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index3\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[(i+1)\ +\ j*(Nx-\/1)];\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ cell\ \ \ \ \ \ \ (i+1,j,k)}}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==(Ny-\/2))}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index4\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}[i];}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index4\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ \ \ \ \ +\ (j+1)*(Nx-\/1)];\ \ \ \ \ \ \ \ \textcolor{comment}{//\ Top\ cell\ \ \ \ \ (i,j+1,k)}}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\ index0<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<index1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<index2<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<index3<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<index4<<endl;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00237\ \ \ \ \ \}}
+\DoxyCodeLine{00238\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{de/dd5/_test___cell___numbering_8cpp_adaeb2c11f40af023fdaa332f839cb80e_adaeb2c11f40af023fdaa332f839cb80e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_test___cell___numbering_8cpp_a5a94439a5e62fcfdb764689e6fc51155_a5a94439a5e62fcfdb764689e6fc51155}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Identify\_Cells@{Identify\_Cells}}
+\index{Identify\_Cells@{Identify\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Identify\_Cells()}{Identify\_Cells()}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a5a94439a5e62fcfdb764689e6fc51155_a5a94439a5e62fcfdb764689e6fc51155} 
+void Identify\+\_\+\+Cells (\begin{DoxyParamCaption}\item[{int \&}]{Nx}{, }\item[{int \&}]{Ny}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ points,\ physical\ cells,\ ghost\ cells,\ and\ total\ cells}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Of\_Points\ =\ Nx\ *\ Ny;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Physical\_Cells\ =\ (Nx\ -\/\ 1)\ *\ (Ny\ -\/\ 1);}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Ghost\_Cells\ =\ 2\ *\ (Nx\ -\/\ 1)\ +\ 2\ *\ (Ny\ -\/\ 1);}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{int}\ Total\_Cells\ =\ Number\_Physical\_Cells\ +\ Number\_Ghost\_Cells;}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Points\(\backslash\)t"{}}\ <<\ Number\_Of\_Points\ <<\ endl;}
+\DoxyCodeLine{00113\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Physical\ Cells\(\backslash\)t"{}}\ <<\ Number\_Physical\_Cells\ <<\ endl;}
+\DoxyCodeLine{00114\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Ghost\ Cells\(\backslash\)t"{}}\ <<\ Number\_Ghost\_Cells\ <<\ endl;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Resize\ the\ vectors}}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}.resize(Nx\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}.resize(Ny\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00119\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}.resize(Nx\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00120\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}.resize(Ny\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00121\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}.resize(Number\_Physical\_Cells,\ 0);}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Bottom\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}[i]\ =\ i;}
+\DoxyCodeLine{00127\ \ \ \ \ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ Left\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Ny\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00131\ \ \ \ \ \{}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}[i]\ =\ (Nx\ -\/\ 1)\ +\ i\ *(Nx\ +\ 1);}
+\DoxyCodeLine{00133\ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ Physical\ cells}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;j<(Ny\ -\/\ 1);\ j++)}
+\DoxyCodeLine{00137\ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<(Nx-\/1);i++)}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ j*(Nx-\/1)]\ =\ i\ +\ j*(Nx-\/1\ +\ 2)\ +\ (Nx)\ ;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \}}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{comment}{//\ Right\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Ny\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}[i]\ =\ 2*\ (Nx\ -\/\ 1)\ +\ 1\ +\ i\ *(Nx\ +\ 1)\ ;}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Top\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}[i]\ =\ Number\_Physical\_Cells\ +\ (Nx\ -\/\ 1)\ +\ 2*(Ny\ -\/1)\ +\ i\ ;}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{//\ Print\ the\ results}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ \ \ cout\ <<\ "{}Bottom\ Boundary\ Ghost\ Cells:\(\backslash\)n"{};}}
+\DoxyCodeLine{00158\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}})}
+\DoxyCodeLine{00160\ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ "{}};}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \textcolor{comment}{/*\ \ \ \ cout\ <<\ "{}\(\backslash\)nLeft\ Boundary\ Ghost\ Cells:\(\backslash\)n"{};}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ \ for\ (int\ i\ :\ Left\_Boundary\_Ghost\_Cells)}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ "{}\ "{};}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ \ \ \ cout\ <<\ "{}\(\backslash\)nPhysical\ Cells:\(\backslash\)n"{};}}
+\DoxyCodeLine{00169\ \ \ \ \ \textcolor{comment}{//\ Physical\ cells}}
+\DoxyCodeLine{00170\ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j\ =\ 0;j<(Ny\ -\/\ 1);\ j++)}
+\DoxyCodeLine{00172\ \ \ \ \ \{}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}[j]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<(Nx-\/1);i++)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ j*(Nx-\/1)]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}[j]<<endl;}
+\DoxyCodeLine{00179\ \ \ \ \ \}}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00181\ \textcolor{comment}{/*\ \ \ \ cout\ <<\ "{}\(\backslash\)nRight\ Boundary\ Ghost\ Cells:\(\backslash\)n"{};}}
+\DoxyCodeLine{00182\ \textcolor{comment}{\ \ \ \ for\ (int\ i\ :\ Right\_Boundary\_Ghost\_Cells)}}
+\DoxyCodeLine{00183\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00184\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ "{}\ "{};}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00186\ \textcolor{comment}{//\ \ \ \ cout\ <<\ "{}\(\backslash\)nTop\ Boundary\ Ghost\ Cells:\(\backslash\)n"{};}}
+\DoxyCodeLine{00187\ \ \ \ \ cout<<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}})}
+\DoxyCodeLine{00189\ \ \ \ \ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00191\ \ \ \ \ \}}
+\DoxyCodeLine{00192\ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{00193\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=229pt]{de/dd5/_test___cell___numbering_8cpp_a5a94439a5e62fcfdb764689e6fc51155_a5a94439a5e62fcfdb764689e6fc51155_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_test___cell___numbering_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!main@{main}}
+\index{main@{main}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00240}{240}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00241\ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordtype}{int}\ Nx\ =\ 65;\ \textcolor{comment}{//\ Number\ of\ points\ in\ x-\/direction}}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keywordtype}{int}\ Ny\ =\ 33;\ \textcolor{comment}{//\ Number\ of\ points\ in\ y-\/direction}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a5a94439a5e62fcfdb764689e6fc51155_a5a94439a5e62fcfdb764689e6fc51155}{Identify\_Cells}}(Nx,\ Ny);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_adaeb2c11f40af023fdaa332f839cb80e_adaeb2c11f40af023fdaa332f839cb80e}{Assign\_Neighbours}}(Nx,\ Ny);}
+\DoxyCodeLine{00246\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a286e86c9333afd36da544bcc4bdce9b0_a286e86c9333afd36da544bcc4bdce9b0}{Process\_Cells\_and\_Assign\_Neighbours}}(Nx,Ny);}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00248\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{de/dd5/_test___cell___numbering_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_test___cell___numbering_8cpp_a286e86c9333afd36da544bcc4bdce9b0_a286e86c9333afd36da544bcc4bdce9b0}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Process\_Cells\_and\_Assign\_Neighbours@{Process\_Cells\_and\_Assign\_Neighbours}}
+\index{Process\_Cells\_and\_Assign\_Neighbours@{Process\_Cells\_and\_Assign\_Neighbours}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Process\_Cells\_and\_Assign\_Neighbours()}{Process\_Cells\_and\_Assign\_Neighbours()}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a286e86c9333afd36da544bcc4bdce9b0_a286e86c9333afd36da544bcc4bdce9b0} 
+void Process\+\_\+\+Cells\+\_\+and\+\_\+\+Assign\+\_\+\+Neighbours (\begin{DoxyParamCaption}\item[{int \&}]{Nx}{, }\item[{int \&}]{Ny}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00010\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ Number\ of\ points,\ physical\ cells,\ ghost\ cells,\ and\ total\ cells}}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Of\_Points\ =\ Nx\ *\ Ny;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Physical\_Cells\ =\ (Nx\ -\/\ 1)\ *\ (Ny\ -\/\ 1);}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ Number\_Ghost\_Cells\ =\ 2\ *\ (Nx\ -\/\ 1)\ +\ 2\ *\ (Ny\ -\/\ 1);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ Total\_Cells\ =\ Number\_Physical\_Cells\ +\ Number\_Ghost\_Cells;}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Points\(\backslash\)t"{}}\ <<\ Number\_Of\_Points\ <<\ endl;}
+\DoxyCodeLine{00018\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Physical\ Cells\(\backslash\)t"{}}\ <<\ Number\_Physical\_Cells\ <<\ endl;}
+\DoxyCodeLine{00019\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Ghost\ Cells\(\backslash\)t"{}}\ <<\ Number\_Ghost\_Cells\ <<\ endl;}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//\ Resize\ the\ vectors}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}.resize(Nx\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}.resize(Ny\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}.resize(Nx\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}.resize(Ny\ -\/\ 1,\ 0);}
+\DoxyCodeLine{00026\ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}.resize(Number\_Physical\_Cells,\ 0);}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ Bottom\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}[i]\ =\ i;}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ Left\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Ny\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00036\ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}[i]\ =\ (Nx\ -\/\ 1)\ +\ i\ *\ (Nx\ +\ 1);}
+\DoxyCodeLine{00038\ \ \ \ \ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Physical\ cells}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ (Ny\ -\/\ 1);\ j++)}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ j\ *\ (Nx\ -\/\ 1)]\ =\ i\ +\ j\ *\ (Nx\ -\/\ 1\ +\ 2)\ +\ Nx;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ Right\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Ny\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00051\ \ \ \ \ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}[i]\ =\ 2\ *\ (Nx\ -\/\ 1)\ +\ 1\ +\ i\ *\ (Nx\ +\ 1);}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{//\ Top\ boundary\ ghost\ cells}}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00057\ \ \ \ \ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}[i]\ =\ Number\_Physical\_Cells\ +\ (Nx\ -\/\ 1)\ +\ 2\ *\ (Ny\ -\/\ 1)\ +\ i;}
+\DoxyCodeLine{00059\ \ \ \ \ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \textcolor{comment}{/*\ \ \ //\ Print\ the\ results}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ cout\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ for\ (int\ i\ :\ Bottom\_Boundary\_Ghost\_Cells)}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ cout\ <<\ endl;}}
+\DoxyCodeLine{00068\ \textcolor{comment}{}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ for\ (int\ j\ =\ 0;\ j\ <\ (Ny\ -\/\ 1);\ j++)}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ Left\_Boundary\_Ghost\_Cells[j]\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ Physical\_Cells[i\ +\ j\ *\ (Nx\ -\/\ 1)]\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ Right\_Boundary\_Ghost\_Cells[j]\ <<\ endl;}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00078\ \textcolor{comment}{}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ cout\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ for\ (int\ i\ :\ Top\_Boundary\_Ghost\_Cells)}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout\ <<\ i\ <<\ "{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ \ cout\ <<\ endl;}}
+\DoxyCodeLine{00085\ \textcolor{comment}{}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ \ //\ Assign\ and\ display\ neighbors}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ \ cout\ <<\ "{}Index\ and\ Neighbors:\(\backslash\)n"{};*/}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{int}\ index0,\ index1,\ index2,\ index3,\ index4;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ (Ny\ -\/\ 1);\ j++)}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ (Nx\ -\/\ 1);\ i++)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ index0\ =\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ j\ *\ (Nx\ -\/\ 1)];\ \textcolor{comment}{//\ Current\ cell\ (i,j,k)}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ index1\ =\ (i\ ==\ 0)\ ?\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}{Left\_Boundary\_Ghost\_Cells}}[j]\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[(i\ -\/\ 1)\ +\ j\ *\ (Nx\ -\/\ 1)];\ \textcolor{comment}{//\ Left\ (i-\/1,j,k)}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ index2\ =\ (j\ ==\ 0)\ ?\ \mbox{\hyperlink{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}{Bottom\_Boundary\_Ghost\_Cells}}[i]\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ (j\ -\/\ 1)\ *\ (Nx\ -\/\ 1)];\ \textcolor{comment}{//\ Bottom\ (i,j-\/1,k)}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ index3\ =\ (i\ ==\ (Nx\ -\/\ 2))\ ?\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}{Right\_Boundary\_Ghost\_Cells}}[j]\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[(i\ +\ 1)\ +\ j\ *\ (Nx\ -\/\ 1)];\ \textcolor{comment}{//Right\ (i+1,j,k)}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ index4\ =\ (j\ ==\ (Ny\ -\/\ 2))\ ?\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}{Top\_Boundary\_Ghost\_Cells}}[i]\ :\ \mbox{\hyperlink{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}{Physical\_Cells}}[i\ +\ (j\ +\ 1)\ *\ (Nx\ -\/\ 1)];\ \textcolor{comment}{//\ Top\ (i,j+1,k)}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ index0\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ index1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ index2\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ index3\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ index4\ <<\ endl;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00101\ \ \ \ \ \}}
+\DoxyCodeLine{00102\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=289pt]{de/dd5/_test___cell___numbering_8cpp_a286e86c9333afd36da544bcc4bdce9b0_a286e86c9333afd36da544bcc4bdce9b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Bottom\_Boundary\_Ghost\_Cells@{Bottom\_Boundary\_Ghost\_Cells}}
+\index{Bottom\_Boundary\_Ghost\_Cells@{Bottom\_Boundary\_Ghost\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Bottom\_Boundary\_Ghost\_Cells}{Bottom\_Boundary\_Ghost\_Cells}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_aa086961f024952af26362306fefb3ba4_aa086961f024952af26362306fefb3ba4} 
+vector$<$int$>$ Bottom\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+\Hypertarget{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Left\_Boundary\_Ghost\_Cells@{Left\_Boundary\_Ghost\_Cells}}
+\index{Left\_Boundary\_Ghost\_Cells@{Left\_Boundary\_Ghost\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Left\_Boundary\_Ghost\_Cells}{Left\_Boundary\_Ghost\_Cells}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a4898797c74e67c3fc114385955ea154c_a4898797c74e67c3fc114385955ea154c} 
+vector$<$int$>$ Left\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+\Hypertarget{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Physical\_Cells@{Physical\_Cells}}
+\index{Physical\_Cells@{Physical\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Physical\_Cells}{Physical\_Cells}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a24dba72fe3b0b76f68d27a24cef622e2_a24dba72fe3b0b76f68d27a24cef622e2} 
+vector$<$int$>$ Physical\+\_\+\+Cells}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+\Hypertarget{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Right\_Boundary\_Ghost\_Cells@{Right\_Boundary\_Ghost\_Cells}}
+\index{Right\_Boundary\_Ghost\_Cells@{Right\_Boundary\_Ghost\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Right\_Boundary\_Ghost\_Cells}{Right\_Boundary\_Ghost\_Cells}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a7971b735ffe7272283c34fade65ff0fc_a7971b735ffe7272283c34fade65ff0fc} 
+vector$<$int$>$ Right\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+
+\Hypertarget{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc}\index{Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}!Top\_Boundary\_Ghost\_Cells@{Top\_Boundary\_Ghost\_Cells}}
+\index{Top\_Boundary\_Ghost\_Cells@{Top\_Boundary\_Ghost\_Cells}!Test\_Cell\_Numbering.cpp@{Test\_Cell\_Numbering.cpp}}
+\doxysubsubsection{\texorpdfstring{Top\_Boundary\_Ghost\_Cells}{Top\_Boundary\_Ghost\_Cells}}
+{\footnotesize\ttfamily \label{_test___cell___numbering_8cpp_a61bc3e916c1794b0a0323685b774d7bc_a61bc3e916c1794b0a0323685b774d7bc} 
+vector$<$int$>$ Top\+\_\+\+Boundary\+\_\+\+Ghost\+\_\+\+Cells}
+
+
+
+Definition at line \mbox{\hyperlink{_test___cell___numbering_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___cell___numbering_8cpp_source}{Test\+\_\+\+Cell\+\_\+\+Numbering.\+cpp}}.
+

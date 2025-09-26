@@ -1,0 +1,94 @@
+\doxysection{qiskit.\+synthesis.\+linear\+\_\+phase.\+cnot\+\_\+phase\+\_\+synth Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth}{}\label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth}\index{qiskit.synthesis.linear\_phase.cnot\_phase\_synth@{qiskit.synthesis.linear\_phase.cnot\_phase\_synth}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_a4e637114cb917f8dc6e9ac8e7300f572_a4e637114cb917f8dc6e9ac8e7300f572}{synth\+\_\+cnot\+\_\+phase\+\_\+aam}} (list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} cnots, list\mbox{[}str\mbox{]} angles, int section\+\_\+size=2)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_ac12f3e37c11f6f20e2e7e93856b155f8_ac12f3e37c11f6f20e2e7e93856b155f8}{\+\_\+remove\+\_\+duplicates}} (lists)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Implementation of the GraySynth algorithm for synthesizing CNOT-Phase
+circuits with efficient CNOT cost, and the Patel-Hayes-Markov algorithm
+for optimal synthesis of linear (CNOT-only) reversible circuits.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_ac12f3e37c11f6f20e2e7e93856b155f8_ac12f3e37c11f6f20e2e7e93856b155f8}\index{qiskit.synthesis.linear\_phase.cnot\_phase\_synth@{qiskit.synthesis.linear\_phase.cnot\_phase\_synth}!\_remove\_duplicates@{\_remove\_duplicates}}
+\index{\_remove\_duplicates@{\_remove\_duplicates}!qiskit.synthesis.linear\_phase.cnot\_phase\_synth@{qiskit.synthesis.linear\_phase.cnot\_phase\_synth}}
+\doxysubsubsection{\texorpdfstring{\_remove\_duplicates()}{\_remove\_duplicates()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_ac12f3e37c11f6f20e2e7e93856b155f8_ac12f3e37c11f6f20e2e7e93856b155f8} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cnot\+\_\+phase\+\_\+synth.\+\_\+remove\+\_\+duplicates (\begin{DoxyParamCaption}\item[{}]{lists}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Remove duplicates in list
+
+Args:
+    lists (list): a list which may contain duplicate elements.
+
+Returns:
+    list: a list which contains only unique elements.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_a4e637114cb917f8dc6e9ac8e7300f572_a4e637114cb917f8dc6e9ac8e7300f572}\index{qiskit.synthesis.linear\_phase.cnot\_phase\_synth@{qiskit.synthesis.linear\_phase.cnot\_phase\_synth}!synth\_cnot\_phase\_aam@{synth\_cnot\_phase\_aam}}
+\index{synth\_cnot\_phase\_aam@{synth\_cnot\_phase\_aam}!qiskit.synthesis.linear\_phase.cnot\_phase\_synth@{qiskit.synthesis.linear\_phase.cnot\_phase\_synth}}
+\doxysubsubsection{\texorpdfstring{synth\_cnot\_phase\_aam()}{synth\_cnot\_phase\_aam()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cnot__phase__synth_a4e637114cb917f8dc6e9ac8e7300f572_a4e637114cb917f8dc6e9ac8e7300f572} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+linear\+\_\+phase.\+cnot\+\_\+phase\+\_\+synth.\+synth\+\_\+cnot\+\_\+phase\+\_\+aam (\begin{DoxyParamCaption}\item[{list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}}]{cnots}{, }\item[{list\mbox{[}str\mbox{]}}]{angles}{, }\item[{int }]{section\+\_\+size}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This function is an implementation of the `GraySynth` algorithm of
+    Amy, Azimadeh and Mosca.
+
+    GraySynth is a heuristic algorithm from [1] for synthesizing small parity networks.
+    It is inspired by Gray codes. Given a set of binary strings :math:`S`
+    (called ``cnots`` bellow), the algorithm synthesizes a parity network for :math:`S` by
+    repeatedly choosing an index :math:`i` to expand and then effectively recursing on
+    the co-factors :math:`S_0` and :math:`S_1`, consisting of the strings :math:`y \in S`,
+    with :math:`y_i = 0` or :math:`1` respectively. As a subset :math:`S` is recursively expanded,
+    ``cx`` gates are applied so that a designated target bit contains the
+    (partial) parity :math:`\chi_y(x)` where :math:`y_i = 1` if and only if :math:`y'_i = 1` for all
+    :math:`y' \in S`. If :math:`S` contains a single element :math:`\{y'\}`, then :math:`y = y'`,
+    and the target bit contains the value :math:`\chi_{y'}(x)` as desired.
+
+    Notably, rather than uncomputing this sequence of ``cx`` (CNOT) gates when a subset :math:`S`
+    is finished being synthesized, the algorithm maintains the invariant
+    that the remaining parities to be computed are expressed over the current state
+    of bits. This allows the algorithm to avoid the 'backtracking' inherent in
+    uncomputing-based methods.
+
+    The algorithm is described in detail in section 4 of [1].
+
+    Args:
+        cnots: A matrix whose columns are the parities to be synthesized
+            e.g.::
+
+                [[0, 1, 1, 1, 1, 1],
+                 [1, 0, 0, 1, 1, 1],
+                 [1, 0, 0, 1, 0, 0],
+                 [0, 0, 1, 0, 1, 0]]
+
+            corresponds to::
+
+                 x1^x2 + x0 + x0^x3 + x0^x1^x2 + x0^x1^x3 + x0^x1
+
+        angles: A list containing all the phase-shift gates which are
+            to be applied, in the same order as in ``cnots``. A number is
+            interpreted as the angle of :math:`p(angle)`, otherwise the elements
+            have to be ``'t'``, ``'tdg'``, ``'s'``, ``'sdg'`` or ``'z'``.
+
+        section_size: The size of every section in the Patel–Markov–Hayes algorithm.
+            ``section_size`` must be a factor of the number of qubits.
+
+    Returns:
+        The decomposed quantum circuit.
+
+    Raises:
+        QiskitError: when dimensions of ``cnots`` and ``angles`` don't align.
+
+    References:
+        1. Matthew Amy, Parsiad Azimzadeh, and Michele Mosca.
+           *On the controlled-NOT complexity of controlled-NOT–phase circuits.*,
+           Quantum Science and Technology 4.1 (2018): 015002.
+           `arXiv:1712.01859 <https://arxiv.org/abs/1712.01859>`_\end{DoxyVerb}
+ 

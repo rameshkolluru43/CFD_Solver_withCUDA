@@ -1,0 +1,303 @@
+\doxysection{src/\+Solver.cpp File Reference}
+\hypertarget{_solver_8cpp}{}\label{_solver_8cpp}\index{src/Solver.cpp@{src/Solver.cpp}}
+
+
+This file contains the implementation of solvers for Euler equations and Navier-\/\+Stokes equations.  
+
+
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Solver.\+h"{}}\newline
+{\ttfamily \#include "{}Boundary\+\_\+\+Conditions.\+h"{}}\newline
+{\ttfamily \#include "{}Viscous\+\_\+\+Functions.\+h"{}}\newline
+{\ttfamily \#include "{}IO\+\_\+\+Write.\+h"{}}\newline
+{\ttfamily \#include "{}Utilities.\+h"{}}\newline
+{\ttfamily \#include "{}Error\+\_\+\+Update.\+h"{}}\newline
+{\ttfamily \#include "{}Flux.\+h"{}}\newline
+Include dependency graph for Solver.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d7f/_solver_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_solver_8cpp_ad0f49408a26339b5f7043bf867c3fa8d_ad0f49408a26339b5f7043bf867c3fa8d}{Inviscid\+\_\+\+Solver}} (string \&Error\+\_\+\+Filename, string \&Sol\+\_\+\+Filename)
+\item 
+void \mbox{\hyperlink{_solver_8cpp_a2f37f06e8324a1ed6aa99efdbba81865_a2f37f06e8324a1ed6aa99efdbba81865}{Viscous\+\_\+\+Solver}} (string \&Error\+\_\+\+Filename, string \&Sol\+\_\+\+Filename)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file contains the implementation of solvers for Euler equations and Navier-\/\+Stokes equations. 
+
+The solvers include methods for evaluating time steps, applying boundary conditions, and solving the equations using explicit, implicit, or Runge-\/\+Kutta methods. The file also includes logic for handling viscous and inviscid flows, as well as error estimation and solution updates.\hypertarget{_solver_8cpp_autotoc_md0}{}\doxysubsubsection{\texorpdfstring{Key Functions\+:}{Key Functions\+:}}\label{_solver_8cpp_autotoc_md0}
+
+\begin{DoxyItemize}
+\item {\bfseries{Evaluate\+\_\+\+Time\+\_\+\+Step}}\+: Determines the time step for a given cell based on whether the flow is viscous or inviscid.
+\item {\bfseries{Inviscid\+\_\+\+Solver}}\+: Core logic for solving Euler equations for inviscid flows.
+\item {\bfseries{Viscous\+\_\+\+Solver}}\+: Core logic for solving Navier-\/\+Stokes equations for viscous flows.
+\item {\bfseries{Viscous\+\_\+\+Time\+\_\+\+Step\+\_\+X}}\+: Functions for evaluating time steps under different viscous flow conditions.
+\item {\bfseries{Inviscid\+\_\+\+Time\+\_\+\+Step}}\+: Function for evaluating time steps for inviscid flows.
+\end{DoxyItemize}\hypertarget{_solver_8cpp_autotoc_md1}{}\doxysubsubsection{\texorpdfstring{Euler Equations\+:}{Euler Equations\+:}}\label{_solver_8cpp_autotoc_md1}
+The Euler equations describe the motion of an inviscid fluid and are solved using the {\ttfamily Inviscid\+\_\+\+Solver} function. The solver applies boundary conditions, evaluates convective fluxes, and updates the solution iteratively.\hypertarget{_solver_8cpp_autotoc_md2}{}\doxysubsubsubsection{\texorpdfstring{Key Steps in the Euler Solver\+:}{Key Steps in the Euler Solver\+:}}\label{_solver_8cpp_autotoc_md2}
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Boundary Conditions}}\+: Apply boundary conditions to ensure physical consistency.
+\item {\bfseries{Flux Evaluation}}\+: Compute convective fluxes for all cells.
+\item {\bfseries{Time Integration}}\+: Use explicit or implicit methods to integrate the equations in time.
+\item {\bfseries{Error Estimation}}\+: Estimate the error in the solution to monitor convergence.
+\item {\bfseries{Solution Update}}\+: Update the conservative variables based on the computed fluxes.
+\end{DoxyEnumerate}\hypertarget{_solver_8cpp_autotoc_md3}{}\doxysubsubsubsection{\texorpdfstring{Time Step Calculation\+:}{Time Step Calculation\+:}}\label{_solver_8cpp_autotoc_md3}
+The time step is calculated based on the CFL condition, ensuring numerical stability. The maximum eigenvalues in the x and y directions are used to compute the time step for each cell.\hypertarget{_solver_8cpp_autotoc_md4}{}\doxysubsubsection{\texorpdfstring{Viscous Flows\+:}{Viscous Flows\+:}}\label{_solver_8cpp_autotoc_md4}
+For viscous flows, the Navier-\/\+Stokes equations are solved using the {\ttfamily Viscous\+\_\+\+Solver} function. Additional viscous fluxes are computed, and the solver supports second-\/order accuracy.\hypertarget{_solver_8cpp_autotoc_md5}{}\doxysubsubsubsection{\texorpdfstring{Key Features\+:}{Key Features\+:}}\label{_solver_8cpp_autotoc_md5}
+
+\begin{DoxyItemize}
+\item Support for multiple viscous time step evaluation methods ({\ttfamily Viscous\+\_\+\+Time\+\_\+\+Step\+\_\+1}, {\ttfamily Viscous\+\_\+\+Time\+\_\+\+Step\+\_\+2}, {\ttfamily Viscous\+\_\+\+Time\+\_\+\+Step\+\_\+3}).
+\item Evaluation of wall skin friction coefficients for viscous walls.
+\item Handling of both time-\/accurate and steady-\/state simulations.
+\end{DoxyItemize}\hypertarget{_solver_8cpp_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{Output\+:}{Output\+:}}\label{_solver_8cpp_autotoc_md6}
+The solver outputs the following\+:
+\begin{DoxyItemize}
+\item Iteration details, including time step, errors, and wall clock time.
+\item Solution files containing the computed flow variables.
+\item Skin friction coefficients for viscous walls.
+\end{DoxyItemize}\hypertarget{_solver_8cpp_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{Notes\+:}{Notes\+:}}\label{_solver_8cpp_autotoc_md7}
+
+\begin{DoxyItemize}
+\item The solver is designed to handle both 2D and 3D grids.
+\item The implementation assumes structured grid data with precomputed face normals and areas.
+\item The CFL number and other parameters must be set appropriately for the specific test case. 
+\end{DoxyItemize}
+
+Definition in file \mbox{\hyperlink{_solver_8cpp_source}{Solver.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_solver_8cpp_ad0f49408a26339b5f7043bf867c3fa8d_ad0f49408a26339b5f7043bf867c3fa8d}\index{Solver.cpp@{Solver.cpp}!Inviscid\_Solver@{Inviscid\_Solver}}
+\index{Inviscid\_Solver@{Inviscid\_Solver}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{Inviscid\_Solver()}{Inviscid\_Solver()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_ad0f49408a26339b5f7043bf867c3fa8d_ad0f49408a26339b5f7043bf867c3fa8d} 
+void Inviscid\+\_\+\+Solver (\begin{DoxyParamCaption}\item[{string \&}]{Error\+\_\+\+Filename}{, }\item[{string \&}]{Sol\+\_\+\+Filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_solver_8cpp_source_l00064}{64}} of file \mbox{\hyperlink{_solver_8cpp_source}{Solver.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordtype}{double}\ start\_time,\ end\_time;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{int}\ Solution\_Data\_Type\ =\ 1;}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ =\ 0;}
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ =\ 0.0;}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Using\ Inviscid\ Solver"{}\ <<\ endl;}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ Set\ fixed\ floating\ point\ format\ and\ desired\ precision}}
+\DoxyCodeLine{00072\ \ \ \ \ cout\ <<\ scientific\ <<\ setprecision(6);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ Print\ header\ with\ specified\ widths\ for\ each\ column}}
+\DoxyCodeLine{00075\ \ \ \ \ cout\ <<\ setw(10)\ <<\ \textcolor{stringliteral}{"{}Iter"{}}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}dt"{}}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Rho\_Error"{}}}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Rho\_u\_Error"{}}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Rho\_v\_Error"{}}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Rho\_Et\_Error"{}}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ \textcolor{stringliteral}{"{}Wall\_Clock\_Time"{}}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}Total\_Time"{}}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \textcolor{stringliteral}{"{}OMP\_Time"{}}\ <<\ endl;}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00086\ \ \ \ \ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ start\_time\ =\ omp\_get\_wtime();}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ timer\ =\ clock();}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Applies\ the\ boundary\ conditions\ for\ the\ cells}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}{Apply\_Boundary\_Conditions}}();}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Applied\ Boundary\ Conditions"{}\ <<\ endl;}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}In\ Solver\ solving\ with\ Implicit\ method\(\backslash\)t"{}<<Is\_Implicit\_Method<<endl;}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a9f80ffa45f3aab47b152327af8f0f823_a9f80ffa45f3aab47b152327af8f0f823}{Time\_Accurate}})}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Using\ Runge\ Kutta\ Method"{}\ <<\ endl;}}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_cuda___parallel___r_k_8cpp_a794f030971fbb7c9dd4bc08df03f50f1_a794f030971fbb7c9dd4bc08df03f50f1}{Runge\_Kutta\_Method}}();}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a426307b97d41dfc3f00591d3412c7410_a426307b97d41dfc3f00591d3412c7410}{Is\_Implicit\_Method}})}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_aa2c3379901e623826515d4c9cd96cebe_aa2c3379901e623826515d4c9cd96cebe}{Implicit\_Method}}();}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_a8dda0c7e17babab9b6e49e8e199dc30e_a8dda0c7e17babab9b6e49e8e199dc30e}{Explicit\_Method}}();}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ +=\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}++;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error___update_8h_a9a9f51a5331b903d6669d2ce013a8ee7_a9a9f51a5331b903d6669d2ce013a8ee7}{Estimate\_Error}}();}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Error\ Estimated"{}\ <<\ endl;}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error___update_8h_aec0783b5a136e042adcc47bae4fe5291_aec0783b5a136e042adcc47bae4fe5291}{Update}}();}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Updated\ Conservative\ Variables"{}\ <<\ endl;}}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ >=\ \mbox{\hyperlink{_globals_8h_ac73e9317475aaeed74748ed67cba4814_ac73e9317475aaeed74748ed67cba4814}{Terminating\_Time}})\ and\ (\mbox{\hyperlink{_globals_8h_a525ca572f2e23ce640ad1069a3875213_a525ca572f2e23ce640ad1069a3875213}{Is\_Time\_Dependent}}))}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<"{}Maximum\ and\ Minimum\ Time\ Step\ in\ iteration\(\backslash\)t"{}<<Max\_dt<<"{}\(\backslash\)t"{}<<Min\_dt<<endl;}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ setw(10)\ <<\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[0]}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[1]}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[2]}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[3]}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ (timer\ /\ CLOCKS\_PER\_SEC)}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_addd900d266cbbb80e4f55e8561b258a4_addd900d266cbbb80e4f55e8561b258a4}{Write\_Error\_File}}(Error\_Filename);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af810c5340bae8f716b4b24589d1e1e1c_af810c5340bae8f716b4b24589d1e1e1c}{Write\_Solution}}(Sol\_Filename,\ Solution\_Data\_Type);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a2b061959575bb5beaa94a0570e66ee70_a2b061959575bb5beaa94a0570e66ee70}{Append\_Solution}}(\mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ \%\ 1000\ ==\ 0)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<"{}Maximum\ and\ Minimum\ Time\ Step\ in\ iteration\(\backslash\)t"{}<<Max\_dt<<"{}\(\backslash\)t"{}<<Min\_dt<<endl;}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_addd900d266cbbb80e4f55e8561b258a4_addd900d266cbbb80e4f55e8561b258a4}{Write\_Error\_File}}(Error\_Filename);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af810c5340bae8f716b4b24589d1e1e1c_af810c5340bae8f716b4b24589d1e1e1c}{Write\_Solution}}(Sol\_Filename,\ Solution\_Data\_Type);}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af009a28a47f459217368bbef65dade3b_af009a28a47f459217368bbef65dade3b}{Read\_Write\_Grid}}(\mbox{\hyperlink{_globals_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a2b061959575bb5beaa94a0570e66ee70_a2b061959575bb5beaa94a0570e66ee70}{Append\_Solution}}(\mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout\ <<\ "{}Updated\ Solution\ File\ Sucessfully"{}\ <<\ endl;}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ setw(10)\ <<\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[0]}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[1]}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[2]}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[3]}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(20)\ <<\ (timer\ /\ CLOCKS\_PER\_SEC)}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ setw(15)\ <<\ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ endl;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <\ \mbox{\hyperlink{_globals_8h_aa1c5ac03605c26b61d86e3e918ad9a30_aa1c5ac03605c26b61d86e3e918ad9a30}{Total\_Iterations}});}
+\DoxyCodeLine{00155\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/df0/_solver_8cpp_ad0f49408a26339b5f7043bf867c3fa8d_ad0f49408a26339b5f7043bf867c3fa8d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{de/df0/_solver_8cpp_ad0f49408a26339b5f7043bf867c3fa8d_ad0f49408a26339b5f7043bf867c3fa8d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_solver_8cpp_a2f37f06e8324a1ed6aa99efdbba81865_a2f37f06e8324a1ed6aa99efdbba81865}\index{Solver.cpp@{Solver.cpp}!Viscous\_Solver@{Viscous\_Solver}}
+\index{Viscous\_Solver@{Viscous\_Solver}!Solver.cpp@{Solver.cpp}}
+\doxysubsubsection{\texorpdfstring{Viscous\_Solver()}{Viscous\_Solver()}}
+{\footnotesize\ttfamily \label{_solver_8cpp_a2f37f06e8324a1ed6aa99efdbba81865_a2f37f06e8324a1ed6aa99efdbba81865} 
+void Viscous\+\_\+\+Solver (\begin{DoxyParamCaption}\item[{string \&}]{Error\+\_\+\+Filename}{, }\item[{string \&}]{Sol\+\_\+\+Filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_solver_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{_solver_8cpp_source}{Solver.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordtype}{int}\ Solution\_Data\_Type\ =\ 1;}
+\DoxyCodeLine{00161\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ =\ 0;}
+\DoxyCodeLine{00162\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Min\_dt\(\backslash\)tIterations\(\backslash\)tRho\_Error\(\backslash\)tRho\_u\_Error\(\backslash\)tRho\_v\_Error\(\backslash\)tRho\_Et\_Error\(\backslash\)tWall\_Clock\_Time\(\backslash\)tTotal\_Time"{}}\ <<\ endl;}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00164\ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ timer\ =\ clock();}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}{Apply\_Boundary\_Conditions}}();}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Applied\ Boundary\ Conditions"{}<<endl;}}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_viscous___functions_8h_a23f2145125f9b089e43c4c69c4a8905c_a23f2145125f9b089e43c4c69c4a8905c}{Evaluate\_Viscous\_Fluxes}}();}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Viscous\ Fluxes\ evaluated"{}<<endl;}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluates\ the\ Convective\ fluxes\ for\ all\ the\ cells}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}})}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f}{Evaluate\_Cell\_Net\_Flux\_2O}}();}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098}{Evaluate\_Cell\_Net\_Flux\_1O}}();}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Solves\ the\ first\ order\ Euler\ method\ using\ Explicit\ Scheme}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a9f80ffa45f3aab47b152327af8f0f823_a9f80ffa45f3aab47b152327af8f0f823}{Time\_Accurate}})}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_cuda___parallel___r_k_8cpp_a794f030971fbb7c9dd4bc08df03f50f1_a794f030971fbb7c9dd4bc08df03f50f1}{Runge\_Kutta\_Method}}();}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a426307b97d41dfc3f00591d3412c7410_a426307b97d41dfc3f00591d3412c7410}{Is\_Implicit\_Method}})}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_aa2c3379901e623826515d4c9cd96cebe_aa2c3379901e623826515d4c9cd96cebe}{Implicit\_Method}}();}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_a8dda0c7e17babab9b6e49e8e199dc30e_a8dda0c7e17babab9b6e49e8e199dc30e}{Explicit\_Method}}();}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ +=\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error___update_8h_a9a9f51a5331b903d6669d2ce013a8ee7_a9a9f51a5331b903d6669d2ce013a8ee7}{Estimate\_Error}}();}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Error\ Estimated"{}<<endl;}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_error___update_8h_aec0783b5a136e042adcc47bae4fe5291_aec0783b5a136e042adcc47bae4fe5291}{Update}}();}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((\mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ >=\ \mbox{\hyperlink{_globals_8h_ac73e9317475aaeed74748ed67cba4814_ac73e9317475aaeed74748ed67cba4814}{Terminating\_Time}})\ and\ (\mbox{\hyperlink{_globals_8h_a525ca572f2e23ce640ad1069a3875213_a525ca572f2e23ce640ad1069a3875213}{Is\_Time\_Dependent}}))}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Minimum\ Time\ Step\(\backslash\)tIterations\(\backslash\)tRho\_Error\(\backslash\)tRho\_u\_Error\(\backslash\)tRho\_v\_Error\(\backslash\)tRho\_Et\_Error\(\backslash\)t\ Wall\ Clock\ Time\(\backslash\)t\ Total\ Time"{}<<endl;}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t\ Error\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[0]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[1]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[2]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[3]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ timer\ /\ CLOCKS\_PER\_SEC\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ <<\ endl;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_addd900d266cbbb80e4f55e8561b258a4_addd900d266cbbb80e4f55e8561b258a4}{Write\_Error\_File}}(Error\_Filename);}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af810c5340bae8f716b4b24589d1e1e1c_af810c5340bae8f716b4b24589d1e1e1c}{Write\_Solution}}(Sol\_Filename,\ Solution\_Data\_Type);}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af009a28a47f459217368bbef65dade3b_af009a28a47f459217368bbef65dade3b}{Read\_Write\_Grid}}(\mbox{\hyperlink{_globals_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a2b061959575bb5beaa94a0570e66ee70_a2b061959575bb5beaa94a0570e66ee70}{Append\_Solution}}(\mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ \%\ 500\ ==\ 0)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Maximum\ and\ Minimum\ Time\ Step\ in\ iteration\ in\ \(\backslash\)t"{}<<iterations<<"{}\(\backslash\)t"{}<<Max\_dt<<"{}\(\backslash\)t"{}<<Min\_dt<<endl;}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_addd900d266cbbb80e4f55e8561b258a4_addd900d266cbbb80e4f55e8561b258a4}{Write\_Error\_File}}(Error\_Filename);}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af810c5340bae8f716b4b24589d1e1e1c_af810c5340bae8f716b4b24589d1e1e1c}{Write\_Solution}}(Sol\_Filename,\ Solution\_Data\_Type);}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_af009a28a47f459217368bbef65dade3b_af009a28a47f459217368bbef65dade3b}{Read\_Write\_Grid}}(\mbox{\hyperlink{_globals_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a2b061959575bb5beaa94a0570e66ee70_a2b061959575bb5beaa94a0570e66ee70}{Append\_Solution}}(\mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}},\ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}});}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Updated\ Solution\ File\ Sucessfully"{}<<endl;}}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Evaluating\ Skin\ Friction\ Coefficient"{}<<endl;}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_viscous___functions_8h_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26}{Evaluate\_Wall\_Skin\_Friction}}();}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Writing\ Skin\ Friction\ Coefficient\(\backslash\)t"{}<<CF\_File<<endl;}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a0e2ab7540bf5a34b40440d0d659a5b2e_a0e2ab7540bf5a34b40440d0d659a5b2e}{Write\_CF\_File}}(\mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}});}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[0]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[1]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[2]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ae5c56fc1ea4b4c46f4ada0a60a477a66_ae5c56fc1ea4b4c46f4ada0a60a477a66}{Error}}[3]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ timer\ /\ CLOCKS\_PER\_SEC\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_ac782a182e5a828a7c1228fab5abf8eea_ac782a182e5a828a7c1228fab5abf8eea}{Total\_Time}}\ <<\ endl;}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}<<endl;}}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}++;}
+\DoxyCodeLine{00219\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <\ \mbox{\hyperlink{_globals_8h_aa1c5ac03605c26b61d86e3e918ad9a30_aa1c5ac03605c26b61d86e3e918ad9a30}{Total\_Iterations}});}
+\DoxyCodeLine{00220\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Iterations\ Completed\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}\ <<\ endl;}
+\DoxyCodeLine{00221\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Evaluating\ Skin\ Friction\ Coefficient"{}}\ <<\ endl;}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00223\ \ \ \ \ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_viscous___functions_8h_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26}{Evaluate\_Wall\_Skin\_Friction}}();}
+\DoxyCodeLine{00225\ \ \ \ \ \}}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00227\ \ \ \ \ \{}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error\ during\ wall\ skin\ friction\ evaluation:\ "{}}\ <<\ e.what()\ <<\ endl;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00230\ \ \ \ \ \}}
+\DoxyCodeLine{00231\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Writing\ Skin\ Friction\ Coefficient\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ <<\ endl;}
+\DoxyCodeLine{00232\ \ \ \ \ \mbox{\hyperlink{_i_o___write_8h_a0e2ab7540bf5a34b40440d0d659a5b2e_a0e2ab7540bf5a34b40440d0d659a5b2e}{Write\_CF\_File}}(\mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}});}
+\DoxyCodeLine{00233\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/df0/_solver_8cpp_a2f37f06e8324a1ed6aa99efdbba81865_a2f37f06e8324a1ed6aa99efdbba81865_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=313pt]{de/df0/_solver_8cpp_a2f37f06e8324a1ed6aa99efdbba81865_a2f37f06e8324a1ed6aa99efdbba81865_icgraph}
+\end{center}
+\end{figure}

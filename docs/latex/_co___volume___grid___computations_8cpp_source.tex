@@ -1,0 +1,101 @@
+\doxysection{Co\+\_\+\+Volume\+\_\+\+Grid\+\_\+\+Computations.\+cpp}
+\hypertarget{_co___volume___grid___computations_8cpp_source}{}\label{_co___volume___grid___computations_8cpp_source}\index{Grid\_Readers/Co\_Volume\_Grid\_Computations.cpp@{Grid\_Readers/Co\_Volume\_Grid\_Computations.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{void}\ Construct\_Co\_Volumes(\textcolor{keywordtype}{int}\ \&\ Current\_Cell\_No)}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ cout<<"{}Constructing\ Co\ volume\ for\ cell\ No\(\backslash\)t"{}<<Current\_Cell\_No<<endl;}}
+\DoxyCodeLine{00008\ \ \ \ \ }
+\DoxyCodeLine{00009\ \ \ \ \ V\_D\ o(3,0.0),a(3,0.0),b(3,0.0),c(3,0.0),MP1(3,0.0),MP2(3,0.0),MP3(3,0.0),MP4(3,0.0),MP5(3,0.0),Diagonal\_Vector1(2,0.0),Diagonal\_Vector2(2,0.0);}
+\DoxyCodeLine{00010\ \ \ \ \ V\_D\ Vertex\_Mid\_Point(3,0.0);}
+\DoxyCodeLine{00011\ \ \ \ \ V\_D\ Co\_Area(4,0.0);}
+\DoxyCodeLine{00012\ \ \ \ \ \ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0;\ \ \ \textcolor{comment}{//\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ Area\ =\ 0.0,\ Mid\_Point\_Distance=0.0;}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_No][1];\ \ \ \ \ \ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{00016\ \ \ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_No][2];\ \ \ \ \ \ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{00017\ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_No][3];\ \ \ \ \ \ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{00018\ \ \ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_No][4];\ \ \ \ \ \ \textcolor{comment}{//(i,j+1,k)}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ \ cout<<Cells\_Vertices.size()<<endl;}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ cout<<Cells\_Vertices[Current\_Cell\_No].size()<<endl;}}
+\DoxyCodeLine{00023\ \ \ \ \ o[0]\ =\ Cells\_Vertices[Current\_Cell\_No][0];\ o[1]\ =\ Cells\_Vertices[Current\_Cell\_No][1];\ \ o[2]\ =\ Cells\_Vertices[Current\_Cell\_No][2];}
+\DoxyCodeLine{00024\ \ \ \ \ a[0]\ =\ Cells\_Vertices[Current\_Cell\_No][3];\ a[1]\ =\ Cells\_Vertices[Current\_Cell\_No][4];\ \ a[2]\ =\ Cells\_Vertices[Current\_Cell\_No][5];}
+\DoxyCodeLine{00025\ \ \ \ \ b[0]\ =\ Cells\_Vertices[Current\_Cell\_No][6];\ b[1]\ =\ Cells\_Vertices[Current\_Cell\_No][7];\ \ b[2]\ =\ Cells\_Vertices[Current\_Cell\_No][8];}
+\DoxyCodeLine{00026\ \ \ \ \ c[0]\ =\ Cells\_Vertices[Current\_Cell\_No][9];\ c[1]\ =\ Cells\_Vertices[Current\_Cell\_No][10];\ c[2]\ =\ Cells\_Vertices[Current\_Cell\_No][11];}
+\DoxyCodeLine{00027\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{/*\ \ Print(o);}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(a);}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(b);}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(c);}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00034\ \ \ \ \ MP1\ =\ Cells\_Cell\_Center[Current\_Cell\_No];}
+\DoxyCodeLine{00035\ \ \ \ \ MP2\ =\ Cells\_Cell\_Center[Neighbour\_1];}
+\DoxyCodeLine{00036\ \ \ \ \ MP3\ =\ Cells\_Cell\_Center[Neighbour\_2];}
+\DoxyCodeLine{00037\ \ \ \ \ MP4\ =\ Cells\_Cell\_Center[Neighbour\_3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ MP5\ =\ Cells\_Cell\_Center[Neighbour\_4];}
+\DoxyCodeLine{00039\ \ \ \ \ }
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{/*\ \ Print(MP1);}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ Print(MP2);}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ Print(MP3);}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ Print(MP4);}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ Print(MP5);*/}}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{comment}{//exit(0);}}
+\DoxyCodeLine{00047\ \textcolor{comment}{/*\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Co\ Volumes\ for\ faces\ \ Face\ zero\ is\ formed\ by\ Face-\/0\ -\/-\/-\/-\/\ Cell\ ceter\ of\ i-\/1,j\ ,\ vertex\ o,\ cell\_center\ of\ i,j\ and\ vertex\ c\ \ \ */}}
+\DoxyCodeLine{00048\ \ \ \ \ Construct\_Face(MP2,o,MP1,c);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ Diagonal\_Vector1[0]\ =\ o[0]\ -\/\ c[0];}
+\DoxyCodeLine{00051\ \ \ \ \ Diagonal\_Vector1[1]\ =\ o[1]\ -\/\ c[1];}
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ Diagonal\_Vector2[0]\ =\ MP2[0]\ -\/\ MP1[0];}
+\DoxyCodeLine{00054\ \ \ \ \ Diagonal\_Vector2[1]\ =\ MP2[1]\ -\/\ MP1[1];}
+\DoxyCodeLine{00055\ \ \ \ \ Evaluate\_Cross\_Product(Diagonal\_Vector2,Diagonal\_Vector1,Area);}
+\DoxyCodeLine{00056\ \ \ \ \ Co\_Area[0]\ =\ Area;}
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ cout<<"{}On\ Face\ 0\ done"{}<<endl;}}
+\DoxyCodeLine{00059\ \ \ \ \ Construct\_Face(o,MP3,a,MP1);\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00060\ \ \ \ \ Diagonal\_Vector1[0]\ =\ MP3[0]\ -\/\ MP1[0];}
+\DoxyCodeLine{00061\ \ \ \ \ Diagonal\_Vector1[1]\ =\ MP3[1]\ -\/\ MP1[1];}
+\DoxyCodeLine{00062\ \ \ \ \ }
+\DoxyCodeLine{00063\ \ \ \ \ Diagonal\_Vector2[0]\ =\ a[0]\ -\/\ o[0];}
+\DoxyCodeLine{00064\ \ \ \ \ Diagonal\_Vector2[1]\ =\ a[1]\ -\/\ o[1];}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}On\ Face\ 1"{}<<endl;}}
+\DoxyCodeLine{00066\ \ \ \ \ Evaluate\_Cross\_Product(Diagonal\_Vector1,Diagonal\_Vector2,Area);}
+\DoxyCodeLine{00067\ \ \ \ \ Co\_Area[1]\ =\ Area;}
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ cout<<"{}On\ Face\ 1\ done"{}<<endl;}}
+\DoxyCodeLine{00069\ \textcolor{comment}{/*Face-\/2\ -\/-\/-\/-\/\ Cell\ ceter\ of\ i,j\ ,\ vertex\ a,\ cell\_center\ of\ i+1,j\ and\ vertex\ b\ */}\ \ }
+\DoxyCodeLine{00070\ \ \ \ \ Construct\_Face(MP1,a,MP4,b);\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ Diagonal\_Vector1[0]\ =\ b[0]\ -\/\ a[0];}
+\DoxyCodeLine{00072\ \ \ \ \ Diagonal\_Vector1[1]\ =\ b[1]\ -\/\ a[1];}
+\DoxyCodeLine{00073\ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ Diagonal\_Vector2[0]\ =\ MP1[0]\ -\/\ MP4[0];}
+\DoxyCodeLine{00075\ \ \ \ \ Diagonal\_Vector2[1]\ =\ MP1[1]\ -\/\ MP4[1];}
+\DoxyCodeLine{00076\ \ \ \ \ Evaluate\_Cross\_Product(Diagonal\_Vector1,Diagonal\_Vector2,Area);}
+\DoxyCodeLine{00077\ \ \ \ \ Co\_Area[2]\ =\ Area;}
+\DoxyCodeLine{00078\ \textcolor{comment}{/*Face-\/3\ -\/-\/-\/-\/\ vertex\ b,\ Cell\ ceter\ of\ i,j+1\ ,\ vertex\ c,\ cell\_center\ of\ i,j\ \ \ */}}
+\DoxyCodeLine{00079\ \ \ \ \ Construct\_Face(c,MP1,b,MP5);\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00080\ \ \ \ \ Diagonal\_Vector2[0]\ =\ c[0]\ -\/\ b[0];}
+\DoxyCodeLine{00081\ \ \ \ \ Diagonal\_Vector2[1]\ =\ c[1]\ -\/\ b[1];}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ Diagonal\_Vector1[0]\ =\ MP5[0]\ -\/\ MP1[0];}
+\DoxyCodeLine{00084\ \ \ \ \ Diagonal\_Vector1[1]\ =\ MP5[1]\ -\/\ MP1[1];}
+\DoxyCodeLine{00085\ \ \ \ \ Evaluate\_Cross\_Product(Diagonal\_Vector1,Diagonal\_Vector2,Area);}
+\DoxyCodeLine{00086\ \ \ \ \ Co\_Area[3]\ =\ Area;}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ Co\_Volume\_Cell\_Face\_Areas.push\_back(Face\_Area\_Components);}
+\DoxyCodeLine{00089\ \ \ \ \ Co\_Volume\_Cell\_Face\_Normals.push\_back(Face\_Normal\_Components);}
+\DoxyCodeLine{00090\ \ \ \ \ Face\_Area\_Components.clear();}
+\DoxyCodeLine{00091\ \ \ \ \ Face\_Normal\_Components.clear();}
+\DoxyCodeLine{00092\ \ \ \ \ Co\_Volume\_Cell\_Area.push\_back(Co\_Area);}
+\DoxyCodeLine{00093\ \ \ \ \ }
+\DoxyCodeLine{00094\ \textcolor{comment}{//\ cout<<"{}Construction\ of\ Co\ Volume\ done"{}<<endl;}}
+\DoxyCodeLine{00095\ \ \ \ \ }
+\DoxyCodeLine{00096\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,55 @@
+\doxysection{src/\+Residual\+\_\+\+Smoothing.cpp File Reference}
+\hypertarget{_residual___smoothing_8cpp}{}\label{_residual___smoothing_8cpp}\index{src/Residual\_Smoothing.cpp@{src/Residual\_Smoothing.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Flux.\+h"{}}\newline
+Include dependency graph for Residual\+\_\+\+Smoothing.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/df6/_residual___smoothing_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}{Smooth\+\_\+\+Residuals}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf}\index{Residual\_Smoothing.cpp@{Residual\_Smoothing.cpp}!Smooth\_Residuals@{Smooth\_Residuals}}
+\index{Smooth\_Residuals@{Smooth\_Residuals}!Residual\_Smoothing.cpp@{Residual\_Smoothing.cpp}}
+\doxysubsubsection{\texorpdfstring{Smooth\_Residuals()}{Smooth\_Residuals()}}
+{\footnotesize\ttfamily \label{_residual___smoothing_8cpp_aaaa73f1078c8951c5ec097376db6dbaf_aaaa73f1078c8951c5ec097376db6dbaf} 
+void Smooth\+\_\+\+Residuals (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_residual___smoothing_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_residual___smoothing_8cpp_source}{Residual\+\_\+\+Smoothing.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{int}\ i1\ =\ 0,\ i2\ =\ 0,\ i3\ =\ 0,\ i4\ =\ 0,\ i5\ =\ 0,\ i6\ =\ 0;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{double}\ omega\ =\ 0.5;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{/*for\ (int\ Cell\_No\ =\ 0;\ Cell\_No\ <\ No\_Physical\_Cells;\ Cell\_No++)}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ \ \ \ \ i1\ =\ Cell\_Neighbours[Cell\_No][1];}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ \ \ \ \ i2\ =\ Cell\_Neighbours[Cell\_No][2];}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ \ \ \ \ i3\ =\ Cell\_Neighbours[Cell\_No][3];}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ \ \ \ \ i4\ =\ Cell\_Neighbours[Cell\_No][4];}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ \ \ \ \ i5\ =\ Cell\_Neighbours[Cell\_No][5];}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ \ \ \ \ i6\ =\ Cell\_Neighbours[Cell\_No][6];}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 5;\ i++)}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Smoothed\_Cells\_Net\_Flux[Cell\_No][i]\ =\ ((1.0\ -\/\ omega)\ /\ 6.0)\ *\ (Cells\_Net\_Flux[i1][i]\ +\ Cells\_Net\_Flux[i2][i]\ +\ Cells\_Net\_Flux[i3][i]\ +\ Cells\_Net\_Flux[i4][i]\ +\ Cells\_Net\_Flux[i5][i]\ +\ Cells\_Net\_Flux[i6][i])\ +}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ omega\ *\ Cells\_Net\_Flux[Cell\_No][i];}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ \ for\ (int\ Cell\_No\ =\ 0;\ Cell\_No\ <\ No\_Physical\_Cells;\ Cell\_No++)}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ for\ (int\ i\ =\ 0;\ i\ <\ 5;\ i++)}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Cell\_No][i]\ =\ Smoothed\_Cells\_Net\_Flux[Cell\_No][i];}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \}*/}}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}

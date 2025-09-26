@@ -1,0 +1,144 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2.\+Efficient\+SU2 Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2}{}\label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2}\index{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2@{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2.\+Efficient\+SU2\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.361371cm]{dc/d15/classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_a190f6310da7d2915628c45035e7caf30_a190f6310da7d2915628c45035e7caf30}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int\texorpdfstring{$\vert$}{|}None num\+\_\+qubits=None,(str\texorpdfstring{$\vert$}{|}type\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+Instruction}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}list\mbox{[}str\texorpdfstring{$\vert$}{|}type\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+Instruction}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\texorpdfstring{$\vert$}{|}None) su2\+\_\+gates=None, str\texorpdfstring{$\vert$}{|}list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} entanglement="{}reverse\+\_\+linear"{}, int reps=3, bool skip\+\_\+unentangled\+\_\+qubits=False, bool skip\+\_\+final\+\_\+rotation\+\_\+layer=False, str parameter\+\_\+prefix="{}θ"{}, bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a89ce32d1f086ad4b5aa78cfd37c9a253_a89ce32d1f086ad4b5aa78cfd37c9a253}{insert\+\_\+barriers}}=False, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}None initial\+\_\+state=None, str name="{}Efficient\+SU2"{}, bool\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a1e56fefa60888c66f6f558b50b4b288e_a1e56fefa60888c66f6f558b50b4b288e}{flatten}}=None)
+\item 
+list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_abb8b2bb49b97d4703c6b8a9845b831ae_abb8b2bb49b97d4703c6b8a9845b831ae}{parameter\+\_\+bounds}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The hardware efficient SU(2) 2-local circuit.
+
+The ``EfficientSU2`` circuit consists of layers of single qubit operations spanned by SU(2)
+and :math:`CX` entanglements. This is a heuristic pattern that can be used to prepare trial wave
+functions for variational quantum algorithms or classification circuit for machine learning.
+
+SU(2) stands for special unitary group of degree 2, its elements are :math:`2 \times 2`
+unitary matrices with determinant 1, such as the Pauli rotation gates.
+
+On 3 qubits and using the Pauli :math:`Y` and :math:`Z` su2_gates as single qubit gates, the
+hardware efficient SU(2) circuit is represented by:
+
+.. code-block:: text
+
+    ┌──────────┐┌──────────┐ ░            ░       ░ ┌───────────┐┌───────────┐
+    ┤ RY(θ[0]) ├┤ RZ(θ[3]) ├─░────────■───░─ ... ─░─┤ RY(θ[12]) ├┤ RZ(θ[15]) ├
+    ├──────────┤├──────────┤ ░      ┌─┴─┐ ░       ░ ├───────────┤├───────────┤
+    ┤ RY(θ[1]) ├┤ RZ(θ[4]) ├─░───■──┤ X ├─░─ ... ─░─┤ RY(θ[13]) ├┤ RZ(θ[16]) ├
+    ├──────────┤├──────────┤ ░ ┌─┴─┐└───┘ ░       ░ ├───────────┤├───────────┤
+    ┤ RY(θ[2]) ├┤ RZ(θ[5]) ├─░─┤ X ├──────░─ ... ─░─┤ RY(θ[14]) ├┤ RZ(θ[17]) ├
+    └──────────┘└──────────┘ ░ └───┘      ░       ░ └───────────┘└───────────┘
+
+See :class:`~qiskit.circuit.library.RealAmplitudes` for more detail on the possible arguments
+and options such as skipping unentanglement qubits, which apply here too.
+
+Examples:
+
+    >>> circuit = EfficientSU2(3, reps=1)
+    >>> print(circuit.decompose())
+         ┌──────────┐┌──────────┐          ┌──────────┐┌──────────┐
+    q_0: ┤ RY(θ[0]) ├┤ RZ(θ[3]) ├──■────■──┤ RY(θ[6]) ├┤ RZ(θ[9]) ├─────────────
+         ├──────────┤├──────────┤┌─┴─┐  │  └──────────┘├──────────┤┌───────────┐
+    q_1: ┤ RY(θ[1]) ├┤ RZ(θ[4]) ├┤ X ├──┼───────■──────┤ RY(θ[7]) ├┤ RZ(θ[10]) ├
+         ├──────────┤├──────────┤└───┘┌─┴─┐   ┌─┴─┐    ├──────────┤├───────────┤
+    q_2: ┤ RY(θ[2]) ├┤ RZ(θ[5]) ├─────┤ X ├───┤ X ├────┤ RY(θ[8]) ├┤ RZ(θ[11]) ├
+         └──────────┘└──────────┘     └───┘   └───┘    └──────────┘└───────────┘
+
+    >>> ansatz = EfficientSU2(4, su2_gates=['rx', 'y'], entanglement='circular', reps=1,
+    ... flatten=True)
+    >>> qc = QuantumCircuit(4)  # create a circuit and append the RY variational form
+    >>> qc.compose(ansatz, inplace=True)
+    >>> qc.draw()
+         ┌──────────┐┌───┐┌───┐     ┌──────────┐   ┌───┐
+    q_0: ┤ RX(θ[0]) ├┤ Y ├┤ X ├──■──┤ RX(θ[4]) ├───┤ Y ├─────────────────────
+         ├──────────┤├───┤└─┬─┘┌─┴─┐└──────────┘┌──┴───┴───┐   ┌───┐
+    q_1: ┤ RX(θ[1]) ├┤ Y ├──┼──┤ X ├─────■──────┤ RX(θ[5]) ├───┤ Y ├─────────
+         ├──────────┤├───┤  │  └───┘   ┌─┴─┐    └──────────┘┌──┴───┴───┐┌───┐
+    q_2: ┤ RX(θ[2]) ├┤ Y ├──┼──────────┤ X ├─────────■──────┤ RX(θ[6]) ├┤ Y ├
+         ├──────────┤├───┤  │          └───┘       ┌─┴─┐    ├──────────┤├───┤
+    q_3: ┤ RX(θ[3]) ├┤ Y ├──■──────────────────────┤ X ├────┤ RX(θ[7]) ├┤ Y ├
+         └──────────┘└───┘                         └───┘    └──────────┘└───┘
+
+.. seealso::
+
+    The :func:`.efficient_su2` function constructs a functionally equivalent circuit, but faster.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_a190f6310da7d2915628c45035e7caf30_a190f6310da7d2915628c45035e7caf30}\index{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2@{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2@{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_a190f6310da7d2915628c45035e7caf30_a190f6310da7d2915628c45035e7caf30} 
+ None qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2.\+Efficient\+SU2.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+qubits}{ = {\ttfamily None}, }\item[{(             str             \texorpdfstring{$\vert$}{|} type             \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+Instruction}}             \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}             \texorpdfstring{$\vert$}{|} list\mbox{[}str \texorpdfstring{$\vert$}{|} type \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+Instruction}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}             \texorpdfstring{$\vert$}{|} None         ) }]{su2\+\_\+gates}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} }]{entanglement}{ = {\ttfamily "{}reverse\+\_\+linear"{}}, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{bool }]{skip\+\_\+unentangled\+\_\+qubits}{ = {\ttfamily False}, }\item[{bool }]{skip\+\_\+final\+\_\+rotation\+\_\+layer}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+state}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}EfficientSU2"{}}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{flatten}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: The number of qubits of the EfficientSU2 circuit.
+    reps: Specifies how often the structure of a rotation layer followed by an entanglement
+        layer is repeated.
+    su2_gates: The SU(2) single qubit gates to apply in single qubit gate layers.
+        If only one gate is provided, the same gate is applied to each qubit.
+        If a list of gates is provided, all gates are applied to each qubit in the provided
+        order.
+    entanglement: Specifies the entanglement structure. Can be a string
+        ('full', 'linear', 'reverse_linear', 'pairwise', 'circular', or 'sca'),
+        a list of integer-pairs specifying the indices of qubits entangled with one another,
+        or a callable returning such a list provided with the index of the entanglement layer.
+        Defaults to 'reverse_linear' entanglement.
+        Note that 'reverse_linear' entanglement provides the same unitary as 'full'
+        with fewer entangling gates.
+        See the Examples section of :class:`~qiskit.circuit.library.TwoLocal` for more
+        detail.
+    initial_state: A `QuantumCircuit` object to prepend to the circuit.
+    skip_unentangled_qubits: If True, the single qubit gates are only applied to qubits
+        that are entangled with another qubit. If False, the single qubit gates are applied
+        to each qubit in the Ansatz. Defaults to False.
+    skip_final_rotation_layer: If False, a rotation layer is added at the end of the
+        ansatz. If True, no rotation layer is added.
+    parameter_prefix: The parameterized gates require a parameter to be defined, for which
+        we use :class:`~qiskit.circuit.ParameterVector`.
+    insert_barriers: If True, barriers are inserted in between each layer. If False,
+        no barriers are inserted.
+    flatten: Set this to ``True`` to output a flat circuit instead of nesting it inside multiple
+        layers of gate objects. By default currently the contents of
+        the output circuit will be wrapped in nested objects for
+        cleaner visualization. However, if you're using this circuit
+        for anything besides visualization its **strongly** recommended
+        to set this flag to ``True`` to avoid a large performance
+        overhead for parameter binding.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1two__local_1_1_two_local_ac6b3de9751a910395d19c9e603aaa00f_ac6b3de9751a910395d19c9e603aaa00f}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+two\+\_\+local.\+Two\+Local}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_abb8b2bb49b97d4703c6b8a9845b831ae_abb8b2bb49b97d4703c6b8a9845b831ae}\index{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2@{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2}!parameter\_bounds@{parameter\_bounds}}
+\index{parameter\_bounds@{parameter\_bounds}!qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2@{qiskit.circuit.library.n\_local.efficient\_su2.EfficientSU2}}
+\doxysubsubsection{\texorpdfstring{parameter\_bounds()}{parameter\_bounds()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1efficient__su2_1_1_efficient_s_u2_abb8b2bb49b97d4703c6b8a9845b831ae_abb8b2bb49b97d4703c6b8a9845b831ae} 
+ list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} qiskit.\+circuit.\+library.\+n\+\_\+local.\+efficient\+\_\+su2.\+Efficient\+SU2.\+parameter\+\_\+bounds (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the parameter bounds.
+
+Returns:
+    The parameter bounds.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_ad1318f9027c54c53782a3a48602927ab_ad1318f9027c54c53782a3a48602927ab}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+n\+\_\+local.\+NLocal}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/n\+\_\+local/efficient\+\_\+su2.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,83 @@
+\doxysection{stevedore.\+extension.\+Extension Class Reference}
+\hypertarget{classstevedore_1_1extension_1_1_extension}{}\label{classstevedore_1_1extension_1_1_extension}\index{stevedore.extension.Extension@{stevedore.extension.Extension}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstevedore_1_1extension_1_1_extension_ad345c1b5e81372c2143ec3697951bd48}\label{classstevedore_1_1extension_1_1_extension_ad345c1b5e81372c2143ec3697951bd48} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, name, entry\+\_\+point, plugin, obj)
+\item 
+\mbox{\hyperlink{classstevedore_1_1extension_1_1_extension_a6c234ab6da18788a43d7bcc65e725a77}{module\+\_\+name}} (self)
+\item 
+\mbox{\hyperlink{classstevedore_1_1extension_1_1_extension_a2935c0749341c405670a2566813bc4ee}{attr}} (self)
+\item 
+\mbox{\hyperlink{classstevedore_1_1extension_1_1_extension_a361b8c215f9d226ae7342bbcabb63665}{entry\+\_\+point\+\_\+target}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstevedore_1_1extension_1_1_extension_a927851db78bc5e39390f3ee0212c0888}\label{classstevedore_1_1extension_1_1_extension_a927851db78bc5e39390f3ee0212c0888} 
+{\bfseries name} = name
+\item 
+\Hypertarget{classstevedore_1_1extension_1_1_extension_a1aeefa39bdafd6fff995e8c834b3f92e}\label{classstevedore_1_1extension_1_1_extension_a1aeefa39bdafd6fff995e8c834b3f92e} 
+{\bfseries entry\+\_\+point} = entry\+\_\+point
+\item 
+\Hypertarget{classstevedore_1_1extension_1_1_extension_a5c80b1fbe9e2b8d75059bacde83b4a4a}\label{classstevedore_1_1extension_1_1_extension_a5c80b1fbe9e2b8d75059bacde83b4a4a} 
+{\bfseries plugin} = plugin
+\item 
+\Hypertarget{classstevedore_1_1extension_1_1_extension_a5c17762d1c371e5218e9b0576fdcc285}\label{classstevedore_1_1extension_1_1_extension_a5c17762d1c371e5218e9b0576fdcc285} 
+{\bfseries obj} = obj
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Book-keeping object for tracking extensions.
+
+The arguments passed to the constructor are saved as attributes of
+the instance using the same names, and can be accessed by the
+callables passed to :meth:`map` or when iterating over an
+:class:`ExtensionManager` directly.
+
+:param name: The entry point name.
+:type name: str
+:param entry_point: The EntryPoint instance returned by
+    :mod:`entrypoints`.
+:type entry_point: EntryPoint
+:param plugin: The value returned by entry_point.load()
+:param obj: The object returned by ``plugin(*args, **kwds)`` if the
+            manager invoked the extension on load.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classstevedore_1_1extension_1_1_extension_a2935c0749341c405670a2566813bc4ee}\index{stevedore.extension.Extension@{stevedore.extension.Extension}!attr@{attr}}
+\index{attr@{attr}!stevedore.extension.Extension@{stevedore.extension.Extension}}
+\doxysubsubsection{\texorpdfstring{attr()}{attr()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1extension_1_1_extension_a2935c0749341c405670a2566813bc4ee} 
+stevedore.\+extension.\+Extension.\+attr (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The attribute of the module to be loaded.\end{DoxyVerb}
+ \Hypertarget{classstevedore_1_1extension_1_1_extension_a361b8c215f9d226ae7342bbcabb63665}\index{stevedore.extension.Extension@{stevedore.extension.Extension}!entry\_point\_target@{entry\_point\_target}}
+\index{entry\_point\_target@{entry\_point\_target}!stevedore.extension.Extension@{stevedore.extension.Extension}}
+\doxysubsubsection{\texorpdfstring{entry\_point\_target()}{entry\_point\_target()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1extension_1_1_extension_a361b8c215f9d226ae7342bbcabb63665} 
+stevedore.\+extension.\+Extension.\+entry\+\_\+point\+\_\+target (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The module and attribute referenced by this extension's entry_point.
+
+:return: A string representation of the target of the entry point in
+    'dotted.module:object' format.
+\end{DoxyVerb}
+ \Hypertarget{classstevedore_1_1extension_1_1_extension_a6c234ab6da18788a43d7bcc65e725a77}\index{stevedore.extension.Extension@{stevedore.extension.Extension}!module\_name@{module\_name}}
+\index{module\_name@{module\_name}!stevedore.extension.Extension@{stevedore.extension.Extension}}
+\doxysubsubsection{\texorpdfstring{module\_name()}{module\_name()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1extension_1_1_extension_a6c234ab6da18788a43d7bcc65e725a77} 
+stevedore.\+extension.\+Extension.\+module\+\_\+name (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The name of the module from which the entry point is loaded.
+
+:return: A string in 'dotted.module' format.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/stevedore/extension.\+py\end{DoxyCompactItemize}

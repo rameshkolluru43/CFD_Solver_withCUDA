@@ -1,0 +1,57 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+barrier Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1barrier}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1barrier}\index{qiskit.visualization.pulse\_v2.generators.barrier@{qiskit.visualization.pulse\_v2.generators.barrier}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_line_data}{drawings.\+Line\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1barrier_ab56bb1c790e12f3114cbd40c2226603f}{gen\+\_\+barrier}} (types.\+Barrier\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Barrier generators.
+
+A collection of functions that generate drawings from formatted input data.
+See py:mod:`qiskit.visualization.pulse_v2.types` for more info on the required data.
+
+In this module the input data is `types.BarrierInstruction`.
+
+An end-user can write arbitrary functions that generate custom drawings.
+Generators in this module are called with the `formatter` and `device` kwargs.
+These data provides stylesheet configuration and backend system configuration.
+
+The format of generator is restricted to:
+
+    ```python
+
+    def my_object_generator(data: BarrierInstruction,
+                            formatter: Dict[str, Any],
+                            device: DrawerBackendInfo) -> List[ElementaryData]:
+        pass
+    ```
+
+Arbitrary generator function satisfying the above format can be accepted.
+Returned `ElementaryData` can be arbitrary subclasses that are implemented in
+the plotter API.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1barrier_ab56bb1c790e12f3114cbd40c2226603f}\index{qiskit.visualization.pulse\_v2.generators.barrier@{qiskit.visualization.pulse\_v2.generators.barrier}!gen\_barrier@{gen\_barrier}}
+\index{gen\_barrier@{gen\_barrier}!qiskit.visualization.pulse\_v2.generators.barrier@{qiskit.visualization.pulse\_v2.generators.barrier}}
+\doxysubsubsection{\texorpdfstring{gen\_barrier()}{gen\_barrier()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1barrier_ab56bb1c790e12f3114cbd40c2226603f} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_line_data}{drawings.\+Line\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+barrier.\+gen\+\_\+barrier (\begin{DoxyParamCaption}\item[{types.\+Barrier\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate the barrier from provided relative barrier instruction.
+
+Stylesheets:
+    - The `barrier` style is applied.
+
+Args:
+    data: Barrier instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+Returns:
+    List of `LineData` drawings.
+\end{DoxyVerb}
+ 

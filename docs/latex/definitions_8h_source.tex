@@ -1,0 +1,419 @@
+\doxysection{definitions.\+h}
+\hypertarget{definitions_8h_source}{}\label{definitions_8h_source}\index{Basic\_Files/definitions.h@{Basic\_Files/definitions.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ \_Header\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ \_Header\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <typeinfo>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <iomanip>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <chrono>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <cfloat>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <filesystem>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <map>}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <unordered\_set>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <vtkSmartPointer.h>}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <vtkUnstructuredGrid.h>}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ <vtkUnstructuredGridReader.h>}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ <vtkIdList.h>}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#include\ <vtkCellData.h>}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ <vtkPoints.h>}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#include\ <vtkFeatureEdges.h>}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ <vtkXMLPolyDataWriter.h>}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <vtkPolyData.h>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#include\ <jsoncpp/json.h>}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <jsoncpp/reader.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <jsoncpp/value.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <jsoncpp/writer.h>}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ Global\ Constants\ to\ be\ used\ in\ The\ entire\ code}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ radian\ M\_PI/180.0}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ gamma\ 1.4}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ gamma\_M\_1\ (gamma\ -\/\ 1.0)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ gamma1\ gamma/gamma\_M\_1}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ R\_GC\ 287.0}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ cp\ gamma1*R\_GC}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ cv\ R\_GC/(gamma\ -\/\ 1.0)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ gamma\_R\ gamma*R\_GC\ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ This\ is\ gamm*R\ used\ to\ calculate\ the\ speed\ of\ sound}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Terinary\ Functions\ to\ be\ used\ in\ Evaluating\ Limiters\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ Phi(r)\ ((r>=1)?1:((r<1)\&(r>0))?r:0)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ Sign(a)\ ((a>0.0)\ -\/\ (a<0.0))}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ Constants\ defined\ for\ Sutherland's\ law\ for\ evaluating\ viscosity}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ T\_S\_Mu\ \ 110.4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ \ Reference\ Temperature\ for\ Viscosity}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#define\ T\_S\_K\ \ 194.4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ \ Reference\ Temperature\ for\ Thermal\ Conductivity}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ C\_1\ 1.458e-\/6\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ \ \ \ \ \ This\ divided\ by\ sqrt\ of\ Temperature}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ T\_ref\ 288.15}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/\ Face\ Indicies\ to\ be\ used\ in\ the\ code-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#define\ Face\_0\ 0}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#define\ Face\_1\ 1}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ Face\_2\ 2}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ Face\_3\ 3}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Global\ Variables-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//extern\ string\ pwd;}}
+\DoxyCodeLine{00078\ \textcolor{keyword}{typedef}\ vector<double>\ V\_D;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{typedef}\ vector<int>\ V\_I;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{//\ Struct\ to\ store\ boundary\ information}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_boundary_info}{BoundaryInfo}}\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ std::unordered\_set<vtkIdType>\ leftBoundary;}
+\DoxyCodeLine{00085\ \ \ \ \ std::unordered\_set<vtkIdType>\ rightBoundary;}
+\DoxyCodeLine{00086\ \ \ \ \ std::unordered\_set<vtkIdType>\ topBoundary;}
+\DoxyCodeLine{00087\ \ \ \ \ std::unordered\_set<vtkIdType>\ bottomBoundary;}
+\DoxyCodeLine{00088\ \ \ \ \ std::unordered\_set<vtkIdType>\ cylinderBoundary;}
+\DoxyCodeLine{00089\ \};}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{keyword}{extern}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_cell}{Cell}}\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ vtkIdType\ id;}
+\DoxyCodeLine{00094\ \ \ \ \ std::vector<vtkIdType>\ points;}
+\DoxyCodeLine{00095\ \ \ \ \ std::vector<vtkIdType>\ neighbors;}
+\DoxyCodeLine{00096\ \};}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \textcolor{comment}{//vector<V\_D>\ represents\ a\ 2D\ array\ such\ as\ a[i][j]}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{//2D\ array\ for\ storing\ Cell\ Face\ Normals,\ Area\ Componets,Conservative\ variables\ and\ Convective\ Flux(Fc),\ Viscous\ Flux\ (Fv),\ Primitive\ Variables\ and\ Net\ Flux\ is\ (Fc+Fv)}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{extern}\ vector<V\_D>\ Cells\_DelU,U\_Cells,Primitive\_Cells,Cells\_Net\_Flux,R\_Cell,Distance\_Bw\_Cell\_Centers,Cells\_Center\_Distances,Cells\_Vertices;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{keyword}{extern}\ vector<V\_D>\ U\_Cells\_RK\_1,\ U\_Cells\_RK\_2,A\_x,A\_y,A,A\_x\_L,A\_x\_R,A\_y\_T,A\_y\_B;}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{extern}\ vector<V\_D>\ Cells\_Cell\_Center,Cell\_Face\_Areas,Cell\_Face\_Normals,Co\_Volume\_Cell\_Face\_Normals,Co\_Volume\_Cell\_Face\_Areas,Co\_Volume\_Cell\_Area;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{keyword}{extern}\ V\_D\ Vertices,Face\_Area\_Components,Face\_Normal\_Components;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{keyword}{extern}\ V\_D\ Cells\_DelT,Error,Cells\_Area,Cells\_Inv\_Area,Cell\_Face\_Deltat,b;}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{keyword}{extern}\ V\_D\ Global\_Primitive,Global\_U,Average\_Convective\_Flux,Dissipative\_Flux;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \textcolor{keyword}{extern}\ vector<vector<bool>\ >\ Cells\_Face\_Boundary\_Type;}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \textcolor{keyword}{extern}\ \ \textcolor{keywordtype}{int}\ nx\_1,nx\_2,ny\_1,ny\_2;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ Total\_No\_Cells,No\_Cartesian\_Cells,No\_Polar\_Cells,No\_Physical\_Cells,Grid\_Type,Case\_Type,Exit\_Type,Inlet\_Type,Initialize\_Type,Procedure\_Type,Numerical\_Method,Method\_Type,Test\_Case;}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ No\_Ghost\_Cells,Cells\_in\_Plane,nx\_p,ny\_p,nz\_p,nx\_c,ny\_c,nz\_c,Grid\_Type,Initialize\_Type,iterations,Area\_Weighted\_Average,Total\_Iterations,Limiter\_Case;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ global\_temp,Pressure\_Static\_Exit,Pressure\_Total\_Inlet,Temperature\_Total\_Inlet,Cell\_Minimum\_Length,CFL,Re,Pr,Inv\_Pr,Inv\_Re,Qx,Qy;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Max\_dt,Min\_dt,cs;}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ u\_ref,t\_ref,L\_ref,M\_ref,mu\_ref,P\_ref,Rho\_ref,K1,M,cp\_ref,R\_ref;\ \textcolor{comment}{//\ reference\ Variables}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Pressure\_Static\_Inlet,Rho\_Static\_Inlet,Temperature\_Static\_Inlet,Inlet\_Mach\_No,V\_1,V\_2,V\_Magnitude\_Inlet,V\_Magnitude,C\_Acoustic,Terminating\_Time,Total\_Time;}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Mod\_Alpha0,Mod\_Alpha1,Mod\_Alpha2,Mod\_Alpha3,d\_F\_0,d\_F\_1,d\_F\_2,d\_F\_3,d\_U\_0,d\_U\_1,d\_U\_2,d\_U\_3;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Lambda\_Max,Lambda\_Min,Max1,Max2,Min1,Min2,d\_Var;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ P\_inf,Rho\_inf,R\_inf,M\_inf,u\_inf,T\_inf,mu\_star,q\_inf;\ \textcolor{comment}{//\ Free\ Stream\ Varialbles}}
+\DoxyCodeLine{00136\ }
+\DoxyCodeLine{00137\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ Neighbour\_1,Neighbour\_2,Neighbour\_3,Neighbour\_4,Neighbour\_5,Neighbour\_6,Neighbour\_7,Neighbour\_8;\ \textcolor{comment}{//\ Indicies\ for\ Neighbouring\ grid\ points\ of\ a\ given\ cell}}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ Variables\ used\ for\ Viscous\ Fluxes\ and\ Gradients\ }}
+\DoxyCodeLine{00140\ \textcolor{keyword}{extern}\ V\_D\ u\_Gradient,v\_Gradient,T\_Gradient,Viscous\_Flux,Grad\_Var;}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{extern}\ vector<V\_D>\ Cells\_Viscous\_Flux;}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00144\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ mu,K,M\_inf;\ \textcolor{comment}{//\ Variables\ for\ viscosity\ and\ thermal\ Conductivity}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{comment}{//variables\ to\ read\ the\ face\ normals\ and\ face\ lenghts\ and\ face\ area\ }}
+\DoxyCodeLine{00147\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ nx,ny,dl,dA;}
+\DoxyCodeLine{00148\ }
+\DoxyCodeLine{00149\ \textcolor{comment}{//\ Left\ State\ Variables\ }}
+\DoxyCodeLine{00150\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Rho\_L,T\_L,P\_L,u\_L,v\_L,Vdotn\_L,Vmag\_L,M\_L,C\_L,H\_L;}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{keyword}{extern}\ V\_D\ Flux\_L,U\_L,CF;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \textcolor{comment}{//Right\ State\ Varialbes\ }}
+\DoxyCodeLine{00155\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Rho\_R,T\_R,P\_R,u\_R,v\_R,Vdotn\_R,Vmag\_R,M\_R,C\_R,H\_R;}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{keyword}{extern}\ V\_D\ Flux\_R,U\_R,S;}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \textcolor{keyword}{extern}\ V\_I\ NumFaces;}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ \textcolor{keyword}{extern}\ V\_I\ Wall\_Cells\_List,Inlet\_Cells\_List,Exit\_Cells\_List,Symmetry\_Cells\_List,List\_Dissipative\_Cells,List\_Non\_Dissipative\_Cells,Cell\_Neighbour\_indicies,Far\_Field\_Out\_Flow,Far\_Field\_InFlow;}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{keyword}{extern}\ vector<V\_I>\ Cell\_Neighbours,Cells\_Secondary\_Neighbours;}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keyword}{extern}\ vector<bool>\ v\_bool;}
+\DoxyCodeLine{00166\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{int}\ Dissipation\_Type,Flux\_Type\ ,Grid\_Size,Viscous\_Time\_Case;}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ Is\_Viscous\_Wall,Is\_2D\_Flow,Is\_Inlet\_SubSonic,Is\_Exit\_SubSonic,Enable\_Far\_Field,Is\_Second\_Order,Is\_MOVERS\_1,Enable\_Entropy\_Fix,Is\_Time\_Dependent,has\_Symmetry\_BC,Time\_Accurate,Local\_Time\_Stepping,Non\_Dimensional\_Form,Is\_WENO,Is\_Char;}
+\DoxyCodeLine{00169\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{bool}\ Is\_Implicit\_Method;}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{string}\ Grid\_File,\ Initial\_Solution\_File,\ Solution\_File,\ Error\_File,\ Limiter\_File,Final\_Solution\_File,Grid\_Vtk\_File,CF\_File;}
+\DoxyCodeLine{00172\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ \ \ mev\_L,mev\_R,max\_eigen\_value;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ \ Variables\ for\ Roe\ Averages}}
+\DoxyCodeLine{00175\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{double}\ Roe\_u,Roe\_v,Roe\_Rho,Roe\_P,Roe\_e,Roe\_Vmag,U\_avg,Roe\_a,Roe\_H,Un,Ut;}
+\DoxyCodeLine{00176\ \ \ \ \ }
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \textcolor{comment}{//\ Define\ vectors\ to\ store\ sparse\ matrix\ data}}
+\DoxyCodeLine{00179\ \textcolor{keyword}{extern}\ vector<int>\ row\_indices;}
+\DoxyCodeLine{00180\ \textcolor{keyword}{extern}\ vector<int>\ col\_indices;}
+\DoxyCodeLine{00181\ \textcolor{keyword}{extern}\ vector<double>\ values;}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Functions\ Required\ for\ Geometric\ Features-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ Function\ for\ reading\ input\ grid\ file}}
+\DoxyCodeLine{00185\ \textcolor{keywordtype}{void}\ Read\_Grid(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00186\ \textcolor{comment}{//Function\ for\ Constructing\ Cells\ from\ the\ data\ read\ from\ grid\ file}}
+\DoxyCodeLine{00187\ \textcolor{keywordtype}{void}\ Form\_Cells(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00188\ \textcolor{comment}{//Function\ to\ consturcting\ Cell}}
+\DoxyCodeLine{00189\ \textcolor{keywordtype}{void}\ Construct\_Cell(V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&);}
+\DoxyCodeLine{00190\ \textcolor{keywordtype}{void}\ Construct\_Cell(V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&);}
+\DoxyCodeLine{00191\ \textcolor{comment}{//Function\ evaluates\ Face\ Area\ formed\ by\ pvoid\ Lax\_Fedrichs()oints\ and\ also\ evaluates\ Face\ Normals,Face\ Center\ and\ R\_Mid\_dot\_A\ for\ calculating\ Cell\ volume}}
+\DoxyCodeLine{00192\ \textcolor{keywordtype}{void}\ Construct\_Face(V\_D\ \&,V\_D\ \&,V\_D\ \&,V\_D\ \&);}
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{void}\ Construct\_Co\_Volumes(\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00194\ \textcolor{comment}{//Function\ for\ Finding\ Cross\ Product\ of\ two\ vectors\ used\ in\ evaluating\ Face\ areas.}}
+\DoxyCodeLine{00195\ \textcolor{keywordtype}{void}\ Evaluate\_Cross\_Product(V\_D\ \&,V\_D\ \&,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00196\ \textcolor{comment}{//Function\ for\ Dot\ Product\ of\ a\ Vector}}
+\DoxyCodeLine{00197\ \textcolor{keywordtype}{void}\ Evaluate\_Dot\_Product(V\_D\ \&,V\_D\ \&,\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00198\ \textcolor{comment}{//Function\ Evaluating\ Face\ Normals}}
+\DoxyCodeLine{00199\ \textcolor{keywordtype}{void}\ Evaluate\_Unit\_Vector(V\_D\ \&);}
+\DoxyCodeLine{00200\ \textcolor{comment}{//Function\ for\ testing\ grid\ cells\ for\ /sum\ Ai\ =\ 0\ and\ negative\ volumes}}
+\DoxyCodeLine{00201\ \textcolor{keywordtype}{void}\ Check\_Cells();}
+\DoxyCodeLine{00202\ \textcolor{comment}{//Function\ construct\ ghost\ cells}}
+\DoxyCodeLine{00203\ \textcolor{keywordtype}{void}\ Construct\_Ghost\_Cells();}
+\DoxyCodeLine{00204\ \textcolor{comment}{//This\ Function\ Writes\ the\ Cells\ Physical\ Information\ to\ a\ file}}
+\DoxyCodeLine{00205\ \textcolor{keywordtype}{void}\ Write\_Cell\_Info(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keywordtype}{void}\ Set\_Indicies\_of\_Neighbour\_Cells(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00209\ \textcolor{keywordtype}{void}\ Evaluate\_Wall\_Skin\_Friction();}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ Construct\_Cell(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00212\ \textcolor{keywordtype}{void}\ Construct\_Cell();}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{keywordtype}{void}\ Reference\_Values();}
+\DoxyCodeLine{00215\ \textcolor{keywordtype}{void}\ Identify\_Wall\_Boundary\_Faces(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{void}\ Identify\_Neighbours\_For\_Second\_Gradients(\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \textcolor{comment}{//This\ Function\ re\ initalizes\ the\ Vector\ (1D\ Array)\ to\ zero}}
+\DoxyCodeLine{00219\ \textcolor{keywordtype}{void}\ Vector\_Reset(V\_D\ \&\ );}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{void}\ Identify\_Boundary\_Cells(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ \&\ );}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \textcolor{keywordtype}{void}\ Conversion\_Factor(V\_D\ \&\ );}
+\DoxyCodeLine{00224\ \textcolor{comment}{//This\ Function\ calculates\ the\ distance\ between\ two\ cell\ centers}}
+\DoxyCodeLine{00225\ \textcolor{keywordtype}{void}\ Calculate\_Cell\_Center\_Distances();}
+\DoxyCodeLine{00226\ \textcolor{keywordtype}{void}\ Dot\_Product(V\_D\ \&\ ,V\_D\ \&\ \ ,\ \textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00227\ \textcolor{keywordtype}{void}\ Distance\_Between\_Points(V\_D\ \&\ ,\ V\_D\ \&\ ,\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00228\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00229\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Functions\ required\ for\ Solver\ Part-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00230\ \textcolor{keywordtype}{void}\ Inviscid\_Solver(\textcolor{keywordtype}{string}\ \&,\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00231\ \textcolor{keywordtype}{void}\ Viscous\_Solver(\textcolor{keywordtype}{string}\ \&,\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keywordtype}{void}\ Estimate\_Error();}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{keywordtype}{void}\ Update();}
+\DoxyCodeLine{00236\ \textcolor{keywordtype}{void}\ Update(\textcolor{keywordtype}{int}\ \&,\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00237\ \textcolor{keywordtype}{void}\ Update(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00238\ \textcolor{keywordtype}{void}\ Update(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\ V\_D\ \&\ );}
+\DoxyCodeLine{00239\ \textcolor{keywordtype}{void}\ Explict\_Method();}
+\DoxyCodeLine{00240\ \textcolor{keywordtype}{void}\ Runge\_Kutta\_Method();}
+\DoxyCodeLine{00241\ \textcolor{keywordtype}{void}\ Implicit\_Method();}
+\DoxyCodeLine{00242\ vector<int>\ get\_row\_indices();}
+\DoxyCodeLine{00243\ vector<int>\ get\_col\_indices();}
+\DoxyCodeLine{00244\ V\_D\ get\_Values();}
+\DoxyCodeLine{00245\ \textcolor{keywordtype}{void}\ Assemble\_A1(\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \textcolor{keywordtype}{void}\ Evaluate\_Time\_Step(\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00248\ \textcolor{keywordtype}{void}\ Viscous\_Time\_Step\_1(\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00249\ \textcolor{keywordtype}{void}\ Viscous\_Time\_Step\_3(\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00250\ \textcolor{keywordtype}{void}\ Viscous\_Time\_Step\_2(\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00251\ \textcolor{keywordtype}{void}\ Invisicd\_Time\_Step(\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00252\ \textcolor{keywordtype}{void}\ Vector\_Reset(vector<V\_D>\ \&\ );}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{keywordtype}{void}\ Lax\_Fedrichs();}
+\DoxyCodeLine{00255\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00256\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Functions\ for\ Flux\ and\ Dissipation\ Evaluations-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00257\ \textcolor{comment}{//Function\ for\ calculating\ Primitive\ Variables}}
+\DoxyCodeLine{00258\ \textcolor{keywordtype}{void}\ Calculate\_Primitive\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\ V\_D\ \&);}
+\DoxyCodeLine{00259\ \textcolor{keywordtype}{void}\ Calculate\_Primitive\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,V\_D\ \&\ ,V\_D\ \&);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00261\ \textcolor{keywordtype}{void}\ Reconstruct\_Primitive\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00262\ \textcolor{comment}{//Function\ for\ calculaiting\ Computational\ Varialbes}}
+\DoxyCodeLine{00263\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(V\_D\ \&);}
+\DoxyCodeLine{00264\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keyword}{const}\ V\_D\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00265\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(\textcolor{keywordtype}{int}\ \&\ ,V\_D\ \&\ );}
+\DoxyCodeLine{00266\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ Functions\ which\ evaluate\ the\ individual\ fluxes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00267\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_1O();}
+\DoxyCodeLine{00268\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_2O();}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{keywordtype}{void}\ Calculate\_Face\_Average\_Flux(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{bool});}
+\DoxyCodeLine{00271\ vector<V\_D>\ Assemble\_A(vector<V\_D>\ \&,\ \textcolor{keywordtype}{double}\ \&)\ ;}
+\DoxyCodeLine{00272\ V\_D\ Assemble\_b(V\_D\ \&);}
+\DoxyCodeLine{00273\ vector<V\_D>\ Compute\_Flux\_Jacobian(\textcolor{keywordtype}{int}\ \&,\ vector<V\_D>\ \&Ac,\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00274\ vector<V\_D>\ ComputeGhostCell\_Flux\_Jacobian(\textcolor{keywordtype}{int}\ \&,\textcolor{keywordtype}{int}\ \&,\ vector<V\_D>\ \&,\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00275\ \textcolor{keywordtype}{void}\ Set\_DelU(V\_D\ \&\ );}
+\DoxyCodeLine{00276\ }
+\DoxyCodeLine{00277\ \textcolor{keywordtype}{int}\ get\_NoPhysical\_Cells();}
+\DoxyCodeLine{00278\ \textcolor{keywordtype}{double}\ get\_Min\_dt();}
+\DoxyCodeLine{00279\ \textcolor{keywordtype}{double}\ get\_Max\_dt();}
+\DoxyCodeLine{00280\ \textcolor{keywordtype}{void}\ Van\_Leer\_Flux(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Functions\ for\ Dissipation\ Schemes-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00283\ \textcolor{keywordtype}{void}\ LLF(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00284\ \textcolor{keywordtype}{void}\ LLF\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00285\ \textcolor{keywordtype}{void}\ ROE(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00286\ \textcolor{keywordtype}{void}\ ROE\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00287\ \textcolor{keywordtype}{void}\ NAVEENS(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00288\ \textcolor{keywordtype}{void}\ MOVERS(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00289\ \textcolor{keywordtype}{void}\ MOVERS\_NWSC(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00290\ \textcolor{keywordtype}{void}\ MOVERS\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00291\ \textcolor{keywordtype}{void}\ MOVERS\_NWSC\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00292\ \textcolor{keywordtype}{void}\ RICCA(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00293\ \textcolor{keywordtype}{void}\ RICCA\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00294\ \textcolor{keywordtype}{void}\ PVU(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ \ );}
+\DoxyCodeLine{00295\ \textcolor{keywordtype}{void}\ Entropy\_Fix(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ Condition\_For\_MOVERS(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00297\ \textcolor{keywordtype}{void}\ Condition\_For\_MOVERS\_NWSC(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00298\ \textcolor{keywordtype}{void}\ Condition\_For\_RICCA(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&,\ \textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00299\ \textcolor{keywordtype}{void}\ Venkatkrishnan\_Limiter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00300\ \textcolor{keywordtype}{void}\ Second\_Order\_Limiter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00301\ \textcolor{keywordtype}{void}\ Second\_Order\_Limiter(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,vector<double>\ \&\ );}
+\DoxyCodeLine{00302\ \textcolor{keywordtype}{void}\ Phi1(\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00303\ \textcolor{keywordtype}{void}\ MinMod(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00304\ \textcolor{keywordtype}{void}\ MinMod(\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00305\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00306\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/Functions\ to\ evaluate\ viscous\ terms\ using\ Simple\ Green\ Gauss\ Theorem-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00307\ \textcolor{keywordtype}{void}\ Viscosity(\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00308\ \textcolor{keywordtype}{void}\ Thermal\_Conductivity(\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00309\ \textcolor{keywordtype}{void}\ Calculate\_Gradient\_On\_Face(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00310\ \textcolor{keywordtype}{void}\ Viscous\_Flux\_on\_Face(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00311\ \textcolor{keywordtype}{void}\ Evaluate\_Viscous\_Fluxes();}
+\DoxyCodeLine{00312\ \textcolor{keywordtype}{void}\ Evaluate\_Wall\_Skin\_Friction();}
+\DoxyCodeLine{00313\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00314\ \textcolor{keywordtype}{void}\ Maximum(\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00315\ \textcolor{keywordtype}{void}\ Maximum(\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{keywordtype}{void}\ Minimum(\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00318\ \textcolor{keywordtype}{void}\ Minimum(\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&);}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Initialize,Output\ and\ Printing\ Functions-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00321\ \textcolor{keywordtype}{void}\ Write\_Cell\_Info(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00322\ \textcolor{keywordtype}{void}\ Print(V\_D\&);}
+\DoxyCodeLine{00323\ \textcolor{keywordtype}{void}\ Print(vector<V\_D>\ \&);}
+\DoxyCodeLine{00324\ \textcolor{keywordtype}{void}\ Print(vector<bool>\ \&\ );}
+\DoxyCodeLine{00325\ \textcolor{comment}{//Function\ used\ for\ initialization\ of\ computational\ vectors\ from\ the\ exit\ conditions}}
+\DoxyCodeLine{00326\ \textcolor{keywordtype}{void}\ Initialize(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00327\ \textcolor{comment}{//Function\ used\ for\ initialization\ from\ a\ given\ file\ at\ a\ given\ time\ step}}
+\DoxyCodeLine{00328\ \textcolor{keywordtype}{void}\ Initialize(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00329\ }
+\DoxyCodeLine{00330\ \textcolor{keywordtype}{void}\ Directory\_Name();}
+\DoxyCodeLine{00331\ \textcolor{keywordtype}{void}\ File\_Name();}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ \textcolor{keywordtype}{void}\ Write\_Solution(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00335\ \textcolor{keywordtype}{void}\ Read\_Write\_Grid(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00336\ \textcolor{keywordtype}{void}\ Append\_Solution(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{keywordtype}{void}\ Write\_VTK\_File(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ );}
+\DoxyCodeLine{00339\ \textcolor{keywordtype}{void}\ Write\_VTK\_File(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00340\ \textcolor{keywordtype}{void}\ Write\_Error\_File(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ );}
+\DoxyCodeLine{00341\ \textcolor{keywordtype}{void}\ Write\_Limiter\_File(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{00342\ \textcolor{keywordtype}{void}\ Write\_CF\_File(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ );}
+\DoxyCodeLine{00343\ \textcolor{keywordtype}{void}\ Write\_A\_MatrixToFile(vector<V\_D>\&\ \ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ );}
+\DoxyCodeLine{00344\ \textcolor{keywordtype}{void}\ Write\_b\_VectorToFile(V\_D\ \&\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ );}
+\DoxyCodeLine{00345\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00346\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Functions\ for\ Boundary\ Conditions-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00347\ \textcolor{comment}{//\ This\ function\ groups\ all\ the\ other\ boundary\ conditions}}
+\DoxyCodeLine{00348\ \ \ \textcolor{keywordtype}{void}\ Apply\_Boundary\_Conditions(\ );}
+\DoxyCodeLine{00349\ \textcolor{comment}{//\ \ void\ Apply\_Boundary\_Conditions(const\ int\ \&\ ,\ const\ bool\ \&\ ,const\ int\ \&\ );}}
+\DoxyCodeLine{00350\ \ \ \textcolor{keywordtype}{void}\ Viscous\_Wall\_Boundary\_Condition();}
+\DoxyCodeLine{00351\ \ \ \textcolor{keywordtype}{void}\ InViscid\_Wall\_Boundary\_Condition();}
+\DoxyCodeLine{00352\ \ \ \textcolor{keywordtype}{void}\ Symmetry\_Boundary\_Condition(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00353\ \ \ \textcolor{keywordtype}{void}\ Symmetry\_Boundary\_Condition();}
+\DoxyCodeLine{00354\ \ \ \textcolor{keywordtype}{void}\ Subsonic\_Inlet\_Boundary\_Condition();}
+\DoxyCodeLine{00355\ \ \ \textcolor{keywordtype}{void}\ Supersonic\_Inlet\_Boundary\_Condition();}
+\DoxyCodeLine{00356\ \ \ \textcolor{keywordtype}{void}\ Supersonic\_Inlet\_Boundary\_Condition(\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00357\ \ \ \textcolor{keywordtype}{void}\ Subsonic\_Exit\_Boundary\_Condition(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00358\ \ \ \textcolor{keywordtype}{void}\ Supersonic\_Exit\_Boundary\_Condition(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00359\ \ \ }
+\DoxyCodeLine{00360\ \ \ \textcolor{keywordtype}{void}\ Wall\_Boundary\_Condition(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ );}
+\DoxyCodeLine{00361\ \ \ \textcolor{keywordtype}{void}\ Far\_Field\_Boundary\_Condition();}
+\DoxyCodeLine{00362\ \ \ \textcolor{keywordtype}{void}\ Super\_Sonic\_Inflow(\textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&);}
+\DoxyCodeLine{00363\ \ \ \textcolor{keywordtype}{void}\ Super\_Sonic\_outflow();}
+\DoxyCodeLine{00364\ \ \ \textcolor{keywordtype}{void}\ Sub\_Sonic\_Inflow();}
+\DoxyCodeLine{00365\ \ \ \textcolor{keywordtype}{void}\ Sub\_Sonic\_Outflow();}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ \ \ \textcolor{keywordtype}{void}\ CreateTestCaseDirectories(\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00368\ \ \ \textcolor{keywordtype}{void}\ readJason(\textcolor{keywordtype}{string}\ \&\ );}
+\DoxyCodeLine{00369\ \ \ \textcolor{keywordtype}{void}\ testCase(\textcolor{keywordtype}{int}\ \&\ );}
+\DoxyCodeLine{00370\ \ \ }
+\DoxyCodeLine{00371\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Test\ CASE\ FUNCTIONS-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}\ \ }
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00373\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00375\ \ \ \ \ }
+\DoxyCodeLine{00376\ \textcolor{keywordtype}{string}\ Get\_ErrorFileName();}
+\DoxyCodeLine{00377\ \textcolor{keywordtype}{string}\ Get\_Final\_Solution\_FileName();}
+\DoxyCodeLine{00378\ \textcolor{keywordtype}{string}\ Get\_Initial\_Solution\_FileName();}
+\DoxyCodeLine{00379\ \textcolor{keywordtype}{string}\ Get\_Grid\_VtkFile();}
+\DoxyCodeLine{00380\ \textcolor{keywordtype}{string}\ Get\_SolutionFile();}
+\DoxyCodeLine{00381\ \textcolor{keywordtype}{void}\ CheckMatrixForErrors(vector<V\_D>\ \&);}
+\DoxyCodeLine{00382\ \ \ \ \ }
+\DoxyCodeLine{00383\ \textcolor{keywordtype}{void}\ Half\_Cylinder\_Flow();}
+\DoxyCodeLine{00384\ \textcolor{keywordtype}{void}\ Shock\_Reflection\_2D();}
+\DoxyCodeLine{00385\ \textcolor{keywordtype}{void}\ Ramp\_15\_Degree();}
+\DoxyCodeLine{00386\ \textcolor{keywordtype}{void}\ Forward\_Facing\_Step();}
+\DoxyCodeLine{00387\ \textcolor{keywordtype}{void}\ Air\_Foil();}
+\DoxyCodeLine{00388\ \textcolor{keywordtype}{void}\ Shock\_Tube\_2D();}
+\DoxyCodeLine{00389\ \textcolor{keywordtype}{void}\ Slip\_Flow\_2D();}
+\DoxyCodeLine{00390\ \textcolor{keywordtype}{void}\ Channel\_Flow();}
+\DoxyCodeLine{00391\ \textcolor{keywordtype}{void}\ Shock\_Diffraction();}
+\DoxyCodeLine{00392\ \textcolor{keywordtype}{void}\ Shock\_Wedge\_Reflection();}
+\DoxyCodeLine{00393\ \textcolor{keywordtype}{void}\ Scram\_Jet\_Inlet();}
+\DoxyCodeLine{00394\ \textcolor{keywordtype}{void}\ Flow\_Over\_Bump();}
+\DoxyCodeLine{00395\ \textcolor{keywordtype}{void}\ Flat\_Plate\_Boundary\_Layer();}
+\DoxyCodeLine{00396\ \textcolor{keywordtype}{void}\ Shock\_Wedge\_Reflection();}
+\DoxyCodeLine{00397\ \textcolor{keywordtype}{void}\ SWBLI();}
+\DoxyCodeLine{00398\ \textcolor{keywordtype}{void}\ Shock\_Bubble\_Interaction();}
+\DoxyCodeLine{00399\ \textcolor{keywordtype}{void}\ OED();}
+\DoxyCodeLine{00400\ \textcolor{keywordtype}{void}\ Ellinga\_Carbuncle();}
+\DoxyCodeLine{00401\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00402\ \}}
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00404\ \textcolor{comment}{/*-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/*/}}
+\DoxyCodeLine{00405\ \textcolor{comment}{//Weno\ Functions}}
+\DoxyCodeLine{00406\ \textcolor{keywordtype}{void}\ Calculate\_Face\_WENO\_Flux(\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\textcolor{keywordtype}{bool}\ );}
+\DoxyCodeLine{00407\ \textcolor{keywordtype}{void}\ WENO\_Reconstruction\_X(\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&,V\_D\ \&\ ,V\_D\ \&\ );}
+\DoxyCodeLine{00408\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_WENO();}
+\DoxyCodeLine{00409\ \textcolor{keywordtype}{void}\ WENO\_Reconstruction(\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\textcolor{keywordtype}{double}\ \&\ ,\ \textcolor{keywordtype}{int}\ \&\ \ ,\textcolor{keywordtype}{double}\ \&\ \ );}
+\DoxyCodeLine{00410\ \textcolor{keywordtype}{void}\ Get\_LR(\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\ V\_D\ \&\ \ ,\ V\_D\ \&\ \ );}
+\DoxyCodeLine{00411\ \textcolor{keywordtype}{void}\ MatVecMul(V\_D\ \&\ ,\ V\_D\ \&\ \ ,V\_D\ \ \&\ );}
+\DoxyCodeLine{00412\ \textcolor{keywordtype}{void}\ Get\_Reconstructed\_U(\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keywordtype}{int}\ \&\ ,\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&\ \ ,\ \textcolor{keywordtype}{int}\ \&,\ \textcolor{keywordtype}{int}\ \&\ ,\ V\_D\ \&\ );}
+\DoxyCodeLine{00413\ }
+\DoxyCodeLine{00414\ \textcolor{preprocessor}{\#endif\ \ }\textcolor{comment}{//\#ifndef\ \_Header\_H}}
+
+\end{DoxyCode}

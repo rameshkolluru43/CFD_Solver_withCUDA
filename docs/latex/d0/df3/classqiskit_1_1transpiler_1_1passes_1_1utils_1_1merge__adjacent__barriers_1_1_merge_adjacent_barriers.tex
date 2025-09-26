@@ -1,0 +1,90 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+utils.\+merge\+\_\+adjacent\+\_\+barriers.\+Merge\+Adjacent\+Barriers Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers}{}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers}\index{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers@{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+utils.\+merge\+\_\+adjacent\+\_\+barriers.\+Merge\+Adjacent\+Barriers\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.842105cm]{d0/df3/classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a7169907e1eb4d870c24d89a65c3ab045_a7169907e1eb4d870c24d89a65c3ab045}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a55ba8eb0a5adb0a011c1c74dab326ce6_a55ba8eb0a5adb0a011c1c74dab326ce6}{\+\_\+collect\+\_\+potential\+\_\+merges}} (dag, barriers)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Return a circuit with any adjacent barriers merged together.
+
+Only barriers which can be merged without affecting the barrier structure
+of the DAG will be merged.
+
+Not all redundant barriers will necessarily be merged, only adjacent
+barriers are merged.
+
+For example, the circuit::
+
+    qr = QuantumRegister(3, 'q')
+    circuit = QuantumCircuit(qr)
+    circuit.barrier(qr[0])
+    circuit.barrier(qr[1])
+    circuit.barrier(qr)
+
+Will be transformed into a circuit corresponding to::
+
+    circuit.barrier(qr[0])
+    circuit.barrier(qr)
+
+i.e,
+
+.. code-block:: text
+
+          ░  ░             ░  ░
+    q_0: ─░──░─      q_0: ─░──░─
+          ░  ░             ░  ░
+    q_1: ─░──░─  =>  q_1: ────░─
+          ░  ░                ░
+    q_2: ────░─      q_2: ────░─
+             ░
+
+after one iteration of the pass. These two barriers were not merged by the
+first pass as they are not adjacent in the initial circuit.
+
+The pass then can be reapplied to merge the newly adjacent barriers.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a55ba8eb0a5adb0a011c1c74dab326ce6_a55ba8eb0a5adb0a011c1c74dab326ce6}\index{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers@{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers}!\_collect\_potential\_merges@{\_collect\_potential\_merges}}
+\index{\_collect\_potential\_merges@{\_collect\_potential\_merges}!qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers@{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers}}
+\doxysubsubsection{\texorpdfstring{\_collect\_potential\_merges()}{\_collect\_potential\_merges()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a55ba8eb0a5adb0a011c1c74dab326ce6_a55ba8eb0a5adb0a011c1c74dab326ce6} 
+qiskit.\+transpiler.\+passes.\+utils.\+merge\+\_\+adjacent\+\_\+barriers.\+Merge\+Adjacent\+Barriers.\+\_\+collect\+\_\+potential\+\_\+merges (\begin{DoxyParamCaption}\item[{}]{dag}{, }\item[{}]{barriers}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return the potential merges.
+
+Returns a dict of DAGOpNode: (Barrier, [DAGOpNode]) objects, where the barrier needs to be
+inserted where the corresponding index DAGOpNode appears in the main DAG, in replacement of
+the listed DAGOpNodes.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a7169907e1eb4d870c24d89a65c3ab045_a7169907e1eb4d870c24d89a65c3ab045}\index{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers@{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers@{qiskit.transpiler.passes.utils.merge\_adjacent\_barriers.MergeAdjacentBarriers}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1merge__adjacent__barriers_1_1_merge_adjacent_barriers_a7169907e1eb4d870c24d89a65c3ab045_a7169907e1eb4d870c24d89a65c3ab045} 
+qiskit.\+transpiler.\+passes.\+utils.\+merge\+\_\+adjacent\+\_\+barriers.\+Merge\+Adjacent\+Barriers.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the MergeAdjacentBarriers pass on `dag`.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/utils/merge\+\_\+adjacent\+\_\+barriers.\+py\end{DoxyCompactItemize}

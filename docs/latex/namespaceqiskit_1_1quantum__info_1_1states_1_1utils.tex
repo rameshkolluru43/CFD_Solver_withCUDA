@@ -1,0 +1,140 @@
+\doxysection{qiskit.\+quantum\+\_\+info.\+states.\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils}{}\label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1densitymatrix_1_1_density_matrix}{Density\+Matrix}} \mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a286081806c1492867fa759d6b09f660e}{partial\+\_\+trace}} (\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1densitymatrix_1_1_density_matrix}{Density\+Matrix}} state, list qargs)
+\item 
+float \mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_abedbeb875d2df98bc40a8a4216d0dfcf}{shannon\+\_\+entropy}} (list\texorpdfstring{$\vert$}{|}np.\+ndarray pvec, int base=2)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a3820412d30c5db7e98fe0bfa361b4bce}{schmidt\+\_\+decomposition}} (state, qargs)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_af3bf3978b542432fb2ba70d712a643d2}{\+\_\+format\+\_\+state}} (state, validate=True)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a941693e015585d0b05e5a3485aea7da7}{\+\_\+funm\+\_\+svd}} (matrix, func)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Quantum information utility functions for states.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_af3bf3978b542432fb2ba70d712a643d2}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}!\_format\_state@{\_format\_state}}
+\index{\_format\_state@{\_format\_state}!qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection{\texorpdfstring{\_format\_state()}{\_format\_state()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_af3bf3978b542432fb2ba70d712a643d2} 
+qiskit.\+quantum\+\_\+info.\+states.\+utils.\+\_\+format\+\_\+state (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{validate}{ = {\ttfamily True}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Format input state into class object\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a941693e015585d0b05e5a3485aea7da7}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}!\_funm\_svd@{\_funm\_svd}}
+\index{\_funm\_svd@{\_funm\_svd}!qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection{\texorpdfstring{\_funm\_svd()}{\_funm\_svd()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a941693e015585d0b05e5a3485aea7da7} 
+qiskit.\+quantum\+\_\+info.\+states.\+utils.\+\_\+funm\+\_\+svd (\begin{DoxyParamCaption}\item[{}]{matrix}{, }\item[{}]{func}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Apply real scalar function to singular values of a matrix.
+
+Args:
+    matrix (array_like): (N, N) Matrix at which to evaluate the function.
+    func (callable): Callable object that evaluates a scalar function f.
+
+Returns:
+    ndarray: funm (N, N) Value of the matrix function specified by func
+             evaluated at `A`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a286081806c1492867fa759d6b09f660e}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}!partial\_trace@{partial\_trace}}
+\index{partial\_trace@{partial\_trace}!qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection{\texorpdfstring{partial\_trace()}{partial\_trace()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a286081806c1492867fa759d6b09f660e} 
+ \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1densitymatrix_1_1_density_matrix}{Density\+Matrix}} qiskit.\+quantum\+\_\+info.\+states.\+utils.\+partial\+\_\+trace (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1densitymatrix_1_1_density_matrix}{Density\+Matrix}}}]{state}{, }\item[{list}]{qargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return reduced density matrix by tracing out part of quantum state.
+
+If all subsystems are traced over this returns the
+:meth:`~qiskit.quantum_info.DensityMatrix.trace` of the
+input state.
+
+Args:
+    state (Statevector or DensityMatrix): the input state.
+    qargs (list): The subsystems to trace over.
+
+Returns:
+    DensityMatrix: The reduced density matrix.
+
+Raises:
+    QiskitError: if input state is invalid.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a3820412d30c5db7e98fe0bfa361b4bce}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}!schmidt\_decomposition@{schmidt\_decomposition}}
+\index{schmidt\_decomposition@{schmidt\_decomposition}!qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection{\texorpdfstring{schmidt\_decomposition()}{schmidt\_decomposition()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_a3820412d30c5db7e98fe0bfa361b4bce} 
+qiskit.\+quantum\+\_\+info.\+states.\+utils.\+schmidt\+\_\+decomposition (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{qargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the Schmidt Decomposition of a pure quantum state.
+
+For an arbitrary bipartite state:
+
+.. math::
+     |\psi\rangle_{AB} = \sum_{i,j} c_{ij}
+                         |x_i\rangle_A \otimes |y_j\rangle_B,
+
+its Schmidt Decomposition is given by the single-index sum over k:
+
+.. math::
+    |\psi\rangle_{AB} = \sum_{k} \lambda_{k}
+                        |u_k\rangle_A \otimes |v_k\rangle_B
+
+where :math:`|u_k\rangle_A` and :math:`|v_k\rangle_B` are an
+orthonormal set of vectors in their respective spaces :math:`A` and :math:`B`,
+and the Schmidt coefficients :math:`\lambda_k` are positive real values.
+
+Args:
+    state (Statevector or DensityMatrix): the input state.
+    qargs (list): the list of Input state positions corresponding to subsystem :math:`B`.
+
+Returns:
+    list: list of tuples ``(s, u, v)``, where ``s`` (float) are the Schmidt coefficients
+    :math:`\lambda_k`, and ``u`` (Statevector), ``v`` (Statevector) are the Schmidt vectors
+    :math:`|u_k\rangle_A`, :math:`|u_k\rangle_B`, respectively.
+
+Raises:
+    QiskitError: if Input qargs is not a list of positions of the Input state.
+    QiskitError: if Input qargs is not a proper subset of Input state.
+
+.. note::
+    In Qiskit, qubits are ordered using little-endian notation, with the least significant
+    qubits having smaller indices. For example, a four-qubit system is represented as
+    :math:`|q_3q_2q_1q_0\rangle`. Using this convention, setting ``qargs=[0]`` will partition the
+    state as :math:`|q_3q_2q_1\rangle_A\otimes|q_0\rangle_B`. Furthermore, qubits will be organized
+    in this notation regardless of the order they are passed. For instance, passing either
+    ``qargs=[1,2]`` or ``qargs=[2,1]`` will result in partitioning the state as
+    :math:`|q_3q_0\rangle_A\otimes|q_2q_1\rangle_B`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_abedbeb875d2df98bc40a8a4216d0dfcf}\index{qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}!shannon\_entropy@{shannon\_entropy}}
+\index{shannon\_entropy@{shannon\_entropy}!qiskit.quantum\_info.states.utils@{qiskit.quantum\_info.states.utils}}
+\doxysubsubsection{\texorpdfstring{shannon\_entropy()}{shannon\_entropy()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1quantum__info_1_1states_1_1utils_abedbeb875d2df98bc40a8a4216d0dfcf} 
+ float qiskit.\+quantum\+\_\+info.\+states.\+utils.\+shannon\+\_\+entropy (\begin{DoxyParamCaption}\item[{list \texorpdfstring{$\vert$}{|} np.\+ndarray}]{pvec}{, }\item[{int }]{base}{ = {\ttfamily 2}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute the Shannon entropy of a probability vector.
+
+The shannon entropy of a probability vector
+:math:`\vec{p} = [p_0, ..., p_{n-1}]` is defined as
+
+.. math::
+
+    H(\vec{p}) = \sum_{i=0}^{n-1} p_i \log_b(p_i)
+
+where :math:`b` is the log base and (default 2), and
+:math:`0 \log_b(0) \equiv 0`.
+
+Args:
+    pvec (array_like): a probability vector.
+    base (int): the base of the logarithm [Default: 2].
+
+Returns:
+    float: The Shannon entropy H(pvec).
+\end{DoxyVerb}
+ 

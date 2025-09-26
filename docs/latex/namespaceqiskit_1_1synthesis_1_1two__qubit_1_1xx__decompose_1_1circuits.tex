@@ -1,0 +1,69 @@
+\doxysection{qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+circuits Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits}{}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits}\index{qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_a4c40498eb0f301b538b752470729ad4f}{decompose\+\_\+xxyy\+\_\+into\+\_\+xxyy\+\_\+xx}} (a\+\_\+target, b\+\_\+target, a\+\_\+source, b\+\_\+source, interaction)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_aac81979734a04875568b494e241e2422}{xx\+\_\+circuit\+\_\+step}} (source, strength, target, embodiment)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_abf0e98d068f9f32c0f511f75ea5b9abd}{canonical\+\_\+xx\+\_\+circuit}} (target, strength\+\_\+sequence, basis\+\_\+embodiments)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Tools for building optimal circuits out of XX interactions.
+
+Inputs:
+ + A set of native XX operations, described as strengths.
+ + A right-angled path, computed using the methods in `paths.py`.
+
+Output:
+ + A circuit which implements the target operation (expressed exactly as the exponential of
+ `a XX + b YY + c ZZ`) using the native operations and local gates.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_abf0e98d068f9f32c0f511f75ea5b9abd}\index{qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}!canonical\_xx\_circuit@{canonical\_xx\_circuit}}
+\index{canonical\_xx\_circuit@{canonical\_xx\_circuit}!qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}}
+\doxysubsubsection{\texorpdfstring{canonical\_xx\_circuit()}{canonical\_xx\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_abf0e98d068f9f32c0f511f75ea5b9abd} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+circuits.\+canonical\+\_\+xx\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{target}{, }\item[{}]{strength\+\_\+sequence}{, }\item[{}]{basis\+\_\+embodiments}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Assembles a Qiskit circuit from a specified `strength_sequence` of XX-type interactions which
+emulates the canonical gate at canonical coordinate `target`.  The circuits supplied by
+`basis_embodiments` are used to instantiate the individual XX actions.
+
+NOTE: The elements of `strength_sequence` are expected to be normalized so that np.pi/2
+    corresponds to RZX(np.pi/2) = CX; `target` is taken to be a positive canonical coordinate;
+    and `basis_embodiments` maps `strength_sequence` elements to circuits which instantiate
+    these gates.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_a4c40498eb0f301b538b752470729ad4f}\index{qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}!decompose\_xxyy\_into\_xxyy\_xx@{decompose\_xxyy\_into\_xxyy\_xx}}
+\index{decompose\_xxyy\_into\_xxyy\_xx@{decompose\_xxyy\_into\_xxyy\_xx}!qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}}
+\doxysubsubsection{\texorpdfstring{decompose\_xxyy\_into\_xxyy\_xx()}{decompose\_xxyy\_into\_xxyy\_xx()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_a4c40498eb0f301b538b752470729ad4f} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+circuits.\+decompose\+\_\+xxyy\+\_\+into\+\_\+xxyy\+\_\+xx (\begin{DoxyParamCaption}\item[{}]{a\+\_\+target}{, }\item[{}]{b\+\_\+target}{, }\item[{}]{a\+\_\+source}{, }\item[{}]{b\+\_\+source}{, }\item[{}]{interaction}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Consumes a target canonical interaction CAN(a_target, b_target) and source interactions
+CAN(a1, b1), CAN(a2), then manufactures a circuit identity of the form
+
+CAN(a_target, b_target) = (Zr, Zs) CAN(a_source, b_source) (Zu, Zv) CAN(interaction) (Zx, Zy).
+
+Returns the 6-tuple (r, s, u, v, x, y).
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_aac81979734a04875568b494e241e2422}\index{qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}!xx\_circuit\_step@{xx\_circuit\_step}}
+\index{xx\_circuit\_step@{xx\_circuit\_step}!qiskit.synthesis.two\_qubit.xx\_decompose.circuits@{qiskit.synthesis.two\_qubit.xx\_decompose.circuits}}
+\doxysubsubsection{\texorpdfstring{xx\_circuit\_step()}{xx\_circuit\_step()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1circuits_aac81979734a04875568b494e241e2422} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+circuits.\+xx\+\_\+circuit\+\_\+step (\begin{DoxyParamCaption}\item[{}]{source}{, }\item[{}]{strength}{, }\item[{}]{target}{, }\item[{}]{embodiment}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Builds a single step in an XX-based circuit.
+
+`source` and `target` are positive canonical coordinates; `strength` is the interaction strength
+at this step in the circuit as a canonical coordinate (so that CX = RZX(pi/2) corresponds to
+pi/4); and `embodiment` is a Qiskit circuit which enacts the canonical gate of the prescribed
+interaction `strength`.
+\end{DoxyVerb}
+ 

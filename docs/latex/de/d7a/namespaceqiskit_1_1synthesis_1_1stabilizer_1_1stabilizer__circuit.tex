@@ -1,0 +1,47 @@
+\doxysection{qiskit.\+synthesis.\+stabilizer.\+stabilizer\+\_\+circuit Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1stabilizer_1_1stabilizer__circuit}{}\label{namespaceqiskit_1_1synthesis_1_1stabilizer_1_1stabilizer__circuit}\index{qiskit.synthesis.stabilizer.stabilizer\_circuit@{qiskit.synthesis.stabilizer.stabilizer\_circuit}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1stabilizer_1_1stabilizer__circuit_a6d2ed4bd2970a7cc83ec9ffa1a548586_a6d2ed4bd2970a7cc83ec9ffa1a548586}{synth\+\_\+circuit\+\_\+from\+\_\+stabilizers}} (Collection\mbox{[}str\mbox{]} stabilizers, bool allow\+\_\+redundant=False, bool allow\+\_\+underconstrained=False, bool invert=False)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Stabilizer to circuit function
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1stabilizer_1_1stabilizer__circuit_a6d2ed4bd2970a7cc83ec9ffa1a548586_a6d2ed4bd2970a7cc83ec9ffa1a548586}\index{qiskit.synthesis.stabilizer.stabilizer\_circuit@{qiskit.synthesis.stabilizer.stabilizer\_circuit}!synth\_circuit\_from\_stabilizers@{synth\_circuit\_from\_stabilizers}}
+\index{synth\_circuit\_from\_stabilizers@{synth\_circuit\_from\_stabilizers}!qiskit.synthesis.stabilizer.stabilizer\_circuit@{qiskit.synthesis.stabilizer.stabilizer\_circuit}}
+\doxysubsubsection{\texorpdfstring{synth\_circuit\_from\_stabilizers()}{synth\_circuit\_from\_stabilizers()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1stabilizer_1_1stabilizer__circuit_a6d2ed4bd2970a7cc83ec9ffa1a548586_a6d2ed4bd2970a7cc83ec9ffa1a548586} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+stabilizer.\+stabilizer\+\_\+circuit.\+synth\+\_\+circuit\+\_\+from\+\_\+stabilizers (\begin{DoxyParamCaption}\item[{Collection\mbox{[}str\mbox{]}}]{stabilizers}{, }\item[{bool }]{allow\+\_\+redundant}{ = {\ttfamily False}, }\item[{bool }]{allow\+\_\+underconstrained}{ = {\ttfamily False}, }\item[{bool }]{invert}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Synthesis of a circuit that generates a state stabilized by the stabilizers
+using Gaussian elimination with Clifford gates.
+If the stabilizers are underconstrained, and ``allow_underconstrained`` is ``True``,
+the circuit will output one of the states stabilized by the stabilizers.
+Based on stim implementation.
+
+Args:
+    stabilizers: List of stabilizer strings
+    allow_redundant: Allow redundant stabilizers (i.e., some stabilizers
+        can be products of the others)
+    allow_underconstrained: Allow underconstrained set of stabilizers (i.e.,
+        the stabilizers do not specify a unique state)
+    invert: Return inverse circuit
+
+Returns:
+    A circuit that generates a state stabilized by ``stabilizers``.
+
+Raises:
+    QiskitError: if the stabilizers are invalid, do not commute, or contradict each other,
+                 if the list is underconstrained and ``allow_underconstrained`` is ``False``,
+                 or if the list is redundant and ``allow_redundant`` is ``False``.
+
+References:
+    1. https://github.com/quantumlib/Stim/blob/c0dd0b1c8125b2096cd54b6f72884a459e47fe3e/src/stim/stabilizers/conversions.inl#L469
+    2. https://quantumcomputing.stackexchange.com/questions/12721/how-to-calculate-destabilizer-group-of-toric-and-other-codes\end{DoxyVerb}
+ 

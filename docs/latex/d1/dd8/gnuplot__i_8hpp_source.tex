@@ -1,0 +1,133 @@
+\doxysection{gnuplot\+\_\+i.\+hpp}
+\hypertarget{gnuplot__i_8hpp_source}{}\label{gnuplot__i_8hpp_source}\index{Basic\_Function\_Files/gnuplot\_i.hpp@{Basic\_Function\_Files/gnuplot\_i.hpp}}
+\mbox{\hyperlink{gnuplot__i_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00002}00002\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00003}00003\ \textcolor{comment}{//\ A\ C++\ interface\ to\ gnuplot.\ }}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00004}00004\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00005}00005\ \textcolor{comment}{//\ This\ is\ a\ direct\ translation\ from\ the\ C\ interface}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00006}00006\ \textcolor{comment}{//\ written\ by\ N.\ Devillard\ (which\ is\ available\ from}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00007}00007\ \textcolor{comment}{//\ http://ndevilla.free.fr/gnuplot/).}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00008}00008\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00009}00009\ \textcolor{comment}{//\ As\ in\ the\ C\ interface\ this\ uses\ pipes\ and\ so\ wont}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00010}00010\ \textcolor{comment}{//\ run\ on\ a\ system\ that\ does'nt\ have\ POSIX\ pipe\ }}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00011}00011\ \textcolor{comment}{//\ support}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00012}00012\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00013}00013\ \textcolor{comment}{//\ Rajarshi\ Guha}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00014}00014\ \textcolor{comment}{//\ <rajarshi@presidency.com>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00015}00015\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00016}00016\ \textcolor{comment}{//\ 07/03/03}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00017}00017\ \textcolor{comment}{//}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00018}00018\ \textcolor{comment}{//\ 26/01/04\ -\/\ Gnuplot::cmd()\ was\ rewritten\ to\ accept\ a}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00019}00019\ \textcolor{comment}{//\ char*\ rather\ than\ a\ std::string,\ thus\ avoiding\ the}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00020}00020\ \textcolor{comment}{//\ va\_start\ warning\ at\ compile\ time}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00021}00021\ \textcolor{comment}{//\ /////////////////////////////////////////}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00023}00023\ \textcolor{preprocessor}{\#ifndef\ \_GNUPLOT\_PIPES\_H\_}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00024}00024\ \textcolor{preprocessor}{\#define\ \_GNUPLOT\_PIPES\_H\_}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00026}00026\ \textcolor{preprocessor}{\#include\ <stdarg.h>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00027}00027\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00029}00029\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00030}00030\ \textcolor{preprocessor}{\#include\ <cstdio>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00031}00031\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00033}00033\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00034}00034\ \textcolor{preprocessor}{\#include\ <iostream>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00035}00035\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00036}00036\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00037}00037\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00038}00038\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00039}00039\ \textcolor{preprocessor}{\#include\ <stdexcept>}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00041}\mbox{\hyperlink{gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2_a0b92738856c4bda43003d1c847483dd2}{00041}}\ \textcolor{preprocessor}{\#define\ GP\_MAX\_TMP\_FILES\ \ \ \ 64}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00042}\mbox{\hyperlink{gnuplot__i_8hpp_a093b4c5627360601a4605251ed3495c8_a093b4c5627360601a4605251ed3495c8}{00042}}\ \textcolor{preprocessor}{\#define\ GP\_TMP\_NAME\_SIZE\ \ \ \ 512}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00043}\mbox{\hyperlink{gnuplot__i_8hpp_adc74c0a238dd6f2220b0b2839cdda632_adc74c0a238dd6f2220b0b2839cdda632}{00043}}\ \textcolor{preprocessor}{\#define\ GP\_CMD\_SIZE\ \ \ \ \ \ \ \ \ 1024}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00044}\mbox{\hyperlink{gnuplot__i_8hpp_a9e47e543bc0b91c93c5d8d259c563977_a9e47e543bc0b91c93c5d8d259c563977}{00044}}\ \textcolor{preprocessor}{\#define\ GP\_TITLE\_SIZE\ \ \ \ \ \ \ 80}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00046}00046\ \textcolor{keyword}{using\ namespace\ }std;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00048}\mbox{\hyperlink{class_gnuplot_exception}{00048}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}\ :\ \textcolor{keyword}{public}\ runtime\_error}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00049}00049\ \{}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00050}00050\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00051}\mbox{\hyperlink{class_gnuplot_exception_a81fc74a5c019556a4d0ba2a042a63448_a81fc74a5c019556a4d0ba2a042a63448}{00051}}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_exception_a81fc74a5c019556a4d0ba2a042a63448_a81fc74a5c019556a4d0ba2a042a63448}{GnuplotException}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&msg)\ :\ runtime\_error(msg)\{\}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00052}00052\ \};}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00054}\mbox{\hyperlink{class_gnuplot}{00054}}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_gnuplot}{Gnuplot}}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00055}00055\ \{}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00056}00056\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00057}00057\ \ \ \ \ \ \ \ \ FILE\ \ \ \ \ \ \ \ \ \ \ \ *gnucmd;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ \ \ \ \ \ \ \ \ \ \ pstyle;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00059}00059\ \ \ \ \ \ \ \ \ vector<string>\ \ \ to\_delete;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ nplots;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ get\_program\_path(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string});}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ valid;}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00063}00063\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}{Gnuplot}}();}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00065}00065\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ a\ style\ during\ construction}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}{Gnuplot}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00068}00068\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ equivilant\ of\ gnuplot\_plot\_once,\ the\ two\ forms}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ allow\ you\ to\ plot\ either\ (x,y)\ pairs\ or\ just\ a\ single}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ vector\ at\ one\ go}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}{Gnuplot}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//\ title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//\ style}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//\ xlabel}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//\ ylabel}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vector<double>,\ vector<double>);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00077}00077\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}{Gnuplot}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//style}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//xlabel}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//ylabel}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vector<double>);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00083}00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_gnuplot_a78a68f621caa87d1f34324fcd093c7bd_a78a68f621caa87d1f34324fcd093c7bd}{\string~Gnuplot}}();}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ send\ a\ command\ to\ gnuplot}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*,\ ...);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00088}00088\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ line\ style}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ y\ and\ x\ axis\ labels}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\_ylabel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\_xlabel}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&);}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00095}00095\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ a\ single\ vector}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be}{plot\_x}}(vector<double>,\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ \textcolor{comment}{//\ title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00100}00100\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ x,y\ pairs}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a}{plot\_xy}}(vector<double>,\ vector<double>,\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \ \&\ \textcolor{comment}{//\ title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00105}00105\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ an\ equation\ of\ the\ form:\ y\ =\ ax\ +\ b}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ You\ supply\ a\ and\ b}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_a80c9d9e6bc3e64db073d9d39d6ec5d5f_a80c9d9e6bc3e64db073d9d39d6ec5d5f}{plot\_slope}}(}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double},\ \textcolor{comment}{//\ a}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double},\ \textcolor{comment}{//\ b\ }}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ \textcolor{comment}{//\ title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00113}00113\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ plot\ an\ equation\ supplied\ as\ a\ string}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_a55e6430f1329bf8a66f155dcacb9d112_a55e6430f1329bf8a66f155dcacb9d112}{plot\_equation}}(}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&,\ \textcolor{comment}{//\ equation\ }}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ \ \textcolor{comment}{//\ title}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ );}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ multiple\ plots\ are\ present\ it\ will\ clear\ the\ plot\ area}}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_gnuplot_ad54976652afe30231a850dd31e1ca70f_ad54976652afe30231a850dd31e1ca70f}{reset\_plot}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd_a0daaf54cd8e41dbbd574722f3a831cfd}{is\_valid}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00124}00124\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00125}00125\ \};}
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00126}00126\ }
+\DoxyCodeLine{\Hypertarget{gnuplot__i_8hpp_source_l00127}00127\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

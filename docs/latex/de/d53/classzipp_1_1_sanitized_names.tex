@@ -1,0 +1,79 @@
+\doxysection{zipp.\+Sanitized\+Names Class Reference}
+\hypertarget{classzipp_1_1_sanitized_names}{}\label{classzipp_1_1_sanitized_names}\index{zipp.SanitizedNames@{zipp.SanitizedNames}}
+Inheritance diagram for zipp.\+Sanitized\+Names\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{de/d53/classzipp_1_1_sanitized_names}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1_sanitized_names_afd2905d712292d343f62bad44b594e68}\label{classzipp_1_1_sanitized_names_afd2905d712292d343f62bad44b594e68} 
+{\bfseries namelist} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classzipp_1_1_sanitized_names_a04d15a32b905283fcec2e1e92b9c0d1b_a04d15a32b905283fcec2e1e92b9c0d1b}{\+\_\+sanitize}} (name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1_sanitized_names_a02ac1a5329ee7692c287c40d71c10186}\label{classzipp_1_1_sanitized_names_a02ac1a5329ee7692c287c40d71c10186} 
+{\bfseries \+\_\+sanitize}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}ZipFile mix-in to ensure names are sanitized.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classzipp_1_1_sanitized_names_a04d15a32b905283fcec2e1e92b9c0d1b_a04d15a32b905283fcec2e1e92b9c0d1b}\index{zipp.SanitizedNames@{zipp.SanitizedNames}!\_sanitize@{\_sanitize}}
+\index{\_sanitize@{\_sanitize}!zipp.SanitizedNames@{zipp.SanitizedNames}}
+\doxysubsubsection{\texorpdfstring{\_sanitize()}{\_sanitize()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_sanitized_names_a04d15a32b905283fcec2e1e92b9c0d1b_a04d15a32b905283fcec2e1e92b9c0d1b} 
+zipp.\+Sanitized\+Names.\+\_\+sanitize (\begin{DoxyParamCaption}\item[{}]{name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+\begin{DoxyVerb}    Ensure a relative path with posix separators and no dot names.
+
+    Modeled after
+    https://github.com/python/cpython/blob/bcc1be39cb1d04ad9fc0bd1b9193d3972835a57c/Lib/zipfile/__init__.py#L1799-L1813
+    but provides consistent cross-platform behavior.
+
+    >>> san = SanitizedNames._sanitize
+    >>> san('/foo/bar')
+    'foo/bar'
+    >>> san('//foo.txt')
+    'foo.txt'
+    >>> san('foo/.././bar.txt')
+    'foo/bar.txt'
+    >>> san('foo../.bar.txt')
+    'foo../.bar.txt'
+    >>> san('\\foo\\bar.txt')
+    'foo/bar.txt'
+    >>> san('D:\\foo.txt')
+    'D/foo.txt'
+    >>> san('\\\\server\\share\\file.txt')
+    'server/share/file.txt'
+    >>> san('\\\\?\\GLOBALROOT\\Volume3')
+    '?/GLOBALROOT/Volume3'
+    >>> san('\\\\.\\PhysicalDrive1\\root')
+    'PhysicalDrive1/root'
+
+    Retain any trailing slash.
+    >>> san('abc/')
+    'abc/'
+
+    Raises a ValueError if the result is empty.
+    >>> san('../..')
+    Traceback (most recent call last):
+    ...
+    ValueError: Empty filename\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/zipp/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

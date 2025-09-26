@@ -1,0 +1,70 @@
+\doxysection{qiskit\+\_\+algorithms.\+observables\+\_\+evaluator Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1observables__evaluator}{}\label{namespaceqiskit__algorithms_1_1observables__evaluator}\index{qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\+Or\+Dict\mbox{[}tuple\mbox{[}float, dict\mbox{[}str, Any\mbox{]}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1observables__evaluator_afd5104f2f145df6b8bb7807cb8a391ba_afd5104f2f145df6b8bb7807cb8a391ba}{estimate\+\_\+observables}} (Base\+Estimator estimator, Quantum\+Circuit quantum\+\_\+state, List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} observables, Sequence\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}None parameter\+\_\+values=None, float threshold=1e-\/12)
+\item 
+list\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1observables__evaluator_a3969da51d76d0176aad4286c0beb46f5_a3969da51d76d0176aad4286c0beb46f5}{\+\_\+handle\+\_\+zero\+\_\+ops}} (list\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} observables\+\_\+list)
+\item 
+List\+Or\+Dict\mbox{[}tuple\mbox{[}float, dict\mbox{[}str, Any\mbox{]}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1observables__evaluator_a31111841f852bff223a5766b0aed4d8f_a31111841f852bff223a5766b0aed4d8f}{\+\_\+prepare\+\_\+result}} (list\mbox{[}tuple\mbox{[}float, dict\mbox{]}\mbox{]} observables\+\_\+results, List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} observables)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Evaluator of observables for algorithms.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1observables__evaluator_a3969da51d76d0176aad4286c0beb46f5_a3969da51d76d0176aad4286c0beb46f5}\index{qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}!\_handle\_zero\_ops@{\_handle\_zero\_ops}}
+\index{\_handle\_zero\_ops@{\_handle\_zero\_ops}!qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}}
+\doxysubsubsection{\texorpdfstring{\_handle\_zero\_ops()}{\_handle\_zero\_ops()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1observables__evaluator_a3969da51d76d0176aad4286c0beb46f5_a3969da51d76d0176aad4286c0beb46f5} 
+ list\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} qiskit\+\_\+algorithms.\+observables\+\_\+evaluator.\+\_\+handle\+\_\+zero\+\_\+ops (\begin{DoxyParamCaption}\item[{list\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]}}]{observables\+\_\+list}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Replaces all occurrence of operators equal to 0 in the list with an equivalent ``SparsePauliOp``
+operator.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1observables__evaluator_a31111841f852bff223a5766b0aed4d8f_a31111841f852bff223a5766b0aed4d8f}\index{qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}!\_prepare\_result@{\_prepare\_result}}
+\index{\_prepare\_result@{\_prepare\_result}!qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}}
+\doxysubsubsection{\texorpdfstring{\_prepare\_result()}{\_prepare\_result()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1observables__evaluator_a31111841f852bff223a5766b0aed4d8f_a31111841f852bff223a5766b0aed4d8f} 
+ List\+Or\+Dict\mbox{[}tuple\mbox{[}float, dict\mbox{[}str, Any\mbox{]}\mbox{]}\mbox{]} qiskit\+\_\+algorithms.\+observables\+\_\+evaluator.\+\_\+prepare\+\_\+result (\begin{DoxyParamCaption}\item[{list\mbox{[}tuple\mbox{[}float, dict\mbox{]}\mbox{]}}]{observables\+\_\+results}{, }\item[{List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]}}]{observables}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Prepares a list of tuples of eigenvalues and metadata tuples from
+``observables_results`` and ``observables``.
+
+Args:
+    observables_results: A list of tuples (mean, metadata).
+    observables: A list or a dictionary of operators whose expectation values are to be
+        calculated.
+
+Returns:
+    A list or a dictionary of tuples (mean, metadata).
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1observables__evaluator_afd5104f2f145df6b8bb7807cb8a391ba_afd5104f2f145df6b8bb7807cb8a391ba}\index{qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}!estimate\_observables@{estimate\_observables}}
+\index{estimate\_observables@{estimate\_observables}!qiskit\_algorithms.observables\_evaluator@{qiskit\_algorithms.observables\_evaluator}}
+\doxysubsubsection{\texorpdfstring{estimate\_observables()}{estimate\_observables()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1observables__evaluator_afd5104f2f145df6b8bb7807cb8a391ba_afd5104f2f145df6b8bb7807cb8a391ba} 
+ List\+Or\+Dict\mbox{[}tuple\mbox{[}float, dict\mbox{[}str, Any\mbox{]}\mbox{]}\mbox{]} qiskit\+\_\+algorithms.\+observables\+\_\+evaluator.\+estimate\+\_\+observables (\begin{DoxyParamCaption}\item[{Base\+Estimator}]{estimator}{, }\item[{Quantum\+Circuit}]{quantum\+\_\+state}{, }\item[{List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]}}]{observables}{, }\item[{Sequence\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} None }]{parameter\+\_\+values}{ = {\ttfamily None}, }\item[{float }]{threshold}{ = {\ttfamily 1e-\/12}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Accepts a sequence of operators and calculates their expectation values - means
+and metadata. They are calculated with respect to a quantum state provided. A user
+can optionally provide a threshold value which filters mean values falling below the threshold.
+
+Args:
+    estimator: An estimator primitive used for calculations.
+    quantum_state: A (parameterized) quantum circuit preparing a quantum state that expectation
+        values are computed against.
+    observables: A list or a dictionary of operators whose expectation values are to be
+        calculated.
+    parameter_values: Optional list of parameters values to evaluate the quantum circuit on.
+    threshold: A threshold value that defines which mean values should be neglected (helpful for
+        ignoring numerical instabilities close to 0).
+
+Returns:
+    A list or a dictionary of tuples (mean, metadata).
+
+Raises:
+    AlgorithmError: If a primitive job is not successful.
+\end{DoxyVerb}
+ 

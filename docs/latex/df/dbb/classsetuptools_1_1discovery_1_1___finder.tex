@@ -1,0 +1,73 @@
+\doxysection{setuptools.\+discovery.\+\_\+\+Finder Class Reference}
+\hypertarget{classsetuptools_1_1discovery_1_1___finder}{}\label{classsetuptools_1_1discovery_1_1___finder}\index{setuptools.discovery.\_Finder@{setuptools.discovery.\_Finder}}
+Inheritance diagram for setuptools.\+discovery.\+\_\+\+Finder\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.929825cm]{df/dbb/classsetuptools_1_1discovery_1_1___finder}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___finder_a008ea56caa7b4dc2dd26bcc66f64cf9b_a008ea56caa7b4dc2dd26bcc66f64cf9b}{find}} (cls, Str\+Path where=\textquotesingle{}.\textquotesingle{}, Iterable\mbox{[}str\mbox{]} exclude=(), Iterable\mbox{[}str\mbox{]} include=(\textquotesingle{} \texorpdfstring{$\ast$}{*}\textquotesingle{},))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1discovery_1_1___finder_a05a7fafc1a52aee181f297d7ee179043}\label{classsetuptools_1_1discovery_1_1___finder_a05a7fafc1a52aee181f297d7ee179043} 
+tuple {\bfseries ALWAYS\+\_\+\+EXCLUDE} = ()
+\item 
+\Hypertarget{classsetuptools_1_1discovery_1_1___finder_a7d851175b924b489911b0697866d804d}\label{classsetuptools_1_1discovery_1_1___finder_a7d851175b924b489911b0697866d804d} 
+tuple {\bfseries DEFAULT\+\_\+\+EXCLUDE} = ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___finder_af60249f7634bb253872251278caad66d_af60249f7634bb253872251278caad66d}{\+\_\+find\+\_\+iter}} (cls, Str\+Path where, \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___filter}{\+\_\+\+Filter}} exclude, \mbox{\hyperlink{classsetuptools_1_1discovery_1_1___filter}{\+\_\+\+Filter}} include)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Base class that exposes functionality for module/package finders\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1discovery_1_1___finder_af60249f7634bb253872251278caad66d_af60249f7634bb253872251278caad66d}\index{setuptools.discovery.\_Finder@{setuptools.discovery.\_Finder}!\_find\_iter@{\_find\_iter}}
+\index{\_find\_iter@{\_find\_iter}!setuptools.discovery.\_Finder@{setuptools.discovery.\_Finder}}
+\doxysubsubsection{\texorpdfstring{\_find\_iter()}{\_find\_iter()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1discovery_1_1___finder_af60249f7634bb253872251278caad66d_af60249f7634bb253872251278caad66d} 
+ Iterator\mbox{[}str\mbox{]} setuptools.\+discovery.\+\_\+\+Finder.\+\_\+find\+\_\+iter (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{Str\+Path}]{where}{, }\item[{\mbox{\hyperlink{classsetuptools_1_1discovery_1_1___filter}{\+\_\+\+Filter}}}]{exclude}{, }\item[{\mbox{\hyperlink{classsetuptools_1_1discovery_1_1___filter}{\+\_\+\+Filter}}     }]{include}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classsetuptools_1_1discovery_1_1_package_finder_adae2b23da55d10406a4e453afbc46183_adae2b23da55d10406a4e453afbc46183}{setuptools.\+discovery.\+Package\+Finder}}.
+
+\Hypertarget{classsetuptools_1_1discovery_1_1___finder_a008ea56caa7b4dc2dd26bcc66f64cf9b_a008ea56caa7b4dc2dd26bcc66f64cf9b}\index{setuptools.discovery.\_Finder@{setuptools.discovery.\_Finder}!find@{find}}
+\index{find@{find}!setuptools.discovery.\_Finder@{setuptools.discovery.\_Finder}}
+\doxysubsubsection{\texorpdfstring{find()}{find()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1discovery_1_1___finder_a008ea56caa7b4dc2dd26bcc66f64cf9b_a008ea56caa7b4dc2dd26bcc66f64cf9b} 
+ list\mbox{[}str\mbox{]} setuptools.\+discovery.\+\_\+\+Finder.\+find (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{Str\+Path }]{where}{ = {\ttfamily \textquotesingle{}.\textquotesingle{}}, }\item[{Iterable\mbox{[}str\mbox{]} }]{exclude}{ = {\ttfamily ()}, }\item[{Iterable\mbox{[}str\mbox{]} }]{include}{ = {\ttfamily (\textquotesingle{}\texorpdfstring{$\ast$}{*}\textquotesingle{},)}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of all Python items (packages or modules, depending on
+the finder implementation) found within directory 'where'.
+
+'where' is the root directory which will be searched.
+It should be supplied as a "cross-platform" (i.e. URL-style) path;
+it will be converted to the appropriate local path syntax.
+
+'exclude' is a sequence of names to exclude; '*' can be used
+as a wildcard in the names.
+When finding packages, 'foo.*' will exclude all subpackages of 'foo'
+(but not 'foo' itself).
+
+'include' is a sequence of names to include.
+If it's specified, only the named items will be included.
+If it's not specified, all found items will be included.
+'include' can contain shell style wildcard patterns just like
+'exclude'.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/discovery.\+py\end{DoxyCompactItemize}

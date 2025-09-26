@@ -1,0 +1,92 @@
+\doxysection{rustworkx.\+visit.\+BFSVisitor Class Reference}
+\hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor}{}\label{classrustworkx_1_1visit_1_1_b_f_s_visitor}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+Inheritance diagram for rustworkx.\+visit.\+BFSVisitor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/d7a/classrustworkx_1_1visit_1_1_b_f_s_visitor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_a00bc34d644067c42b5f953501a59d2c4_a00bc34d644067c42b5f953501a59d2c4}{discover\+\_\+vertex}} (self, v)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac8b61fda2462922ad5916f4c60c13a6b_ac8b61fda2462922ad5916f4c60c13a6b}{finish\+\_\+vertex}} (self, v)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_ae5eb62599d447b6553ab3359e2dc06e8_ae5eb62599d447b6553ab3359e2dc06e8}{tree\+\_\+edge}} (self, e)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac6f3ed1356bdf2d2d51d871532439dd1_ac6f3ed1356bdf2d2d51d871532439dd1}{non\+\_\+tree\+\_\+edge}} (self, e)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_a8442f7a7ff4dc866772aa321799fe6b2_a8442f7a7ff4dc866772aa321799fe6b2}{gray\+\_\+target\+\_\+edge}} (self, e)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_b_f_s_visitor_af0228937f1641fa8e0bbcd9012f65586_af0228937f1641fa8e0bbcd9012f65586}{black\+\_\+target\+\_\+edge}} (self, e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A visitor object that is invoked at the event-points inside the
+:func:`~rustworkx.bfs_search` algorithm. By default, it performs no
+action, and should be used as a base class in order to be useful.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_af0228937f1641fa8e0bbcd9012f65586_af0228937f1641fa8e0bbcd9012f65586}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!black\_target\_edge@{black\_target\_edge}}
+\index{black\_target\_edge@{black\_target\_edge}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{black\_target\_edge()}{black\_target\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_af0228937f1641fa8e0bbcd9012f65586_af0228937f1641fa8e0bbcd9012f65586} 
+rustworkx.\+visit.\+BFSVisitor.\+black\+\_\+target\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on the subset of non-tree edges whose target vertex is
+colored black at the time of examination.
+The color black indicates that the vertex has been removed from the queue.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_a00bc34d644067c42b5f953501a59d2c4_a00bc34d644067c42b5f953501a59d2c4}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!discover\_vertex@{discover\_vertex}}
+\index{discover\_vertex@{discover\_vertex}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{discover\_vertex()}{discover\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_a00bc34d644067c42b5f953501a59d2c4_a00bc34d644067c42b5f953501a59d2c4} 
+rustworkx.\+visit.\+BFSVisitor.\+discover\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked when a vertex is encountered for the first time.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac8b61fda2462922ad5916f4c60c13a6b_ac8b61fda2462922ad5916f4c60c13a6b}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!finish\_vertex@{finish\_vertex}}
+\index{finish\_vertex@{finish\_vertex}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{finish\_vertex()}{finish\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac8b61fda2462922ad5916f4c60c13a6b_ac8b61fda2462922ad5916f4c60c13a6b} 
+rustworkx.\+visit.\+BFSVisitor.\+finish\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on vertex `v` after all of its out edges have been examined.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_a8442f7a7ff4dc866772aa321799fe6b2_a8442f7a7ff4dc866772aa321799fe6b2}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!gray\_target\_edge@{gray\_target\_edge}}
+\index{gray\_target\_edge@{gray\_target\_edge}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{gray\_target\_edge()}{gray\_target\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_a8442f7a7ff4dc866772aa321799fe6b2_a8442f7a7ff4dc866772aa321799fe6b2} 
+rustworkx.\+visit.\+BFSVisitor.\+gray\+\_\+target\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on the subset of non-tree edges whose target vertex is
+colored gray at the time of examination.
+The color gray indicates that the vertex is currently in the queue.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac6f3ed1356bdf2d2d51d871532439dd1_ac6f3ed1356bdf2d2d51d871532439dd1}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!non\_tree\_edge@{non\_tree\_edge}}
+\index{non\_tree\_edge@{non\_tree\_edge}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{non\_tree\_edge()}{non\_tree\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_ac6f3ed1356bdf2d2d51d871532439dd1_ac6f3ed1356bdf2d2d51d871532439dd1} 
+rustworkx.\+visit.\+BFSVisitor.\+non\+\_\+tree\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on back or cross edges for directed graphs and cross edges
+for undirected graphs.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_b_f_s_visitor_ae5eb62599d447b6553ab3359e2dc06e8_ae5eb62599d447b6553ab3359e2dc06e8}\index{rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}!tree\_edge@{tree\_edge}}
+\index{tree\_edge@{tree\_edge}!rustworkx.visit.BFSVisitor@{rustworkx.visit.BFSVisitor}}
+\doxysubsubsection{\texorpdfstring{tree\_edge()}{tree\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_b_f_s_visitor_ae5eb62599d447b6553ab3359e2dc06e8_ae5eb62599d447b6553ab3359e2dc06e8} 
+rustworkx.\+visit.\+BFSVisitor.\+tree\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on each edge as it becomes a member of the edges
+that form the search tree.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/rustworkx/visit.\+py\end{DoxyCompactItemize}

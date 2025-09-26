@@ -1,0 +1,129 @@
+\doxysection{collections.\+Folded\+Case\+Keyed\+Dict Class Reference}
+\hypertarget{classcollections_1_1_folded_case_keyed_dict}{}\label{classcollections_1_1_folded_case_keyed_dict}\index{collections.FoldedCaseKeyedDict@{collections.FoldedCaseKeyedDict}}
+Inheritance diagram for collections.\+Folded\+Case\+Keyed\+Dict\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classcollections_1_1_folded_case_keyed_dict}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcollections_1_1_folded_case_keyed_dict_a2540d1de92b1a40d1d32f9bbbc927ecb}{transform\+\_\+key}} (key)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{classcollections_1_1_key_transforming_dict}{collections.\+Key\+Transforming\+Dict}}}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classcollections_1_1_key_transforming_dict}{collections.\+Key\+Transforming\+Dict}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kargs)
+\item 
+{\bfseries \+\_\+\+\_\+setitem\+\_\+\+\_\+} (self, key, val)
+\item 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, key)
+\item 
+{\bfseries \+\_\+\+\_\+contains\+\_\+\+\_\+} (self, key)
+\item 
+{\bfseries \+\_\+\+\_\+delitem\+\_\+\+\_\+} (self, key)
+\item 
+{\bfseries get} (self, key, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+{\bfseries setdefault} (self, key, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+{\bfseries pop} (self, key, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classcollections_1_1_key_transforming_dict_ac3c7369722fd234cf34e312d83140244}{matching\+\_\+key\+\_\+for}} (self, key)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A case-insensitive dictionary (keys are compared as insensitive
+if they are strings).
+
+>>> d = FoldedCaseKeyedDict()
+>>> d['heLlo'] = 'world'
+>>> list(d.keys()) == ['heLlo']
+True
+>>> list(d.values()) == ['world']
+True
+>>> d['hello'] == 'world'
+True
+>>> 'hello' in d
+True
+>>> 'HELLO' in d
+True
+>>> print(repr(FoldedCaseKeyedDict({'heLlo': 'world'})))
+{'heLlo': 'world'}
+>>> d = FoldedCaseKeyedDict({'heLlo': 'world'})
+>>> print(d['hello'])
+world
+>>> print(d['Hello'])
+world
+>>> list(d.keys())
+['heLlo']
+>>> d = FoldedCaseKeyedDict({'heLlo': 'world', 'Hello': 'world'})
+>>> list(d.values())
+['world']
+>>> key, = d.keys()
+>>> key in ['heLlo', 'Hello']
+True
+>>> del d['HELLO']
+>>> d
+{}
+
+get should work
+
+>>> d['Sumthin'] = 'else'
+>>> d.get('SUMTHIN')
+'else'
+>>> d.get('OTHER', 'thing')
+'thing'
+>>> del d['sumthin']
+
+setdefault should also work
+
+>>> d['This'] = 'that'
+>>> print(d.setdefault('this', 'other'))
+that
+>>> len(d)
+1
+>>> print(d['this'])
+that
+>>> print(d.setdefault('That', 'other'))
+other
+>>> print(d['THAT'])
+other
+
+Make it pop!
+
+>>> print(d.pop('THAT'))
+other
+
+To retrieve the key in its originally-supplied form, use matching_key_for
+
+>>> print(d.matching_key_for('this'))
+This
+
+>>> d.matching_key_for('missing')
+Traceback (most recent call last):
+...
+KeyError: 'missing'
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcollections_1_1_folded_case_keyed_dict_a2540d1de92b1a40d1d32f9bbbc927ecb}\index{collections.FoldedCaseKeyedDict@{collections.FoldedCaseKeyedDict}!transform\_key@{transform\_key}}
+\index{transform\_key@{transform\_key}!collections.FoldedCaseKeyedDict@{collections.FoldedCaseKeyedDict}}
+\doxysubsubsection{\texorpdfstring{transform\_key()}{transform\_key()}}
+{\footnotesize\ttfamily \label{classcollections_1_1_folded_case_keyed_dict_a2540d1de92b1a40d1d32f9bbbc927ecb} 
+collections.\+Folded\+Case\+Keyed\+Dict.\+transform\+\_\+key (\begin{DoxyParamCaption}\item[{}]{key}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classcollections_1_1_key_transforming_dict}{collections.\+Key\+Transforming\+Dict}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

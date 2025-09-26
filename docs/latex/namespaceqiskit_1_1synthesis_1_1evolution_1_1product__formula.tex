@@ -1,0 +1,65 @@
+\doxysection{qiskit.\+synthesis.\+evolution.\+product\+\_\+formula Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula}{}\label{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula}\index{qiskit.synthesis.evolution.product\_formula@{qiskit.synthesis.evolution.product\_formula}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1evolution_1_1product__formula_1_1_product_formula}{Product\+Formula}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_a92995f0d3d68254ea358ad0611d30914}{real\+\_\+or\+\_\+fail}} (value, tol=100)
+\item 
+list\mbox{[}Sparse\+Pauli\+Label\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_ab4d8d218dce1eb5ce75cc650dcca46d6}{reorder\+\_\+paulis}} (Sequence\mbox{[}Sparse\+Pauli\+Label\mbox{]} paulis, rx.\+Coloring\+Strategy strategy=rx.\+Coloring\+Strategy.\+Saturation)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_af0d515c8a93fdc7c81641d0655b1ef29}\label{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_af0d515c8a93fdc7c81641d0655b1ef29} 
+{\bfseries Sparse\+Pauli\+Label} = typing.\+Tuple\mbox{[}str, list\mbox{[}int\mbox{]}, Parameter\+Value\+Type\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A product formula base for decomposing non-commuting operator exponentials.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_a92995f0d3d68254ea358ad0611d30914}\index{qiskit.synthesis.evolution.product\_formula@{qiskit.synthesis.evolution.product\_formula}!real\_or\_fail@{real\_or\_fail}}
+\index{real\_or\_fail@{real\_or\_fail}!qiskit.synthesis.evolution.product\_formula@{qiskit.synthesis.evolution.product\_formula}}
+\doxysubsubsection{\texorpdfstring{real\_or\_fail()}{real\_or\_fail()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_a92995f0d3d68254ea358ad0611d30914} 
+qiskit.\+synthesis.\+evolution.\+product\+\_\+formula.\+real\+\_\+or\+\_\+fail (\begin{DoxyParamCaption}\item[{}]{value}{, }\item[{}]{tol}{ = {\ttfamily 100}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return real if close, otherwise fail. Unbound parameters are left unchanged.
+
+Based on NumPy's ``real_if_close``, i.e. ``tol`` is in terms of machine precision for float.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_ab4d8d218dce1eb5ce75cc650dcca46d6}\index{qiskit.synthesis.evolution.product\_formula@{qiskit.synthesis.evolution.product\_formula}!reorder\_paulis@{reorder\_paulis}}
+\index{reorder\_paulis@{reorder\_paulis}!qiskit.synthesis.evolution.product\_formula@{qiskit.synthesis.evolution.product\_formula}}
+\doxysubsubsection{\texorpdfstring{reorder\_paulis()}{reorder\_paulis()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1evolution_1_1product__formula_ab4d8d218dce1eb5ce75cc650dcca46d6} 
+ list\mbox{[}Sparse\+Pauli\+Label\mbox{]} qiskit.\+synthesis.\+evolution.\+product\+\_\+formula.\+reorder\+\_\+paulis (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}Sparse\+Pauli\+Label\mbox{]}}]{paulis}{, }\item[{rx.\+Coloring\+Strategy }]{strategy}{ = {\ttfamily rx.ColoringStrategy.Saturation}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creates an equivalent operator by reordering terms in order to yield a
+shallower circuit after evolution synthesis. The original operator remains
+unchanged.
+
+This method works in three steps. First, a graph is constructed, where the
+nodes are the terms of the operator and where two nodes are connected if
+their terms act on the same qubit (for example, the terms :math:`IXX` and
+:math:`IYI` would be connected, but not :math:`IXX` and :math:`YII`). Then,
+the graph is colored.  Two terms with the same color thus do not act on the
+same qubit, and in particular, their evolution subcircuits can be run in
+parallel in the greater evolution circuit of ``paulis``.
+
+This method is deterministic and invariant under permutation of the Pauli
+term in ``paulis``.
+
+Args:
+    paulis: The operator whose terms to reorder.
+    strategy: The coloring heuristic to use, see ``ColoringStrategy`` [#].
+        Default is ``ColoringStrategy.Saturation``.
+
+.. [#] https://www.rustworkx.org/apiref/rustworkx.ColoringStrategy.html#coloringstrategy\end{DoxyVerb}
+ 

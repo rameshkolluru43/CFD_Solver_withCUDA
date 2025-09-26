@@ -1,0 +1,62 @@
+\doxysection{qiskit.\+synthesis.\+qft.\+qft\+\_\+decompose\+\_\+full Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full}{}\label{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full}\index{qiskit.synthesis.qft.qft\_decompose\_full@{qiskit.synthesis.qft.qft\_decompose\_full}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a9656a978a8024ce845fa22c54ee591b2}{synth\+\_\+qft\+\_\+full}} (int num\+\_\+qubits, bool do\+\_\+swaps=True, int approximation\+\_\+degree=0, bool insert\+\_\+barriers=False, bool inverse=False, str\texorpdfstring{$\vert$}{|}None name=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a1c668128e462f67d3857123a05c18a64}{\+\_\+warn\+\_\+if\+\_\+precision\+\_\+loss}} (max\+\_\+num\+\_\+entanglements)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Circuit synthesis for a QFT circuit.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a1c668128e462f67d3857123a05c18a64}\index{qiskit.synthesis.qft.qft\_decompose\_full@{qiskit.synthesis.qft.qft\_decompose\_full}!\_warn\_if\_precision\_loss@{\_warn\_if\_precision\_loss}}
+\index{\_warn\_if\_precision\_loss@{\_warn\_if\_precision\_loss}!qiskit.synthesis.qft.qft\_decompose\_full@{qiskit.synthesis.qft.qft\_decompose\_full}}
+\doxysubsubsection{\texorpdfstring{\_warn\_if\_precision\_loss()}{\_warn\_if\_precision\_loss()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a1c668128e462f67d3857123a05c18a64} 
+qiskit.\+synthesis.\+qft.\+qft\+\_\+decompose\+\_\+full.\+\_\+warn\+\_\+if\+\_\+precision\+\_\+loss (\begin{DoxyParamCaption}\item[{}]{max\+\_\+num\+\_\+entanglements}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Issue a warning if constructing the circuit will lose precision.
+
+If we need an angle smaller than ``pi * 2**-1022``, we start to lose precision by going into
+the subnormal numbers.  We won't lose _all_ precision until an exponent of about 1075, but
+beyond 1022 we're using fractional bits to represent leading zeros.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a9656a978a8024ce845fa22c54ee591b2}\index{qiskit.synthesis.qft.qft\_decompose\_full@{qiskit.synthesis.qft.qft\_decompose\_full}!synth\_qft\_full@{synth\_qft\_full}}
+\index{synth\_qft\_full@{synth\_qft\_full}!qiskit.synthesis.qft.qft\_decompose\_full@{qiskit.synthesis.qft.qft\_decompose\_full}}
+\doxysubsubsection{\texorpdfstring{synth\_qft\_full()}{synth\_qft\_full()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1qft_1_1qft__decompose__full_a9656a978a8024ce845fa22c54ee591b2} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+qft.\+qft\+\_\+decompose\+\_\+full.\+synth\+\_\+qft\+\_\+full (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{bool }]{do\+\_\+swaps}{ = {\ttfamily True}, }\item[{int }]{approximation\+\_\+degree}{ = {\ttfamily 0}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{bool }]{inverse}{ = {\ttfamily False}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct a circuit for the Quantum Fourier Transform using all-to-all connectivity.
+
+.. note::
+
+    With the default value of ``do_swaps = True``, this synthesis algorithm creates a
+    circuit that faithfully implements the QFT operation. This circuit contains a sequence
+    of swap gates at the end, corresponding to reversing the order of its output qubits.
+    In some applications this reversal permutation can be avoided. Setting ``do_swaps = False``
+    creates a circuit without this reversal permutation, at the expense that this circuit
+    implements the "QFT-with-reversal" instead of QFT. Alternatively, the
+    :class:`~.ElidePermutations` transpiler pass is able to remove these swap gates.
+
+Args:
+    num_qubits: The number of qubits on which the Quantum Fourier Transform acts.
+    do_swaps: Whether to synthesize the "QFT" or the "QFT-with-reversal" operation.
+    approximation_degree: The degree of approximation (0 for no approximation).
+        It is possible to implement the QFT approximately by ignoring
+        controlled-phase rotations with the angle beneath a threshold. This is discussed
+        in more detail in https://arxiv.org/abs/quant-ph/9601018 or
+        https://arxiv.org/abs/quant-ph/0403071.
+    insert_barriers: If ``True``, barriers are inserted for improved visualization.
+    inverse: If ``True``, the inverse Quantum Fourier Transform is constructed.
+    name: The name of the circuit.
+
+Returns:
+    A circuit implementing the QFT operation.\end{DoxyVerb}
+ 

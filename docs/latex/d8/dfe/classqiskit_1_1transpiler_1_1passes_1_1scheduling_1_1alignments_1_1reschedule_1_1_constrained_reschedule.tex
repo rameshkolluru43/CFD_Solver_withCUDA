@@ -1,0 +1,184 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule}\index{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.750000cm]{d8/dfe/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a84478d6e85a91d21431834024a16d39a_a84478d6e85a91d21431834024a16d39a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int acquire\+\_\+alignment=1, int pulse\+\_\+alignment=1, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_ad9b9c64d94a1bdd4534cf2a5820c2502_ad9b9c64d94a1bdd4534cf2a5820c2502}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_aafaa7ffd8acaa8534113ebc593a90bf7}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_aafaa7ffd8acaa8534113ebc593a90bf7} 
+{\bfseries acquire\+\_\+align} = acquire\+\_\+alignment
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_aef86870f0ff76eef0a6d048c5aaef270}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_aef86870f0ff76eef0a6d048c5aaef270} 
+{\bfseries pulse\+\_\+align} = pulse\+\_\+alignment
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_ada10a42111634724f705af358eeb3764}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_ada10a42111634724f705af358eeb3764} 
+{\bfseries property\+\_\+set}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Generator\mbox{[}DAGOp\+Node, None, None\mbox{]} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a234da0680eb8160a4eb791a8cb2e4388_a234da0680eb8160a4eb791a8cb2e4388}{\+\_\+get\+\_\+next\+\_\+gate}} (cls, DAGCircuit dag, DAGOp\+Node node)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a40a623e2ee498b65049db1e14621d31b_a40a623e2ee498b65049db1e14621d31b}{\+\_\+push\+\_\+node\+\_\+back}} (self, DAGCircuit dag, DAGOp\+Node node)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Rescheduler pass that updates node start times to conform to the hardware alignments.
+
+This pass shifts DAG node start times previously scheduled with one of
+the scheduling passes, e.g. :class:`ASAPScheduleAnalysis` or :class:`ALAPScheduleAnalysis`,
+so that every instruction start time satisfies alignment constraints.
+
+Examples:
+
+    We assume executing the following circuit on a backend with 16 dt of acquire alignment.
+
+    .. code-block:: text
+
+             ┌───┐┌────────────────┐┌─┐
+        q_0: ┤ X ├┤ Delay(100[dt]) ├┤M├
+             └───┘└────────────────┘└╥┘
+        c: 1/════════════════════════╩═
+                                     0
+
+    Note that delay of 100 dt induces a misalignment of 4 dt at the measurement.
+    This pass appends an extra 12 dt time shift to the input circuit.
+
+    .. code-block:: text
+
+             ┌───┐┌────────────────┐┌─┐
+        q_0: ┤ X ├┤ Delay(112[dt]) ├┤M├
+             └───┘└────────────────┘└╥┘
+        c: 1/════════════════════════╩═
+                                     0
+
+Notes:
+
+    Your backend may execute circuits violating these alignment constraints.
+    However, you may obtain erroneous measurement result because of the
+    untracked phase originating in the instruction misalignment.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a84478d6e85a91d21431834024a16d39a_a84478d6e85a91d21431834024a16d39a}\index{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a84478d6e85a91d21431834024a16d39a_a84478d6e85a91d21431834024a16d39a} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{acquire\+\_\+alignment}{ = {\ttfamily 1}, }\item[{int }]{pulse\+\_\+alignment}{ = {\ttfamily 1}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new rescheduler pass.
+
+The alignment values depend on the control electronics of your quantum processor.
+
+Args:
+    acquire_alignment: Integer number representing the minimum time resolution to
+        trigger acquisition instruction in units of ``dt``.
+    pulse_alignment: Integer number representing the minimum time resolution to
+        trigger gate instruction in units of ``dt``.
+    target: The :class:`~.Target` representing the target backend, if
+        ``target`` is specified then this argument will take
+        precedence and ``acquire_alignment`` and ``pulse_alignment`` will be ignored.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a234da0680eb8160a4eb791a8cb2e4388_a234da0680eb8160a4eb791a8cb2e4388}\index{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}!\_get\_next\_gate@{\_get\_next\_gate}}
+\index{\_get\_next\_gate@{\_get\_next\_gate}!qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}}
+\doxysubsubsection{\texorpdfstring{\_get\_next\_gate()}{\_get\_next\_gate()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a234da0680eb8160a4eb791a8cb2e4388_a234da0680eb8160a4eb791a8cb2e4388} 
+ Generator\mbox{[}DAGOp\+Node, None, None\mbox{]} qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule.\+\_\+get\+\_\+next\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{DAGCircuit}]{dag}{, }\item[{DAGOp\+Node}]{node}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get next non-delay nodes.
+
+Args:
+    dag: DAG circuit to be rescheduled with constraints.
+    node: Current node.
+
+Returns:
+    A list of non-delay successors.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a40a623e2ee498b65049db1e14621d31b_a40a623e2ee498b65049db1e14621d31b}\index{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}!\_push\_node\_back@{\_push\_node\_back}}
+\index{\_push\_node\_back@{\_push\_node\_back}!qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}}
+\doxysubsubsection{\texorpdfstring{\_push\_node\_back()}{\_push\_node\_back()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_a40a623e2ee498b65049db1e14621d31b_a40a623e2ee498b65049db1e14621d31b} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule.\+\_\+push\+\_\+node\+\_\+back (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{, }\item[{DAGOp\+Node}]{node}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Update the start time of the current node to satisfy alignment constraints.
+Immediate successors are pushed back to avoid overlap and will be processed later.
+
+.. note::
+
+    This logic assumes the all bits in the qregs and cregs synchronously start and end,
+    i.e. occupy the same time slot, but qregs and cregs can take
+    different time slot due to classical I/O latencies.
+
+Args:
+    dag: DAG circuit to be rescheduled with constraints.
+    node: Current node.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_ad9b9c64d94a1bdd4534cf2a5820c2502_ad9b9c64d94a1bdd4534cf2a5820c2502}\index{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule@{qiskit.transpiler.passes.scheduling.alignments.reschedule.ConstrainedReschedule}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1reschedule_1_1_constrained_reschedule_ad9b9c64d94a1bdd4534cf2a5820c2502_ad9b9c64d94a1bdd4534cf2a5820c2502} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+reschedule.\+Constrained\+Reschedule.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run rescheduler.
+
+This pass should perform rescheduling to satisfy:
+
+    - All DAGOpNode nodes (except for compiler directives) are placed at start time
+      satisfying hardware alignment constraints.
+    - The end time of a node does not overlap with the start time of successor nodes.
+
+Assumptions:
+
+    - Topological order and absolute time order of DAGOpNode are consistent.
+    - All bits in either qargs or cargs associated with node synchronously start.
+    - Start time of qargs and cargs may different due to I/O latency.
+
+Based on the configurations above, the rescheduler pass takes the following strategy:
+
+1. The nodes are processed in the topological order, from the beginning of
+    the circuit (i.e. from left to right). For every node (including compiler
+    directives), the function ``_push_node_back`` performs steps 2 and 3.
+2. If the start time of the node violates the alignment constraint,
+    the start time is increased to satisfy the constraint.
+3. Each immediate successor whose start_time overlaps the node's end_time is
+    pushed backwards (towards the end of the wire). Note that at this point
+    the shifted successor does not need to satisfy the constraints, but this
+    will be taken care of when that successor node itself is processed.
+4. After every node is processed, all misalignment constraints will be resolved,
+    and there will be no overlap between the nodes.
+
+Args:
+    dag: DAG circuit to be rescheduled with constraints.
+
+Raises:
+    TranspilerError: If circuit is not scheduled.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/alignments/reschedule.\+py\end{DoxyCompactItemize}

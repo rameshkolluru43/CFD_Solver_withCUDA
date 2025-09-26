@@ -1,0 +1,117 @@
+\doxysection{setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI Class Reference}
+\hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i}{}\label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i}\index{setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}}
+Inheritance diagram for setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a6e59a79357c303ad214dbbf3261df91c}{test\+\_\+basic}} (self, tmpdir)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_aee9fd33ece41a84305e74618cedb062c}{test\+\_\+symlink}} (self, tmpdir)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a20fe0750b031e29fc02dec98acdb023c}{test\+\_\+with\+\_\+options}} (self, tmpdir)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_wrapper_tester}{setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Wrapper\+Tester}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries prep\+\_\+script} (cls, template)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_wrapper_tester_a3ac05fe789673bda1da268f0fccda705}{create\+\_\+script}} (cls, tmpdir)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a271a37e308c9a3eac3184eb5955af2d5}\label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a271a37e308c9a3eac3184eb5955af2d5} 
+str {\bfseries script\+\_\+name} = \textquotesingle{}foo-\/script.\+py\textquotesingle{}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_af7580e4970d68d1806bffecbea5b6b40}\label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_af7580e4970d68d1806bffecbea5b6b40} 
+str {\bfseries wrapper\+\_\+name} = \textquotesingle{}foo.\+exe\textquotesingle{}
+\item 
+\Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_ab509a7f957badc80d4cfcf7977213139}\label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_ab509a7f957badc80d4cfcf7977213139} 
+{\bfseries wrapper\+\_\+source} = \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1test__windows__wrappers_a7216dc8b7fa3cdfce40c7138a347cdcb}{win\+\_\+launcher\+\_\+exe}}(\textquotesingle{}cli\textquotesingle{})
+\item 
+\mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a3efde8598d243c95edc0b15b5b0331dc}{script\+\_\+tmpl}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_wrapper_tester}{setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Wrapper\+Tester}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries script\+\_\+name}
+\item 
+{\bfseries wrapper\+\_\+name}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a6e59a79357c303ad214dbbf3261df91c}\index{setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}!test\_basic@{test\_basic}}
+\index{test\_basic@{test\_basic}!setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}}
+\doxysubsubsection{\texorpdfstring{test\_basic()}{test\_basic()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a6e59a79357c303ad214dbbf3261df91c} 
+setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI.\+test\+\_\+basic (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{tmpdir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}When the copy of cli.exe, foo.exe in this example, runs, it examines
+the path name it was run with and computes a Python script path name
+by removing the '.exe' suffix and adding the '-script.py' suffix. (For
+GUI programs, the suffix '-script.pyw' is added.)  This is why we
+named out script the way we did.  Now we can run out script by running
+the wrapper:
+
+This example was a little pathological in that it exercised windows
+(MS C runtime) quoting rules:
+
+- Strings containing spaces are surrounded by double quotes.
+
+- Double quotes in strings need to be escaped by preceding them with
+  back slashes.
+
+- One or more backslashes preceding double quotes need to be escaped
+  by preceding each of them with back slashes.
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_aee9fd33ece41a84305e74618cedb062c}\index{setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}!test\_symlink@{test\_symlink}}
+\index{test\_symlink@{test\_symlink}!setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}}
+\doxysubsubsection{\texorpdfstring{test\_symlink()}{test\_symlink()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_aee9fd33ece41a84305e74618cedb062c} 
+setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI.\+test\+\_\+symlink (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{tmpdir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Ensure that symlink for the foo.exe is working correctly.
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a20fe0750b031e29fc02dec98acdb023c}\index{setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}!test\_with\_options@{test\_with\_options}}
+\index{test\_with\_options@{test\_with\_options}!setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}}
+\doxysubsubsection{\texorpdfstring{test\_with\_options()}{test\_with\_options()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a20fe0750b031e29fc02dec98acdb023c} 
+setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI.\+test\+\_\+with\+\_\+options (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{tmpdir}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Specifying Python Command-line Options
+--------------------------------------
+
+You can specify a single argument on the '#!' line.  This can be used
+to specify Python options like -O, to run in optimized mode or -i
+to start the interactive interpreter.  You can combine multiple
+options as usual. For example, to run in optimized mode and
+enter the interpreter after running the script, you could use -Oi:
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a3efde8598d243c95edc0b15b5b0331dc}\index{setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}!script\_tmpl@{script\_tmpl}}
+\index{script\_tmpl@{script\_tmpl}!setuptools.tests.test\_windows\_wrappers.TestCLI@{setuptools.tests.test\_windows\_wrappers.TestCLI}}
+\doxysubsubsection{\texorpdfstring{script\_tmpl}{script\_tmpl}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1tests_1_1test__windows__wrappers_1_1_test_c_l_i_a3efde8598d243c95edc0b15b5b0331dc} 
+setuptools.\+tests.\+test\+\_\+windows\+\_\+wrappers.\+Test\+CLI.\+script\+\_\+tmpl\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ textwrap.dedent(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ ).lstrip()}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/tests/test\+\_\+windows\+\_\+wrappers.\+py\end{DoxyCompactItemize}

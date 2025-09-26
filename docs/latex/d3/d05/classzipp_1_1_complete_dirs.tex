@@ -1,0 +1,97 @@
+\doxysection{zipp.\+Complete\+Dirs Class Reference}
+\hypertarget{classzipp_1_1_complete_dirs}{}\label{classzipp_1_1_complete_dirs}\index{zipp.CompleteDirs@{zipp.CompleteDirs}}
+Inheritance diagram for zipp.\+Complete\+Dirs\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d3/d05/classzipp_1_1_complete_dirs}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classzipp_1_1_complete_dirs_ad71a36cb59164b1bf287cabb11f0a027_ad71a36cb59164b1bf287cabb11f0a027}{namelist}} (self)
+\item 
+\mbox{\hyperlink{classzipp_1_1_complete_dirs_aedb4f720f4f1415be4881e97222a6f45_aedb4f720f4f1415be4881e97222a6f45}{resolve\+\_\+dir}} (self, name)
+\item 
+\mbox{\hyperlink{classzipp_1_1_complete_dirs_a892ec438e3c8d555f97cac00c1a30f4f_a892ec438e3c8d555f97cac00c1a30f4f}{getinfo}} (self, name)
+\item 
+\mbox{\hyperlink{classzipp_1_1_complete_dirs_a3615386684c4b05171306e7165a10989_a3615386684c4b05171306e7165a10989}{make}} (cls, source)
+\item 
+zipfile.\+Zip\+File \mbox{\hyperlink{classzipp_1_1_complete_dirs_a684d69e07ff359c3f376df97a0a36afb_a684d69e07ff359c3f376df97a0a36afb}{inject}} (cls, zipfile.\+Zip\+File zf)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1_complete_dirs_ab3f1b30f09ef702bde9f6806bca577e5}\label{classzipp_1_1_complete_dirs_ab3f1b30f09ef702bde9f6806bca577e5} 
+{\bfseries \+\_\+name\+\_\+set} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1_complete_dirs_a8fd9c82d9ecc8c930d5193ab31db0213}\label{classzipp_1_1_complete_dirs_a8fd9c82d9ecc8c930d5193ab31db0213} 
+{\bfseries \+\_\+implied\+\_\+dirs} (names)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A ZipFile subclass that ensures that implied directories
+are always included in the namelist.
+
+>>> list(CompleteDirs._implied_dirs(['foo/bar.txt', 'foo/bar/baz.txt']))
+['foo/', 'foo/bar/']
+>>> list(CompleteDirs._implied_dirs(['foo/bar.txt', 'foo/bar/baz.txt', 'foo/bar/']))
+['foo/']
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classzipp_1_1_complete_dirs_a892ec438e3c8d555f97cac00c1a30f4f_a892ec438e3c8d555f97cac00c1a30f4f}\index{zipp.CompleteDirs@{zipp.CompleteDirs}!getinfo@{getinfo}}
+\index{getinfo@{getinfo}!zipp.CompleteDirs@{zipp.CompleteDirs}}
+\doxysubsubsection{\texorpdfstring{getinfo()}{getinfo()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_complete_dirs_a892ec438e3c8d555f97cac00c1a30f4f_a892ec438e3c8d555f97cac00c1a30f4f} 
+zipp.\+Complete\+Dirs.\+getinfo (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Supplement getinfo for implied dirs.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1_complete_dirs_a684d69e07ff359c3f376df97a0a36afb_a684d69e07ff359c3f376df97a0a36afb}\index{zipp.CompleteDirs@{zipp.CompleteDirs}!inject@{inject}}
+\index{inject@{inject}!zipp.CompleteDirs@{zipp.CompleteDirs}}
+\doxysubsubsection{\texorpdfstring{inject()}{inject()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_complete_dirs_a684d69e07ff359c3f376df97a0a36afb_a684d69e07ff359c3f376df97a0a36afb} 
+ zipfile.\+Zip\+File zipp.\+Complete\+Dirs.\+inject (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{zipfile.\+Zip\+File}]{zf}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a writable zip file zf, inject directory entries for
+any directories implied by the presence of children.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1_complete_dirs_a3615386684c4b05171306e7165a10989_a3615386684c4b05171306e7165a10989}\index{zipp.CompleteDirs@{zipp.CompleteDirs}!make@{make}}
+\index{make@{make}!zipp.CompleteDirs@{zipp.CompleteDirs}}
+\doxysubsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_complete_dirs_a3615386684c4b05171306e7165a10989_a3615386684c4b05171306e7165a10989} 
+zipp.\+Complete\+Dirs.\+make (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{}]{source}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a source (filename or zipfile), return an
+appropriate CompleteDirs subclass.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1_complete_dirs_ad71a36cb59164b1bf287cabb11f0a027_ad71a36cb59164b1bf287cabb11f0a027}\index{zipp.CompleteDirs@{zipp.CompleteDirs}!namelist@{namelist}}
+\index{namelist@{namelist}!zipp.CompleteDirs@{zipp.CompleteDirs}}
+\doxysubsubsection{\texorpdfstring{namelist()}{namelist()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_complete_dirs_ad71a36cb59164b1bf287cabb11f0a027_ad71a36cb59164b1bf287cabb11f0a027} 
+zipp.\+Complete\+Dirs.\+namelist (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classzipp_1_1_sanitized_names}{zipp.\+Sanitized\+Names}}.
+
+\Hypertarget{classzipp_1_1_complete_dirs_aedb4f720f4f1415be4881e97222a6f45_aedb4f720f4f1415be4881e97222a6f45}\index{zipp.CompleteDirs@{zipp.CompleteDirs}!resolve\_dir@{resolve\_dir}}
+\index{resolve\_dir@{resolve\_dir}!zipp.CompleteDirs@{zipp.CompleteDirs}}
+\doxysubsubsection{\texorpdfstring{resolve\_dir()}{resolve\_dir()}}
+{\footnotesize\ttfamily \label{classzipp_1_1_complete_dirs_aedb4f720f4f1415be4881e97222a6f45_aedb4f720f4f1415be4881e97222a6f45} 
+zipp.\+Complete\+Dirs.\+resolve\+\_\+dir (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}If the name represents a directory, return that name
+as a directory (with the trailing slash).
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/zipp/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

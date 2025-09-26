@@ -1,0 +1,86 @@
+\doxysection{qiskit.\+circuit.\+random.\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1random_1_1utils}{}\label{namespaceqiskit_1_1circuit_1_1random_1_1utils}\index{qiskit.circuit.random.utils@{qiskit.circuit.random.utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1random_1_1utils_a328a229085a6e01facb791363b9c0577}{random\+\_\+circuit}} (num\+\_\+qubits, depth, max\+\_\+operands=4, measure=False, conditional=False, reset=False, seed=None, dict num\+\_\+operand\+\_\+distribution=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1random_1_1utils_a6dbedeff78cbabfd9e80f396b5fdb383}{random\+\_\+clifford\+\_\+circuit}} (num\+\_\+qubits, num\+\_\+gates, gates="{}all"{}, seed=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for generating random circuits.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1random_1_1utils_a328a229085a6e01facb791363b9c0577}\index{qiskit.circuit.random.utils@{qiskit.circuit.random.utils}!random\_circuit@{random\_circuit}}
+\index{random\_circuit@{random\_circuit}!qiskit.circuit.random.utils@{qiskit.circuit.random.utils}}
+\doxysubsubsection{\texorpdfstring{random\_circuit()}{random\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1random_1_1utils_a328a229085a6e01facb791363b9c0577} 
+qiskit.\+circuit.\+random.\+utils.\+random\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{num\+\_\+qubits}{, }\item[{}]{depth}{, }\item[{}]{max\+\_\+operands}{ = {\ttfamily 4}, }\item[{}]{measure}{ = {\ttfamily False}, }\item[{}]{conditional}{ = {\ttfamily False}, }\item[{}]{reset}{ = {\ttfamily False}, }\item[{}]{seed}{ = {\ttfamily None}, }\item[{dict }]{num\+\_\+operand\+\_\+distribution}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate random circuit of arbitrary size and form.
+
+This function will generate a random circuit by randomly selecting gates
+from the set of standard gates in :mod:`qiskit.circuit.library.standard_gates`. For example:
+
+.. plot::
+   :alt: Circuit diagram output by the previous code.
+   :include-source:
+
+   from qiskit.circuit.random import random_circuit
+
+   circ = random_circuit(2, 2, measure=True)
+   circ.draw(output='mpl')
+
+Args:
+    num_qubits (int): number of quantum wires
+    depth (int): layers of operations (i.e. critical path length)
+    max_operands (int): maximum qubit operands of each gate (between 1 and 4)
+    measure (bool): if True, measure all qubits at the end
+    conditional (bool): if True, insert middle measurements and conditionals
+    reset (bool): if True, insert middle resets
+    seed (int): sets random seed (optional)
+    num_operand_distribution (dict): a distribution of gates that specifies the ratio
+    of 1-qubit, 2-qubit, 3-qubit, ..., n-qubit gates in the random circuit. Expect a
+    deviation from the specified ratios that depends on the size of the requested
+    random circuit. (optional)
+
+Returns:
+    QuantumCircuit: constructed circuit
+
+Raises:
+    CircuitError: when invalid options given
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1random_1_1utils_a6dbedeff78cbabfd9e80f396b5fdb383}\index{qiskit.circuit.random.utils@{qiskit.circuit.random.utils}!random\_clifford\_circuit@{random\_clifford\_circuit}}
+\index{random\_clifford\_circuit@{random\_clifford\_circuit}!qiskit.circuit.random.utils@{qiskit.circuit.random.utils}}
+\doxysubsubsection{\texorpdfstring{random\_clifford\_circuit()}{random\_clifford\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1random_1_1utils_a6dbedeff78cbabfd9e80f396b5fdb383} 
+qiskit.\+circuit.\+random.\+utils.\+random\+\_\+clifford\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{num\+\_\+qubits}{, }\item[{}]{num\+\_\+gates}{, }\item[{}]{gates}{ = {\ttfamily "{}all"{}}, }\item[{}]{seed}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate a pseudo-random Clifford circuit.
+
+This function will generate a Clifford circuit by randomly selecting the chosen amount of Clifford
+gates from the set of standard gates in :mod:`qiskit.circuit.library.standard_gates`. For example:
+
+.. plot::
+   :alt: Circuit diagram output by the previous code.
+   :include-source:
+
+   from qiskit.circuit.random import random_clifford_circuit
+
+   circ = random_clifford_circuit(num_qubits=2, num_gates=6)
+   circ.draw(output='mpl')
+
+Args:
+    num_qubits (int): number of quantum wires.
+    num_gates (int): number of gates in the circuit.
+    gates (list[str]): optional list of Clifford gate names to randomly sample from.
+        If ``"all"`` (default), use all Clifford gates in the standard library.
+    seed (int | np.random.Generator): sets random seed/generator (optional).
+
+Returns:
+    QuantumCircuit: constructed circuit
+\end{DoxyVerb}
+ 

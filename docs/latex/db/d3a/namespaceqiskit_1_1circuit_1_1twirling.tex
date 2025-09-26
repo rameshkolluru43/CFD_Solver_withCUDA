@@ -1,0 +1,83 @@
+\doxysection{qiskit.\+circuit.\+twirling Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1twirling}{}\label{namespaceqiskit_1_1circuit_1_1twirling}\index{qiskit.circuit.twirling@{qiskit.circuit.twirling}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1twirling_a244720d87c67254fe63cd82ddfdd853e_a244720d87c67254fe63cd82ddfdd853e}{pauli\+\_\+twirl\+\_\+2q\+\_\+gates}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, None\texorpdfstring{$\vert$}{|}str\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\texorpdfstring{$\vert$}{|}list\mbox{[}str\mbox{]}\texorpdfstring{$\vert$}{|}list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} twirling\+\_\+gate=None, int\texorpdfstring{$\vert$}{|}None seed=None, int\texorpdfstring{$\vert$}{|}None num\+\_\+twirls=None, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}}\texorpdfstring{$\vert$}{|}None target=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1twirling_ab04f2e7d8b5fe75c315a44b797b6717d_ab04f2e7d8b5fe75c315a44b797b6717d}{NAME\+\_\+\+TO\+\_\+\+CLASS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The twirling module.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1twirling_a244720d87c67254fe63cd82ddfdd853e_a244720d87c67254fe63cd82ddfdd853e}\index{qiskit.circuit.twirling@{qiskit.circuit.twirling}!pauli\_twirl\_2q\_gates@{pauli\_twirl\_2q\_gates}}
+\index{pauli\_twirl\_2q\_gates@{pauli\_twirl\_2q\_gates}!qiskit.circuit.twirling@{qiskit.circuit.twirling}}
+\doxysubsubsection{\texorpdfstring{pauli\_twirl\_2q\_gates()}{pauli\_twirl\_2q\_gates()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1twirling_a244720d87c67254fe63cd82ddfdd853e_a244720d87c67254fe63cd82ddfdd853e} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} qiskit.\+circuit.\+twirling.\+pauli\+\_\+twirl\+\_\+2q\+\_\+gates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{None \texorpdfstring{$\vert$}{|} str \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} \texorpdfstring{$\vert$}{|} list\mbox{[}str\mbox{]} \texorpdfstring{$\vert$}{|} list\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}\mbox{]} }]{twirling\+\_\+gate}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+twirls}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} \texorpdfstring{$\vert$}{|} None }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create copies of a given circuit with Pauli twirling applied around specified two qubit
+gates.
+
+If you're running this function with the intent to twirl a circuit to run on hardware this
+may not be the most efficient way to perform twirling. Especially if the hardware vendor
+has implemented the :mod:`.primitives` execution interface with :class:`.SamplerV2` and
+:class:`.EstimatorV2` this most likely is not the best way to apply twirling to your
+circuit and you'll want to refer to the implementation of :class:`.SamplerV2` and/or
+:class:`.EstimatorV2` for the specified hardware vendor.
+
+If the intent of this function is to be run after :func:`.transpile` or
+:meth:`.PassManager.run` the optional ``target`` argument can be used
+so that the inserted 1 qubit Pauli gates are synthesized to be
+compatible with the given :class:`.Target` so the output circuit(s) are
+still compatible.
+
+Args:
+    circuit: The circuit to twirl
+    twirling_gate: The gate to twirl, defaults to `None` which means twirl all default gates:
+        :class:`.CXGate`, :class:`.CZGate`, :class:`.ECRGate`, and :class:`.iSwapGate`.
+        If supplied it can either be a single gate or a list of gates either as either a gate
+        object or its string name. Currently only the names `"cx"`, `"cz"`, `"ecr"`,  and
+        `"iswap"` are supported. If a gate object is provided outside the default gates it must
+        have a matrix defined from its :class:`~.Gate.to_matrix` method for the gate to potentially
+        be twirled. If a valid twirling configuration can't be computed that particular gate will
+        be silently ignored and not twirled.
+    seed: An integer seed for the random number generator used internally by this function.
+        If specified this must be between 0 and 18,446,744,073,709,551,615.
+    num_twirls: The number of twirling circuits to build. This defaults to ``None`` and will return
+        a single circuit. If it is an integer a list of circuits with `num_twirls` circuits
+        will be returned.
+    target: If specified an :class:`.Target` instance to use for running single qubit decomposition
+        as part of the Pauli twirling to optimize and map the pauli gates added to the circuit
+        to the specified target.
+
+Returns:
+    A copy of the given circuit with Pauli twirling applied to each
+    instance of the specified twirling gate.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1twirling_ab04f2e7d8b5fe75c315a44b797b6717d_ab04f2e7d8b5fe75c315a44b797b6717d}\index{qiskit.circuit.twirling@{qiskit.circuit.twirling}!NAME\_TO\_CLASS@{NAME\_TO\_CLASS}}
+\index{NAME\_TO\_CLASS@{NAME\_TO\_CLASS}!qiskit.circuit.twirling@{qiskit.circuit.twirling}}
+\doxysubsubsection{\texorpdfstring{NAME\_TO\_CLASS}{NAME\_TO\_CLASS}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1twirling_ab04f2e7d8b5fe75c315a44b797b6717d_ab04f2e7d8b5fe75c315a44b797b6717d} 
+dict qiskit.\+circuit.\+twirling.\+NAME\+\_\+\+TO\+\_\+\+CLASS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}cx"{}}:\ CXGate.\_standard\_gate,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}ecr"{}}:\ ECRGate.\_standard\_gate,}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}cz"{}}:\ CZGate.\_standard\_gate,}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}iswap"{}}:\ iSwapGate.\_standard\_gate,}
+\DoxyCodeLine{00006\ \}}
+
+\end{DoxyCode}

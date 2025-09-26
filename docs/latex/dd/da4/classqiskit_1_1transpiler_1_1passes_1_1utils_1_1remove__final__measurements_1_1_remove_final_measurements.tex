@@ -1,0 +1,62 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+utils.\+remove\+\_\+final\+\_\+measurements.\+Remove\+Final\+Measurements Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements}{}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements}\index{qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements@{qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+utils.\+remove\+\_\+final\+\_\+measurements.\+Remove\+Final\+Measurements\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.693548cm]{dd/da4/classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements_a5e4c2d3a1d02bcc0684adafeda893ffd_a5e4c2d3a1d02bcc0684adafeda893ffd}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements_ae46815a1903f29ed3e70c5dea0eef122}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements_ae46815a1903f29ed3e70c5dea0eef122} 
+{\bfseries \+\_\+calc\+\_\+final\+\_\+ops} (self, dag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Remove final measurements and barriers at the end of a circuit.
+
+This pass removes final barriers and final measurements, as well as all
+unused classical registers and bits they are connected to.
+Measurements and barriers are considered final if they are
+followed by no other operations (aside from other measurements or barriers.)
+
+Classical registers are removed iff they reference at least one bit
+that has become unused by the circuit as a result of the operation, and all
+of their other bits are also unused. Separately, classical bits are removed
+iff they have become unused by the circuit as a result of the operation,
+or they appear in a removed classical register, but do not appear
+in a classical register that will remain.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements_a5e4c2d3a1d02bcc0684adafeda893ffd_a5e4c2d3a1d02bcc0684adafeda893ffd}\index{qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements@{qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements@{qiskit.transpiler.passes.utils.remove\_final\_measurements.RemoveFinalMeasurements}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1remove__final__measurements_1_1_remove_final_measurements_a5e4c2d3a1d02bcc0684adafeda893ffd_a5e4c2d3a1d02bcc0684adafeda893ffd} 
+qiskit.\+transpiler.\+passes.\+utils.\+remove\+\_\+final\+\_\+measurements.\+Remove\+Final\+Measurements.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the RemoveFinalMeasurements pass on `dag`.
+
+Args:
+    dag (DAGCircuit): the DAG to be optimized.
+
+Returns:
+    DAGCircuit: the optimized DAG.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/utils/remove\+\_\+final\+\_\+measurements.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,243 @@
+#include "../Basic_Function_Files/Geometry_Header.h"
+
+vector<Point> Line_List,Grid_list,grid_cube_list;
+//Inlet_Boundary_List -- list of Inlet boundary points
+
+vector<int> Cell_Point_Data,Cell_Neighbour_Data,Inlet_Boundary_List,Wall_Boundary_List,Exit_Boundary_List;
+
+void Append_Boundary_Information(const string & Inputfile)
+{
+	ofstream File_Out(Inputfile.c_str(),ios::app);
+	if(File_Out.is_open())
+	{
+		File_Out<<"Exit_Boundary_Cells\t"<<1<<"\t"<<Exit_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Exit_Boundary_List.size();i+=3)
+			File_Out<<Exit_Boundary_List[i+0]<<"\t"<<Exit_Boundary_List[i+1]<<"\t"<<Exit_Boundary_List[i+2]<<endl;
+		File_Out<<"Inlet_Boundary_Cells\t"<<0<<"\t"<<Inlet_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Inlet_Boundary_List.size();i+=3)
+			File_Out<<Inlet_Boundary_List[i+0]<<"\t"<<Inlet_Boundary_List[i+1]<<"\t"<<Inlet_Boundary_List[i+2]<<endl;
+		File_Out<<"Wall_Boundary_Cells\t"<<2<<"\t"<<Wall_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Wall_Boundary_List.size();i+=3)
+			File_Out<<Wall_Boundary_List[i+0]<<"\t"<<Wall_Boundary_List[i+1]<<"\t"<<Wall_Boundary_List[i+2]<<endl;
+	}
+	else
+	{
+		cout<<"Could not open file to append Boundary points list\n";
+	}
+}
+
+
+void Identify_Cells(int &nx,int &ny)
+{
+	
+	int no_of_Cells,a,p=0,Points_In_Plane;
+	no_of_Cells=(nx-1)*(ny-1);
+	Points_In_Plane = nx*ny;
+	cout<<no_of_Cells<<endl;
+	Cell_Point_Data.resize(no_of_Cells*4,0);
+	for(int j=0;j<(ny-1);j++)
+	{
+		for(int i=0;i<(nx-1);i++)
+		{
+			a=p*4;
+			Cell_Point_Data[a+0]=i+j*nx;			// i,j,k
+			Cell_Point_Data[a+1]=(i+1)+j*nx;		//i+1,j,k
+			Cell_Point_Data[a+2]=(i+1)+(j+1)*nx;		//i+1,j+1,k
+			Cell_Point_Data[a+3]=i+(j+1)*nx;		//i,j+1,k			
+// 			cout<<Cell_Point_Data[a+0]<<"\t"<<Cell_Point_Data[a+1]<<"\t"<<Cell_Point_Data[a+2];
+// 			cout<<"\t"<<Cell_Point_Data[a+3]<<endl 
+;			p++;
+		}
+	}
+	cout<<"Identifying Cells done \n";
+	cout<<"Number of Cells\t"<<p<<endl;
+}
+
+// This function identifies the neighbours for given cell
+void Identify_Neighbours(int &nx,int &ny)
+{
+	
+	int nbwgc,ntwgc,nlwgc,nrwgc,nwgc,nigc,nogc,ngc,a,index0,index1,index2,index3,index4,index5,index6;
+	int Ghost_Cell_Top_Plane,Ghost_Cell_Bottom_Plane;
+	int Ghost_Cells_Left_Plane,Ghost_Cells_Right_Plane,cells_in_Plane,no_of_Cells;
+	Ghost_Cell_Top_Plane=0;Ghost_Cell_Bottom_Plane=0;
+	Ghost_Cells_Left_Plane=0;Ghost_Cells_Right_Plane=0;
+	cells_in_Plane=0;
+	nwgc=0;nigc=0;nogc=0;ngc=0,a=0;
+	nbwgc=0;nrwgc=0;ntwgc=0;nlwgc=0;
+	no_of_Cells = (nx-1)*(ny-1);
+	Cell_Neighbour_Data.resize(no_of_Cells*5,0);
+	cells_in_Plane = (nx-1)*(ny-1);
+	Ghost_Cell_Bottom_Plane=(nx-1);
+	Ghost_Cell_Top_Plane=(nx-1);
+	Ghost_Cells_Left_Plane=(ny-1);
+	Ghost_Cells_Right_Plane=(ny-1);
+// 	cout<<"nx\t"<<nx<<"\tny\t"<<ny<<"\tNumber of Cells \t"<<no_of_Cells<<endl;
+	
+	for(int j=0;j<(ny-1);j++)
+	{
+	  for(int i=0;i<(nx-1);i++)
+	  {
+// 		cout<<i<<"\t"<<j<<"\t"<<k<<endl;
+		index0 = i+j*(nx-1);// current cell		(i,j,k)
+		  if(i==(nx-2))
+		    {
+			  index2 = no_of_Cells+Ghost_Cell_Bottom_Plane+nlwgc++;
+			  Exit_Boundary_List.push_back(index0);
+			  Exit_Boundary_List.push_back(2);
+			  Exit_Boundary_List.push_back(index2);
+		    }
+		else
+		  index2 = (i+1)+j*(nx-1);	//Right cell	(i+1,j,k)
+		
+		if(i==0)
+		{
+		      index1 = 	no_of_Cells
+			    +	Ghost_Cell_Bottom_Plane
+			    +	Ghost_Cells_Right_Plane
+			    +	Ghost_Cell_Top_Plane
+			    +	nrwgc++;	//Number of Right Wall Ghost Cells
+			Inlet_Boundary_List.push_back(index0);
+			Inlet_Boundary_List.push_back(0);
+			Inlet_Boundary_List.push_back(index1);
+		}
+		else
+		  index1 = (i-1)+j*(nx-1);//left cell	(i-1,j,k)
+		
+		if(j==0&&i<200)
+		{
+			index3 = no_of_Cells + nbwgc++;		//nbwgc - No of Bottom wall ghost cells
+			Exit_Boundary_List.push_back(index0);
+			Exit_Boundary_List.push_back(1);
+			Exit_Boundary_List.push_back(index3);
+		}
+		else if(j==0&&i>=200)
+		{	
+			index3 = no_of_Cells + nbwgc++;			
+			Wall_Boundary_List.push_back(index0);
+			Wall_Boundary_List.push_back(1);
+			Wall_Boundary_List.push_back(index3);
+		}
+		else
+		index3= i+(j-1)*(nx-1);//bottom cell (i,j-1,k)
+		
+		if(j==(ny-2))				// Top Face with Face Number 3
+		{
+		  index4 =	no_of_Cells
+			    +	Ghost_Cell_Bottom_Plane
+			    +	Ghost_Cells_Left_Plane
+			    +	ntwgc++;
+				Wall_Boundary_List.push_back(index0);
+				Wall_Boundary_List.push_back(3);
+				Wall_Boundary_List.push_back(index4);
+		}
+		else
+		index4 = i+(j+1)*(nx-1);//top cell	(i,j+1,k)	
+
+
+// 	cout<<index0<<"\t"<<index1<<"\t"<<index2<<"\t"<<index3<<"\t"<<index4<<"\n";
+				a = index0*5;
+				Cell_Neighbour_Data[a+0]=index0;	//Current Cell		(i,j,k)
+				Cell_Neighbour_Data[a+1]=index1;	//Left Cell		(i-1,j,k)
+				Cell_Neighbour_Data[a+2]=index3;	//Bottom Cel	l	(i,j-1,k)
+				Cell_Neighbour_Data[a+3]=index2;	//Right Cell		(i+1,j,k)
+				Cell_Neighbour_Data[a+4]=index4;	//Top Cell		(i,j+1,k)
+			}
+		}
+		cout<<"Identifying Neighbours done \n";
+}
+
+void write_inputfile(int & nx,int & ny,vector<Point> & Point_List,string & opfilename)
+{
+	double size_of_pointlist;
+	size_of_pointlist = Point_List.size();
+	cout<<size_of_pointlist<<endl;
+	cout<<Point_List.size()<<"\t"<<Cell_Neighbour_Data.size()<<"\t"<<Cell_Point_Data.size()<<endl;
+	cout<<opfilename<<endl;
+	ofstream outfile(opfilename.c_str(),ios::out);
+	int no_of_Cells,k,j=0;
+	no_of_Cells=(nx-1)*(ny-1);
+	Point P;
+	if(outfile.is_open())
+	{
+		outfile<<0<<endl;				//Grid Type
+		outfile<<0<<endl;				//Conversion Type
+		outfile<<nx<<"\t"<<ny<<endl;
+		outfile<<no_of_Cells<<endl;
+		for(int i=0;i<no_of_Cells;i++)
+		{
+			j=i*4;
+			P=Point_List[Cell_Point_Data[j+0]];
+			outfile<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+			P=Point_List[Cell_Point_Data[j+1]];
+			outfile<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+			P=Point_List[Cell_Point_Data[j+2]];
+			outfile<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+			P=Point_List[Cell_Point_Data[j+3]];
+			outfile<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+			k=i*5;
+// 			cout<<i<<"\t"<<j<<"\t"<<k<<endl;
+			outfile<<Cell_Neighbour_Data[k+0]<<"\t"<<Cell_Neighbour_Data[k+1]<<"\t"<<
+						Cell_Neighbour_Data[k+2]<<"\t"<<Cell_Neighbour_Data[k+3]<<"\t"<<
+						Cell_Neighbour_Data[k+4]<<"\n";
+		}
+		outfile<<"Inlet_Boundary_Cells\t"<<0<<"\t"<<Inlet_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Inlet_Boundary_List.size();i+=3)
+			outfile<<Inlet_Boundary_List[i+0]<<"\t"<<Inlet_Boundary_List[i+1]<<"\t"<<Inlet_Boundary_List[i+2]<<endl;
+		outfile<<"Exit_Boundary_Cells\t"<<1<<"\t"<<Exit_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Exit_Boundary_List.size();i+=3)
+			outfile<<Exit_Boundary_List[i+0]<<"\t"<<Exit_Boundary_List[i+1]<<"\t"<<Exit_Boundary_List[i+2]<<endl;
+		outfile<<"Wall_Boundary_Cells\t"<<2<<"\t"<<Wall_Boundary_List.size()/3<<endl;
+		for(unsigned int i=0;i<Wall_Boundary_List.size();i+=3)
+			outfile<<Wall_Boundary_List[i+0]<<"\t"<<Wall_Boundary_List[i+1]<<"\t"<<Wall_Boundary_List[i+2]<<endl;
+
+	cout<<"Input file written for Cube\n";
+	}
+		else
+		{
+			cout<<"Could not open file for writing"<<endl;
+		}
+// 	Append_Boundary_Information(opfilename);
+}
+
+void write_VTK(int &nx,int &ny,vector<Point> &Point_List,string & grid_opfile)
+{
+	ofstream out;
+	double size_of_pointlist;
+	size_of_pointlist = Point_List.size();
+	cout<<grid_opfile<<endl;
+	out.open(grid_opfile.c_str(),ios::out);
+	int no_of_Cells;
+	no_of_Cells=(nx-1)*(ny-1);
+	Point P;
+	if(out.is_open())
+	{
+		out<<"# vtk DataFile Version 2.0"<<endl;
+		out<<"Grid Cube"<<endl;
+		out<<"ASCII"<<endl;
+		out<<"DATASET UNSTRUCTURED_GRID"<<endl;
+		out<<"POINTS\t"<<size_of_pointlist<<"\t double"<<endl;
+		for(int i=0;i<size_of_pointlist;i++)
+		{
+			P=Point_List[i];
+			out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+		}
+		out<<"CELLS\t"<<no_of_Cells<<"\t"<<no_of_Cells*5<<endl;
+		int j=0;
+		for(int i=0;i<no_of_Cells;i++)
+		{
+			j=i*4;
+			out<<4<<"\t"<<
+			Cell_Point_Data[j+0]<<"\t"<<Cell_Point_Data[j+1]<<"\t"<<
+			Cell_Point_Data[j+2]<<"\t"<<Cell_Point_Data[j+3]<<"\t"<<endl;
+		}
+		out<<"CELL_TYPES \t"<<no_of_Cells<<endl;
+		for(int i=0;i<no_of_Cells;i++)
+			out<<9<<endl;
+		cout<<"Grid VTK file written for Cube\n";
+ 	}
+	else
+	{
+		cout<<"Could not open file for writing"<<endl;
+	}
+}

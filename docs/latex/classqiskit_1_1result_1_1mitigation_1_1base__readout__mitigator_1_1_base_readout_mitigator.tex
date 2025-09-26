@@ -1,0 +1,83 @@
+\doxysection{qiskit.\+result.\+mitigation.\+base\+\_\+readout\+\_\+mitigator.\+Base\+Readout\+Mitigator Class Reference}
+\hypertarget{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator}{}\label{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator}\index{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator@{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator}}
+Inheritance diagram for qiskit.\+result.\+mitigation.\+base\+\_\+readout\+\_\+mitigator.\+Base\+Readout\+Mitigator\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.814255cm]{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1result_1_1distributions_1_1quasi_1_1_quasi_distribution}{Quasi\+Distribution}} \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a2bb022f0d2dcc466b12b29350f4ef6bc}{quasi\+\_\+probabilities}} (self, \mbox{\hyperlink{classqiskit_1_1result_1_1counts_1_1_counts}{Counts}} data, Iterable\mbox{[}int\mbox{]} qubits=None, Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} clbits=None, Optional\mbox{[}int\mbox{]} shots=None)
+\item 
+Tuple\mbox{[}float, float\mbox{]} \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a22713b26f5656742571b51fdefdaead6}{expectation\+\_\+value}} (self, \mbox{\hyperlink{classqiskit_1_1result_1_1counts_1_1_counts}{Counts}} data, Union\mbox{[}Callable, dict, str, np.\+ndarray\mbox{]} diagonal, Iterable\mbox{[}int\mbox{]} qubits=None, Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} clbits=None, Optional\mbox{[}int\mbox{]} shots=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This class is DEPRECATED. Base readout error mitigator class.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a22713b26f5656742571b51fdefdaead6}\index{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator@{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator}!expectation\_value@{expectation\_value}}
+\index{expectation\_value@{expectation\_value}!qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator@{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator}}
+\doxysubsubsection{\texorpdfstring{expectation\_value()}{expectation\_value()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a22713b26f5656742571b51fdefdaead6} 
+ Tuple\mbox{[}float, float\mbox{]} qiskit.\+result.\+mitigation.\+base\+\_\+readout\+\_\+mitigator.\+Base\+Readout\+Mitigator.\+expectation\+\_\+value (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1result_1_1counts_1_1_counts}{Counts}}}]{data}{, }\item[{Union\mbox{[}Callable, dict, str, np.\+ndarray\mbox{]}}]{diagonal}{, }\item[{Iterable\mbox{[}int\mbox{]} }]{qubits}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} }]{clbits}{ = {\ttfamily None}, }\item[{Optional\mbox{[}int\mbox{]} }]{shots}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calculate the expectation value of a diagonal Hermitian operator.
+
+Args:
+    data: Counts object to be mitigated.
+    diagonal: the diagonal operator. This may either be specified
+              as a string containing I,Z,0,1 characters, or as a
+              real valued 1D array_like object supplying the full diagonal,
+              or as a dictionary, or as Callable.
+    qubits: the physical qubits measured to obtain the counts clbits.
+            If None these are assumed to be qubits [0, ..., N-1]
+            for N-bit counts.
+    clbits: Optional, marginalize counts to just these bits.
+    shots: Optional, the total number of shots, if None shots will
+        be calculated as the sum of all counts.
+
+Returns:
+    The mean and an upper bound of the standard deviation of operator
+    expectation value calculated from the current counts.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1correlated__readout__mitigator_1_1_correlated_readout_mitigator_a53dbef47e2a645c18b6bfe47788ab09b}{qiskit.\+result.\+mitigation.\+correlated\+\_\+readout\+\_\+mitigator.\+Correlated\+Readout\+Mitigator}}, and \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1local__readout__mitigator_1_1_local_readout_mitigator_a0c17d954913c6972d82e82b838330bf6}{qiskit.\+result.\+mitigation.\+local\+\_\+readout\+\_\+mitigator.\+Local\+Readout\+Mitigator}}.
+
+\Hypertarget{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a2bb022f0d2dcc466b12b29350f4ef6bc}\index{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator@{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator}!quasi\_probabilities@{quasi\_probabilities}}
+\index{quasi\_probabilities@{quasi\_probabilities}!qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator@{qiskit.result.mitigation.base\_readout\_mitigator.BaseReadoutMitigator}}
+\doxysubsubsection{\texorpdfstring{quasi\_probabilities()}{quasi\_probabilities()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1result_1_1mitigation_1_1base__readout__mitigator_1_1_base_readout_mitigator_a2bb022f0d2dcc466b12b29350f4ef6bc} 
+ \mbox{\hyperlink{classqiskit_1_1result_1_1distributions_1_1quasi_1_1_quasi_distribution}{Quasi\+Distribution}} qiskit.\+result.\+mitigation.\+base\+\_\+readout\+\_\+mitigator.\+Base\+Readout\+Mitigator.\+quasi\+\_\+probabilities (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1result_1_1counts_1_1_counts}{Counts}}}]{data}{, }\item[{Iterable\mbox{[}int\mbox{]} }]{qubits}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} }]{clbits}{ = {\ttfamily None}, }\item[{Optional\mbox{[}int\mbox{]} }]{shots}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert counts to a dictionary of quasi-probabilities
+
+Args:
+    data: Counts to be mitigated.
+    qubits: the physical qubits measured to obtain the counts clbits.
+        If None these are assumed to be qubits [0, ..., N-1]
+        for N-bit counts.
+    clbits: Optional, marginalize counts to just these bits.
+    shots: Optional, the total number of shots, if None shots will
+        be calculated as the sum of all counts.
+
+Returns:
+    QuasiDistribution: A dictionary containing pairs of [output, mean] where "output"
+        is the key in the dictionaries,
+        which is the length-N bitstring of a measured standard basis state,
+        and "mean" is the mean of non-zero quasi-probability estimates.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1correlated__readout__mitigator_1_1_correlated_readout_mitigator_a2e5d0140c761ca71c6a1900e23490f71}{qiskit.\+result.\+mitigation.\+correlated\+\_\+readout\+\_\+mitigator.\+Correlated\+Readout\+Mitigator}}, and \mbox{\hyperlink{classqiskit_1_1result_1_1mitigation_1_1local__readout__mitigator_1_1_local_readout_mitigator_ad45c44510af7e7a340d47476b834d8a8}{qiskit.\+result.\+mitigation.\+local\+\_\+readout\+\_\+mitigator.\+Local\+Readout\+Mitigator}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/result/mitigation/base\+\_\+readout\+\_\+mitigator.\+py\end{DoxyCompactItemize}

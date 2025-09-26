@@ -1,0 +1,172 @@
+\doxysection{Unit\+\_\+\+Test\+\_\+\+Codes/\+Test\+\_\+\+Gmsh\+\_\+\+Reader.cpp File Reference}
+\hypertarget{_test___gmsh___reader_8cpp}{}\label{_test___gmsh___reader_8cpp}\index{Unit\_Test\_Codes/Test\_Gmsh\_Reader.cpp@{Unit\_Test\_Codes/Test\_Gmsh\_Reader.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{dd/dc2/_test___gmsh___reader_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{_test___gmsh___reader_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \mbox{\hyperlink{_test___gmsh___reader_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inlet\+Cond}}
+\item 
+\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \mbox{\hyperlink{_test___gmsh___reader_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exit\+Cond}}
+\item 
+\mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \mbox{\hyperlink{_test___gmsh___reader_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{init\+Cond}}
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{_test___gmsh___reader_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{grid\+Files}}
+\item 
+string \mbox{\hyperlink{_test___gmsh___reader_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{grid\+Dir}}
+\item 
+string \mbox{\hyperlink{_test___gmsh___reader_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\+\_\+\+Case\+\_\+\+Name}} = "{}Default\+\_\+\+Test\+\_\+\+Case"{}
+\item 
+string \mbox{\hyperlink{_test___gmsh___reader_8cpp_ad16a7808f3ef58d5f5ac5f53e9722dfb_ad16a7808f3ef58d5f5ac5f53e9722dfb}{Grid\+VTKFile}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_test___gmsh___reader_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!main@{main}}
+\index{main@{main}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ No\ JSON\ input\ file\ provided."{}}\ <<\ endl;}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00013\ \ \ \ \ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{string}\ GridFileName\ =\ argv[1];}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ grid\ file}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_grid_8h_ac52640cd7cb369164c5ede8b208f0785_ac52640cd7cb369164c5ede8b208f0785}{Read\_GmshVTK\_Grid}}(GridFileName);}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ \ Read\_Grid(GridFileName);}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a6917acdc5103b75446a8901d4566ef79_a6917acdc5103b75446a8901d4566ef79}{Print}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i]);}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ //\ Example:\ a\ simple\ square\ in\ the\ XY\ plane\ with\ an\ extra\ point\ in\ the\ middle.}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ V\_D\ points\ =\ \{}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ 1.0,\ 0.0,\ 0.0,\ \ //\ Point\ A}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ 0.0,\ 1.0,\ 0.0,\ \ //\ Point\ B}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ -\/1.0,\ 0.0,\ 0.0,\ //\ Point\ C}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ 0.0,\ -\/1.0,\ 0.0,\ //\ Point\ D}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \};}}
+\DoxyCodeLine{00033\ \textcolor{comment}{}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ std::cout\ <<\ "{}Original\ Points\ (x,\ y,\ z):\(\backslash\)n"{};}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ for\ (size\_t\ i\ =\ 0;\ i\ <\ points.size();\ i\ +=\ 3)}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}("{}\ <<\ points[i]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 1]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 2]\ <<\ "{})\(\backslash\)n"{};}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00039\ \textcolor{comment}{}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ \ \ \ //\ Sort\ points\ anti-\/clockwise\ around\ their\ centroid\ (only\ using\ x,\ y)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ Sort\_Points\_AntiClockWise(points);}}
+\DoxyCodeLine{00042\ \textcolor{comment}{}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ std::cout\ <<\ "{}\(\backslash\)nSorted\ Points\ (anti-\/clockwise\ around\ centroid):\(\backslash\)n"{};}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ \ \ \ for\ (size\_t\ i\ =\ 0;\ i\ <\ points.size();\ i\ +=\ 3)}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}("{}\ <<\ points[i]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 1]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 2]\ <<\ "{})\(\backslash\)n"{};}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ \ \ \ Sort\_Points\_AntiClockWise(points);*/}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00050\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/d48/_test___gmsh___reader_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_test___gmsh___reader_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!exitCond@{exitCond}}
+\index{exitCond@{exitCond}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{exitCond}{exitCond}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d} 
+\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} exit\+Cond}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!gridDir@{gridDir}}
+\index{gridDir@{gridDir}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{gridDir}{gridDir}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb} 
+string grid\+Dir}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!gridFiles@{gridFiles}}
+\index{gridFiles@{gridFiles}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{gridFiles}{gridFiles}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16} 
+vector$<$string$>$ grid\+Files}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_ad16a7808f3ef58d5f5ac5f53e9722dfb_ad16a7808f3ef58d5f5ac5f53e9722dfb}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!GridVTKFile@{GridVTKFile}}
+\index{GridVTKFile@{GridVTKFile}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{GridVTKFile}{GridVTKFile}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_ad16a7808f3ef58d5f5ac5f53e9722dfb_ad16a7808f3ef58d5f5ac5f53e9722dfb} 
+string Grid\+VTKFile}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!initCond@{initCond}}
+\index{initCond@{initCond}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{initCond}{initCond}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288} 
+\mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} init\+Cond}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00004}{4}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!inletCond@{inletCond}}
+\index{inletCond@{inletCond}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{inletCond}{inletCond}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb} 
+\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} inlet\+Cond}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00002}{2}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+
+\Hypertarget{_test___gmsh___reader_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}\index{Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}!Test\_Case\_Name@{Test\_Case\_Name}}
+\index{Test\_Case\_Name@{Test\_Case\_Name}!Test\_Gmsh\_Reader.cpp@{Test\_Gmsh\_Reader.cpp}}
+\doxysubsubsection{\texorpdfstring{Test\_Case\_Name}{Test\_Case\_Name}}
+{\footnotesize\ttfamily \label{_test___gmsh___reader_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7} 
+string Test\+\_\+\+Case\+\_\+\+Name = "{}Default\+\_\+\+Test\+\_\+\+Case"{}}
+
+
+
+Definition at line \mbox{\hyperlink{_test___gmsh___reader_8cpp_source_l00006}{6}} of file \mbox{\hyperlink{_test___gmsh___reader_8cpp_source}{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}}.
+

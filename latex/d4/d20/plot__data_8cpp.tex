@@ -1,0 +1,177 @@
+\doxysection{Basic\+\_\+\+Function\+\_\+\+Files/plot\+\_\+data.cpp File Reference}
+\hypertarget{plot__data_8cpp}{}\label{plot__data_8cpp}\index{Basic\_Function\_Files/plot\_data.cpp@{Basic\_Function\_Files/plot\_data.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for plot\+\_\+data.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{d7/d22/plot__data_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{plot__data_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{plot__data_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{plot\_data.cpp@{plot\_data.cpp}!main@{main}}
+\index{main@{main}!plot\_data.cpp@{plot\_data.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{plot__data_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{plot__data_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{plot__data_8cpp_source}{plot\+\_\+data.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{string}\ gridfilename,solutionfilename,final\_vtkfile,final\_structured\_vtk;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{string}\ s1,s2;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},z,v1,v2,v3,\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}},T,rho;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ nop,a,\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},c,d,e,\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}},\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}},h,j,timestep,No\_of\_Cells;}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}},\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},nz;}
+\DoxyCodeLine{00015\ \ \ \ \ vector<double>\ pressure,temperature,density,vel1,vel2,vel3;}
+\DoxyCodeLine{00016\ \ \ \ \ gridfilename\_core\ =\textcolor{stringliteral}{"{}../Grid\_Files/Pipe\_Clustered2\_ld10\_61\_21\_41.vtk"{}};}
+\DoxyCodeLine{00017\ \ \ \ \ solutionfilename=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_0.5\_\_RK4\_61\_21\_41\_111325.txt"{}};}
+\DoxyCodeLine{00018\ \ \ \ \ gridfilename\_polar\ =\textcolor{stringliteral}{"{}../Grid\_Files/Pipe\_Clustered2\_ld10\_61\_21\_41.vtk"{}};}
+\DoxyCodeLine{00019\ \ \ \ \ solutionfilename\_polar=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_0.5\_\_RK4\_61\_21\_41\_111325.txt"{}};}
+\DoxyCodeLine{00020\ \ \ \ \ final\_vtkfile\_core=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_61\_21\_41\_Solution.vtk"{}};}
+\DoxyCodeLine{00021\ \ \ \ \ final\_vtkfile\_polar=\textcolor{stringliteral}{"{}../NS\_2O\_Results/Pipe\_AUSM\_61\_21\_41\_Solution.vtk"{}};}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ \ final\_structured\_vtk="{}/home2/ramesh/Desktop/Ph.D-\/Work/Research\_Code/NS\_Results/Pipe\_Trial1\_fd\_struct\_5000\_RK4\_31\_31\_71\_111325.vtk"{};}}
+\DoxyCodeLine{00023\ \ \ \ \ gridfilename\ =\textcolor{stringliteral}{"{}../Euler\_Cube\_Results/channel\_11\_11\_11.vtk"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ ifstream\ gridfile(gridfilename.c\_str(),ios::in);}
+\DoxyCodeLine{00025\ \textcolor{comment}{/*\ \ solutionfilename="{}../Euler\_Cube\_Results/Cube\_AUSM\_11\_11\_11.txt"{};}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ \ \ \ final\_vtkfile="{}../Euler\_Cube\_Results/Cube\_AUSM\_11\_11\_11\_Solution.vtk"{};}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ \ \ \ ifstream\ solfile(solutionfilename.c\_str(),ios::in);*/}}
+\DoxyCodeLine{00028\ \ \ \ \ ofstream\ Pipefile(final\_vtkfile.c\_str(),ios::out|ios::app);}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ ofstream\ Pipefile\_struct(final\_structured\_vtk,ios::out|ios::app);}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordflow}{if}(Pipefile.is\_open())}
+\DoxyCodeLine{00031\ \ \ \ \ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Sucessfully\ opened\ Grid\ file\(\backslash\)t"{}}<<gridfilename<<endl;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(gridfile.is\_open())}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ getline(gridfile,s1);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<endl;}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>nop>>s2;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<s2<<endl;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<nop;i++)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}>>z;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<z<<endl;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>No\_of\_Cells>>nop;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_of\_Cells<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<endl;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_of\_Cells;i++)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>a>>\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}>>c>>d>>e>>\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}>>\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}}>>h>>j;}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<"{}\(\backslash\)t"{}<<d<<"{}\(\backslash\)t"{}<<e<<"{}\(\backslash\)t"{}<<f<<"{}\(\backslash\)t"{}<<g<<"{}\(\backslash\)t"{}<<h<<"{}\(\backslash\)t"{}<<j<<endl;}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<a<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<c<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<d<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<e<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_source_8cpp_a25ed59e626c8a3940f9588d2df0a49f6_a25ed59e626c8a3940f9588d2df0a49f6}{f}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_source_8cpp_a5f49da9c26706aa4d4b5ee8e3cd9d16e_a5f49da9c26706aa4d4b5ee8e3cd9d16e}{g}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<h<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<j<<endl;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>s1>>nop;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<s1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nop<<endl;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<nop;i++)}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gridfile>>\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}<<endl;}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ open\ Grid\ datafile,\ Please\ check\ the\ file\ name\(\backslash\)n"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ gridfile.close();}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Closed\ grid\ file\ \(\backslash\)t"{}}<<gridfilename<<endl;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(solfile.is\_open())}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Solution\ file\ opened\(\backslash\)t"{}}<<solutionfilename<<endl;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>s1>>s2>>timestep;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<s1<<\textcolor{stringliteral}{"{}\ "{}}<<s2<<\textcolor{stringliteral}{"{}\(\backslash\)tSolution\ at\ time\ step\(\backslash\)t"{}}<<timestep<<endl;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}>>\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}>>nz;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<nz<<endl;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<No\_of\_Cells<<endl;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_of\_Cells;i++)}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ solfile>>a>>\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}>>T>>rho>>v1>>v2>>v3;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<T<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v2<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<v3<<endl;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ pressure.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temperature.push\_back(T);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ density.push\_back(rho);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel1.push\_back(v1);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel2.push\_back(v2);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vel3.push\_back(v3);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ solfile.close();}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}size\ of\ presure\ data\(\backslash\)t"{}}<<pressure.size()<<endl;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ open\ solution\ file,\ Please\ check\ the\ file\ name\(\backslash\)n"{}};}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}CELL\_DATA\(\backslash\)t"{}}<<pressure.size()<<endl;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Pressure\(\backslash\)t\ double\ \(\backslash\)t\ 1"{}}<<endl;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<pressure.size();i++)}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<pressure[i]<<endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ temperature\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<temperature.size();i++)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<temperature[i]<<endl;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Density\(\backslash\)tdouble\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<density.size();i++)}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<density[i]<<endl;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ u\_velocity\(\backslash\)tdouble\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel1.size();i++)}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel1[i]<<endl;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ v\_velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel2.size();i++)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel2[i]<<endl;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}SCALARS\(\backslash\)tw\_velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}<<endl;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel3.size();i++)}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel3[i]<<endl;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ Pipefile<<\textcolor{stringliteral}{"{}VECTORS\(\backslash\)t\ Velocity\(\backslash\)t\ double\(\backslash\)t1"{}}<<endl;}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \ \ \ \ \ Pipefile<<"{}LOOKUP\_TABLE\ default"{}<<endl;}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<vel1.size();i++)}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ Pipefile<<vel2[i]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<vel3[i]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<vel1[i]<<endl;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ Pipefile.close();}
+\DoxyCodeLine{00143\ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00145\ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Unable\ to\ open\ file\ to\ write\ the\ Pipe\ solution\(\backslash\)n"{}};}
+\DoxyCodeLine{00147\ \ \ \ \ \}}
+\DoxyCodeLine{00148\ cout<<\textcolor{stringliteral}{"{}Generated\ solution\ vtk\ file\ with\ grid\(\backslash\)n"{}};}
+\DoxyCodeLine{00149\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00150\ \}}
+
+\end{DoxyCode}

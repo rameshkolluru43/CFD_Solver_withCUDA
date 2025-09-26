@@ -1,0 +1,204 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin}{}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{de/d34/classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aabaa4059b958e329b9e7370f5ed5394b_aabaa4059b958e329b9e7370f5ed5394b}{max\+\_\+qubits}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abb08c241c083522175459552d4f353b2_abb08c241c083522175459552d4f353b2}{min\+\_\+qubits}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a396b0a5d32e1c722335f502bb204d5a5_a396b0a5d32e1c722335f502bb204d5a5}{supports\+\_\+natural\+\_\+direction}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aefcce01dbd8b9c39365f1c6bf8ba6457_aefcce01dbd8b9c39365f1c6bf8ba6457}{supports\+\_\+pulse\+\_\+optimize}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abd13143f7eccbf4b6e577a59342a3524_abd13143f7eccbf4b6e577a59342a3524}{supports\+\_\+gate\+\_\+lengths}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_acf9569b0efd0a7dbc4aafcddcc34b180_acf9569b0efd0a7dbc4aafcddcc34b180}{supports\+\_\+gate\+\_\+errors}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a8c5fb1f520214e0228ef150b7d14c1de_a8c5fb1f520214e0228ef150b7d14c1de}{supported\+\_\+bases}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_ac035850c73352a422ff9596c40c29098_ac035850c73352a422ff9596c40c29098}{supports\+\_\+basis\+\_\+gates}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a3f14e48667b3b69b05b4dd391b9497b9_a3f14e48667b3b69b05b4dd391b9497b9}{supports\+\_\+coupling\+\_\+map}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a063caa06ebc8934c8ae1e7e428e3d389_a063caa06ebc8934c8ae1e7e428e3d389}{run}} (self, unitary, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}An AQC-based Qiskit unitary synthesis plugin.
+
+This plugin is invoked by :func:`~.compiler.transpile` when the ``unitary_synthesis_method``
+parameter is set to ``"aqc"``.
+
+This plugin supports customization and additional parameters can be passed to the plugin
+by passing a dictionary as the ``unitary_synthesis_plugin_config`` parameter of
+the :func:`~qiskit.compiler.transpile` function.
+
+Supported parameters in the dictionary:
+
+network_layout (str)
+    Type of network geometry, one of {``"sequ"``, ``"spin"``, ``"cart"``, ``"cyclic_spin"``,
+    ``"cyclic_line"``}. Default value is ``"spin"``.
+
+connectivity_type (str)
+    type of inter-qubit connectivity, {``"full"``, ``"line"``, ``"star"``}.  Default value
+    is ``"full"``.
+
+depth (int)
+    depth of the CNOT-network, i.e. the number of layers, where each layer consists of a
+    single CNOT-block.
+
+optimizer (:class:`~.Minimizer`)
+    An implementation of the ``Minimizer`` protocol to be used in the optimization process.
+
+seed (int)
+    A random seed.
+
+initial_point (:class:`~numpy.ndarray`)
+    Initial values of angles/parameters to start the optimization process from.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aabaa4059b958e329b9e7370f5ed5394b_aabaa4059b958e329b9e7370f5ed5394b}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!max\_qubits@{max\_qubits}}
+\index{max\_qubits@{max\_qubits}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{max\_qubits()}{max\_qubits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aabaa4059b958e329b9e7370f5ed5394b_aabaa4059b958e329b9e7370f5ed5394b} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+max\+\_\+qubits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Maximum number of supported qubits is ``14``.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a379fb0dd3a0bbebf9462f0482f761dc5_a379fb0dd3a0bbebf9462f0482f761dc5}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abb08c241c083522175459552d4f353b2_abb08c241c083522175459552d4f353b2}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!min\_qubits@{min\_qubits}}
+\index{min\_qubits@{min\_qubits}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{min\_qubits()}{min\_qubits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abb08c241c083522175459552d4f353b2_abb08c241c083522175459552d4f353b2} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+min\+\_\+qubits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Minimum number of supported qubits is ``3``.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ac59bdb84906bf04aed3dbb6bdb5a64f4_ac59bdb84906bf04aed3dbb6bdb5a64f4}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a063caa06ebc8934c8ae1e7e428e3d389_a063caa06ebc8934c8ae1e7e428e3d389}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a063caa06ebc8934c8ae1e7e428e3d389_a063caa06ebc8934c8ae1e7e428e3d389} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{unitary}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run synthesis for the given unitary matrix
+
+Args:
+    unitary (numpy.ndarray): The unitary matrix to synthesize to a
+        :class:`~qiskit.dagcircuit.DAGCircuit` object
+    options: The optional kwargs that are passed based on the output
+        the ``support_*`` methods on the class. Refer to the
+        documentation for these methods on
+        :class:`~qiskit.transpiler.passes.synthesis.plugin.UnitarySynthesisPlugin`
+        to see what the keys and values are.
+
+Returns:
+    DAGCircuit: The dag circuit representation of the unitary. Alternatively, you can return
+    a tuple of the form ``(dag, wires)`` where ``dag`` is the dag circuit representation of
+    the circuit representation of the unitary and ``wires`` is the mapping wires to use for
+    :meth:`qiskit.dagcircuit.DAGCircuit.substitute_node_with_dag`. If you return a tuple
+    and ``wires`` is ``None`` this will behave just as if only a
+    :class:`~qiskit.dagcircuit.DAGCircuit` was returned. Additionally if this returns
+    ``None`` no substitution will be made.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ad61500c8ce2b7d732be2167fe81346d7_ad61500c8ce2b7d732be2167fe81346d7}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a8c5fb1f520214e0228ef150b7d14c1de_a8c5fb1f520214e0228ef150b7d14c1de}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supported\_bases@{supported\_bases}}
+\index{supported\_bases@{supported\_bases}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supported\_bases()}{supported\_bases()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a8c5fb1f520214e0228ef150b7d14c1de_a8c5fb1f520214e0228ef150b7d14c1de} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supported\+\_\+bases (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support bases for synthesis.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a83d3fe84e9e510d44263b60dc34cd8b3_a83d3fe84e9e510d44263b60dc34cd8b3}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_ac035850c73352a422ff9596c40c29098_ac035850c73352a422ff9596c40c29098}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_basis\_gates@{supports\_basis\_gates}}
+\index{supports\_basis\_gates@{supports\_basis\_gates}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_basis\_gates()}{supports\_basis\_gates()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_ac035850c73352a422ff9596c40c29098_ac035850c73352a422ff9596c40c29098} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+basis\+\_\+gates (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support basis gates and by default it synthesizes a circuit using
+``["rx", "ry", "rz", "cx"]`` gate basis.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a7e147338df923e20751b3d720a823da7_a7e147338df923e20751b3d720a823da7}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a3f14e48667b3b69b05b4dd391b9497b9_a3f14e48667b3b69b05b4dd391b9497b9}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_coupling\_map@{supports\_coupling\_map}}
+\index{supports\_coupling\_map@{supports\_coupling\_map}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_coupling\_map()}{supports\_coupling\_map()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a3f14e48667b3b69b05b4dd391b9497b9_a3f14e48667b3b69b05b4dd391b9497b9} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+coupling\+\_\+map (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support coupling maps.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_acfd2338924370bd1f83d7c0c54e08c2a_acfd2338924370bd1f83d7c0c54e08c2a}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_acf9569b0efd0a7dbc4aafcddcc34b180_acf9569b0efd0a7dbc4aafcddcc34b180}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_gate\_errors@{supports\_gate\_errors}}
+\index{supports\_gate\_errors@{supports\_gate\_errors}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_gate\_errors()}{supports\_gate\_errors()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_acf9569b0efd0a7dbc4aafcddcc34b180_acf9569b0efd0a7dbc4aafcddcc34b180} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+gate\+\_\+errors (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support gate errors.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a815be01735aa70b98f24df95307e4cd0_a815be01735aa70b98f24df95307e4cd0}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abd13143f7eccbf4b6e577a59342a3524_abd13143f7eccbf4b6e577a59342a3524}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_gate\_lengths@{supports\_gate\_lengths}}
+\index{supports\_gate\_lengths@{supports\_gate\_lengths}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_gate\_lengths()}{supports\_gate\_lengths()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_abd13143f7eccbf4b6e577a59342a3524_abd13143f7eccbf4b6e577a59342a3524} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+gate\+\_\+lengths (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support gate lengths.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a9e1c2ac72e7e016774ae7344468d4c7c_a9e1c2ac72e7e016774ae7344468d4c7c}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a396b0a5d32e1c722335f502bb204d5a5_a396b0a5d32e1c722335f502bb204d5a5}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_natural\_direction@{supports\_natural\_direction}}
+\index{supports\_natural\_direction@{supports\_natural\_direction}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_natural\_direction()}{supports\_natural\_direction()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_a396b0a5d32e1c722335f502bb204d5a5_a396b0a5d32e1c722335f502bb204d5a5} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+natural\+\_\+direction (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support natural direction,
+it assumes bidirectional two qubit gates.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_aaa4f9ddedfdd635562e51575316b365a_aaa4f9ddedfdd635562e51575316b365a}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aefcce01dbd8b9c39365f1c6bf8ba6457_aefcce01dbd8b9c39365f1c6bf8ba6457}\index{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}!supports\_pulse\_optimize@{supports\_pulse\_optimize}}
+\index{supports\_pulse\_optimize@{supports\_pulse\_optimize}!qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin@{qiskit.transpiler.passes.synthesis.aqc\_plugin.AQCSynthesisPlugin}}
+\doxysubsubsection{\texorpdfstring{supports\_pulse\_optimize()}{supports\_pulse\_optimize()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1aqc__plugin_1_1_a_q_c_synthesis_plugin_aefcce01dbd8b9c39365f1c6bf8ba6457_aefcce01dbd8b9c39365f1c6bf8ba6457} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+aqc\+\_\+plugin.\+AQCSynthesis\+Plugin.\+supports\+\_\+pulse\+\_\+optimize (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support optimization of pulses.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ac3acbf8ece506d3ba3eca847546b3ec8_ac3acbf8ece506d3ba3eca847546b3ec8}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/synthesis/aqc\+\_\+plugin.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,111 @@
+\doxysection{dill.\+\_\+\+\_\+diff Namespace Reference}
+\hypertarget{namespacedill_1_1____diff}{}\label{namespacedill_1_1____diff}\index{dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a5cc051168cfce9437bff0bcca26f5d96_a5cc051168cfce9437bff0bcca26f5d96}{get\+\_\+attrs}} (obj)
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a9006506fd0a534bff19fe19b58d08c8d_a9006506fd0a534bff19fe19b58d08c8d}{get\+\_\+seq}} (obj, cache=\{str\+:\+False, frozenset\+:\+False, list\+:\+True, set\+:\+True, dict\+:\+True, tuple\+:\+True, type\+:\+False, types.\+Module\+Type\+:\+False, types.\+Function\+Type\+:\+False, types.\+Builtin\+Function\+Type\+:\+False\})
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a77ca7e1c89a4ea76f30b8dd821d60b66_a77ca7e1c89a4ea76f30b8dd821d60b66}{memorise}} (obj, force=False)
+\item 
+\Hypertarget{namespacedill_1_1____diff_ad2bc2535af1462167d76fa20cbed4a7e}\label{namespacedill_1_1____diff_ad2bc2535af1462167d76fa20cbed4a7e} 
+{\bfseries release\+\_\+gone} ()
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a2063374aeb3dd1232676cbc4a5e6947e_a2063374aeb3dd1232676cbc4a5e6947e}{whats\+\_\+changed}} (obj, seen=None, simple=False, first=True)
+\item 
+\Hypertarget{namespacedill_1_1____diff_a60af6599a6178c3eece99a49acc18b96}\label{namespacedill_1_1____diff_a60af6599a6178c3eece99a49acc18b96} 
+{\bfseries has\+\_\+changed} (\texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a9e3f36ae0a4b0490e204c6c4a362c28a_a9e3f36ae0a4b0490e204c6c4a362c28a}{\+\_\+imp}} (\texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1____diff_aa5f8145b41984cc0ecab9f79509d6916}\label{namespacedill_1_1____diff_aa5f8145b41984cc0ecab9f79509d6916} 
+bool {\bfseries HAS\+\_\+\+NUMPY} = True
+\item 
+\Hypertarget{namespacedill_1_1____diff_a6ed13ffc37943fa2cf3c59d57fbc5328}\label{namespacedill_1_1____diff_a6ed13ffc37943fa2cf3c59d57fbc5328} 
+{\bfseries getrefcount} = getattr(sys, \textquotesingle{}getrefcount\textquotesingle{}, lambda x\+:0)
+\item 
+\Hypertarget{namespacedill_1_1____diff_a1b3abce815a25a82501f22fa1b3b86b6}\label{namespacedill_1_1____diff_a1b3abce815a25a82501f22fa1b3b86b6} 
+dict {\bfseries memo} = \{\}
+\item 
+\Hypertarget{namespacedill_1_1____diff_a5fc818f24dee9ec4b417bdd10795e71f}\label{namespacedill_1_1____diff_a5fc818f24dee9ec4b417bdd10795e71f} 
+dict {\bfseries id\+\_\+to\+\_\+obj} = \{\}
+\item 
+\Hypertarget{namespacedill_1_1____diff_a915cdde6b6b6b99f1481e2f20c4e6a3b}\label{namespacedill_1_1____diff_a915cdde6b6b6b99f1481e2f20c4e6a3b} 
+{\bfseries builtins\+\_\+types} = set((str, list, dict, set, frozenset, int))
+\item 
+\mbox{\hyperlink{namespacedill_1_1____diff_a8014d6c2c91cd6a91aa8a61c93b63558_a8014d6c2c91cd6a91aa8a61c93b63558}{dont\+\_\+memo}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Module to show if an object has changed since it was memorised
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedill_1_1____diff_a9e3f36ae0a4b0490e204c6c4a362c28a_a9e3f36ae0a4b0490e204c6c4a362c28a}\index{dill.\_\_diff@{dill.\_\_diff}!\_imp@{\_imp}}
+\index{\_imp@{\_imp}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{\_imp()}{\_imp()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a9e3f36ae0a4b0490e204c6c4a362c28a_a9e3f36ae0a4b0490e204c6c4a362c28a} 
+dill.\+\_\+\+\_\+diff.\+\_\+imp (\begin{DoxyParamCaption}\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Replaces the default __import__, to allow a module to be memorised
+before the user can change it
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1____diff_a5cc051168cfce9437bff0bcca26f5d96_a5cc051168cfce9437bff0bcca26f5d96}\index{dill.\_\_diff@{dill.\_\_diff}!get\_attrs@{get\_attrs}}
+\index{get\_attrs@{get\_attrs}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{get\_attrs()}{get\_attrs()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a5cc051168cfce9437bff0bcca26f5d96_a5cc051168cfce9437bff0bcca26f5d96} 
+dill.\+\_\+\+\_\+diff.\+get\+\_\+attrs (\begin{DoxyParamCaption}\item[{}]{obj}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gets all the attributes of an object though its __dict__ or return None
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1____diff_a9006506fd0a534bff19fe19b58d08c8d_a9006506fd0a534bff19fe19b58d08c8d}\index{dill.\_\_diff@{dill.\_\_diff}!get\_seq@{get\_seq}}
+\index{get\_seq@{get\_seq}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{get\_seq()}{get\_seq()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a9006506fd0a534bff19fe19b58d08c8d_a9006506fd0a534bff19fe19b58d08c8d} 
+dill.\+\_\+\+\_\+diff.\+get\+\_\+seq (\begin{DoxyParamCaption}\item[{}]{obj}{, }\item[{}]{cache}{ = {\ttfamily \{str\+:~False,~frozenset\+:~False,~list\+:~True,~set\+:~True, ~~~~~~~~~~~~~~~~~~~~~~~~dict\+:~True,~tuple\+:~True,~type\+:~False, ~~~~~~~~~~~~~~~~~~~~~~~~types.ModuleType\+:~False,~types.FunctionType\+:~False, ~~~~~~~~~~~~~~~~~~~~~~~~types.BuiltinFunctionType\+:~False\}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gets all the items in a sequence or return None
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1____diff_a77ca7e1c89a4ea76f30b8dd821d60b66_a77ca7e1c89a4ea76f30b8dd821d60b66}\index{dill.\_\_diff@{dill.\_\_diff}!memorise@{memorise}}
+\index{memorise@{memorise}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{memorise()}{memorise()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a77ca7e1c89a4ea76f30b8dd821d60b66_a77ca7e1c89a4ea76f30b8dd821d60b66} 
+dill.\+\_\+\+\_\+diff.\+memorise (\begin{DoxyParamCaption}\item[{}]{obj}{, }\item[{}]{force}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Adds an object to the memo, and recursively adds all the objects
+attributes, and if it is a container, its items. Use force=True to update
+an object already in the memo. Updating is not recursively done.
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1____diff_a2063374aeb3dd1232676cbc4a5e6947e_a2063374aeb3dd1232676cbc4a5e6947e}\index{dill.\_\_diff@{dill.\_\_diff}!whats\_changed@{whats\_changed}}
+\index{whats\_changed@{whats\_changed}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{whats\_changed()}{whats\_changed()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a2063374aeb3dd1232676cbc4a5e6947e_a2063374aeb3dd1232676cbc4a5e6947e} 
+dill.\+\_\+\+\_\+diff.\+whats\+\_\+changed (\begin{DoxyParamCaption}\item[{}]{obj}{, }\item[{}]{seen}{ = {\ttfamily None}, }\item[{}]{simple}{ = {\ttfamily False}, }\item[{}]{first}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Check an object against the memo. Returns a list in the form
+(attribute changes, container changed). Attribute changes is a dict of
+attribute name to attribute value. container changed is a boolean.
+If simple is true, just returns a boolean. None for either item means
+that it has not been checked yet
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedill_1_1____diff_a8014d6c2c91cd6a91aa8a61c93b63558_a8014d6c2c91cd6a91aa8a61c93b63558}\index{dill.\_\_diff@{dill.\_\_diff}!dont\_memo@{dont\_memo}}
+\index{dont\_memo@{dont\_memo}!dill.\_\_diff@{dill.\_\_diff}}
+\doxysubsubsection{\texorpdfstring{dont\_memo}{dont\_memo}}
+{\footnotesize\ttfamily \label{namespacedill_1_1____diff_a8014d6c2c91cd6a91aa8a61c93b63558_a8014d6c2c91cd6a91aa8a61c93b63558} 
+dill.\+\_\+\+\_\+diff.\+dont\+\_\+memo}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ set(id(i)\ \textcolor{keywordflow}{for}\ i\ \textcolor{keywordflow}{in}\ (memo,\ sys.modules,\ sys.path\_importer\_cache,}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ os.environ,\ id\_to\_obj))}
+
+\end{DoxyCode}

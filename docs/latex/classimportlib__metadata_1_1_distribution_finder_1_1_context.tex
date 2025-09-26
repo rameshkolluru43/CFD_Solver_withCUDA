@@ -1,0 +1,59 @@
+\doxysection{importlib\+\_\+metadata.\+Distribution\+Finder.\+Context Class Reference}
+\hypertarget{classimportlib__metadata_1_1_distribution_finder_1_1_context}{}\label{classimportlib__metadata_1_1_distribution_finder_1_1_context}\index{importlib\_metadata.DistributionFinder.Context@{importlib\_metadata.DistributionFinder.Context}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_distribution_finder_1_1_context_a69f95bf96274d6684904fc15877a3a28}\label{classimportlib__metadata_1_1_distribution_finder_1_1_context_a69f95bf96274d6684904fc15877a3a28} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+List\mbox{[}str\mbox{]} \mbox{\hyperlink{classimportlib__metadata_1_1_distribution_finder_1_1_context_ab36a923a0e44c83424c3ce2ccd06faa6}{path}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1_distribution_finder_1_1_context_ac80e106085e81440f96d059622c2a61c}\label{classimportlib__metadata_1_1_distribution_finder_1_1_context_ac80e106085e81440f96d059622c2a61c} 
+{\bfseries name} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Keyword arguments presented by the caller to
+``distributions()`` or ``Distribution.discover()``
+to narrow the scope of a search for distributions
+in all DistributionFinders.
+
+Each DistributionFinder may expect any parameters
+and should attempt to honor the canonical
+parameters defined below when appropriate.
+
+This mechanism gives a custom provider a means to
+solicit additional details from the caller beyond
+"name" and "path" when searching distributions.
+For example, imagine a provider that exposes suites
+of packages in either a "public" or "private" ``realm``.
+A caller may wish to query only for distributions in
+a particular realm and could call
+``distributions(realm="private")`` to signal to the
+custom provider to only include distributions from that
+realm.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classimportlib__metadata_1_1_distribution_finder_1_1_context_ab36a923a0e44c83424c3ce2ccd06faa6}\index{importlib\_metadata.DistributionFinder.Context@{importlib\_metadata.DistributionFinder.Context}!path@{path}}
+\index{path@{path}!importlib\_metadata.DistributionFinder.Context@{importlib\_metadata.DistributionFinder.Context}}
+\doxysubsubsection{\texorpdfstring{path()}{path()}}
+{\footnotesize\ttfamily \label{classimportlib__metadata_1_1_distribution_finder_1_1_context_ab36a923a0e44c83424c3ce2ccd06faa6} 
+ List\mbox{[}str\mbox{]} importlib\+\_\+metadata.\+Distribution\+Finder.\+Context.\+path (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The sequence of directory path that a distribution finder
+should search.
+
+Typically refers to Python installed package paths such as
+"site-packages" directories and defaults to ``sys.path``.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/importlib\+\_\+metadata/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

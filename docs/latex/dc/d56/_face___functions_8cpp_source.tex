@@ -1,0 +1,134 @@
+\doxysection{Face\+\_\+\+Functions.\+cpp}
+\hypertarget{_face___functions_8cpp_source}{}\label{_face___functions_8cpp_source}\index{Basic\_Function\_Files/Face\_Functions.cpp@{Basic\_Function\_Files/Face\_Functions.cpp}}
+\mbox{\hyperlink{_face___functions_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{headers_8hpp}{headers.hpp}}"{}}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00003}\mbox{\hyperlink{class_face_a88ae97bafb287491f1b204e50405367d_a88ae97bafb287491f1b204e50405367d}{00003}}\ \textcolor{keyword}{const}\ vector<double>\&\ \mbox{\hyperlink{class_face_a88ae97bafb287491f1b204e50405367d_a88ae97bafb287491f1b204e50405367d}{Face::Add\_Dissipation}}(\mbox{\hyperlink{struct_cell}{Cell}}\ *\ Cell\_i,\ \mbox{\hyperlink{struct_cell}{Cell}}\ *\ Cell\_i\_plus\_1,\mbox{\hyperlink{struct_cell}{Cell}}\ *\ Cell\_i\_minus\_1,\mbox{\hyperlink{struct_cell}{Cell}}\ *Cell\_i\_plus\_2)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00005}00005\ \ \ \ \ vector<double>\ Q\_i(5,0.0),Q\_i\_plus\_1(5,0.0),Q\_i\_plus\_2(5,0.0),Q\_i\_minus\_1(5,0.0),Q\_i\_minus\_2(5,0.0);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{keywordtype}{bool}\ flag=\textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00007}00007\ \ \ \ \ \textcolor{comment}{//\ alpha2\ =\ 1/4;\ alpha4\ =\ 1/256}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00008}00008\ \ \ \ \ \textcolor{keywordtype}{double}\ epsilon4=0.0,epsilon2=0.0;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00009}00009\ \ \ \ \ Flux[0]=0.0;Flux[1]=0.0;Flux[2]=0.0;Flux[3]=0.0;Flux[4]=0.0;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00010}00010\ \ \ \ \ flag\ =\ Cell\_i\_plus\_1-\/>\mbox{\hyperlink{struct_cell_a471d32a4d0f8ab85b129972f50417781_a471d32a4d0f8ab85b129972f50417781}{Is\_Ghost\_Cell}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00011}00011\ \ \ \ \ Q\_i\ =\ Cell\_i-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00012}00012\ \ \ \ \ Q\_i\_plus\_1\ =\ Cell\_i\_plus\_1-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00013}00013\ \ \ \ \ Q\_i\_minus\_1=\ Cell\_i\_minus\_1-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00014}00014\ \ \ \ \ Q\_i\_plus\_2\ =\ Cell\_i\_plus\_2-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00015}00015\ \ \ \ \ epsilon2\ =\ 0.5*max\_eigen\_value*Face\_area;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00016}00016\ \ \ \ \ epsilon4\ =\ 0.0625*max\_eigen\_value*Face\_area*Face\_area*Face\_area;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00017}00017\ \ \ \ \ \textcolor{keywordflow}{switch}(flag)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00018}00018\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[0]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[0]-\/Q\_i[0])-\/epsilon4*(-\/Q\_i\_plus\_2[0]+Q\_i\_plus\_1[0]-\/3*Q\_i[0]-\/3*Q\_i\_minus\_1[0]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[1]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[1]-\/Q\_i[1])-\/epsilon4*(-\/Q\_i\_plus\_2[1]+Q\_i\_plus\_1[1]-\/3*Q\_i[1]-\/3*Q\_i\_minus\_1[1]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[2]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[2]-\/Q\_i[2])-\/epsilon4*(-\/Q\_i\_plus\_2[2]+Q\_i\_plus\_1[2]-\/3*Q\_i[2]-\/3*Q\_i\_minus\_1[2]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[3]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[3]-\/Q\_i[3])-\/epsilon4*(-\/Q\_i\_plus\_2[3]+Q\_i\_plus\_1[3]-\/3*Q\_i[3]-\/3*Q\_i\_minus\_1[3]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[4]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[4]-\/Q\_i[4])-\/epsilon4*(-\/Q\_i\_plus\_2[4]+Q\_i\_plus\_1[4]-\/3*Q\_i[4]-\/3*Q\_i\_minus\_1[4]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ flag==\textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[0]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[0]-\/Q\_i[0])-\/epsilon4*(Q\_i\_plus\_2[0]-\/3*Q\_i\_plus\_1[0]+3*Q\_i[0]-\/Q\_i\_minus\_1[0]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[1]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[1]-\/Q\_i[1])-\/epsilon4*(Q\_i\_plus\_2[1]-\/3*Q\_i\_plus\_1[1]+3*Q\_i[1]-\/Q\_i\_minus\_1[1]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[2]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[2]-\/Q\_i[2])-\/epsilon4*(Q\_i\_plus\_2[2]-\/3*Q\_i\_plus\_1[2]+3*Q\_i[2]-\/Q\_i\_minus\_1[2]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[3]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[3]-\/Q\_i[3])-\/epsilon4*(Q\_i\_plus\_2[3]-\/3*Q\_i\_plus\_1[3]+3*Q\_i[3]-\/Q\_i\_minus\_1[3]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ Flux[4]\ =}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ (epsilon2*(Q\_i\_plus\_1[4]-\/Q\_i[4])-\/epsilon4*(Q\_i\_plus\_2[4]-\/3*Q\_i\_plus\_1[4]+3*Q\_i[4]-\/Q\_i\_minus\_1[4]));}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ flag==\textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00045}00045\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00046}00046\ \textcolor{keywordflow}{return}\ Flux;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00047}00047\ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00048}00048\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00049}00049\ \textcolor{comment}{//\ Cell\_ip2\ =>\ cell[i+2],\ cell\_im1=>Cell[i-\/1],\ Neighbour\_Cell\ =\ Cell[i+1],\ Current\_Cell\ cell[i]}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00050}\mbox{\hyperlink{class_face_ab9cd78be1d492e93b0c07bcdf317ee71_ab9cd78be1d492e93b0c07bcdf317ee71}{00050}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_face_ac4c4a64de5a6e3a3fbc08a00392e251b_ac4c4a64de5a6e3a3fbc08a00392e251b}{Face::Flux\_From\_Face\_Central}}(\mbox{\hyperlink{struct_cell}{Cell}}*\ Current\_Cell,\ \mbox{\hyperlink{struct_cell}{Cell}}\ *\ Neighbour\_Cell)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00051}00051\ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00052}00052\ \ \ \ \ vector<double>\ Q1(5,0.0),Q2(5,0.0),Q\_Avg(5,0.0);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{double}\ vnds=0.0;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00054}00054\ \ \ \ \ Flux[0]=0.0;Flux[1]=0.0;Flux[2]=0.0;Flux[3]=0.0;Flux[4]=0.0;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00055}00055\ \ \ \ \ Q1\ =\ Current\_Cell-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();\ \ \ \ Q2\ =\ Neighbour\_Cell-\/>\mbox{\hyperlink{struct_cell_af37bc52fb84ad9749bddb65f09d837b5_af37bc52fb84ad9749bddb65f09d837b5}{Get\_QatCellCenter}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00056}00056\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00057}00057\ \ \ \ \ Q\_Avg[0]=\ (Q1[0]+Q2[0])*0.5;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00058}00058\ \ \ \ \ Q\_Avg[1]=\ (Q1[1]+Q2[1])*0.5;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00059}00059\ \ \ \ \ Q\_Avg[2]=\ (Q1[2]+Q2[2])*0.5;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00060}00060\ \ \ \ \ Q\_Avg[3]=\ (Q1[3]+Q2[3])*0.5;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00061}00061\ \ \ \ \ Q\_Avg[4]=\ (Q1[4]+Q2[4])*0.5;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00062}00062\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00063}00063\ \ \ \ \ \mbox{\hyperlink{class_face_a28f4009e42e1ac60082a6952566a31aa_a28f4009e42e1ac60082a6952566a31aa}{Cal\_Primitive}}(Q\_Avg);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00064}00064\ \textcolor{comment}{/*\ \ Face\_Velocity.Print();\ \ Area\_Vector.Print();\ \ \ \ cout<<"{}v.nds\(\backslash\)t"{}<<vnds<<endl;*/}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{if}((Neighbour\_Cell-\/>\mbox{\hyperlink{struct_cell_a471d32a4d0f8ab85b129972f50417781_a471d32a4d0f8ab85b129972f50417781}{Is\_Ghost\_Cell}}())\&\&(Face\_No==4))}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00066}00066\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ Face\_P\ =\ Current\_Cell-\/>\mbox{\hyperlink{struct_cell_aae926146b2f52f029d3d28ec9174136e_aae926146b2f52f029d3d28ec9174136e}{Get\_Cell\_Pressure}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ Face\_T\ =\ Current\_Cell-\/>\mbox{\hyperlink{struct_cell_a9fc71d2f86afca411b70986faf2b882d_a9fc71d2f86afca411b70986faf2b882d}{Get\_Cell\_Temparature}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00069}00069\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00070}00070\ \ \ \ \ vnds=Face\_Velocity*Area\_Vector;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00072}00072\ \textcolor{comment}{//\ \ Flux\ Determines\ the\ Convective\ Fluxes\ on\ the\ face}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00073}00073\ \ \ \ \ Flux[0]\ =\ Face\_Rho*vnds;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00074}00074\ \ \ \ \ Flux[1]\ =\ Face\_Rho*v1*vnds\ +\ Face\_P*Area\_Comp1;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00075}00075\ \ \ \ \ Flux[2]\ =\ Face\_Rho*v2*vnds\ +\ Face\_P*Area\_Comp2;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00076}00076\ \ \ \ \ Flux[3]\ =\ Face\_Rho*v3*vnds\ +\ Face\_P*Area\_Comp3;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00077}00077\ \ \ \ \ Flux[4]\ =\ (Face\_Rho*Face\_ET\ +\ Face\_P)*vnds;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00078}00078\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Flux[0]<<"{}\(\backslash\)t\(\backslash\)t"{}<<Flux[1]<<"{}\(\backslash\)t\(\backslash\)t"{}<<Flux[2]<<"{}\(\backslash\)t\(\backslash\)t"{}<<Flux[3]<<"{}\(\backslash\)t\(\backslash\)t"{}<<Flux[4]<<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00079}00079\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00080}00080\ \ \ \ \ undS=\mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(v1);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00081}00081\ \ \ \ \ vndS=\mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(v2);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00082}00082\ \ \ \ \ wndS=\mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(v3);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00083}00083\ \ \ \ \ TndS=\mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_T);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00084}00084\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00085}00085\ \ \ \ \ rho\_ndS\ =\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_Rho);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00086}00086\ \ \ \ \ rhou\_ndS\ =\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_Rho*v1);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00087}00087\ \ \ \ \ rhov\_ndS\ =\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_Rho*v2);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00088}00088\ \ \ \ \ rhow\_ndS\ =\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_Rho*v3);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00089}00089\ \ \ \ \ rhoET\_ndS\ =\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Scalar\_dot\_ndS}}(Face\_Rho*Face\_ET);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00090}00090\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00091}00091\ \textcolor{comment}{//\ \ rho\_ndS.Print();rhou\_ndS.Print();rhov\_ndS.Print();rhow\_ndS.Print();rhoET\_ndS.Print();}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00092}00092\ \textcolor{comment}{//\ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00093}00093\ \ \ \ \ \mbox{\hyperlink{class_face_a658f439bcdacbf424d659be66ae7bce7_a658f439bcdacbf424d659be66ae7bce7}{Viscosity}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00094}00094\ \ \ \ \ \mbox{\hyperlink{class_face_a7dbfe0e14e693127d4d75dd68f879f99_a7dbfe0e14e693127d4d75dd68f879f99}{Thermal\_Conductivity}}();}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00095}00095\ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00097}00097\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00098}\mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{00098}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector}}\&\ \mbox{\hyperlink{class_face_ae6a98fe15c04148426e9875ad29f03cc_ae6a98fe15c04148426e9875ad29f03cc}{Face::Scalar\_dot\_ndS}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ phi)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00099}00099\ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00100}00100\ \ \ \ \ \textcolor{keywordflow}{return}\ (Area\_Vector*phi);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00103}00103\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00104}\mbox{\hyperlink{class_face_aa66f4992396a2999044240640d6e51c1_aa66f4992396a2999044240640d6e51c1}{00104}}\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{class_face_aa66f4992396a2999044240640d6e51c1_aa66f4992396a2999044240640d6e51c1}{Face::Gradient\_dot\_ndS}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector}}\ \&\ grad\_phi)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00105}00105\ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00106}00106\ \ \ \ \ \textcolor{keywordflow}{return}\ (Area\_Vector*grad\_phi);}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00107}00107\ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00108}00108\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00109}00109\ }
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00110}\mbox{\hyperlink{class_face_a19f810b927960c6f82aefb36395b5c81_a19f810b927960c6f82aefb36395b5c81}{00110}}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{class_vector}{Vector}}\&\ \mbox{\hyperlink{class_face_a19f810b927960c6f82aefb36395b5c81_a19f810b927960c6f82aefb36395b5c81}{Face::Get\_QnDS}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ i)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00111}00111\ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00112}00112\ \ \ \ \ \textcolor{keywordflow}{switch}(i)}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00113}00113\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rho\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhou\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhov\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhow\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rhoET\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ default\ :}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Enter\ 0\ -\/4\ for\ fetching\ Q\ Gradients,\ default\ returning\ rho\ Gradient\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rho\_ndS;}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00127}00127\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_face___functions_8cpp_source_l00128}00128\ \}}
+
+\end{DoxyCode}

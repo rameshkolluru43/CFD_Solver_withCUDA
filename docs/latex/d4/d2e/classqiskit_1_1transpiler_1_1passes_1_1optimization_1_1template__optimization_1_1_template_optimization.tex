@@ -1,0 +1,121 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization}{}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization}\index{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.826087cm]{d4/d2e/classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a2cf826c34c53936f2ecc552e44260103_a2cf826c34c53936f2ecc552e44260103}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, template\+\_\+list=None, heuristics\+\_\+qubits\+\_\+param=None, heuristics\+\_\+backward\+\_\+param=None, user\+\_\+cost\+\_\+dict=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af26ccb5c8cca31beee28473ce51dcfad_af26ccb5c8cca31beee28473ce51dcfad}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_ab1582453b89caeb6615e16fd8fa1f566}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_ab1582453b89caeb6615e16fd8fa1f566} 
+{\bfseries template\+\_\+list} = template\+\_\+list
+\item 
+tuple \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a3fd6805365cf9133088c048a871ed5f2_a3fd6805365cf9133088c048a871ed5f2}{heuristics\+\_\+qubits\+\_\+param}}
+\item 
+tuple \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af3f94d433c8f252882f45e9bd41246da_af3f94d433c8f252882f45e9bd41246da}{heuristics\+\_\+backward\+\_\+param}}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a8aec89e1a67f3973b5f23685fbab86df}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a8aec89e1a67f3973b5f23685fbab86df} 
+{\bfseries user\+\_\+cost\+\_\+dict} = user\+\_\+cost\+\_\+dict
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Class for the template optimization pass.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a2cf826c34c53936f2ecc552e44260103_a2cf826c34c53936f2ecc552e44260103}\index{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a2cf826c34c53936f2ecc552e44260103_a2cf826c34c53936f2ecc552e44260103} 
+qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{template\+\_\+list}{ = {\ttfamily None}, }\item[{}]{heuristics\+\_\+qubits\+\_\+param}{ = {\ttfamily None}, }\item[{}]{heuristics\+\_\+backward\+\_\+param}{ = {\ttfamily None}, }\item[{}]{user\+\_\+cost\+\_\+dict}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    template_list (list[QuantumCircuit()]): list of the different template circuit to apply.
+    heuristics_backward_param (list[int]): [length, survivor] Those are the parameters for
+        applying heuristics on the backward part of the algorithm. This part of the
+        algorithm creates a tree of matching scenario. This tree grows exponentially. The
+        heuristics evaluate which scenarios have the longest match and keep only those.
+        The length is the interval in the tree for cutting it and survivor is the number
+        of scenarios that are kept. We advise to use l=3 and s=1 to have serious time
+        advantage. We remind that the heuristics implies losing a part of the maximal
+        matches. Check reference for more details.
+    heuristics_qubits_param (list[int]): [length] The heuristics for the qubit choice make
+        guesses from the dag dependency of the circuit in order to limit the number of
+        qubit configurations to explore. The length is the number of successors or not
+        predecessors that will be explored in the dag dependency of the circuit, each
+        qubits of the nodes are added to the set of authorized qubits. We advise to use
+        length=1. Check reference for more details.
+    user_cost_dict (Dict[str, int]): quantum cost dictionary passed to TemplateSubstitution
+        to configure its behavior. This will override any default values if None
+        is not given. The key is the name of the gate and the value its quantum cost.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af26ccb5c8cca31beee28473ce51dcfad_af26ccb5c8cca31beee28473ce51dcfad}\index{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af26ccb5c8cca31beee28473ce51dcfad_af26ccb5c8cca31beee28473ce51dcfad} 
+qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    dag(DAGCircuit): DAG circuit.
+Returns:
+    DAGCircuit: optimized DAG circuit.
+Raises:
+    TranspilerError: If the template has not the right form or
+     if the output circuit acts differently as the input circuit.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af3f94d433c8f252882f45e9bd41246da_af3f94d433c8f252882f45e9bd41246da}\index{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}!heuristics\_backward\_param@{heuristics\_backward\_param}}
+\index{heuristics\_backward\_param@{heuristics\_backward\_param}!qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}}
+\doxysubsubsection{\texorpdfstring{heuristics\_backward\_param}{heuristics\_backward\_param}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_af3f94d433c8f252882f45e9bd41246da_af3f94d433c8f252882f45e9bd41246da} 
+tuple qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization.\+heuristics\+\_\+backward\+\_\+param}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ (}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ heuristics\_backward\_param\ \textcolor{keywordflow}{if}\ heuristics\_backward\_param\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a3fd6805365cf9133088c048a871ed5f2_a3fd6805365cf9133088c048a871ed5f2}\index{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}!heuristics\_qubits\_param@{heuristics\_qubits\_param}}
+\index{heuristics\_qubits\_param@{heuristics\_qubits\_param}!qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization@{qiskit.transpiler.passes.optimization.template\_optimization.TemplateOptimization}}
+\doxysubsubsection{\texorpdfstring{heuristics\_qubits\_param}{heuristics\_qubits\_param}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1template__optimization_1_1_template_optimization_a3fd6805365cf9133088c048a871ed5f2_a3fd6805365cf9133088c048a871ed5f2} 
+tuple qiskit.\+transpiler.\+passes.\+optimization.\+template\+\_\+optimization.\+Template\+Optimization.\+heuristics\+\_\+qubits\+\_\+param}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ (}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ heuristics\_qubits\_param\ \textcolor{keywordflow}{if}\ heuristics\_qubits\_param\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ []}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/optimization/template\+\_\+optimization.\+py\end{DoxyCompactItemize}

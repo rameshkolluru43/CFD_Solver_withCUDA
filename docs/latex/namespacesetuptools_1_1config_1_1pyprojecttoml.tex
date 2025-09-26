@@ -1,0 +1,112 @@
+\doxysection{setuptools.\+config.\+pyprojecttoml Namespace Reference}
+\hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml}{}\label{namespacesetuptools_1_1config_1_1pyprojecttoml}\index{setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1config_1_1pyprojecttoml_1_1___config_expander}{\+\_\+\+Config\+Expander}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1config_1_1pyprojecttoml_1_1___ensure_packages_discovered}{\+\_\+\+Ensure\+Packages\+Discovered}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1config_1_1pyprojecttoml_1_1___experimental_configuration}{\+\_\+\+Experimental\+Configuration}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1config_1_1pyprojecttoml_1_1___tools_typo_in_metadata}{\+\_\+\+Tools\+Typo\+In\+Metadata}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_abb430d2ea9e48f1a65e7cfe6eb3282f8}\label{namespacesetuptools_1_1config_1_1pyprojecttoml_abb430d2ea9e48f1a65e7cfe6eb3282f8} 
+dict {\bfseries load\+\_\+file} (Str\+Path filepath)
+\item 
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_ac87a5dc27c15a98752ba543940aa4d1d}\label{namespacesetuptools_1_1config_1_1pyprojecttoml_ac87a5dc27c15a98752ba543940aa4d1d} 
+bool {\bfseries validate} (dict config, Str\+Path filepath)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} \mbox{\hyperlink{namespacesetuptools_1_1config_1_1pyprojecttoml_aa06c4147cb300d68e2edc0e7de4532a2}{apply\+\_\+configuration}} (\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} dist, Str\+Path filepath, bool ignore\+\_\+option\+\_\+errors=False)
+\item 
+dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespacesetuptools_1_1config_1_1pyprojecttoml_afa929fbf4e6f35d45fa03cd52ec3643d}{read\+\_\+configuration}} (Str\+Path filepath, bool expand=True, bool ignore\+\_\+option\+\_\+errors=False, \mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}}\texorpdfstring{$\vert$}{|}None dist=None)
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1config_1_1pyprojecttoml_a4e6ca8bfe495eea699d8be9da2866157}{expand\+\_\+configuration}} (dict config, Str\+Path\texorpdfstring{$\vert$}{|}None root\+\_\+dir=None, bool ignore\+\_\+option\+\_\+errors=False, \mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}}\texorpdfstring{$\vert$}{|}None dist=None)
+\item 
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_a30e90b98d31ae1818760ea37eb314352}\label{namespacesetuptools_1_1config_1_1pyprojecttoml_a30e90b98d31ae1818760ea37eb314352} 
+{\bfseries \+\_\+parse\+\_\+requirements\+\_\+list} (value)
+\item 
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_a32d54ad53b7a4921906c2a2b5252a063}\label{namespacesetuptools_1_1config_1_1pyprojecttoml_a32d54ad53b7a4921906c2a2b5252a063} 
+{\bfseries \+\_\+ignore\+\_\+errors} (bool ignore\+\_\+option\+\_\+errors)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_a174553fca992bae64eb754cbd7d77a41}\label{namespacesetuptools_1_1config_1_1pyprojecttoml_a174553fca992bae64eb754cbd7d77a41} 
+{\bfseries \+\_\+logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Load setuptools configuration from ``pyproject.toml`` files.
+
+**PRIVATE MODULE**: API reserved for setuptools internal usage only.
+
+To read project metadata, consider using
+``build.util.project_wheel_metadata`` (https://pypi.org/project/build/).
+For simple scenarios, you can also try parsing the file directly
+with the help of ``tomllib`` or ``tomli``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_aa06c4147cb300d68e2edc0e7de4532a2}\index{setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}!apply\_configuration@{apply\_configuration}}
+\index{apply\_configuration@{apply\_configuration}!setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}}
+\doxysubsubsection{\texorpdfstring{apply\_configuration()}{apply\_configuration()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1config_1_1pyprojecttoml_aa06c4147cb300d68e2edc0e7de4532a2} 
+ \mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} setuptools.\+config.\+pyprojecttoml.\+apply\+\_\+configuration (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}}}]{dist}{, }\item[{Str\+Path}]{filepath}{, }\item[{bool }]{ignore\+\_\+option\+\_\+errors}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Apply the configuration from a ``pyproject.toml`` file into an existing
+distribution object.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_a4e6ca8bfe495eea699d8be9da2866157}\index{setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}!expand\_configuration@{expand\_configuration}}
+\index{expand\_configuration@{expand\_configuration}!setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}}
+\doxysubsubsection{\texorpdfstring{expand\_configuration()}{expand\_configuration()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1config_1_1pyprojecttoml_a4e6ca8bfe495eea699d8be9da2866157} 
+ dict setuptools.\+config.\+pyprojecttoml.\+expand\+\_\+configuration (\begin{DoxyParamCaption}\item[{dict}]{config}{, }\item[{Str\+Path \texorpdfstring{$\vert$}{|} None }]{root\+\_\+dir}{ = {\ttfamily None}, }\item[{bool }]{ignore\+\_\+option\+\_\+errors}{ = {\ttfamily False}, }\item[{\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} \texorpdfstring{$\vert$}{|} None }]{dist}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a configuration with unresolved fields (e.g. dynamic, cmdclass, ...)
+find their final values.
+
+:param dict config: Dict containing the configuration for the distribution
+:param str root_dir: Top-level directory for the distribution/project
+    (the same directory where ``pyproject.toml`` is place)
+:param bool ignore_option_errors: see :func:`read_configuration`
+:param Distribution|None: Distribution object to which the configuration refers.
+    If not given a dummy object will be created and discarded after the
+    configuration is read. Used in the case a dynamic configuration
+    (e.g. ``attr`` or ``cmdclass``).
+
+:rtype: dict
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1config_1_1pyprojecttoml_afa929fbf4e6f35d45fa03cd52ec3643d}\index{setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}!read\_configuration@{read\_configuration}}
+\index{read\_configuration@{read\_configuration}!setuptools.config.pyprojecttoml@{setuptools.config.pyprojecttoml}}
+\doxysubsubsection{\texorpdfstring{read\_configuration()}{read\_configuration()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1config_1_1pyprojecttoml_afa929fbf4e6f35d45fa03cd52ec3643d} 
+ dict\mbox{[}str, Any\mbox{]} setuptools.\+config.\+pyprojecttoml.\+read\+\_\+configuration (\begin{DoxyParamCaption}\item[{Str\+Path}]{filepath}{, }\item[{bool }]{expand}{ = {\ttfamily True}, }\item[{bool }]{ignore\+\_\+option\+\_\+errors}{ = {\ttfamily False}, }\item[{\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} \texorpdfstring{$\vert$}{|} None }]{dist}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Read given configuration file and returns options from it as a dict.
+
+:param str|unicode filepath: Path to configuration file in the ``pyproject.toml``
+    format.
+
+:param bool expand: Whether to expand directives and other computed values
+    (i.e. post-process the given configuration)
+
+:param bool ignore_option_errors: Whether to silently ignore
+    options, values of which could not be resolved (e.g. due to exceptions
+    in directives such as file:, attr:, etc.).
+    If False exceptions are propagated as expected.
+
+:param Distribution|None: Distribution object to which the configuration refers.
+    If not given a dummy object will be created and discarded after the
+    configuration is read. This is used for auto-discovery of packages and in the
+    case a dynamic configuration (e.g. ``attr`` or ``cmdclass``) is expanded.
+    When ``expand=False`` this object is simply ignored.
+
+:rtype: dict
+\end{DoxyVerb}
+ 

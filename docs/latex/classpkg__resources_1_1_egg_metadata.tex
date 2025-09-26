@@ -1,0 +1,207 @@
+\doxysection{pkg\+\_\+resources.\+Egg\+Metadata Class Reference}
+\hypertarget{classpkg__resources_1_1_egg_metadata}{}\label{classpkg__resources_1_1_egg_metadata}\index{pkg\_resources.EggMetadata@{pkg\_resources.EggMetadata}}
+Inheritance diagram for pkg\+\_\+resources.\+Egg\+Metadata\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{classpkg__resources_1_1_egg_metadata}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classpkg__resources_1_1_egg_metadata_ac5e58e7e1e509c3447fe518554aea8b5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, zipimport.\+zipimporter importer)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries zipinfo} (self)
+\item 
+str \mbox{\hyperlink{classpkg__resources_1_1_zip_provider_aa54e98e317e7b5b937c3e64aa0ec05ea}{get\+\_\+resource\+\_\+filename}} (self, \mbox{\hyperlink{classpkg__resources_1_1_resource_manager}{Resource\+Manager}} manager, str resource\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_egg_provider}{pkg\+\_\+resources.\+Egg\+Provider}}}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_null_provider}{pkg\+\_\+resources.\+Null\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+Binary\+IO {\bfseries get\+\_\+resource\+\_\+stream} (self, \mbox{\hyperlink{classpkg__resources_1_1_resource_manager}{Resource\+Manager}} manager, str resource\+\_\+name)
+\item 
+bytes {\bfseries get\+\_\+resource\+\_\+string} (self, \mbox{\hyperlink{classpkg__resources_1_1_resource_manager}{Resource\+Manager}} manager, str resource\+\_\+name)
+\item 
+bool {\bfseries has\+\_\+resource} (self, str resource\+\_\+name)
+\item 
+bool {\bfseries has\+\_\+metadata} (self, str name)
+\item 
+str {\bfseries get\+\_\+metadata} (self, str name)
+\item 
+Iterator\mbox{[}str\mbox{]} {\bfseries get\+\_\+metadata\+\_\+lines} (self, str name)
+\item 
+bool {\bfseries resource\+\_\+isdir} (self, str resource\+\_\+name)
+\item 
+bool {\bfseries metadata\+\_\+isdir} (self, str name)
+\item 
+list\mbox{[}str\mbox{]} {\bfseries resource\+\_\+listdir} (self, str resource\+\_\+name)
+\item 
+list\mbox{[}str\mbox{]} {\bfseries metadata\+\_\+listdir} (self, str name)
+\item 
+None {\bfseries run\+\_\+script} (self, str script\+\_\+name, dict\mbox{[}str, Any\mbox{]} namespace)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpkg__resources_1_1_egg_metadata_a5a1e0bd2d5340e574b3b532e8f21d363}\label{classpkg__resources_1_1_egg_metadata_a5a1e0bd2d5340e574b3b532e8f21d363} 
+{\bfseries zip\+\_\+pre} = importer.\+archive + os.\+sep
+\item 
+\Hypertarget{classpkg__resources_1_1_egg_metadata_abc7936ead6a706047cb2d52bf800557c}\label{classpkg__resources_1_1_egg_metadata_abc7936ead6a706047cb2d52bf800557c} 
+{\bfseries loader} = importer
+\item 
+\Hypertarget{classpkg__resources_1_1_egg_metadata_a41391e3d836916141fa95197550b1937}\label{classpkg__resources_1_1_egg_metadata_a41391e3d836916141fa95197550b1937} 
+{\bfseries module\+\_\+path} = os.\+path.\+join(importer.\+archive, importer.\+prefix)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+zipimport {\bfseries zip\+\_\+pre} = self.\+loader.\+archive + os.\+sep
+\item 
+{\bfseries egg\+\_\+root} = self.\+zip\+\_\+pre + zip\+\_\+path
+\item 
+{\bfseries egg\+\_\+name} = manager.\+get\+\_\+cache\+\_\+path(self.\+egg\+\_\+name, self.\+\_\+parts(zip\+\_\+path))
+\item 
+{\bfseries zipinfo}
+\item 
+{\bfseries module\+\_\+path}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_egg_provider}{pkg\+\_\+resources.\+Egg\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries egg\+\_\+name} = os.\+path.\+basename(path)
+\item 
+{\bfseries egg\+\_\+info} = os.\+path.\+join(path, \textquotesingle{}EGG-\/INFO\textquotesingle{})
+\item 
+{\bfseries egg\+\_\+root} = path
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_null_provider}{pkg\+\_\+resources.\+Null\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries module\+\_\+path} = os.\+path.\+dirname(getattr(module, \textquotesingle{}\+\_\+\+\_\+file\+\_\+\+\_\+\textquotesingle{}, \textquotesingle{}\textquotesingle{}))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{classpkg__resources_1_1_egg_metadata_a5befd6f4cc3e8c4bf3389194fe915b3f}{\+\_\+distribution\+\_\+finders}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+zip\+\_\+manifests} = \mbox{\hyperlink{classpkg__resources_1_1_memoized_zip_manifests}{Memoized\+Zip\+Manifests}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+list {\bfseries eagers} = None
+\item 
+zipimport {\bfseries loader} .zipimporter
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_null_provider}{pkg\+\_\+resources.\+Null\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+str {\bfseries egg\+\_\+name} = None
+\item 
+str {\bfseries egg\+\_\+info} = None
+\item 
+Loader\+Protocol {\bfseries loader} = None
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+zipinfo\+\_\+name} (self, fspath)
+\item 
+{\bfseries \+\_\+parts} (self, zip\+\_\+path)
+\item 
+str {\bfseries \+\_\+extract\+\_\+resource} (self, \mbox{\hyperlink{classpkg__resources_1_1_resource_manager}{Resource\+Manager}} manager, zip\+\_\+path)
+\item 
+\mbox{\hyperlink{classpkg__resources_1_1_zip_provider_ae614fa589354fb5e87714dfff6a5e6c5}{\+\_\+is\+\_\+current}} (self, file\+\_\+path, zip\+\_\+path)
+\item 
+{\bfseries \+\_\+get\+\_\+eager\+\_\+resources} (self)
+\item 
+{\bfseries \+\_\+index} (self)
+\item 
+bool \mbox{\hyperlink{classpkg__resources_1_1_zip_provider_a9fc2b82f303132aa831b6dae877c9a13}{\+\_\+has}} (self, fspath)
+\item 
+bool \mbox{\hyperlink{classpkg__resources_1_1_zip_provider_a139f1ae28462e35f7cdb2348977fb798}{\+\_\+isdir}} (self, fspath)
+\item 
+\mbox{\hyperlink{classpkg__resources_1_1_zip_provider_ae21bf2450fc8513c77a993bba7a64a45}{\+\_\+listdir}} (self, fspath)
+\item 
+{\bfseries \+\_\+eager\+\_\+to\+\_\+zip} (self, str resource\+\_\+name)
+\item 
+{\bfseries \+\_\+resource\+\_\+to\+\_\+zip} (self, str resource\+\_\+name)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_egg_provider}{pkg\+\_\+resources.\+Egg\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+setup\+\_\+prefix} (self)
+\item 
+None {\bfseries \+\_\+set\+\_\+egg} (self, str path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_null_provider}{pkg\+\_\+resources.\+Null\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+get\+\_\+metadata\+\_\+path} (self, name)
+\item 
+{\bfseries \+\_\+fn} (self, str\texorpdfstring{$\vert$}{|}None base, str resource\+\_\+name)
+\item 
+bytes {\bfseries \+\_\+get} (self, path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+get\+\_\+date\+\_\+and\+\_\+size} (zip\+\_\+stat)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Member Functions inherited from \mbox{\hyperlink{classpkg__resources_1_1_null_provider}{pkg\+\_\+resources.\+Null\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classpkg__resources_1_1_null_provider_a52d00243140d7a98e29f94e7f45ed0ef}{\+\_\+validate\+\_\+resource\+\_\+path}} (path)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+dirindex} = ind
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Metadata provider for .egg files\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classpkg__resources_1_1_egg_metadata_ac5e58e7e1e509c3447fe518554aea8b5}\index{pkg\_resources.EggMetadata@{pkg\_resources.EggMetadata}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!pkg\_resources.EggMetadata@{pkg\_resources.EggMetadata}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classpkg__resources_1_1_egg_metadata_ac5e58e7e1e509c3447fe518554aea8b5} 
+ None pkg\+\_\+resources.\+Egg\+Metadata.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{zipimport.\+zipimporter}]{importer}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a metadata provider from a zipimporter\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classpkg__resources_1_1_zip_provider}{pkg\+\_\+resources.\+Zip\+Provider}}.
+
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classpkg__resources_1_1_egg_metadata_a5befd6f4cc3e8c4bf3389194fe915b3f}\index{pkg\_resources.EggMetadata@{pkg\_resources.EggMetadata}!\_distribution\_finders@{\_distribution\_finders}}
+\index{\_distribution\_finders@{\_distribution\_finders}!pkg\_resources.EggMetadata@{pkg\_resources.EggMetadata}}
+\doxysubsubsection{\texorpdfstring{\_distribution\_finders}{\_distribution\_finders}}
+{\footnotesize\ttfamily \label{classpkg__resources_1_1_egg_metadata_a5befd6f4cc3e8c4bf3389194fe915b3f} 
+dict pkg\+\_\+resources.\+Egg\+Metadata.\+\_\+distribution\+\_\+finders\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \_declare\_state(}
+\DoxyCodeLine{\ \ \ \ \textcolor{stringliteral}{'dict'},\ \textcolor{stringliteral}{'\_distribution\_finders'},\ \{\}}
+\DoxyCodeLine{)}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/pkg\+\_\+resources/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

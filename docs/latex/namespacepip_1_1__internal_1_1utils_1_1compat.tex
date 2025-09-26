@@ -1,0 +1,53 @@
+\doxysection{pip.\+\_\+internal.\+utils.\+compat Namespace Reference}
+\hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat}{}\label{namespacepip_1_1__internal_1_1utils_1_1compat}\index{pip.\_internal.utils.compat@{pip.\_internal.utils.compat}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a261dadb1f32465df29a04b9227cdc191}\label{namespacepip_1_1__internal_1_1utils_1_1compat_a261dadb1f32465df29a04b9227cdc191} 
+bool {\bfseries has\+\_\+tls} ()
+\item 
+int \mbox{\hyperlink{namespacepip_1_1__internal_1_1utils_1_1compat_a567f1f687b4b89c6922a01e5ce4ea8ca}{get\+\_\+path\+\_\+uid}} (str path)
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_ac78364695f2133dfef986f049bba506e}\label{namespacepip_1_1__internal_1_1utils_1_1compat_ac78364695f2133dfef986f049bba506e} 
+IO\mbox{[}str\mbox{]} {\bfseries open\+\_\+text\+\_\+resource} (str package, str resource, str encoding="{}utf-\/8"{}, str errors="{}strict"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a65e053f583b83de19eee10b715b84aab}\label{namespacepip_1_1__internal_1_1utils_1_1compat_a65e053f583b83de19eee10b715b84aab} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a7f6b94b96a47220a82eadf5800f4c9a2}\label{namespacepip_1_1__internal_1_1utils_1_1compat_a7f6b94b96a47220a82eadf5800f4c9a2} 
+{\bfseries open\+\_\+text\+\_\+resource} = importlib.\+resources.\+open\+\_\+text
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a91c56c36ec95dd8debf2841f3b317363}\label{namespacepip_1_1__internal_1_1utils_1_1compat_a91c56c36ec95dd8debf2841f3b317363} 
+dict {\bfseries stdlib\+\_\+pkgs} = \{"{}python"{}, "{}wsgiref"{}, "{}argparse"{}\}
+\item 
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a9e3348f56c06506309c9a4013e5ae394}\label{namespacepip_1_1__internal_1_1utils_1_1compat_a9e3348f56c06506309c9a4013e5ae394} 
+{\bfseries WINDOWS} = sys.\+platform.\+startswith("{}win"{}) or (sys.\+platform == "{}cli"{} and os.\+name == "{}nt"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Stuff that differs in different Python versions and platform
+distributions.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacepip_1_1__internal_1_1utils_1_1compat_a567f1f687b4b89c6922a01e5ce4ea8ca}\index{pip.\_internal.utils.compat@{pip.\_internal.utils.compat}!get\_path\_uid@{get\_path\_uid}}
+\index{get\_path\_uid@{get\_path\_uid}!pip.\_internal.utils.compat@{pip.\_internal.utils.compat}}
+\doxysubsubsection{\texorpdfstring{get\_path\_uid()}{get\_path\_uid()}}
+{\footnotesize\ttfamily \label{namespacepip_1_1__internal_1_1utils_1_1compat_a567f1f687b4b89c6922a01e5ce4ea8ca} 
+ int pip.\+\_\+internal.\+utils.\+compat.\+get\+\_\+path\+\_\+uid (\begin{DoxyParamCaption}\item[{str}]{path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return path's uid.
+
+Does not follow symlinks:
+    https://github.com/pypa/pip/pull/935#discussion_r5307003
+
+Placed this function in compat due to differences on AIX and
+Jython, that should eventually go away.
+
+:raises OSError: When path is a symlink or can't be read.
+\end{DoxyVerb}
+ 

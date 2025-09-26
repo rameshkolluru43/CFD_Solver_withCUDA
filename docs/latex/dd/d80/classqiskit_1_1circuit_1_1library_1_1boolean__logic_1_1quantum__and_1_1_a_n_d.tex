@@ -1,0 +1,80 @@
+\doxysection{qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+and.\+AND Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d}{}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d}\index{qiskit.circuit.library.boolean\_logic.quantum\_and.AND@{qiskit.circuit.library.boolean\_logic.quantum\_and.AND}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+and.\+AND\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/d80/classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_aa45aac1d04d6fc2b3c5f62f4b623cd8a_aa45aac1d04d6fc2b3c5f62f4b623cd8a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+variable\+\_\+qubits, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}None flags=None, str mcx\+\_\+mode="{}noancilla"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_a9d9911e4a245abeb43a635306e5ef933}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_a9d9911e4a245abeb43a635306e5ef933} 
+{\bfseries num\+\_\+variable\+\_\+qubits} = num\+\_\+variable\+\_\+qubits
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_a1474c4d5cc4267ca0eb1c4e8a97f3a55}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_a1474c4d5cc4267ca0eb1c4e8a97f3a55} 
+{\bfseries flags} = flags
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A circuit implementing the logical AND operation on a number of qubits.
+
+For the AND operation the state :math:`|1\rangle` is interpreted as ``True``. The result
+qubit is flipped, if the state of all variable qubits is ``True``. In this format, the AND
+operation equals a multi-controlled X gate, which is controlled on all variable qubits.
+Using a list of flags however, qubits can be skipped or negated. Practically, the flags
+allow to skip controls or to apply pre- and post-X gates to the negated qubits.
+
+The AND gate without special flags equals the multi-controlled-X gate:
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import AND
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   circuit = AND(5)
+   _generate_circuit_library_visualization(circuit)
+
+Using flags we can negate qubits or skip them. For instance, if we have 5 qubits and want to
+return ``True`` if the first qubit is ``False`` and the last two are ``True`` we use the flags
+``[-1, 0, 0, 1, 1]``.
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import AND
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   circuit = AND(5, flags=[-1, 0, 0, 1, 1])
+   _generate_circuit_library_visualization(circuit)\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_aa45aac1d04d6fc2b3c5f62f4b623cd8a_aa45aac1d04d6fc2b3c5f62f4b623cd8a}\index{qiskit.circuit.library.boolean\_logic.quantum\_and.AND@{qiskit.circuit.library.boolean\_logic.quantum\_and.AND}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.boolean\_logic.quantum\_and.AND@{qiskit.circuit.library.boolean\_logic.quantum\_and.AND}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__and_1_1_a_n_d_aa45aac1d04d6fc2b3c5f62f4b623cd8a_aa45aac1d04d6fc2b3c5f62f4b623cd8a} 
+ None qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+and.\+AND.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+variable\+\_\+qubits}{, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{flags}{ = {\ttfamily None}, }\item[{str }]{mcx\+\_\+mode}{ = {\ttfamily "{}noancilla"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new logical AND circuit.
+
+Args:
+    num_variable_qubits: The qubits of which the AND is computed. The result will be written
+        into an additional result qubit.
+    flags: A list of +1/0/-1 marking negations or omissions of qubits.
+    mcx_mode: The mode to be used to implement the multi-controlled X gate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/boolean\+\_\+logic/quantum\+\_\+and.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,113 @@
+\doxysection{setuptools.\+\_\+distutils.\+versionpredicate.\+Version\+Predicate Class Reference}
+\hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate}{}\label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate}\index{setuptools.\_distutils.versionpredicate.VersionPredicate@{setuptools.\_distutils.versionpredicate.VersionPredicate}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_ae33495bbc2cb4cebec619db7fca02a5b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, version\+Predicate\+Str)
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a25ec04ed7abc64fe6b815b9703a3fd8c}\label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a25ec04ed7abc64fe6b815b9703a3fd8c} 
+{\bfseries \+\_\+\+\_\+str\+\_\+\+\_\+} (self)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a782b3502c9f703cbbf4cb92eb4807baa}{satisfied\+\_\+by}} (self, version)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a53967b88416c6c5d627a11fa41a2dc38}\label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a53967b88416c6c5d627a11fa41a2dc38} 
+{\bfseries name}
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a6518d94a0b026d230949ee0e2b8e99a9}\label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a6518d94a0b026d230949ee0e2b8e99a9} 
+list {\bfseries pred} = \mbox{[}\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1versionpredicate_a4d30ed6f6850be6b4d874c8cf2e236c7}{split\+Up}}(a\+Pred) for a\+Pred in str.\+split("{},"{})\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Parse and test package version predicates.
+
+>>> v = VersionPredicate('pyepat.abc (>1.0, <3333.3a1, !=1555.1b3)')
+
+The `name` attribute provides the full dotted name that is given::
+
+>>> v.name
+'pyepat.abc'
+
+The str() of a `VersionPredicate` provides a normalized
+human-readable version of the expression::
+
+>>> print(v)
+pyepat.abc (> 1.0, < 3333.3a1, != 1555.1b3)
+
+The `satisfied_by()` method can be used to determine with a given
+version number is included in the set described by the version
+restrictions::
+
+>>> v.satisfied_by('1.1')
+True
+>>> v.satisfied_by('1.4')
+True
+>>> v.satisfied_by('1.0')
+False
+>>> v.satisfied_by('4444.4')
+False
+>>> v.satisfied_by('1555.1b3')
+False
+
+`VersionPredicate` is flexible in accepting extra whitespace::
+
+>>> v = VersionPredicate(' pat( ==  0.1  )  ')
+>>> v.name
+'pat'
+>>> v.satisfied_by('0.1')
+True
+>>> v.satisfied_by('0.2')
+False
+
+If any version numbers passed in do not conform to the
+restrictions of `StrictVersion`, a `ValueError` is raised::
+
+>>> v = VersionPredicate('p1.p2.p3.p4(>=1.0, <=1.3a1, !=1.2zb3)')
+Traceback (most recent call last):
+  ...
+ValueError: invalid version number '1.2zb3'
+
+It the module or package name given does not conform to what's
+allowed as a legal module or package name, `ValueError` is
+raised::
+
+>>> v = VersionPredicate('foo-bar')
+Traceback (most recent call last):
+  ...
+ValueError: expected parenthesized list: '-bar'
+
+>>> v = VersionPredicate('foo bar (12.21)')
+Traceback (most recent call last):
+  ...
+ValueError: expected parenthesized list: 'bar (12.21)'\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_ae33495bbc2cb4cebec619db7fca02a5b}\index{setuptools.\_distutils.versionpredicate.VersionPredicate@{setuptools.\_distutils.versionpredicate.VersionPredicate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!setuptools.\_distutils.versionpredicate.VersionPredicate@{setuptools.\_distutils.versionpredicate.VersionPredicate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_ae33495bbc2cb4cebec619db7fca02a5b} 
+setuptools.\+\_\+distutils.\+versionpredicate.\+Version\+Predicate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{version\+Predicate\+Str}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse a version predicate string.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a782b3502c9f703cbbf4cb92eb4807baa}\index{setuptools.\_distutils.versionpredicate.VersionPredicate@{setuptools.\_distutils.versionpredicate.VersionPredicate}!satisfied\_by@{satisfied\_by}}
+\index{satisfied\_by@{satisfied\_by}!setuptools.\_distutils.versionpredicate.VersionPredicate@{setuptools.\_distutils.versionpredicate.VersionPredicate}}
+\doxysubsubsection{\texorpdfstring{satisfied\_by()}{satisfied\_by()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate_a782b3502c9f703cbbf4cb92eb4807baa} 
+setuptools.\+\_\+distutils.\+versionpredicate.\+Version\+Predicate.\+satisfied\+\_\+by (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{version}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}True if version is compatible with all the predicates in self.
+The parameter version must be acceptable to the StrictVersion
+constructor.  It may be either a string or StrictVersion.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+distutils/versionpredicate.\+py\end{DoxyCompactItemize}

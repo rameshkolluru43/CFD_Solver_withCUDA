@@ -1,0 +1,72 @@
+\doxysection{qiskit.\+pulse.\+instructions Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1instructions}{}\label{namespaceqiskit_1_1pulse_1_1instructions}\index{qiskit.pulse.instructions@{qiskit.pulse.instructions}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1acquire}{acquire}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1delay}{delay}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1directives}{directives}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1frequency}{frequency}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1instruction}{instruction}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1phase}{phase}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1play}{play}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1reference}{reference}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1instructions_1_1snapshot}{snapshot}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}.. _pulse-insts:
+
+===============================================
+Instructions (:mod:`qiskit.pulse.instructions`)
+===============================================
+
+The ``instructions`` module holds the various :obj:`Instruction`\ s which are supported by
+Qiskit Pulse. Instructions have operands, which typically include at least one
+:py:class:`~qiskit.pulse.channels.Channel` specifying where the instruction will be applied.
+
+Every instruction has a duration, whether explicitly included as an operand or implicitly defined.
+For instance, a :py:class:`~qiskit.pulse.instructions.ShiftPhase` instruction can be instantiated
+with operands *phase* and *channel*, for some float ``phase`` and a
+:py:class:`~qiskit.pulse.channels.Channel` ``channel``::
+
+    ShiftPhase(phase, channel)
+
+The duration of this instruction is implicitly zero. On the other hand, the
+:py:class:`~qiskit.pulse.instructions.Delay` instruction takes an explicit duration::
+
+    Delay(duration, channel)
+
+An instruction can be added to a :py:class:`~qiskit.pulse.Schedule`, which is a
+sequence of scheduled Pulse ``Instruction`` s over many channels. ``Instruction`` s and
+``Schedule`` s implement the same interface.
+
+.. autosummary::
+   :toctree: ../stubs/
+
+   Acquire
+   Reference
+   Delay
+   Play
+   RelativeBarrier
+   SetFrequency
+   ShiftFrequency
+   SetPhase
+   ShiftPhase
+   Snapshot
+   TimeBlockade
+
+These are all instances of the same base class:
+
+.. autoclass:: Instruction
+\end{DoxyVerb}
+ 

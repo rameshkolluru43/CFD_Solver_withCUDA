@@ -1,0 +1,210 @@
+\doxysection{dill.\+temp Namespace Reference}
+\hypertarget{namespacedill_1_1temp}{}\label{namespacedill_1_1temp}\index{dill.temp@{dill.temp}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a371842b1f5dd067405ec7a260e966d6a}{capture}} (stream=\textquotesingle{}stdout\textquotesingle{})
+\item 
+\Hypertarget{namespacedill_1_1temp_a1436fb244033936b3e99cced7519944f}\label{namespacedill_1_1temp_a1436fb244033936b3e99cced7519944f} 
+{\bfseries b} (x)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a4b99cedf8b3f75868c90ae740cefe38b}{load\+\_\+source}} (file, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_adf6e156f0f0446dcd1ce98f5d609f98a}{dump\+\_\+source}} (object, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a7ddf8f40c74367b10dd86607ab61ea5d}{load}} (file, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a3ec60049b9dfdf170a02776d634aa5d8}{dump}} (object, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a4c3e347e05e679d0c85b25c1432455ed}{load\+IO}} (buffer, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a085c30a91942aa783925d4efc4bcbdd2}{dump\+IO}} (object, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a476c8150f61179642786de5a37ddc4fc}{load\+IO\+\_\+source}} (buffer, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1temp_a657f7da505fe36dd45afed5d7d073ea4}{dump\+IO\+\_\+source}} (object, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Methods for serialized objects (or source code) stored in temporary files
+and file-like objects.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedill_1_1temp_a371842b1f5dd067405ec7a260e966d6a}\index{dill.temp@{dill.temp}!capture@{capture}}
+\index{capture@{capture}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{capture()}{capture()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a371842b1f5dd067405ec7a260e966d6a} 
+dill.\+temp.\+capture (\begin{DoxyParamCaption}\item[{}]{stream}{ = {\ttfamily \textquotesingle{}stdout\textquotesingle{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}builds a context that temporarily replaces the given stream name
+
+>>> with capture('stdout') as out:
+...   print ("foo!")
+... 
+>>> print (out.getvalue())
+foo!\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a3ec60049b9dfdf170a02776d634aa5d8}\index{dill.temp@{dill.temp}!dump@{dump}}
+\index{dump@{dump}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a3ec60049b9dfdf170a02776d634aa5d8} 
+dill.\+temp.\+dump (\begin{DoxyParamCaption}\item[{}]{object}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}dill.dump of object to a NamedTemporaryFile.
+Loads with "dill.temp.load".  Returns the filehandle.
+
+>>> dumpfile = dill.temp.dump([1, 2, 3, 4, 5])
+>>> dill.temp.load(dumpfile)
+[1, 2, 3, 4, 5]
+
+Optional kwds:
+If 'suffix' is specified, the file name will end with that suffix,
+otherwise there will be no suffix.
+
+If 'prefix' is specified, the file name will begin with that prefix,
+otherwise a default prefix is used.
+
+If 'dir' is specified, the file will be created in that directory,
+otherwise a default directory is used.
+
+If 'text' is specified and true, the file is opened in text
+mode.  Else (the default) the file is opened in binary mode.  On
+some operating systems, this makes no difference.
+
+NOTE: Keep the return value for as long as you want your file to exist !
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_adf6e156f0f0446dcd1ce98f5d609f98a}\index{dill.temp@{dill.temp}!dump\_source@{dump\_source}}
+\index{dump\_source@{dump\_source}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{dump\_source()}{dump\_source()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_adf6e156f0f0446dcd1ce98f5d609f98a} 
+dill.\+temp.\+dump\+\_\+source (\begin{DoxyParamCaption}\item[{}]{object}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}write object source to a NamedTemporaryFile (instead of dill.dump)
+Loads with "import" or "dill.temp.load_source".  Returns the filehandle.
+
+>>> f = lambda x: x**2
+>>> pyfile = dill.temp.dump_source(f, alias='_f')
+>>> _f = dill.temp.load_source(pyfile)
+>>> _f(4)
+16
+
+>>> f = lambda x: x**2
+>>> pyfile = dill.temp.dump_source(f, dir='.')
+>>> modulename = os.path.basename(pyfile.name).split('.py')[0]
+>>> exec('from %s import f as _f' % modulename)
+>>> _f(4)
+16
+
+Optional kwds:
+If 'alias' is specified, the object will be renamed to the given string.
+
+If 'prefix' is specified, the file name will begin with that prefix,
+otherwise a default prefix is used.
+
+If 'dir' is specified, the file will be created in that directory,
+otherwise a default directory is used.
+
+If 'text' is specified and true, the file is opened in text
+mode.  Else (the default) the file is opened in binary mode.  On
+some operating systems, this makes no difference.
+
+NOTE: Keep the return value for as long as you want your file to exist !
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a085c30a91942aa783925d4efc4bcbdd2}\index{dill.temp@{dill.temp}!dumpIO@{dumpIO}}
+\index{dumpIO@{dumpIO}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{dumpIO()}{dumpIO()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a085c30a91942aa783925d4efc4bcbdd2} 
+dill.\+temp.\+dump\+IO (\begin{DoxyParamCaption}\item[{}]{object}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}dill.dump of object to a buffer.
+Loads with "dill.temp.loadIO".  Returns the buffer object.
+
+>>> dumpfile = dill.temp.dumpIO([1, 2, 3, 4, 5])
+>>> dill.temp.loadIO(dumpfile)
+[1, 2, 3, 4, 5]
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a657f7da505fe36dd45afed5d7d073ea4}\index{dill.temp@{dill.temp}!dumpIO\_source@{dumpIO\_source}}
+\index{dumpIO\_source@{dumpIO\_source}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{dumpIO\_source()}{dumpIO\_source()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a657f7da505fe36dd45afed5d7d073ea4} 
+dill.\+temp.\+dump\+IO\+\_\+source (\begin{DoxyParamCaption}\item[{}]{object}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}write object source to a buffer (instead of dill.dump)
+Loads by with dill.temp.loadIO_source.  Returns the buffer object.
+
+>>> f = lambda x:x**2
+>>> pyfile = dill.temp.dumpIO_source(f, alias='_f')
+>>> _f = dill.temp.loadIO_source(pyfile)
+>>> _f(4)
+16
+
+Optional kwds:
+If 'alias' is specified, the object will be renamed to the given string.
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a7ddf8f40c74367b10dd86607ab61ea5d}\index{dill.temp@{dill.temp}!load@{load}}
+\index{load@{load}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a7ddf8f40c74367b10dd86607ab61ea5d} 
+dill.\+temp.\+load (\begin{DoxyParamCaption}\item[{}]{file}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}load an object that was stored with dill.temp.dump
+
+file: filehandle
+mode: mode to open the file, one of: {'r', 'rb'}
+
+>>> dumpfile = dill.temp.dump([1, 2, 3, 4, 5])
+>>> dill.temp.load(dumpfile)
+[1, 2, 3, 4, 5]
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a4b99cedf8b3f75868c90ae740cefe38b}\index{dill.temp@{dill.temp}!load\_source@{load\_source}}
+\index{load\_source@{load\_source}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{load\_source()}{load\_source()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a4b99cedf8b3f75868c90ae740cefe38b} 
+dill.\+temp.\+load\+\_\+source (\begin{DoxyParamCaption}\item[{}]{file}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}load an object that was stored with dill.temp.dump_source
+
+file: filehandle
+alias: string name of stored object
+mode: mode to open the file, one of: {'r', 'rb'}
+
+>>> f = lambda x: x**2
+>>> pyfile = dill.temp.dump_source(f, alias='_f')
+>>> _f = dill.temp.load_source(pyfile)
+>>> _f(4)
+16
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a4c3e347e05e679d0c85b25c1432455ed}\index{dill.temp@{dill.temp}!loadIO@{loadIO}}
+\index{loadIO@{loadIO}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{loadIO()}{loadIO()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a4c3e347e05e679d0c85b25c1432455ed} 
+dill.\+temp.\+load\+IO (\begin{DoxyParamCaption}\item[{}]{buffer}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}load an object that was stored with dill.temp.dumpIO
+
+buffer: buffer object
+
+>>> dumpfile = dill.temp.dumpIO([1, 2, 3, 4, 5])
+>>> dill.temp.loadIO(dumpfile)
+[1, 2, 3, 4, 5]
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1temp_a476c8150f61179642786de5a37ddc4fc}\index{dill.temp@{dill.temp}!loadIO\_source@{loadIO\_source}}
+\index{loadIO\_source@{loadIO\_source}!dill.temp@{dill.temp}}
+\doxysubsubsection{\texorpdfstring{loadIO\_source()}{loadIO\_source()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1temp_a476c8150f61179642786de5a37ddc4fc} 
+dill.\+temp.\+load\+IO\+\_\+source (\begin{DoxyParamCaption}\item[{}]{buffer}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}load an object that was stored with dill.temp.dumpIO_source
+
+buffer: buffer object
+alias: string name of stored object
+
+>>> f = lambda x:x**2
+>>> pyfile = dill.temp.dumpIO_source(f, alias='_f')
+>>> _f = dill.temp.loadIO_source(pyfile)
+>>> _f(4)
+16
+\end{DoxyVerb}
+ 

@@ -1,0 +1,71 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation}\index{qiskit.circuit.library.generalized\_gates.permutation.Permutation@{qiskit.circuit.library.generalized\_gates.permutation.Permutation}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/da0/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_a5fa99079638f397375b8d2cd99183ff4_a5fa99079638f397375b8d2cd99183ff4}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}np.\+ndarray\texorpdfstring{$\vert$}{|}None pattern=None, int\texorpdfstring{$\vert$}{|}None seed=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}An n_qubit circuit that permutes qubits.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_a5fa99079638f397375b8d2cd99183ff4_a5fa99079638f397375b8d2cd99183ff4}\index{qiskit.circuit.library.generalized\_gates.permutation.Permutation@{qiskit.circuit.library.generalized\_gates.permutation.Permutation}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.permutation.Permutation@{qiskit.circuit.library.generalized\_gates.permutation.Permutation}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1permutation_1_1_permutation_a5fa99079638f397375b8d2cd99183ff4_a5fa99079638f397375b8d2cd99183ff4} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+permutation.\+Permutation.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} np.\+ndarray \texorpdfstring{$\vert$}{|} None }]{pattern}{ = {\ttfamily None}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return an n_qubit permutation circuit implemented using SWAPs.
+
+Args:
+    num_qubits: circuit width.
+    pattern: permutation pattern, describing which qubits occupy the
+        positions 0, 1, 2, etc. after applying the permutation, that
+        is ``pattern[k] = m`` when the permutation maps qubit ``m``
+        to position ``k``. As an example, the pattern ``[2, 4, 3, 0, 1]``
+        means that qubit ``2`` goes to position ``0``, qubit ``4``
+        goes to the position ``1``, etc. The pattern can also be ``None``,
+        in which case a random permutation over ``num_qubits`` is
+        created.
+    seed: random seed in case a random permutation is requested.
+
+Raises:
+    CircuitError: if permutation pattern is malformed.
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit.library import Permutation
+       A = [2,4,3,0,1]
+       circuit = Permutation(5, A)
+       circuit.draw('mpl')
+
+Expanded Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit.library import Permutation
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       A = [2,4,3,0,1]
+       circuit = Permutation(5, A)
+       _generate_circuit_library_visualization(circuit.decompose())
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/permutation.\+py\end{DoxyCompactItemize}

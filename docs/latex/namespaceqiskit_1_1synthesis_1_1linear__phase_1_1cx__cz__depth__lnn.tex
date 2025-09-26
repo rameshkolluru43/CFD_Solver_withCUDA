@@ -1,0 +1,146 @@
+\doxysection{qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn}{}\label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_abbc00a2b5e99c744ea420fb58f2c81cb}{\+\_\+initialize\+\_\+phase\+\_\+schedule}} (mat\+\_\+z)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a3fc6cab27bfe492bf5713c54bab30075}{\+\_\+shuffle}} (labels, odd)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_aecfd64ddd7fdd62fa6b29d96f39fb229}{\+\_\+make\+\_\+seq}} (n)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a16646b20a4e6beafa6ccc79603729bac}{\+\_\+swap\+\_\+plus}} (instructions, seq)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a37d1fde6eb1f4c9b524f139fd8600cac}{\+\_\+update\+\_\+phase\+\_\+schedule}} (n, phase\+\_\+schedule, swap\+\_\+plus)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a24b62b91128d7dde74731959d12c2091}{\+\_\+apply\+\_\+phase\+\_\+to\+\_\+nw\+\_\+circuit}} (n, phase\+\_\+schedule, seq, swap\+\_\+plus)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a8550b29d42304df419e8cb3d4c56b3e5}{synth\+\_\+cx\+\_\+cz\+\_\+depth\+\_\+line\+\_\+my}} (np.\+ndarray mat\+\_\+x, np.\+ndarray mat\+\_\+z)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Given -CZ-CX- transformation (a layer consisting only CNOT gates
+    followed by a layer consisting only CZ gates)
+Return a depth-5n circuit implementation of the -CZ-CX- transformation over LNN.
+
+Args:
+    mat_z: n*n symmetric binary matrix representing a -CZ- circuit
+    mat_x: n*n invertable binary matrix representing a -CX- transformation
+
+Output:
+    QuantumCircuit: :class:`.QuantumCircuit` object containing a depth-5n circuit to implement -CZ-CX-
+
+References:
+    [1] S. A. Kutin, D. P. Moulton, and L. M. Smithline, "Computation at a distance," 2007.
+    [2] D. Maslov and W. Yang, "CNOT circuits need little help to implement arbitrary
+        Hadamard-free Clifford transformations they generate," 2022.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a24b62b91128d7dde74731959d12c2091}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_apply\_phase\_to\_nw\_circuit@{\_apply\_phase\_to\_nw\_circuit}}
+\index{\_apply\_phase\_to\_nw\_circuit@{\_apply\_phase\_to\_nw\_circuit}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_apply\_phase\_to\_nw\_circuit()}{\_apply\_phase\_to\_nw\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a24b62b91128d7dde74731959d12c2091} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+apply\+\_\+phase\+\_\+to\+\_\+nw\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{n}{, }\item[{}]{phase\+\_\+schedule}{, }\item[{}]{seq}{, }\item[{}]{swap\+\_\+plus}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given
+    Width of the circuit (int n)
+    A CZ circuit, represented by the n*n phase schedule phase_schedule
+    A CX circuit, represented by box-labels (seq) and whether the box is SWAP+ (swap_plus)
+        *   This circuit corresponds to the CX tranformation that tranforms a matrix to
+            a NW matrix (c.f. Prop.7.4, [1])
+        *   SWAP+ is defined in section 3.A. of [2].
+        *   As previously noted, the northwest diagonalization procedure of [1] consists
+            of exactly n layers of boxes, each being either a SWAP or a SWAP+. That is,
+            each northwest diagonalization circuit can be uniquely represented by which
+            of its n(n-1)/2 boxes are SWAP+ and which are SWAP.
+Return a QuantumCircuit that computes the phase schedule S inside CX
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_abbc00a2b5e99c744ea420fb58f2c81cb}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_initialize\_phase\_schedule@{\_initialize\_phase\_schedule}}
+\index{\_initialize\_phase\_schedule@{\_initialize\_phase\_schedule}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_initialize\_phase\_schedule()}{\_initialize\_phase\_schedule()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_abbc00a2b5e99c744ea420fb58f2c81cb} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+initialize\+\_\+phase\+\_\+schedule (\begin{DoxyParamCaption}\item[{}]{mat\+\_\+z}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given a CZ layer (represented as an n*n CZ matrix Mz)
+Return a schedule of phase gates implementing Mz in a SWAP-only netwrok
+(c.f. Alg 1, [2])
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_aecfd64ddd7fdd62fa6b29d96f39fb229}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_make\_seq@{\_make\_seq}}
+\index{\_make\_seq@{\_make\_seq}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_make\_seq()}{\_make\_seq()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_aecfd64ddd7fdd62fa6b29d96f39fb229} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+make\+\_\+seq (\begin{DoxyParamCaption}\item[{}]{n}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given the width of the circuit n,
+Return the labels of the boxes in order from left to right, top to bottom
+(c.f. Fig.2, [2])
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a3fc6cab27bfe492bf5713c54bab30075}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_shuffle@{\_shuffle}}
+\index{\_shuffle@{\_shuffle}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_shuffle()}{\_shuffle()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a3fc6cab27bfe492bf5713c54bab30075} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+shuffle (\begin{DoxyParamCaption}\item[{}]{labels}{, }\item[{}]{odd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Args:
+    labels : a list of indices
+    odd : a boolean indicating whether this layer is odd or even,
+Shuffle the indices in labels by swapping adjacent elements
+(c.f. Fig.2, [2])
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a16646b20a4e6beafa6ccc79603729bac}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_swap\_plus@{\_swap\_plus}}
+\index{\_swap\_plus@{\_swap\_plus}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_swap\_plus()}{\_swap\_plus()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a16646b20a4e6beafa6ccc79603729bac} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+swap\+\_\+plus (\begin{DoxyParamCaption}\item[{}]{instructions}{, }\item[{}]{seq}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given CX instructions (c.f. Thm 7.1, [1]) and the labels of all boxes,
+Return a list of labels of the boxes that is SWAP+ in descending order
+    * Assumes the instruction gives gates in the order from top to bottom,
+      from left to right
+    * SWAP+ is defined in section 3.A. of [2]. Note the northwest
+      diagonalization procedure of [1] consists exactly n layers of boxes,
+      each being either a SWAP or a SWAP+. That is, each northwest
+      diagonalization circuit can be uniquely represented by which of its
+      n(n-1)/2 boxes are SWAP+ and which are SWAP.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a37d1fde6eb1f4c9b524f139fd8600cac}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!\_update\_phase\_schedule@{\_update\_phase\_schedule}}
+\index{\_update\_phase\_schedule@{\_update\_phase\_schedule}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{\_update\_phase\_schedule()}{\_update\_phase\_schedule()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a37d1fde6eb1f4c9b524f139fd8600cac} 
+qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+\_\+update\+\_\+phase\+\_\+schedule (\begin{DoxyParamCaption}\item[{}]{n}{, }\item[{}]{phase\+\_\+schedule}{, }\item[{}]{swap\+\_\+plus}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given phase_schedule initialized to induce a CZ circuit in SWAP-only network and list of SWAP+ boxes
+Update phase_schedule for each SWAP+ according to Algorithm 2, [2]
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a8550b29d42304df419e8cb3d4c56b3e5}\index{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}!synth\_cx\_cz\_depth\_line\_my@{synth\_cx\_cz\_depth\_line\_my}}
+\index{synth\_cx\_cz\_depth\_line\_my@{synth\_cx\_cz\_depth\_line\_my}!qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cx\_cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{synth\_cx\_cz\_depth\_line\_my()}{synth\_cx\_cz\_depth\_line\_my()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cx__cz__depth__lnn_a8550b29d42304df419e8cb3d4c56b3e5} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+linear\+\_\+phase.\+cx\+\_\+cz\+\_\+depth\+\_\+lnn.\+synth\+\_\+cx\+\_\+cz\+\_\+depth\+\_\+line\+\_\+my (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{mat\+\_\+x}{, }\item[{np.\+ndarray}]{mat\+\_\+z}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Joint synthesis of a -CZ-CX- circuit for linear nearest neighbor (LNN) connectivity,
+with 2-qubit depth at most 5n, based on Maslov and Yang.
+This method computes the CZ circuit inside the CX circuit via phase gate insertions.
+
+Args:
+    mat_z : a boolean symmetric matrix representing a CZ circuit.
+        ``mat_z[i][j]=1`` represents a ``cz(i,j)`` gate
+
+    mat_x : a boolean invertible matrix representing a CX circuit.
+
+Returns:
+    A circuit implementation of a CX circuit following a CZ circuit,
+    denoted as a -CZ-CX- circuit,in two-qubit depth at most ``5n``, for LNN connectivity.
+
+References:
+    1. Kutin, S., Moulton, D. P., Smithline, L.,
+       *Computation at a distance*, Chicago J. Theor. Comput. Sci., vol. 2007, (2007),
+       `arXiv:quant-ph/0701194 <https://arxiv.org/abs/quant-ph/0701194>`_
+    2. Dmitri Maslov, Willers Yang, *CNOT circuits need little help to implement arbitrary
+       Hadamard-free Clifford transformations they generate*,
+       `arXiv:2210.16195 <https://arxiv.org/abs/2210.16195>`_.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,188 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils}{}\label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4e3082eb0607e88bc717ce6e002747dd_a4e3082eb0607e88bc717ce6e002747dd}{is\+\_\+permutation}} (np.\+ndarray x)
+\item 
+Union\mbox{[}int, np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4d36e65252a709d659766671366c5b08_a4d36e65252a709d659766671366c5b08}{reverse\+\_\+bits}} (Union\mbox{[}int, np.\+ndarray\mbox{]} x, int nbits, bool enable)
+\item 
+int \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a24d5b8c7c35a7274e7f3060a78e4f3f3_a24d5b8c7c35a7274e7f3060a78e4f3f3}{swap\+\_\+bits}} (int num, int a, int b)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_abe3f8ef95004241dcf44321658e30e6d_abe3f8ef95004241dcf44321658e30e6d}{bit\+\_\+permutation\+\_\+1q}} (int n, int k)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a881250d2128feef5984c6d163093bf3a_a881250d2128feef5984c6d163093bf3a}{bit\+\_\+permutation\+\_\+2q}} (int n, int j, int k)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4ae457bb41fb7b06559108b34ac34c70_a4ae457bb41fb7b06559108b34ac34c70}{inverse\+\_\+permutation}} (np.\+ndarray perm)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a1d1eb6e01e595a66ed21f8b3c659cddc_a1d1eb6e01e595a66ed21f8b3c659cddc}{make\+\_\+rx}} (float phi, np.\+ndarray out)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a582acb670325ae8dc258a73b870af964_a582acb670325ae8dc258a73b870af964}{make\+\_\+ry}} (float phi, np.\+ndarray out)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a2f891ed8fcc68ef11a3d8fd96d332cac_a2f891ed8fcc68ef11a3d8fd96d332cac}{make\+\_\+rz}} (float phi, np.\+ndarray out)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions in the fast gradient implementation.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_abe3f8ef95004241dcf44321658e30e6d_abe3f8ef95004241dcf44321658e30e6d}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!bit\_permutation\_1q@{bit\_permutation\_1q}}
+\index{bit\_permutation\_1q@{bit\_permutation\_1q}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{bit\_permutation\_1q()}{bit\_permutation\_1q()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_abe3f8ef95004241dcf44321658e30e6d_abe3f8ef95004241dcf44321658e30e6d} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+bit\+\_\+permutation\+\_\+1q (\begin{DoxyParamCaption}\item[{int}]{n}{, }\item[{int}]{k}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs index permutation that brings a circuit consisting of a single
+1-qubit gate to "standard form": ``kron(I(2^n/2), G)``, as we call it. Here n
+is the number of qubits, ``G`` is a 2x2 gate matrix, ``I(2^n/2)`` is the identity
+matrix of size ``(2^n/2)x(2^n/2)``, and the full size of the circuit matrix is
+``(2^n)x(2^n)``. Circuit matrix in standard form becomes block-diagonal (with
+sub-matrices ``G`` on the main diagonal). Multiplication of such a matrix and
+a dense one is much faster than generic dense-dense product. Moreover,
+we do not need to keep the entire circuit matrix in memory but just 2x2 ``G``
+one. This saves a lot of memory when the number of qubits is large.
+
+Args:
+    n: number of qubits.
+    k: index of qubit where single 1-qubit gate is applied.
+
+Returns:
+    permutation that brings the whole layer to the standard form.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a881250d2128feef5984c6d163093bf3a_a881250d2128feef5984c6d163093bf3a}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!bit\_permutation\_2q@{bit\_permutation\_2q}}
+\index{bit\_permutation\_2q@{bit\_permutation\_2q}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{bit\_permutation\_2q()}{bit\_permutation\_2q()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a881250d2128feef5984c6d163093bf3a_a881250d2128feef5984c6d163093bf3a} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+bit\+\_\+permutation\+\_\+2q (\begin{DoxyParamCaption}\item[{int}]{n}{, }\item[{int}]{j}{, }\item[{int}]{k}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Constructs index permutation that brings a circuit consisting of a single
+2-qubit gate to "standard form": ``kron(I(2^n/4), G)``, as we call it. Here ``n``
+is the number of qubits, ``G`` is a 4x4 gate matrix, ``I(2^n/4)`` is the identity
+matrix of size ``(2^n/4)x(2^n/4)``, and the full size of the circuit matrix is
+``(2^n)x(2^n)``. Circuit matrix in standard form becomes block-diagonal (with
+sub-matrices ``G`` on the main diagonal). Multiplication of such a matrix and
+a dense one is much faster than generic dense-dense product. Moreover,
+we do not need to keep the entire circuit matrix in memory but just 4x4 ``G``
+one. This saves a lot of memory when the number of qubits is large.
+
+Args:
+    n: number of qubits.
+    j: index of control qubit where single 2-qubit gate is applied.
+    k: index of target qubit where single 2-qubit gate is applied.
+
+Returns:
+    permutation that brings the whole layer to the standard form.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4ae457bb41fb7b06559108b34ac34c70_a4ae457bb41fb7b06559108b34ac34c70}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!inverse\_permutation@{inverse\_permutation}}
+\index{inverse\_permutation@{inverse\_permutation}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{inverse\_permutation()}{inverse\_permutation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4ae457bb41fb7b06559108b34ac34c70_a4ae457bb41fb7b06559108b34ac34c70} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+inverse\+\_\+permutation (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{perm}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns inverse permutation.
+
+Args:
+    perm: permutation to be reversed.
+
+Returns:
+    inverse permutation.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4e3082eb0607e88bc717ce6e002747dd_a4e3082eb0607e88bc717ce6e002747dd}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!is\_permutation@{is\_permutation}}
+\index{is\_permutation@{is\_permutation}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{is\_permutation()}{is\_permutation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4e3082eb0607e88bc717ce6e002747dd_a4e3082eb0607e88bc717ce6e002747dd} 
+ bool qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+is\+\_\+permutation (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{x}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Checks if array is really an index permutation.
+
+Args:
+    1D-array of integers that supposedly represents a permutation.
+
+Returns:
+    True, if array is really a permutation of indices.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a1d1eb6e01e595a66ed21f8b3c659cddc_a1d1eb6e01e595a66ed21f8b3c659cddc}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!make\_rx@{make\_rx}}
+\index{make\_rx@{make\_rx}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{make\_rx()}{make\_rx()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a1d1eb6e01e595a66ed21f8b3c659cddc_a1d1eb6e01e595a66ed21f8b3c659cddc} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+make\+\_\+rx (\begin{DoxyParamCaption}\item[{float}]{phi}{, }\item[{np.\+ndarray}]{out}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Makes a 2x2 matrix that corresponds to X-rotation gate.
+This is a fast implementation that does not allocate the output matrix.
+
+Args:
+    phi: rotation angle.
+    out: placeholder for the result (2x2, complex-valued matrix).
+
+Returns:
+    rotation gate, same object as referenced by "out".
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a582acb670325ae8dc258a73b870af964_a582acb670325ae8dc258a73b870af964}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!make\_ry@{make\_ry}}
+\index{make\_ry@{make\_ry}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{make\_ry()}{make\_ry()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a582acb670325ae8dc258a73b870af964_a582acb670325ae8dc258a73b870af964} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+make\+\_\+ry (\begin{DoxyParamCaption}\item[{float}]{phi}{, }\item[{np.\+ndarray}]{out}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Makes a 2x2 matrix that corresponds to Y-rotation gate.
+This is a fast implementation that does not allocate the output matrix.
+
+Args:
+    phi: rotation angle.
+    out: placeholder for the result (2x2, complex-valued matrix).
+
+Returns:
+    rotation gate, same object as referenced by "out".
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a2f891ed8fcc68ef11a3d8fd96d332cac_a2f891ed8fcc68ef11a3d8fd96d332cac}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!make\_rz@{make\_rz}}
+\index{make\_rz@{make\_rz}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{make\_rz()}{make\_rz()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a2f891ed8fcc68ef11a3d8fd96d332cac_a2f891ed8fcc68ef11a3d8fd96d332cac} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+make\+\_\+rz (\begin{DoxyParamCaption}\item[{float}]{phi}{, }\item[{np.\+ndarray}]{out}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Makes a 2x2 matrix that corresponds to Z-rotation gate.
+This is a fast implementation that does not allocate the output matrix.
+
+Args:
+    phi: rotation angle.
+    out: placeholder for the result (2x2, complex-valued matrix).
+
+Returns:
+    rotation gate, same object as referenced by "out".
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4d36e65252a709d659766671366c5b08_a4d36e65252a709d659766671366c5b08}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!reverse\_bits@{reverse\_bits}}
+\index{reverse\_bits@{reverse\_bits}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{reverse\_bits()}{reverse\_bits()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a4d36e65252a709d659766671366c5b08_a4d36e65252a709d659766671366c5b08} 
+ Union\mbox{[}int, np.\+ndarray\mbox{]} qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+reverse\+\_\+bits (\begin{DoxyParamCaption}\item[{Union\mbox{[}int, np.\+ndarray\mbox{]}}]{x}{, }\item[{int}]{nbits}{, }\item[{bool}]{enable}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Reverses the bit order in a number of ``nbits`` length.
+If ``x`` is an array, then operation is applied to every entry.
+
+Args:
+    x: either a single integer or an array of integers.
+    nbits: number of meaningful bits in the number x.
+    enable: apply reverse operation, if enabled, otherwise leave unchanged.
+
+Returns:
+    a number or array of numbers with reversed bits.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a24d5b8c7c35a7274e7f3060a78e4f3f3_a24d5b8c7c35a7274e7f3060a78e4f3f3}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}!swap\_bits@{swap\_bits}}
+\index{swap\_bits@{swap\_bits}!qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils@{qiskit.synthesis.unitary.aqc.fast\_gradient.fast\_grad\_utils}}
+\doxysubsubsection{\texorpdfstring{swap\_bits()}{swap\_bits()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1fast__grad__utils_a24d5b8c7c35a7274e7f3060a78e4f3f3_a24d5b8c7c35a7274e7f3060a78e4f3f3} 
+ int qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+fast\+\_\+grad\+\_\+utils.\+swap\+\_\+bits (\begin{DoxyParamCaption}\item[{int}]{num}{, }\item[{int}]{a}{, }\item[{int}]{b}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Swaps the bits at positions 'a' and 'b' in the number 'num'.
+
+Args:
+    num: an integer number where bits should be swapped.
+    a: index of the first bit to be swapped.
+    b: index of the second bit to be swapped.
+
+Returns:
+    the number with swapped bits.
+\end{DoxyVerb}
+ 

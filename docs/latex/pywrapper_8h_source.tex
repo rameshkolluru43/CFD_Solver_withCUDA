@@ -1,0 +1,190 @@
+\doxysection{pywrapper.\+h}
+\hypertarget{pywrapper_8h_source}{}\label{pywrapper_8h_source}\index{Python\_Wrapper/MyPythonEnv311/lib/python3.11/site-\/packages/symengine/lib/pywrapper.h@{Python\_Wrapper/MyPythonEnv311/lib/python3.11/site-\/packages/symengine/lib/pywrapper.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ SYMENGINE\_PYWRAPPER\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ SYMENGINE\_PYWRAPPER\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <symengine/number.h>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <symengine/constants.h>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <symengine/functions.h>}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }SymEngine\ \{}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ std::string\ pickle\_dumps(\textcolor{keyword}{const}\ PyObject\ *);}
+\DoxyCodeLine{00012\ PyObject*\ pickle\_loads(\textcolor{keyword}{const}\ std::string\ \&);}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ PySymbol\ is\ a\ subclass\ of\ Symbol\ that\ keeps\ a\ reference\ to\ a\ Python\ object.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ When\ subclassing\ a\ Symbol\ from\ Python,\ the\ information\ stored\ in\ subclassed}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ object\ is\ lost\ because\ all\ the\ arithmetic\ and\ function\ evaluations\ happen\ on}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ the\ C++\ side.\ The\ object\ returned\ by\ \`{}(x\ +\ 1)\ -\/\ 1`\ is\ wrapped\ in\ the\ Python}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ class\ Symbol\ and\ therefore\ the\ fact\ that\ \`{}x`\ is\ a\ subclass\ of\ Symbol\ is\ lost.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ By\ subclassing\ in\ the\ C++\ side\ and\ keeping\ a\ python\ object\ reference,\ the}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ subclassed\ python\ object\ can\ be\ returned\ instead\ of\ wrapping\ in\ a\ Python}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ class\ Symbol.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ TODO:\ Python\ object\ and\ C++\ object\ both\ keep\ a\ reference\ to\ each\ other\ as\ one}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ must\ be\ alive\ when\ the\ other\ is\ alive.\ This\ creates\ a\ cyclic\ reference\ and}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ should\ be\ fixed.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sym_engine_1_1_py_symbol}{PySymbol}}\ :\ \textcolor{keyword}{public}\ Symbol\ \{}
+\DoxyCodeLine{00031\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00032\ \ \ \ \ PyObject*\ obj;}
+\DoxyCodeLine{00033\ \ \ \ \ std::string\ bytes;}
+\DoxyCodeLine{00034\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{bool}\ store\_pickle;}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_symbol}{PySymbol}}(\textcolor{keyword}{const}\ std::string\&\ name,\ PyObject*\ obj,\ \textcolor{keywordtype}{bool}\ store\_pickle)\ :}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ Symbol(name),\ obj(obj),\ store\_pickle(store\_pickle)\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (store\_pickle)\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ bytes\ =\ pickle\_dumps(obj);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_INCREF(obj);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \}}
+\DoxyCodeLine{00044\ \ \ \ \ PyObject*\ get\_py\_object()\textcolor{keyword}{\ const\ }\{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (store\_pickle)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ pickle\_loads(bytes);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_INCREF(obj);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ obj;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ \ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{class_sym_engine_1_1_py_symbol}{\string~PySymbol}}()\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (not\ store\_pickle)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TODO:\ This\ is\ never\ called\ because\ of\ the\ cyclic\ reference.}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ Py\_DECREF(obj);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ This\ module\ provides\ classes\ to\ wrap\ Python\ objects\ defined\ in\ SymPy}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ or\ Sage\ into\ SymEngine.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ *\ PyModule\ is\ a\ python\ module\ (SymPy\ or\ Sage)\ that\ provides\ Python\ callbacks.}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ *\ These\ callback\ functions\ for\ conversion,\ evaluation\ and\ differentiation\ are}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ *\ defined\ in\ the\ Cython\ module\ \`{}symengine\_wrapper.pyx`\ and\ passed\ to\ C++.}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ PyNumber\ is\ for\ numeric\ types\ where\ addition,\ subtraction,\ multiplication}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ and\ division\ with\ other\ numeric\ types\ produce\ a\ numeric\ type.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ PyFunction\ is\ an\ instance\ of\ a\ function\ defined\ in\ SymPy\ or\ Sage\ and\ contains}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ a\ PyFunctionClass\ instance\ which\ holds\ the\ callback\ functions\ needed\ for}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ interaction\ with\ other\ SymEngine\ functions}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ C++\ Evaluation\ methods\ like\ eval\_double,\ eval\_mpfr\ calls\ the\ eval\_\ method\ to}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ convert\ PyNumber\ and\ PyFunction\ to\ known\ SymEngine\ types.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ to\ a\ Python\ module.\ eg:\ SymPy\ or\ Sage}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sym_engine_1_1_py_module}{PyModule}}\ :\ \textcolor{keyword}{public}\ EnableRCPFromThis<PyModule>\ \{}
+\DoxyCodeLine{00082\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Callback\ function\ to\ convert\ a\ SymEngine\ object\ to\ Python}}
+\DoxyCodeLine{00084\ \ \ \ \ PyObject*\ (*to\_py\_)(\textcolor{keyword}{const}\ RCP<const\ Basic>);}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Callback\ function\ to\ convert\ a\ Python\ object\ to\ SymEngine}}
+\DoxyCodeLine{00086\ \ \ \ \ RCP<const\ Basic>\ (*from\_py\_)(PyObject*);}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{comment}{//\ Callback\ function\ to\ evaluate\ a\ Python\ object\ to\ a\ bits\ number\ of}}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ precision\ and\ return\ a\ SymEngine\ Number}}
+\DoxyCodeLine{00089\ \ \ \ \ RCP<const\ Number>\ (*eval\_)(PyObject*,\ \textcolor{keywordtype}{long}\ bits);}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{//\ Callback\ function\ to\ differentiate\ a\ Python\ object\ with\ respect\ to}}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{comment}{//\ a\ SymEngine\ symbol\ and\ get\ a\ SymEngine\ object}}
+\DoxyCodeLine{00092\ \ \ \ \ RCP<const\ Basic>\ (*diff\_)(PyObject*,\ RCP<const\ Basic>);}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Common\ constants\ in\ Python}}
+\DoxyCodeLine{00094\ \ \ \ \ PyObject\ *one,\ *zero,\ *minus\_one;}
+\DoxyCodeLine{00095\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00096\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_module}{PyModule}}(PyObject*\ (*)(\textcolor{keyword}{const}\ RCP<const\ Basic>\ x),\ RCP<const\ Basic>\ (*)(PyObject*),}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ RCP<const\ Number>\ (*)(PyObject*,\ \textcolor{keywordtype}{long}),\ RCP<const\ Basic>\ (*)(PyObject*,\ RCP<const\ Basic>));}
+\DoxyCodeLine{00098\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_module}{\string~PyModule}}();}
+\DoxyCodeLine{00099\ \ \ \ \ PyObject*\ get\_zero()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ zero;\ \}}
+\DoxyCodeLine{00100\ \ \ \ \ PyObject*\ get\_one()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ one;\ \}}
+\DoxyCodeLine{00101\ \ \ \ \ PyObject*\ get\_minus\_one()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ minus\_one;\ \}}
+\DoxyCodeLine{00102\ \};}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{//\ \ wrapped\ using\ this\ method.\ Eg:\ Sage's\ real\_mpfi.}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ \ Arithmetic\ operations\ are\ done\ by\ calling\ Python/C\ API's\ PyNumber\_*\ methods}}
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ \ after\ converting\ SymEngine::Number\ to\ Python\ module\ type.\ Arithmetic}}
+\DoxyCodeLine{00108\ \textcolor{comment}{//\ \ operations\ always\ returns\ a\ PyNumber\ type.}}
+\DoxyCodeLine{00109\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sym_engine_1_1_py_number}{PyNumber}}\ :\ \textcolor{keyword}{public}\ NumberWrapper\ \{}
+\DoxyCodeLine{00110\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00112\ \ \ \ \ PyObject*\ pyobject\_;}
+\DoxyCodeLine{00114\ \ \ \ \ RCP<const\ PyModule>\ pymodule\_;}
+\DoxyCodeLine{00115\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00116\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_number}{PyNumber}}(PyObject*\ pyobject,\ \textcolor{keyword}{const}\ RCP<const\ PyModule>\ \&pymodule);}
+\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_number}{\string~PyNumber}}()\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ Py\_DECREF(pyobject\_);}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \ \ \ \ PyObject*\ get\_py\_object()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pyobject\_;\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ RCP<const\ PyModule>\ get\_py\_module()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pymodule\_;\ \}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a8f1fcd8bfa77221f2c14f72772114342}{is\_zero}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a1eb7a82b28d7998149d0b7fe0897edcd}{is\_one}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_ae06272533833fbbf3180a554acc7f633}{is\_minus\_one}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a06d81d7af5009ae492a39139b6078cab}{is\_negative}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a8ed639f9c6bb9ef9017bd6dda3a53e3f}{is\_positive}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a977f89ab4f7a0a98acd40407f7de1514}{is\_complex}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{comment}{//\ \ false\ if\ the\ number\ is\ an\ approximation}}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a02de57fff832adc3523c1ee64926983f}{is\_exact}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};\ \};}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_aebf9be59e572ad8bf5d1f479d03d7da7}{add}}(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a2ad33a8f016fd127caf297c38c19aff2}{sub}}(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ rsub(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_ab5d8d677e32c3180856806b43710b8f0}{mul}}(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a49258ab73a95d707c7f06fd71e04ffea}{div}}(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ rdiv(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_number_a99de54d1fd07911ecd7f338f014ff196}{pow}}(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ rpow(\textcolor{keyword}{const}\ Number\ \&other)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ eval(\textcolor{keywordtype}{long}\ bits)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \_\_str\_\_()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ compare(\textcolor{keyword}{const}\ Basic\ \&o)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_\_eq\_\_(\textcolor{keyword}{const}\ Basic\ \&o)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keyword}{virtual}\ hash\_t\ \_\_hash\_\_()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00157\ \};}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00164\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sym_engine_1_1_py_function_class}{PyFunctionClass}}\ :\ \textcolor{keyword}{public}\ EnableRCPFromThis<PyFunctionClass>\ \{}
+\DoxyCodeLine{00165\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00167\ \ \ \ \ PyObject\ *pyobject\_;}
+\DoxyCodeLine{00169\ \ \ \ \ std::string\ name\_;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keyword}{mutable}\ hash\_t\ hash\_;}
+\DoxyCodeLine{00173\ \ \ \ \ RCP<const\ PyModule>\ pymodule\_;}
+\DoxyCodeLine{00174\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00175\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_function_class}{PyFunctionClass}}(PyObject\ *pyobject,\ std::string\ name,\ \textcolor{keyword}{const}\ RCP<const\ PyModule>\ \&pymodule);}
+\DoxyCodeLine{00176\ \ \ \ \ PyObject*\ get\_py\_object()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pyobject\_;\ \}}
+\DoxyCodeLine{00177\ \ \ \ \ RCP<const\ PyModule>\ get\_py\_module()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ pymodule\_;\ \}}
+\DoxyCodeLine{00178\ \ \ \ \ std::string\ get\_name()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ name\_;\ \}}
+\DoxyCodeLine{00180\ \ \ \ \ PyObject*\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_class_a2fb378b8bc22d1c768933e0815ef9485}{call}}(\textcolor{keyword}{const}\ vec\_basic\ \&vec)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordtype}{bool}\ \_\_eq\_\_(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_class}{PyFunctionClass}}\ \&x)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordtype}{int}\ compare(\textcolor{keyword}{const}\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_class}{PyFunctionClass}}\ \&x)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00183\ \ \ \ \ hash\_t\ hash()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00184\ \};}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00191\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_sym_engine_1_1_py_function}{PyFunction}}\ :\ \textcolor{keyword}{public}\ FunctionWrapper\ \{}
+\DoxyCodeLine{00192\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00193\ \ \ \ \ RCP<const\ PyFunctionClass>\ pyfunction\_class\_;}
+\DoxyCodeLine{00194\ \ \ \ \ PyObject\ *pyobject\_;}
+\DoxyCodeLine{00195\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00196\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_function}{PyFunction}}(\textcolor{keyword}{const}\ vec\_basic\ \&vec,\ \textcolor{keyword}{const}\ RCP<const\ PyFunctionClass>\ \&pyfunc\_class,}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyObject\ *pyobject);}
+\DoxyCodeLine{00198\ \ \ \ \ \mbox{\hyperlink{class_sym_engine_1_1_py_function}{\string~PyFunction}}();}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ PyObject\ *get\_py\_object()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00201\ \ \ \ \ RCP<const\ PyFunctionClass>\ get\_pyfunction\_class()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Basic>\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_aa168eddecf9a578ef6282b5edcc3e8a6}{create}}(\textcolor{keyword}{const}\ vec\_basic\ \&x)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Number>\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_ab7842a31cb53e868979c0facf55ea828}{eval}}(\textcolor{keywordtype}{long}\ bits)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keyword}{virtual}\ RCP<const\ Basic>\ \mbox{\hyperlink{class_sym_engine_1_1_py_function_a5b5444853f2b2f3372441f1a5f776a66}{diff\_impl}}(\textcolor{keyword}{const}\ RCP<const\ Symbol>\ \&x)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00210\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{int}\ compare(\textcolor{keyword}{const}\ Basic\ \&o)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{bool}\ \_\_eq\_\_(\textcolor{keyword}{const}\ Basic\ \&o)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{virtual}\ hash\_t\ \_\_hash\_\_()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00213\ \};}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ std::string\ wrapper\_dumps(\textcolor{keyword}{const}\ Basic\ \&x);}
+\DoxyCodeLine{00216\ RCP<const\ Basic>\ wrapper\_loads(\textcolor{keyword}{const}\ std::string\ \&s);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//SYMENGINE\_PYWRAPPER\_H}}
+
+\end{DoxyCode}

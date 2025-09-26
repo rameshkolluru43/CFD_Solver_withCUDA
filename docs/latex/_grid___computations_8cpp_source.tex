@@ -1,0 +1,913 @@
+\doxysection{Grid\+\_\+\+Computations.\+cpp}
+\hypertarget{_grid___computations_8cpp_source}{}\label{_grid___computations_8cpp_source}\index{Grid\_Readers/Grid\_Computations.cpp@{Grid\_Readers/Grid\_Computations.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ vector<V\_D>\ Cell\_Face\_Normals,Cell\_Face\_Areas,Cells\_Diagonal\_Vector,Cells\_Cell\_Center,Cells\_Center\_Distances,Distance\_Bw\_Cell\_Centers,Cells\_Vertices;}
+\DoxyCodeLine{00005\ V\_D\ Cells\_Area,Cells\_Inv\_Area,Face\_Area\_Components,Face\_Normal\_Components,Global\_Vec(3,0.0),Cells\_Area\_Mag,Cell\_Face\_Distances,Vertices;}
+\DoxyCodeLine{00006\ V\_D\ Cells\_Volume,Cells\_Inv\_Volume;}
+\DoxyCodeLine{00007\ V\_D\ Distance\_Ratio;}
+\DoxyCodeLine{00008\ V\_I\ Wall\_Cells\_List,Inlet\_Cells\_List,Exit\_Cells\_List,Symmetry\_Cells\_List,List\_Dissipative\_Cells,List\_Non\_Dissipative\_Cells,Far\_Field\_Out\_Flow\_List,Far\_Field\_InFlow\_List;}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ vector<V\_D>\ Co\_Volume\_Cell\_Face\_Normals,Co\_Volume\_Cell\_Face\_Areas,Co\_Volume\_Cell\_Area;\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{keywordtype}{int}\ Total\_No\_Cells,No\_Cartesian\_Cells,No\_Polar\_Cells,No\_Physical\_Cells,No\_Ghost\_Cells,Cells\_in\_Plane,nx\_c,ny\_c,nz\_c,nx\_p,ny\_p,nz\_p,Grid\_Type;}
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{double}\ global\_temp,R\_Mid\_dot\_A,Cell\_Minimum\_Length;}
+\DoxyCodeLine{00014\ \textcolor{comment}{//int\ nx\_1,nx\_2,ny\_1,ny\_2;}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{keywordtype}{bool}\ Is\_Viscous\_Wall,Is\_2D\_Flow,Is\_Inlet\_SubSonic,Is\_Exit\_SubSonic,Enable\_Far\_Field,has\_Symmetry\_BC;}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{double}\ CFL;}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{comment}{//string\ Grid\_File,\ Initial\_Solution\_File,\ Solution\_File,\ Error\_File,\ Limiter\_File,Final\_Solution\_File,Grid\_Vtk\_File,CF\_File;}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ V\_I\ Cell\_Neighbour\_indicies;}
+\DoxyCodeLine{00022\ vector<V\_I>\ Cell\_Neighbours,Cells\_Secondary\_Neighbours;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00025\ \textcolor{comment}{Function\ for\ reading\ input\ grid\ file.\ It\ takes\ a\ file\ containing\ data\ of\ grid\ and\ constructs\ Physical\ Cells,\ evaluates\ its\ face\ areas,\ normals\ and\ cell\ volumes.\ Creates\ the\ storage\ vectors\ for\ the\ above\ said\ variables.}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{int}\ get\_NoPhysical\_Cells()}
+\DoxyCodeLine{00028\ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Total\_No\_Cells;\ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \}\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}\ Print(V\_D\ \&\ Vect)}
+\DoxyCodeLine{00034\ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{int}\ index=0,size\ =\ Vect.size();}
+\DoxyCodeLine{00036\ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<size<<endl;}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ \ cout<<"{}Iam\ being\ called"{}<<endl;}}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordflow}{switch}(size)}
+\DoxyCodeLine{00039\ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 25:}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<5;j++)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =i*5+j;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 15:}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<5;i++)}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<3;j++)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =i*3+j;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\ =0;index<size;index++)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index\ =0;index<size;index++)}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ default\ :}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(index=0;index<size;index++)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{};}}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{void}\ Print(vector<V\_D>\ \&\ Vect)}
+\DoxyCodeLine{00087\ \{}
+\DoxyCodeLine{00088\ \textcolor{comment}{//\ \ cout<<"{}I\ am\ being\ called"{}<<endl;}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Vect.size();i++)}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index=0;index<Vect[i].size();index++)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Vect[i][index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{};}}
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ Print(vector<bool>\ \&\ Vect)}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ index=0;index<Vect.size();index++)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ cout<<Vect[index]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00103\ \ \ \ \ cout<<endl;}
+\DoxyCodeLine{00104\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}};}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{keywordtype}{void}\ Read\_Grid(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\&\ ipfile)}
+\DoxyCodeLine{00109\ \{}
+\DoxyCodeLine{00110\ \ \ \ \ V\_D\ P1(3,0.0),P2(3,0.0),P3(3,0.0),P4(3,0.0);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{double}\ x=0.0,y=0.0,z=0.0;}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{int}\ i0,i1,i2,i3,i4,Conversion\_Type;}
+\DoxyCodeLine{00113\ \ \ \ \ Vertices.resize(12,0.0);}
+\DoxyCodeLine{00114\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ \(\backslash\)t"{}}<<ipfile.c\_str()<<endl;}
+\DoxyCodeLine{00115\ \ \ \ \ ifstream\ Grid\_File(ipfile.c\_str(),ios::in);}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}(Grid\_File.is\_open())}
+\DoxyCodeLine{00117\ \ \ \ \ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}File\ opened\ for\ reading\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ Grid\_File>>Grid\_Type;}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ Grid\_File>>Conversion\_Type;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Conversion\_Type\ ==1)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\ is\ created\ in\ mm\(\backslash\)n\ Caution\ convert\ point\ data\ to\ meters\(\backslash\)n"{}};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\ is\ Created\ in\ meters\(\backslash\)n"{}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(Grid\_Type)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//For\ Cartesian\ Mesh}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ Grid\ of\ type\(\backslash\)t"{}}<<Grid\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t\ Cartesian\ Mesh\(\backslash\)n"{}};}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>nx\_c>>ny\_c;\ \ \ \ \ \ \textcolor{comment}{//Represents\ Points\ on\ Cartesian\ Mesh}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>No\_Physical\_Cells;\ \ \ \ \ \ \ \textcolor{comment}{//Represents\ Points\ on\ combination\ of\ Cartesian\ cout<<"{}nx\(\backslash\)t"{}<<nx\_c<<"{}\(\backslash\)tny\(\backslash\)t"{}<<ny\_c<<"{}\(\backslash\)tnz\(\backslash\)t"{}<<nz\_c<<"{}\(\backslash\)t"{}<<No\_Physical\_Cells<<endl;}}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_in\_Plane=(nx\_c-\/1)*(ny\_c-\/1);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ No\_Ghost\_Cells\ =\ 2*(nx\_c-\/1)\ +\ 2*(ny\_c-\/1);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Total\ Number\ of\ Ghost\ Cells\ to\ be\ constructed\ \(\backslash\)t"{}}<<No\_Ghost\_Cells<<endl;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Total\_No\_Cells\ =\ No\_Physical\_Cells\ +\ No\_Ghost\_Cells;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//For\ Shock\ Diffraction\ and\ Forward\ Step\ cases}}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ Grid\ of\ type\(\backslash\)t"{}}<<Grid\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t\ Dual\ block\ mesh\(\backslash\)n"{}};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>nx\_1>>ny\_1>>nx\_2>>ny\_2;\ \ \ \ \ \ \textcolor{comment}{//\ Mesh\ with\ Two\ blocks}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>No\_Physical\_Cells;\ \ \ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}nx1\(\backslash\)t"{}}<<nx\_1<<\textcolor{stringliteral}{"{}\(\backslash\)tny1\(\backslash\)t"{}}<<ny\_1<<\textcolor{stringliteral}{"{}\(\backslash\)tnx2\(\backslash\)t"{}}<<nx\_2<<\textcolor{stringliteral}{"{}\(\backslash\)tny2\(\backslash\)t"{}}<<ny\_2<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Physical\_Cells<<endl;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_in\_Plane\ =\ (nx\_1-\/1)*(ny\_1-\/1)\ +\ (nx\_2-\/1)*(ny\_2-\/1);}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ No\_Ghost\_Cells\ =\ (nx\_1-\/1)\ +\ 2*(ny\_1-\/1)\ +\ (nx\_2-\/1)\ +\ 2*(ny\_2-\/1)\ +\ (nx\_2-\/1)-\/(nx\_1-\/1);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Total\ Number\ of\ Ghost\ Cells\ to\ be\ constructed\ \(\backslash\)t"{}}<<No\_Ghost\_Cells<<endl;}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(No\_Physical\_Cells\ ==\ Cells\_in\_Plane)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Dual\ Block\ Grid\ is\ accurate"{}}<<endl;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}No\ of\ Physical\ Cells\(\backslash\)t"{}}<<No\_Physical\_Cells<<endl;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}No\ of\ Cells\ in\ plane\(\backslash\)t"{}}<<Cells\_in\_Plane<<endl;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Check\ the\ Grid\ data"{}}<<endl;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Total\_No\_Cells\ =\ No\_Physical\_Cells\ +\ No\_Ghost\_Cells;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ Cells\_Vertices.resize(Total\_No\_Cells,Vertices);}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Physical\_Cells;i++)}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00161\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Physical\ Cell\ Number\ "{}<<i<<endl;}}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ x=0.0;y=0.0;z=0.0;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>x>>y>>z;\ \ \ \ \ \ \ \ \ P1[0]=x;P1[1]=y;P1[2]=z;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>x>>y>>z;\ \ \ \ \ \ \ \ \ P2[0]=x;P2[1]=y;P2[2]=z;}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>x>>y>>z;\ \ \ \ \ \ \ \ \ P3[0]=x;P3[1]=y;P3[2]=z;}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>x>>y>>z;\ \ \ \ \ \ \ \ \ P4[0]=x;P4[1]=y;P4[2]=z;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(Conversion\_Type)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Conversion\_Factor(P1);\ \ \ \ \ \ \ \ \ \ Conversion\_Factor(P2);}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Conversion\_Factor(P3);\ \ \ \ \ \ \ \ \ \ Conversion\_Factor(P4);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ default\ :}
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Grid\ is\ created\ in\ m,\ No\ conversion\ requited"{}<<endl;}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/Vertices\ of\ Current\ cell\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ Vertices[0]\ =\ P1[0];\ Vertices[1]\ \ =\ P1[1];\ Vertices[2]\ \ =\ P1[2];}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ Vertices[3]\ =\ P2[0];\ Vertices[4]\ \ =\ P2[1];\ Vertices[5]\ \ =\ P2[2];}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ Vertices[6]\ =\ P3[0];\ Vertices[7]\ \ =\ P3[1];\ Vertices[8]\ \ =\ P3[2];}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ Vertices[9]\ =\ P4[0];\ Vertices[10]\ =\ P4[1];\ Vertices[11]\ =\ P4[2];}
+\DoxyCodeLine{00182\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00183\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Cells\_Vertices.push\_back(Vertices);}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Print(P1);}}
+\DoxyCodeLine{00185\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Print(P2);}}
+\DoxyCodeLine{00186\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Print(P3);}}
+\DoxyCodeLine{00187\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Print(P4);*/}}
+\DoxyCodeLine{00188\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ Construct\_Cell(P1,P2,P3,P4);}
+\DoxyCodeLine{00190\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>i0>>i1>>i2>>i3>>i4;}
+\DoxyCodeLine{00192\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<i0<<"{}\(\backslash\)t"{}<<i1<<"{}\(\backslash\)t"{}<<i2<<"{}\(\backslash\)t"{}<<i3<<"{}\(\backslash\)t"{}<<i4<<endl;}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Vertices[i0]\ =\ Vertices;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ Set\_Indicies\_of\_Neighbour\_Cells(i0,i1,i2,i3,i4);}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Neighbours.push\_back(Cell\_Neighbour\_indicies);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Construction\ of\ Physical\ Cells\ Completed\(\backslash\)n"{}};\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ Check\_Cells();}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Checking\ Cells\ done"{}}<<endl;}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ Boundary\ Cells\ Information\ for\ Boundary\ Conditions\(\backslash\)n"{}};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ Str;}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Boundary\_Type=0,No\_Cells=0,a=0,b=0,c=0;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ Grid\_File>>Str>>Boundary\_Type>>No\_Cells;}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ cout<<Str<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Boundary\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Cells<<endl;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Boundary\_Type==0)}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Cells;i++)}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<endl;}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Cells\_List.push\_back(a);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Cells\_List.push\_back(b);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Cells\_List.push\_back(c);}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ Grid\_File>>Str>>Boundary\_Type>>No\_Cells;}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ cout<<Str<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Boundary\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Cells<<endl;}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Boundary\_Type==1)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Cells;i++)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Exit\_Cells\_List.push\_back(a);}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Exit\_Cells\_List.push\_back(b);}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Exit\_Cells\_List.push\_back(c);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ Grid\_File>>Str>>Boundary\_Type>>No\_Cells;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ cout<<Str<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Boundary\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Cells<<endl;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Boundary\_Type==2)}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Cells;i++)}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}
+\DoxyCodeLine{00235\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<endl;}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Wall\_Cells\_List.push\_back(a);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Wall\_Cells\_List.push\_back(b);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Wall\_Cells\_List.push\_back(c);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ Grid\_File>>Str>>Boundary\_Type>>No\_Cells;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ cout<<Str<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Boundary\_Type<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Cells<<endl;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Boundary\_Type==3)}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Cells;i++)}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}
+\DoxyCodeLine{00248\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<endl;}}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Symmetry\_Cells\_List.push\_back(a);}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Symmetry\_Cells\_List.push\_back(b);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Symmetry\_Cells\_List.push\_back(c);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{/*\ \ \ \ \ \ Grid\_File>>Str>>Boundary\_Type>>No\_Cells;}}
+\DoxyCodeLine{00256\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout<<Str<<"{}\(\backslash\)t"{}<<Boundary\_Type<<"{}\(\backslash\)t"{}<<No\_Cells<<endl;}}
+\DoxyCodeLine{00257\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(Boundary\_Type==4)}}
+\DoxyCodeLine{00258\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00259\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ for(int\ i=0;i<No\_Cells;i++)}}
+\DoxyCodeLine{00260\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00261\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}}
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<endl;}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_InFlow\_List.push\_back(a);}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_InFlow\_List.push\_back(b);}}
+\DoxyCodeLine{00265\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_InFlow\_List.push\_back(c);}}
+\DoxyCodeLine{00266\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00267\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00268\ \textcolor{comment}{}}
+\DoxyCodeLine{00269\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout<<Str<<"{}\(\backslash\)t"{}<<Boundary\_Type<<"{}\(\backslash\)t"{}<<No\_Cells<<endl;}}
+\DoxyCodeLine{00270\ \textcolor{comment}{\ \ \ \ \ \ \ \ cout<<Str<<"{}\(\backslash\)t"{}<<No\_Cells<<endl;}}
+\DoxyCodeLine{00271\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(Boundary\_Type==5)}}
+\DoxyCodeLine{00272\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00273\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ for(int\ i=0;i<No\_Cells;i++)}}
+\DoxyCodeLine{00274\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00275\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File>>a>>b>>c;}}
+\DoxyCodeLine{00276\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<endl;}}
+\DoxyCodeLine{00277\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_Out\_Flow\_List.push\_back(a);}}
+\DoxyCodeLine{00278\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_Out\_Flow\_List.push\_back(b);}}
+\DoxyCodeLine{00279\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Far\_Field\_Out\_Flow\_List.push\_back(c);}}
+\DoxyCodeLine{00280\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00281\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00282\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ and\ assigning\ Boundary\ Cells\ Done\(\backslash\)n"{}};}
+\DoxyCodeLine{00284\ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00286\ \ \ \ \ \{}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ open\ the\ file....Please\ Check\ the\ Grid\ File\ Name\ and\ path\ of\ the\ file\(\backslash\)n"{}};}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ cout<<\ ipfile.c\_str()\ <<\ endl;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{keywordtype}{void}\ Conversion\_Factor(V\_D\ \&\ Data)}
+\DoxyCodeLine{00294\ \{}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Data.size();i++)}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ Data[i]\ *=0.001;}
+\DoxyCodeLine{00297\ \}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \textcolor{comment}{/*\ \ \ \ \ \ Function\ for\ Constructing\ Cells\ from\ the\ data\ read\ from\ grid\ file\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00300\ \textcolor{keywordtype}{void}\ Form\_Cells(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ ipfile)}
+\DoxyCodeLine{00301\ \{}
+\DoxyCodeLine{00302\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Reading\ \(\backslash\)t"{}}<<ipfile.c\_str()<<endl;}
+\DoxyCodeLine{00303\ \ \ \ \ Read\_Grid(ipfile);}
+\DoxyCodeLine{00304\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Constructing\ Physical\ Cells\ done"{}}<<endl;}
+\DoxyCodeLine{00305\ \ \ \ \ cout<<Cells\_Volume.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Cells\_Inv\_Volume.size()<<endl;}
+\DoxyCodeLine{00306\ \ \ \ \ Construct\_Ghost\_Cells();}
+\DoxyCodeLine{00307\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Constructing\ Ghost\ Cells\ done"{}}<<endl;}
+\DoxyCodeLine{00308\ \ \ \ \ Calculate\_Cell\_Center\_Distances();}
+\DoxyCodeLine{00309\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Evaluating\ Cell\ Center\ Distances\ done"{}}<<endl;}
+\DoxyCodeLine{00310\ \ \ \ \ cout<<No\_Physical\_Cells<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<No\_Ghost\_Cells<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Total\_No\_Cells<<endl;}
+\DoxyCodeLine{00311\ \ \ \ \ Check\_Cells();}
+\DoxyCodeLine{00312\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Checking\ Cells\ done"{}}<<endl;}
+\DoxyCodeLine{00313\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Construction\ Co\ Volumes\ for\ NS\ Solver"{}}<<endl;}
+\DoxyCodeLine{00314\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00315\ \ \ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<No\_Physical\_Cells;i++)}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<i<<endl;}}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Construct\_Co\_Volumes(i);}
+\DoxyCodeLine{00320\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Construction\ of\ Co-\/Volumes\ Completed\(\backslash\)n"{}};\ \ \ \ \ }
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ \ \ \ \ }
+\DoxyCodeLine{00325\ \textcolor{comment}{//\ \ exit(0);}}
+\DoxyCodeLine{00326\ \}}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00328\ \textcolor{keywordtype}{void}\ Construct\_Ghost\_Cells()}
+\DoxyCodeLine{00329\ \{}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0,Face\_No=0;}
+\DoxyCodeLine{00331\ \ \ \ \ Construct\_Cell();}
+\DoxyCodeLine{00332\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Constructing\ Ghost\ Cells"{}}<<endl;}
+\DoxyCodeLine{00333\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Number\ of\ Cells\ With\ Inlet\ Boundary\(\backslash\)t"{}}<<Inlet\_Cells\_List.size()/3<<endl;}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Inlet\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00335\ \ \ \ \ \{}
+\DoxyCodeLine{00336\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Inlet\_Cells\_List[i]<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Inlet\_Cells\_List[i];}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ Face\_No\ =\ Inlet\_Cells\_List[i+1];}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Inlet\_Cells\_List[i+2];}
+\DoxyCodeLine{00340\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ Construct\_Cell(Cell\_Index,Face\_No,Ghost\_Cell\_Index);}
+\DoxyCodeLine{00342\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cells\_Volume.size()<<"{}\(\backslash\)t"{}<<Cells\_Inv\_Volume.size()<<endl;}}
+\DoxyCodeLine{00343\ \textcolor{comment}{//\ \ Print(Cells\_Inv\_Volume);}}
+\DoxyCodeLine{00344\ \ \ \ \ \}}
+\DoxyCodeLine{00345\ \ \ \ \ }
+\DoxyCodeLine{00346\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Number\ of\ Cells\ With\ Wall\ Boundary\(\backslash\)t"{}}<<Wall\_Cells\_List.size()/3<<endl;}
+\DoxyCodeLine{00347\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Wall\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00348\ \ \ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00350\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Wall\_Cells\_List[i]<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Wall\_Cells\_List[i];}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ Face\_No\ =\ Wall\_Cells\_List[i+1];}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Wall\_Cells\_List[i+2];}
+\DoxyCodeLine{00354\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ Construct\_Cell(Cell\_Index,Face\_No,Ghost\_Cell\_Index);}
+\DoxyCodeLine{00356\ \ \ \ \ \}}
+\DoxyCodeLine{00357\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Number\ of\ Cells\ With\ Exit\ Boundary\(\backslash\)t"{}}<<Exit\_Cells\_List.size()/3<<endl;}
+\DoxyCodeLine{00358\ \textcolor{comment}{//\ \ Print(Cells\_Inv\_Volume);}}
+\DoxyCodeLine{00359\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Exit\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00360\ \ \ \ \ \{}
+\DoxyCodeLine{00361\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Exit\_Cells\_List[i]<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Exit\_Cells\_List[i];}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ Face\_No\ =\ Exit\_Cells\_List[i+1];}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Exit\_Cells\_List[i+2];}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ Construct\_Cell(Cell\_Index,Face\_No,Ghost\_Cell\_Index);}
+\DoxyCodeLine{00366\ \ \ \ \ \}}
+\DoxyCodeLine{00367\ \textcolor{comment}{//\ \ Print(Cells\_Inv\_Volume);}}
+\DoxyCodeLine{00368\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Number\ of\ Cells\ with\ Symmetery\ Boundary\(\backslash\)t"{}}<<Symmetry\_Cells\_List.size()/3<<endl;}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Symmetry\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00370\ \ \ \ \ \{}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Symmetry\_Cells\_List[i];}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ Face\_No\ =\ Symmetry\_Cells\_List[i+1];\ \ \ \ \ }
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Symmetry\_Cells\_List[i+2];}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ Construct\_Cell(Cell\_Index,Face\_No,Ghost\_Cell\_Index);}
+\DoxyCodeLine{00375\ \ \ \ \ \}}
+\DoxyCodeLine{00376\ \textcolor{comment}{//\ \ Print(Cells\_Inv\_Volume);}}
+\DoxyCodeLine{00377\ \}}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00379\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00380\ \textcolor{comment}{Indicies\ in\ this\ function\ represent\ the\ indexes\ of\ neighbours\ of\ current\ cell.\ since\ all\ are\ hexahedrals\ each\ cell\ has\ 6\ neighbours.\ }}
+\DoxyCodeLine{00381\ \textcolor{comment}{Indicies\ are\ named\ as\ follows}}
+\DoxyCodeLine{00382\ \textcolor{comment}{}}
+\DoxyCodeLine{00383\ \textcolor{comment}{a0\ -\/\ index\ of\ current\ cell,\ \ \ \ \ }}
+\DoxyCodeLine{00384\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a4(i,j+1)}}
+\DoxyCodeLine{00385\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{00386\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ }}
+\DoxyCodeLine{00387\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ a1\ \ (i-\/1,j)\ \ \ \ \ |\ \ \ a0\ (i,j)\ \ \ \ |\ \ \ \ \ \ \ a3(i+1,j)}}
+\DoxyCodeLine{00388\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |}}
+\DoxyCodeLine{00389\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ |-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/|}}
+\DoxyCodeLine{00390\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a2(i,j-\/1)\ \ \ }}
+\DoxyCodeLine{00391\ \textcolor{comment}{}}
+\DoxyCodeLine{00392\ \textcolor{comment}{a1\ -\/\ index\ of\ Left\ cell,}}
+\DoxyCodeLine{00393\ \textcolor{comment}{a2\ -\/\ index\ of\ Bottom\ Cell\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00394\ \textcolor{comment}{a3\ -\/\ index\ of\ Right\ cell,\ \ \ }}
+\DoxyCodeLine{00395\ \textcolor{comment}{a4\ -\/\ index\ of\ Top\ cell,\ order\ in\ which\ neighbour\ indexes\ are\ defined\ in\ }}
+\DoxyCodeLine{00396\ \textcolor{comment}{input\ file\ \ ((i,j),(i-\/1,j),(i+1,j),(i,j+1),(i,j-\/1))*/}}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00398\ \textcolor{keywordtype}{void}\ Set\_Indicies\_of\_Neighbour\_Cells(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ a0,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ a1,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ a2,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ a3,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ a4)}
+\DoxyCodeLine{00399\ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\ index\ \ \ \ \ \ face\_no}}
+\DoxyCodeLine{00401\ \ \ \ \ Cell\_Neighbour\_indicies.push\_back(a0);\ \ \textcolor{comment}{//\ \ current\ cell\ \ \ \ \ \ \ \ (i,j,k)\ \ \ \ \ \ \ \ \ 0\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00402\ \ \ \ \ Cell\_Neighbour\_indicies.push\_back(a1);\ \ \textcolor{comment}{//\ \ left\ \ \ \ cell\ \ \ \ \ \ \ \ (i-\/1,j,k)\ \ \ \ \ \ \ 1\ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00403\ \ \ \ \ Cell\_Neighbour\_indicies.push\_back(a2);\ \ \textcolor{comment}{//\ \ bottom\ \ cell\ \ \ \ \ \ \ \ (i,j-\/1,k)\ \ \ \ \ \ \ 2\ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00404\ \ \ \ \ Cell\_Neighbour\_indicies.push\_back(a3);\ \ \textcolor{comment}{//\ \ right\ \ \ cell\ \ \ \ \ \ \ \ (i+1,j,k)\ \ \ \ \ \ \ 3\ \ \ \ \ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00405\ \ \ \ \ Cell\_Neighbour\_indicies.push\_back(a4);\ \ \textcolor{comment}{//\ \ Top\ cell\ \ \ \ \ \ \ \ \ \ \ \ (i,j+1,k)\ \ \ \ \ \ \ 4\ \ \ \ \ \ \ \ \ \ \ 3}}
+\DoxyCodeLine{00406\ \}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00409\ \textcolor{comment}{\ This\ Function\ takes\ 8\ points\ and\ calculates\ all\ the\ features\ of\ a\ cell.\ Features\ include\ Face\ area,\ Face\ normal,\ volume\ for\ a\ given\ cell}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00411\ \textcolor{keywordtype}{void}\ Construct\_Cell(V\_D\ \&\ o,V\_D\ \&\ a,V\_D\ \&\ b,V\_D\ \&\ c)}
+\DoxyCodeLine{00412\ \{}
+\DoxyCodeLine{00413\ \textcolor{comment}{//\ \ cout<<"{}Constructing\ Cell"{}<<endl;}}
+\DoxyCodeLine{00414\ \ \ \ \ V\_D\ Temp(3,0.0);}
+\DoxyCodeLine{00415\ \ \ \ \ V\_D\ Diagonal\_Vector1(2,0.0);}
+\DoxyCodeLine{00416\ \ \ \ \ V\_D\ Diagonal\_Vector2(2,0.0);}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{double}\ Area=0.0;}
+\DoxyCodeLine{00418\ \textcolor{comment}{//\ Evaluating\ Cell\ Center\ \ \ }}
+\DoxyCodeLine{00419\ \ \ \ \ Temp[0]\ =\ 0.25*(o[0]\ +\ a[0]\ +\ b[0]\ +\ c[0]);}
+\DoxyCodeLine{00420\ \ \ \ \ Temp[1]\ =\ 0.25*(o[1]\ +\ a[1]\ +\ b[1]\ +\ c[1]);}
+\DoxyCodeLine{00421\ \ \ \ \ Temp[2]\ =\ 0.25*(o[2]\ +\ a[2]\ +\ b[2]\ +\ c[2]);}
+\DoxyCodeLine{00422\ \ \ \ \ Cells\_Cell\_Center.push\_back(Temp);}
+\DoxyCodeLine{00423\ \ \ \ \ Construct\_Face(o,a,b,c);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Left\ Face\ \ \ \ \ 1\ \ \ (i+1,j,k)\ \ \ 1,0,0}}
+\DoxyCodeLine{00424\ \textcolor{comment}{//\ Flow\ is\ assumed\ to\ be\ in\ x-\/y\ plane\ and\ hence\ the\ other\ area\ and\ normal\ components\ in\ x\ direction\ are\ made\ zero\ to\ make\ sure\ that\ there\ is\ no\ flux\ in\ that\ direction\ \ }}
+\DoxyCodeLine{00425\ \textcolor{comment}{/*\ \ cout<<Face\_Area\_Components.size()<<endl;}}
+\DoxyCodeLine{00426\ \textcolor{comment}{\ \ \ \ cout<<Face\_Normal\_Components.size()<<endl;*/}}
+\DoxyCodeLine{00427\ \ \ \ \ Cell\_Face\_Areas.push\_back(Face\_Area\_Components);}
+\DoxyCodeLine{00428\ \ \ \ \ Cell\_Face\_Normals.push\_back(Face\_Normal\_Components);}
+\DoxyCodeLine{00429\ \textcolor{comment}{/*\ \ Print(Face\_Normal\_Components);}}
+\DoxyCodeLine{00430\ \textcolor{comment}{\ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}<<endl;}}
+\DoxyCodeLine{00431\ \textcolor{comment}{\ \ \ \ Print(Face\_Area\_Components);}}
+\DoxyCodeLine{00432\ \textcolor{comment}{\ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}<<endl;}}
+\DoxyCodeLine{00433\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00434\ \ \ \ \ Face\_Area\_Components.clear();}
+\DoxyCodeLine{00435\ \ \ \ \ Face\_Normal\_Components.clear();}
+\DoxyCodeLine{00436\ \ \ \ \ Cell\_Neighbour\_indicies.clear();}
+\DoxyCodeLine{00437\ \ \ \ \ Diagonal\_Vector1[0]\ =\ b[0]\ -\/\ o[0];}
+\DoxyCodeLine{00438\ \ \ \ \ Diagonal\_Vector1[1]\ =\ b[1]\ -\/\ o[1];}
+\DoxyCodeLine{00439\ \ \ \ \ Diagonal\_Vector2[0]\ =\ c[0]\ -\/\ a[0];}
+\DoxyCodeLine{00440\ \ \ \ \ Diagonal\_Vector2[1]\ =\ c[1]\ -\/\ a[1];}
+\DoxyCodeLine{00441\ \ \ \ \ Evaluate\_Cross\_Product(Diagonal\_Vector1,Diagonal\_Vector2,Area);}
+\DoxyCodeLine{00442\ \ \ \ \ Cells\_Area.push\_back(Area);}
+\DoxyCodeLine{00443\ \ \ \ \ Cells\_Inv\_Area.push\_back((1.0/Area));}
+\DoxyCodeLine{00444\ \textcolor{comment}{//\ \ cout<<Area<<"{}\(\backslash\)t"{}<<1.0/Area<<endl;}}
+\DoxyCodeLine{00445\ \textcolor{comment}{//\ \ cout<<"{}Construction\ of\ Cell\ done"{}<<endl;}}
+\DoxyCodeLine{00446\ \}}
+\DoxyCodeLine{00447\ }
+\DoxyCodeLine{00448\ \textcolor{keywordtype}{void}\ Construct\_Cell()}
+\DoxyCodeLine{00449\ \{}
+\DoxyCodeLine{00450\ \ \ \ \ R\_Mid\_dot\_A\ =\ 0.0;}
+\DoxyCodeLine{00451\ \ \ \ \ \textcolor{keywordtype}{double}\ Area\ =\ 0.0;}
+\DoxyCodeLine{00452\ \ \ \ \ V\_D\ Temp(3,0.0);}
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{comment}{//cout<<"{}In\ construct\ cell()\(\backslash\)t"{}<<Cells\_Volume.size()<<"{}\(\backslash\)t"{}<<Cells\_Inv\_Volume.size()<<endl;}}
+\DoxyCodeLine{00454\ \ \ \ \ }
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{comment}{//cout<<"{}In\ construct\ cell()\(\backslash\)t"{}<<Cell\_Face\_Areas.size()<<"{}\(\backslash\)t"{}<<Cell\_Face\_Normals.size()<<endl;}}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<No\_Ghost\_Cells;i++)}
+\DoxyCodeLine{00457\ \ \ \ \ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ Face\_Area\_Components.resize(4,0.0);}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ Face\_Normal\_Components.resize(8,0.0);}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ Cell\_Face\_Areas.push\_back(Face\_Area\_Components);}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ Cell\_Face\_Normals.push\_back(Face\_Normal\_Components);}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ Cells\_Area.push\_back(Area);}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ Cells\_Inv\_Area.push\_back(Area);}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ Cells\_Cell\_Center.push\_back(Temp);\ \ }
+\DoxyCodeLine{00465\ \ \ \ \ \}}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ cout<<Cell\_Face\_Areas.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Cell\_Face\_Normals.size()<<endl;}
+\DoxyCodeLine{00467\ \}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ \textcolor{comment}{//This\ Function\ creates\ a\ Ghost\ cell}}
+\DoxyCodeLine{00470\ \textcolor{keywordtype}{void}\ Construct\_Cell(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Current\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Ghost\_Cell\_No)}
+\DoxyCodeLine{00471\ \{}
+\DoxyCodeLine{00472\ \textcolor{comment}{//\ \ cout<<"{}In\ Function\ Creating\ Ghost\ cell\ \(\backslash\)t"{}<<Current\_Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_No<<endl;}}
+\DoxyCodeLine{00473\ \ \ \ \ Cells\_Area[Ghost\_Cell\_No]\ =\ Cells\_Area[Current\_Cell\_No];}
+\DoxyCodeLine{00474\ \ \ \ \ }
+\DoxyCodeLine{00475\ \ \ \ \ Cells\_Inv\_Area[Ghost\_Cell\_No]\ =\ Cells\_Inv\_Area[Current\_Cell\_No]\ ;}
+\DoxyCodeLine{00476\ \ \ \ \ V\_D\ o(3,0.0),a(3,0.0),b(3,0.0),c(3,0.0),MP1(3,0.0),MP2(3,0.0),MP3(3,0.0),MP4(3,0.0),MP5(3,0.0),Diagonal\_Vector1(2,0.0),Diagonal\_Vector2(2,0.0);}
+\DoxyCodeLine{00477\ \ \ \ \ V\_D\ Vertex\_Mid\_Point(3,0.0);}
+\DoxyCodeLine{00478\ \ \ \ \ V\_D\ Co\_Area(4,0.0);}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \textcolor{keywordtype}{double}\ Mid\_Point\_Distance=0.0;}
+\DoxyCodeLine{00481\ }
+\DoxyCodeLine{00482\ \textcolor{comment}{//\ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_No][1];\ \ \ \ \ \ //(i-\/1,j,k)}}
+\DoxyCodeLine{00483\ \textcolor{comment}{//\ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_No][2];\ \ \ \ \ \ //(i,j-\/1,k)}}
+\DoxyCodeLine{00484\ \textcolor{comment}{//\ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_No][3];\ \ \ \ \ \ //(i+1,j,k)}}
+\DoxyCodeLine{00485\ \textcolor{comment}{//\ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_No][4];\ \ \ \ \ \ //(i,j+1,k)}}
+\DoxyCodeLine{00486\ \textcolor{comment}{//\ \ \ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0;\ \ \ //\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00487\ \ \ \ \ }
+\DoxyCodeLine{00488\ \textcolor{comment}{//\ \ cout<<Cells\_Vertices.size()<<endl;}}
+\DoxyCodeLine{00489\ \textcolor{comment}{//\ \ cout<<"{}Number\ of\ Verticies\ in\ 3D\ (it\ should\ be\ 12)\ \(\backslash\)t"{}<<Cells\_Vertices[Current\_Cell\_No].size()<<endl;}}
+\DoxyCodeLine{00490\ }
+\DoxyCodeLine{00491\ \ \ \ \ o[0]\ =\ Cells\_Vertices[Current\_Cell\_No][0];\ o[1]\ =\ Cells\_Vertices[Current\_Cell\_No][1];\ \ o[2]\ =\ Cells\_Vertices[Current\_Cell\_No][2];}
+\DoxyCodeLine{00492\ \ \ \ \ a[0]\ =\ Cells\_Vertices[Current\_Cell\_No][3];\ a[1]\ =\ Cells\_Vertices[Current\_Cell\_No][4];\ \ a[2]\ =\ Cells\_Vertices[Current\_Cell\_No][5];}
+\DoxyCodeLine{00493\ \ \ \ \ b[0]\ =\ Cells\_Vertices[Current\_Cell\_No][6];\ b[1]\ =\ Cells\_Vertices[Current\_Cell\_No][7];\ \ b[2]\ =\ Cells\_Vertices[Current\_Cell\_No][8];}
+\DoxyCodeLine{00494\ \ \ \ \ c[0]\ =\ Cells\_Vertices[Current\_Cell\_No][9];\ c[1]\ =\ Cells\_Vertices[Current\_Cell\_No][10];\ c[2]\ =\ Cells\_Vertices[Current\_Cell\_No][11];}
+\DoxyCodeLine{00495\ \ \ \ \ }
+\DoxyCodeLine{00496\ \ \ \ \ }
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{comment}{/*\ \ Print(o);}}
+\DoxyCodeLine{00498\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(a);}}
+\DoxyCodeLine{00499\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(b);}}
+\DoxyCodeLine{00500\ \textcolor{comment}{\ \ \ \ \ \ \ \ Print(c);*/}}
+\DoxyCodeLine{00501\ \ \ \ \ }
+\DoxyCodeLine{00502\ \ \ \ \ MP1\ =\ Cells\_Cell\_Center[Current\_Cell\_No];\ \ \ }
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{keywordflow}{switch}(Face\_No)}
+\DoxyCodeLine{00504\ \ \ \ \ \{}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//if(Ghost\_Cell\_No\ >=\ No\_Physical\_Cells)}}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[0]\ =\ 0.5*(o[0]\ +\ c[0]);\ Vertex\_Mid\_Point[1]\ =\ 0.5*(o[1]\ +\ c[1]);Vertex\_Mid\_Point[2]\ =\ 0.5*(o[2]\ +\ c[2]);}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Distance\_Between\_Points(MP1,Vertex\_Mid\_Point,Mid\_Point\_Distance);}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP2[0]\ =\ MP1[0]\ -\/\ 2.0*Mid\_Point\_Distance;}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP2[1]\ =\ MP1[1];}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP2[2]\ =\ MP1[2];}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Cell\_Center[Ghost\_Cell\_No]\ =\ MP2;}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Neighbour\_2<<"{}\(\backslash\)t"{}<<No\_Physical\_Cells<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//if(Ghost\_Cell\_No\ >=\ No\_Physical\_Cells)}}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\{\ }}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[0]\ =\ 0.5*(o[0]\ +\ a[0]);}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[1]\ =\ 0.5*(o[1]\ +\ a[1]);}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[2]\ =\ 0.5*(o[2]\ +\ a[2]);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Distance\_Between\_Points(MP1,Vertex\_Mid\_Point,Mid\_Point\_Distance);}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP3[0]\ =\ MP1[0];\ }
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP3[1]\ =\ MP1[1]\ -\/\ 2.0*Mid\_Point\_Distance;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP3[2]\ =\ MP1[2];}
+\DoxyCodeLine{00527\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Neighbour\_2<<"{}\(\backslash\)t"{}<<No\_Physical\_Cells<<endl;}}
+\DoxyCodeLine{00528\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Print(MP1);}}
+\DoxyCodeLine{00529\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Print(MP3);}}
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Cell\_Center[Ghost\_Cell\_No]\ =\ MP3;}
+\DoxyCodeLine{00531\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\}}}
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ if(Ghost\_Cell\_No\ >=\ No\_Physical\_Cells)}}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \{}}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[0]\ =\ 0.5*(b[0]\ +\ a[0]);}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[1]\ =\ 0.5*(b[1]\ +\ a[1]);}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[2]\ =\ 0.5*(b[2]\ +\ a[2]);}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Distance\_Between\_Points(MP1,Vertex\_Mid\_Point,Mid\_Point\_Distance);}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP4[0]\ =\ MP1[0]\ +\ 2.0*Mid\_Point\_Distance;\ }
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP4[1]\ =\ MP1[1];}
+\DoxyCodeLine{00542\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP4[2]\ =\ MP1[2];\ \ \ \ }
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Cell\_Center[Ghost\_Cell\_No]\ =\ MP4;\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00544\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ if(Ghost\_Cell\_No\ >=\ No\_Physical\_Cells)}}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \{}}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[0]\ =\ 0.5*(b[0]\ +\ c[0]);}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[1]\ =\ 0.5*(b[1]\ +\ c[1]);}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vertex\_Mid\_Point[2]\ =\ 0.5*(b[2]\ +\ c[2]);}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Distance\_Between\_Points(MP1,Vertex\_Mid\_Point,Mid\_Point\_Distance);}
+\DoxyCodeLine{00553\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP5[0]\ =\ MP1[0];}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP5[1]\ =\ MP1[1]\ +\ 2.0*Mid\_Point\_Distance;}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MP5[2]\ =\ MP1[2];}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Cell\_Center[Ghost\_Cell\_No]\ =\ MP5;}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \}\ \ \ }}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00560\ \ \ \ \ \}}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ }
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00564\ \ \ \ \ \textcolor{comment}{/*\ \ Print(MP1);}}
+\DoxyCodeLine{00565\ \textcolor{comment}{\ \ \ \ Print(MP2);}}
+\DoxyCodeLine{00566\ \textcolor{comment}{\ \ \ \ Print(MP3);}}
+\DoxyCodeLine{00567\ \textcolor{comment}{\ \ \ \ Print(MP4);}}
+\DoxyCodeLine{00568\ \textcolor{comment}{\ \ \ \ Print(MP5);}}
+\DoxyCodeLine{00569\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00570\ \}}
+\DoxyCodeLine{00571\ }
+\DoxyCodeLine{00572\ \textcolor{comment}{//\ \ This\ function\ constructs\ faces\ and\ stores\ face\ area\ vectors\ and\ face\ normals\ into\ respective\ STL's'}}
+\DoxyCodeLine{00573\ \textcolor{keywordtype}{void}\ Construct\_Face(V\_D\ \&\ o,V\_D\ \&\ a,V\_D\ \&\ b,V\_D\ \&\ c)}
+\DoxyCodeLine{00574\ \{}
+\DoxyCodeLine{00575\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}In\ construct\ face\ function"{}<<endl;\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00576\ \ \ \ \ }
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ A1\_x=0.0,A1\_y=0.0,A2\_x=0.0,A2\_y=0.0,A3\_x=0.0,A3\_y=0.0,A4\_x=0.0,A4\_y=0.0;}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ A\_Mag1\ =0.0,A\_Mag2=0.0,A\_Mag3=0.0,A\_Mag4=0.0;}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ }
+\DoxyCodeLine{00580\ \textcolor{comment}{/*\ \ \ \ \ \ \ Print(o);}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout<<endl;}}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ Print(a);}}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout<<endl;}}
+\DoxyCodeLine{00584\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ Print(b);}}
+\DoxyCodeLine{00585\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout<<endl;}}
+\DoxyCodeLine{00586\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ Print(c);}}
+\DoxyCodeLine{00587\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout<<endl;*/}}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00589\ \ \ \ \ \ \ A1\_y\ =\ o[1]\ -\/\ c[1];\ \ \ \ \ \ A1\_x\ =\ o[0]\ -\/\ c[0];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Face\ 0\ \ vector\ (co)}}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ A2\_y\ =\ a[1]\ -\/\ o[1];\ \ \ \ \ \ A2\_x\ =\ a[0]\ -\/\ o[0];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Face\ 1\ \ vector\ (oa)}}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ A3\_y\ =\ b[1]\ -\/\ a[1];\ \ \ \ \ \ A3\_x\ =\ b[0]\ -\/\ a[0];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Face\ 2\ \ vector\ (ab)}}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ A4\_y\ =\ c[1]\ -\/\ b[1];\ \ \ \ \ \ A4\_x\ =\ c[0]\ -\/\ b[0];\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Face\ 3\ \ vector\ (bc)}}
+\DoxyCodeLine{00593\ }
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \textcolor{comment}{//\ Length\ of\ Each\ Side\ of\ the\ face}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ A\_Mag1\ =\ sqrt(A1\_x*A1\_x\ +\ A1\_y*A1\_y);}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ A\_Mag2\ =\ sqrt(A2\_x*A2\_x\ +\ A2\_y*A2\_y);}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ A\_Mag3\ =\ sqrt(A3\_x*A3\_x\ +\ A3\_y*A3\_y);}
+\DoxyCodeLine{00598\ \ \ \ \ \ \ A\_Mag4\ =\ sqrt(A4\_x*A4\_x\ +\ A4\_y*A4\_y);}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ }
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \textcolor{comment}{/*\ \ \ \ \ \ cout<<A1\_y<<"{}\(\backslash\)t********"{}<<A2\_y<<"{}\(\backslash\)t"{}<<A3\_y<<"{}\(\backslash\)t"{}<<A4\_y<<"{}\(\backslash\)t"{}<<A1\_x<<"{}\(\backslash\)t"{}<<A2\_x<<"{}\(\backslash\)t"{}<<A3\_x<<"{}\(\backslash\)t"{}<<A4\_x<<endl;}}
+\DoxyCodeLine{00601\ \textcolor{comment}{\ \ \ \ \ \ }}
+\DoxyCodeLine{00602\ \textcolor{comment}{\ \ \ \ \ \ if(isnan(A1\_y)|isnan(A2\_y)|isnan(A3\_y)|isnan(A4\_y)|isnan(A1\_x)|isnan(A2\_x)|isnan(A3\_x)|isnan(A4\_x))}}
+\DoxyCodeLine{00603\ \textcolor{comment}{\ \ \ \ \ \ \{}}
+\DoxyCodeLine{00604\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ cout<<A1\_y<<"{}\(\backslash\)t"{}<<A2\_y<<"{}\(\backslash\)t"{}<<A3\_y<<"{}\(\backslash\)t"{}<<A4\_y<<"{}\(\backslash\)t"{}<<A1\_x<<"{}\(\backslash\)t"{}<<A2\_x<<"{}\(\backslash\)t"{}<<A3\_x<<"{}\(\backslash\)t"{}<<A4\_x<<endl;}}
+\DoxyCodeLine{00605\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ exit(0);}}
+\DoxyCodeLine{00606\ \textcolor{comment}{\ \ \ \ \ \ \}}}
+\DoxyCodeLine{00607\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ cout<<A\_Mag1<<"{}\(\backslash\)t**************"{}<<A\_Mag2<<"{}\(\backslash\)t"{}<<A\_Mag3<<"{}\(\backslash\)t"{}<<A\_Mag4<<endl;}}
+\DoxyCodeLine{00608\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00609\ \textcolor{comment}{\ \ \ \ \ \ if(isnan(A\_Mag1)|isnan(A\_Mag2)|isnan(A\_Mag3)|isnan(A\_Mag4))}}
+\DoxyCodeLine{00610\ \textcolor{comment}{\ \ \ \ \ \ \{}}
+\DoxyCodeLine{00611\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ cout<<A\_Mag1<<"{}\(\backslash\)t"{}<<A\_Mag2<<"{}\(\backslash\)t"{}<<A\_Mag3<<"{}\(\backslash\)t"{}<<A\_Mag4<<endl;}}
+\DoxyCodeLine{00612\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ exit(0);}}
+\DoxyCodeLine{00613\ \textcolor{comment}{\ \ \ \ \ \ \}\ */}}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00615\ \ \textcolor{comment}{//\ In\ 2D\ these\ Represents\ the\ Lenghts\ of\ the\ sides\ of\ the\ control\ volume\ \ \ \ \ }}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ Face\_Area\_Components.push\_back(A\_Mag1);}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ Face\_Area\_Components.push\_back(A\_Mag2);}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ Face\_Area\_Components.push\_back(A\_Mag3);}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ Face\_Area\_Components.push\_back(A\_Mag4);}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ }
+\DoxyCodeLine{00621\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(A1\_y/A\_Mag1);\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(-\/A1\_x/A\_Mag1);\textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ }
+\DoxyCodeLine{00624\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(A2\_y/A\_Mag2);\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(-\/A2\_x/A\_Mag2);\textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ }
+\DoxyCodeLine{00627\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(A3\_y/A\_Mag3);\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(-\/A3\_x/A\_Mag3);\textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ }
+\DoxyCodeLine{00630\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(A4\_y/A\_Mag4);\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ Face\_Normal\_Components.push\_back(-\/A4\_x/A\_Mag4);\textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ }
+\DoxyCodeLine{00633\ \textcolor{comment}{//\ \ \ \ \ Print(Face\_Normal\_Components);}}
+\DoxyCodeLine{00634\ \}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \textcolor{comment}{//This\ function\ evaluates\ the\ distance\ between\ the\ current\ cell\ and\ its\ neighbours\ }}
+\DoxyCodeLine{00637\ \textcolor{keywordtype}{void}\ Calculate\_Cell\_Center\_Distances()}
+\DoxyCodeLine{00638\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ V\_D\ Cell\_Center(3,0.0),N1\_Cell\_Center(3,0.0),N2\_Cell\_Center(3,0.0),N3\_Cell\_Center(3,0.0),N4\_Cell\_Center(3,0.0),Distance(4,0.0);}
+\DoxyCodeLine{00640\ \ \ \ \ \textcolor{keywordtype}{double}\ D1=0.0,D2=0.0,D3=0.0,D4=0.0;}
+\DoxyCodeLine{00641\ \ \ \ \ \textcolor{keywordtype}{int}\ N1,N2,N3,N4;}
+\DoxyCodeLine{00642\ \textcolor{comment}{//\ \ cout<<"{}Calculating\ Cell\ Center\ distances"{}<<endl;}}
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00644\ \ \ \ \ \{}
+\DoxyCodeLine{00645\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}\ am\ here\ with\ cell\ index\(\backslash\)t"{}<<Cell\_Index<<endl;}}
+\DoxyCodeLine{00646\ \ \ \ \ \textcolor{comment}{//\ Fetching\ Neighbour\ Indicies\ \ }}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \ \ N1\ =Cell\_Neighbours[Cell\_Index][1];}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ N2\ =Cell\_Neighbours[Cell\_Index][2];}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ N3\ =Cell\_Neighbours[Cell\_Index][3];}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ N4\ =Cell\_Neighbours[Cell\_Index][4];}
+\DoxyCodeLine{00651\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<N1<<"{}\(\backslash\)t"{}<<N2<<"{}\(\backslash\)t"{}<<N3<<"{}\(\backslash\)t"{}<<N4<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \ \ \ \ \textcolor{comment}{//\ Fetching\ Cell\ Centers\ \ \ \ }}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \ \ Cell\_Center\ =\ Cells\_Cell\_Center[Cell\_Index];}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ N1\_Cell\_Center\ =\ Cells\_Cell\_Center[N1];}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ N2\_Cell\_Center\ =\ Cells\_Cell\_Center[N2];}
+\DoxyCodeLine{00658\ \ \ \ \ \ \ \ \ N3\_Cell\_Center\ =\ Cells\_Cell\_Center[N3];}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ N4\_Cell\_Center\ =\ Cells\_Cell\_Center[N4];}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00661\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<N1<<"{}\(\backslash\)t"{}<<N2<<"{}\(\backslash\)t"{}<<N3<<"{}\(\backslash\)t"{}<<N4<<endl;}}
+\DoxyCodeLine{00662\ \ \ \ \ }
+\DoxyCodeLine{00663\ \textcolor{comment}{//\ \ \ \ \ \ Print(Cell\_Center);}}
+\DoxyCodeLine{00664\ \textcolor{comment}{//\ \ \ \ \ \ Print(N1\_Cell\_Center);}}
+\DoxyCodeLine{00665\ \textcolor{comment}{//\ \ \ \ \ \ Print(N2\_Cell\_Center);}}
+\DoxyCodeLine{00666\ \textcolor{comment}{//\ \ \ \ \ \ Print(N3\_Cell\_Center);}}
+\DoxyCodeLine{00667\ \textcolor{comment}{//\ \ \ \ \ \ Print(N4\_Cell\_Center);}}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00669\ \ \ \ \ \textcolor{comment}{//\ Calcuating\ Distances\ between\ the\ centeres\ \ \ \ }}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ Distance\_Between\_Points(Cell\_Center,\ N1\_Cell\_Center,\ D1);}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ Distance\_Between\_Points(Cell\_Center,\ N2\_Cell\_Center,\ D2);}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ Distance\_Between\_Points(Cell\_Center,\ N3\_Cell\_Center,\ D3);}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ Distance\_Between\_Points(Cell\_Center,\ N4\_Cell\_Center,\ D4);}
+\DoxyCodeLine{00674\ \ \ \ \ \textcolor{comment}{//\ \ }}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ Distance[0]\ =\ D1;}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ Distance[1]\ =\ D2;}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ Distance[2]\ =\ D3;}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ Distance[3]\ =\ D4;}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00680\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<Cell\_Index<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00681\ \textcolor{comment}{//\ \ \ \ \ \ Print(Distance);}}
+\DoxyCodeLine{00682\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}<<endl;}}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ Distance\_Bw\_Cell\_Centers.push\_back(Distance);}
+\DoxyCodeLine{00684\ \ \ \ \ \}}
+\DoxyCodeLine{00685\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Calculating\ Distance\ between\ Cell\ Centers\ Done"{}}<<endl;}
+\DoxyCodeLine{00686\ \}}
+\DoxyCodeLine{00687\ }
+\DoxyCodeLine{00688\ \textcolor{comment}{/*void\ Create\_Ghost\_Cells\_CellCenters(int\ \&\ Current\_Cell\_No)}}
+\DoxyCodeLine{00689\ \textcolor{comment}{\{}}
+\DoxyCodeLine{00690\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00691\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00692\ \textcolor{comment}{\}*/}}
+\DoxyCodeLine{00693\ \ \ \ \ }
+\DoxyCodeLine{00694\ \textcolor{comment}{//Function\ for\ Evaluting\ Cross\ Product\ of\ Vectors,\ this\ function\ uses\ a\ Global\ vector\ to\ return\ the\ value,\ each\ time\ the\ global\ vector\ is\ cleared\ to\ ensure\ that\ the\ elements\ are\ zero}}
+\DoxyCodeLine{00695\ \textcolor{keywordtype}{void}\ Evaluate\_Cross\_Product(V\_D\ \&\ A,V\_D\ \&\ B,\textcolor{keywordtype}{double}\ \&\ Area)}
+\DoxyCodeLine{00696\ \{}
+\DoxyCodeLine{00697\ \textcolor{comment}{//\ \ Print(A);}}
+\DoxyCodeLine{00698\ \textcolor{comment}{//\ \ cout<<endl;}}
+\DoxyCodeLine{00699\ \textcolor{comment}{//\ \ Print(B);}}
+\DoxyCodeLine{00700\ \textcolor{comment}{//\ \ cout<<endl;}}
+\DoxyCodeLine{00701\ \ \ \ \ Area\ =\ 0.0;}
+\DoxyCodeLine{00702\ \ \ \ \ Area\ =\ 0.5*(\ B[1]*A[0]-\/B[0]*A[1]);}
+\DoxyCodeLine{00703\ \ \ \ \ \textcolor{keywordflow}{if}(isnan(Area)\ or\ (Area\ ==\ 0.0))}
+\DoxyCodeLine{00704\ \ \ \ \ \{}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}In\ Evaluating\ Cross\ Product.....\ Check\ Area\(\backslash\)t"{}}<<Area<<endl;}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00707\ \ \ \ \ \}}
+\DoxyCodeLine{00708\ \textcolor{comment}{//\ \ cout<<"{}Face\ Area\ ="{}<<Area<<endl;}}
+\DoxyCodeLine{00709\ \}}
+\DoxyCodeLine{00710\ }
+\DoxyCodeLine{00711\ \textcolor{comment}{//Function\ Evaluating\ Face\ Normals}}
+\DoxyCodeLine{00712\ \textcolor{keywordtype}{void}\ Evaluate\_Unit\_Vector(V\_D\ \&\ AV)}
+\DoxyCodeLine{00713\ \{}
+\DoxyCodeLine{00714\ \ \ \ \ \textcolor{keywordtype}{double}\ temp\ =\ 0.0;}
+\DoxyCodeLine{00715\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<AV.size();i++)}
+\DoxyCodeLine{00716\ \ \ \ \ \ \ \ \ temp\ +=\ AV[i]*AV[i];}
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<AV.size();i++)}
+\DoxyCodeLine{00718\ \ \ \ \ \ \ \ \ \ AV[i]/=sqrt(temp);}
+\DoxyCodeLine{00719\ \}}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \textcolor{keywordtype}{void}\ Dot\_Product(V\_D\ \&\ V1,V\_D\ \&\ V2\ ,\ \textcolor{keywordtype}{double}\ \&\ dotp)}
+\DoxyCodeLine{00722\ \{}
+\DoxyCodeLine{00723\ \ \ \ \ dotp\ =\ \ (V1[0]*V2[0]\ +V1[1]*V2[1]+V1[2]*V2[2]);}
+\DoxyCodeLine{00724\ \}}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00726\ }
+\DoxyCodeLine{00727\ \textcolor{keywordtype}{void}\ Distance\_Between\_Points(V\_D\ \&\ P1,\ V\_D\ \&\ P2,\textcolor{keywordtype}{double}\ \&\ Distance)}
+\DoxyCodeLine{00728\ \{}
+\DoxyCodeLine{00729\ \ \ \ \ \textcolor{comment}{//\ This\ function\ calculates\ distance\ between\ two\ points}}
+\DoxyCodeLine{00730\ \ \ \ \ \textcolor{keywordtype}{double}\ size\ =\ 0.0,temp=0.0;}
+\DoxyCodeLine{00731\ \ \ \ \ Distance\ =\ 0.0;}
+\DoxyCodeLine{00732\ \ \ \ \ \textcolor{keywordflow}{if}(P1.size()==P2.size())}
+\DoxyCodeLine{00733\ \ \ \ \ \{}
+\DoxyCodeLine{00734\ \ \ \ \ \ \ \ \ size\ =\ P1.size();}
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ temp=0.0;}
+\DoxyCodeLine{00736\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =0;\ i<size;i++)}
+\DoxyCodeLine{00737\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ temp\ =\ P2[i]\ -\/\ P1[i];}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \ \ \ \ Distance\ +=\ temp*temp;}
+\DoxyCodeLine{00740\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00741\ \ \ \ \ \ \ \ \ Distance\ =\ sqrt(Distance);}
+\DoxyCodeLine{00742\ \ \ \ \ \}}
+\DoxyCodeLine{00743\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00744\ \ \ \ \ \{}
+\DoxyCodeLine{00745\ \textcolor{comment}{//\ \ \ \ \ \ Print(P1);}}
+\DoxyCodeLine{00746\ \textcolor{comment}{//\ \ \ \ \ \ Print(P2);}}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Passing\ Vectors\ should\ have\ same\ size"{}}<<endl;}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00749\ \ \ \ \ \}}
+\DoxyCodeLine{00750\ \}}
+\DoxyCodeLine{00751\ \textcolor{comment}{//This\ Function\ evalutates\ the\ dot\ product\ of\ two\ vectors\ of\ equal\ size}}
+\DoxyCodeLine{00752\ \textcolor{keywordtype}{void}\ Evaluate\_Dot\_Product(V\_D\ \&\ A,\ V\_D\ \&\ B)}
+\DoxyCodeLine{00753\ \{}
+\DoxyCodeLine{00754\ \ \ \ \ global\_temp=0.0;}
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<A.size();i++)}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ global\_temp\ +=\ A[i]*B[i];}
+\DoxyCodeLine{00757\ \}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \textcolor{comment}{//Resets\ a\ given\ vector\ to\ zero}}
+\DoxyCodeLine{00760\ \textcolor{keywordtype}{void}\ Vector\_Reset(V\_D\ \&\ Vect)}
+\DoxyCodeLine{00761\ \{}
+\DoxyCodeLine{00762\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Vect.size();i++)}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ Vect[i]=0.0;}
+\DoxyCodeLine{00764\ \textcolor{comment}{//\ \ mu=0.0;}}
+\DoxyCodeLine{00765\ \}}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00767\ \textcolor{keywordtype}{void}\ Vector\_Reset(vector<V\_D>\ \&\ Vect)}
+\DoxyCodeLine{00768\ \{}
+\DoxyCodeLine{00769\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Vect.size();i++)}
+\DoxyCodeLine{00770\ \ \ \ \ \{}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Vect[i].size();j++)}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \ \ \ \ Vect[i][j]=0.0;}
+\DoxyCodeLine{00774\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00775\ \ \ \ \ \}}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00777\ \textcolor{comment}{//\ \ mu=0.0;}}
+\DoxyCodeLine{00778\ \}}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ }
+\DoxyCodeLine{00782\ \textcolor{comment}{//This\ function\ finds\ the\ cell\ with\ smallest\ diagonal\ vector}}
+\DoxyCodeLine{00783\ \textcolor{keywordtype}{void}\ Find\_Minimum\_Length()}
+\DoxyCodeLine{00784\ \{}
+\DoxyCodeLine{00785\ \ \ \ \ \textcolor{keywordtype}{double}\ Min\_Len=100.0,a=0.0,b=0.0,c=0.0;}
+\DoxyCodeLine{00786\ \ \ \ \ Cell\_Minimum\_Length\ =100.0;}
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ index=0;index<No\_Physical\_Cells;index++)}
+\DoxyCodeLine{00788\ \ \ \ \ \{}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ a=fabs(Cells\_Diagonal\_Vector[index][0]);}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ b=fabs(Cells\_Diagonal\_Vector[index][1]);}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ c=fabs(Cells\_Diagonal\_Vector[index][2]);}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((a<b)\&(a<c))}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ Min\_Len\ =\ a;}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(b<c)}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ Min\_Len\ =\ b;}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ Min\_Len\ =\ c;}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Cell\_Minimum\_Length>Min\_Len)}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Minimum\_Length\ =\ Min\_Len;}
+\DoxyCodeLine{00800\ \textcolor{comment}{//\ \ \ \ \ \ cout<<a<<"{}\(\backslash\)t"{}<<b<<"{}\(\backslash\)t"{}<<c<<"{}\(\backslash\)t"{}<<Cell\_Minimum\_Length<<endl;}}
+\DoxyCodeLine{00801\ \ \ \ \ \}}
+\DoxyCodeLine{00802\ \}}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \textcolor{comment}{//\ This\ Function\ evaluates\ the\ area\ integral\ of\ a\ all\ the\ cells}}
+\DoxyCodeLine{00805\ \textcolor{keywordtype}{void}\ Check\_Cells()}
+\DoxyCodeLine{00806\ \{}
+\DoxyCodeLine{00807\ \ \ \ \ \textcolor{keywordtype}{double}\ N1=0.0,N2=0.0;}
+\DoxyCodeLine{00808\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Checking\ Summation\ of\ areas\ to\ be\ zero\ for\ a\ given\ cell"{}}<<endl;}
+\DoxyCodeLine{00809\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}no\ of\ physical\ cells\(\backslash\)t"{}}<<No\_Physical\_Cells<<endl;}
+\DoxyCodeLine{00810\ \ \ \ \ cout<<Cell\_Face\_Normals.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Cell\_Face\_Areas.size()<<endl;}
+\DoxyCodeLine{00811\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00812\ \ \ \ \ \{}
+\DoxyCodeLine{00813\ \textcolor{comment}{//\ \ \ \ \ \ A1=0.0,A2=0.0,A3=0.0;}}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Face\_No=0;Face\_No<4;Face\_No++)}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \ \ \ \ N1\ +=\ Cell\_Face\_Normals[Cell\_Index][Face\_No*2+0]*Cell\_Face\_Areas[Cell\_Index][Face\_No];}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \ \ \ \ N2\ +=\ Cell\_Face\_Normals[Cell\_Index][Face\_No*2+1]*Cell\_Face\_Areas[Cell\_Index][Face\_No];}
+\DoxyCodeLine{00818\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<Cell\_Index<<"{}\(\backslash\)t"{}<<N1<<"{}\(\backslash\)t"{}<<N2<<endl;}}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00820\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<Cell\_Index<<"{}\(\backslash\)t"{}<<N1<<"{}\(\backslash\)t"{}<<N2<<endl;}}
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((N1>1e-\/5)||(N2>1e-\/5))}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Cell\ No\(\backslash\)t"{}}<<Cell\_Index<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<N1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<N2<<endl;}
+\DoxyCodeLine{00823\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}.....................................\(\backslash\)n"{};}}
+\DoxyCodeLine{00824\ \ \ \ \ \}}
+\DoxyCodeLine{00825\ \textcolor{comment}{//\ \ cout<<N1<<"{}\(\backslash\)t"{}<<N2<<endl;}}
+\DoxyCodeLine{00826\ \textcolor{comment}{//\ \ cout<<"{}Checking\ summation\ of\ Areas\ done\(\backslash\)n"{};}}
+\DoxyCodeLine{00827\ \}}
+\DoxyCodeLine{00828\ }
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00830\ \textcolor{keywordtype}{void}\ Write\_Cell\_Info(\textcolor{keyword}{const}\ \textcolor{keywordtype}{string}\ \&\ opfile)}
+\DoxyCodeLine{00831\ \{}
+\DoxyCodeLine{00832\ \ \ \ \ ofstream\ File\_Cell\_Info(opfile.c\_str(),ios::out);}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Writing\ Cell\ Information\(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ cout<<opfile<<endl;}
+\DoxyCodeLine{00835\ \ \ \ \ \textcolor{keywordtype}{int}\ k,Cell\_No=0;}
+\DoxyCodeLine{00836\ \ \ \ \ vector<V\_D>::iterator\ Cell\_Area\_iter,\ Cell\_Normals\_iter;}
+\DoxyCodeLine{00837\ \ \ \ \ vector<V\_I>::iterator\ Cell\_Neighbour\_iter;}
+\DoxyCodeLine{00838\ \ \ \ \ V\_D::iterator\ Cell\_Volume\_iter;}
+\DoxyCodeLine{00839\ \ \ \ \ \textcolor{keywordflow}{if}(File\_Cell\_Info.is\_open())}
+\DoxyCodeLine{00840\ \ \ \ \ \{}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ Cell\_Area\_iter\ =\ Cell\_Face\_Areas.begin();}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ Cell\_Normals\_iter\ =\ Cell\_Face\_Normals.begin();}
+\DoxyCodeLine{00843\ \ \ \ \ \ \ \ \ Cell\_Neighbour\_iter\ =\ Cell\_Neighbours.begin();}
+\DoxyCodeLine{00844\ \ \ \ \ \ \ \ \ Cell\_Volume\_iter\ =\ Cells\_Area.begin();}
+\DoxyCodeLine{00845\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}((Cell\_Area\_iter!=Cell\_Face\_Areas.end())\&\&(Cell\_Normals\_iter!=Cell\_Face\_Normals.end())\&\&(Cell\_Neighbour\_iter!=Cell\_Neighbours.end()))}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}Cell\_No\(\backslash\)t"{}}<<Cell\_No++<<endl;}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}Cell\ Face\ Lengths\(\backslash\)n"{}};}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k=0;}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Cell\_Area\_iter-\/>size();i++)}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k++;}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<Cell\_Area\_iter-\/>at(i)<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(k==4)}
+\DoxyCodeLine{00855\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00856\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00857\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k=0;}
+\DoxyCodeLine{00858\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00859\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}Cell\ Normals\(\backslash\)n"{}};}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ k=0;}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Cell\_Normals\_iter-\/>size();i++)}
+\DoxyCodeLine{00863\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00864\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k++;}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<Cell\_Normals\_iter-\/>at(i)<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00866\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(k==2)}
+\DoxyCodeLine{00867\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00868\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00869\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k=0;}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00871\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00872\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00873\ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}\(\backslash\)nCell\ Volume\(\backslash\)t"{}}<<*Cell\_Volume\_iter<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00874\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Cell\_Neighbour\_iter-\/>size();i++)}
+\DoxyCodeLine{00875\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00876\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<Cell\_Neighbour\_iter-\/>at(i)<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ File\_Cell\_Info<<\textcolor{stringliteral}{"{}\(\backslash\)n-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}};}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Area\_iter++;}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Normals\_iter++;}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Neighbour\_iter++;}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Volume\_iter++;}
+\DoxyCodeLine{00883\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00884\ \ \ \ \ \}}
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00886\ \ \ \ \ \{}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Could\ not\ write\ to\ Cell\ information\ to\ file\(\backslash\)n"{}};}
+\DoxyCodeLine{00888\ \ \ \ \ \}}
+\DoxyCodeLine{00889\ \}}
+\DoxyCodeLine{00890\ }
+\DoxyCodeLine{00891\ \textcolor{keywordtype}{void}\ Write\_Cell\_Info(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No)}
+\DoxyCodeLine{00892\ \{}
+\DoxyCodeLine{00893\ \ \ \ \ \textcolor{keywordtype}{double}\ A1=0.0,A2=0.0,n1=0.0,n2=0.0;}
+\DoxyCodeLine{00894\ \ \ \ \ cout<<Cell\_No<<endl;}
+\DoxyCodeLine{00895\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Face\_No=0;Face\_No<4;Face\_No++)}
+\DoxyCodeLine{00896\ \ \ \ \ \{}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ cout<<Face\_No<<endl;}
+\DoxyCodeLine{00898\ \ \ \ \ \ \ \ \ A1=Cell\_Face\_Areas[Cell\_No][Face\_No*2+0];}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ A2=Cell\_Face\_Areas[Cell\_No][Face\_No*2+1];}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ cout<<A1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<A2<<endl;}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ n1=Cell\_Face\_Normals[Cell\_No][Face\_No*2+0];}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ n2=Cell\_Face\_Normals[Cell\_No][Face\_No*2+1];}
+\DoxyCodeLine{00903\ \ \ \ \ \ \ \ \ cout<<n1<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<n2<<endl;}
+\DoxyCodeLine{00904\ \ \ \ \ \}}
+\DoxyCodeLine{00905\ }
+\DoxyCodeLine{00906\ \}}
+\DoxyCodeLine{00907\ }
+
+\end{DoxyCode}

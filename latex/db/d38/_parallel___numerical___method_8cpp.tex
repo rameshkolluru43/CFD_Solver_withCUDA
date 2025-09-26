@@ -1,0 +1,315 @@
+\doxysection{Parallel\+\_\+\+Method\+\_\+\+Kernels/\+Parallel\+\_\+\+Numerical\+\_\+\+Method.cpp File Reference}
+\hypertarget{_parallel___numerical___method_8cpp}{}\label{_parallel___numerical___method_8cpp}\index{Parallel\_Method\_Kernels/Parallel\_Numerical\_Method.cpp@{Parallel\_Method\_Kernels/Parallel\_Numerical\_Method.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+{\ttfamily \#include $<$cuda\+\_\+runtime.\+h$>$}\newline
+Include dependency graph for Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{d0/dc2/_parallel___numerical___method_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}{NUM\+\_\+\+COMPONENTS}}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \mbox{\hyperlink{_parallel___numerical___method_8cpp_acdc0a5f0a968d5f65e9a50eb931198de_acdc0a5f0a968d5f65e9a50eb931198de}{Explicit\+\_\+\+Method\+\_\+\+Kernel}} (double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area, double \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}}, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+DelU, double \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\+\_\+dt}}, bool \mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\+\_\+\+Viscous\+\_\+\+Wall}}, size\+\_\+t \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\+\_\+\+Physical\+\_\+\+Cells}})
+\item 
+void \mbox{\hyperlink{_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253}{Precompute\+Fluxes}} ()
+\item 
+void \mbox{\hyperlink{_parallel___numerical___method_8cpp_a8795c4a8d7a7c21bac9029da2925ed9f_a8795c4a8d7a7c21bac9029da2925ed9f}{Allocate\+And\+Copy\+To\+Device}} (double \texorpdfstring{$\ast$}{*}\&d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area, double \texorpdfstring{$\ast$}{*}\&\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}}, double \texorpdfstring{$\ast$}{*}\&d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux, double \texorpdfstring{$\ast$}{*}\&d\+\_\+\+Cells\+\_\+\+DelU, const vector$<$ double $>$ \&h\+\_\+inv\+\_\+\+Area)
+\item 
+void \mbox{\hyperlink{_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2}{Launch\+Kernel}} (double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area, double \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}}, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Cells\+\_\+\+DelU)
+\item 
+void \mbox{\hyperlink{_parallel___numerical___method_8cpp_a8dda0c7e17babab9b6e49e8e199dc30e_a8dda0c7e17babab9b6e49e8e199dc30e}{Explicit\+\_\+\+Method}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!NUM\_COMPONENTS@{NUM\_COMPONENTS}}
+\index{NUM\_COMPONENTS@{NUM\_COMPONENTS}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{NUM\_COMPONENTS}{NUM\_COMPONENTS}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943} 
+\#define NUM\+\_\+\+COMPONENTS~4}
+
+CUDA kernel for updating cell values using the explicit method.
+
+
+\begin{DoxyParams}{Parameters}
+{\em d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area} & Pointer to device array containing inverse cell areas. \\
+\hline
+{\em d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux} & Pointer to device array containing net flux values for each cell. \\
+\hline
+{\em d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux} & Pointer to device array containing viscous flux values for each cell. \\
+\hline
+{\em d\+\_\+\+Cells\+\_\+\+DelU} & Pointer to device array where the updated cell values will be stored. \\
+\hline
+{\em Min\+\_\+dt} & Minimum time step size for the simulation. \\
+\hline
+{\em Is\+\_\+\+Viscous\+\_\+\+Wall} & Boolean flag indicating whether viscous wall conditions are applied. \\
+\hline
+{\em No\+\_\+\+Physical\+\_\+\+Cells} & Total number of physical cells in the simulation. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00016}{16}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_parallel___numerical___method_8cpp_a8795c4a8d7a7c21bac9029da2925ed9f_a8795c4a8d7a7c21bac9029da2925ed9f}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!AllocateAndCopyToDevice@{AllocateAndCopyToDevice}}
+\index{AllocateAndCopyToDevice@{AllocateAndCopyToDevice}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{AllocateAndCopyToDevice()}{AllocateAndCopyToDevice()}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_a8795c4a8d7a7c21bac9029da2925ed9f_a8795c4a8d7a7c21bac9029da2925ed9f} 
+void Allocate\+And\+Copy\+To\+Device (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}\&}]{d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area}{, }\item[{double \texorpdfstring{$\ast$}{*}\&}]{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}\&}]{d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}\&}]{d\+\_\+\+Cells\+\_\+\+DelU}{, }\item[{const vector$<$ double $>$ \&}]{h\+\_\+inv\+\_\+\+Area}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00071}{71}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ ==\ 0)}
+\DoxyCodeLine{00074\ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error:\ No\_Physical\_Cells\ is\ zero.\ Memory\ allocation\ aborted.\(\backslash\)n"{}});}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00077\ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (cudaMalloc(\&d\_Cells\_Inv\_Area,\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}))\ !=\ cudaSuccess\ ||}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ cudaMalloc(\&\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ 4\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}))\ !=\ cudaSuccess\ ||}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ cudaMalloc(\&d\_Cells\_Viscous\_Flux,\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ 4\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}))\ !=\ cudaSuccess)}
+\DoxyCodeLine{00082\ \ \ \ \ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}cudaMalloc\ failed:\ Unable\ to\ allocate\ device\ memory."{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ >\ 0)}
+\DoxyCodeLine{00087\ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ cudaMemcpy(d\_Cells\_Inv\_Area,\ h\_inv\_Area.data(),\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00089\ \ \ \ \ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::invalid\_argument(\textcolor{stringliteral}{"{}Error:\ No\_Physical\_Cells\ is\ zero\ or\ invalid."{}});}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ cudaMemcpy(d\_Cells\_Inv\_Area,\ h\_inv\_Area.data(),\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00096\ \ \ \ \ cudaMemcpy(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}},\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ 4\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00097\ \ \ \ \ cudaMemcpy(d\_Cells\_Viscous\_Flux,\ \mbox{\hyperlink{_globals_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}},\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ *\ 4\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{00098\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d38/_parallel___numerical___method_8cpp_a8795c4a8d7a7c21bac9029da2925ed9f_a8795c4a8d7a7c21bac9029da2925ed9f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___numerical___method_8cpp_a8dda0c7e17babab9b6e49e8e199dc30e_a8dda0c7e17babab9b6e49e8e199dc30e}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!Explicit\_Method@{Explicit\_Method}}
+\index{Explicit\_Method@{Explicit\_Method}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Explicit\_Method()}{Explicit\_Method()}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_a8dda0c7e17babab9b6e49e8e199dc30e_a8dda0c7e17babab9b6e49e8e199dc30e} 
+void Explicit\+\_\+\+Method (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00148}{148}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00149\ \{}
+\DoxyCodeLine{00150\ \ \ \ \ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253}{PrecomputeFluxes}}();}
+\DoxyCodeLine{00151\ \ \ \ \ vector<double>\ h\_inv\_Area(\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}});}
+\DoxyCodeLine{00152\ \ \ \ \ std::transform(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.begin(),\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.begin()\ +\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}},\ h\_inv\_Area.begin(),}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [](\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&cell)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\ return\ cell.Inv\_Area;\ \});}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordtype}{double}\ *d\_Cells\_Inv\_Area,\ *\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ *d\_Cells\_Viscous\_Flux,\ *d\_Cells\_DelU;}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a8795c4a8d7a7c21bac9029da2925ed9f_a8795c4a8d7a7c21bac9029da2925ed9f}{AllocateAndCopyToDevice}}(d\_Cells\_Inv\_Area,\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ d\_Cells\_Viscous\_Flux,\ d\_Cells\_DelU,\ h\_inv\_Area);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2}{LaunchKernel}}(d\_Cells\_Inv\_Area,\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ d\_Cells\_Viscous\_Flux,\ d\_Cells\_DelU);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ FreeDeviceMemory(d\_Cells\_Inv\_Area,\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ d\_Cells\_Viscous\_Flux,\ d\_Cells\_DelU);}
+\DoxyCodeLine{00163\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_parallel___numerical___method_8cpp_acdc0a5f0a968d5f65e9a50eb931198de_acdc0a5f0a968d5f65e9a50eb931198de}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!Explicit\_Method\_Kernel@{Explicit\_Method\_Kernel}}
+\index{Explicit\_Method\_Kernel@{Explicit\_Method\_Kernel}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Explicit\_Method\_Kernel()}{Explicit\_Method\_Kernel()}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_acdc0a5f0a968d5f65e9a50eb931198de_acdc0a5f0a968d5f65e9a50eb931198de} 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void Explicit\+\_\+\+Method\+\_\+\+Kernel (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+DelU}{, }\item[{double}]{Min\+\_\+dt}{, }\item[{bool}]{Is\+\_\+\+Viscous\+\_\+\+Wall}{, }\item[{size\+\_\+t}]{No\+\_\+\+Physical\+\_\+\+Cells}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ Cell\_Index\ =\ blockIdx.x\ *\ blockDim.x\ +\ threadIdx.x;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordflow}{if}\ (Cell\_Index\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{00025\ \ \ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_Area\ =\ d\_Cells\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ preconditioned\ viscous\ and\ inviscid\ fluxes\ when\ viscous\ fluxes\ are\ enabled}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}{NUM\_COMPONENTS}};\ i++)}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Cell\_Index\ *\ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}{NUM\_COMPONENTS}}\ +\ i;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_Cells\_DelU[index]\ =\ -\/\mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ *\ inv\_Area\ *}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}}[index]\ -\/\ d\_Cells\_Viscous\_Flux[index]);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ preconditioned\ inviscid\ fluxes\ only}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}{NUM\_COMPONENTS}};\ i++)}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Cell\_Index\ *\ \mbox{\hyperlink{_parallel___numerical___method_8cpp_a65c0cc893a11a2d7e02d60360f6cc943_a65c0cc893a11a2d7e02d60360f6cc943}{NUM\_COMPONENTS}}\ +\ i;}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_Cells\_DelU[index]\ =\ -\/\mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ *\ inv\_Area\ *\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}}[index];}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d38/_parallel___numerical___method_8cpp_acdc0a5f0a968d5f65e9a50eb931198de_acdc0a5f0a968d5f65e9a50eb931198de_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!LaunchKernel@{LaunchKernel}}
+\index{LaunchKernel@{LaunchKernel}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{LaunchKernel()}{LaunchKernel()}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2} 
+void Launch\+Kernel (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Inv\+\_\+\+Area}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Net\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+Viscous\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Cells\+\_\+\+DelU}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00100}{100}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ threadsPerBlock\ =\ 256;}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ maxBlocksPerGrid\ =\ (size\_t)cudaDeviceProp().maxGridSize[0];}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ blocksPerGrid\ =\ (\mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ +\ threadsPerBlock\ -\/\ 1)\ /\ threadsPerBlock;}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (blocksPerGrid\ >\ maxBlocksPerGrid)}
+\DoxyCodeLine{00106\ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error:\ blocksPerGrid\ exceeds\ the\ maximum\ supported\ grid\ size.\(\backslash\)n"{}});}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00109\ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ cudaError\_t\ err\ =\ cudaDeviceSynchronize();}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ cudaSuccess)}
+\DoxyCodeLine{00112\ \ \ \ \ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}CUDA\ error:\ \%s\(\backslash\)n"{}},\ cudaGetErrorString(err));}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00115\ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ ComputeTimeSteps();}
+\DoxyCodeLine{00118\ \ \ \ \ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ =\ \mbox{\hyperlink{_timestep_8h_aab0dd8bb5a3ae3819eec8d9fef67bc83_aab0dd8bb5a3ae3819eec8d9fef67bc83}{get\_Min\_dt}}();}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ ==\ 0.0)}
+\DoxyCodeLine{00120\ \ \ \ \ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error:\ Min\_dt\ is\ zero.\ Cannot\ proceed\ with\ the\ simulation.\(\backslash\)n"{}});}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ <\ 0.0)}
+\DoxyCodeLine{00125\ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ fprintf(stderr,\ \textcolor{stringliteral}{"{}Error:\ Min\_dt\ is\ negative.\ Cannot\ proceed\ with\ the\ simulation.\(\backslash\)n"{}});}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00128\ \ \ \ \ \}}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \mbox{\hyperlink{_parallel___numerical___method_8cpp_acdc0a5f0a968d5f65e9a50eb931198de_acdc0a5f0a968d5f65e9a50eb931198de}{Explicit\_Method\_Kernel<<<blocksPerGrid,\ threadsPerBlock>}}>>(}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ d\_Cells\_Inv\_Area,\ \mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}},\ d\_Cells\_Viscous\_Flux,\ d\_Cells\_DelU,}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}},\ \mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}},\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}});}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ cudaDeviceSynchronize();}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{if}\ (d\_Cells\_Inv\_Area)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ cudaFree(d\_Cells\_Inv\_Area);}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}})}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ cudaFree(\mbox{\hyperlink{_parallel___net___flux___evaluation_8cpp_aadf9ffbbe3fac2142acd512519f4ffbd_aadf9ffbbe3fac2142acd512519f4ffbd}{d\_Cells\_Net\_Flux}});}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{if}\ (d\_Cells\_Viscous\_Flux)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ cudaFree(d\_Cells\_Viscous\_Flux);}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{if}\ (d\_Cells\_DelU)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ cudaFree(d\_Cells\_DelU);}
+\DoxyCodeLine{00144\ \ \ \ \ cudaFree(d\_Cells\_Viscous\_Flux);}
+\DoxyCodeLine{00145\ \ \ \ \ cudaFree(d\_Cells\_DelU);}
+\DoxyCodeLine{00146\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{db/d38/_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d38/_parallel___numerical___method_8cpp_a00c41fcacebe8dbfa74f693c388a20b2_a00c41fcacebe8dbfa74f693c388a20b2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253}\index{Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}!PrecomputeFluxes@{PrecomputeFluxes}}
+\index{PrecomputeFluxes@{PrecomputeFluxes}!Parallel\_Numerical\_Method.cpp@{Parallel\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{PrecomputeFluxes()}{PrecomputeFluxes()}}
+{\footnotesize\ttfamily \label{_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253} 
+void Precompute\+Fluxes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_parallel___numerical___method_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{_parallel___numerical___method_8cpp_source}{Parallel\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ Weighted\ Essentially\ Non-\/Oscillatory\ (WENO)\ method\ is\ enabled.}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{comment}{//\ WENO\ is\ a\ high-\/order\ numerical\ method\ used\ for\ solving\ hyperbolic\ partial\ differential\ equations.}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_aea330d66b525a50c0b181d4734f3ec14_aea330d66b525a50c0b181d4734f3ec14}{Is\_WENO}})}
+\DoxyCodeLine{00055\ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_weno_8h_a74c2795e4a164178c69743947d6e6cf5_a74c2795e4a164178c69743947d6e6cf5}{Evaluate\_Cell\_Net\_Flux\_WENO}}();}
+\DoxyCodeLine{00057\ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ WENO\ is\ not\ enabled,\ check\ if\ the\ second-\/order\ method\ is\ used.}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ second-\/order\ method\ provides\ a\ balance\ between\ accuracy\ and\ computational\ cost.}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}})}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f}{Evaluate\_Cell\_Net\_Flux\_2O}}();}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ neither\ WENO\ nor\ second-\/order\ methods\ are\ enabled,\ fall\ back\ to\ the\ first-\/order\ method.}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ first-\/order\ method\ is\ less\ accurate\ but\ computationally\ cheaper.}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098}{Evaluate\_Cell\_Net\_Flux\_1O}}();}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d38/_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d38/_parallel___numerical___method_8cpp_a263f3c36336c227c44f052b2ad122253_a263f3c36336c227c44f052b2ad122253_icgraph}
+\end{center}
+\end{figure}

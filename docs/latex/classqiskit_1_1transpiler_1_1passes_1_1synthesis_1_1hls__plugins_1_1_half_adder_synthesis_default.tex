@@ -1,0 +1,67 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+synthesis.\+hls\+\_\+plugins.\+Half\+Adder\+Synthesis\+Default Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default}{}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default}\index{qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault@{qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+synthesis.\+hls\+\_\+plugins.\+Half\+Adder\+Synthesis\+Default\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default_a1f8a328876f0407bcaf4128e0e822301}{run}} (self, high\+\_\+level\+\_\+object, coupling\+\_\+map=None, target=None, qubits=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}options)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_high_level_synthesis_plugin}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+High\+Level\+Synthesis\+Plugin}}}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The default half-adder (no carry in, but a carry out qubit) synthesis.
+
+If we have an auxiliary qubit available, the Cuccaro ripple-carry adder uses
+:math:`O(n)` CX gates and 1 auxiliary qubit, whereas the Vedral ripple-carry uses more CX
+and :math:`n-1` auxiliary qubits. The QFT-based adder uses no auxiliary qubits, but
+:math:`O(n^2)`, hence it is only used if no auxiliary qubits are available.
+
+This plugin name is:``HalfAdder.default`` which can be used as the key on
+an :class:`~.HLSConfig` object to use this method with :class:`~.HighLevelSynthesis`.
+
+If at least one clean auxiliary qubit is available, the :class:`HalfAdderSynthesisC04`
+is used, otherwise :class:`HalfAdderSynthesisD00`.
+
+The plugin supports the following plugin-specific options:
+
+* ``num_clean_ancillas``: The number of clean auxiliary qubits available.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default_a1f8a328876f0407bcaf4128e0e822301}\index{qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault@{qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault@{qiskit.transpiler.passes.synthesis.hls\_plugins.HalfAdderSynthesisDefault}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1hls__plugins_1_1_half_adder_synthesis_default_a1f8a328876f0407bcaf4128e0e822301} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+hls\+\_\+plugins.\+Half\+Adder\+Synthesis\+Default.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{high\+\_\+level\+\_\+object}{, }\item[{}]{coupling\+\_\+map}{ = {\ttfamily None}, }\item[{}]{target}{ = {\ttfamily None}, }\item[{}]{qubits}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run synthesis for the given Operation.
+
+Args:
+    high_level_object (Operation): The Operation to synthesize to a
+        :class:`~qiskit.dagcircuit.DAGCircuit` object.
+    coupling_map (CouplingMap): The coupling map of the backend
+        in case synthesis is done on a physical circuit.
+    target (Target): A target representing the target backend.
+    qubits (list): List of qubits over which the operation is defined
+        in case synthesis is done on a physical circuit.
+    options: Additional method-specific optional kwargs.
+
+Returns:
+    QuantumCircuit: The quantum circuit representation of the Operation
+        when successful, and ``None`` otherwise.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_high_level_synthesis_plugin_a20f333ebbbd88e081f0f07bd190a4ab1}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+High\+Level\+Synthesis\+Plugin}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/synthesis/hls\+\_\+plugins.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,86 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GR Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r}\index{qiskit.circuit.library.generalized\_gates.gr.GR@{qiskit.circuit.library.generalized\_gates.gr.GR}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GR\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{dd/d21/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a1320aacc40e1f9d44d04d1e4a8db41bb_a1320aacc40e1f9d44d04d1e4a8db41bb}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, float theta, float phi)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a8bec3f4a8178c563d531d2cee88731e9}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a8bec3f4a8178c563d531d2cee88731e9} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Global R gate.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌──────────┐
+    q_0: ┤0         ├
+         │          │
+    q_1: ┤1 GR(ϴ,φ) ├
+         │          │
+    q_2: ┤2         ├
+         └──────────┘
+
+The global R gate is native to atomic systems (ion traps, cold neutrals). The global R
+can be applied to multiple qubits simultaneously.
+
+In the one-qubit case, this is equivalent to an R(theta, phi) operation,
+and is thus reduced to the RGate. The global R gate is a direct sum of R
+operations on all individual qubits.
+
+.. math::
+
+    GR(\theta, \phi) = \exp(-i \sum_{i=1}^{n} (\cos(\phi)X_i + \sin(\phi)Y_i) \theta/2)
+
+**Expanded Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import GR
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   import numpy as np
+   circuit = GR(num_qubits=3, theta=np.pi/4, phi=np.pi/2)
+   _generate_circuit_library_visualization(circuit)\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a1320aacc40e1f9d44d04d1e4a8db41bb_a1320aacc40e1f9d44d04d1e4a8db41bb}\index{qiskit.circuit.library.generalized\_gates.gr.GR@{qiskit.circuit.library.generalized\_gates.gr.GR}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.gr.GR@{qiskit.circuit.library.generalized\_gates.gr.GR}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_a1320aacc40e1f9d44d04d1e4a8db41bb_a1320aacc40e1f9d44d04d1e4a8db41bb} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GR.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{float}]{theta}{, }\item[{float}]{phi}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new Global R (GR) gate.
+
+Args:
+    num_qubits: number of qubits.
+    theta: rotation angle about axis determined by phi
+    phi: angle of rotation axis in xy-plane
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_x_aa620a73ce1d0c597a67d4213ac3ead33_aa620a73ce1d0c597a67d4213ac3ead33}{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRX}}, and \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_y_a0be523c093e20e6173546483b7c0e1fb_a0be523c093e20e6173546483b7c0e1fb}{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRY}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/gr.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,81 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRZ Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z}\index{qiskit.circuit.library.generalized\_gates.gr.GRZ@{qiskit.circuit.library.generalized\_gates.gr.GRZ}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRZ\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d9/dab/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z_ab631627263fcc3f78360372092fc350f_ab631627263fcc3f78360372092fc350f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, float phi)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z_af498a203a90c8dce93d5e70cbc6377b9}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z_af498a203a90c8dce93d5e70cbc6377b9} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Global RZ gate.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌──────────┐
+    q_0: ┤0         ├
+         │          │
+    q_1: ┤1  GRZ(φ) ├
+         │          │
+    q_2: ┤2         ├
+         └──────────┘
+
+The global RZ gate is native to atomic systems (ion traps, cold neutrals). The global RZ
+can be applied to multiple qubits simultaneously.
+
+In the one-qubit case, this is equivalent to an RZ(phi) operation,
+and is thus reduced to the RZGate. The global RZ gate is a direct sum of RZ
+operations on all individual qubits.
+
+.. math::
+
+    GRZ(\phi) = \exp(-i \sum_{i=1}^{n} Z_i \phi)
+
+**Expanded Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import GRZ
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   import numpy as np
+   circuit = GRZ(num_qubits=3, phi=np.pi/2)
+   _generate_circuit_library_visualization(circuit)\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z_ab631627263fcc3f78360372092fc350f_ab631627263fcc3f78360372092fc350f}\index{qiskit.circuit.library.generalized\_gates.gr.GRZ@{qiskit.circuit.library.generalized\_gates.gr.GRZ}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.gr.GRZ@{qiskit.circuit.library.generalized\_gates.gr.GRZ}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gr_1_1_g_r_z_ab631627263fcc3f78360372092fc350f_ab631627263fcc3f78360372092fc350f} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gr.\+GRZ.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{float}]{phi}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new Global RZ (GRZ) gate.
+
+Args:
+    num_qubits: number of qubits.
+    phi: rotation angle about z-axis
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/gr.\+py\end{DoxyCompactItemize}

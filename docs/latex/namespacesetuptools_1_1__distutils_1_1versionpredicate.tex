@@ -1,0 +1,85 @@
+\doxysection{setuptools.\+\_\+distutils.\+versionpredicate Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate}{}\label{namespacesetuptools_1_1__distutils_1_1versionpredicate}\index{setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1versionpredicate_1_1_version_predicate}{Version\+Predicate}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1versionpredicate_a4d30ed6f6850be6b4d874c8cf2e236c7}{split\+Up}} (pred)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1versionpredicate_a49b3a30cb69b7b19915d5b92d93de1d4}{split\+\_\+provision}} (value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_a1c1ab5d3991e2da262c199dbcaa5e833}\label{namespacesetuptools_1_1__distutils_1_1versionpredicate_a1c1ab5d3991e2da262c199dbcaa5e833} 
+{\bfseries re\+\_\+valid\+Package} = re.\+compile(r"{}(?i)\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}s\texorpdfstring{$\ast$}{*}(\mbox{[}a-\/z\+\_\+\mbox{]}\textbackslash{}w\texorpdfstring{$\ast$}{*}(?\+:\textbackslash{}.\mbox{[}a-\/z\+\_\+\mbox{]}\textbackslash{}w\texorpdfstring{$\ast$}{*})\texorpdfstring{$\ast$}{*})(.\texorpdfstring{$\ast$}{*})"{}, re.\+ASCII)
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_aa9b63cc0b89ab9b811479748e30242b3}\label{namespacesetuptools_1_1__distutils_1_1versionpredicate_aa9b63cc0b89ab9b811479748e30242b3} 
+{\bfseries re\+\_\+paren} = re.\+compile(r"{}\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}s\texorpdfstring{$\ast$}{*}\textbackslash{}((.\texorpdfstring{$\ast$}{*})\textbackslash{})\textbackslash{}s\texorpdfstring{$\ast$}{*}\$"{})
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_aacaf5c82de4677b1a960449710773798}\label{namespacesetuptools_1_1__distutils_1_1versionpredicate_aacaf5c82de4677b1a960449710773798} 
+{\bfseries re\+\_\+split\+Comparison} = re.\+compile(r"{}\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}s\texorpdfstring{$\ast$}{*}($<$=\texorpdfstring{$\vert$}{|}$>$=\texorpdfstring{$\vert$}{|}$<$\texorpdfstring{$\vert$}{|}$>$\texorpdfstring{$\vert$}{|}!=\texorpdfstring{$\vert$}{|}==)\textbackslash{}s\texorpdfstring{$\ast$}{*}(\mbox{[}\texorpdfstring{$^\wedge$}{\string^}\textbackslash{}s,\mbox{]}+)\textbackslash{}s\texorpdfstring{$\ast$}{*}\$"{})
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1versionpredicate_aaa106cca3d7f93a7f5ed47fd39c46dd2}{compmap}}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_ab6cf366e2099020e251578f3a32d8ea0}\label{namespacesetuptools_1_1__distutils_1_1versionpredicate_ab6cf366e2099020e251578f3a32d8ea0} 
+{\bfseries \+\_\+provision\+\_\+rx} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Module for parsing and testing package version predicate strings.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_a49b3a30cb69b7b19915d5b92d93de1d4}\index{setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}!split\_provision@{split\_provision}}
+\index{split\_provision@{split\_provision}!setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}}
+\doxysubsubsection{\texorpdfstring{split\_provision()}{split\_provision()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1versionpredicate_a49b3a30cb69b7b19915d5b92d93de1d4} 
+setuptools.\+\_\+distutils.\+versionpredicate.\+split\+\_\+provision (\begin{DoxyParamCaption}\item[{}]{value}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the name and optional version number of a provision.
+
+The version number, if given, will be returned as a `StrictVersion`
+instance, otherwise it will be `None`.
+
+>>> split_provision('mypkg')
+('mypkg', None)
+>>> split_provision(' mypkg( 1.2 ) ')
+('mypkg', StrictVersion ('1.2'))
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_a4d30ed6f6850be6b4d874c8cf2e236c7}\index{setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}!splitUp@{splitUp}}
+\index{splitUp@{splitUp}!setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}}
+\doxysubsubsection{\texorpdfstring{splitUp()}{splitUp()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1versionpredicate_a4d30ed6f6850be6b4d874c8cf2e236c7} 
+setuptools.\+\_\+distutils.\+versionpredicate.\+split\+Up (\begin{DoxyParamCaption}\item[{}]{pred}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Parse a single version comparison.
+
+Return (comparison string, StrictVersion)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1versionpredicate_aaa106cca3d7f93a7f5ed47fd39c46dd2}\index{setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}!compmap@{compmap}}
+\index{compmap@{compmap}!setuptools.\_distutils.versionpredicate@{setuptools.\_distutils.versionpredicate}}
+\doxysubsubsection{\texorpdfstring{compmap}{compmap}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1versionpredicate_aaa106cca3d7f93a7f5ed47fd39c46dd2} 
+dict setuptools.\+\_\+distutils.\+versionpredicate.\+compmap}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}<"{}}:\ operator.lt,}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}<="{}}:\ operator.le,}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{"{}=="{}}:\ operator.eq,}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{"{}>"{}}:\ operator.gt,}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{stringliteral}{"{}>="{}}:\ operator.ge,}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{stringliteral}{"{}!="{}}:\ operator.ne,}
+\DoxyCodeLine{00008\ \}}
+
+\end{DoxyCode}

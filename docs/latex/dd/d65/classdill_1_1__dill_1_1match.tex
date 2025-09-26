@@ -1,0 +1,74 @@
+\doxysection{dill.\+\_\+dill.\+match Class Reference}
+\hypertarget{classdill_1_1__dill_1_1match}{}\label{classdill_1_1__dill_1_1match}\index{dill.\_dill.match@{dill.\_dill.match}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_a420e8ac0c72d7e4def1d0d8a92bc6215}\label{classdill_1_1__dill_1_1match_a420e8ac0c72d7e4def1d0d8a92bc6215} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, value)
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_af10a0ee3c26cb62e4767d31d2e6192b5}\label{classdill_1_1__dill_1_1match_af10a0ee3c26cb62e4767d31d2e6192b5} 
+{\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_aa88cf118ff28495e30f757759898bd80}\label{classdill_1_1__dill_1_1match_aa88cf118ff28495e30f757759898bd80} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, \texorpdfstring{$\ast$}{*}exc\+\_\+info)
+\item 
+\mbox{\hyperlink{classdill_1_1__dill_1_1match_a6db2145cb11c96df7b5ab918932c9b9e_a6db2145cb11c96df7b5ab918932c9b9e}{case}} (self, args)
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_a06e9eb83fccb4f4dfe4079cf821a2d39}\label{classdill_1_1__dill_1_1match_a06e9eb83fccb4f4dfe4079cf821a2d39} 
+{\bfseries fields} (self)
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_accc1fb903a7e505153043bb590390ede}\label{classdill_1_1__dill_1_1match_accc1fb903a7e505153043bb590390ede} 
+{\bfseries \+\_\+\+\_\+getattr\+\_\+\+\_\+} (self, item)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_a3427da39f5166c556bef262ed29202c9}\label{classdill_1_1__dill_1_1match_a3427da39f5166c556bef262ed29202c9} 
+{\bfseries value} = value
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_ae37b9790e8c0c5beeb434409edbc64cf}\label{classdill_1_1__dill_1_1match_ae37b9790e8c0c5beeb434409edbc64cf} 
+{\bfseries args} = args
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classdill_1_1__dill_1_1match_a79216b554903b5528e817d0384245ce6}\label{classdill_1_1__dill_1_1match_a79216b554903b5528e817d0384245ce6} 
+{\bfseries \+\_\+fields} = dict(zip(self.\+args, self.\+value))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Make avaialable a limited structural pattern matching-like syntax for Python < 3.10
+
+Patterns can be only tuples (without types) currently.
+Inspired by the package pattern-matching-PEP634.
+
+Usage:
+>>> with match(args) as m:
+>>>     if   m.case(('x', 'y')):
+>>>         # use m.x and m.y
+>>>     elif m.case(('x', 'y', 'z')):
+>>>         # use m.x, m.y and m.z
+
+Equivalent native code for Python >= 3.10:
+>>> match args:
+>>>     case (x, y):
+>>>         # use x and y
+>>>     case (x, y, z):
+>>>         # use x, y and z
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdill_1_1__dill_1_1match_a6db2145cb11c96df7b5ab918932c9b9e_a6db2145cb11c96df7b5ab918932c9b9e}\index{dill.\_dill.match@{dill.\_dill.match}!case@{case}}
+\index{case@{case}!dill.\_dill.match@{dill.\_dill.match}}
+\doxysubsubsection{\texorpdfstring{case()}{case()}}
+{\footnotesize\ttfamily \label{classdill_1_1__dill_1_1match_a6db2145cb11c96df7b5ab918932c9b9e_a6db2145cb11c96df7b5ab918932c9b9e} 
+dill.\+\_\+dill.\+match.\+case (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{args}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}just handles tuple patterns\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/dill/\+\_\+dill.\+py\end{DoxyCompactItemize}

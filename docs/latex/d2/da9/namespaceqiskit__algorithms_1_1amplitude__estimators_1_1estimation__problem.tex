@@ -1,0 +1,64 @@
+\doxysection{qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+estimation\+\_\+problem Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem}{}\label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem}\index{qiskit\_algorithms.amplitude\_estimators.estimation\_problem@{qiskit\_algorithms.amplitude\_estimators.estimation\_problem}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem_1_1_estimation_problem}{Estimation\+Problem}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem_a042083a1fb438fe03b88942e9b407d58_a042083a1fb438fe03b88942e9b407d58}{\+\_\+rescale\+\_\+amplitudes}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, float scaling\+\_\+factor)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Estimation problem class.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem_a042083a1fb438fe03b88942e9b407d58_a042083a1fb438fe03b88942e9b407d58}\index{qiskit\_algorithms.amplitude\_estimators.estimation\_problem@{qiskit\_algorithms.amplitude\_estimators.estimation\_problem}!\_rescale\_amplitudes@{\_rescale\_amplitudes}}
+\index{\_rescale\_amplitudes@{\_rescale\_amplitudes}!qiskit\_algorithms.amplitude\_estimators.estimation\_problem@{qiskit\_algorithms.amplitude\_estimators.estimation\_problem}}
+\doxysubsubsection{\texorpdfstring{\_rescale\_amplitudes()}{\_rescale\_amplitudes()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1estimation__problem_a042083a1fb438fe03b88942e9b407d58_a042083a1fb438fe03b88942e9b407d58} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+estimation\+\_\+problem.\+\_\+rescale\+\_\+amplitudes (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{float}]{scaling\+\_\+factor}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Uses an auxiliary qubit to scale the amplitude of :math:`|1\rangle` by ``scaling_factor``.
+
+Explained in Section 2.1. of [1].
+
+For example, for a scaling factor of 0.25 this turns this circuit
+
+.. parsed-literal::
+
+              ┌───┐
+state_0: ─────┤ H ├─────────■────
+          ┌───┴───┴───┐ ┌───┴───┐
+  obj_0: ─┤ RY(0.125) ├─┤ RY(1) ├
+          └───────────┘ └───────┘
+
+into
+
+.. parsed-literal::
+
+              ┌───┐
+state_0: ─────┤ H ├─────────■────
+          ┌───┴───┴───┐ ┌───┴───┐
+  obj_0: ─┤ RY(0.125) ├─┤ RY(1) ├
+         ┌┴───────────┴┐└───────┘
+scaling_0: ┤ RY(0.50536) ├─────────
+         └─────────────┘
+
+References:
+
+[1]: K. Nakaji. Faster Amplitude Estimation, 2020;
+    `arXiv:2002.02417 <https://arxiv.org/pdf/2003.02417.pdf>`_
+
+Args:
+circuit: The circuit whose amplitudes to rescale.
+scaling_factor: The rescaling factor.
+
+Returns:
+A copy of the circuit with an additional qubit and RY gate for the rescaling.
+\end{DoxyVerb}
+ 

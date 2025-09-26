@@ -1,0 +1,153 @@
+\doxysection{qiskit.\+result.\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1result_1_1utils}{}\label{namespaceqiskit_1_1result_1_1utils}\index{qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Union\mbox{[}Dict\mbox{[}str, int\mbox{]}, \mbox{\hyperlink{classqiskit_1_1result_1_1result_1_1_result}{Result}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_a1bf5762035ca6f649c3ada5dcb5f1a45_a1bf5762035ca6f649c3ada5dcb5f1a45}{marginal\+\_\+counts}} (Union\mbox{[}dict, \mbox{\hyperlink{classqiskit_1_1result_1_1result_1_1_result}{Result}}\mbox{]} result, Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} indices=None, bool inplace=False, bool format\+\_\+marginal=False, Optional\mbox{[}bool\mbox{]} marginalize\+\_\+memory=True)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_af24d44e8ce45dbdbac06fddca49d0c32_af24d44e8ce45dbdbac06fddca49d0c32}{\+\_\+adjust\+\_\+creg\+\_\+sizes}} (creg\+\_\+sizes, indices)
+\item 
+Union\mbox{[}List\mbox{[}str\mbox{]}, np.\+ndarray\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_a30c3062a1e74704f2241561c71003dcd_a30c3062a1e74704f2241561c71003dcd}{marginal\+\_\+memory}} (Union\mbox{[}List\mbox{[}str\mbox{]}, np.\+ndarray\mbox{]} memory, Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} indices=None, bool int\+\_\+return=False, bool hex\+\_\+return=False, bool avg\+\_\+data=False, int parallel\+\_\+threshold=1000)
+\item 
+Dict\mbox{[}str, int\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_a5ede5be980d7718e0c707fa4c7c93b9e_a5ede5be980d7718e0c707fa4c7c93b9e}{marginal\+\_\+distribution}} (dict counts, Optional\mbox{[}Sequence\mbox{[}int\mbox{]}\mbox{]} indices=None, bool format\+\_\+marginal=False)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_a741419345f8b5a4b1eaa1013c32addd5_a741419345f8b5a4b1eaa1013c32addd5}{\+\_\+marginalize}} (counts, indices=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_aa0ee444cb6a5e39809530e9e7bdf95ff_aa0ee444cb6a5e39809530e9e7bdf95ff}{\+\_\+format\+\_\+marginal}} (counts, marg\+\_\+counts, indices)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1result_1_1utils_a331944586ca7a9e78f769a3177947c5f_a331944586ca7a9e78f769a3177947c5f}{\+\_\+remove\+\_\+space\+\_\+underscore}} (bitstring)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for working with Results.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1result_1_1utils_af24d44e8ce45dbdbac06fddca49d0c32_af24d44e8ce45dbdbac06fddca49d0c32}\index{qiskit.result.utils@{qiskit.result.utils}!\_adjust\_creg\_sizes@{\_adjust\_creg\_sizes}}
+\index{\_adjust\_creg\_sizes@{\_adjust\_creg\_sizes}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{\_adjust\_creg\_sizes()}{\_adjust\_creg\_sizes()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_af24d44e8ce45dbdbac06fddca49d0c32_af24d44e8ce45dbdbac06fddca49d0c32} 
+qiskit.\+result.\+utils.\+\_\+adjust\+\_\+creg\+\_\+sizes (\begin{DoxyParamCaption}\item[{}]{creg\+\_\+sizes}{, }\item[{}]{indices}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Helper to reduce creg_sizes to match indices\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_aa0ee444cb6a5e39809530e9e7bdf95ff_aa0ee444cb6a5e39809530e9e7bdf95ff}\index{qiskit.result.utils@{qiskit.result.utils}!\_format\_marginal@{\_format\_marginal}}
+\index{\_format\_marginal@{\_format\_marginal}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{\_format\_marginal()}{\_format\_marginal()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_aa0ee444cb6a5e39809530e9e7bdf95ff_aa0ee444cb6a5e39809530e9e7bdf95ff} 
+qiskit.\+result.\+utils.\+\_\+format\+\_\+marginal (\begin{DoxyParamCaption}\item[{}]{counts}{, }\item[{}]{marg\+\_\+counts}{, }\item[{}]{indices}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Take the output of marginalize and add placeholders for
+multiple cregs and non-indices.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_a741419345f8b5a4b1eaa1013c32addd5_a741419345f8b5a4b1eaa1013c32addd5}\index{qiskit.result.utils@{qiskit.result.utils}!\_marginalize@{\_marginalize}}
+\index{\_marginalize@{\_marginalize}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{\_marginalize()}{\_marginalize()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_a741419345f8b5a4b1eaa1013c32addd5_a741419345f8b5a4b1eaa1013c32addd5} 
+qiskit.\+result.\+utils.\+\_\+marginalize (\begin{DoxyParamCaption}\item[{}]{counts}{, }\item[{}]{indices}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the marginal counts for the given set of indices\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_a331944586ca7a9e78f769a3177947c5f_a331944586ca7a9e78f769a3177947c5f}\index{qiskit.result.utils@{qiskit.result.utils}!\_remove\_space\_underscore@{\_remove\_space\_underscore}}
+\index{\_remove\_space\_underscore@{\_remove\_space\_underscore}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{\_remove\_space\_underscore()}{\_remove\_space\_underscore()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_a331944586ca7a9e78f769a3177947c5f_a331944586ca7a9e78f769a3177947c5f} 
+qiskit.\+result.\+utils.\+\_\+remove\+\_\+space\+\_\+underscore (\begin{DoxyParamCaption}\item[{}]{bitstring}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Removes all spaces and underscores from bitstring\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_a1bf5762035ca6f649c3ada5dcb5f1a45_a1bf5762035ca6f649c3ada5dcb5f1a45}\index{qiskit.result.utils@{qiskit.result.utils}!marginal\_counts@{marginal\_counts}}
+\index{marginal\_counts@{marginal\_counts}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{marginal\_counts()}{marginal\_counts()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_a1bf5762035ca6f649c3ada5dcb5f1a45_a1bf5762035ca6f649c3ada5dcb5f1a45} 
+ Union\mbox{[}Dict\mbox{[}str, int\mbox{]}, \mbox{\hyperlink{classqiskit_1_1result_1_1result_1_1_result}{Result}}\mbox{]} qiskit.\+result.\+utils.\+marginal\+\_\+counts (\begin{DoxyParamCaption}\item[{Union\mbox{[}dict, \mbox{\hyperlink{classqiskit_1_1result_1_1result_1_1_result}{Result}}\mbox{]}}]{result}{, }\item[{Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} }]{indices}{ = {\ttfamily None}, }\item[{bool }]{inplace}{ = {\ttfamily False}, }\item[{bool }]{format\+\_\+marginal}{ = {\ttfamily False}, }\item[{Optional\mbox{[}bool\mbox{]} }]{marginalize\+\_\+memory}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Marginalize counts from an experiment over some indices of interest.
+
+Args:
+    result: result to be marginalized
+        (a Result object or a dict(str, int) of counts).
+    indices: The bit positions of interest
+        to marginalize over. If ``None`` (default), do not marginalize at all.
+    inplace: Default: False. Operates on the original Result
+        argument if True, leading to loss of original Job Result.
+        It has no effect if ``result`` is a dict.
+    format_marginal: Default: False. If True, takes the output of
+        marginalize and formats it with placeholders between cregs and
+        for non-indices.
+    marginalize_memory: If True, then also marginalize the memory field (if present).
+        If False, remove the memory field from the result.
+        If None, leave the memory field as is.
+
+Returns:
+    Result or dict(str, int): A Result object or a dictionary with
+        the observed counts, marginalized to only account for frequency
+        of observations of bits of interest.
+
+Raises:
+    QiskitError: in case of invalid indices to marginalize over.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_a5ede5be980d7718e0c707fa4c7c93b9e_a5ede5be980d7718e0c707fa4c7c93b9e}\index{qiskit.result.utils@{qiskit.result.utils}!marginal\_distribution@{marginal\_distribution}}
+\index{marginal\_distribution@{marginal\_distribution}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{marginal\_distribution()}{marginal\_distribution()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_a5ede5be980d7718e0c707fa4c7c93b9e_a5ede5be980d7718e0c707fa4c7c93b9e} 
+ Dict\mbox{[}str, int\mbox{]} qiskit.\+result.\+utils.\+marginal\+\_\+distribution (\begin{DoxyParamCaption}\item[{dict}]{counts}{, }\item[{Optional\mbox{[}Sequence\mbox{[}int\mbox{]}\mbox{]} }]{indices}{ = {\ttfamily None}, }\item[{bool }]{format\+\_\+marginal}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Marginalize counts from an experiment over some indices of interest.
+
+Unlike :func:`~.marginal_counts` this function respects the order of
+the input ``indices``. If the input ``indices`` list is specified then the order
+the bit indices are specified will be the output order of the bitstrings
+in the marginalized output.
+
+Args:
+    counts: result to be marginalized
+    indices: The bit positions of interest
+        to marginalize over. If ``None`` (default), do not marginalize at all.
+    format_marginal: Default: False. If True, takes the output of
+        marginalize and formats it with placeholders between cregs and
+        for non-indices.
+Returns:
+    dict(str, int): A marginalized dictionary
+Raises:
+    QiskitError: If any value in ``indices`` is invalid or the ``counts`` dict
+    is invalid.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1result_1_1utils_a30c3062a1e74704f2241561c71003dcd_a30c3062a1e74704f2241561c71003dcd}\index{qiskit.result.utils@{qiskit.result.utils}!marginal\_memory@{marginal\_memory}}
+\index{marginal\_memory@{marginal\_memory}!qiskit.result.utils@{qiskit.result.utils}}
+\doxysubsubsection{\texorpdfstring{marginal\_memory()}{marginal\_memory()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1result_1_1utils_a30c3062a1e74704f2241561c71003dcd_a30c3062a1e74704f2241561c71003dcd} 
+ Union\mbox{[}List\mbox{[}str\mbox{]}, np.\+ndarray\mbox{]} qiskit.\+result.\+utils.\+marginal\+\_\+memory (\begin{DoxyParamCaption}\item[{Union\mbox{[}List\mbox{[}str\mbox{]}, np.\+ndarray\mbox{]}}]{memory}{, }\item[{Optional\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} }]{indices}{ = {\ttfamily None}, }\item[{bool }]{int\+\_\+return}{ = {\ttfamily False}, }\item[{bool }]{hex\+\_\+return}{ = {\ttfamily False}, }\item[{bool }]{avg\+\_\+data}{ = {\ttfamily False}, }\item[{int }]{parallel\+\_\+threshold}{ = {\ttfamily 1000}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Marginalize shot memory
+
+This function is multithreaded and will launch a thread pool with threads equal to the number
+of CPUs by default. You can tune the number of threads with the ``RAYON_NUM_THREADS``
+environment variable. For example, setting ``RAYON_NUM_THREADS=4`` would limit the thread pool
+to 4 threads.
+
+Args:
+    memory: The input memory list, this is either a list of hexadecimal strings to be marginalized
+        representing measure level 2 memory or a numpy array representing level 0 measurement
+        memory (single or avg) or level 1 measurement memory (single or avg).
+    indices: The bit positions of interest to marginalize over. If
+        ``None`` (default), do not marginalize at all.
+    int_return: If set to ``True`` the output will be a list of integers.
+        By default the return type is a bit string. This and ``hex_return``
+        are mutually exclusive and can not be specified at the same time. This option only has an
+        effect with memory level 2.
+    hex_return: If set to ``True`` the output will be a list of hexadecimal
+        strings. By default the return type is a bit string. This and
+        ``int_return`` are mutually exclusive and can not be specified
+        at the same time. This option only has an effect with memory level 2.
+    avg_data: If a 2 dimensional numpy array is passed in for ``memory`` this can be set to
+        ``True`` to indicate it's a avg level 0 data instead of level 1
+        single data.
+    parallel_threshold: The number of elements in ``memory`` to start running in multiple
+        threads. If ``len(memory)`` is >= this value, the function will run in multiple
+        threads. By default this is set to 1000.
+
+Returns:
+    marginal_memory: The list of marginalized memory
+
+Raises:
+    ValueError: if both ``int_return`` and ``hex_return`` are set to ``True``
+\end{DoxyVerb}
+ 

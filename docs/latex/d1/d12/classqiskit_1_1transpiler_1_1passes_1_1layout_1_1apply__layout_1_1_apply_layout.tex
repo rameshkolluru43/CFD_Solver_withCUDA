@@ -1,0 +1,59 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+layout.\+apply\+\_\+layout.\+Apply\+Layout Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout}{}\label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout}\index{qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout@{qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+layout.\+apply\+\_\+layout.\+Apply\+Layout\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.500000cm]{d1/d12/classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout_ad13434ad8312b8b5a8dd5bd584f95c98_ad13434ad8312b8b5a8dd5bd584f95c98}{run}} (self, dag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Transform a circuit with virtual qubits into a circuit with physical qubits.
+
+Transforms a DAGCircuit with virtual qubits into a DAGCircuit with physical qubits
+by applying the Layout given in `property_set`.
+Requires either of passes to set/select Layout, e.g. `SetLayout`, `TrivialLayout`.
+Assumes the Layout has full physical qubits.
+
+If a post layout pass is run and sets the ``post_layout`` property set field with
+a new layout to use after ``ApplyLayout`` has already run once this pass will
+compact the layouts so that we apply
+``original_virtual`` -> ``existing_layout`` -> ``new_layout`` -> ``new_physical``
+so that the output circuit and layout combination become:
+``original_virtual`` -> ``new_physical``
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout_ad13434ad8312b8b5a8dd5bd584f95c98_ad13434ad8312b8b5a8dd5bd584f95c98}\index{qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout@{qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout@{qiskit.transpiler.passes.layout.apply\_layout.ApplyLayout}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1layout_1_1apply__layout_1_1_apply_layout_ad13434ad8312b8b5a8dd5bd584f95c98_ad13434ad8312b8b5a8dd5bd584f95c98} 
+qiskit.\+transpiler.\+passes.\+layout.\+apply\+\_\+layout.\+Apply\+Layout.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the ApplyLayout pass on ``dag``.
+
+Args:
+    dag (DAGCircuit): DAG to map.
+
+Returns:
+    DAGCircuit: A mapped DAG (with physical qubits).
+
+Raises:
+    TranspilerError: if no layout is found in ``property_set`` or no full physical qubits.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/layout/apply\+\_\+layout.\+py\end{DoxyCompactItemize}

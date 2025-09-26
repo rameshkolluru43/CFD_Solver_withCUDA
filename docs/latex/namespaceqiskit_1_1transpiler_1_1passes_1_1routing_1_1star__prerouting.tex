@@ -1,0 +1,43 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+star\+\_\+prerouting Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting}{}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting}\index{qiskit.transpiler.passes.routing.star\_prerouting@{qiskit.transpiler.passes.routing.star\_prerouting}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting_1_1_star_block}{Star\+Block}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting_1_1_star_pre_routing}{Star\+Pre\+Routing}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting_aecb6c30330424a32974588b6b422c8e3}{\+\_\+extract\+\_\+nodes}} (nodes, dag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Search for star connectivity patterns and replace them with.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting_aecb6c30330424a32974588b6b422c8e3}\index{qiskit.transpiler.passes.routing.star\_prerouting@{qiskit.transpiler.passes.routing.star\_prerouting}!\_extract\_nodes@{\_extract\_nodes}}
+\index{\_extract\_nodes@{\_extract\_nodes}!qiskit.transpiler.passes.routing.star\_prerouting@{qiskit.transpiler.passes.routing.star\_prerouting}}
+\doxysubsubsection{\texorpdfstring{\_extract\_nodes()}{\_extract\_nodes()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1star__prerouting_aecb6c30330424a32974588b6b422c8e3} 
+qiskit.\+transpiler.\+passes.\+routing.\+star\+\_\+prerouting.\+\_\+extract\+\_\+nodes (\begin{DoxyParamCaption}\item[{}]{nodes}{, }\item[{}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Extract and format node information for Rust representation used in SabreDAG.
+
+Each node is represented as a tuple containing:
+- Node ID (int): The unique identifier of the node in the DAG.
+- Qubit indices (list of int): Indices of qubits involved in the node's operation.
+- Classical bit indices (set of int): Indices of classical bits involved in the node's operation.
+- Directive flag (bool): Indicates whether the operation is a directive (True) or not (False).
+
+Args:
+    nodes (list[DAGOpNode]): List of DAGOpNode objects to extract information from.
+    dag (DAGCircuit): DAGCircuit object containing the circuit structure.
+
+Returns:
+    list of tuples: Each tuple contains information about a node in the format described above.
+\end{DoxyVerb}
+ 

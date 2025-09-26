@@ -1,0 +1,57 @@
+\doxysection{qiskit.\+visualization.\+timeline.\+stylesheet Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1stylesheet}{}\label{namespaceqiskit_1_1visualization_1_1timeline_1_1stylesheet}\index{qiskit.visualization.timeline.stylesheet@{qiskit.visualization.timeline.stylesheet}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1stylesheet_1_1_i_q_x_debugging}{IQXDebugging}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1stylesheet_1_1_i_q_x_simple}{IQXSimple}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1stylesheet_1_1_i_q_x_standard}{IQXStandard}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1stylesheet_1_1_qiskit_timeline_style}{Qiskit\+Timeline\+Style}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1stylesheet_a4bf55540732aa422782fb540d534e1ea_a4bf55540732aa422782fb540d534e1ea}{default\+\_\+style}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Stylesheet for timeline drawer.
+
+# TODO merge this docstring with pulse drawer.
+
+The stylesheet `QiskitTimelineStyle` is initialized with the hard-corded default values in
+`default_style`.
+
+The `QiskitTimelineStyle` is a wrapper class of python dictionary with
+the nested keys written such as `<type>.<group>.<item>` to represent a specific item
+from many configuration options. This key representation is imitative of
+`rcParams` of `matplotlib`.  However, the `QiskitTimelineStyle` does not need to be compatible
+with the `rcParams` because the timeline stylesheet is heavily specialized to the context of
+the scheduled circuit visualization.
+
+Type of stylesheet is broadly separated into `formatter`, `generator` and `layout`.
+The formatter is a nested dictionary of drawing parameters to control the appearance of
+each visualization element. This data structure is similar to the `rcParams` of `matplotlib`.
+
+The generator is a list of callback functions that generates drawings from
+a given data source and the formatter. Each item can take multiple functions so that
+several drawing data, for example, box, text, etc..., are generated from the single data source.
+The layout is a callback function that determines the appearance of the output image.
+Because a single stylesheet doesn't generate multiple images with different appearance,
+only one layout function can be chosen for each stylesheet.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1stylesheet_a4bf55540732aa422782fb540d534e1ea_a4bf55540732aa422782fb540d534e1ea}\index{qiskit.visualization.timeline.stylesheet@{qiskit.visualization.timeline.stylesheet}!default\_style@{default\_style}}
+\index{default\_style@{default\_style}!qiskit.visualization.timeline.stylesheet@{qiskit.visualization.timeline.stylesheet}}
+\doxysubsubsection{\texorpdfstring{default\_style()}{default\_style()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1stylesheet_a4bf55540732aa422782fb540d534e1ea_a4bf55540732aa422782fb540d534e1ea} 
+ Dict\mbox{[}str, Any\mbox{]} qiskit.\+visualization.\+timeline.\+stylesheet.\+default\+\_\+style (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Define default values of the timeline stylesheet.\end{DoxyVerb}
+ 

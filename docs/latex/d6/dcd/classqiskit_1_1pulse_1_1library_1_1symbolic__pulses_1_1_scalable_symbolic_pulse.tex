@@ -1,0 +1,86 @@
+\doxysection{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Scalable\+Symbolic\+Pulse Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}{}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}\index{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse@{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse}}
+Inheritance diagram for qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Scalable\+Symbolic\+Pulse\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{d6/dcd/classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a8ab92011af6266043001ebaa08a5c526_a8ab92011af6266043001ebaa08a5c526}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, str \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_a0da284ffb527191820f96f07cfa94b8b_a0da284ffb527191820f96f07cfa94b8b}{pulse\+\_\+type}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\texorpdfstring{$\vert$}{|}int duration, Parameter\+Value\+Type amp, Parameter\+Value\+Type angle, dict\mbox{[}str, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\texorpdfstring{$\vert$}{|}complex\mbox{]}\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_aefe8e8952703b6b1bed2dcdafbe69568_aefe8e8952703b6b1bed2dcdafbe69568}{parameters}}=None, str\texorpdfstring{$\vert$}{|}None name=None, bool\texorpdfstring{$\vert$}{|}None limit\+\_\+amplitude=None, sym.\+Expr\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_a987f4774dbf3097b951f9f1a5a8aa00b_a987f4774dbf3097b951f9f1a5a8aa00b}{envelope}}=None, sym.\+Expr\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_ab2e04c61c02d112b581f2a41ef80652b_ab2e04c61c02d112b581f2a41ef80652b}{constraints}}=None, sym.\+Expr\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_a18ec11ab791c67fcbe0d66f652cdfa3b_a18ec11ab791c67fcbe0d66f652cdfa3b}{valid\+\_\+amp\+\_\+conditions}}=None)
+\item 
+bool \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a04cc797ca9df69a592da779d080b4f88_a04cc797ca9df69a592da779d080b4f88}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, object other)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Subclass of :class:`SymbolicPulse` for pulses with scalable envelope.
+
+Instance of :class:`ScalableSymbolicPulse` behaves the same as an instance of
+:class:`SymbolicPulse`, but its envelope is assumed to have a scalable form
+:math:`\text{amp}\times\exp\left(i\times\text{angle}\right)\times\text{F}
+\left(t,\text{parameters}\right)`,
+where :math:`\text{F}` is some function describing the rest of the envelope,
+and both `amp` and `angle` are real (float). Note that both `amp` and `angle` are
+stored in the :attr:`parameters` dictionary of the :class:`ScalableSymbolicPulse`
+instance.
+
+When two :class:`ScalableSymbolicPulse` objects are equated, instead of comparing
+`amp` and `angle` individually, only the complex amplitude
+:math:'\text{amp}\times\exp\left(i\times\text{angle}\right)' is compared.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a8ab92011af6266043001ebaa08a5c526_a8ab92011af6266043001ebaa08a5c526}\index{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse@{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse@{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a8ab92011af6266043001ebaa08a5c526_a8ab92011af6266043001ebaa08a5c526} 
+qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Scalable\+Symbolic\+Pulse.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{pulse\+\_\+type}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} \texorpdfstring{$\vert$}{|} int}]{duration}{, }\item[{Parameter\+Value\+Type}]{amp}{, }\item[{Parameter\+Value\+Type}]{angle}{, }\item[{dict\mbox{[}str, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} \texorpdfstring{$\vert$}{|} complex\mbox{]} \texorpdfstring{$\vert$}{|} None }]{parameters}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{limit\+\_\+amplitude}{ = {\ttfamily None}, }\item[{sym.\+Expr \texorpdfstring{$\vert$}{|} None }]{envelope}{ = {\ttfamily None}, }\item[{sym.\+Expr \texorpdfstring{$\vert$}{|} None }]{constraints}{ = {\ttfamily None}, }\item[{sym.\+Expr \texorpdfstring{$\vert$}{|} None }]{valid\+\_\+amp\+\_\+conditions}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a scalable symbolic pulse.
+
+Args:
+    pulse_type: Display name of this pulse shape.
+    duration: Duration of pulse.
+    amp: The magnitude of the complex amplitude of the pulse.
+    angle: The phase of the complex amplitude of the pulse.
+    parameters: Dictionary of pulse parameters that defines the pulse envelope.
+    name: Display name for this particular pulse envelope.
+    limit_amplitude: If ``True``, then limit the absolute value of the amplitude of the
+        waveform to 1. The default is ``True`` and the amplitude is constrained to 1.
+    envelope: Pulse envelope expression.
+    constraints: Pulse parameter constraint expression.
+    valid_amp_conditions: Extra conditions to skip a full-waveform check for the
+        amplitude limit. If this condition is not met, then the validation routine
+        will investigate the full-waveform and raise an error when the amplitude norm
+        of any data point exceeds 1.0. If not provided, the validation always
+        creates a full-waveform.
+
+Raises:
+    PulseError: If ``amp`` is complex.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse_aaf60fb6b1630a8462d0d64984b1376b4_aaf60fb6b1630a8462d0d64984b1376b4}{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Symbolic\+Pulse}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a04cc797ca9df69a592da779d080b4f88_a04cc797ca9df69a592da779d080b4f88}\index{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse@{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse@{qiskit.pulse.library.symbolic\_pulses.ScalableSymbolicPulse}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse_a04cc797ca9df69a592da779d080b4f88_a04cc797ca9df69a592da779d080b4f88} 
+ bool qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Scalable\+Symbolic\+Pulse.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{object}]{other}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_symbolic_pulse}{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Symbolic\+Pulse}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/library/symbolic\+\_\+pulses.\+py\end{DoxyCompactItemize}

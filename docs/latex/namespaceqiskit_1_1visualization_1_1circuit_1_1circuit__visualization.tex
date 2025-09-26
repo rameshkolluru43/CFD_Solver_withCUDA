@@ -1,0 +1,329 @@
+\doxysection{qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization}{}\label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_ab2c4d7de38a099da9edeb51b81dac280}{circuit\+\_\+drawer}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, float\texorpdfstring{$\vert$}{|}None scale=None, str\texorpdfstring{$\vert$}{|}None filename=None, dict\texorpdfstring{$\vert$}{|}str\texorpdfstring{$\vert$}{|}None style=None, str\texorpdfstring{$\vert$}{|}None output=None, bool interactive=False, bool plot\+\_\+barriers=True, bool\texorpdfstring{$\vert$}{|}None reverse\+\_\+bits=None, str\texorpdfstring{$\vert$}{|}None justify=None, str\texorpdfstring{$\vert$}{|}None vertical\+\_\+compression="{}medium"{}, bool\texorpdfstring{$\vert$}{|}None idle\+\_\+wires=None, bool with\+\_\+layout=True, int\texorpdfstring{$\vert$}{|}None fold=None, Any\texorpdfstring{$\vert$}{|}None ax=None, bool initial\+\_\+state=False, bool\texorpdfstring{$\vert$}{|}None cregbundle=None, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}None wire\+\_\+order=None, int expr\+\_\+len=30)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a7d09e4e919298aaee3cb229e2ba622bf}{\+\_\+text\+\_\+circuit\+\_\+drawer}} (circuit, filename=None, reverse\+\_\+bits=False, plot\+\_\+barriers=True, justify=None, vertical\+\_\+compression="{}high"{}, idle\+\_\+wires=True, with\+\_\+layout=True, fold=None, initial\+\_\+state=True, cregbundle=None, encoding=None, wire\+\_\+order=None, expr\+\_\+len=30)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a69d4f444f5be801a965bc0f975127024}{\+\_\+latex\+\_\+circuit\+\_\+drawer}} (circuit, scale=0.\+7, style=None, filename=None, plot\+\_\+barriers=True, reverse\+\_\+bits=False, justify=None, idle\+\_\+wires=True, with\+\_\+layout=True, initial\+\_\+state=False, cregbundle=None, wire\+\_\+order=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a5252b41281350bd59ecd0e59c4cc94b8}{\+\_\+generate\+\_\+latex\+\_\+source}} (circuit, filename=None, scale=0.\+7, style=None, reverse\+\_\+bits=False, plot\+\_\+barriers=True, justify=None, idle\+\_\+wires=True, with\+\_\+layout=True, initial\+\_\+state=False, cregbundle=None, wire\+\_\+order=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a29427587e60af7c5e165e0ce5298a9af}{\+\_\+matplotlib\+\_\+circuit\+\_\+drawer}} (circuit, scale=None, filename=None, style=None, plot\+\_\+barriers=True, reverse\+\_\+bits=False, justify=None, idle\+\_\+wires=True, with\+\_\+layout=True, fold=None, ax=None, initial\+\_\+state=False, cregbundle=None, wire\+\_\+order=None, expr\+\_\+len=30)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a4923405617b3bd4cbd6bc5dac12db4d9}\label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a4923405617b3bd4cbd6bc5dac12db4d9} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Module for the primary interface to the circuit drawers.
+
+This module contains the end user facing API for drawing quantum circuits.
+There are 3 available drawer backends:
+
+ 0. ASCII art
+ 1. LaTeX
+ 2. Matplotlib
+
+This provides a single function entry point to drawing a circuit object with
+any of the backends.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a5252b41281350bd59ecd0e59c4cc94b8}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}!\_generate\_latex\_source@{\_generate\_latex\_source}}
+\index{\_generate\_latex\_source@{\_generate\_latex\_source}!qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection{\texorpdfstring{\_generate\_latex\_source()}{\_generate\_latex\_source()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a5252b41281350bd59ecd0e59c4cc94b8} 
+qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization.\+\_\+generate\+\_\+latex\+\_\+source (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{scale}{ = {\ttfamily 0.7}, }\item[{}]{style}{ = {\ttfamily None}, }\item[{}]{reverse\+\_\+bits}{ = {\ttfamily False}, }\item[{}]{plot\+\_\+barriers}{ = {\ttfamily True}, }\item[{}]{justify}{ = {\ttfamily None}, }\item[{}]{idle\+\_\+wires}{ = {\ttfamily True}, }\item[{}]{with\+\_\+layout}{ = {\ttfamily True}, }\item[{}]{initial\+\_\+state}{ = {\ttfamily False}, }\item[{}]{cregbundle}{ = {\ttfamily None}, }\item[{}]{wire\+\_\+order}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Convert QuantumCircuit to LaTeX string.
+
+Args:
+    circuit (QuantumCircuit): a quantum circuit
+    scale (float): scaling factor
+    style (dict or str): dictionary of style or file name of style file
+    filename (str): optional filename to write latex
+    reverse_bits (bool): When set to True reverse the bit order inside
+        registers for the output visualization.
+    plot_barriers (bool): Enable/disable drawing barriers in the output
+        circuit. Defaults to True.
+    justify (str) : `left`, `right` or `none`. Defaults to `left`. Says how
+        the circuit should be justified.
+    idle_wires (bool): Include idle wires. Default is True.
+    with_layout (bool): Include layout information, with labels on the physical
+        layout. Default: True
+    initial_state (bool): Optional. Adds |0> in the beginning of the line.
+        Default: `False`.
+    cregbundle (bool): Optional. If set True, bundle classical registers.
+    wire_order (list): Optional. A list of integers used to reorder the display
+        of the bits. The list must have an entry for every bit with the bits
+        in the range 0 to (num_qubits + num_clbits).
+
+Returns:
+    str: Latex string appropriate for writing to file.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a69d4f444f5be801a965bc0f975127024}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}!\_latex\_circuit\_drawer@{\_latex\_circuit\_drawer}}
+\index{\_latex\_circuit\_drawer@{\_latex\_circuit\_drawer}!qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection{\texorpdfstring{\_latex\_circuit\_drawer()}{\_latex\_circuit\_drawer()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a69d4f444f5be801a965bc0f975127024} 
+qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization.\+\_\+latex\+\_\+circuit\+\_\+drawer (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{scale}{ = {\ttfamily 0.7}, }\item[{}]{style}{ = {\ttfamily None}, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{plot\+\_\+barriers}{ = {\ttfamily True}, }\item[{}]{reverse\+\_\+bits}{ = {\ttfamily False}, }\item[{}]{justify}{ = {\ttfamily None}, }\item[{}]{idle\+\_\+wires}{ = {\ttfamily True}, }\item[{}]{with\+\_\+layout}{ = {\ttfamily True}, }\item[{}]{initial\+\_\+state}{ = {\ttfamily False}, }\item[{}]{cregbundle}{ = {\ttfamily None}, }\item[{}]{wire\+\_\+order}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Draw a quantum circuit based on latex (Qcircuit package)
+
+Requires version >=2.6.0 of the qcircuit LaTeX package.
+
+Args:
+    circuit (QuantumCircuit): a quantum circuit
+    scale (float): scaling factor
+    style (dict or str): dictionary of style or file name of style file
+    filename (str): file path to save image to
+    reverse_bits (bool): When set to True reverse the bit order inside
+        registers for the output visualization.
+    plot_barriers (bool): Enable/disable drawing barriers in the output
+        circuit. Defaults to True.
+    justify (str) : `left`, `right` or `none`. Defaults to `left`. Says how
+        the circuit should be justified.
+    idle_wires (bool): Include idle wires. Default is True.
+    with_layout (bool): Include layout information, with labels on the physical
+        layout. Default: True
+    initial_state (bool): Optional. Adds |0> in the beginning of the line.
+        Default: `False`.
+    cregbundle (bool): Optional. If set True, bundle classical registers.  On by default, if
+        this is possible for the given circuit, otherwise off.
+    wire_order (list): Optional. A list of integers used to reorder the display
+        of the bits. The list must have an entry for every bit with the bits
+        in the range 0 to (num_qubits + num_clbits).
+
+Returns:
+    PIL.Image: an in-memory representation of the circuit diagram
+
+Raises:
+    MissingOptionalLibraryError: if pillow, pdflatex, or poppler are not installed
+    VisualizationError: if one of the conversion utilities failed for some internal or
+        file-access reason.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a29427587e60af7c5e165e0ce5298a9af}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}!\_matplotlib\_circuit\_drawer@{\_matplotlib\_circuit\_drawer}}
+\index{\_matplotlib\_circuit\_drawer@{\_matplotlib\_circuit\_drawer}!qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection{\texorpdfstring{\_matplotlib\_circuit\_drawer()}{\_matplotlib\_circuit\_drawer()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a29427587e60af7c5e165e0ce5298a9af} 
+qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization.\+\_\+matplotlib\+\_\+circuit\+\_\+drawer (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{scale}{ = {\ttfamily None}, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{style}{ = {\ttfamily None}, }\item[{}]{plot\+\_\+barriers}{ = {\ttfamily True}, }\item[{}]{reverse\+\_\+bits}{ = {\ttfamily False}, }\item[{}]{justify}{ = {\ttfamily None}, }\item[{}]{idle\+\_\+wires}{ = {\ttfamily True}, }\item[{}]{with\+\_\+layout}{ = {\ttfamily True}, }\item[{}]{fold}{ = {\ttfamily None}, }\item[{}]{ax}{ = {\ttfamily None}, }\item[{}]{initial\+\_\+state}{ = {\ttfamily False}, }\item[{}]{cregbundle}{ = {\ttfamily None}, }\item[{}]{wire\+\_\+order}{ = {\ttfamily None}, }\item[{}]{expr\+\_\+len}{ = {\ttfamily 30}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Draw a quantum circuit based on matplotlib.
+If `%matplotlib inline` is invoked in a Jupyter notebook, it visualizes a circuit inline.
+We recommend `%config InlineBackend.figure_format = 'svg'` for the inline visualization.
+
+Args:
+    circuit (QuantumCircuit): a quantum circuit
+    scale (float): scaling factor
+    filename (str): file path to save image to
+    style (dict or str): dictionary of style or file name of style file
+    reverse_bits (bool): When set to True, reverse the bit order inside
+        registers for the output visualization.
+    plot_barriers (bool): Enable/disable drawing barriers in the output
+        circuit. Defaults to True.
+    justify (str): `left`, `right` or `none`. Defaults to `left`. Says how
+        the circuit should be justified.
+    idle_wires (bool): Include idle wires. Default is True.
+    with_layout (bool): Include layout information, with labels on the physical
+        layout. Default: True.
+    fold (int): Number of vertical layers allowed before folding. Default is 25.
+    ax (matplotlib.axes.Axes): An optional Axes object to be used for
+        the visualization output. If none is specified, a new matplotlib
+        Figure will be created and used. Additionally, if specified there
+        will be no returned Figure since it is redundant.
+    initial_state (bool): Optional. Adds |0> in the beginning of the line.
+        Default: `False`.
+    cregbundle (bool): Optional. If set True bundle classical registers.
+        Default: ``True``.
+    wire_order (list): Optional. A list of integers used to reorder the display
+        of the bits. The list must have an entry for every bit with the bits
+        in the range 0 to (num_qubits + num_clbits).
+    expr_len (int): Optional. The number of characters to display if an :class:`~.expr.Expr`
+        is used for the condition in a :class:`.ControlFlowOp`. If this number is exceeded,
+        the string will be truncated at that number and '...' added to the end.
+
+Returns:
+    matplotlib.figure: a matplotlib figure object for the circuit diagram
+        if the ``ax`` kwarg is not set.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a7d09e4e919298aaee3cb229e2ba622bf}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}!\_text\_circuit\_drawer@{\_text\_circuit\_drawer}}
+\index{\_text\_circuit\_drawer@{\_text\_circuit\_drawer}!qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection{\texorpdfstring{\_text\_circuit\_drawer()}{\_text\_circuit\_drawer()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_a7d09e4e919298aaee3cb229e2ba622bf} 
+qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization.\+\_\+text\+\_\+circuit\+\_\+drawer (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{reverse\+\_\+bits}{ = {\ttfamily False}, }\item[{}]{plot\+\_\+barriers}{ = {\ttfamily True}, }\item[{}]{justify}{ = {\ttfamily None}, }\item[{}]{vertical\+\_\+compression}{ = {\ttfamily "{}high"{}}, }\item[{}]{idle\+\_\+wires}{ = {\ttfamily True}, }\item[{}]{with\+\_\+layout}{ = {\ttfamily True}, }\item[{}]{fold}{ = {\ttfamily None}, }\item[{}]{initial\+\_\+state}{ = {\ttfamily True}, }\item[{}]{cregbundle}{ = {\ttfamily None}, }\item[{}]{encoding}{ = {\ttfamily None}, }\item[{}]{wire\+\_\+order}{ = {\ttfamily None}, }\item[{}]{expr\+\_\+len}{ = {\ttfamily 30}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Draws a circuit using ascii art.
+
+Args:
+    circuit (QuantumCircuit): Input circuit
+    filename (str): Optional filename to write the result
+    reverse_bits (bool): Rearrange the bits in reverse order.
+    plot_barriers (bool): Draws the barriers when they are there.
+    justify (str) : `left`, `right` or `none`. Defaults to `left`. Says how
+        the circuit should be justified.
+    vertical_compression (string): `high`, `medium`, or `low`. It merges the
+        lines so the drawing will take less vertical room. Default is `high`.
+    idle_wires (bool): Include idle wires. Default is True.
+    with_layout (bool): Include layout information with labels on the physical
+        layout. Default: True
+    fold (int): Optional. Breaks the circuit drawing to this length. This
+        is useful when the drawing does not fit in the console. If
+        None (default), it will try to guess the console width using
+        `shutil.get_terminal_size()`. If you don't want pagination
+        at all, set `fold=-1`.
+    initial_state (bool): Optional. Adds |0> in the beginning of the line.
+        Default: `False`.
+    cregbundle (bool): Optional. If set True, bundle classical registers.
+        Default: ``True``.
+    encoding (str): Optional. Sets the encoding preference of the output.
+        Default: ``sys.stdout.encoding``.
+    wire_order (list): Optional. A list of integers used to reorder the display
+        of the bits. The list must have an entry for every bit with the bits
+        in the range 0 to (num_qubits + num_clbits).
+    expr_len (int): Optional. The number of characters to display if an :class:`~.expr.Expr`
+        is used for the condition in a :class:`.ControlFlowOp`. If this number is exceeded,
+        the string will be truncated at that number and '...' added to the end.
+
+Returns:
+    TextDrawing: An instance that, when printed, draws the circuit in ascii art.
+
+Raises:
+    VisualizationError: When the filename extension is not .txt.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_ab2c4d7de38a099da9edeb51b81dac280}\index{qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}!circuit\_drawer@{circuit\_drawer}}
+\index{circuit\_drawer@{circuit\_drawer}!qiskit.visualization.circuit.circuit\_visualization@{qiskit.visualization.circuit.circuit\_visualization}}
+\doxysubsubsection{\texorpdfstring{circuit\_drawer()}{circuit\_drawer()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1circuit_1_1circuit__visualization_ab2c4d7de38a099da9edeb51b81dac280} 
+qiskit.\+visualization.\+circuit.\+circuit\+\_\+visualization.\+circuit\+\_\+drawer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{float \texorpdfstring{$\vert$}{|} None }]{scale}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{filename}{ = {\ttfamily None}, }\item[{dict \texorpdfstring{$\vert$}{|} str \texorpdfstring{$\vert$}{|} None }]{style}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{output}{ = {\ttfamily None}, }\item[{bool }]{interactive}{ = {\ttfamily False}, }\item[{bool }]{plot\+\_\+barriers}{ = {\ttfamily True}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{reverse\+\_\+bits}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{justify}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{vertical\+\_\+compression}{ = {\ttfamily "{}medium"{}}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{idle\+\_\+wires}{ = {\ttfamily None}, }\item[{bool }]{with\+\_\+layout}{ = {\ttfamily True}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{fold}{ = {\ttfamily None}, }\item[{Any \texorpdfstring{$\vert$}{|} None }]{ax}{ = {\ttfamily None}, }\item[{bool }]{initial\+\_\+state}{ = {\ttfamily False}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{cregbundle}{ = {\ttfamily None}, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{wire\+\_\+order}{ = {\ttfamily None}, }\item[{int }]{expr\+\_\+len}{ = {\ttfamily 30}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Draw the quantum circuit. Use the output parameter to choose the drawing format:
+
+    **text**: ASCII art TextDrawing that can be printed in the console.
+
+    **mpl**: images with color rendered purely in Python using matplotlib.
+
+    **latex**: high-quality images compiled via latex.
+
+    **latex_source**: raw uncompiled latex output.
+
+    .. warning::
+
+        Support for :class:`~.expr.Expr` nodes in conditions and :attr:`.SwitchCaseOp.target`
+        fields is preliminary and incomplete.  The ``text`` and ``mpl`` drawers will make a
+        best-effort attempt to show data dependencies, but the LaTeX-based drawers will skip
+        these completely.
+
+    Args:
+        circuit: The circuit to visualize.
+        scale: Scale of image to draw (shrink if ``< 1.0``). Only used by
+            the ``mpl``, ``latex`` and ``latex_source`` outputs. Defaults to ``1.0``.
+        filename: File path to save image to. Defaults to ``None`` (result not saved in a file).
+        style: Style name, file name of style JSON file, or a dictionary specifying the style.
+
+            * The supported style names are ``"iqp"`` (default), ``"iqp-dark"``, ``"clifford"``,
+                ``"textbook"`` and ``"bw"``.
+            * If given a JSON file, e.g. ``my_style.json`` or ``my_style`` (the ``.json``
+                extension may be omitted), this function attempts to load the style dictionary
+                from that location. Note, that the JSON file must completely specify the
+                visualization specifications. The file is searched for in
+                ``qiskit/visualization/circuit/styles``, the current working directory, and
+                the location specified in ``~/.qiskit/settings.conf``.
+            * If a dictionary, every entry overrides the default configuration. If the
+                ``"name"`` key is given, the default configuration is given by that style.
+                For example, ``{"name": "textbook", "subfontsize": 5}`` loads the ``"texbook"``
+                style and sets the subfontsize (e.g. the gate angles) to ``5``.
+            * If ``None`` the default style ``"iqp"`` is used or, if given, the default style
+                specified in ``~/.qiskit/settings.conf``.
+
+        output: Select the output method to use for drawing the circuit.
+            Valid choices are ``text``, ``mpl``, ``latex``, ``latex_source``.
+            By default, the ``text`` drawer is used unless the user config file
+            (usually ``~/.qiskit/settings.conf``) has an alternative backend set
+            as the default. For example, ``circuit_drawer = latex``. If the output
+            kwarg is set, that backend will always be used over the default in
+            the user config file.
+        interactive: When set to ``True``, show the circuit in a new window
+            (for ``mpl`` this depends on the matplotlib backend being used
+            supporting this). Note when used with either the `text` or the
+            ``latex_source`` output type this has no effect and will be silently
+            ignored. Defaults to ``False``.
+        reverse_bits: When set to ``True``, reverse the bit order inside
+            registers for the output visualization. Defaults to ``False`` unless the
+            user config file (usually ``~/.qiskit/settings.conf``) has an
+            alternative value set. For example, ``circuit_reverse_bits = True``.
+        plot_barriers: Enable/disable drawing barriers in the output
+            circuit. Defaults to ``True``.
+        justify: Options are ``"left"``, ``"right"`` or ``"none"`` (str).
+            If anything else is supplied, left justified will be used instead.
+            It refers to where gates should be placed in the output circuit if
+            there is an option. ``none`` results in each gate being placed in
+            its own column. Defaults to ``left``.
+        vertical_compression: ``high``, ``medium`` or ``low``. It
+            merges the lines generated by the `text` output so the drawing
+            will take less vertical room.  Default is ``medium``. Only used by
+            the ``text`` output, will be silently ignored otherwise.
+        idle_wires: Include idle wires (wires with no circuit elements)
+            in output visualization. Default is ``True`` unless the
+            user config file (usually ``~/.qiskit/settings.conf``) has an
+            alternative value set. For example, ``circuit_idle_wires = False``.
+        with_layout: Include layout information, with labels on the
+            physical layout. Default is ``True``.
+        fold: Sets pagination. It can be disabled using -1. In ``text``,
+            sets the length of the lines. This is useful when the drawing does
+            not fit in the console. If None (default), it will try to guess the
+            console width using ``shutil.get_terminal_size()``. However, if
+            running in jupyter, the default line length is set to 80 characters.
+            In ``mpl``, it is the number of (visual) layers before folding.
+            Default is 25.
+        ax: Only used by the `mpl` backend. An optional ``matplotlib.axes.Axes``
+            object to be used for the visualization output. If none is
+            specified, a new matplotlib Figure will be created and used.
+            Additionally, if specified there will be no returned Figure since
+            it is redundant.
+        initial_state: Adds :math:`|0\rangle` in the beginning of the qubit wires and
+            :math:`0` to classical wires. Default is ``False``.
+        cregbundle: If set to ``True``, bundle classical registers.
+            Default is ``True``, except for when ``output`` is set to  ``"text"``.
+        wire_order: A list of integers used to reorder the display
+            of the bits. The list must have an entry for every bit with the bits
+            in the range 0 to (``num_qubits`` + ``num_clbits``).
+        expr_len: The number of characters to display if an :class:`~.expr.Expr`
+            is used for the condition in a :class:`.ControlFlowOp`. If this number is exceeded,
+            the string will be truncated at that number and '...' added to the end.
+
+    Returns:
+        :class:`.TextDrawing` or :class:`matplotlib.figure` or :class:`PIL.Image` or
+        :class:`str`:
+
+        * ``TextDrawing`` (if ``output='text'``)
+            A drawing that can be printed as ascii art.
+        * ``matplotlib.figure.Figure`` (if ``output='mpl'``)
+            A matplotlib figure object for the circuit diagram.
+        * ``PIL.Image`` (if ``output='latex``')
+            An in-memory representation of the image of the circuit diagram.
+        * ``str`` (if ``output='latex_source'``)
+            The LaTeX source code for visualizing the circuit diagram.
+
+    Raises:
+        VisualizationError: when an invalid output method is selected
+        ImportError: when the output methods requires non-installed libraries.
+
+    Example:
+        .. plot::
+            :alt: Circuit diagram output by the previous code.
+            :include-source:
+
+            from qiskit import QuantumCircuit
+            from qiskit.visualization import circuit_drawer
+            qc = QuantumCircuit(1, 1)
+            qc.h(0)
+            qc.measure(0, 0)
+            circuit_drawer(qc, output="mpl", style={"backgroundcolor": "#EEEEEE"})\end{DoxyVerb}
+ 

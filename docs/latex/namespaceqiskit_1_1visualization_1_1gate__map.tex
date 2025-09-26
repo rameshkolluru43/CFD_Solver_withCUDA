@@ -1,0 +1,227 @@
+\doxysection{qiskit.\+visualization.\+gate\+\_\+map Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1gate__map}{}\label{namespaceqiskit_1_1visualization_1_1gate__map}\index{qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1visualization_1_1gate__map_a455b3c70f782b8ebbda7833968716d42}\label{namespaceqiskit_1_1visualization_1_1gate__map_a455b3c70f782b8ebbda7833968716d42} 
+{\bfseries \+\_\+get\+\_\+backend\+\_\+interface\+\_\+version} (backend)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1gate__map_a5ffb69780265496eca4b9ded824517dc}{plot\+\_\+gate\+\_\+map}} (backend, figsize=None, plot\+\_\+directed=False, label\+\_\+qubits=True, qubit\+\_\+size=None, line\+\_\+width=4, font\+\_\+size=None, qubit\+\_\+color=None, qubit\+\_\+labels=None, line\+\_\+color=None, font\+\_\+color="{}white"{}, ax=None, filename=None, qubit\+\_\+coordinates=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1gate__map_abf05105661ccf6e107ce8fcdd64d72f4}{plot\+\_\+coupling\+\_\+map}} (int num\+\_\+qubits, List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} qubit\+\_\+coordinates, List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]} coupling\+\_\+map, figsize=None, plot\+\_\+directed=False, label\+\_\+qubits=True, qubit\+\_\+size=None, line\+\_\+width=4, font\+\_\+size=None, qubit\+\_\+color=None, qubit\+\_\+labels=None, line\+\_\+color=None, font\+\_\+color="{}white"{}, ax=None, filename=None, \texorpdfstring{$\ast$}{*}, planar=True)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1gate__map_af374da67c5fc2d3ff8c98d21b9112a74}{plot\+\_\+circuit\+\_\+layout}} (circuit, backend, view="{}virtual"{}, qubit\+\_\+coordinates=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1gate__map_a2619f3ecd8851f36565f5c494f2edcec}{plot\+\_\+error\+\_\+map}} (backend, figsize=(15, 12), show\+\_\+title=True, qubit\+\_\+coordinates=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A module for visualizing device coupling maps\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1gate__map_af374da67c5fc2d3ff8c98d21b9112a74}\index{qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}!plot\_circuit\_layout@{plot\_circuit\_layout}}
+\index{plot\_circuit\_layout@{plot\_circuit\_layout}!qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}}
+\doxysubsubsection{\texorpdfstring{plot\_circuit\_layout()}{plot\_circuit\_layout()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1gate__map_af374da67c5fc2d3ff8c98d21b9112a74} 
+qiskit.\+visualization.\+gate\+\_\+map.\+plot\+\_\+circuit\+\_\+layout (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{backend}{, }\item[{}]{view}{ = {\ttfamily "{}virtual"{}}, }\item[{}]{qubit\+\_\+coordinates}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plot the layout of a circuit transpiled for a given
+target backend.
+
+.. deprecated:: 1.4
+    The function ``plot_circuit_layout`` will stop supporting inputs of type
+    :class:`.BackendV1` in the `backend` parameter in a future release no
+    earlier than 2.0. :class:`.BackendV1` is deprecated and implementations should
+    move to :class:`.BackendV2`.
+
+Args:
+    circuit (QuantumCircuit): Input quantum circuit.
+    backend (Backend): Target backend.
+    view (str): How to label qubits in the layout. Options:
+
+      - ``"virtual"``: Label each qubit with the index of the virtual qubit that
+        mapped to it.
+      - ``"physical"``: Label each qubit with the index of the physical qubit that it
+        corresponds to on the device.
+
+    qubit_coordinates (Sequence): An optional sequence input (list or array being the
+        most common) of 2d coordinates for each qubit. The length of the
+        sequence must match the number of qubits on the backend. The sequence
+        should be the planar coordinates in a 0-based square grid where each
+        qubit is located.
+
+Returns:
+    Figure: A matplotlib figure showing layout.
+
+Raises:
+    QiskitError: Invalid view type given.
+    VisualizationError: Circuit has no layout attribute.
+
+Example:
+    .. plot::
+       :alt: Output from the previous code.
+       :include-source:
+
+        from qiskit import QuantumCircuit, transpile
+        from qiskit.providers.fake_provider import GenericBackendV2
+        from qiskit.visualization import plot_circuit_layout
+
+        ghz = QuantumCircuit(3, 3)
+        ghz.h(0)
+        for idx in range(1,3):
+            ghz.cx(0,idx)
+        ghz.measure(range(3), range(3))
+
+        backend = GenericBackendV2(num_qubits=5)
+        new_circ_lv3 = transpile(ghz, backend=backend, optimization_level=3)
+        plot_circuit_layout(new_circ_lv3, backend)
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1gate__map_abf05105661ccf6e107ce8fcdd64d72f4}\index{qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}!plot\_coupling\_map@{plot\_coupling\_map}}
+\index{plot\_coupling\_map@{plot\_coupling\_map}!qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}}
+\doxysubsubsection{\texorpdfstring{plot\_coupling\_map()}{plot\_coupling\_map()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1gate__map_abf05105661ccf6e107ce8fcdd64d72f4} 
+qiskit.\+visualization.\+gate\+\_\+map.\+plot\+\_\+coupling\+\_\+map (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}}]{qubit\+\_\+coordinates}{, }\item[{List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}}]{coupling\+\_\+map}{, }\item[{}]{figsize}{ = {\ttfamily None}, }\item[{}]{plot\+\_\+directed}{ = {\ttfamily False}, }\item[{}]{label\+\_\+qubits}{ = {\ttfamily True}, }\item[{}]{qubit\+\_\+size}{ = {\ttfamily None}, }\item[{}]{line\+\_\+width}{ = {\ttfamily 4}, }\item[{}]{font\+\_\+size}{ = {\ttfamily None}, }\item[{}]{qubit\+\_\+color}{ = {\ttfamily None}, }\item[{}]{qubit\+\_\+labels}{ = {\ttfamily None}, }\item[{}]{line\+\_\+color}{ = {\ttfamily None}, }\item[{}]{font\+\_\+color}{ = {\ttfamily "{}white"{}}, }\item[{}]{ax}{ = {\ttfamily None}, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{planar}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plots an arbitrary coupling map of qubits (embedded in a plane).
+
+Args:
+    num_qubits (int): The number of qubits defined and plotted.
+    qubit_coordinates (List[List[int]]): A list of two-element lists, with entries of each nested
+        list being the planar coordinates in a 0-based square grid where each qubit is located.
+    coupling_map (List[List[int]]): A list of two-element lists, with entries of each nested
+        list being the qubit numbers of the bonds to be plotted.
+    figsize (tuple): Output figure size (wxh) in inches.
+    plot_directed (bool): Plot directed coupling map.
+    label_qubits (bool): Label the qubits.
+    qubit_size (float): Size of qubit marker.
+    line_width (float): Width of lines.
+    font_size (int): Font size of qubit labels.
+    qubit_color (list): A list of colors for the qubits
+    qubit_labels (list): A list of qubit labels
+    line_color (list): A list of colors for each line from coupling_map.
+    font_color (str): The font color for the qubit labels.
+    ax (Axes): A Matplotlib axes instance.
+    filename (str): file path to save image to.
+    planar (bool): If the coupling map is planar or not. Default: ``True`` (i.e. it is planar)
+
+Returns:
+    Figure: A Matplotlib figure instance.
+
+Raises:
+    MissingOptionalLibraryError: If matplotlib or graphviz is not installed.
+    QiskitError: If the length of qubit labels does not match the number of qubits.
+
+Example:
+
+    .. plot::
+       :alt: Output from the previous code.
+       :include-source:
+
+        from qiskit.visualization import plot_coupling_map
+
+        num_qubits = 8
+        qubit_coordinates = [[0, 1], [1, 1], [1, 0], [1, 2], [2, 0], [2, 2], [2, 1], [3, 1]]
+        coupling_map = [[0, 1], [1, 2], [2, 3], [3, 5], [4, 5], [5, 6], [2, 4], [6, 7]]
+        plot_coupling_map(num_qubits, qubit_coordinates, coupling_map)
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1gate__map_a2619f3ecd8851f36565f5c494f2edcec}\index{qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}!plot\_error\_map@{plot\_error\_map}}
+\index{plot\_error\_map@{plot\_error\_map}!qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}}
+\doxysubsubsection{\texorpdfstring{plot\_error\_map()}{plot\_error\_map()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1gate__map_a2619f3ecd8851f36565f5c494f2edcec} 
+qiskit.\+visualization.\+gate\+\_\+map.\+plot\+\_\+error\+\_\+map (\begin{DoxyParamCaption}\item[{}]{backend}{, }\item[{}]{figsize}{ = {\ttfamily (15,~12)}, }\item[{}]{show\+\_\+title}{ = {\ttfamily True}, }\item[{}]{qubit\+\_\+coordinates}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plots the error map of a given backend.
+
+.. deprecated:: 1.4
+    The function ``plot_error_map`` will stop supporting inputs of type
+    :class:`.BackendV1` in the `backend` parameter in a future release no
+    earlier than 2.0. :class:`.BackendV1` is deprecated and implementations should
+    move to :class:`.BackendV2`.
+
+Args:
+    backend (Backend): Given backend.
+    figsize (tuple): Figure size in inches.
+    show_title (bool): Show the title or not.
+    qubit_coordinates (Sequence): An optional sequence input (list or array being the
+        most common) of 2d coordinates for each qubit. The length of the
+        sequence much mast the number of qubits on the backend. The sequence
+        should be the planar coordinates in a 0-based square grid where each
+        qubit is located.
+
+Returns:
+    Figure: A matplotlib figure showing error map.
+
+Raises:
+    VisualizationError: The backend does not provide gate errors for the 'sx' gate.
+    MissingOptionalLibraryError: If matplotlib or seaborn is not installed.
+
+Example:
+    .. plot::
+       :alt: Output from the previous code.
+       :include-source:
+
+        from qiskit.visualization import plot_error_map
+        from qiskit.providers.fake_provider import GenericBackendV2
+
+        backend = GenericBackendV2(num_qubits=5)
+        plot_error_map(backend)
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1gate__map_a5ffb69780265496eca4b9ded824517dc}\index{qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}!plot\_gate\_map@{plot\_gate\_map}}
+\index{plot\_gate\_map@{plot\_gate\_map}!qiskit.visualization.gate\_map@{qiskit.visualization.gate\_map}}
+\doxysubsubsection{\texorpdfstring{plot\_gate\_map()}{plot\_gate\_map()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1gate__map_a5ffb69780265496eca4b9ded824517dc} 
+qiskit.\+visualization.\+gate\+\_\+map.\+plot\+\_\+gate\+\_\+map (\begin{DoxyParamCaption}\item[{}]{backend}{, }\item[{}]{figsize}{ = {\ttfamily None}, }\item[{}]{plot\+\_\+directed}{ = {\ttfamily False}, }\item[{}]{label\+\_\+qubits}{ = {\ttfamily True}, }\item[{}]{qubit\+\_\+size}{ = {\ttfamily None}, }\item[{}]{line\+\_\+width}{ = {\ttfamily 4}, }\item[{}]{font\+\_\+size}{ = {\ttfamily None}, }\item[{}]{qubit\+\_\+color}{ = {\ttfamily None}, }\item[{}]{qubit\+\_\+labels}{ = {\ttfamily None}, }\item[{}]{line\+\_\+color}{ = {\ttfamily None}, }\item[{}]{font\+\_\+color}{ = {\ttfamily "{}white"{}}, }\item[{}]{ax}{ = {\ttfamily None}, }\item[{}]{filename}{ = {\ttfamily None}, }\item[{}]{qubit\+\_\+coordinates}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plots the gate map of a device.
+
+.. deprecated:: 1.4
+    The function ``plot_gate_map`` will stop supporting inputs of type
+    :class:`.BackendV1` in the `backend` parameter in a future release no
+    earlier than 2.0. :class:`.BackendV1` is deprecated and implementations should
+    move to :class:`.BackendV2`.
+
+Args:
+    backend (Backend): The backend instance that will be used to plot the device
+        gate map.
+    figsize (tuple): Output figure size (wxh) in inches.
+    plot_directed (bool): Plot directed coupling map.
+    label_qubits (bool): Label the qubits.
+    qubit_size (float): Size of qubit marker.
+    line_width (float): Width of lines.
+    font_size (int): Font size of qubit labels.
+    qubit_color (list): A list of colors for the qubits
+    qubit_labels (list): A list of qubit labels
+    line_color (list): A list of colors for each line from coupling_map.
+    font_color (str): The font color for the qubit labels.
+    ax (Axes): A Matplotlib axes instance.
+    filename (str): file path to save image to.
+    qubit_coordinates (Sequence): An optional sequence input (list or array being the
+        most common) of 2d coordinates for each qubit. The length of the
+        sequence much match the number of qubits on the backend. The sequence
+        should be the planar coordinates in a 0-based square grid where each
+        qubit is located.
+
+Returns:
+    Figure: A Matplotlib figure instance.
+
+Raises:
+    QiskitError: If you tried to pass a simulator or the backend is None,
+        but one of num_qubits, mpl_data, or cmap is None.
+    MissingOptionalLibraryError: If matplotlib not installed.
+
+Example:
+
+    .. plot::
+       :alt: Output from the previous code.
+       :include-source:
+
+       from qiskit.providers.fake_provider import GenericBackendV2
+       from qiskit.visualization import plot_gate_map
+
+       backend = GenericBackendV2(num_qubits=5)
+
+       plot_gate_map(backend)
+\end{DoxyVerb}
+ 

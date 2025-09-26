@@ -1,0 +1,156 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=6.000000cm]{d1/d47/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab9fa5a2a0bfe9dce6105b2b3efa59da6_ab9fa5a2a0bfe9dce6105b2b3efa59da6}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Parameter\+Value\+Type lam, int num\+\_\+ctrl\+\_\+qubits, str\texorpdfstring{$\vert$}{|}None label=None, str\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{}, \+\_\+base\+\_\+label=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a5806d605e7c76318ee3bb432a6e16b0f_a5806d605e7c76318ee3bb432a6e16b0f}{control}} (self, int num\+\_\+ctrl\+\_\+qubits=1, str\texorpdfstring{$\vert$}{|}None label=None, str\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None, bool\texorpdfstring{$\vert$}{|}None annotated=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a6addab2fba490c39c1167973b34f9fb8_a6addab2fba490c39c1167973b34f9fb8}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab77fcd806c030ff87d94c0c25a875126_ab77fcd806c030ff87d94c0c25a875126}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab91adc4769fee40cfc4bf00ea52382fb}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab91adc4769fee40cfc4bf00ea52382fb} 
+int {\bfseries num\+\_\+ctrl\+\_\+qubits} = 0\+:
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a1b9c594bbb2b37c96afd369ded1df21a}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a1b9c594bbb2b37c96afd369ded1df21a} 
+{\bfseries definition} = qc
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_afc22bc70c14b4dd8e016271d7a651ead}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_afc22bc70c14b4dd8e016271d7a651ead} 
+{\bfseries ctrl\+\_\+state} = other.\+ctrl\+\_\+state
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a09cf499f95491f58fb648119847ef7c8_a09cf499f95491f58fb648119847ef7c8}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Multi-controlled-Phase gate.
+
+This is a diagonal and symmetric gate that induces a
+phase on the state of the target qubit, depending on the state of the control qubits.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.mcp` method.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+        q_0: ───■────
+                │
+                .
+                │
+    q_(n-1): ───■────
+             ┌──┴───┐
+        q_n: ┤ P(λ) ├
+             └──────┘
+
+.. seealso::
+
+    :class:`~qiskit.circuit.library.standard_gates.CPhaseGate`:
+    The singly-controlled-version of this gate.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab9fa5a2a0bfe9dce6105b2b3efa59da6_ab9fa5a2a0bfe9dce6105b2b3efa59da6}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab9fa5a2a0bfe9dce6105b2b3efa59da6_ab9fa5a2a0bfe9dce6105b2b3efa59da6} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Parameter\+Value\+Type}]{lam}{, }\item[{int}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}, }\item[{}]{\+\_\+base\+\_\+label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new MCPhase gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_abac83bbb8775197e73afa85500dc6e69_abac83bbb8775197e73afa85500dc6e69}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab77fcd806c030ff87d94c0c25a875126_ab77fcd806c030ff87d94c0c25a875126}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_ab77fcd806c030ff87d94c0c25a875126_ab77fcd806c030ff87d94c0c25a875126} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac22f037571891574fde5e2815d6dc0e0_ac22f037571891574fde5e2815d6dc0e0}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a09cf499f95491f58fb648119847ef7c8_a09cf499f95491f58fb648119847ef7c8}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a09cf499f95491f58fb648119847ef7c8_a09cf499f95491f58fb648119847ef7c8} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a5806d605e7c76318ee3bb432a6e16b0f_a5806d605e7c76318ee3bb432a6e16b0f}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}!control@{control}}
+\index{control@{control}!qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a5806d605e7c76318ee3bb432a6e16b0f_a5806d605e7c76318ee3bb432a6e16b0f} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate.\+control (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{num\+\_\+ctrl\+\_\+qubits}{ = {\ttfamily 1}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{annotated}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Controlled version of this gate.
+
+Args:
+    num_ctrl_qubits: number of control qubits.
+    label: An optional label for the gate [Default: ``None``]
+    ctrl_state: control state expressed as integer,
+        string (e.g.``'110'``), or ``None``. If ``None``, use all 1s.
+    annotated: indicates whether the controlled gate should be implemented
+        as an annotated gate. If ``None``, this is handled as ``False``.
+
+Returns:
+    ControlledGate: controlled version of this gate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a81a8e29816d4979751145859e7ed5a2c_a81a8e29816d4979751145859e7ed5a2c}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a6addab2fba490c39c1167973b34f9fb8_a6addab2fba490c39c1167973b34f9fb8}\index{qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.standard\_gates.p.MCPhaseGate@{qiskit.circuit.library.standard\_gates.p.MCPhaseGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1p_1_1_m_c_phase_gate_a6addab2fba490c39c1167973b34f9fb8_a6addab2fba490c39c1167973b34f9fb8} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+p.\+MCPhase\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverted MCPhase gate (:math:`MCPhase(\lambda)^{\dagger} = MCPhase(-\lambda)`)\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac5112aa67def83a124c76d18f84afccf_ac5112aa67def83a124c76d18f84afccf}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/p.\+py\end{DoxyCompactItemize}

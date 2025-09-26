@@ -1,0 +1,53 @@
+\doxysection{qiskit.\+compiler.\+scheduler Namespace Reference}
+\hypertarget{namespaceqiskit_1_1compiler_1_1scheduler}{}\label{namespaceqiskit_1_1compiler_1_1scheduler}\index{qiskit.compiler.scheduler@{qiskit.compiler.scheduler}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1compiler_1_1scheduler_a0ceaf61b79ef625dce46bb0fa000d12f}\label{namespaceqiskit_1_1compiler_1_1scheduler_a0ceaf61b79ef625dce46bb0fa000d12f} 
+{\bfseries \+\_\+log\+\_\+schedule\+\_\+time} (start\+\_\+time, end\+\_\+time)
+\item 
+Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1compiler_1_1scheduler_a878f94357513269f1ea60984780fa130_a878f94357513269f1ea60984780fa130}{schedule}} (Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} circuits, Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} backend=None, Optional\mbox{[}Instruction\+Schedule\+Map\mbox{]} inst\+\_\+map=None, Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} meas\+\_\+map=None, Optional\mbox{[}float\mbox{]} dt=None, Optional\mbox{[}Union\mbox{[}str, List\mbox{[}str\mbox{]}\mbox{]}\mbox{]} method=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1compiler_1_1scheduler_a9c9420f5422d855aeb5d117f0b985001}\label{namespaceqiskit_1_1compiler_1_1scheduler_a9c9420f5422d855aeb5d117f0b985001} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Convenience entry point into pulse scheduling, requiring only a circuit and a backend. For more
+control over pulse scheduling, look at `qiskit.scheduler.schedule_circuit`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1compiler_1_1scheduler_a878f94357513269f1ea60984780fa130_a878f94357513269f1ea60984780fa130}\index{qiskit.compiler.scheduler@{qiskit.compiler.scheduler}!schedule@{schedule}}
+\index{schedule@{schedule}!qiskit.compiler.scheduler@{qiskit.compiler.scheduler}}
+\doxysubsubsection{\texorpdfstring{schedule()}{schedule()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1compiler_1_1scheduler_a878f94357513269f1ea60984780fa130_a878f94357513269f1ea60984780fa130} 
+ Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\mbox{]}\mbox{]} qiskit.\+compiler.\+scheduler.\+schedule (\begin{DoxyParamCaption}\item[{Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]}}]{circuits}{, }\item[{Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} }]{backend}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Instruction\+Schedule\+Map\mbox{]} }]{inst\+\_\+map}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} }]{meas\+\_\+map}{ = {\ttfamily None}, }\item[{Optional\mbox{[}float\mbox{]} }]{dt}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Union\mbox{[}str, List\mbox{[}str\mbox{]}\mbox{]}\mbox{]} }]{method}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Schedule a circuit to a pulse ``Schedule``, using the backend, according to any specified
+methods. Supported methods are documented in :py:mod:`qiskit.scheduler.schedule_circuit`.
+
+Args:
+    circuits: The quantum circuit or circuits to translate
+    backend: A backend instance, which contains hardware-specific data required for scheduling
+    inst_map: Mapping of circuit operations to pulse schedules. If ``None``, defaults to the
+              ``backend``\'s ``instruction_schedule_map``
+    meas_map: List of sets of qubits that must be measured together. If ``None``, defaults to
+              the ``backend``\'s ``meas_map``
+    dt: The output sample rate of backend control electronics. For scheduled circuits
+        which contain time information, dt is required. If not provided, it will be
+        obtained from the backend configuration
+    method: Optionally specify a particular scheduling method
+
+Returns:
+    A pulse ``Schedule`` that implements the input circuit
+
+Raises:
+    QiskitError: If ``inst_map`` and ``meas_map`` are not passed and ``backend`` is not passed
+\end{DoxyVerb}
+ 

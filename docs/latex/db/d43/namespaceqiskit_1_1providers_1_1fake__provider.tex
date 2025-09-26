@@ -1,0 +1,106 @@
+\doxysection{qiskit.\+providers.\+fake\+\_\+provider Namespace Reference}
+\hypertarget{namespaceqiskit_1_1providers_1_1fake__provider}{}\label{namespaceqiskit_1_1providers_1_1fake__provider}\index{qiskit.providers.fake\_provider@{qiskit.providers.fake\_provider}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1backends__v1}{backends\+\_\+v1}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__1q}{fake\+\_\+1q}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__backend}{fake\+\_\+backend}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__openpulse__2q}{fake\+\_\+openpulse\+\_\+2q}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__openpulse__3q}{fake\+\_\+openpulse\+\_\+3q}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__pulse__backend}{fake\+\_\+pulse\+\_\+backend}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1fake__qasm__backend}{fake\+\_\+qasm\+\_\+backend}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1generic__backend__v2}{generic\+\_\+backend\+\_\+v2}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1fake__provider_1_1utils}{utils}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}======================================================
+Fake Provider (:mod:`qiskit.providers.fake_provider`)
+======================================================
+
+.. currentmodule:: qiskit.providers.fake_provider
+
+Overview
+========
+
+The fake provider module in Qiskit contains fake (simulated) backend classes
+useful for testing the transpiler and other backend-facing functionality.
+
+Example Usage
+-------------
+
+Here is an example of using a simulated backend for transpilation and running.
+
+.. plot::
+   :alt: Output from the previous code.
+   :include-source:
+
+   from qiskit import QuantumCircuit, transpile
+   from qiskit.providers.fake_provider import GenericBackendV2
+   from qiskit.visualization import plot_histogram
+
+   # Generate a 5-qubit simulated backend
+   backend = GenericBackendV2(num_qubits=5)
+
+   # Create a simple circuit
+   circuit = QuantumCircuit(3)
+   circuit.h(0)
+   circuit.cx(0,1)
+   circuit.cx(0,2)
+   circuit.measure_all()
+   circuit.draw('mpl')
+
+   # Transpile the ideal circuit to a circuit that can be directly executed by the backend
+   transpiled_circuit = transpile(circuit, backend)
+   transpiled_circuit.draw('mpl')
+
+   # Run the transpiled circuit using the simulated backend
+   job = backend.run(transpiled_circuit)
+   counts = job.result().get_counts()
+   plot_histogram(counts)
+
+
+V2 Simulated Backends
+=====================
+
+.. autosummary::
+    :toctree: ../stubs/
+
+    GenericBackendV2
+
+V1 Fake Backends (Legacy interface)
+===================================
+
+.. autosummary::
+    :toctree: ../stubs/
+
+    FakeOpenPulse2Q
+    FakeOpenPulse3Q
+    Fake1Q
+    Fake5QV1
+    Fake20QV1
+    Fake7QPulseV1
+    Fake27QPulseV1
+    Fake127QPulseV1
+
+Fake Backend Base Classes
+=========================
+
+The V1 fake backends are based on a set of base classes:
+
+.. currentmodule:: qiskit.providers.fake_provider
+.. autoclass:: FakeBackend
+.. autoclass:: FakeQasmBackend
+.. autoclass:: FakePulseBackend
+\end{DoxyVerb}
+ 

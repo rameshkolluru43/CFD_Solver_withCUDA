@@ -1,0 +1,255 @@
+\doxysection{CUDA\+\_\+\+KERNELS/\+CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.cpp File Reference}
+\hypertarget{_c_u_d_a___integrated___numerical___method_8cpp}{}\label{_c_u_d_a___integrated___numerical___method_8cpp}\index{CUDA\_KERNELS/CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_KERNELS/CUDA\_Integrated\_Numerical\_Method.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=259pt]{da/d42/_c_u_d_a___integrated___numerical___method_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\+\_\+\+Flux\+\_\+\+For\+\_\+\+All\+\_\+\+Faces}} (int \&Current\+\_\+\+Cell\+\_\+\+No, void(\texorpdfstring{$\ast$}{*}Dissipation\+\_\+\+Function)(const int \&, int \&, const int \&))
+\begin{DoxyCompactList}\small\item\em Evaluates flux on a given face. This function calculates the flux for a given face by considering the current cell number, its neighboring cell corresponding to the face, the face number, and whether the face is a boundary face. \end{DoxyCompactList}\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a923fce86ccb95185937d0931183d7b02_a923fce86ccb95185937d0931183d7b02}{Kernel\+\_\+\+Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1O}} ()
+\begin{DoxyCompactList}\small\item\em Evaluates the first-\/order net flux for all cells in the computational domain. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098}{Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1O}} ()
+\item 
+void \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f}{Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+2O}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}\index{CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}!Calculate\_Flux\_For\_All\_Faces@{Calculate\_Flux\_For\_All\_Faces}}
+\index{Calculate\_Flux\_For\_All\_Faces@{Calculate\_Flux\_For\_All\_Faces}!CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Calculate\_Flux\_For\_All\_Faces()}{Calculate\_Flux\_For\_All\_Faces()}}
+{\footnotesize\ttfamily \label{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb} 
+void Calculate\+\_\+\+Flux\+\_\+\+For\+\_\+\+All\+\_\+\+Faces (\begin{DoxyParamCaption}\item[{int \&}]{Current\+\_\+\+Cell\+\_\+\+No}{, }\item[{void(\texorpdfstring{$\ast$}{*}}]{Dissipation\+\_\+\+Function~}{)(const int \&, int \&, const int \&)}\end{DoxyParamCaption})}
+
+
+
+Evaluates flux on a given face. This function calculates the flux for a given face by considering the current cell number, its neighboring cell corresponding to the face, the face number, and whether the face is a boundary face. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Current\+\_\+\+Cell\+\_\+\+No} & The number of the current cell. \\
+\hline
+{\em Neighbour\+\_\+\+Cell\+\_\+\+No} & The number of the neighboring cell corresponding to the face. \\
+\hline
+{\em Face\+\_\+\+No} & The face number for which the flux is being calculated. \\
+\hline
+{\em Is\+\_\+\+Boundary\+\_\+\+Face} & A boolean indicating whether the face is a boundary face. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source}{CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ 0,\ \mbox{\hyperlink{_globals_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ 0,\ \mbox{\hyperlink{_globals_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ 0,\ \mbox{\hyperlink{_globals_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ 0;\ \textcolor{comment}{//\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00018\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Entered\ 2nd\ Order\ Flux\ Calculation"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00020\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_No].Neighbours[0];\ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_No].Neighbours[1];\ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_No].Neighbours[2];\ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_No].Neighbours[3];\ \textcolor{comment}{//(i,j+1,k)}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_flux_8h_a51243b161eea5261235c049939418205_a51243b161eea5261235c049939418205}{Calculate\_Face\_Average\_Flux}}(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ \mbox{\hyperlink{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}{Face\_0}},\ \mbox{\hyperlink{_globals_8h_a1997e5b6d42b522b0f2ed722d7de27b1_a1997e5b6d42b522b0f2ed722d7de27b1}{Cells\_Face\_Boundary\_Type}}[Current\_Cell\_No][\mbox{\hyperlink{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}{Face\_0}}]);}
+\DoxyCodeLine{00026\ \ \ \ \ Dissipation\_Function(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ \mbox{\hyperlink{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}{Face\_0}});}
+\DoxyCodeLine{00027\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][0]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[0]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0];}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][1]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[1]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1];}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][2]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[2]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2];}
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][3]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[3]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3];}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{_flux_8h_a51243b161eea5261235c049939418205_a51243b161eea5261235c049939418205}{Calculate\_Face\_Average\_Flux}}(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ \mbox{\hyperlink{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}{Face\_1}},\ \mbox{\hyperlink{_globals_8h_a1997e5b6d42b522b0f2ed722d7de27b1_a1997e5b6d42b522b0f2ed722d7de27b1}{Cells\_Face\_Boundary\_Type}}[Current\_Cell\_No][\mbox{\hyperlink{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}{Face\_1}}]);}
+\DoxyCodeLine{00033\ \ \ \ \ Dissipation\_Function(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ \mbox{\hyperlink{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}{Face\_1}});}
+\DoxyCodeLine{00034\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][0]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[0]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0];}
+\DoxyCodeLine{00035\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][1]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[1]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1];}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][2]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[2]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2];}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][3]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[3]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3];}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \mbox{\hyperlink{_flux_8h_a51243b161eea5261235c049939418205_a51243b161eea5261235c049939418205}{Calculate\_Face\_Average\_Flux}}(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ \mbox{\hyperlink{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}{Face\_2}},\ \mbox{\hyperlink{_globals_8h_a1997e5b6d42b522b0f2ed722d7de27b1_a1997e5b6d42b522b0f2ed722d7de27b1}{Cells\_Face\_Boundary\_Type}}[Current\_Cell\_No][\mbox{\hyperlink{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}{Face\_2}}]);}
+\DoxyCodeLine{00040\ \ \ \ \ Dissipation\_Function(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ \mbox{\hyperlink{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}{Face\_2}});}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][0]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[0]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0];}
+\DoxyCodeLine{00042\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][1]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[1]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1];}
+\DoxyCodeLine{00043\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][2]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[2]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2];}
+\DoxyCodeLine{00044\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][3]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[3]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3];}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{_flux_8h_a51243b161eea5261235c049939418205_a51243b161eea5261235c049939418205}{Calculate\_Face\_Average\_Flux}}(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ \mbox{\hyperlink{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}{Face\_3}},\ \mbox{\hyperlink{_globals_8h_a1997e5b6d42b522b0f2ed722d7de27b1_a1997e5b6d42b522b0f2ed722d7de27b1}{Cells\_Face\_Boundary\_Type}}[Current\_Cell\_No][\mbox{\hyperlink{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}{Face\_3}}]);}
+\DoxyCodeLine{00047\ \ \ \ \ Dissipation\_Function(Current\_Cell\_No,\ \mbox{\hyperlink{_globals_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ \mbox{\hyperlink{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}{Face\_3}});}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][0]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[0]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[0];}
+\DoxyCodeLine{00049\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][1]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[1]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[1];}
+\DoxyCodeLine{00050\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][2]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[2]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[2];}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][3]\ +=\ \mbox{\hyperlink{_globals_8h_a0342eaa44b5d4796c54539c3830c17fc_a0342eaa44b5d4796c54539c3830c17fc}{Average\_Convective\_Flux}}[3]\ -\/\ \mbox{\hyperlink{_globals_8h_ad6708803558704e199e5cb644230e079_ad6708803558704e199e5cb644230e079}{Dissipative\_Flux}}[3];}
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098}\index{CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}!Evaluate\_Cell\_Net\_Flux\_1O@{Evaluate\_Cell\_Net\_Flux\_1O}}
+\index{Evaluate\_Cell\_Net\_Flux\_1O@{Evaluate\_Cell\_Net\_Flux\_1O}!CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Cell\_Net\_Flux\_1O()}{Evaluate\_Cell\_Net\_Flux\_1O()}}
+{\footnotesize\ttfamily \label{_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098} 
+void Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1O (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source_l00065}{65}} of file \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source}{CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00069\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Entered\ 1st\ Order\ Flux\ Calculation"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Current\_Cell\_No\ =\ 0;\ Current\_Cell\_No\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Current\_Cell\_No++)}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ i++)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][i]\ =\ 0.0;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}})}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_a3d7e14b290d4d94351d692a722e8e27c_a3d7e14b290d4d94351d692a722e8e27c}{LLF}});}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_a47973150321fd06a51dd50c2cdfcddbd_a47973150321fd06a51dd50c2cdfcddbd}{MOVERS}});}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_aa5e5b59273323962cc25a66729c2a6c0_aa5e5b59273323962cc25a66729c2a6c0}{ROE}});}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_a4d08f12e369b293abfbc5536d7ffba7c_a4d08f12e369b293abfbc5536d7ffba7c}{RICCA}});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_af4ae10dd59881fff4957b81ffe7229ec_af4ae10dd59881fff4957b81ffe7229ec}{MOVERS\_NWSC}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_timestep_8h_a2730b8850de784509bccffb17a801183_a2730b8850de784509bccffb17a801183}{Evaluate\_Time\_Step}}(Current\_Cell\_No);}
+\DoxyCodeLine{00099\ \ \ \ \ \}}
+\DoxyCodeLine{00100\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f}\index{CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}!Evaluate\_Cell\_Net\_Flux\_2O@{Evaluate\_Cell\_Net\_Flux\_2O}}
+\index{Evaluate\_Cell\_Net\_Flux\_2O@{Evaluate\_Cell\_Net\_Flux\_2O}!CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Cell\_Net\_Flux\_2O()}{Evaluate\_Cell\_Net\_Flux\_2O()}}
+{\footnotesize\ttfamily \label{_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f} 
+void Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+2O (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source_l00104}{104}} of file \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source}{CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00108\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Entered\ 1st\ Order\ Flux\ Calculation"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Current\_Cell\_No\ =\ 0;\ Current\_Cell\_No\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Current\_Cell\_No++)}
+\DoxyCodeLine{00111\ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ k\ =\ 0;\ k\ <\ 4;\ k++)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Current\_Cell\_No][k]\ =\ 0.0;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}})}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_a90c9c15f2fb9860847022a6d16a7ddc2_a90c9c15f2fb9860847022a6d16a7ddc2}{LLF\_2O}});}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_aa25a10e1ced0e1e861dcd3c81a7cce18_aa25a10e1ced0e1e861dcd3c81a7cce18}{MOVERS\_2O}});}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_adece41c12f6eb368816ee860b05b221c_adece41c12f6eb368816ee860b05b221c}{ROE\_2O}});}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_af68071625b590d44a51647290ccc1ee1_af68071625b590d44a51647290ccc1ee1}{RICCA\_2O}});}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_a7cee697783ecef13423db8d0fa585cbb_a7cee697783ecef13423db8d0fa585cbb}{Calculate\_Flux\_For\_All\_Faces}}(Current\_Cell\_No,\ \mbox{\hyperlink{_flux_8h_ac8fbfdf753598e02e69407f0d52d30e8_ac8fbfdf753598e02e69407f0d52d30e8}{MOVERS\_NWSC\_2O}});}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_timestep_8h_a2730b8850de784509bccffb17a801183_a2730b8850de784509bccffb17a801183}{Evaluate\_Time\_Step}}(Current\_Cell\_No);}
+\DoxyCodeLine{00136\ \ \ \ \ \}}
+\DoxyCodeLine{00137\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d9/ddd/_c_u_d_a___integrated___numerical___method_8cpp_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_u_d_a___integrated___numerical___method_8cpp_a923fce86ccb95185937d0931183d7b02_a923fce86ccb95185937d0931183d7b02}\index{CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}!Kernel\_Evaluate\_Cell\_Net\_Flux\_1O@{Kernel\_Evaluate\_Cell\_Net\_Flux\_1O}}
+\index{Kernel\_Evaluate\_Cell\_Net\_Flux\_1O@{Kernel\_Evaluate\_Cell\_Net\_Flux\_1O}!CUDA\_Integrated\_Numerical\_Method.cpp@{CUDA\_Integrated\_Numerical\_Method.cpp}}
+\doxysubsubsection{\texorpdfstring{Kernel\_Evaluate\_Cell\_Net\_Flux\_1O()}{Kernel\_Evaluate\_Cell\_Net\_Flux\_1O()}}
+{\footnotesize\ttfamily \label{_c_u_d_a___integrated___numerical___method_8cpp_a923fce86ccb95185937d0931183d7b02_a923fce86ccb95185937d0931183d7b02} 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void Kernel\+\_\+\+Evaluate\+\_\+\+Cell\+\_\+\+Net\+\_\+\+Flux\+\_\+1O (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Evaluates the first-\/order net flux for all cells in the computational domain. 
+
+
+
+Definition at line \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source_l00058}{58}} of file \mbox{\hyperlink{_c_u_d_a___integrated___numerical___method_8cpp_source}{CUDA\+\_\+\+Integrated\+\_\+\+Numerical\+\_\+\+Method.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00059\ \{}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#ifdef\ DEBUG}}
+\DoxyCodeLine{00061\ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Entered\ 1st\ Order\ Flux\ Calculation"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00063\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,51 @@
+{
+  "GeneralDetails":{
+                    "name": "Half_Cylinder",
+                    "description": "Half Cylinder Geometry"
+                    
+                    //"type": "geometry",
+                    //"version": "1.0",
+                    //"author": "Your Name",
+                    //"date_created": "2023-10-01",
+                    //"last_modified": "2023-10-01"
+                  },
+  "geometry_parameters": {
+                          "radius": 1.0,
+                          "length": 2.0,
+                          "thickness": 0.1
+                          },
+  "mesh_parameters": {
+                        "Grid_Size": 1,
+                        "Nx": 61,
+                        "Ny": 21,
+                        "mesh_type": "structured"
+                      },
+  "Flow_Conditions": {
+                      "inlet_conditions": {
+                                          "inlet_type" : "supersonic",
+                                          "Pressure_Static_Inlet": 1.2473,
+                                          "Rho_Static_Inlet": 1.4,
+                                          "Inlet_Mach_No": 6.0,
+                                          "u": 0.0,
+                                          "v": -6.0
+                                          },  
+                      "exit_conditions": {
+                                          "exit_type" : "supersonic",
+                                          "Pressure_Static_Exit": 0.8,
+                                          "Rho_Static_Exit": 1.2,
+                                          "Exit_Mach_No": 2.0,
+                                          "u": 0.0,
+                                          "v": -2.0
+                                          }, 
+                      "wall_conditions": {
+                                          "wall_type" : "slip"
+                                          },
+                      "Initial_Conditions": {
+                                            "Pressure_Static_Inlet" : 1.0,
+                                            "Rho_Static_Inlet" : 1.4,
+                                            "Inlet_Mach_No" : 6.0,
+                                            "u" : 0.0,
+                                            "v" : -6.0
+                                            }
+                        }
+}

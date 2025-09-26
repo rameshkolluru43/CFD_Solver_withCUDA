@@ -1,0 +1,82 @@
+\doxysection{qiskit.\+circuit.\+library.\+overlap Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1overlap}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1overlap}\index{qiskit.circuit.library.overlap@{qiskit.circuit.library.overlap}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1overlap_1_1_unitary_overlap}{Unitary\+Overlap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1overlap_ada39baceede433e9702be5b5a050dfdb}{\+\_\+check\+\_\+unitary}} (circuit)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1overlap_a40bdd1591ec7e4129337d257f908472d}{unitary\+\_\+overlap}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} unitary1, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} unitary2, str prefix1="{}p1"{}, str prefix2="{}p2"{}, bool insert\+\_\+barrier=False)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Unitary overlap circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1overlap_ada39baceede433e9702be5b5a050dfdb}\index{qiskit.circuit.library.overlap@{qiskit.circuit.library.overlap}!\_check\_unitary@{\_check\_unitary}}
+\index{\_check\_unitary@{\_check\_unitary}!qiskit.circuit.library.overlap@{qiskit.circuit.library.overlap}}
+\doxysubsubsection{\texorpdfstring{\_check\_unitary()}{\_check\_unitary()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1overlap_ada39baceede433e9702be5b5a050dfdb} 
+qiskit.\+circuit.\+library.\+overlap.\+\_\+check\+\_\+unitary (\begin{DoxyParamCaption}\item[{}]{circuit}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Check a circuit is unitary by checking if all operations are of type ``Gate``.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1overlap_a40bdd1591ec7e4129337d257f908472d}\index{qiskit.circuit.library.overlap@{qiskit.circuit.library.overlap}!unitary\_overlap@{unitary\_overlap}}
+\index{unitary\_overlap@{unitary\_overlap}!qiskit.circuit.library.overlap@{qiskit.circuit.library.overlap}}
+\doxysubsubsection{\texorpdfstring{unitary\_overlap()}{unitary\_overlap()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1overlap_a40bdd1591ec7e4129337d257f908472d} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+overlap.\+unitary\+\_\+overlap (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{unitary1}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{unitary2}{, }\item[{str }]{prefix1}{ = {\ttfamily "{}p1"{}}, }\item[{str }]{prefix2}{ = {\ttfamily "{}p2"{}}, }\item[{bool }]{insert\+\_\+barrier}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Circuit that returns the overlap between two unitaries :math:`U_2^{\dag} U_1`.
+
+The input quantum circuits must represent unitary operations, since they must be invertible.
+If the inputs will have parameters, they are replaced by :class:`.ParameterVector`\s with
+names `"p1"` (for circuit ``unitary1``) and `"p2"` (for circuit ``unitary_2``) in the output
+circuit.
+
+This circuit is usually employed in computing the fidelity:
+
+.. math::
+
+\left|\langle 0| U_2^{\dag} U_1|0\rangle\right|^{2}
+
+by computing the probability of being in the all-zeros bit-string, or equivalently,
+the expectation value of projector :math:`|0\rangle\langle 0|`.
+
+**Reference Circuit:**
+
+.. plot::
+:alt: Circuit diagram output by the previous code.
+:include-source:
+
+import numpy as np
+from qiskit.circuit.library import EfficientSU2, unitary_overlap
+
+# get two circuit to prepare states of which we compute the overlap
+circuit = EfficientSU2(2, reps=1)
+unitary1 = circuit.assign_parameters(np.random.random(circuit.num_parameters))
+unitary2 = circuit.assign_parameters(np.random.random(circuit.num_parameters))
+
+# create the overlap circuit
+overlap = unitary_overlap(unitary1, unitary2)
+overlap.draw('mpl')
+
+Args:
+unitary1: Unitary acting on the ket vector.
+unitary2: Unitary whose inverse operates on the bra vector.
+prefix1: The name of the parameter vector associated to ``unitary1``,
+if it is parameterized. Defaults to ``"p1"``.
+prefix2: The name of the parameter vector associated to ``unitary2``,
+if it is parameterized. Defaults to ``"p2"``.
+insert_barrier: Whether to insert a barrier between the two unitaries.
+
+Raises:
+CircuitError: Number of qubits in ``unitary1`` and ``unitary2`` does not match.
+CircuitError: Inputs contain measurements and/or resets.
+\end{DoxyVerb}
+ 

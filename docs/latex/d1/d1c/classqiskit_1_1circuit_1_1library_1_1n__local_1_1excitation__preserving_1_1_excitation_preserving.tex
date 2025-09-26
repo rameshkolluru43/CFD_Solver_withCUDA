@@ -1,0 +1,156 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+excitation\+\_\+preserving.\+Excitation\+Preserving Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving}{}\label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving}\index{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving@{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+n\+\_\+local.\+excitation\+\_\+preserving.\+Excitation\+Preserving\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.357314cm]{d1/d1c/classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a6a0b38c7a2bd1dbe4f72d38562b3908f_a6a0b38c7a2bd1dbe4f72d38562b3908f}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int\texorpdfstring{$\vert$}{|}None num\+\_\+qubits=None, str mode="{}iswap"{}, str\texorpdfstring{$\vert$}{|}list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} entanglement="{}full"{}, int reps=3, bool skip\+\_\+unentangled\+\_\+qubits=False, bool skip\+\_\+final\+\_\+rotation\+\_\+layer=False, str parameter\+\_\+prefix="{}θ"{}, bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a89ce32d1f086ad4b5aa78cfd37c9a253_a89ce32d1f086ad4b5aa78cfd37c9a253}{insert\+\_\+barriers}}=False, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}None initial\+\_\+state=None, str name="{}Excitation\+Preserving"{}, bool\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a1e56fefa60888c66f6f558b50b4b288e_a1e56fefa60888c66f6f558b50b4b288e}{flatten}}=None)
+\item 
+list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a43b362fb24219a725bfe2a99cbf1cb2a_a43b362fb24219a725bfe2a99cbf1cb2a}{parameter\+\_\+bounds}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The heuristic excitation-preserving wave function ansatz.
+
+The ``ExcitationPreserving`` circuit preserves the ratio of :math:`|00\rangle`,
+:math:`|01\rangle + |10\rangle` and :math:`|11\rangle` states. To this end, this circuit
+uses two-qubit interactions of the form
+
+.. math::
+
+    \newcommand{\rotationangle}{\theta/2}
+
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & \cos\left(\rotationangle\right) & -i\sin\left(\rotationangle\right) & 0 \\
+    0 & -i\sin\left(\rotationangle\right) & \cos\left(\rotationangle\right) & 0 \\
+    0 & 0 & 0 & e^{-i\phi}
+    \end{pmatrix}
+
+for the mode ``'fsim'`` or with :math:`e^{-i\phi} = 1` for the mode ``'iswap'``.
+
+Note that other wave functions, such as UCC-ansatzes, are also excitation preserving.
+However these can become complex quickly, while this heuristically motivated circuit follows
+a simpler pattern.
+
+This trial wave function consists of layers of :math:`Z` rotations with 2-qubit entanglements.
+The entangling is creating using :math:`XX+YY` rotations and optionally a controlled-phase
+gate for the mode ``'fsim'``.
+
+See :class:`~qiskit.circuit.library.RealAmplitudes` for more detail on the possible arguments
+and options such as skipping unentanglement qubits, which apply here too.
+
+The rotations of the ExcitationPreserving ansatz can be written as
+
+Examples:
+
+    >>> ansatz = ExcitationPreserving(3, reps=1, insert_barriers=True, entanglement='linear')
+    >>> print(ansatz.decompose())  # show the circuit
+         ┌──────────┐ ░ ┌────────────┐┌────────────┐                             ░ ┌──────────┐
+    q_0: ┤ RZ(θ[0]) ├─░─┤0           ├┤0           ├─────────────────────────────░─┤ RZ(θ[5]) ├
+         ├──────────┤ ░ │  RXX(θ[3]) ││  RYY(θ[3]) │┌────────────┐┌────────────┐ ░ ├──────────┤
+    q_1: ┤ RZ(θ[1]) ├─░─┤1           ├┤1           ├┤0           ├┤0           ├─░─┤ RZ(θ[6]) ├
+         ├──────────┤ ░ └────────────┘└────────────┘│  RXX(θ[4]) ││  RYY(θ[4]) │ ░ ├──────────┤
+    q_2: ┤ RZ(θ[2]) ├─░─────────────────────────────┤1           ├┤1           ├─░─┤ RZ(θ[7]) ├
+         └──────────┘ ░                             └────────────┘└────────────┘ ░ └──────────┘
+
+    >>> ansatz = ExcitationPreserving(2, reps=1, flatten=True)
+    >>> qc = QuantumCircuit(2)  # create a circuit and append the RY variational form
+    >>> qc.cry(0.2, 0, 1)  # do some previous operation
+    >>> qc.compose(ansatz, inplace=True)  # add the excitation-preserving
+    >>> qc.draw()
+                    ┌──────────┐┌────────────┐┌────────────┐┌──────────┐
+    q_0: ─────■─────┤ RZ(θ[0]) ├┤0           ├┤0           ├┤ RZ(θ[3]) ├
+         ┌────┴────┐├──────────┤│  RXX(θ[2]) ││  RYY(θ[2]) │├──────────┤
+    q_1: ┤ RY(0.2) ├┤ RZ(θ[1]) ├┤1           ├┤1           ├┤ RZ(θ[4]) ├
+         └─────────┘└──────────┘└────────────┘└────────────┘└──────────┘
+
+    >>> ansatz = ExcitationPreserving(3, reps=1, mode='fsim', entanglement=[[0,2]],
+    ... insert_barriers=True, flatten=True)
+    >>> print(ansatz.decompose())
+         ┌──────────┐ ░ ┌────────────┐┌────────────┐        ░ ┌──────────┐
+    q_0: ┤ RZ(θ[0]) ├─░─┤0           ├┤0           ├─■──────░─┤ RZ(θ[5]) ├
+         ├──────────┤ ░ │            ││            │ │      ░ ├──────────┤
+    q_1: ┤ RZ(θ[1]) ├─░─┤  RXX(θ[3]) ├┤  RYY(θ[3]) ├─┼──────░─┤ RZ(θ[6]) ├
+         ├──────────┤ ░ │            ││            │ │θ[4]  ░ ├──────────┤
+    q_2: ┤ RZ(θ[2]) ├─░─┤1           ├┤1           ├─■──────░─┤ RZ(θ[7]) ├
+         └──────────┘ ░ └────────────┘└────────────┘        ░ └──────────┘
+
+.. seealso::
+
+    The :func:`.excitation_preserving` function constructs a functionally equivalent circuit, 
+    but faster.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a6a0b38c7a2bd1dbe4f72d38562b3908f_a6a0b38c7a2bd1dbe4f72d38562b3908f}\index{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving@{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving@{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a6a0b38c7a2bd1dbe4f72d38562b3908f_a6a0b38c7a2bd1dbe4f72d38562b3908f} 
+ None qiskit.\+circuit.\+library.\+n\+\_\+local.\+excitation\+\_\+preserving.\+Excitation\+Preserving.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+qubits}{ = {\ttfamily None}, }\item[{str }]{mode}{ = {\ttfamily "{}iswap"{}}, }\item[{str \texorpdfstring{$\vert$}{|} list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} }]{entanglement}{ = {\ttfamily "{}full"{}}, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{bool }]{skip\+\_\+unentangled\+\_\+qubits}{ = {\ttfamily False}, }\item[{bool }]{skip\+\_\+final\+\_\+rotation\+\_\+layer}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+state}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}ExcitationPreserving"{}}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{flatten}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: The number of qubits of the ExcitationPreserving circuit.
+    mode: Choose the entangler mode, can be `'iswap'` or `'fsim'`.
+    reps: Specifies how often the structure of a rotation layer followed by an entanglement
+        layer is repeated.
+    entanglement: Specifies the entanglement structure. Can be a string ('full', 'linear'
+        or 'sca'), a list of integer-pairs specifying the indices of qubits
+        entangled with one another, or a callable returning such a list provided with
+        the index of the entanglement layer.
+        See the Examples section of :class:`~qiskit.circuit.library.TwoLocal` for more
+        detail.
+    initial_state: A `QuantumCircuit` object to prepend to the circuit.
+    skip_unentangled_qubits: If True, the single qubit gates are only applied to qubits
+        that are entangled with another qubit. If False, the single qubit gates are applied
+        to each qubit in the Ansatz. Defaults to False.
+    skip_final_rotation_layer: If True, a rotation layer is added at the end of the
+        ansatz. If False, no rotation layer is added. Defaults to True.
+    parameter_prefix: The parameterized gates require a parameter to be defined, for which
+        we use :class:`~qiskit.circuit.ParameterVector`.
+    insert_barriers: If True, barriers are inserted in between each layer. If False,
+        no barriers are inserted.
+    flatten: Set this to ``True`` to output a flat circuit instead of nesting it inside multiple
+        layers of gate objects. By default currently the contents of
+        the output circuit will be wrapped in nested objects for
+        cleaner visualization. However, if you're using this circuit
+        for anything besides visualization its **strongly** recommended
+        to set this flag to ``True`` to avoid a large performance
+        overhead for parameter binding.
+
+Raises:
+    ValueError: If the selected mode is not supported.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1two__local_1_1_two_local_ac6b3de9751a910395d19c9e603aaa00f_ac6b3de9751a910395d19c9e603aaa00f}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+two\+\_\+local.\+Two\+Local}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a43b362fb24219a725bfe2a99cbf1cb2a_a43b362fb24219a725bfe2a99cbf1cb2a}\index{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving@{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving}!parameter\_bounds@{parameter\_bounds}}
+\index{parameter\_bounds@{parameter\_bounds}!qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving@{qiskit.circuit.library.n\_local.excitation\_preserving.ExcitationPreserving}}
+\doxysubsubsection{\texorpdfstring{parameter\_bounds()}{parameter\_bounds()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1excitation__preserving_1_1_excitation_preserving_a43b362fb24219a725bfe2a99cbf1cb2a_a43b362fb24219a725bfe2a99cbf1cb2a} 
+ list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} qiskit.\+circuit.\+library.\+n\+\_\+local.\+excitation\+\_\+preserving.\+Excitation\+Preserving.\+parameter\+\_\+bounds (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the parameter bounds.
+
+Returns:
+    The parameter bounds.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_ad1318f9027c54c53782a3a48602927ab_ad1318f9027c54c53782a3a48602927ab}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+n\+\_\+local.\+NLocal}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/n\+\_\+local/excitation\+\_\+preserving.\+py\end{DoxyCompactItemize}

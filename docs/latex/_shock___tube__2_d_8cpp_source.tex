@@ -1,0 +1,160 @@
+\doxysection{Shock\+\_\+\+Tube\+\_\+2\+D.\+cpp}
+\hypertarget{_shock___tube__2_d_8cpp_source}{}\label{_shock___tube__2_d_8cpp_source}\index{Test\_Cases/Shock\_Tube\_2D.cpp@{Test\_Cases/Shock\_Tube\_2D.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include"{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ Shock\_Tube\_2D()}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ Kind\ of\ Boundary\ Conditions\ to\ be\ implemented\ in\ the\ code\ \ \ \ }}
+\DoxyCodeLine{00008\ \ \ \ \ Is\_Viscous\_Wall\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00009\ \ \ \ \ Is\_Inlet\_SubSonic\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00010\ \ \ \ \ Is\_Exit\_SubSonic\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00011\ \ \ \ \ has\_Symmetry\_BC\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00012\ \ \ \ \ Is\_Time\_Dependent\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00013\ \ \ \ \ Terminating\_Time\ =\ 0.2;}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ Viscous\_Time\_Case\ =2;}
+\DoxyCodeLine{00016\ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ Directory\_Name();}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ File\_Name();}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{switch}(Grid\_Size)}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_501\_151.txt"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_501\_151.vtk"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_501\_151.txt"{}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_151.txt"{}};}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_151.txt"{}};\ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_151.vtk"{}};\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_1001\_301.txt"{}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_1001\_301.vtk"{}};}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_1001\_301.txt"{}};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_1001\_301.txt"{}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_1001\_301.txt"{}};\ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_1001\_301.vtk"{}};\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_201\_201.txt"{}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_201\_201.vtk"{}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_201\_201.txt"{}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_201\_201.txt"{}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_201\_201.txt"{}};\ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_201\_201.vtk"{}};\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_101\_101.txt"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_101\_101.vtk"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};\ \ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.vtk"{}};\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_501\_501.txt"{}};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/Shock\_Tube\_2D\_SG\_Alpha03\_501\_501.vtk"{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_501\_501.txt"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_501.txt"{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_501.txt"{}};\ \ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_501\_501.vtk"{}};\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/SWBLI\_L1\_2D\_513\_513.txt"{}};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_Vtk\_File\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/Shock\_Tube\_Grid\_Files/SWBLI\_L1\_2D\_513\_513.vtk"{}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_L1\_2D\_513\_513.txt"{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_L1\_2D\_513\_513.txt"{}};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_L1\_2D\_513\_513.txt"{}};\ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_L1\_2D\_513\_513.vtk"{}};\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \}}
+\DoxyCodeLine{00072\ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ Reads\ Input\ grid\ file\ and\ does\ the\ preprocessing\ required\ for\ grid\ }}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ Calculates\ the\ Cell\ Normals,\ Cell\ Areas}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ Checks\ for\ Grid\ }}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00078\ \ \ \ \ Form\_Cells(Grid\_File);}
+\DoxyCodeLine{00079\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\_Type\ used\ \(\backslash\)t"{}}<<Grid\_Type<<endl;}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ Write\_Cell\_Info("{}../Grid\_Files/Forward\_Step\_Grid\_Files/Forward\_Step\_241\_81.txt"{});}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ V\_D\ V(2,0.0);\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ index=0;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}\ Initial\ Data\ for\ Solution\(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00085\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Initialize\ from\ a\ file\ or\ from\ Zero,\ Enter\ 1\ to\ read\ data\ from\ file:\(\backslash\)t"{}};}
+\DoxyCodeLine{00086\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ cin>>Initialize\_Type;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{comment}{//\ Reynolds\ Number\ Re\ and\ Prandtl\ Number\ Pr}}
+\DoxyCodeLine{00089\ \ \ \ \ Re\ =25000;}
+\DoxyCodeLine{00090\ \ \ \ \ Pr\ =\ 0.72;}
+\DoxyCodeLine{00091\ \ \ \ \ L\_ref=1.0;\ \textcolor{comment}{//\ Xsh}}
+\DoxyCodeLine{00092\ \ \ \ \ M\_ref\ =\ 1.0;}
+\DoxyCodeLine{00093\ \ \ \ \ Inv\_Re\ =\ 1.0/Re;}
+\DoxyCodeLine{00094\ \ \ \ \ Inv\_Pr\ =\ 1.0/Pr;}
+\DoxyCodeLine{00095\ \ \ \ \ Inlet\_Mach\_No\ =\ 0.0;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00097\ \ \ \ \ Reference\_Values();}
+\DoxyCodeLine{00098\ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{double}\ Diaph\ =\ 0.3;}
+\DoxyCodeLine{00100\ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{if}(Initialize\_Type==1)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ Initialize(Final\_Solution\_File);\ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ Initialize(Test\_Case);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<(ny\_c-\/1);j++)}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<(nx\_c-\/1);i++)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i<=Diaph*(nx\_c-\/1))\ \textcolor{comment}{//\ Pre\ Shock\ Conditions\ Left\ side\ of\ Shock}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ i\ +\ j*(nx\_c\ -\/1);\ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 0.75;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ Post\ Shock\ Conditions\ Right\ Side\ of\ SHock\ }}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ i\ +\ j*(nx\_c\ -\/1);\ \ \ \ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 0.1;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 0.125;}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 0.0;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V[0]\ =\ V\_1;}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V[1]\ =\ V\_2;}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Computational\_Variables(Pressure\_Static\_Inlet,V,Rho\_Static\_Inlet,2);}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_U.size();j++)}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[index][j]\ =\ Global\_U[j];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(index,U\_Cells[index]);}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_Primitive.size();j++)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[index][j]\ =\ Global\_Primitive[j];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00143\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ Identify\_Wall\_Boundary\_Faces(Grid\_Type);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Writing\ Initial\ Solution\ to\ file\ "{}}<<endl;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ Write\_Solution(Initial\_Solution\_File,1);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ Read\_Write\_Grid(Grid\_Vtk\_File,Final\_Solution\_File);}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ Append\_Solution(Initial\_Solution\_File,Final\_Solution\_File);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Intialized\ Solution\ with\ inlet\ conditions,\ Identified\ Boundaries.........\ Ready\ to\ solve"{}}<<endl;}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \}}
+
+\end{DoxyCode}

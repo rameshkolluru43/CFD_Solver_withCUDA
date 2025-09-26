@@ -1,0 +1,105 @@
+\doxysection{qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+hrs\+\_\+cumulative\+\_\+multiplier.\+HRSCumulative\+Multiplier Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier}{}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier}\index{qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier@{qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+hrs\+\_\+cumulative\+\_\+multiplier.\+HRSCumulative\+Multiplier\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{db/d4f/classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier_a492396353a5be85d5083bf3ab7308498_a492396353a5be85d5083bf3ab7308498}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1multiplier_1_1_multiplier_a72fc70a485b4de543b81789c043adffa_a72fc70a485b4de543b81789c043adffa}{num\+\_\+state\+\_\+qubits}}, Optional\mbox{[}int\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1multiplier_1_1_multiplier_a9ff207a0186bff00c97de4c36c086b9b_a9ff207a0186bff00c97de4c36c086b9b}{num\+\_\+result\+\_\+qubits}}=None, Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} adder=None, str name="{}HRSCumulative\+Multiplier"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier_a9391ac5706071308e1a757ce9027c6e9}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier_a9391ac5706071308e1a757ce9027c6e9} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A multiplication circuit to store product of two input registers out-of-place.
+
+Circuit uses the approach from [1]. As an example, a multiplier circuit that
+performs a non-modular multiplication on two 3-qubit sized registers with
+the default adder is as follows (where ``Adder`` denotes the
+``CDKMRippleCarryAdder``):
+
+.. code-block:: text
+
+      a_0: ────■─────────────────────────
+               │
+      a_1: ────┼─────────■───────────────
+               │         │
+      a_2: ────┼─────────┼─────────■─────
+           ┌───┴────┐┌───┴────┐┌───┴────┐
+      b_0: ┤0       ├┤0       ├┤0       ├
+           │        ││        ││        │
+      b_1: ┤1       ├┤1       ├┤1       ├
+           │        ││        ││        │
+      b_2: ┤2       ├┤2       ├┤2       ├
+           │        ││        ││        │
+    out_0: ┤3       ├┤        ├┤        ├
+           │        ││        ││        │
+    out_1: ┤4       ├┤3       ├┤        ├
+           │  Adder ││  Adder ││  Adder │
+    out_2: ┤5       ├┤4       ├┤3       ├
+           │        ││        ││        │
+    out_3: ┤6       ├┤5       ├┤4       ├
+           │        ││        ││        │
+    out_4: ┤        ├┤6       ├┤5       ├
+           │        ││        ││        │
+    out_5: ┤        ├┤        ├┤6       ├
+           │        ││        ││        │
+    aux_0: ┤7       ├┤7       ├┤7       ├
+           └────────┘└────────┘└────────┘
+
+Multiplication in this circuit is implemented in a classical approach by performing
+a series of shifted additions using one of the input registers while the qubits
+from the other input register act as control qubits for the adders.
+
+.. seealso::
+
+    The :class:`.MultiplierGate` objects represents a multiplication, like this circuit class,
+    but allows the compiler to select the optimal decomposition based on the context.
+    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit
+    can be chosen via ``Multiplier=["cumulative_h18"]``.
+
+**References:**
+
+[1] Häner et al., Optimizing Quantum Circuits for Arithmetic, 2018.
+`arXiv:1805.12445 <https://arxiv.org/pdf/1805.12445.pdf>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier_a492396353a5be85d5083bf3ab7308498_a492396353a5be85d5083bf3ab7308498}\index{qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier@{qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier@{qiskit.circuit.library.arithmetic.multipliers.hrs\_cumulative\_multiplier.HRSCumulativeMultiplier}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_1_1_h_r_s_cumulative_multiplier_a492396353a5be85d5083bf3ab7308498_a492396353a5be85d5083bf3ab7308498} 
+ None qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+hrs\+\_\+cumulative\+\_\+multiplier.\+HRSCumulative\+Multiplier.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{Optional\mbox{[}int\mbox{]} }]{num\+\_\+result\+\_\+qubits}{ = {\ttfamily None}, }\item[{Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} }]{adder}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}HRSCumulativeMultiplier"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        num_state_qubits: The number of qubits in either input register for
+            state :math:`|a\rangle` or :math:`|b\rangle`. The two input
+            registers must have the same number of qubits.
+        num_result_qubits: The number of result qubits to limit the output to.
+            If number of result qubits is :math:`n`, multiplication modulo :math:`2^n` is performed
+            to limit the output to the specified number of qubits. Default
+            value is ``2 * num_state_qubits`` to represent any possible
+            result from the multiplication of the two inputs.
+        adder: Half adder circuit to be used for performing multiplication. The
+            CDKMRippleCarryAdder is used as default if no adder is provided.
+        name: The name of the circuit object.
+    Raises:
+        NotImplementedError: If ``num_result_qubits`` is not default and a custom adder is provided.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1multiplier_1_1_multiplier_af170d548fc622ad39fab7cae97dd0a13_af170d548fc622ad39fab7cae97dd0a13}{qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+multiplier.\+Multiplier}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/arithmetic/multipliers/hrs\+\_\+cumulative\+\_\+multiplier.\+py\end{DoxyCompactItemize}

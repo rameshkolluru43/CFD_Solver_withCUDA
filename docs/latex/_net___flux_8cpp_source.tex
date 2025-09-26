@@ -1,0 +1,407 @@
+\doxysection{Net\+\_\+\+Flux.\+cpp}
+\hypertarget{_net___flux_8cpp_source}{}\label{_net___flux_8cpp_source}\index{Flux\_Types/Net\_Flux.cpp@{Flux\_Types/Net\_Flux.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//This\ function\ evaluates\ flux\ on\ a\ given\ face.\ It\ takes\ 4\ arguments\ like\ current\ cell\ no,\ its\ neighbour\ cell\ corresponding\ to\ the\ face\ and\ the\ face\ number\ also\ needs\ to\ know\ whether\ the\ face\ is\ a\ boundary\ face\ or\ not.}}
+\DoxyCodeLine{00004\ V\_D\ Cells\_DelT\_invVol,Cell\_Areas;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Cell\ Net\ Flux\ evaluates\ both\ the\ average\ flux\ and\ Dissipative\ flux\ of\ a\ given\ cell\ \ \ \ \ \ }}
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_1O()}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0;\ \ \ \ \textcolor{comment}{//\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00011\ \ \ \ \ }
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Current\_Cell\_No=0;Current\_Cell\_No<No\_Physical\_Cells;Current\_Cell\_No++)}
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_No][1];\ \ \ \ \ \ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_No][2];\ \ \ \ \ \ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_No][3];\ \ \ \ \ \ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_No][4];\ \ \ \ \ \ \textcolor{comment}{//(i,j+1,k)\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ =\ 0.0;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ =\ 0.0;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ =\ 0.0;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ =\ 0.0;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(Dissipation\_Type)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ LLF(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ LLF(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ }}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00084\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ ROE(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 4}}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ RICCA(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ }}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00176\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00195\ \textcolor{comment}{/*\ \ \ \ \ \ if(Current\_Cell\_No==2050)}}
+\DoxyCodeLine{00196\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00197\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Cell\_Net\ Flux"{}<<endl;\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00198\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Cells\_Net\_Flux[Current\_Cell\_No][0]<<endl;}}
+\DoxyCodeLine{00199\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Cells\_Net\_Flux[Current\_Cell\_No][1]<<endl;}}
+\DoxyCodeLine{00200\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Cells\_Net\_Flux[Current\_Cell\_No][2]<<endl;}}
+\DoxyCodeLine{00201\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Cells\_Net\_Flux[Current\_Cell\_No][3]<<endl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00202\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00204\ \textcolor{comment}{//\ Evalutes\ the\ time\ step\ for\ a\ given\ cell\ \ \ \ \ \ }}
+\DoxyCodeLine{00205\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}calling\ time\ step\(\backslash\)t"{}<<Current\_Cell\_No<<endl;\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ Evaluate\_Time\_Step(Current\_Cell\_No);\ \ \ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00208\ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{keywordtype}{void}\ Evaluate\_Cell\_Net\_Flux\_2O()}
+\DoxyCodeLine{00212\ \{}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{keywordtype}{int}\ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0;\ \ \ \ \textcolor{comment}{//\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00215\ \ \ \ \ }
+\DoxyCodeLine{00216\ \textcolor{comment}{//\ \ cout<<"{}Evaluating\ Second\ Order\ fluxes\(\backslash\)t"{}<<Dissipation\_Type<<endl;}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Current\_Cell\_No=0;Current\_Cell\_No<No\_Physical\_Cells;Current\_Cell\_No++)}
+\DoxyCodeLine{00219\ \ \ \ \ \{}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Current\_Cell\_No<<endl;}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Current\_Cell\_No][1];\ \ \ \ \ \ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Current\_Cell\_No][2];\ \ \ \ \ \ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Current\_Cell\_No][3];\ \ \ \ \ \ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Current\_Cell\_No][4];\ \ \ \ \ \ \textcolor{comment}{//(i,j+1,k)\ \ \ \ \ \ \ }}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ =\ 0.0;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ =\ 0.0;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ =\ 0.0;}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ =\ 0.0;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(Dissipation\_Type)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00236\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF\_2O(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00245\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2}}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF\_2O(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00254\ }
+\DoxyCodeLine{00255\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF\_2O(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ LLF\_2O(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ }}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_2O(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00281\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_2O(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00288\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_2O(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_2O(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE\_2O(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE\_2O(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE\_2O(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ROE\_2O(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA\_2O(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA\_2O(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA\_2O(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 4}}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RICCA\_2O(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00365\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i-\/1,j\ and\ i,j\ Face\ No\ 0\ i-\/1/2,j\ \ }}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_1,Face\_0,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_0]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 0}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC\_2O(Current\_Cell\_No,Neighbour\_1,Face\_0);}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00372\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j-\/1\ and\ i,j\ Face\ No\ 0\ i,j-\/1/2\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_2,Face\_1,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_1]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 1}}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC\_2O(Current\_Cell\_No,Neighbour\_2,Face\_1);}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00379\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i+1,j\ and\ i,j\ Face\ No\ 0\ i+1/2,j\ \ \ \ }}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_3,Face\_2,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_2]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 2}}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC\_2O(Current\_Cell\_No,Neighbour\_3,Face\_2);}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ on\ Face\ between\ i,j+1\ and\ i,j\ Face\ No\ 0\ i,j\ +\ 1/2\ }}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Face\_Average\_Flux(Current\_Cell\_No,Neighbour\_4,Face\_3,Cells\_Face\_Boundary\_Type[Current\_Cell\_No][Face\_3]);\ \ \textcolor{comment}{//Average\ Convective\ Flux\ Face\ \ 3}}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ MOVERS\_NWSC\_2O(Current\_Cell\_No,Neighbour\_4,Face\_3);}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][0]\ +=\ Average\_Convective\_Flux[0]\ -\/\ Dissipative\_Flux[0];}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][1]\ +=\ Average\_Convective\_Flux[1]\ -\/\ Dissipative\_Flux[1];}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][2]\ +=\ Average\_Convective\_Flux[2]\ -\/\ Dissipative\_Flux[2];}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_Net\_Flux[Current\_Cell\_No][3]\ +=\ Average\_Convective\_Flux[3]\ -\/\ Dissipative\_Flux[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00398\ \textcolor{comment}{//\ Evalutes\ the\ time\ step\ for\ a\ given\ cell\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ Evaluate\_Time\_Step(Current\_Cell\_No);\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00400\ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \}}
+
+\end{DoxyCode}

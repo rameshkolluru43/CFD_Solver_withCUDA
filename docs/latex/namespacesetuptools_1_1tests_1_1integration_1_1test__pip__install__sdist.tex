@@ -1,0 +1,169 @@
+\doxysection{setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist Namespace Reference}
+\hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist}{}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_afd8479347eda67637f9b67541382444c}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_afd8479347eda67637f9b67541382444c} 
+{\bfseries venv\+\_\+python} (tmp\+\_\+path)
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a72a733145c2615ca4833526ba862333e}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a72a733145c2615ca4833526ba862333e} 
+{\bfseries \+\_\+prepare} (tmp\+\_\+path, venv\+\_\+python, monkeypatch)
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ab46804bbfdcb6878aca92d8e8435afdb}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ab46804bbfdcb6878aca92d8e8435afdb} 
+{\bfseries test\+\_\+install\+\_\+sdist} (package, version, tmp\+\_\+path, venv\+\_\+python, setuptools\+\_\+wheel)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a49556ac42ee3b67742d67aaa5778d89b}{retrieve\+\_\+sdist}} (package, version, tmp\+\_\+path)
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ac7f8350b6074fdbd5f83a0c43f6f09ce}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ac7f8350b6074fdbd5f83a0c43f6f09ce} 
+{\bfseries retrieve\+\_\+pypi\+\_\+sdist\+\_\+metadata} (package, version)
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_aac0b1b41e7b978b2181255a2fbbe0b8f}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_aac0b1b41e7b978b2181255a2fbbe0b8f} 
+{\bfseries download} (url, dest, md5\+\_\+digest)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_aa11036a0894a251c97108a8c680343f5}{build\+\_\+deps}} (package, sdist\+\_\+file)
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ada3685f8d6c00cb3446a16239f9ed106}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ada3685f8d6c00cb3446a16239f9ed106} 
+{\bfseries \+\_\+read\+\_\+pyproject} (archive)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a1b3797713568a1de273233006c97368f}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a1b3797713568a1de273233006c97368f} 
+{\bfseries pytestmark} = pytest.\+mark.\+integration
+\item 
+list \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a61fa1547bfcabd93f3a6b9ff402b4ff6}{EXAMPLES}}
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_af78846296b419340e2dd955014d21b1a}{EXTRA\+\_\+\+BUILD\+\_\+\+DEPS}}
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a34dea6b626009d7f57985e4dad736171}{EXTRA\+\_\+\+ENV\+\_\+\+VARS}}
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a27004fc392708816f6594039a2b62ca4}{IMPORT\+\_\+\+NAME}}
+\item 
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_af704432eeffa8bae90bbe04b74168cf2}\label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_af704432eeffa8bae90bbe04b74168cf2} 
+tuple {\bfseries VIRTUALENV} = (sys.\+executable, "{}-\/m"{}, "{}virtualenv"{})
+\item 
+tuple \mbox{\hyperlink{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ad8ad06eaaa0c0b1db5b55c4876a6bed1}{INSTALL\+\_\+\+OPTIONS}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Integration tests for setuptools that focus on building packages via pip.
+
+The idea behind these tests is not to exhaustively check all the possible
+combinations of packages, operating systems, supporting libraries, etc, but
+rather check a limited number of popular packages and how they interact with
+the exposed public API. This way if any change in API is introduced, we hope to
+identify backward compatibility problems before publishing a release.
+
+The number of tested packages is purposefully kept small, to minimise duration
+and the associated maintenance cost (changes in the way these packages define
+their build process may require changes in the tests).
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_aa11036a0894a251c97108a8c680343f5}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!build\_deps@{build\_deps}}
+\index{build\_deps@{build\_deps}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{build\_deps()}{build\_deps()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_aa11036a0894a251c97108a8c680343f5} 
+setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+build\+\_\+deps (\begin{DoxyParamCaption}\item[{}]{package}{, }\item[{}]{sdist\+\_\+file}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Find out what are the build dependencies for a package.
+
+"Manually" install them, since pip will not install build
+deps with `--no-build-isolation`.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a49556ac42ee3b67742d67aaa5778d89b}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!retrieve\_sdist@{retrieve\_sdist}}
+\index{retrieve\_sdist@{retrieve\_sdist}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{retrieve\_sdist()}{retrieve\_sdist()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a49556ac42ee3b67742d67aaa5778d89b} 
+setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+retrieve\+\_\+sdist (\begin{DoxyParamCaption}\item[{}]{package}{, }\item[{}]{version}{, }\item[{}]{tmp\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Either use cached sdist file or download it from PyPI\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a61fa1547bfcabd93f3a6b9ff402b4ff6}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!EXAMPLES@{EXAMPLES}}
+\index{EXAMPLES@{EXAMPLES}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{EXAMPLES}{EXAMPLES}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a61fa1547bfcabd93f3a6b9ff402b4ff6} 
+list setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+EXAMPLES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ [}
+\DoxyCodeLine{00002\ \ \ \ \ (\textcolor{stringliteral}{"{}pip"{}},\ LATEST),\ \ \textcolor{comment}{\#\ just\ in\ case...}}
+\DoxyCodeLine{00003\ \ \ \ \ (\textcolor{stringliteral}{"{}pytest"{}},\ LATEST),\ \ \textcolor{comment}{\#\ uses\ setuptools\_scm}}
+\DoxyCodeLine{00004\ \ \ \ \ (\textcolor{stringliteral}{"{}mypy"{}},\ LATEST),\ \ \textcolor{comment}{\#\ custom\ build\_py\ +\ ext\_modules}}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{comment}{\#\ -\/-\/-\/\ Popular\ packages:\ https://hugovk.github.io/top-\/pypi-\/packages/\ -\/-\/-\/}}
+\DoxyCodeLine{00006\ \ \ \ \ (\textcolor{stringliteral}{"{}botocore"{}},\ LATEST),}
+\DoxyCodeLine{00007\ \ \ \ \ (\textcolor{stringliteral}{"{}kiwisolver"{}},\ LATEST),\ \ \textcolor{comment}{\#\ build\_ext}}
+\DoxyCodeLine{00008\ \ \ \ \ (\textcolor{stringliteral}{"{}brotli"{}},\ LATEST),\ \ \textcolor{comment}{\#\ not\ in\ the\ list\ but\ used\ by\ urllib3}}
+\DoxyCodeLine{00009\ \ \ \ \ (\textcolor{stringliteral}{"{}pyyaml"{}},\ LATEST),\ \ \textcolor{comment}{\#\ cython\ +\ custom\ build\_ext\ +\ custom\ distclass}}
+\DoxyCodeLine{00010\ \ \ \ \ (\textcolor{stringliteral}{"{}charset-\/normalizer"{}},\ LATEST),\ \ \textcolor{comment}{\#\ uses\ mypyc,\ used\ by\ aiohttp}}
+\DoxyCodeLine{00011\ \ \ \ \ (\textcolor{stringliteral}{"{}protobuf"{}},\ LATEST),}
+\DoxyCodeLine{00012\ \ \ \ \ (\textcolor{stringliteral}{"{}requests"{}},\ LATEST),}
+\DoxyCodeLine{00013\ \ \ \ \ (\textcolor{stringliteral}{"{}celery"{}},\ LATEST),}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{\#\ When\ adding\ packages\ to\ this\ list,\ make\ sure\ they\ expose\ a\ \`{}\_\_version\_\_`}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{\#\ attribute,\ or\ modify\ the\ tests\ below}}
+\DoxyCodeLine{00016\ ]}
+
+\end{DoxyCode}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_af78846296b419340e2dd955014d21b1a}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!EXTRA\_BUILD\_DEPS@{EXTRA\_BUILD\_DEPS}}
+\index{EXTRA\_BUILD\_DEPS@{EXTRA\_BUILD\_DEPS}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{EXTRA\_BUILD\_DEPS}{EXTRA\_BUILD\_DEPS}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_af78846296b419340e2dd955014d21b1a} 
+dict setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+EXTRA\+\_\+\+BUILD\+\_\+\+DEPS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}pyyaml"{}}:\ (\textcolor{stringliteral}{"{}Cython<3.0"{}},),\ \ \textcolor{comment}{\#\ constraint\ to\ avoid\ errors}}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}charset-\/normalizer"{}}:\ (\textcolor{stringliteral}{"{}mypy>=1.4.1"{}},),\ \ \textcolor{comment}{\#\ no\ pyproject.toml\ available}}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a34dea6b626009d7f57985e4dad736171}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!EXTRA\_ENV\_VARS@{EXTRA\_ENV\_VARS}}
+\index{EXTRA\_ENV\_VARS@{EXTRA\_ENV\_VARS}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{EXTRA\_ENV\_VARS}{EXTRA\_ENV\_VARS}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a34dea6b626009d7f57985e4dad736171} 
+dict setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+EXTRA\+\_\+\+ENV\+\_\+\+VARS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}pyyaml"{}}:\ \{\textcolor{stringliteral}{"{}PYYAML\_FORCE\_CYTHON"{}}:\ \textcolor{stringliteral}{"{}1"{}}\},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}charset-\/normalizer"{}}:\ \{\textcolor{stringliteral}{"{}CHARSET\_NORMALIZER\_USE\_MYPYC"{}}:\ \textcolor{stringliteral}{"{}1"{}}\},}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a27004fc392708816f6594039a2b62ca4}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!IMPORT\_NAME@{IMPORT\_NAME}}
+\index{IMPORT\_NAME@{IMPORT\_NAME}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{IMPORT\_NAME}{IMPORT\_NAME}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_a27004fc392708816f6594039a2b62ca4} 
+dict setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+IMPORT\+\_\+\+NAME}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}pyyaml"{}}:\ \textcolor{stringliteral}{"{}yaml"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}protobuf"{}}:\ \textcolor{stringliteral}{"{}google.protobuf"{}},}
+\DoxyCodeLine{00004\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ad8ad06eaaa0c0b1db5b55c4876a6bed1}\index{setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}!INSTALL\_OPTIONS@{INSTALL\_OPTIONS}}
+\index{INSTALL\_OPTIONS@{INSTALL\_OPTIONS}!setuptools.tests.integration.test\_pip\_install\_sdist@{setuptools.tests.integration.test\_pip\_install\_sdist}}
+\doxysubsubsection{\texorpdfstring{INSTALL\_OPTIONS}{INSTALL\_OPTIONS}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1tests_1_1integration_1_1test__pip__install__sdist_ad8ad06eaaa0c0b1db5b55c4876a6bed1} 
+tuple setuptools.\+tests.\+integration.\+test\+\_\+pip\+\_\+install\+\_\+sdist.\+INSTALL\+\_\+\+OPTIONS}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}-\/-\/ignore-\/installed"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{"{}-\/-\/no-\/build-\/isolation"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{comment}{\#\ Omit\ "{}-\/-\/no-\/binary\ :all:"{}\ the\ sdist\ is\ supplied\ directly.}}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{comment}{\#\ Allows\ dependencies\ as\ wheels.}}
+\DoxyCodeLine{00006\ )}
+
+\end{DoxyCode}

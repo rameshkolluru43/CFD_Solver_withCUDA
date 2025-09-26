@@ -1,0 +1,117 @@
+\doxysection{qiskit.\+qasm3.\+exporter.\+Exporter Class Reference}
+\hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter}{}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter}\index{qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_adb6cdc304a5ad0678d8b55caa5d1c0df}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Sequence\mbox{[}str\mbox{]} includes=("{}stdgates.\+inc"{},), Sequence\mbox{[}str\mbox{]} basis\+\_\+gates=("{}U"{},), bool disable\+\_\+constants=False, bool alias\+\_\+classical\+\_\+registers=None, bool allow\+\_\+aliasing=None, str indent="{}  "{}, \mbox{\hyperlink{classqiskit_1_1qasm3_1_1experimental_1_1_experimental_features}{Experimental\+Features}} experimental=\mbox{\hyperlink{classqiskit_1_1qasm3_1_1experimental_1_1_experimental_features}{Experimental\+Features}}(0))
+\item 
+\mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_acf163b4b4ea40901f78797e5beff2e60}{dumps}} (self, circuit)
+\item 
+\mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_a6a7df306665efedd8de092c47241f8fe}{dump}} (self, circuit, stream)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_abcbc0e1c9682e95620543c7a1e000462}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_abcbc0e1c9682e95620543c7a1e000462} 
+{\bfseries basis\+\_\+gates} = basis\+\_\+gates
+\item 
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ab56cb0fdfc21f3230ea429acd2ed3684}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ab56cb0fdfc21f3230ea429acd2ed3684} 
+{\bfseries disable\+\_\+constants} = disable\+\_\+constants
+\item 
+tuple \mbox{\hyperlink{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ab7f8b6449198471ccadfe75ad37b2c61}{allow\+\_\+aliasing}}
+\item 
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ac1ad7cb731bc7f62877bce9d623f7760}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ac1ad7cb731bc7f62877bce9d623f7760} 
+{\bfseries includes} = list(includes)
+\item 
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_a760f768379225330f336613ebd3e5647}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_a760f768379225330f336613ebd3e5647} 
+{\bfseries indent} = indent
+\item 
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_aaa0b4161eb544fec7199faf2f6e1637f}\label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_aaa0b4161eb544fec7199faf2f6e1637f} 
+{\bfseries experimental} = experimental
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}QASM3 exporter main class.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_adb6cdc304a5ad0678d8b55caa5d1c0df}\index{qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_adb6cdc304a5ad0678d8b55caa5d1c0df} 
+qiskit.\+qasm3.\+exporter.\+Exporter.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Sequence\mbox{[}str\mbox{]} }]{includes}{ = {\ttfamily ("{}stdgates.inc"{},)}, }\item[{Sequence\mbox{[}str\mbox{]} }]{basis\+\_\+gates}{ = {\ttfamily ("{}U"{},)}, }\item[{bool }]{disable\+\_\+constants}{ = {\ttfamily False}, }\item[{bool }]{alias\+\_\+classical\+\_\+registers}{ = {\ttfamily None}, }\item[{bool }]{allow\+\_\+aliasing}{ = {\ttfamily None}, }\item[{str }]{indent}{ = {\ttfamily "{}~~"{}}, }\item[{\mbox{\hyperlink{classqiskit_1_1qasm3_1_1experimental_1_1_experimental_features}{Experimental\+Features}} }]{experimental}{ = {\ttfamily \mbox{\hyperlink{classqiskit_1_1qasm3_1_1experimental_1_1_experimental_features}{Experimental\+Features}}(0)}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    includes: the filenames that should be emitted as includes.
+
+        .. note::
+
+            At present, only the standard-library file ``stdgates.inc`` is properly
+            understood by the exporter, in the sense that it knows the gates it defines.
+            You can specify other includes, but you will need to pass the names of the gates
+            they define in the ``basis_gates`` argument to avoid the exporter outputting a
+            separate ``gate`` definition.
+
+    basis_gates: the basic defined gate set of the backend.
+    disable_constants: if ``True``, always emit floating-point constants for numeric
+        parameter values.  If ``False`` (the default), then values close to multiples of
+        OpenQASM 3 constants (``pi``, ``euler``, and ``tau``) will be emitted in terms of those
+        constants instead, potentially improving accuracy in the output.
+    alias_classical_registers: If ``True``, then bits may be contained in more than one
+        register.  If so, the registers will be emitted using "alias" definitions, which
+        might not be well supported by consumers of OpenQASM 3.
+
+        .. seealso::
+            Parameter ``allow_aliasing``
+                A value for ``allow_aliasing`` overrides any value given here, and
+                supersedes this parameter.
+    allow_aliasing: If ``True``, then bits may be contained in more than one register.  If
+        so, the registers will be emitted using "alias" definitions, which might not be
+        well supported by consumers of OpenQASM 3.  Defaults to ``False`` or the value of
+        ``alias_classical_registers``.
+
+        .. versionadded:: 0.25.0
+    indent: the indentation string to use for each level within an indented block.  Can be
+        set to the empty string to disable indentation.
+    experimental: any experimental features to enable during the export.  See
+        :class:`ExperimentalFeatures` for more details.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_a6a7df306665efedd8de092c47241f8fe}\index{qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}!dump@{dump}}
+\index{dump@{dump}!qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_a6a7df306665efedd8de092c47241f8fe} 
+qiskit.\+qasm3.\+exporter.\+Exporter.\+dump (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{circuit}{, }\item[{}]{stream}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert the circuit to OpenQASM 3, dumping the result to a file or text stream.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_acf163b4b4ea40901f78797e5beff2e60}\index{qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}!dumps@{dumps}}
+\index{dumps@{dumps}!qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}}
+\doxysubsubsection{\texorpdfstring{dumps()}{dumps()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_acf163b4b4ea40901f78797e5beff2e60} 
+qiskit.\+qasm3.\+exporter.\+Exporter.\+dumps (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{circuit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert the circuit to OpenQASM 3, returning the result as a string.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ab7f8b6449198471ccadfe75ad37b2c61}\index{qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}!allow\_aliasing@{allow\_aliasing}}
+\index{allow\_aliasing@{allow\_aliasing}!qiskit.qasm3.exporter.Exporter@{qiskit.qasm3.exporter.Exporter}}
+\doxysubsubsection{\texorpdfstring{allow\_aliasing}{allow\_aliasing}}
+{\footnotesize\ttfamily \label{classqiskit_1_1qasm3_1_1exporter_1_1_exporter_ab7f8b6449198471ccadfe75ad37b2c61} 
+tuple qiskit.\+qasm3.\+exporter.\+Exporter.\+allow\+\_\+aliasing}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ (}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ allow\_aliasing\ \textcolor{keywordflow}{if}\ allow\_aliasing\ \textcolor{keywordflow}{is}\ \textcolor{keywordflow}{not}\ \textcolor{keywordtype}{None}\ \textcolor{keywordflow}{else}\ (alias\_classical\_registers\ \textcolor{keywordflow}{or}\ \textcolor{keyword}{False})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/qasm3/exporter.\+py\end{DoxyCompactItemize}

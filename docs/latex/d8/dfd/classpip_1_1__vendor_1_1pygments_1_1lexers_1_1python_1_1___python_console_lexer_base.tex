@@ -1,0 +1,65 @@
+\doxysection{pip.\+\_\+vendor.\+pygments.\+lexers.\+python.\+\_\+\+Python\+Console\+Lexer\+Base Class Reference}
+\hypertarget{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base}{}\label{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base}\index{pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase@{pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase}}
+Inheritance diagram for pip.\+\_\+vendor.\+pygments.\+lexers.\+python.\+\_\+\+Python\+Console\+Lexer\+Base\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.837270cm]{d8/dfd/classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a32910376a86e15d02f2ef8b44d71b71a}\label{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a32910376a86e15d02f2ef8b44d71b71a} 
+str {\bfseries name} = \textquotesingle{}Python console session\textquotesingle{}
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a67c75aafb8756229154ee74398aa476d}\label{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a67c75aafb8756229154ee74398aa476d} 
+list {\bfseries aliases} = \mbox{[}\textquotesingle{}pycon\textquotesingle{}, \textquotesingle{}python-\/console\textquotesingle{}\mbox{]}
+\item 
+\Hypertarget{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a304620ec7b3b4dfb5bd43ff2e83221e1}\label{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a304620ec7b3b4dfb5bd43ff2e83221e1} 
+list {\bfseries mimetypes} = \mbox{[}\textquotesingle{}text/x-\/python-\/doctest\textquotesingle{}\mbox{]}
+\item 
+dict \mbox{\hyperlink{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a8bbf8948b8398c232c20bce13f2132ea_a8bbf8948b8398c232c20bce13f2132ea}{tokens}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a8bbf8948b8398c232c20bce13f2132ea_a8bbf8948b8398c232c20bce13f2132ea}\index{pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase@{pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase}!tokens@{tokens}}
+\index{tokens@{tokens}!pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase@{pip.\_vendor.pygments.lexers.python.\_PythonConsoleLexerBase}}
+\doxysubsubsection{\texorpdfstring{tokens}{tokens}}
+{\footnotesize\ttfamily \label{classpip_1_1__vendor_1_1pygments_1_1lexers_1_1python_1_1___python_console_lexer_base_a8bbf8948b8398c232c20bce13f2132ea_a8bbf8948b8398c232c20bce13f2132ea} 
+dict pip.\+\_\+vendor.\+pygments.\+lexers.\+python.\+\_\+\+Python\+Console\+Lexer\+Base.\+tokens\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'root'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(>>>\ )(.*\(\backslash\)n)'},\ bygroups(Generic.Prompt,\ Other.Code),\ \textcolor{stringliteral}{'continuations'}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ This\ happens,\ e.g.,\ when\ tracebacks\ are\ embedded\ in\ documentation;}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ trailing\ whitespaces\ are\ often\ stripped\ in\ such\ contexts.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(>>>)(\(\backslash\)n)'},\ bygroups(Generic.Prompt,\ Whitespace)),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(\(\backslash\)\string^C)?Traceback\ \(\backslash\)(most\ recent\ call\ last\(\backslash\)):\(\backslash\)n'},\ Other.Traceback,\ \textcolor{stringliteral}{'traceback'}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ SyntaxError\ starts\ with\ this}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'\ \ File\ "{}[\string^"{}]+"{},\ line\ \(\backslash\)d+'},\ Other.Traceback,\ \textcolor{stringliteral}{'traceback'}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'.*\(\backslash\)n'},\ Generic.Output),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'continuations'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(\(\backslash\).\(\backslash\).\(\backslash\).\ )(.*\(\backslash\)n)'},\ bygroups(Generic.Prompt,\ Other.Code)),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ See\ above.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(\(\backslash\).\(\backslash\).\(\backslash\).)(\(\backslash\)n)'},\ bygroups(Generic.Prompt,\ Whitespace)),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ default(\textcolor{stringliteral}{'\#pop'}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{'traceback'}:\ [}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ As\ soon\ as\ we\ see\ a\ traceback,\ consume\ everything\ until\ the\ next}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{\#\ >>>\ prompt.}}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(?=>>>(\ |\$))'},\ Text,\ \textcolor{stringliteral}{'\#pop'}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'(KeyboardInterrupt)(\(\backslash\)n)'},\ bygroups(Name.Class,\ Whitespace)),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{stringliteral}{r'.*\(\backslash\)n'},\ Other.Traceback),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ ],}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/pip/\+\_\+vendor/pygments/lexers/python.\+py\end{DoxyCompactItemize}

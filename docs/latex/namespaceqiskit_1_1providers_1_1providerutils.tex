@@ -1,0 +1,69 @@
+\doxysection{qiskit.\+providers.\+providerutils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1providers_1_1providerutils}{}\label{namespaceqiskit_1_1providers_1_1providerutils}\index{qiskit.providers.providerutils@{qiskit.providers.providerutils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1providerutils_acfa57df1b1acb52341e825fc63d386ce}{filter\+\_\+backends}} (list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} backends, Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]}, bool\mbox{]}\texorpdfstring{$\vert$}{|}None filters=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1providers_1_1providerutils_ac98ca02f28c9a472b1109a59c2f19b71}{resolve\+\_\+backend\+\_\+name}} (str name, list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} backends, dict\mbox{[}str, str\mbox{]} deprecated, dict\mbox{[}str, list\mbox{[}str\mbox{]}\mbox{]} aliased)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1providers_1_1providerutils_acc0f585569c45e031810d2b985d7cc84}\label{namespaceqiskit_1_1providers_1_1providerutils_acc0f585569c45e031810d2b985d7cc84} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utilities for providers.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1providers_1_1providerutils_acfa57df1b1acb52341e825fc63d386ce}\index{qiskit.providers.providerutils@{qiskit.providers.providerutils}!filter\_backends@{filter\_backends}}
+\index{filter\_backends@{filter\_backends}!qiskit.providers.providerutils@{qiskit.providers.providerutils}}
+\doxysubsubsection{\texorpdfstring{filter\_backends()}{filter\_backends()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1providerutils_acfa57df1b1acb52341e825fc63d386ce} 
+ list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} qiskit.\+providers.\+providerutils.\+filter\+\_\+backends (\begin{DoxyParamCaption}\item[{list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]}}]{backends}{, }\item[{Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]}, bool\mbox{]} \texorpdfstring{$\vert$}{|} None }]{filters}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the backends matching the specified filtering.
+
+Filter the `backends` list by their `configuration` or `status`
+attributes, or from a boolean callable. The criteria for filtering can
+be specified via `**kwargs` or as a callable via `filters`, and the
+backends must fulfill all specified conditions.
+
+Args:
+    backends (list[Backend]): list of backends.
+    filters (callable): filtering conditions as a callable.
+    **kwargs: dict of criteria.
+
+Returns:
+    list[Backend]: a list of backend instances matching the
+        conditions.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1providers_1_1providerutils_ac98ca02f28c9a472b1109a59c2f19b71}\index{qiskit.providers.providerutils@{qiskit.providers.providerutils}!resolve\_backend\_name@{resolve\_backend\_name}}
+\index{resolve\_backend\_name@{resolve\_backend\_name}!qiskit.providers.providerutils@{qiskit.providers.providerutils}}
+\doxysubsubsection{\texorpdfstring{resolve\_backend\_name()}{resolve\_backend\_name()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1providers_1_1providerutils_ac98ca02f28c9a472b1109a59c2f19b71} 
+ str qiskit.\+providers.\+providerutils.\+resolve\+\_\+backend\+\_\+name (\begin{DoxyParamCaption}\item[{str}]{name}{, }\item[{list\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]}}]{backends}{, }\item[{dict\mbox{[}str, str\mbox{]}}]{deprecated}{, }\item[{dict\mbox{[}str, list\mbox{[}str\mbox{]}\mbox{]} }]{aliased}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Resolve backend name from a deprecated name or an alias.
+
+A group will be resolved in order of member priorities, depending on
+availability.
+
+Args:
+    name (str): name of backend to resolve
+    backends (list[Backend]): list of available backends.
+    deprecated (dict[str: str]): dict of deprecated names.
+    aliased (dict[str: list[str]]): dict of aliased names.
+
+Returns:
+    str: resolved name (name of an available backend)
+
+Raises:
+    LookupError: if name cannot be resolved through regular available
+        names, nor deprecated, nor alias names.
+\end{DoxyVerb}
+ 

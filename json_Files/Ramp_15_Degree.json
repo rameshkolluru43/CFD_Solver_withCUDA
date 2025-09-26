@@ -1,0 +1,54 @@
+{
+  "GeneralDetails":{
+                    "name": "Ramp_15_Degree",
+                    "description": "15 Degree Ramp Geometry for supersonic flow analysis"
+                  },
+  "geometry_parameters": {
+                          "ramp_angle": 15.0,
+                          "length": 0.7,
+                          "thickness": 0.1
+                          },
+  "mesh_parameters": {
+                        "Grid_Size": 1,
+                        "Nx": 241,
+                        "Ny": 81,
+                        "mesh_type": "structured"
+                      },
+  "Flow_Conditions": {
+                      "inlet_conditions": {
+                                          "inlet_type" : "supersonic",
+                                          "Pressure_Static_Inlet": 0.714,
+                                          "Rho_Static_Inlet": 1.0,
+                                          "Inlet_Mach_No": 2.0,
+                                          "u": 2.0,
+                                          "v": 0.0
+                                          },  
+                      "exit_conditions": {
+                                          "exit_type" : "supersonic",
+                                          "Pressure_Static_Exit": 0.714,
+                                          "Rho_Static_Exit": 1.0,
+                                          "Exit_Mach_No": 2.0,
+                                          "u": 2.0,
+                                          "v": 0.0
+                                          }, 
+                      "wall_conditions": {
+                                          "wall_type" : "slip",
+                                          "wall_temperature": 288.0,
+                                          "wall_velocity": 0.0
+                                          },
+                      "Initial_Conditions": {
+                                            "Pressure_Static_Inlet" : 0.714,
+                                            "Rho_Static_Inlet" : 1.0,
+                                            "Inlet_Mach_No" : 2.0,
+                                            "u" : 2.0,
+                                            "v" : 0.0
+                                            }
+                        },
+  "viscous_parameters": {
+                          "Reynolds_number": 386551.2,
+                          "Prandtl_number": 0.72,
+                          "Reference_Mach": 11.63,
+                          "Reference_Length": 0.7,
+                          "viscous_enabled": false
+                        }
+}

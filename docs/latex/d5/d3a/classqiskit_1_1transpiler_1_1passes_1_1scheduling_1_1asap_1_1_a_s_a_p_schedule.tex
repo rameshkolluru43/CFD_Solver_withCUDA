@@ -1,0 +1,98 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+asap.\+ASAPSchedule Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule}\index{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule@{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+asap.\+ASAPSchedule\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.163355cm]{d5/d3a/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a3020969687cec7348783eb38808c91e0_a3020969687cec7348783eb38808c91e0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a94263759597b205956091bef282ea5e9_a94263759597b205956091bef282ea5e9}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_ada77a73ab0279b25c04bfdf3cb830d28}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_ada77a73ab0279b25c04bfdf3cb830d28} 
+{\bfseries CONDITIONAL\+\_\+\+SUPPORTED}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}ASAP Scheduling pass, which schedules the start time of instructions as early as possible..
+
+See :class:`~qiskit.transpiler.passes.scheduling.base_scheduler.BaseSchedulerTransform` for the
+detailed behavior of the control flow operation, i.e. ``c_if``.
+
+.. note::
+
+    This base class has been superseded by :class:`~.ASAPScheduleAnalysis` and
+    the new scheduling workflow. It will be deprecated and subsequently
+    removed in a future release.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a3020969687cec7348783eb38808c91e0_a3020969687cec7348783eb38808c91e0}\index{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule@{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.asap.ASAPSchedule@{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a3020969687cec7348783eb38808c91e0_a3020969687cec7348783eb38808c91e0} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+asap.\+ASAPSchedule.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{durations}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{clbit\+\_\+write\+\_\+latency}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Scheduler initializer.
+
+Args:
+    durations: Durations of instructions to be used in scheduling
+    clbit_write_latency: A control flow constraints. Because standard superconducting
+        quantum processor implement dispersive QND readout, the actual data transfer
+        to the clbit happens after the round-trip stimulus signal is buffered
+        and discriminated into quantum state.
+        The interval ``[t0, t0 + clbit_write_latency]`` is regarded as idle time
+        for clbits associated with the measure instruction.
+        This defaults to 0 dt which is identical to Qiskit Pulse scheduler.
+    conditional_latency: A control flow constraints. This value represents
+        a latency of reading a classical register for the conditional operation.
+        The gate operation occurs after this latency. This appears as a delay
+        in front of the DAGOpNode of the gate.
+        This defaults to 0 dt.
+    target: The :class:`~.Target` representing the target backend, if both
+        ``durations`` and this are specified then this argument will take
+        precedence and ``durations`` will be ignored.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1base__scheduler_1_1_base_scheduler_transform_a728b26514f7f180c2bb66e194a9eb147_a728b26514f7f180c2bb66e194a9eb147}{qiskit.\+transpiler.\+passes.\+scheduling.\+base\+\_\+scheduler.\+Base\+Scheduler\+Transform}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a94263759597b205956091bef282ea5e9_a94263759597b205956091bef282ea5e9}\index{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule@{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.asap.ASAPSchedule@{qiskit.transpiler.passes.scheduling.asap.ASAPSchedule}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1asap_1_1_a_s_a_p_schedule_a94263759597b205956091bef282ea5e9_a94263759597b205956091bef282ea5e9} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+asap.\+ASAPSchedule.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the ASAPSchedule pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to schedule.
+
+Returns:
+    DAGCircuit: A scheduled DAG.
+
+Raises:
+    TranspilerError: if the circuit is not mapped on physical qubits.
+    TranspilerError: if conditional bit is added to non-supported instruction.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1base__scheduler_1_1_base_scheduler_transform_afc5c004ae12072f8a9bc2ba7f49473c9_afc5c004ae12072f8a9bc2ba7f49473c9}{qiskit.\+transpiler.\+passes.\+scheduling.\+base\+\_\+scheduler.\+Base\+Scheduler\+Transform}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/asap.\+py\end{DoxyCompactItemize}

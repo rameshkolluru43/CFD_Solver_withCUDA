@@ -1,0 +1,100 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+GMS Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s}\index{qiskit.circuit.library.generalized\_gates.gms.GMS@{qiskit.circuit.library.generalized\_gates.gms.GMS}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+GMS\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d8/d35/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_a912eb5a9616da9d00e09075eeb310655_a912eb5a9616da9d00e09075eeb310655}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, list\mbox{[}list\mbox{[}float\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}np.\+ndarray theta)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_ab9fa4a1bc29f625817c075cc793dac22}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_ab9fa4a1bc29f625817c075cc793dac22} 
+{\bfseries num\+\_\+qubits}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_a44d474809b59d19ecd4d901f1f50989c}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_a44d474809b59d19ecd4d901f1f50989c} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Global Mølmer–Sørensen gate.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌───────────┐
+    q_0: ┤0          ├
+         │           │
+    q_1: ┤1   GMS    ├
+         │           │
+    q_2: ┤2          ├
+         └───────────┘
+
+**Expanded Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import GMS
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   import numpy as np
+   circuit = GMS(num_qubits=3, theta=[[0, np.pi/4, np.pi/8],
+                                      [0, 0, np.pi/2],
+                                      [0, 0, 0]])
+   _generate_circuit_library_visualization(circuit.decompose())
+
+The Mølmer–Sørensen gate is native to ion-trap systems. The global MS
+can be applied to multiple ions to entangle multiple qubits simultaneously [1].
+
+In the two-qubit case, this is equivalent to an XX(theta) interaction,
+and is thus reduced to the RXXGate. The global MS gate is a sum of XX
+interactions on all pairs [2].
+
+.. math::
+
+    GMS(\chi_{12}, \chi_{13}, ..., \chi_{n-1 n}) =
+    exp(-i \sum_{i=1}^{n} \sum_{j=i+1}^{n} X{\otimes}X \frac{\chi_{ij}}{2})
+
+**References:**
+
+[1] Sørensen, A. and Mølmer, K., Multi-particle entanglement of hot trapped ions.
+Physical Review Letters. 82 (9): 1835–1838.
+`arXiv:9810040 <https://arxiv.org/abs/quant-ph/9810040>`_
+
+[2] Maslov, D. and Nam, Y., Use of global interactions in efficient quantum circuit
+constructions. New Journal of Physics, 20(3), p.033018.
+`arXiv:1707.06356 <https://arxiv.org/abs/1707.06356>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_a912eb5a9616da9d00e09075eeb310655_a912eb5a9616da9d00e09075eeb310655}\index{qiskit.circuit.library.generalized\_gates.gms.GMS@{qiskit.circuit.library.generalized\_gates.gms.GMS}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.gms.GMS@{qiskit.circuit.library.generalized\_gates.gms.GMS}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_g_m_s_a912eb5a9616da9d00e09075eeb310655_a912eb5a9616da9d00e09075eeb310655} 
+ None qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+GMS.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{list\mbox{[}list\mbox{[}float\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} np.\+ndarray}]{theta}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new Global Mølmer–Sørensen (GMS) gate.
+
+Args:
+    num_qubits: width of gate.
+    theta: a num_qubits x num_qubits symmetric matrix of
+        interaction angles for each qubit pair. The upper
+        triangle is considered.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/gms.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,53 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+util Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util}{}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util}\index{qiskit.transpiler.passes.routing.algorithms.util@{qiskit.transpiler.passes.routing.algorithms.util}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_ae9ac59df142c9b09c31d4f8a537ca9e6_ae9ac59df142c9b09c31d4f8a537ca9e6}{swap\+\_\+permutation}} (Iterable\mbox{[}Iterable\mbox{[}Swap\mbox{[}\+\_\+K\mbox{]}\mbox{]}\mbox{]} swaps, Mutable\+Mapping\mbox{[}\+\_\+K, \+\_\+V\mbox{]} mapping, bool allow\+\_\+missing\+\_\+keys=False)
+\item 
+Permutation\+Circuit \mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a137970a352f2bccfccb8b1a81e480032_a137970a352f2bccfccb8b1a81e480032}{permutation\+\_\+circuit}} (Iterable\mbox{[}list\mbox{[}Swap\mbox{[}\+\_\+V\mbox{]}\mbox{]}\mbox{]} swaps)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a6de3fc72492ac2b8041b791868540a9f}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a6de3fc72492ac2b8041b791868540a9f} 
+{\bfseries \+\_\+K} = Type\+Var("{}\+\_\+\+K"{})
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a42df129aae5aa421ce325d3f6b1e2833}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a42df129aae5aa421ce325d3f6b1e2833} 
+{\bfseries \+\_\+V} = Type\+Var("{}\+\_\+\+V"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions shared between permutation functionality.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a137970a352f2bccfccb8b1a81e480032_a137970a352f2bccfccb8b1a81e480032}\index{qiskit.transpiler.passes.routing.algorithms.util@{qiskit.transpiler.passes.routing.algorithms.util}!permutation\_circuit@{permutation\_circuit}}
+\index{permutation\_circuit@{permutation\_circuit}!qiskit.transpiler.passes.routing.algorithms.util@{qiskit.transpiler.passes.routing.algorithms.util}}
+\doxysubsubsection{\texorpdfstring{permutation\_circuit()}{permutation\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_a137970a352f2bccfccb8b1a81e480032_a137970a352f2bccfccb8b1a81e480032} 
+ Permutation\+Circuit qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+util.\+permutation\+\_\+circuit (\begin{DoxyParamCaption}\item[{Iterable\mbox{[}list\mbox{[}Swap\mbox{[}\+\_\+V\mbox{]}\mbox{]}\mbox{]}}]{swaps}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Produce a circuit description of a list of swaps.
+    With a given permutation and permuter you can compute the swaps using the permuter function
+    then feed it into this circuit function to obtain a circuit description.
+Args:
+  swaps: An iterable of swaps to perform.
+Returns:
+  A MappingCircuit with the circuit and a mapping of node to qubit in the circuit.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_ae9ac59df142c9b09c31d4f8a537ca9e6_ae9ac59df142c9b09c31d4f8a537ca9e6}\index{qiskit.transpiler.passes.routing.algorithms.util@{qiskit.transpiler.passes.routing.algorithms.util}!swap\_permutation@{swap\_permutation}}
+\index{swap\_permutation@{swap\_permutation}!qiskit.transpiler.passes.routing.algorithms.util@{qiskit.transpiler.passes.routing.algorithms.util}}
+\doxysubsubsection{\texorpdfstring{swap\_permutation()}{swap\_permutation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1util_ae9ac59df142c9b09c31d4f8a537ca9e6_ae9ac59df142c9b09c31d4f8a537ca9e6} 
+ None qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+util.\+swap\+\_\+permutation (\begin{DoxyParamCaption}\item[{Iterable\mbox{[}Iterable\mbox{[}Swap\mbox{[}\+\_\+K\mbox{]}\mbox{]}\mbox{]}}]{swaps}{, }\item[{Mutable\+Mapping\mbox{[}\+\_\+K, \+\_\+V\mbox{]}}]{mapping}{, }\item[{bool }]{allow\+\_\+missing\+\_\+keys}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a circuit of swaps, apply them to the permutation (in-place).
+
+Args:
+  swaps: param mapping: A mapping of Keys to Values, where the Keys are being swapped.
+  mapping: The permutation to have swaps applied to.
+  allow_missing_keys: Whether to allow swaps of missing keys in mapping.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,106 @@
+\doxysection{importlib\+\_\+metadata.\+\_\+text.\+Folded\+Case Class Reference}
+\hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case}{}\label{classimportlib__metadata_1_1__text_1_1_folded_case}\index{importlib\_metadata.\_text.FoldedCase@{importlib\_metadata.\_text.FoldedCase}}
+Inheritance diagram for importlib\+\_\+metadata.\+\_\+text.\+Folded\+Case\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d4/d7c/classimportlib__metadata_1_1__text_1_1_folded_case}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_aa42713923f615373f10c62021d23b06a}\label{classimportlib__metadata_1_1__text_1_1_folded_case_aa42713923f615373f10c62021d23b06a} 
+{\bfseries \+\_\+\+\_\+lt\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_a0082bd0c59d6e6f2fd2584d4f2f2f678}\label{classimportlib__metadata_1_1__text_1_1_folded_case_a0082bd0c59d6e6f2fd2584d4f2f2f678} 
+{\bfseries \+\_\+\+\_\+gt\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_ac431d4edee869a94f0db0c1a41e0c1c5}\label{classimportlib__metadata_1_1__text_1_1_folded_case_ac431d4edee869a94f0db0c1a41e0c1c5} 
+{\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_a16a2046d445ffa8bde7958db2a7b2174}\label{classimportlib__metadata_1_1__text_1_1_folded_case_a16a2046d445ffa8bde7958db2a7b2174} 
+{\bfseries \+\_\+\+\_\+ne\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_aa12fbff19aa6485eac29d1e0cb2d7c40}\label{classimportlib__metadata_1_1__text_1_1_folded_case_aa12fbff19aa6485eac29d1e0cb2d7c40} 
+{\bfseries \+\_\+\+\_\+hash\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_a4c632aa85954a333782255b2c9c83f4f}\label{classimportlib__metadata_1_1__text_1_1_folded_case_a4c632aa85954a333782255b2c9c83f4f} 
+{\bfseries \+\_\+\+\_\+contains\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_aed9e01f41830ed456ffa7def27896e9c}\label{classimportlib__metadata_1_1__text_1_1_folded_case_aed9e01f41830ed456ffa7def27896e9c} 
+{\bfseries in\+\_\+} (self, other)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_a0057556356d122b7ce698a33210d9f4b}\label{classimportlib__metadata_1_1__text_1_1_folded_case_a0057556356d122b7ce698a33210d9f4b} 
+{\bfseries lower} (self)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_ad0cdaf99fc1eb66c0bb8b91878d40a5c}\label{classimportlib__metadata_1_1__text_1_1_folded_case_ad0cdaf99fc1eb66c0bb8b91878d40a5c} 
+{\bfseries index} (self, sub)
+\item 
+\Hypertarget{classimportlib__metadata_1_1__text_1_1_folded_case_af54cfb6b6d19b12c28732ebcf0809447}\label{classimportlib__metadata_1_1__text_1_1_folded_case_af54cfb6b6d19b12c28732ebcf0809447} 
+{\bfseries split} (self, splitter=\textquotesingle{} \textquotesingle{}, maxsplit=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A case insensitive string class; behaves just like str
+except compares equal when the only variation is case.
+
+>>> s = FoldedCase('hello world')
+
+>>> s == 'Hello World'
+True
+
+>>> 'Hello World' == s
+True
+
+>>> s != 'Hello World'
+False
+
+>>> s.index('O')
+4
+
+>>> s.split('O')
+['hell', ' w', 'rld']
+
+>>> sorted(map(FoldedCase, ['GAMMA', 'alpha', 'Beta']))
+['alpha', 'Beta', 'GAMMA']
+
+Sequence membership is straightforward.
+
+>>> "Hello World" in [s]
+True
+>>> s in ["Hello World"]
+True
+
+You may test for set inclusion, but candidate and elements
+must both be folded.
+
+>>> FoldedCase("Hello World") in {s}
+True
+>>> s in {FoldedCase("Hello World")}
+True
+
+String inclusion works as long as the FoldedCase object
+is on the right.
+
+>>> "hello" in FoldedCase("Hello World")
+True
+
+But not if the FoldedCase object is on the left:
+
+>>> FoldedCase('hello') in 'Hello World'
+False
+
+In that case, use in_:
+
+>>> FoldedCase('hello').in_('Hello World')
+True
+
+>>> FoldedCase('hello') > FoldedCase('Hello')
+False
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/importlib\+\_\+metadata/\+\_\+text.\+py\end{DoxyCompactItemize}

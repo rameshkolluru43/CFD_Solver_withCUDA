@@ -1,0 +1,117 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+time\+\_\+unit\+\_\+conversion.\+Time\+Unit\+Conversion Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion}\index{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+time\+\_\+unit\+\_\+conversion.\+Time\+Unit\+Conversion\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.862528cm]{d0/dbe/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a17952f4cec0eef7ac64d1a69b19744e3_a17952f4cec0eef7ac64d1a69b19744e3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1instruction__durations_1_1_instruction_durations}{Instruction\+Durations}} inst\+\_\+durations=None, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_afe3e0c76c681918bb0344471c938b919_afe3e0c76c681918bb0344471c938b919}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a95b7fc4d0911b526ea788c2f55c76851}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a95b7fc4d0911b526ea788c2f55c76851} 
+{\bfseries inst\+\_\+durations} = inst\+\_\+durations or \mbox{\hyperlink{classqiskit_1_1transpiler_1_1instruction__durations_1_1_instruction_durations}{Instruction\+Durations}}()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_aa1bd71d303d132d45df402f5659152c0_aa1bd71d303d132d45df402f5659152c0}{\+\_\+update\+\_\+inst\+\_\+durations}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_afb778af74dff9c7d07e1a017c2589f88}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_afb778af74dff9c7d07e1a017c2589f88} 
+Set\mbox{[}str\mbox{]} {\bfseries \+\_\+units\+\_\+used\+\_\+in\+\_\+delays} (DAGCircuit dag)
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_ab80135bcdd2d95ca9d71a474f757baa1}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_ab80135bcdd2d95ca9d71a474f757baa1} 
+str {\bfseries \+\_\+unified} (Set\mbox{[}str\mbox{]} unit\+\_\+set)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a5aa40aa5df991969af4bfc3413fac029}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a5aa40aa5df991969af4bfc3413fac029} 
+{\bfseries \+\_\+durations\+\_\+provided} = inst\+\_\+durations is not None or target is not None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Choose a time unit to be used in the following time-aware passes,
+and make all circuit time units consistent with that.
+
+This pass will add a :attr:`.Instruction.duration` metadata to each op whose duration is known
+which will be used by subsequent scheduling passes for scheduling.
+
+If ``dt`` (in seconds) is known to transpiler, the unit ``'dt'`` is chosen. Otherwise,
+the unit to be selected depends on what units are used in delays and instruction durations:
+
+* ``'s'``: if they are all in SI units.
+* ``'dt'``: if they are all in the unit ``'dt'``.
+* raise error: if they are a mix of SI units and ``'dt'``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a17952f4cec0eef7ac64d1a69b19744e3_a17952f4cec0eef7ac64d1a69b19744e3}\index{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_a17952f4cec0eef7ac64d1a69b19744e3_a17952f4cec0eef7ac64d1a69b19744e3} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+time\+\_\+unit\+\_\+conversion.\+Time\+Unit\+Conversion.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1instruction__durations_1_1_instruction_durations}{Instruction\+Durations}} }]{inst\+\_\+durations}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}TimeUnitAnalysis initializer.
+
+Args:
+    inst_durations (InstructionDurations): A dictionary of durations of instructions.
+    target: The :class:`~.Target` representing the target backend, if both
+          ``inst_durations`` and ``target`` are specified then this argument will take
+          precedence and ``inst_durations`` will be ignored.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_aa1bd71d303d132d45df402f5659152c0_aa1bd71d303d132d45df402f5659152c0}\index{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}!\_update\_inst\_durations@{\_update\_inst\_durations}}
+\index{\_update\_inst\_durations@{\_update\_inst\_durations}!qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}}
+\doxysubsubsection{\texorpdfstring{\_update\_inst\_durations()}{\_update\_inst\_durations()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_aa1bd71d303d132d45df402f5659152c0_aa1bd71d303d132d45df402f5659152c0} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+time\+\_\+unit\+\_\+conversion.\+Time\+Unit\+Conversion.\+\_\+update\+\_\+inst\+\_\+durations (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Update instruction durations with circuit information. If the dag contains gate
+calibrations and no instruction durations were provided through the target or as a
+standalone input, the circuit calibration durations will be used.
+The priority order for instruction durations is: target > standalone > circuit.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_afe3e0c76c681918bb0344471c938b919_afe3e0c76c681918bb0344471c938b919}\index{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion@{qiskit.transpiler.passes.scheduling.time\_unit\_conversion.TimeUnitConversion}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1time__unit__conversion_1_1_time_unit_conversion_afe3e0c76c681918bb0344471c938b919_afe3e0c76c681918bb0344471c938b919} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+time\+\_\+unit\+\_\+conversion.\+Time\+Unit\+Conversion.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the TimeUnitAnalysis pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to be checked.
+
+Returns:
+    DAGCircuit: DAG with consistent timing and op nodes annotated with duration.
+
+Raises:
+    TranspilerError: if the units are not unifiable
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/time\+\_\+unit\+\_\+conversion.\+py\end{DoxyCompactItemize}

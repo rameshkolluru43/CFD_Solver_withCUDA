@@ -1,0 +1,209 @@
+\doxysection{src/\+Exit\+\_\+\+Boundary\+\_\+\+Conditions.cpp File Reference}
+\hypertarget{_exit___boundary___conditions_8cpp}{}\label{_exit___boundary___conditions_8cpp}\index{src/Exit\_Boundary\_Conditions.cpp@{src/Exit\_Boundary\_Conditions.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Boundary\+\_\+\+Conditions.\+h"{}}\newline
+{\ttfamily \#include "{}Utilities.\+h"{}}\newline
+{\ttfamily \#include "{}Primitive\+\_\+\+Computational.\+h"{}}\newline
+Include dependency graph for Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d90/_exit___boundary___conditions_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c_a59fe8a866adf086e11dc4391cf24254c}{Subsonic\+\_\+\+Exit\+\_\+\+Boundary\+\_\+\+Condition}} (unsigned int \&i)
+\item 
+void \mbox{\hyperlink{_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d}{Supersonic\+\_\+\+Exit\+\_\+\+Boundary\+\_\+\+Condition}} (unsigned int \&i)
+\item 
+void \mbox{\hyperlink{_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67_a29091ef8150c158cbcea854d72488a67}{Subsonic\+\_\+\+Exit\+\_\+\+Condition}} (\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&\mbox{\hyperlink{_globals_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exit\+Cond}}, \mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&\mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\+\_\+\+Cells\+\_\+\+List}})
+\item 
+void \mbox{\hyperlink{_exit___boundary___conditions_8cpp_a6b87687bb24cf8bae9b67030a9e66904_a6b87687bb24cf8bae9b67030a9e66904}{Supersonic\+\_\+\+Exit\+\_\+\+Condition}} (\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&\mbox{\hyperlink{_globals_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exit\+Cond}}, \mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&\mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\+\_\+\+Cells\+\_\+\+List}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c_a59fe8a866adf086e11dc4391cf24254c}\index{Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}!Subsonic\_Exit\_Boundary\_Condition@{Subsonic\_Exit\_Boundary\_Condition}}
+\index{Subsonic\_Exit\_Boundary\_Condition@{Subsonic\_Exit\_Boundary\_Condition}!Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Subsonic\_Exit\_Boundary\_Condition()}{Subsonic\_Exit\_Boundary\_Condition()}}
+{\footnotesize\ttfamily \label{_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c_a59fe8a866adf086e11dc4391cf24254c} 
+void Subsonic\+\_\+\+Exit\+\_\+\+Boundary\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{unsigned int \&}]{i}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source}{Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00009\ \{}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0,\ index,\ Face\_No;}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ v1\ =\ 0.0,\ v2\ =\ 0.0,\ Rho\ =\ 0.0,\ n1\ =\ 0.0,\ n2\ =\ 0.0;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{double}\ rho\_f\ =\ 0.0,\ u\_f\ =\ 0.0,\ v\_f\ =\ 0.0,\ v\_mag\_f\ =\ 0.0,\ P\_f\ =\ 0.0,\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ =\ 0.0,\ temp\ =\ 0.0,\ rho\_Et;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{double}\ Rho\_o\ =\ 1.0,\ C\_o\ =\ 1.0;\ \textcolor{comment}{//\ Representing\ Free\ Stream\ Conditions}}
+\DoxyCodeLine{00014\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ U\_Face(5,\ 0.0);}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ values\ from\ the\ interior\ cell}}
+\DoxyCodeLine{00016\ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00017\ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}\(\backslash\)ncell\ indexat\ exit\(\backslash\)t"{}<<Cell\_Index<<endl;}}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Ghost\_Cell\_Index\ exit\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00021\ \ \ \ \ Rho\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0];}
+\DoxyCodeLine{00022\ \ \ \ \ v1\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1];}
+\DoxyCodeLine{00023\ \ \ \ \ v2\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2];}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][4];}
+\DoxyCodeLine{00025\ \ \ \ \ rho\_Et\ =\ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][6];}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}\(\backslash\)nRho\ v1\ v2\ P\ C\ rho\_Et\ at\ exit\(\backslash\)n"{}<<Rho<<"{}\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<"{}\(\backslash\)t"{}<<P<<"{}\(\backslash\)t"{}<<C<<"{}\(\backslash\)t"{}<<rho\_Et<<endl;}}
+\DoxyCodeLine{00028\ \ \ \ \ Face\_No\ =\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}[i\ +\ 1];}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ no\ on\ exit\ cell\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)n"{}<<endl;}}
+\DoxyCodeLine{00030\ \ \ \ \ index\ =\ Face\_No\ *\ 2;}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}index\(\backslash\)t"{}<<index<<endl;}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{comment}{/*n1=Cell\_Face\_Normals[Cell\_Index][index+0];}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ n2=Cell\_Face\_Normals[Cell\_Index][index+1];*/}}
+\DoxyCodeLine{00035\ \ \ \ \ n1\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[index\ +\ 0];}
+\DoxyCodeLine{00036\ \ \ \ \ n2\ =\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[index\ +\ 1];}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}normals\(\backslash\)t"{}<<n1<<"{}\(\backslash\)t"{}<<n2<<"{}\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ Pressure\ Value\ to\ be\ prescribed\ at\ the\ exit\ boundary}}
+\DoxyCodeLine{00040\ \ \ \ \ P\_f\ =\ 0.9\ /\ 1.4;\ \textcolor{comment}{//\ Pressure\_Static\_Exit;}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Pressure\_Static\_Exit<<endl;}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Rho\_o<<"{}\(\backslash\)t"{}<<C\_o<<endl;}}
+\DoxyCodeLine{00043\ \ \ \ \ temp\ =\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ -\/\ P\_f)\ /\ (Rho\_o\ *\ C\_o\ *\ C\_o);}
+\DoxyCodeLine{00044\ \ \ \ \ rho\_f\ =\ Rho\ -\/\ temp\ *\ Rho\_o;}
+\DoxyCodeLine{00045\ \ \ \ \ u\_f\ =\ v1\ +\ n1\ *\ temp\ *\ C\_o;}
+\DoxyCodeLine{00046\ \ \ \ \ v\_f\ =\ v2\ +\ n2\ *\ temp\ *\ C\_o;}
+\DoxyCodeLine{00047\ \ \ \ \ v\_mag\_f\ =\ 0.5\ *\ (u\_f\ *\ u\_f\ +\ v\_f\ *\ v\_f);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Values\ at\ exit\ boundary\(\backslash\)t"{}<<rho\_f<<"{}\(\backslash\)t"{}<<u\_f<<"{}\(\backslash\)t"{}<<v\_f<<"{}\(\backslash\)t"{}<<T\_f<<"{}\(\backslash\)t"{}<<P\_f<<endl;}}
+\DoxyCodeLine{00050\ \ \ \ \ U\_Face[0]\ =\ rho\_f;}
+\DoxyCodeLine{00051\ \ \ \ \ U\_Face[1]\ =\ rho\_f\ *\ u\_f;}
+\DoxyCodeLine{00052\ \ \ \ \ U\_Face[2]\ =\ rho\_f\ *\ v\_f;}
+\DoxyCodeLine{00053\ \ \ \ \ U\_Face[3]\ =\ ((P\_f\ /\ (\mbox{\hyperlink{headers_8hpp_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1.0))\ +\ rho\_f\ *\ v\_mag\_f);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ 2.0\ *\ U\_Face[0]\ -\/\ Rho;}
+\DoxyCodeLine{00056\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ 2.0\ *\ U\_Face[1]\ -\/\ Rho\ *\ v1;}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ 2.0\ *\ U\_Face[2]\ -\/\ Rho\ *\ v2;}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ 2.0\ *\ U\_Face[3]\ -\/\ rho\_Et;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{_primitive___computational_8h_af42607ca44a8dfe13e9a71c50b06a069_af42607ca44a8dfe13e9a71c50b06a069}{Calculate\_Primitive\_Variables}}(Cell\_Index,\ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{_globals_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}*******************Exit\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00066\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c_a59fe8a866adf086e11dc4391cf24254c_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67_a29091ef8150c158cbcea854d72488a67}\index{Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}!Subsonic\_Exit\_Condition@{Subsonic\_Exit\_Condition}}
+\index{Subsonic\_Exit\_Condition@{Subsonic\_Exit\_Condition}!Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Subsonic\_Exit\_Condition()}{Subsonic\_Exit\_Condition()}}
+{\footnotesize\ttfamily \label{_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67_a29091ef8150c158cbcea854d72488a67} 
+void Subsonic\+\_\+\+Exit\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&}]{exit\+Cond}{, }\item[{\mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&}]{Exit\+\_\+\+Cells\+\_\+\+List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source}{Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67_a29091ef8150c158cbcea854d72488a67_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d}\index{Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}!Supersonic\_Exit\_Boundary\_Condition@{Supersonic\_Exit\_Boundary\_Condition}}
+\index{Supersonic\_Exit\_Boundary\_Condition@{Supersonic\_Exit\_Boundary\_Condition}!Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Supersonic\_Exit\_Boundary\_Condition()}{Supersonic\_Exit\_Boundary\_Condition()}}
+{\footnotesize\ttfamily \label{_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d} 
+void Supersonic\+\_\+\+Exit\+\_\+\+Boundary\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{unsigned int \&}]{i}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source_l00068}{68}} of file \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source}{Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00069\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Applying\ Supersonic\ Exit\ Boundary\ Condition"{}<<endl;}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0;}
+\DoxyCodeLine{00072\ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00073\ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index].size();\ i++)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index][i];}
+\DoxyCodeLine{00076\ \ \ \ \ \mbox{\hyperlink{_primitive___computational_8h_af42607ca44a8dfe13e9a71c50b06a069_af42607ca44a8dfe13e9a71c50b06a069}{Calculate\_Primitive\_Variables}}(Ghost\_Cell\_Index,\ \mbox{\hyperlink{_globals_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00077\ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{_globals_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}*******************Exit\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_exit___boundary___conditions_8cpp_a6b87687bb24cf8bae9b67030a9e66904_a6b87687bb24cf8bae9b67030a9e66904}\index{Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}!Supersonic\_Exit\_Condition@{Supersonic\_Exit\_Condition}}
+\index{Supersonic\_Exit\_Condition@{Supersonic\_Exit\_Condition}!Exit\_Boundary\_Conditions.cpp@{Exit\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Supersonic\_Exit\_Condition()}{Supersonic\_Exit\_Condition()}}
+{\footnotesize\ttfamily \label{_exit___boundary___conditions_8cpp_a6b87687bb24cf8bae9b67030a9e66904_a6b87687bb24cf8bae9b67030a9e66904} 
+void Supersonic\+\_\+\+Exit\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&}]{exit\+Cond}{, }\item[{\mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&}]{Exit\+\_\+\+Cells\+\_\+\+List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source_l00087}{87}} of file \mbox{\hyperlink{_exit___boundary___conditions_8cpp_source}{Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00091\ \ \ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_exit___boundary___conditions_8cpp_aee793388170b1f1282aa7ada9cb1985d_aee793388170b1f1282aa7ada9cb1985d}{Supersonic\_Exit\_Boundary\_Condition}}(i);}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_a6b87687bb24cf8bae9b67030a9e66904_a6b87687bb24cf8bae9b67030a9e66904_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/d8d/_exit___boundary___conditions_8cpp_a6b87687bb24cf8bae9b67030a9e66904_a6b87687bb24cf8bae9b67030a9e66904_icgraph}
+\end{center}
+\end{figure}

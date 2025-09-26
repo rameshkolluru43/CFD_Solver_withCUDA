@@ -1,0 +1,132 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+align\+\_\+measures.\+Align\+Measures Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures}{}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures}\index{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures@{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+align\+\_\+measures.\+Align\+Measures\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.842105cm]{d8/d44/classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a41f45c5ea28555f1ba728403575ef539_a41f45c5ea28555f1ba728403575ef539}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int alignment=1)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a4d2044dfb80f085457dc924cb0813277_a4d2044dfb80f085457dc924cb0813277}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_aa026a4c704d0c0817ecfd07e3a321b69}\label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_aa026a4c704d0c0817ecfd07e3a321b69} 
+{\bfseries alignment} = alignment
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Measurement alignment.
+
+This is a control electronics aware optimization pass.
+
+In many quantum computing architectures gates (instructions) are implemented with
+shaped analog stimulus signals. These signals are digitally stored in the
+waveform memory of the control electronics and converted into analog voltage signals
+by electronic components called digital to analog converters (DAC).
+
+In a typical hardware implementation of superconducting quantum processors,
+a single qubit instruction is implemented by a
+microwave signal with the duration of around several tens of ns with a per-sample
+time resolution of ~0.1-10ns, as reported by ``backend.configuration().dt``.
+In such systems requiring higher DAC bandwidth, control electronics often
+defines a `pulse granularity`, in other words a data chunk, to allow the DAC to
+perform the signal conversion in parallel to gain the bandwidth.
+
+Measurement alignment is required if a backend only allows triggering ``measure``
+instructions at a certain multiple value of this pulse granularity.
+This value is usually provided by ``backend.configuration().timing_constraints``.
+
+In Qiskit SDK, the duration of delay can take arbitrary value in units of ``dt``,
+thus circuits involving delays may violate the above alignment constraint (i.e. misalignment).
+This pass shifts measurement instructions to a new time position to fix the misalignment,
+by inserting extra delay right before the measure instructions.
+The input of this pass should be scheduled :class:`~qiskit.dagcircuit.DAGCircuit`,
+thus one should select one of the scheduling passes
+(:class:`~qiskit.transpiler.passes.ALAPSchedule` or
+:class:`~qiskit.trasnpiler.passes.ASAPSchedule`) before calling this.
+
+Examples:
+    We assume executing the following circuit on a backend with ``alignment=16``.
+
+    .. code-block:: text
+
+             ┌───┐┌────────────────┐┌─┐
+        q_0: ┤ X ├┤ Delay(100[dt]) ├┤M├
+             └───┘└────────────────┘└╥┘
+        c: 1/════════════════════════╩═
+                                     0
+
+    Note that delay of 100 dt induces a misalignment of 4 dt at the measurement.
+    This pass appends an extra 12 dt time shift to the input circuit.
+
+    .. code-block:: text
+
+             ┌───┐┌────────────────┐┌─┐
+        q_0: ┤ X ├┤ Delay(112[dt]) ├┤M├
+             └───┘└────────────────┘└╥┘
+        c: 1/════════════════════════╩═
+                                     0
+
+    This pass always inserts a positive delay before measurements
+    rather than reducing other delays.
+
+Notes:
+    The Backend may allow users to execute circuits violating the alignment constraint.
+    However, it may return meaningless measurement data mainly due to the phase error.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a41f45c5ea28555f1ba728403575ef539_a41f45c5ea28555f1ba728403575ef539}\index{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures@{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures@{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a41f45c5ea28555f1ba728403575ef539_a41f45c5ea28555f1ba728403575ef539} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+align\+\_\+measures.\+Align\+Measures.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{alignment}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new pass.
+
+Args:
+    alignment: Integer number representing the minimum time resolution to
+        trigger measure instruction in units of ``dt``. This value depends on
+        the control electronics of your quantum processor.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a4d2044dfb80f085457dc924cb0813277_a4d2044dfb80f085457dc924cb0813277}\index{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures@{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures@{qiskit.transpiler.passes.scheduling.alignments.align\_measures.AlignMeasures}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1scheduling_1_1alignments_1_1align__measures_1_1_align_measures_a4d2044dfb80f085457dc924cb0813277_a4d2044dfb80f085457dc924cb0813277} 
+qiskit.\+transpiler.\+passes.\+scheduling.\+alignments.\+align\+\_\+measures.\+Align\+Measures.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the measurement alignment pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to be checked.
+
+Returns:
+    DAGCircuit: DAG with consistent timing and op nodes annotated with duration.
+
+Raises:
+    TranspilerError: If circuit is not scheduled.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/scheduling/alignments/align\+\_\+measures.\+py\end{DoxyCompactItemize}

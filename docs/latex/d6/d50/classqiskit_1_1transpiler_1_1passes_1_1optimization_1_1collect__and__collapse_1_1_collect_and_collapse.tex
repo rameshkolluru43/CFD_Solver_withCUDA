@@ -1,0 +1,98 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+and\+\_\+collapse.\+Collect\+And\+Collapse Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse}{}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse}\index{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse@{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+and\+\_\+collapse.\+Collect\+And\+Collapse\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.008197cm]{d6/d50/classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a9c5389c320cc489a59f1296934afa36b_a9c5389c320cc489a59f1296934afa36b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, collect\+\_\+function, collapse\+\_\+function, do\+\_\+commutative\+\_\+analysis=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a8a71c9b4fa227000f392325d35059411_a8a71c9b4fa227000f392325d35059411}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_afc1830b613a52cd8a4b91318ce4959d6}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_afc1830b613a52cd8a4b91318ce4959d6} 
+{\bfseries collect\+\_\+function} = collect\+\_\+function
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a695a0983e0b678a33e93eb188a303f8d}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a695a0983e0b678a33e93eb188a303f8d} 
+{\bfseries collapse\+\_\+function} = collapse\+\_\+function
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_aad78b5d9b07a4e6912fd0edabec10018}\label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_aad78b5d9b07a4e6912fd0edabec10018} 
+{\bfseries do\+\_\+commutative\+\_\+analysis} = do\+\_\+commutative\+\_\+analysis
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A general transpiler pass to collect and to consolidate blocks of nodes
+in a circuit.
+
+This transpiler pass depends on two functions: the collection function and the
+collapsing function. The collection function ``collect_function`` takes a DAG
+and returns a list of blocks. The collapsing function ``collapse_function``
+takes a DAG and a list of blocks, consolidates each block, and returns the modified
+DAG.
+
+The input and the output DAGs are of type :class:`~qiskit.dagcircuit.DAGCircuit`,
+however when exploiting commutativity analysis to collect blocks, the
+:class:`~qiskit.dagcircuit.DAGDependency` representation is used internally.
+To support this, the ``collect_function`` and ``collapse_function`` should work
+with both types of DAGs and DAG nodes.
+
+Other collection and consolidation transpiler passes, for instance
+:class:`~.CollectLinearFunctions`, may derive from this pass, fixing
+``collect_function`` and ``collapse_function`` to specific functions.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a9c5389c320cc489a59f1296934afa36b_a9c5389c320cc489a59f1296934afa36b}\index{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse@{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse@{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a9c5389c320cc489a59f1296934afa36b_a9c5389c320cc489a59f1296934afa36b} 
+qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+and\+\_\+collapse.\+Collect\+And\+Collapse.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{collect\+\_\+function}{, }\item[{}]{collapse\+\_\+function}{, }\item[{}]{do\+\_\+commutative\+\_\+analysis}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    collect_function (callable): a function that takes a DAG and returns a list
+        of "collected" blocks of nodes
+    collapse_function (callable): a function that takes a DAG and a list of
+        "collected" blocks, and consolidates each block.
+    do_commutative_analysis (bool): if True, exploits commutativity relations
+        between nodes.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__cliffords_1_1_collect_cliffords_ad64bf277e1a6a89a2e77650d7e944efe_ad64bf277e1a6a89a2e77650d7e944efe}{qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+cliffords.\+Collect\+Cliffords}}, and \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__linear__functions_1_1_collect_linear_functions_a5238c05e2e4e531109630bb107c104e8_a5238c05e2e4e531109630bb107c104e8}{qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+linear\+\_\+functions.\+Collect\+Linear\+Functions}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a8a71c9b4fa227000f392325d35059411_a8a71c9b4fa227000f392325d35059411}\index{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse@{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse@{qiskit.transpiler.passes.optimization.collect\_and\_collapse.CollectAndCollapse}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1optimization_1_1collect__and__collapse_1_1_collect_and_collapse_a8a71c9b4fa227000f392325d35059411_a8a71c9b4fa227000f392325d35059411} 
+qiskit.\+transpiler.\+passes.\+optimization.\+collect\+\_\+and\+\_\+collapse.\+Collect\+And\+Collapse.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the CollectLinearFunctions pass on `dag`.
+Args:
+    dag (DAGCircuit): the DAG to be optimized.
+Returns:
+    DAGCircuit: the optimized DAG.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/optimization/collect\+\_\+and\+\_\+collapse.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,81 @@
+\doxysection{qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state}{}\label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state}\index{qiskit.circuit.library.graph\_state.GraphState@{qiskit.circuit.library.graph\_state.GraphState}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/de5/classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_a26931c2c461cfd3bd55891b9ab313bd9_a26931c2c461cfd3bd55891b9ab313bd9}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\texorpdfstring{$\vert$}{|}np.\+ndarray adjacency\+\_\+matrix)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Circuit to prepare a graph state.
+
+Given a graph G = (V, E), with the set of vertices V and the set of edges E,
+the corresponding graph state is defined as
+
+.. math::
+
+    |G\rangle = \prod_{(a,b) \in E} CZ_{(a,b)} {|+\rangle}^{\otimes V}
+
+Such a state can be prepared by first preparing all qubits in the :math:`+`
+state, then applying a :math:`CZ` gate for each corresponding graph edge.
+
+Graph state preparation circuits are Clifford circuits, and thus
+easy to simulate classically. However, by adding a layer of measurements
+in a product basis at the end, there is evidence that the circuit becomes
+hard to simulate [2].
+
+**Reference Circuit:**
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit.library import GraphState
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   import rustworkx as rx
+   G = rx.generators.cycle_graph(5)
+   circuit = GraphState(rx.adjacency_matrix(G))
+   _generate_circuit_library_visualization(circuit)
+
+**References:**
+
+[1] M. Hein, J. Eisert, H.J. Briegel, Multi-party Entanglement in Graph States,
+    `arXiv:0307130 <https://arxiv.org/pdf/quant-ph/0307130.pdf>`_
+[2] D. Koh, Further Extensions of Clifford Circuits & their Classical Simulation Complexities.
+    `arXiv:1512.07892 <https://arxiv.org/pdf/1512.07892.pdf>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_a26931c2c461cfd3bd55891b9ab313bd9_a26931c2c461cfd3bd55891b9ab313bd9}\index{qiskit.circuit.library.graph\_state.GraphState@{qiskit.circuit.library.graph\_state.GraphState}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.graph\_state.GraphState@{qiskit.circuit.library.graph\_state.GraphState}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1graph__state_1_1_graph_state_a26931c2c461cfd3bd55891b9ab313bd9_a26931c2c461cfd3bd55891b9ab313bd9} 
+ None qiskit.\+circuit.\+library.\+graph\+\_\+state.\+Graph\+State.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list \texorpdfstring{$\vert$}{|} np.\+ndarray}]{adjacency\+\_\+matrix}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create graph state preparation circuit.
+
+Args:
+    adjacency_matrix: input graph as n-by-n list of 0-1 lists
+
+Raises:
+    CircuitError: If adjacency_matrix is not symmetric.
+
+The circuit prepares a graph state with the given adjacency
+matrix.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/graph\+\_\+state.\+py\end{DoxyCompactItemize}

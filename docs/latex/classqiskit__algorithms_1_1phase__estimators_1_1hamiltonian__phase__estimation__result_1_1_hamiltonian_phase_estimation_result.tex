@@ -1,0 +1,125 @@
+\doxysection{qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result Class Reference}
+\hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result}{}\label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result}\index{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.736156cm]{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a2663eeda8cea6531164294fbbe678176}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_1_1_phase_estimation_result}{Phase\+Estimation\+Result}} phase\+\_\+estimation\+\_\+result, \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__scale_1_1_phase_estimation_scale}{Phase\+Estimation\+Scale}} phase\+\_\+estimation\+\_\+scale, float id\+\_\+coefficient)
+\item 
+Mapping\mbox{[}str\texorpdfstring{$\vert$}{|}float, float\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a95e4c542689b9153cee020a75812fed1}{filter\+\_\+phases}} (self, float cutoff=0.\+0, bool scaled=True, bool as\+\_\+float=True)
+\item 
+float \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_afbb7fc6ede57dc08e813d8c89c0148ed}{phase}} (self)
+\item 
+float \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_adf795ad5ef98fd3c9706f825799fe13a}{most\+\_\+likely\+\_\+eigenvalue}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit__algorithms_1_1algorithm__result_1_1_algorithm_result}{qiskit\+\_\+algorithms.\+algorithm\+\_\+result.\+Algorithm\+Result}}}
+\begin{DoxyCompactItemize}
+\item 
+str {\bfseries \+\_\+\+\_\+str\+\_\+\+\_\+} (self)
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1algorithm__result_1_1_algorithm_result_ac51a028cc5e4ee920e1dc2461660e0a6}{combine}} (self, "{}Algorithm\+Result"{} result)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a8cefc3e994f98b6c81b32b3faa973533}\label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a8cefc3e994f98b6c81b32b3faa973533} 
+{\bfseries \+\_\+phase\+\_\+estimation\+\_\+scale} = phase\+\_\+estimation\+\_\+scale
+\item 
+\Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a43f3ec1710bc631bba61447c65f06392}\label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a43f3ec1710bc631bba61447c65f06392} 
+{\bfseries \+\_\+id\+\_\+coefficient} = id\+\_\+coefficient
+\item 
+\Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_ae063b69dcf28f767ebb9222a3282d28e}\label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_ae063b69dcf28f767ebb9222a3282d28e} 
+{\bfseries \+\_\+phase\+\_\+estimation\+\_\+result} = phase\+\_\+estimation\+\_\+result
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Store and manipulate results from running `HamiltonianPhaseEstimation`.
+
+This API of this class is nearly the same as `PhaseEstimatorResult`, differing only in
+the presence of an additional keyword argument in the methods. If `scaled`
+is `False`, then the phases are not translated and scaled to recover the
+eigenvalues of the Hamiltonian. Instead `phi` in :math:`[0, 1)` is returned,
+as is the case when then unitary is not derived from a Hamiltonian.
+
+This class is meant to be instantiated via `HamiltonianPhaseEstimation.estimate`.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a2663eeda8cea6531164294fbbe678176}\index{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a2663eeda8cea6531164294fbbe678176} 
+ None qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_1_1_phase_estimation_result}{Phase\+Estimation\+Result}}}]{phase\+\_\+estimation\+\_\+result}{, }\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__scale_1_1_phase_estimation_scale}{Phase\+Estimation\+Scale}}}]{phase\+\_\+estimation\+\_\+scale}{, }\item[{float}]{id\+\_\+coefficient}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    phase_estimation_result: The result object returned by PhaseEstimation.estimate.
+    phase_estimation_scale: object used to scale phases to obtain eigenvalues.
+    id_coefficient: The coefficient of the identity term in the Hamiltonian.
+                    Eigenvalues are computed without this term so that the
+                    coefficient must added to give correct eigenvalues.
+                    This is done automatically when retrieving eigenvalues.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a95e4c542689b9153cee020a75812fed1}\index{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}!filter\_phases@{filter\_phases}}
+\index{filter\_phases@{filter\_phases}!qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}}
+\doxysubsubsection{\texorpdfstring{filter\_phases()}{filter\_phases()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_a95e4c542689b9153cee020a75812fed1} 
+ Mapping\mbox{[}str \texorpdfstring{$\vert$}{|} float, float\mbox{]} qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result.\+filter\+\_\+phases (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float }]{cutoff}{ = {\ttfamily 0.0}, }\item[{bool }]{scaled}{ = {\ttfamily True}, }\item[{bool }]{as\+\_\+float}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Filter phases as does `PhaseEstimatorResult.filter_phases`, with
+the addition that `phi` is shifted and translated to return eigenvalues
+of the Hamiltonian.
+
+Args:
+    cutoff: Minimum weight of number of counts required to keep a bit string.
+        The default value is `0.0`.
+    scaled: If False, return `phi` in :math:`[0, 1)` rather than the eigenvalues of
+        the Hamiltonian.
+    as_float: If `True`, returned keys are floats in :math:`[0.0, 1.0)`. If `False`
+        returned keys are bit strings.
+
+Raises:
+    ValueError: if `as_float` is `False` and `scaled` is `True`.
+
+Returns:
+    A dict of filtered phases.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_adf795ad5ef98fd3c9706f825799fe13a}\index{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}!most\_likely\_eigenvalue@{most\_likely\_eigenvalue}}
+\index{most\_likely\_eigenvalue@{most\_likely\_eigenvalue}!qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}}
+\doxysubsubsection{\texorpdfstring{most\_likely\_eigenvalue()}{most\_likely\_eigenvalue()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_adf795ad5ef98fd3c9706f825799fe13a} 
+ float qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result.\+most\+\_\+likely\+\_\+eigenvalue (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The most likely eigenvalue of the Hamiltonian.
+
+This method calls `most_likely_phase` and scales the result to
+obtain an eigenvalue.
+
+Returns:
+    The most likely eigenvalue of the Hamiltonian.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_afbb7fc6ede57dc08e813d8c89c0148ed}\index{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}!phase@{phase}}
+\index{phase@{phase}!qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult@{qiskit\_algorithms.phase\_estimators.hamiltonian\_phase\_estimation\_result.HamiltonianPhaseEstimationResult}}
+\doxysubsubsection{\texorpdfstring{phase()}{phase()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1phase__estimators_1_1hamiltonian__phase__estimation__result_1_1_hamiltonian_phase_estimation_result_afbb7fc6ede57dc08e813d8c89c0148ed} 
+ float qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+Hamiltonian\+Phase\+Estimation\+Result.\+phase (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The most likely phase of the unitary corresponding to the Hamiltonian.
+
+Returns:
+    The most likely phase.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/phase\+\_\+estimators/hamiltonian\+\_\+phase\+\_\+estimation\+\_\+result.\+py\end{DoxyCompactItemize}

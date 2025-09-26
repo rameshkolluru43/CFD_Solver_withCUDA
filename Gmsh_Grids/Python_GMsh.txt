@@ -1,0 +1,48 @@
+import gmsh
+
+# Initialize gmsh
+gmsh.initialize()
+
+# Define geometry parameters
+length = 1.0  # Length of the rectangle
+width = 0.5   # Width of the rectangle
+center_x = length * 0.25  # x-coordinate of the circle center (quarter length)
+center_y = width * 0.5   # y-coordinate of the circle center (middle of width)
+radius = width * 0.2   # Radius of the circle (adjust as needed)
+
+# Create the rectangle
+rectangle_tag = gmsh.model.geo.addRectangle(0, 0, 0, length, width)
+
+# Create the circle
+circle_tag = gmsh.model.geo.addCircle(center_x, center_y, 0, radius)
+
+# Subtract the circle from the rectangle (creating the domain with a hole)
+domain_tag = gmsh.model.geo.cut([(2, rectangle_tag)], [(2, circle_tag)])
+
+# Define physical groups (optional, but good practice)
+gmsh.model.addPhysicalGroup(2, [rectangle_tag], 1)  # Rectangle (before cut)
+gmsh.model.addPhysicalGroup(2, [circle_tag], 2)    # Circle
+gmsh.model.addPhysicalGroup(2, [domain_tag[0][1]], 3) # Domain (after cut)
+
+
+# Generate the mesh (quads)
+gmsh.model.mesh.generate(2)  # 2 for 2D mesh
+
+# Set mesh size (refinement) - Adjust these values as needed
+gmsh.model.mesh.setSize([(0, 1)], 0.05)  # Mesh size at points of the rectangle
+gmsh.model.mesh.setSize([(0, 2)], 0.05)  # Mesh size at points of the circle
+gmsh.model.mesh.setSize([(1, rectangle_tag)], 0.05) # Mesh size on the rectangle lines
+gmsh.model.mesh.setSize([(1, circle_tag)], 0.05) # Mesh size on the circle lines
+
+# Optional: Refine the mesh near the circle for better accuracy
+# You can add more points along the circle and set smaller mesh sizes there.
+
+# Save the mesh to a file (e.g., .msh)
+gmsh.write("domain_with_circle.msh")
+
+# Open the gmsh GUI (optional)
+if __name__ == '__main__': # This check is good practice.
+    gmsh.fltk.run()
+
+# Finalize gmsh
+gmsh.finalize()

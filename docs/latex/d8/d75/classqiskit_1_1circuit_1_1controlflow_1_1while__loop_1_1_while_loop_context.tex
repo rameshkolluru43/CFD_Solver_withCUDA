@@ -1,0 +1,62 @@
+\doxysection{qiskit.\+circuit.\+controlflow.\+while\+\_\+loop.\+While\+Loop\+Context Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context}{}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context}\index{qiskit.circuit.controlflow.while\_loop.WhileLoopContext@{qiskit.circuit.controlflow.while\_loop.WhileLoopContext}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_abebebf5aad72e9fd2959c00e99019f08}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_abebebf5aad72e9fd2959c00e99019f08} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_classical_register}{Classical\+Register}}, int\mbox{]}\texorpdfstring{$\vert$}{|}tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}, int\mbox{]}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}{expr.\+Expr}} condition, \texorpdfstring{$\ast$}{*}, str\texorpdfstring{$\vert$}{|}None label=None)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a52be8f7a09edf98b748d32e0b9d9484b}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a52be8f7a09edf98b748d32e0b9d9484b} 
+{\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_af6c2b9a9b250393e284ab3de7237b499}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_af6c2b9a9b250393e284ab3de7237b499} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, exc\+\_\+type, exc\+\_\+val, exc\+\_\+tb)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a1169fb1d30298e88811fc39288d99089}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a1169fb1d30298e88811fc39288d99089} 
+{\bfseries \+\_\+circuit} = circuit
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a4c890e60b9a3a803769f174512da3698}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a4c890e60b9a3a803769f174512da3698} 
+{\bfseries \+\_\+condition} = validate\+\_\+condition(condition)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a68386d8b14e157c6054037e40cffddc8}\label{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_context_a68386d8b14e157c6054037e40cffddc8} 
+{\bfseries \+\_\+label} = label
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A context manager for building up while loops onto circuits in a natural order, without
+having to construct the loop body first.
+
+Within the block, a lot of the bookkeeping is done for you; you do not need to keep track of
+which qubits and clbits you are using, for example.  All normal methods of accessing the qubits
+on the underlying :obj:`~QuantumCircuit` will work correctly, and resolve into correct accesses
+within the interior block.
+
+You generally should never need to instantiate this object directly.  Instead, use
+:obj:`.QuantumCircuit.while_loop` in its context-manager form, i.e. by not supplying a ``body``
+or sets of qubits and clbits.
+
+Example usage::
+
+    from qiskit.circuit import QuantumCircuit, Clbit, Qubit
+    bits = [Qubit(), Qubit(), Clbit()]
+    qc = QuantumCircuit(bits)
+
+    with qc.while_loop((bits[2], 0)):
+        qc.h(0)
+        qc.cx(0, 1)
+        qc.measure(0, 0)
+
+.. warning::
+
+    This is an internal interface and no part of it should be relied upon outside of Qiskit
+    Terra.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/controlflow/while\+\_\+loop.\+py\end{DoxyCompactItemize}

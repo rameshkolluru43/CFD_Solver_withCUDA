@@ -1,0 +1,946 @@
+\doxysection{include/\+Directory\+\_\+\+Files.h File Reference}
+\hypertarget{_directory___files_8h}{}\label{_directory___files_8h}\index{include/Directory\_Files.h@{include/Directory\_Files.h}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Test\+\_\+\+Cases.\+h"{}}\newline
+{\ttfamily \#include "{}Boundary\+\_\+\+Conditions.\+h"{}}\newline
+Include dependency graph for Directory\+\_\+\+Files.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d3e/_directory___files_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/db7/_directory___files_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a25803106d571d6b49eff3919ce9d0496_a25803106d571d6b49eff3919ce9d0496}{Create\+Test\+Case\+Directories}} (int \&)
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7}{read\+JSON}} (const string \&)
+\item 
+void \mbox{\hyperlink{_directory___files_8h_ac38de89cdbad5c2dcbabaab7981a32f4_ac38de89cdbad5c2dcbabaab7981a32f4}{test\+Case}} (int \&)
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a96844689bc7fa356d46f614005d3a949_a96844689bc7fa356d46f614005d3a949}{search\+Grid\+Files}} ()
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a68df1787b38e31af5e3a348b9970f496_a68df1787b38e31af5e3a348b9970f496}{find\+Grid\+Files}} (string \&, int \&, int \&, vector$<$ string $>$ \&)
+\item 
+void \mbox{\hyperlink{_directory___files_8h_ac7e61b153a6d26ffbefde7b5b86d55a7_ac7e61b153a6d26ffbefde7b5b86d55a7}{Directory\+\_\+\+Name}} ()
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a2a6bf38afe949ce5a6cd1b3641c49c25_a2a6bf38afe949ce5a6cd1b3641c49c25}{File\+\_\+\+Name}} ()
+\item 
+void \mbox{\hyperlink{_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff}{read\+Test\+Case\+JSON}} (const std\+::string \&)
+\item 
+bool \mbox{\hyperlink{_directory___files_8h_aa96a9a5bb016c352d845cd7e3f54d511_aa96a9a5bb016c352d845cd7e3f54d511}{read\+Boundary\+Conditions}} (const std\+::string \&, \mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&, \mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&)
+\item 
+bool \mbox{\hyperlink{_directory___files_8h_a4116370480daad6525311891dd863e3e_a4116370480daad6525311891dd863e3e}{read\+Initial\+Conditionsjson}} (const std\+::string \&, \mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&)
+\item 
+bool \mbox{\hyperlink{_directory___files_8h_a903402239b42b2bef131d3c7c822ba63_a903402239b42b2bef131d3c7c822ba63}{read\+Initial\+And\+Boundary\+Conditions}} (const std\+::string \&, \mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&, \mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&, \mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&)
+\item 
+void \mbox{\hyperlink{_directory___files_8h_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}{initialize\+Grid\+Files}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_directory___files_8h_a25803106d571d6b49eff3919ce9d0496_a25803106d571d6b49eff3919ce9d0496}\index{Directory\_Files.h@{Directory\_Files.h}!CreateTestCaseDirectories@{CreateTestCaseDirectories}}
+\index{CreateTestCaseDirectories@{CreateTestCaseDirectories}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{CreateTestCaseDirectories()}{CreateTestCaseDirectories()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a25803106d571d6b49eff3919ce9d0496_a25803106d571d6b49eff3919ce9d0496} 
+void Create\+Test\+Case\+Directories (\begin{DoxyParamCaption}\item[{int \&}]{Test\+\_\+\+Case}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00652}{652}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00653\ \{}
+\DoxyCodeLine{00654\ }
+\DoxyCodeLine{00655\ \ \ \ \ \textcolor{comment}{//\ Define\ paths}}
+\DoxyCodeLine{00656\ \ \ \ \ filesystem::path\ execDirectory\ =\ \textcolor{stringliteral}{"{}./"{}};}
+\DoxyCodeLine{00657\ \ \ \ \ filesystem::path\ basePath\ =\ \textcolor{stringliteral}{"{}../"{}};}
+\DoxyCodeLine{00658\ \ \ \ \ filesystem::path\ solutionBasePath\ =\ basePath\ /\ \textcolor{stringliteral}{"{}2D\_Euler\_Solutions"{}};}
+\DoxyCodeLine{00659\ }
+\DoxyCodeLine{00660\ \ \ \ \ \textcolor{comment}{//\ Map\ test\ cases\ to\ folder\ names}}
+\DoxyCodeLine{00661\ \ \ \ \ \textcolor{keywordtype}{string}\ folderName;}
+\DoxyCodeLine{00662\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}})}
+\DoxyCodeLine{00663\ \ \ \ \ \{}
+\DoxyCodeLine{00664\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow"{}};}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00667\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Shock\_Reflection\_2D"{}};}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00670\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree"{}};}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00673\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Forward\_Facing\_Step"{}};}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00676\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Air\_Foil"{}};}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00679\ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Shock\_Tube\_2D"{}};}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00682\ \ \ \ \ \textcolor{keywordflow}{case}\ 7:}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ folderName\ =\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D"{}};}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00685\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Invalid\ test\ case\ number."{}}\ <<\ endl;}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00688\ \ \ \ \ \}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{comment}{//\ Full\ path\ for\ the\ test\ case}}
+\DoxyCodeLine{00691\ \ \ \ \ filesystem::path\ casePath\ =\ solutionBasePath\ /\ folderName;}
+\DoxyCodeLine{00692\ }
+\DoxyCodeLine{00693\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ test\ case\ folder\ already\ exists}}
+\DoxyCodeLine{00694\ \ \ \ \ \textcolor{keywordflow}{if}\ (filesystem::exists(casePath))}
+\DoxyCodeLine{00695\ \ \ \ \ \{}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Directory\ for\ test\ case\ '"{}}\ <<\ folderName}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}'\ already\ exists\ at:\ "{}}\ <<\ casePath\ <<\ endl;}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00699\ \ \ \ \ \}}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ \textcolor{comment}{//\ Create\ directories\ for\ the\ test\ case}}
+\DoxyCodeLine{00702\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00703\ \ \ \ \ \{}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ filesystem::create\_directories(casePath\ /\ \textcolor{stringliteral}{"{}Initial\_Solution"{}});}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ filesystem::create\_directories(casePath\ /\ \textcolor{stringliteral}{"{}Final\_Solution"{}});}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ filesystem::create\_directories(casePath\ /\ \textcolor{stringliteral}{"{}Error\_File"{}});}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ filesystem::create\_directories(casePath\ /\ \textcolor{stringliteral}{"{}CF\_File"{}});}
+\DoxyCodeLine{00708\ }
+\DoxyCodeLine{00709\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Directories\ created\ successfully\ for\ test\ case:\ "{}}\ <<\ folderName\ <<\ endl;}
+\DoxyCodeLine{00710\ \ \ \ \ \}}
+\DoxyCodeLine{00711\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ filesystem::filesystem\_error\ \&e)}
+\DoxyCodeLine{00712\ \ \ \ \ \{}
+\DoxyCodeLine{00713\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error\ creating\ directories:\ "{}}\ <<\ e.what()\ <<\ endl;}
+\DoxyCodeLine{00714\ \ \ \ \ \}}
+\DoxyCodeLine{00715\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_directory___files_8h_ac7e61b153a6d26ffbefde7b5b86d55a7_ac7e61b153a6d26ffbefde7b5b86d55a7}\index{Directory\_Files.h@{Directory\_Files.h}!Directory\_Name@{Directory\_Name}}
+\index{Directory\_Name@{Directory\_Name}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{Directory\_Name()}{Directory\_Name()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_ac7e61b153a6d26ffbefde7b5b86d55a7_ac7e61b153a6d26ffbefde7b5b86d55a7} 
+void Directory\+\_\+\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{comment}{//\ \ std::string\ pwd\ =\ std::filesystem::current\_path();}}
+\DoxyCodeLine{00008\ \ \ \ \ std::filesystem::path\ pwd\ =\ std::filesystem::current\_path();}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{comment}{//\ Move\ one\ folder\ back}}
+\DoxyCodeLine{00010\ \ \ \ \ std::filesystem::path\ parent\ =\ pwd.parent\_path();}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{comment}{//\ Convert\ the\ parent\ path\ to\ a\ string}}
+\DoxyCodeLine{00013\ \ \ \ \ std::string\ pwd1\ =\ parent.string();}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//\ Print\ the\ parent\ directory}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{comment}{//\ \ \ \ std::cout\ <<\ "{}Current\ Directory:\ "{}\ <<\ pwd\ <<\ std::endl;}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{comment}{//\ \ \ \ std::cout\ <<\ "{}Parent\ Directory:\ "{}\ <<\ pwd1\ <<\ std::endl;}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//\ pwd\ =\ pwd\ +\ "{}/QPDE\_FVM\_CFD\_Solver"{};}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ cout<<"{}In\ Parent\ Directory\(\backslash\)t"{}<<pwd1<<endl;}}
+\DoxyCodeLine{00021\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ =\ pwd1\ +\ \textcolor{stringliteral}{"{}/2D\_Euler\_Solutions/"{}};}
+\DoxyCodeLine{00022\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ =\ pwd1\ +\ \textcolor{stringliteral}{"{}/2D\_Euler\_Solutions/"{}};}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ =\ pwd1\ +\ \textcolor{stringliteral}{"{}/2D\_Euler\_Solutions/"{}};}
+\DoxyCodeLine{00024\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ =\ pwd1\ +\ \textcolor{stringliteral}{"{}/2D\_Euler\_Solutions/"{}};}
+\DoxyCodeLine{00025\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ =\ pwd1\ +\ \textcolor{stringliteral}{"{}/2D\_Euler\_Solutions/"{}};}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{/*\ Test\ case\ Numbers}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ *\ \ case\ 1:\ Half\_Cylinder\_Flow();}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 2:\ Mach\_Reflection();}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 3:\ Ramp\_15\_Degree();}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 4:\ Forward\_Facing\_Step();}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 5:\ Air\_Foil();}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 6:\ Shock\_Tube\_2D();}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ 7:\ Slip\_Flow\_2D();}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}})}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow/"{}};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow/"{}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow/"{}};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow/"{}};}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}Half\_Cylinder\_Flow/"{}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Reflection\_2D/"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Reflection\_2D/"{}};}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Reflection\_2D/"{}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Reflection\_2D/"{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree/"{}};}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree/"{}};}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree/"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree/"{}};}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}Ramp\_15\_Degree/"{}};}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Forward\_Step/"{}};}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Forward\_Step/"{}};}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Forward\_Step/"{}};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Forward\_Step/"{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Air\_Foil/"{}};}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Air\_Foil/"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Air\_Foil/"{}};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Air\_Foil/"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Tube\_2D/"{}};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Tube\_2D/"{}};}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Tube\_2D/"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Tube\_2D/"{}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{case}\ 7:}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Channel\_Flow\_2D/"{}};}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Channel\_Flow\_2D/"{}};}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Channel\_Flow\_2D/"{}};}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Channel\_Flow\_2D/"{}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{case}\ 9:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Scramjet\_Inlet/"{}};}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Scramjet\_Inlet/"{}};}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Scramjet\_Inlet/"{}};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Scramjet\_Inlet/"{}};}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{case}\ 11:}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Slip\_Flow\_2D/"{}};}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{case}\ 12:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flat\_Plate\_BL/"{}};}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flat\_Plate\_BL/"{}};}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flat\_Plate\_BL/"{}};}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Flat\_Plate\_BL/"{}};}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{case}\ 13:}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Wedge\_Reflection/"{}};}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Wedge\_Reflection/"{}};}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Wedge\_Reflection/"{}};}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Wedge\_Reflection/"{}};}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{case}\ 14:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Diffraction/"{}};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Diffraction/"{}};}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Diffraction/"{}};}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Diffraction/"{}};}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{case}\ 15:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}SWBLI/"{}};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}SWBLI/"{}};}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}SWBLI/"{}};}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}SWBLI/"{}};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}SWBLI/"{}};}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Bubble\_Interaction/"{}};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Bubble\_Interaction/"{}};}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Bubble\_Interaction/"{}};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Shock\_Bubble\_Interaction/"{}};}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{case}\ 17:}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}Flow\_Over\_Bump/"{}};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{case}\ 18:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}OED/"{}};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}OED/"{}};}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}OED/"{}};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}OED/"{}};}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}OED/"{}};}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{case}\ 19:}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Elling/"{}};}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Elling/"{}};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Elling/"{}};}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Elling/"{}};}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}Elling/"{}};}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00162\ \ \ \ \ \}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{/*\ Dissipation\_Type}}
+\DoxyCodeLine{00164\ \textcolor{comment}{\ \ \ \ \ \ 1-\/\ LLF\ Dissipation}}
+\DoxyCodeLine{00165\ \textcolor{comment}{\ \ \ \ \ \ 2\ -\/\ PVU}}
+\DoxyCodeLine{00166\ \textcolor{comment}{\ \ \ \ \ \ 3\ -\/\ Roe}}
+\DoxyCodeLine{00167\ \textcolor{comment}{\ \ \ \ \ \ 4\ -\/\ Naveens\ Dissipatoin}}
+\DoxyCodeLine{00168\ \textcolor{comment}{\ \ \ \ \ \ 5\ -\/\ MOVERS}}
+\DoxyCodeLine{00169\ \textcolor{comment}{\ \ \ \ \ \ 6\ -\/\ RUSANOV}}
+\DoxyCodeLine{00170\ \textcolor{comment}{\ \ */}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}})}
+\DoxyCodeLine{00173\ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}LLF/"{}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}LLF/"{}};}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}LLF/"{}};}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}LLF/"{}};}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}LLF/"{}};}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS/"{}};}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS/"{}};}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS/"{}};}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS/"{}};}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS/"{}};}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00188\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}ROE/"{}};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}ROE/"{}};}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}ROE/"{}};}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}ROE/"{}};}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}ROE/"{}};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}RICCA/"{}};}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}RICCA/"{}};}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}RICCA/"{}};}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}RICCA/"{}};}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}RICCA/"{}};}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS\_NWSC/"{}};}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS\_NWSC/"{}};}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS\_NWSC/"{}};}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS\_NWSC/"{}};}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}MOVERS\_NWSC/"{}};}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00209\ \ \ \ \ \}}
+\DoxyCodeLine{00210\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1a/_directory___files_8h_ac7e61b153a6d26ffbefde7b5b86d55a7_ac7e61b153a6d26ffbefde7b5b86d55a7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_directory___files_8h_a2a6bf38afe949ce5a6cd1b3641c49c25_a2a6bf38afe949ce5a6cd1b3641c49c25}\index{Directory\_Files.h@{Directory\_Files.h}!File\_Name@{File\_Name}}
+\index{File\_Name@{File\_Name}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{File\_Name()}{File\_Name()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a2a6bf38afe949ce5a6cd1b3641c49c25_a2a6bf38afe949ce5a6cd1b3641c49c25} 
+void File\+\_\+\+Name (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{output__files_8cpp_source_l00212}{212}} of file \mbox{\hyperlink{output__files_8cpp_source}{output\+\_\+files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00213\ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \textcolor{comment}{/*\ \ \ \ \ \ 1-\/\ LLF\ Dissipation}}
+\DoxyCodeLine{00215\ \textcolor{comment}{\ \ \ \ \ \ \ \ 2\ -\/\ PVU}}
+\DoxyCodeLine{00216\ \textcolor{comment}{\ \ \ \ \ \ \ \ 3\ -\/\ Roe}}
+\DoxyCodeLine{00217\ \textcolor{comment}{\ \ \ \ \ \ \ \ 4\ -\/\ Naveens\ Dissipatoin}}
+\DoxyCodeLine{00218\ \textcolor{comment}{\ \ \ \ \ \ \ \ 5\ -\/\ MOVERS}}
+\DoxyCodeLine{00219\ \textcolor{comment}{\ \ \ \ \ \ \ \ 12\ -\/\ RUSANOV*/}}
+\DoxyCodeLine{00220\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a8b0ab5955e63cceb1dd07e44881c6cbc_a8b0ab5955e63cceb1dd07e44881c6cbc}{Dissipation\_Type}})}
+\DoxyCodeLine{00221\ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Solution\_LLF"{}};}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Final\_Solution\_LLF"{}};}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Initial\_Solution\_LLF"{}};}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Error\_LLF"{}};}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}CF\_LLF"{}};}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Solution\_ROE"{}};}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Final\_Solution\_ROE"{}};}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Initial\_Solution\_ROE"{}};}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Error\_ROE"{}};}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}CF\_ROE"{}};}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_acbd504e8fa55661884965a35457ccaed_acbd504e8fa55661884965a35457ccaed}{Enable\_Entropy\_Fix}})}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Solution\_MOVERS"{}};}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Final\_Solution\_MOVERS"{}};}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Initial\_Solution\_MOVERS"{}};}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Error\_MOVERS"{}};}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}CF\_MOVERS"{}};}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ae3291d658c8a36a8b81387eb491e7857_ae3291d658c8a36a8b81387eb491e7857}{Is\_MOVERS\_1}})}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Wave"{}};}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Wave"{}};}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Wave"{}};}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Wave"{}};}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Wave"{}};}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_NWave"{}};}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_NWave"{}};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_NWave"{}};}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_NWave"{}};}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_NWave"{}};}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_acbd504e8fa55661884965a35457ccaed_acbd504e8fa55661884965a35457ccaed}{Enable\_Entropy\_Fix}})}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Entropy\_Fix"{}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Solution\_RICCA"{}};}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Final\_Solution\_RICCA"{}};}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Initial\_Solution\_RICCA"{}};}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Error\_RICCA"{}};}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}CF\_RICCA"{}};}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Solution\_MOVERS\_NWSC"{}};}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Final\_Solution\_MOVERS\_NWSC"{}};}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}Initial\_Solution\_MOVERS\_NWSC"{}};}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}Error\_MOVERS\_NWSC"{}};}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}CF\_MOVERS\_NWSC"{}};}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00290\ \ \ \ \ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00293\ \ \ \ \ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Viscous"{}};}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Viscous"{}};}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Viscous"{}};}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Viscous"{}};}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Viscous"{}};}
+\DoxyCodeLine{00299\ \ \ \ \ \}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00301\ \ \ \ \ \{}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Inviscid"{}};}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Inviscid"{}};}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Inviscid"{}};}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Inviscid"{}};}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Inviscid"{}};}
+\DoxyCodeLine{00307\ \ \ \ \ \}}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a9f80ffa45f3aab47b152327af8f0f823_a9f80ffa45f3aab47b152327af8f0f823}{Time\_Accurate}})}
+\DoxyCodeLine{00309\ \ \ \ \ \{}
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_RK3"{}};}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_RK3"{}};}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_RK3"{}};}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_RK3"{}};}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_RK3"{}};}
+\DoxyCodeLine{00315\ \ \ \ \ \}}
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_aecd87652ffbad654364f3d7aca5de72f_aecd87652ffbad654364f3d7aca5de72f}{Local\_Time\_Stepping}})}
+\DoxyCodeLine{00317\ \ \ \ \ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Local\_Time\_Stepping"{}};}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Local\_Time\_Stepping"{}};}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Local\_Time\_Stepping"{}};}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Local\_Time\_Stepping"{}};}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Local\_Time\_Stepping"{}};}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00325\ \ \ \ \ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Global\_Time\_Stepping"{}};}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Global\_Time\_Stepping"{}};}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Global\_Time\_Stepping"{}};}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Global\_Time\_Stepping"{}};}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Global\_Time\_Stepping"{}};}
+\DoxyCodeLine{00331\ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}})}
+\DoxyCodeLine{00333\ \ \ \ \ \{}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_2Order"{}};}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_2Order"{}};}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_2Order"{}};}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_2Order"{}};}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_2Order"{}};}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a7d5151252be0e274cc270b9d06d95d61_a7d5151252be0e274cc270b9d06d95d61}{Limiter\_Case}})}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MinMod\_Limiter"{}};}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MinMod\_Limiter"{}};}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MinMod\_Limiter"{}};}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MinMod\_Limiter"{}};}
+\DoxyCodeLine{00346\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MinMod\_Limiter"{}};}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Superbee\_Limiter"{}};}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Superbee\_Limiter"{}};}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Superbee\_Limiter"{}};}
+\DoxyCodeLine{00352\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Superbee\_Limiter"{}};}
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MCD\_Limiter"{}};}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MCD\_Limiter"{}};}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MCD\_Limiter"{}};}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_MCD\_Limiter"{}};}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_vanLeerSmooth\_Limiter"{}};}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_vanLeerSmooth\_Limiter"{}};}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_vanLeerSmooth\_Limiter"{}};}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_vanLeerSmooth\_Limiter"{}};}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Log\_Limiter"{}};}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Log\_Limiter"{}};}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Log\_Limiter"{}};}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Log\_Limiter"{}};}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 5:}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_VenkatKrishnan\_Limiter"{}};}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_VenkatKrishnan\_Limiter"{}};}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_VenkatKrishnan\_Limiter"{}};}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_VenkatKrishnan\_Limiter"{}};}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 6:}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Scaled\_Reconstruction"{}};}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Scaled\_Reconstruction"{}};}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Scaled\_Reconstruction"{}};}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Scaled\_Reconstruction"{}};}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_Scaled\_Reconstruction"{}};}
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00386\ \ \ \ \ \}}
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_aea330d66b525a50c0b181d4734f3ec14_aea330d66b525a50c0b181d4734f3ec14}{Is\_WENO}})}
+\DoxyCodeLine{00388\ \ \ \ \ \{}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_WENO"{}};}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_WENO"{}};}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_WENO"{}};}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_WENO"{}};}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_WENO"{}};}
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00396\ \ \ \ \ \{}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Order"{}};}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a669380e577c6795be96451b60a5b47a4_a669380e577c6795be96451b60a5b47a4}{Final\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Order"{}};}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a5e4cae0220b4f2f0eb31f4d4ed77e91f_a5e4cae0220b4f2f0eb31f4d4ed77e91f}{Initial\_Solution\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Order"{}};}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Order"{}};}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a46fd39079bd6c7b3ca4cbc798bcd8f1d_a46fd39079bd6c7b3ca4cbc798bcd8f1d}{CF\_File}}\ +=\ \textcolor{stringliteral}{"{}\_1Order"{}};}
+\DoxyCodeLine{00402\ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1a/_directory___files_8h_a2a6bf38afe949ce5a6cd1b3641c49c25_a2a6bf38afe949ce5a6cd1b3641c49c25_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_directory___files_8h_a68df1787b38e31af5e3a348b9970f496_a68df1787b38e31af5e3a348b9970f496}\index{Directory\_Files.h@{Directory\_Files.h}!findGridFiles@{findGridFiles}}
+\index{findGridFiles@{findGridFiles}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{findGridFiles()}{findGridFiles()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a68df1787b38e31af5e3a348b9970f496_a68df1787b38e31af5e3a348b9970f496} 
+void find\+Grid\+Files (\begin{DoxyParamCaption}\item[{string \&}]{folder\+Path}{, }\item[{int \&}]{desiredX}{, }\item[{int \&}]{desiredY}{, }\item[{vector$<$ string $>$ \&}]{grid\+Files}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_dir___files_8cpp_source_l00119}{119}} of file \mbox{\hyperlink{_dir___files_8cpp_source}{Dir\+\_\+\+Files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ string\ pattern\ =\ Test\_Case\_Name\ +\ "{}\_"{}\ +\ to\_string(desiredX)\ +\ "{}\_"{}\ +\ to\_string(desiredY)\ +\ "{}.vtk"{};}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{string}\ pattern\ =\ \mbox{\hyperlink{_globals_8h_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ R\textcolor{stringliteral}{"{}((\(\backslash\)d+)\_(\(\backslash\)d+).vtk)"{};}}
+\DoxyCodeLine{00124\ \textcolor{stringliteral}{\ \ \ \ boost::regex\ filePattern(pattern);}}
+\DoxyCodeLine{00125\ \textcolor{stringliteral}{\ \ \ \ boost::smatch\ match;}}
+\DoxyCodeLine{00126\ \textcolor{stringliteral}{\ \ \ \ cout\ <<\ }\textcolor{stringliteral}{"{}Folder\ Path:\ "{}}\ <<\ folderPath\ <<\ endl;}
+\DoxyCodeLine{00127\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Pattern:\ "{}}\ <<\ pattern\ <<\ endl;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ findGridFiles\ Function\ :}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ •\ The\ function\ takes\ a\ folder\ path\ and\ desired\ grid\ dimensions.}}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{comment}{//\ •\ It\ uses\ a\ regular\ expression(Flow\_Over\_Cylinder\_(\(\backslash\)d\ +)\ \_(\(\backslash\)d\ +)\(\backslash\).txt)\ to\ match\ and\ capture\ the\ grid\ sizes\ from\ each\ filename.}}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{comment}{//\ •\ It\ compares\ the\ captured\ grid\ sizes\ to\ the\ desired\ values\ and,\ if\ they\ match,\ adds\ the\ file’s\ full\ path\ to\ the\ results.return\ gridFiles;}}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&entry\ :\ fs::directory\_iterator(folderPath))}
+\DoxyCodeLine{00133\ \ \ \ \ \{}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{string}\ fileName\ =\ entry.path().string();}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (boost::regex\_search(fileName,\ match,\ filePattern))}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ =\ std::stoi(match[1].str());}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ =\ std::stoi(match[2].str());}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}X:\ "{}}\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ <<\ \textcolor{stringliteral}{"{}\ Y:\ "{}}\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ <<\ endl;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ ==\ desiredX\ \&\&\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ ==\ desiredY)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{gridFiles}}.push\_back(entry.path().string());}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Could\ not\ find\ grid\ file\ for\ desired\ dimensions\ .....\ exiting"{}}\ <<\ endl;}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_directory___files_8h_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}\index{Directory\_Files.h@{Directory\_Files.h}!initializeGridFiles@{initializeGridFiles}}
+\index{initializeGridFiles@{initializeGridFiles}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{initializeGridFiles()}{initializeGridFiles()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650} 
+void initialize\+Grid\+Files (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00348}{348}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00349\ \{}
+\DoxyCodeLine{00350\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/"{}}\ +\ \mbox{\hyperlink{_configuration___read_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}/"{}};}
+\DoxyCodeLine{00351\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Grid\ Directory:\ "{}}\ <<\ \mbox{\hyperlink{_configuration___read_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ <<\ endl;}
+\DoxyCodeLine{00352\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Finding\ for\ Grid\ files\ for\ size\ \(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a474765d7013f87d7b9dec577c5319b19_a474765d7013f87d7b9dec577c5319b19}{nx}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_ac7a88bb0cf5409383a4281cdcee11964_ac7a88bb0cf5409383a4281cdcee11964}{ny}}\ <<\ endl;}
+\DoxyCodeLine{00353\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a280972f50a7acabfa4c469610ecd1b0a_a280972f50a7acabfa4c469610ecd1b0a}{Grid\_File}}\ =\ \mbox{\hyperlink{_configuration___read_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ +\ \mbox{\hyperlink{_configuration___read_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a474765d7013f87d7b9dec577c5319b19_a474765d7013f87d7b9dec577c5319b19}{nx}})\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_ac7a88bb0cf5409383a4281cdcee11964_ac7a88bb0cf5409383a4281cdcee11964}{ny}})\ +\ \textcolor{stringliteral}{"{}.txt"{}};}
+\DoxyCodeLine{00354\ \ \ \ \ \mbox{\hyperlink{_globals_8h_aa590f159b7f2349fdc545191987ca57b_aa590f159b7f2349fdc545191987ca57b}{Grid\_Vtk\_File}}\ =\ \mbox{\hyperlink{_configuration___read_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}}\ +\ \mbox{\hyperlink{_configuration___read_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a474765d7013f87d7b9dec577c5319b19_a474765d7013f87d7b9dec577c5319b19}{nx}})\ +\ \textcolor{stringliteral}{"{}\_"{}}\ +\ to\_string(\mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_ac7a88bb0cf5409383a4281cdcee11964_ac7a88bb0cf5409383a4281cdcee11964}{ny}})\ +\ \textcolor{stringliteral}{"{}.vtk"{}};}
+\DoxyCodeLine{00355\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1a/_directory___files_8h_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_directory___files_8h_aa96a9a5bb016c352d845cd7e3f54d511_aa96a9a5bb016c352d845cd7e3f54d511}\index{Directory\_Files.h@{Directory\_Files.h}!readBoundaryConditions@{readBoundaryConditions}}
+\index{readBoundaryConditions@{readBoundaryConditions}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{readBoundaryConditions()}{readBoundaryConditions()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_aa96a9a5bb016c352d845cd7e3f54d511_aa96a9a5bb016c352d845cd7e3f54d511} 
+bool read\+Boundary\+Conditions (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{}{, }\item[{\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&}]{}{, }\item[{\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&}]{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{_directory___files_8h_a903402239b42b2bef131d3c7c822ba63_a903402239b42b2bef131d3c7c822ba63}\index{Directory\_Files.h@{Directory\_Files.h}!readInitialAndBoundaryConditions@{readInitialAndBoundaryConditions}}
+\index{readInitialAndBoundaryConditions@{readInitialAndBoundaryConditions}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{readInitialAndBoundaryConditions()}{readInitialAndBoundaryConditions()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a903402239b42b2bef131d3c7c822ba63_a903402239b42b2bef131d3c7c822ba63} 
+bool read\+Initial\+And\+Boundary\+Conditions (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{\mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&}]{initial\+Cond}{, }\item[{\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&}]{inlet\+Cond}{, }\item[{\mbox{\hyperlink{struct_exit_condition}{Exit\+Condition}} \&}]{exit\+Cond}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00299}{299}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00300\ \{}
+\DoxyCodeLine{00301\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00303\ \ \ \ \ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file:\ "{}}\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00306\ \ \ \ \ \}}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00309\ \ \ \ \ Json::Value\ data;}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(file,\ data))}
+\DoxyCodeLine{00311\ \ \ \ \ \{}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ JSON\ input."{}});}
+\DoxyCodeLine{00313\ \ \ \ \ \}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&IC\ =\ data[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}];}
+\DoxyCodeLine{00316\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aa8a2943613c6ba434289ca7a0ae43a7c_aa8a2943613c6ba434289ca7a0ae43a7c}{P}}\ =\ IC[\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00317\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_afcf20f2805c27f146bb4421a9d03c56d_afcf20f2805c27f146bb4421a9d03c56d}{Rho}}\ =\ IC[\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00318\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a8d16e061869729ba5b636add3f19f163_a8d16e061869729ba5b636add3f19f163}{M}}\ =\ IC[\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00319\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a6d80e46e1530b7635a7bce0bf1828580_a6d80e46e1530b7635a7bce0bf1828580}{u}}\ =\ IC[\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00320\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a3170fee1cec1b853f869b7f31cb785e0_a3170fee1cec1b853f869b7f31cb785e0}{v}}\ =\ IC[\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00321\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a4215fa9461f58e6b3aa789edb172ef63_a4215fa9461f58e6b3aa789edb172ef63}{T}}\ =\ IC[\textcolor{stringliteral}{"{}Temperature\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00322\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a7363589f2df9c9a99c1dc6a235ca1a33_a7363589f2df9c9a99c1dc6a235ca1a33}{T\_inf}}\ =\ IC[\textcolor{stringliteral}{"{}T\_inf"{}}].asDouble();}
+\DoxyCodeLine{00323\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aaf05a51c302939306b197217456ba1b7_aaf05a51c302939306b197217456ba1b7}{P\_inf}}\ =\ IC[\textcolor{stringliteral}{"{}P\_inf"{}}].asDouble();}
+\DoxyCodeLine{00324\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a0c33671d10ca354e68a8aeaba4fceae5_a0c33671d10ca354e68a8aeaba4fceae5}{Rho\_inf}}\ =\ IC[\textcolor{stringliteral}{"{}Rho\_inf"{}}].asDouble();}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&Inlet\ =\ data[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Inlet"{}}];}
+\DoxyCodeLine{00327\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a2058f3c845b38d2d202a1354a33b6f90_a2058f3c845b38d2d202a1354a33b6f90}{P}}\ =\ Inlet[\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00328\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ =\ Inlet[\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00329\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a0ef148160b70b827a186c45a3f17855c_a0ef148160b70b827a186c45a3f17855c}{M}}\ =\ Inlet[\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00330\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ =\ Inlet[\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00331\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ =\ Inlet[\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00332\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a02e72d48d1b067ced5f907777302ba97_a02e72d48d1b067ced5f907777302ba97}{T}}\ =\ Inlet[\textcolor{stringliteral}{"{}Temperature\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00333\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a05be0bd83ff045a8c6e6ffbe57859c53_a05be0bd83ff045a8c6e6ffbe57859c53}{T\_inf}}\ =\ Inlet[\textcolor{stringliteral}{"{}T\_inf"{}}].asDouble();}
+\DoxyCodeLine{00334\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_ae99254daa40c1610522f9bc04c3ccdda_ae99254daa40c1610522f9bc04c3ccdda}{P\_inf}}\ =\ Inlet[\textcolor{stringliteral}{"{}P\_inf"{}}].asDouble();}
+\DoxyCodeLine{00335\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a01c0cd7f4f9b859e63ac800ecf191a37_a01c0cd7f4f9b859e63ac800ecf191a37}{Rho\_inf}}\ =\ Inlet[\textcolor{stringliteral}{"{}Rho\_inf"{}}].asDouble();}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&Exit\ =\ data[\textcolor{stringliteral}{"{}Boundary\_Conditions"{}}][\textcolor{stringliteral}{"{}Exit"{}}];}
+\DoxyCodeLine{00338\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a3a0937d51c21c0a4c380143a290f2251_a3a0937d51c21c0a4c380143a290f2251}{P}}\ =\ Exit[\textcolor{stringliteral}{"{}exit\_pressure"{}}].asDouble();}
+\DoxyCodeLine{00339\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_aa71ceaf713ecbe1ba0b019e4c06e1f6f_aa71ceaf713ecbe1ba0b019e4c06e1f6f}{Rho}}\ =\ Exit[\textcolor{stringliteral}{"{}exit\_density"{}}].asDouble();}
+\DoxyCodeLine{00340\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a1b9cbb5e7c0cc96a81a286e7139166c4_a1b9cbb5e7c0cc96a81a286e7139166c4}{T}}\ =\ Exit[\textcolor{stringliteral}{"{}exit\_temperature"{}}].asDouble();}
+\DoxyCodeLine{00341\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a24520fef548942327926122aa8558b32_a24520fef548942327926122aa8558b32}{M}}\ =\ Exit[\textcolor{stringliteral}{"{}exit\_mach\_no"{}}].asDouble();}
+\DoxyCodeLine{00342\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a9252e24f70fd31d6fb4103949c06956b_a9252e24f70fd31d6fb4103949c06956b}{u}}\ =\ Exit[\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00343\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a6bb912ad139b589f7a2dfec37e5304cb_a6bb912ad139b589f7a2dfec37e5304cb}{v}}\ =\ Exit[\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00346\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_directory___files_8h_a4116370480daad6525311891dd863e3e_a4116370480daad6525311891dd863e3e}\index{Directory\_Files.h@{Directory\_Files.h}!readInitialConditionsjson@{readInitialConditionsjson}}
+\index{readInitialConditionsjson@{readInitialConditionsjson}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{readInitialConditionsjson()}{readInitialConditionsjson()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a4116370480daad6525311891dd863e3e_a4116370480daad6525311891dd863e3e} 
+bool read\+Initial\+Conditionsjson (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{\mbox{\hyperlink{struct_initial_condition}{Initial\+Condition}} \&}]{initial\+Cond}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00268}{268}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00269\ \{}
+\DoxyCodeLine{00270\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())}
+\DoxyCodeLine{00272\ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error\ opening\ file:\ "{}}\ <<\ filename\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00275\ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00277\ \ \ \ \ Json::Value\ InitialConditions;}
+\DoxyCodeLine{00278\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(file,\ InitialConditions))}
+\DoxyCodeLine{00279\ \ \ \ \ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ JSON\ input."{}});}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{comment}{//\ Extract\ inlet\ conditions}}
+\DoxyCodeLine{00284\ \ \ \ \ \textcolor{comment}{//\ initialCond.testCase\ =\ InitialConditions["{}initial\_conditions"{}]["{}test\_case"{}].asInt();}}
+\DoxyCodeLine{00285\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aa8a2943613c6ba434289ca7a0ae43a7c_aa8a2943613c6ba434289ca7a0ae43a7c}{P}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00286\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_afcf20f2805c27f146bb4421a9d03c56d_afcf20f2805c27f146bb4421a9d03c56d}{Rho}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00287\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a8d16e061869729ba5b636add3f19f163_a8d16e061869729ba5b636add3f19f163}{M}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00288\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a6d80e46e1530b7635a7bce0bf1828580_a6d80e46e1530b7635a7bce0bf1828580}{u}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}V\_1"{}}].asDouble();}
+\DoxyCodeLine{00289\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a3170fee1cec1b853f869b7f31cb785e0_a3170fee1cec1b853f869b7f31cb785e0}{v}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}V\_2"{}}].asDouble();}
+\DoxyCodeLine{00290\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a4215fa9461f58e6b3aa789edb172ef63_a4215fa9461f58e6b3aa789edb172ef63}{T}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Temperature\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00291\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a7363589f2df9c9a99c1dc6a235ca1a33_a7363589f2df9c9a99c1dc6a235ca1a33}{T\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}T\_inf"{}}].asDouble();}
+\DoxyCodeLine{00292\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_aaf05a51c302939306b197217456ba1b7_aaf05a51c302939306b197217456ba1b7}{P\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}P\_inf"{}}].asDouble();}
+\DoxyCodeLine{00293\ \ \ \ \ initialCond.\mbox{\hyperlink{struct_initial_condition_a0c33671d10ca354e68a8aeaba4fceae5_a0c33671d10ca354e68a8aeaba4fceae5}{Rho\_inf}}\ =\ InitialConditions[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}][\textcolor{stringliteral}{"{}Rho\_inf"{}}].asDouble();}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00296\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_directory___files_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7}\index{Directory\_Files.h@{Directory\_Files.h}!readJSON@{readJSON}}
+\index{readJSON@{readJSON}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{readJSON()}{readJSON()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7} 
+void read\+JSON (\begin{DoxyParamCaption}\item[{const string \&}]{}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1a/_directory___files_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff}\index{Directory\_Files.h@{Directory\_Files.h}!readTestCaseJSON@{readTestCaseJSON}}
+\index{readTestCaseJSON@{readTestCaseJSON}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{readTestCaseJSON()}{readTestCaseJSON()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff} 
+void read\+Test\+Case\+JSON (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{json\+File\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ std::ifstream\ fileStream(jsonFileName);}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{if}\ (!fileStream.is\_open())}
+\DoxyCodeLine{00162\ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Test\ Case\ JSON\ file\ not\ found:\ "{}}\ +\ jsonFileName);}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ Json::Reader\ reader;}
+\DoxyCodeLine{00167\ \ \ \ \ Json::Value\ root;}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{if}\ (!reader.parse(fileStream,\ root))}
+\DoxyCodeLine{00169\ \ \ \ \ \{}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ std::runtime\_error(\textcolor{stringliteral}{"{}Error:\ Failed\ to\ parse\ Test\ Case\ JSON."{}});}
+\DoxyCodeLine{00171\ \ \ \ \ \}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{comment}{//\ Extract\ General\ Info}}
+\DoxyCodeLine{00174\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&genInfo\ =\ root[\textcolor{stringliteral}{"{}GeneralDetails"{}}];}
+\DoxyCodeLine{00175\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ =\ genInfo[\textcolor{stringliteral}{"{}name"{}}].asString();}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{comment}{//\ Description\ =\ genInfo["{}description"{}].asString();}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{comment}{//\ GeometryType\ =\ genInfo["{}type"{}].asString();}}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{comment}{//\ Author\ =\ genInfo["{}author"{}].asString();}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \textcolor{comment}{//\ Geometry\ Parameters}}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&geom\ =\ root[\textcolor{stringliteral}{"{}geometry\_parameters"{}}];}
+\DoxyCodeLine{00182\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_afa75ef0e59bd335da0170250ed0d2c04_afa75ef0e59bd335da0170250ed0d2c04}{geomParams}}.\mbox{\hyperlink{struct_geometry_params_a669d46ec1bd05ffe22cc07e18331befa_a669d46ec1bd05ffe22cc07e18331befa}{radius}}\ =\ geom[\textcolor{stringliteral}{"{}radius"{}}].asDouble();}
+\DoxyCodeLine{00183\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_afa75ef0e59bd335da0170250ed0d2c04_afa75ef0e59bd335da0170250ed0d2c04}{geomParams}}.\mbox{\hyperlink{struct_geometry_params_a13721af61283448cb2ef24b9f369de45_a13721af61283448cb2ef24b9f369de45}{length}}\ =\ geom[\textcolor{stringliteral}{"{}length"{}}].asDouble();}
+\DoxyCodeLine{00184\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_afa75ef0e59bd335da0170250ed0d2c04_afa75ef0e59bd335da0170250ed0d2c04}{geomParams}}.\mbox{\hyperlink{struct_geometry_params_a994c943bf5fa472b31807acc2e65d443_a994c943bf5fa472b31807acc2e65d443}{thickness}}\ =\ geom[\textcolor{stringliteral}{"{}thickness"{}}].asDouble();}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{comment}{//\ Mesh\ Parameters}}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&mesh\ =\ root[\textcolor{stringliteral}{"{}mesh\_parameters"{}}];}
+\DoxyCodeLine{00188\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a7b0fc06d5b947087e00e82c798aa83e5_a7b0fc06d5b947087e00e82c798aa83e5}{gridSize}}\ =\ mesh[\textcolor{stringliteral}{"{}Grid\_Size"{}}].asInt();}
+\DoxyCodeLine{00189\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a474765d7013f87d7b9dec577c5319b19_a474765d7013f87d7b9dec577c5319b19}{nx}}\ =\ mesh[\textcolor{stringliteral}{"{}Nx"{}}].asInt();}
+\DoxyCodeLine{00190\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_ac7a88bb0cf5409383a4281cdcee11964_ac7a88bb0cf5409383a4281cdcee11964}{ny}}\ =\ mesh[\textcolor{stringliteral}{"{}Ny"{}}].asInt();}
+\DoxyCodeLine{00191\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_ada18fae8f05d95d00be9edab7f73efaa_ada18fae8f05d95d00be9edab7f73efaa}{meshParams}}.\mbox{\hyperlink{struct_mesh_params_a2958bbdb231bba6b257ac0a063c33966_a2958bbdb231bba6b257ac0a063c33966}{meshType}}\ =\ mesh[\textcolor{stringliteral}{"{}mesh\_type"{}}].asString();}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00193\ \ \ \ \ \textcolor{comment}{//\ Flow\ Conditions}}
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&flow\ =\ root[\textcolor{stringliteral}{"{}Flow\_Conditions"{}}];}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&inlet\ =\ flow[\textcolor{stringliteral}{"{}inlet\_conditions"{}}];}
+\DoxyCodeLine{00197\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a56e334bec490f3460e9b8c9d0aacdd2c_a56e334bec490f3460e9b8c9d0aacdd2c}{type}}\ =\ inlet[\textcolor{stringliteral}{"{}inlet\_type"{}}].asString();}
+\DoxyCodeLine{00198\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a2058f3c845b38d2d202a1354a33b6f90_a2058f3c845b38d2d202a1354a33b6f90}{P}}\ =\ inlet[\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00199\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ =\ inlet[\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00200\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a0ef148160b70b827a186c45a3f17855c_a0ef148160b70b827a186c45a3f17855c}{M}}\ =\ inlet[\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00201\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ =\ inlet[\textcolor{stringliteral}{"{}u"{}}].asDouble();}
+\DoxyCodeLine{00202\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ =\ inlet[\textcolor{stringliteral}{"{}v"{}}].asDouble();}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&exit\ =\ flow[\textcolor{stringliteral}{"{}exit\_conditions"{}}];}
+\DoxyCodeLine{00205\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a94969fb2b87782e0bb5a29d8e79da7ff_a94969fb2b87782e0bb5a29d8e79da7ff}{type}}\ =\ exit[\textcolor{stringliteral}{"{}exit\_type"{}}].asString();}
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a3a0937d51c21c0a4c380143a290f2251_a3a0937d51c21c0a4c380143a290f2251}{P}}\ =\ exit[\textcolor{stringliteral}{"{}Pressure\_Static\_Exit"{}}].asDouble();}
+\DoxyCodeLine{00207\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_aa71ceaf713ecbe1ba0b019e4c06e1f6f_aa71ceaf713ecbe1ba0b019e4c06e1f6f}{Rho}}\ =\ exit[\textcolor{stringliteral}{"{}Rho\_Static\_Exit"{}}].asDouble();}
+\DoxyCodeLine{00208\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a24520fef548942327926122aa8558b32_a24520fef548942327926122aa8558b32}{M}}\ =\ exit[\textcolor{stringliteral}{"{}Exit\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00209\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a9252e24f70fd31d6fb4103949c06956b_a9252e24f70fd31d6fb4103949c06956b}{u}}\ =\ exit[\textcolor{stringliteral}{"{}u"{}}].asDouble();}
+\DoxyCodeLine{00210\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}}.\mbox{\hyperlink{struct_exit_condition_a6bb912ad139b589f7a2dfec37e5304cb_a6bb912ad139b589f7a2dfec37e5304cb}{v}}\ =\ exit[\textcolor{stringliteral}{"{}v"{}}].asDouble();}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&wall\ =\ flow[\textcolor{stringliteral}{"{}wall\_conditions"{}}];}
+\DoxyCodeLine{00213\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a77ed091848efada57b05ca8560fd818f_a77ed091848efada57b05ca8560fd818f}{wallCond}}.\mbox{\hyperlink{struct_wall_condition_a7347aa20462409d1a341559b77d96b76_a7347aa20462409d1a341559b77d96b76}{type}}\ =\ wall[\textcolor{stringliteral}{"{}wall\_type"{}}].asString();}
+\DoxyCodeLine{00214\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a77ed091848efada57b05ca8560fd818f_a77ed091848efada57b05ca8560fd818f}{wallCond}}.\mbox{\hyperlink{struct_wall_condition_a770442876b09e74d43e97a89c18b990c_a770442876b09e74d43e97a89c18b990c}{T}}\ =\ wall[\textcolor{stringliteral}{"{}wall\_temperature"{}}].asDouble();}
+\DoxyCodeLine{00215\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a77ed091848efada57b05ca8560fd818f_a77ed091848efada57b05ca8560fd818f}{wallCond}}.\mbox{\hyperlink{struct_wall_condition_ac95fe6ce70d2fd2bcf265bf4cd9e18bd_ac95fe6ce70d2fd2bcf265bf4cd9e18bd}{u}}\ =\ wall[\textcolor{stringliteral}{"{}wall\_velocity"{}}].asDouble();}
+\DoxyCodeLine{00216\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a77ed091848efada57b05ca8560fd818f_a77ed091848efada57b05ca8560fd818f}{wallCond}}.\mbox{\hyperlink{struct_wall_condition_a907947e0e9b657f87d4d1ef4adf56c8f_a907947e0e9b657f87d4d1ef4adf56c8f}{v}}\ =\ wall[\textcolor{stringliteral}{"{}wall\_velocity"{}}].asDouble();}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&init\ =\ flow[\textcolor{stringliteral}{"{}Initial\_Conditions"{}}];}
+\DoxyCodeLine{00219\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}}.\mbox{\hyperlink{struct_initial_condition_aa8a2943613c6ba434289ca7a0ae43a7c_aa8a2943613c6ba434289ca7a0ae43a7c}{P}}\ =\ init[\textcolor{stringliteral}{"{}Pressure\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00220\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}}.\mbox{\hyperlink{struct_initial_condition_afcf20f2805c27f146bb4421a9d03c56d_afcf20f2805c27f146bb4421a9d03c56d}{Rho}}\ =\ init[\textcolor{stringliteral}{"{}Rho\_Static\_Inlet"{}}].asDouble();}
+\DoxyCodeLine{00221\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}}.\mbox{\hyperlink{struct_initial_condition_a8d16e061869729ba5b636add3f19f163_a8d16e061869729ba5b636add3f19f163}{M}}\ =\ init[\textcolor{stringliteral}{"{}Inlet\_Mach\_No"{}}].asDouble();}
+\DoxyCodeLine{00222\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}}.\mbox{\hyperlink{struct_initial_condition_a6d80e46e1530b7635a7bce0bf1828580_a6d80e46e1530b7635a7bce0bf1828580}{u}}\ =\ init[\textcolor{stringliteral}{"{}u"{}}].asDouble();}
+\DoxyCodeLine{00223\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}}.\mbox{\hyperlink{struct_initial_condition_a3170fee1cec1b853f869b7f31cb785e0_a3170fee1cec1b853f869b7f31cb785e0}{v}}\ =\ init[\textcolor{stringliteral}{"{}v"{}}].asDouble();}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \mbox{\hyperlink{_configuration___read_8cpp_a6f49ec5aec2e36c39b9287818ec3f650_a6f49ec5aec2e36c39b9287818ec3f650}{initializeGridFiles}}();}
+\DoxyCodeLine{00226\ \ \ \ \ \mbox{\hyperlink{_test___cases_8h_a4debd02bbc1736679fe1145738aba8c3_a4debd02bbc1736679fe1145738aba8c3}{Initialize\_TestCase}}();}
+\DoxyCodeLine{00227\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1a/_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=257pt]{d0/d1a/_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_directory___files_8h_a96844689bc7fa356d46f614005d3a949_a96844689bc7fa356d46f614005d3a949}\index{Directory\_Files.h@{Directory\_Files.h}!searchGridFiles@{searchGridFiles}}
+\index{searchGridFiles@{searchGridFiles}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{searchGridFiles()}{searchGridFiles()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_a96844689bc7fa356d46f614005d3a949_a96844689bc7fa356d46f614005d3a949} 
+void search\+Grid\+Files (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_dir___files_8cpp_source_l00153}{153}} of file \mbox{\hyperlink{_dir___files_8cpp_source}{Dir\+\_\+\+Files.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00154\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordtype}{string}\ gridFile\ =\ \textcolor{stringliteral}{"{}../Grid\_Files/TestCase\_"{}}\ +\ to\_string(\mbox{\hyperlink{_globals_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}})\ +\ \textcolor{stringliteral}{"{}/GridSize\_"{}}\ +\ to\_string(\mbox{\hyperlink{_globals_8h_a9a4ce39dbb48e9dd9f62d461e256dd00_a9a4ce39dbb48e9dd9f62d461e256dd00}{Grid\_Size}})\ +\ \textcolor{stringliteral}{"{}.vtk"{}};}
+\DoxyCodeLine{00156\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Searching\ for\ grid\ file:\ "{}}\ <<\ gridFile\ <<\ endl;}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{if}\ (filesystem::exists(gridFile))}
+\DoxyCodeLine{00158\ \ \ \ \ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a280972f50a7acabfa4c469610ecd1b0a_a280972f50a7acabfa4c469610ecd1b0a}{Grid\_File}}\ =\ gridFile;}
+\DoxyCodeLine{00160\ \ \ \ \ \}}
+\DoxyCodeLine{00161\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00162\ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Grid\ file\ not\ found!"{}}\ <<\ endl;}
+\DoxyCodeLine{00164\ \ \ \ \ \}}
+\DoxyCodeLine{00165\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_directory___files_8h_ac38de89cdbad5c2dcbabaab7981a32f4_ac38de89cdbad5c2dcbabaab7981a32f4}\index{Directory\_Files.h@{Directory\_Files.h}!testCase@{testCase}}
+\index{testCase@{testCase}!Directory\_Files.h@{Directory\_Files.h}}
+\doxysubsubsection{\texorpdfstring{testCase()}{testCase()}}
+{\footnotesize\ttfamily \label{_directory___files_8h_ac38de89cdbad5c2dcbabaab7981a32f4_ac38de89cdbad5c2dcbabaab7981a32f4} 
+void test\+Case (\begin{DoxyParamCaption}\item[{int \&}]{Test\+\_\+\+Case}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_configuration___read_8cpp_source_l00081}{81}} of file \mbox{\hyperlink{_configuration___read_8cpp_source}{Configuration\+\_\+\+Read.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{comment}{//\ Test\ case\ switch}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{comment}{/*\ \ switch\ (Test\_Case)}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ \ \ \ \{}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ \ \ \ case\ 1:}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Half\_Cylinder\_Flow();}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ \ \ case\ 2:}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Shock\_Reflection\_2D();}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ \ \ \ case\ 3:}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Ramp\_15\_Degree();}}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ \ \ \ case\ 4:}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Forward\_Facing\_Step();}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ \ \ \ case\ 5:}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Air\_Foil();}}
+\DoxyCodeLine{00100\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00101\ \textcolor{comment}{\ \ \ \ \ \ case\ 6:}}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Shock\_Tube\_2D();}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ \ \ \ case\ 8:}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Channel\_Flow();}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ \ \ \ case\ 9:}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Scram\_Jet\_Inlet();}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \ \ case\ 10:}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Flow\_Over\_Bump();}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ \ \ case\ 11:}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Slip\_Flow\_2D();}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ \ default:}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ Ramp\_15\_Degree();}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{00120\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{d0/d1a/_directory___files_8h_ac38de89cdbad5c2dcbabaab7981a32f4_ac38de89cdbad5c2dcbabaab7981a32f4_icgraph}
+\end{center}
+\end{figure}

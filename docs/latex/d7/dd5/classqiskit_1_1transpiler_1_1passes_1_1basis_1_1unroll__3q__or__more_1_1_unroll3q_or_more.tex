@@ -1,0 +1,85 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+basis.\+unroll\+\_\+3q\+\_\+or\+\_\+more.\+Unroll3q\+Or\+More Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more}{}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more}\index{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore@{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+basis.\+unroll\+\_\+3q\+\_\+or\+\_\+more.\+Unroll3q\+Or\+More\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.181818cm]{d7/dd5/classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a31dc9c869d416d445e9be7096db9b77d_a31dc9c869d416d445e9be7096db9b77d}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, target=None, basis\+\_\+gates=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a3eea536cc8cd6d7d835f2fa74ab05fbb_a3eea536cc8cd6d7d835f2fa74ab05fbb}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a70ad1d30ce99e591103149aa9312a845}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a70ad1d30ce99e591103149aa9312a845} 
+{\bfseries target} = target
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a471c06d2ab9958820ecd36f38b7f1802}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a471c06d2ab9958820ecd36f38b7f1802} 
+{\bfseries basis\+\_\+gates} = None
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a944cb28514028b464f4f4e923d24dcb5}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a944cb28514028b464f4f4e923d24dcb5} 
+{\bfseries run}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Recursively expands 3q+ gates until the circuit only contains 2q or 1q gates.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a31dc9c869d416d445e9be7096db9b77d_a31dc9c869d416d445e9be7096db9b77d}\index{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore@{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore@{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a31dc9c869d416d445e9be7096db9b77d_a31dc9c869d416d445e9be7096db9b77d} 
+qiskit.\+transpiler.\+passes.\+basis.\+unroll\+\_\+3q\+\_\+or\+\_\+more.\+Unroll3q\+Or\+More.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{target}{ = {\ttfamily None}, }\item[{}]{basis\+\_\+gates}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize the Unroll3qOrMore pass
+
+Args:
+    target (Target): The target object representing the compilation
+        target. If specified any multi-qubit instructions in the
+        circuit when the pass is run that are supported by the target
+        device will be left in place. If both this and ``basis_gates``
+        are specified only the target will be checked.
+    basis_gates (list): A list of basis gate names that the target
+        device supports. If specified any gate names in the circuit
+        which are present in this list will not be unrolled. If both
+        this and ``target`` are specified only the target will be used
+        for checking which gates are supported.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a3eea536cc8cd6d7d835f2fa74ab05fbb_a3eea536cc8cd6d7d835f2fa74ab05fbb}\index{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore@{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore@{qiskit.transpiler.passes.basis.unroll\_3q\_or\_more.Unroll3qOrMore}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1unroll__3q__or__more_1_1_unroll3q_or_more_a3eea536cc8cd6d7d835f2fa74ab05fbb_a3eea536cc8cd6d7d835f2fa74ab05fbb} 
+qiskit.\+transpiler.\+passes.\+basis.\+unroll\+\_\+3q\+\_\+or\+\_\+more.\+Unroll3q\+Or\+More.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the Unroll3qOrMore pass on `dag`.
+
+Args:
+    dag(DAGCircuit): input dag
+Returns:
+    DAGCircuit: output dag with maximum node degrees of 2
+Raises:
+    QiskitError: if a 3q+ gate is not decomposable
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/basis/unroll\+\_\+3q\+\_\+or\+\_\+more.\+py\end{DoxyCompactItemize}

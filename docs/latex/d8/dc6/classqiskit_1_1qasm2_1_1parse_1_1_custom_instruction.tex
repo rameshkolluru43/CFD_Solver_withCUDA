@@ -1,0 +1,59 @@
+\doxysection{qiskit.\+qasm2.\+parse.\+Custom\+Instruction Class Reference}
+\hypertarget{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction}{}\label{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction}\index{qiskit.qasm2.parse.CustomInstruction@{qiskit.qasm2.parse.CustomInstruction}}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction_ae8ba1db89a03ecc196e41e375d417f30}\label{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction_ae8ba1db89a03ecc196e41e375d417f30} 
+Callable {\bfseries constructor} \mbox{[}..., \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{Instruction}}\mbox{]}
+\item 
+\Hypertarget{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction_a6bee844dd2b374a90c2878e2ad8a45a3}\label{classqiskit_1_1qasm2_1_1parse_1_1_custom_instruction_a6bee844dd2b374a90c2878e2ad8a45a3} 
+bool {\bfseries builtin} = False
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Information about a custom instruction that should be defined during the parse.
+
+The ``name``, ``num_params`` and ``num_qubits`` fields are self-explanatory.  The
+``constructor`` field should be a callable object with signature ``*args -> Instruction``, where
+each of the ``num_params`` ``args`` is a floating-point value.  Most of the built-in Qiskit gate
+classes have this form.
+
+There is a final ``builtin`` field.  This is optional, and if set true will cause the
+instruction to be defined and available within the parsing, even if there is no definition in
+any included OpenQASM 2 file.
+
+Examples:
+
+    Instruct the importer to use Qiskit's :class:`.ECRGate` and :class:`.RZXGate` objects to
+    interpret ``gate`` statements that are known to have been created from those same objects
+    during OpenQASM 2 export::
+
+        from qiskit import qasm2
+        from qiskit.circuit import QuantumCircuit, library
+
+        qc = QuantumCircuit(2)
+        qc.ecr(0, 1)
+        qc.rzx(0.3, 0, 1)
+        qc.rzx(0.7, 1, 0)
+        qc.rzx(1.5, 0, 1)
+        qc.ecr(1, 0)
+
+        # This output string includes `gate ecr q0, q1 { ... }` and `gate rzx(p) q0, q1 { ... }`
+        # statements, since `ecr` and `rzx` are neither built-in gates nor in ``qelib1.inc``.
+        dumped = qasm2.dumps(qc)
+
+        # Tell the importer how to interpret the `gate` statements, which we know are safe
+        # because we controlled the input OpenQASM 2 source.
+        custom = [
+            qasm2.CustomInstruction("ecr", 0, 2, library.ECRGate),
+            qasm2.CustomInstruction("rzx", 1, 2, library.RZXGate),
+        ]
+
+        loaded = qasm2.loads(dumped, custom_instructions=custom)
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/qasm2/parse.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,190 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{da/ddf/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a75c76c6975861f2e795839ff562e7e57_a75c76c6975861f2e795839ff562e7e57}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Parameter\+Value\+Type phi, Parameter\+Value\+Type lam, Optional\mbox{[}str\mbox{]} label=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a9b354ba0c0e510ff2bb5a65d2cb3363d_a9b354ba0c0e510ff2bb5a65d2cb3363d}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a649e88bd373f20c1e0a1f09fe6a848a5_a649e88bd373f20c1e0a1f09fe6a848a5}{\+\_\+\+\_\+array\+\_\+\+\_\+}} (self, dtype=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a76b66503b29572348ce176cfb016bb68_a76b66503b29572348ce176cfb016bb68}{copy}}=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a88aff2a0c6e580514e5c02ea05fa0dc4_a88aff2a0c6e580514e5c02ea05fa0dc4}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a7e8f5faa77989ce9bc7205a5d04693c6}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a7e8f5faa77989ce9bc7205a5d04693c6} 
+{\bfseries definition} = qc
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a616589ffef51aa7e3de70053fc0968bb_a616589ffef51aa7e3de70053fc0968bb}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_ad2d96a6a2d11296555de1640445247ce}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_ad2d96a6a2d11296555de1640445247ce} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+U2\+Gate
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Single-qubit rotation about the X+Z axis.
+
+Implemented using one X90 pulse on IBM Quantum systems:
+
+.. warning::
+
+   This gate is deprecated. Instead, the following replacements should be used
+
+   .. math::
+
+       U2(\phi, \lambda) = U\left(\frac{\pi}{2}, \phi, \lambda\right)
+
+   .. code-block:: python
+
+      circuit = QuantumCircuit(1)
+      circuit.u(pi/2, phi, lambda)
+
+
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+         ┌─────────┐
+    q_0: ┤ U2(φ,λ) ├
+         └─────────┘
+
+**Matrix Representation:**
+
+.. math::
+
+    U2(\phi, \lambda) = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            1          & -e^{i\lambda} \\
+            e^{i\phi} & e^{i(\phi+\lambda)}
+        \end{pmatrix}
+
+**Examples:**
+
+.. math::
+
+    U2(\phi,\lambda) = e^{i \frac{\phi + \lambda}{2}}RZ(\phi)
+    RY\left(\frac{\pi}{2}\right) RZ(\lambda)
+    = e^{- i\frac{\pi}{4}} P\left(\frac{\pi}{2} + \phi\right)
+    \sqrt{X} P\left(\lambda- \frac{\pi}{2}\right)
+
+.. math::
+
+    U2(0, \pi) = H
+
+.. math::
+
+    U2(0, 0) = RY(\pi/2)
+
+.. math::
+
+    U2(-\pi/2, \pi/2) = RX(\pi/2)
+
+.. seealso::
+
+    :class:`~qiskit.circuit.library.standard_gates.U3Gate`:
+    U3 is a generalization of U2 that covers all single-qubit rotations,
+    using two X90 pulses.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a75c76c6975861f2e795839ff562e7e57_a75c76c6975861f2e795839ff562e7e57}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a75c76c6975861f2e795839ff562e7e57_a75c76c6975861f2e795839ff562e7e57} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Parameter\+Value\+Type}]{phi}{, }\item[{Parameter\+Value\+Type}]{lam}{, }\item[{Optional\mbox{[}str\mbox{]} }]{label}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new U2 gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a649e88bd373f20c1e0a1f09fe6a848a5_a649e88bd373f20c1e0a1f09fe6a848a5}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}!\_\_array\_\_@{\_\_array\_\_}}
+\index{\_\_array\_\_@{\_\_array\_\_}!qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_array\_\_()}{\_\_array\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a649e88bd373f20c1e0a1f09fe6a848a5_a649e88bd373f20c1e0a1f09fe6a848a5} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate.\+\_\+\+\_\+array\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dtype}{ = {\ttfamily None}, }\item[{}]{copy}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a Numpy.array for the U2 gate.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a88aff2a0c6e580514e5c02ea05fa0dc4_a88aff2a0c6e580514e5c02ea05fa0dc4}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a88aff2a0c6e580514e5c02ea05fa0dc4_a88aff2a0c6e580514e5c02ea05fa0dc4} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a616589ffef51aa7e3de70053fc0968bb_a616589ffef51aa7e3de70053fc0968bb}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a616589ffef51aa7e3de70053fc0968bb_a616589ffef51aa7e3de70053fc0968bb} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a9b354ba0c0e510ff2bb5a65d2cb3363d_a9b354ba0c0e510ff2bb5a65d2cb3363d}\index{qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.standard\_gates.u2.U2Gate@{qiskit.circuit.library.standard\_gates.u2.U2Gate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1u2_1_1_u2_gate_a9b354ba0c0e510ff2bb5a65d2cb3363d_a9b354ba0c0e510ff2bb5a65d2cb3363d} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+u2.\+U2\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverted U2 gate.
+
+:math:`U2(\phi, \lambda)^{\dagger} =U2(-\lambda-\pi, -\phi+\pi))`
+
+Args:
+    annotated: when set to ``True``, this is typically used to return an
+        :class:`.AnnotatedOperation` with an inverse modifier set instead of a concrete
+        :class:`.Gate`. However, for this class this argument is ignored as the inverse
+        of this gate is always a :class:`.U2Gate` with inverse parameter values.
+
+Returns:
+    U2Gate: inverse gate.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/u2.\+py\end{DoxyCompactItemize}

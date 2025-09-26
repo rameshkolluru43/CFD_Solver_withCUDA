@@ -1,0 +1,130 @@
+\doxysection{qiskit.\+pulse.\+macros Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1macros}{}\label{namespaceqiskit_1_1pulse_1_1macros}\index{qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1macros_a53f961892ccf597a4a354505ad39d7a9_a53f961892ccf597a4a354505ad39d7a9}{measure}} (Sequence\mbox{[}int\mbox{]} qubits, backend=None, Instruction\+Schedule\+Map\texorpdfstring{$\vert$}{|}None inst\+\_\+map=None, list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}None meas\+\_\+map=None, dict\mbox{[}int, int\mbox{]}\texorpdfstring{$\vert$}{|}None qubit\+\_\+mem\+\_\+slots=None, str measure\+\_\+name="{}measure"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1macros_ab56140f672d2b32ce09ad45e0070ab01_ab56140f672d2b32ce09ad45e0070ab01}{\+\_\+measure\+\_\+v1}} (Sequence\mbox{[}int\mbox{]} qubits, Instruction\+Schedule\+Map inst\+\_\+map, list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]} meas\+\_\+map, dict\mbox{[}int, int\mbox{]}\texorpdfstring{$\vert$}{|}None qubit\+\_\+mem\+\_\+slots=None, str measure\+\_\+name="{}measure"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1macros_a4e02b2c6cbdd36c5af2828592d703cf1_a4e02b2c6cbdd36c5af2828592d703cf1}{\+\_\+measure\+\_\+v2}} (Sequence\mbox{[}int\mbox{]} qubits, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} target, list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]} meas\+\_\+map, dict\mbox{[}int, int\mbox{]} qubit\+\_\+mem\+\_\+slots, str measure\+\_\+name="{}measure"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1macros_a352f073475e00155139925c03da30749_a352f073475e00155139925c03da30749}{measure\+\_\+all}} (backend)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1macros_a3dc70136f599bf0e465dd4e43bede13a_a3dc70136f599bf0e465dd4e43bede13a}{\+\_\+schedule\+\_\+remapping\+\_\+memory\+\_\+slot}} (\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} schedule, dict\mbox{[}int, int\mbox{]} qubit\+\_\+mem\+\_\+slots)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Module for common pulse programming macros.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1pulse_1_1macros_ab56140f672d2b32ce09ad45e0070ab01_ab56140f672d2b32ce09ad45e0070ab01}\index{qiskit.pulse.macros@{qiskit.pulse.macros}!\_measure\_v1@{\_measure\_v1}}
+\index{\_measure\_v1@{\_measure\_v1}!qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection{\texorpdfstring{\_measure\_v1()}{\_measure\_v1()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1macros_ab56140f672d2b32ce09ad45e0070ab01_ab56140f672d2b32ce09ad45e0070ab01} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+pulse.\+macros.\+\_\+measure\+\_\+v1 (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}int\mbox{]}}]{qubits}{, }\item[{Instruction\+Schedule\+Map}]{inst\+\_\+map}{, }\item[{list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]}}]{meas\+\_\+map}{, }\item[{dict\mbox{[}int, int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{qubit\+\_\+mem\+\_\+slots}{ = {\ttfamily None}, }\item[{str }]{measure\+\_\+name}{ = {\ttfamily "{}measure"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return a schedule which measures the requested qubits according to the given
+instruction mapping and measure map, or by using the defaults provided by the backendV1.
+
+Args:
+    qubits: List of qubits to be measured.
+    backend (Union[Backend, BaseBackend]): A backend instance, which contains
+        hardware-specific data required for scheduling.
+    inst_map: Mapping of circuit operations to pulse schedules. If None, defaults to the
+              ``instruction_schedule_map`` of ``backend``.
+    meas_map: List of sets of qubits that must be measured together. If None, defaults to
+              the ``meas_map`` of ``backend``.
+    qubit_mem_slots: Mapping of measured qubit index to classical bit index.
+    measure_name: Name of the measurement schedule.
+Returns:
+    A measurement schedule corresponding to the inputs provided.
+Raises:
+    PulseError: If both ``inst_map`` or ``meas_map``, and ``backend`` is None.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1macros_a4e02b2c6cbdd36c5af2828592d703cf1_a4e02b2c6cbdd36c5af2828592d703cf1}\index{qiskit.pulse.macros@{qiskit.pulse.macros}!\_measure\_v2@{\_measure\_v2}}
+\index{\_measure\_v2@{\_measure\_v2}!qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection{\texorpdfstring{\_measure\_v2()}{\_measure\_v2()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1macros_a4e02b2c6cbdd36c5af2828592d703cf1_a4e02b2c6cbdd36c5af2828592d703cf1} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+pulse.\+macros.\+\_\+measure\+\_\+v2 (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}int\mbox{]}}]{qubits}{, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}}}]{target}{, }\item[{list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]}}]{meas\+\_\+map}{, }\item[{dict\mbox{[}int, int\mbox{]}}]{qubit\+\_\+mem\+\_\+slots}{, }\item[{str }]{measure\+\_\+name}{ = {\ttfamily "{}measure"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return a schedule which measures the requested qubits according to the given
+target and measure map, or by using the defaults provided by the backendV2.
+
+Args:
+    qubits: List of qubits to be measured.
+    target: The :class:`~.Target` representing the target backend.
+    meas_map: List of sets of qubits that must be measured together.
+    qubit_mem_slots: Mapping of measured qubit index to classical bit index.
+    measure_name: Name of the measurement schedule.
+
+Returns:
+    A measurement schedule corresponding to the inputs provided.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1macros_a3dc70136f599bf0e465dd4e43bede13a_a3dc70136f599bf0e465dd4e43bede13a}\index{qiskit.pulse.macros@{qiskit.pulse.macros}!\_schedule\_remapping\_memory\_slot@{\_schedule\_remapping\_memory\_slot}}
+\index{\_schedule\_remapping\_memory\_slot@{\_schedule\_remapping\_memory\_slot}!qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection{\texorpdfstring{\_schedule\_remapping\_memory\_slot()}{\_schedule\_remapping\_memory\_slot()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1macros_a3dc70136f599bf0e465dd4e43bede13a_a3dc70136f599bf0e465dd4e43bede13a} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+pulse.\+macros.\+\_\+schedule\+\_\+remapping\+\_\+memory\+\_\+slot (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}}]{schedule}{, }\item[{dict\mbox{[}int, int\mbox{]} }]{qubit\+\_\+mem\+\_\+slots}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to overwrite MemorySlot index of :class:`.Acquire` instruction.
+
+Args:
+    schedule: A measurement schedule.
+    qubit_mem_slots: Mapping of measured qubit index to classical bit index.
+
+Returns:
+    A measurement schedule with new memory slot index.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1macros_a53f961892ccf597a4a354505ad39d7a9_a53f961892ccf597a4a354505ad39d7a9}\index{qiskit.pulse.macros@{qiskit.pulse.macros}!measure@{measure}}
+\index{measure@{measure}!qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection{\texorpdfstring{measure()}{measure()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1macros_a53f961892ccf597a4a354505ad39d7a9_a53f961892ccf597a4a354505ad39d7a9} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+pulse.\+macros.\+measure (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}int\mbox{]}}]{qubits}{, }\item[{}]{backend}{ = {\ttfamily None}, }\item[{Instruction\+Schedule\+Map \texorpdfstring{$\vert$}{|} None }]{inst\+\_\+map}{ = {\ttfamily None}, }\item[{list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} dict\mbox{[}int, list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{meas\+\_\+map}{ = {\ttfamily None}, }\item[{dict\mbox{[}int, int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{qubit\+\_\+mem\+\_\+slots}{ = {\ttfamily None}, }\item[{str }]{measure\+\_\+name}{ = {\ttfamily "{}measure"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a schedule which measures the requested qubits according to the given
+instruction mapping and measure map, or by using the defaults provided by the backend.
+
+.. note::
+    This function internally dispatches schedule generation logic depending on input backend model.
+    For the :class:`.BackendV1`, it considers conventional :class:`.InstructionScheduleMap`
+    and utilizes the backend calibration defined for a group of qubits in the `meas_map`.
+    For the :class:`.BackendV2`, it assembles calibrations of single qubit measurement
+    defined in the backend target to build a composite measurement schedule for `qubits`.
+
+By default, the measurement results for each qubit are trivially mapped to the qubit
+index. This behavior is overridden by qubit_mem_slots. For instance, to measure
+qubit 0 into MemorySlot(1), qubit_mem_slots can be provided as {0: 1}.
+
+Args:
+    qubits: List of qubits to be measured.
+    backend (Union[Backend, BaseBackend]): A backend instance, which contains
+        hardware-specific data required for scheduling.
+    inst_map: Mapping of circuit operations to pulse schedules. If None, defaults to the
+              ``instruction_schedule_map`` of ``backend``.
+    meas_map: List of sets of qubits that must be measured together. If None, defaults to
+              the ``meas_map`` of ``backend``.
+    qubit_mem_slots: Mapping of measured qubit index to classical bit index.
+    measure_name: Name of the measurement schedule.
+
+Returns:
+    A measurement schedule corresponding to the inputs provided.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1pulse_1_1macros_a352f073475e00155139925c03da30749_a352f073475e00155139925c03da30749}\index{qiskit.pulse.macros@{qiskit.pulse.macros}!measure\_all@{measure\_all}}
+\index{measure\_all@{measure\_all}!qiskit.pulse.macros@{qiskit.pulse.macros}}
+\doxysubsubsection{\texorpdfstring{measure\_all()}{measure\_all()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1macros_a352f073475e00155139925c03da30749_a352f073475e00155139925c03da30749} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+pulse.\+macros.\+measure\+\_\+all (\begin{DoxyParamCaption}\item[{}]{backend}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a Schedule which measures all qubits of the given backend.
+
+Args:
+    backend (Union[Backend, BaseBackend]): A backend instance, which contains
+        hardware-specific data required for scheduling.
+
+Returns:
+    A schedule corresponding to the inputs provided.
+\end{DoxyVerb}
+ 

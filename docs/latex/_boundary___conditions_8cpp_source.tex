@@ -1,0 +1,57 @@
+\doxysection{Boundary\+\_\+\+Conditions.\+cpp}
+\hypertarget{_boundary___conditions_8cpp_source}{}\label{_boundary___conditions_8cpp_source}\index{Boundary\_Conditions/Boundary\_Conditions.cpp@{Boundary\_Conditions/Boundary\_Conditions.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ This\ function\ groups\ all\ the\ other\ boundary\ conditions}}
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{void}\ Apply\_Boundary\_Conditions()}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Applying\ Boundary\ Conditions\(\backslash\)n"{};}}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{switch}(Is\_Inlet\_SubSonic)}
+\DoxyCodeLine{00008\ \ \ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \ \ \ \ Subsonic\_Inlet\_Boundary\_Condition();}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ Supersonic\_Inlet\_Boundary\_Condition();}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00015\ \ \ \ \ \}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordflow}{switch}(Is\_Exit\_SubSonic)}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =0;i<Exit\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Subsonic\_Exit\_Boundary\_Condition(i);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Exit\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Supersonic\_Exit\_Boundary\_Condition(i);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00030\ \ \ \ \ \}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ cout<<"{}Inlet\ and\ Exit\ applied"{}<<endl;}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{switch}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Viscous\ wall\ enabled"{}<<endl;}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ Viscous\_Wall\_Boundary\_Condition();\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ InViscid\_Wall\_Boundary\_Condition();}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \textcolor{comment}{//\ \ cout<<"{}Boundary\ Conditions\ Properly\ applied"{}<<endl;}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{switch}(has\_Symmetry\_BC)}
+\DoxyCodeLine{00044\ \ \ \ \ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ Symmetry\_Boundary\_Condition();}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+
+\end{DoxyCode}

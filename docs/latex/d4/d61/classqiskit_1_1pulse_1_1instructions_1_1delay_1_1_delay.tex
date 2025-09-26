@@ -1,0 +1,103 @@
+\doxysection{qiskit.\+pulse.\+instructions.\+delay.\+Delay Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay}{}\label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay}\index{qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}}
+Inheritance diagram for qiskit.\+pulse.\+instructions.\+delay.\+Delay\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d4/d61/classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a4907387f8ae9002db7c0ea91b35e4a33_a4907387f8ae9002db7c0ea91b35e4a33}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a664c2b1e060a20f86ec538a7147fe8dc_a664c2b1e060a20f86ec538a7147fe8dc}{duration}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}} channel, str\texorpdfstring{$\vert$}{|}None name=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_af7fab96414c1a98837c90714c5716e95_af7fab96414c1a98837c90714c5716e95}{channel}} (self)
+\item 
+tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_acfea2394475721bf318144c8ade41660_acfea2394475721bf318144c8ade41660}{channels}} (self)
+\item 
+int\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a664c2b1e060a20f86ec538a7147fe8dc_a664c2b1e060a20f86ec538a7147fe8dc}{duration}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a9c380db544d9977e9b92195b92a736af}\label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a9c380db544d9977e9b92195b92a736af} 
+{\bfseries channel}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A blocking instruction with no other effect. The delay is used for aligning and scheduling
+other instructions.
+
+Example:
+
+    To schedule an instruction at time = 10, on a channel assigned to the variable ``channel``,
+    the following could be used::
+
+        sched = Schedule(name="Delay instruction example")
+        sched += Delay(10, channel)
+        sched += Gaussian(duration, amp, sigma, channel)
+
+    The ``channel`` will output no signal from time=0 up until time=10.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a4907387f8ae9002db7c0ea91b35e4a33_a4907387f8ae9002db7c0ea91b35e4a33}\index{qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a4907387f8ae9002db7c0ea91b35e4a33_a4907387f8ae9002db7c0ea91b35e4a33} 
+qiskit.\+pulse.\+instructions.\+delay.\+Delay.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}}]{duration}{, }\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}}}]{channel}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new delay instruction.
+
+No other instruction may be scheduled within a ``Delay``.
+
+Args:
+    duration: Length of time of the delay in terms of dt.
+    channel: The channel that will have the delay.
+    name: Name of the delay for display purposes.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_adbee9857aaf346e675afe47af542322e_adbee9857aaf346e675afe47af542322e}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_af7fab96414c1a98837c90714c5716e95_af7fab96414c1a98837c90714c5716e95}\index{qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}!channel@{channel}}
+\index{channel@{channel}!qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}}
+\doxysubsubsection{\texorpdfstring{channel()}{channel()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_af7fab96414c1a98837c90714c5716e95_af7fab96414c1a98837c90714c5716e95} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}} qiskit.\+pulse.\+instructions.\+delay.\+Delay.\+channel (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the :py:class:`~qiskit.pulse.channels.Channel` that this instruction is
+scheduled on.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_acfea2394475721bf318144c8ade41660_acfea2394475721bf318144c8ade41660}\index{qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}!channels@{channels}}
+\index{channels@{channels}!qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}}
+\doxysubsubsection{\texorpdfstring{channels()}{channels()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_acfea2394475721bf318144c8ade41660_acfea2394475721bf318144c8ade41660} 
+ tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}}\mbox{]} qiskit.\+pulse.\+instructions.\+delay.\+Delay.\+channels (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the channels that this schedule uses.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a664c2b1e060a20f86ec538a7147fe8dc_a664c2b1e060a20f86ec538a7147fe8dc}\index{qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}!duration@{duration}}
+\index{duration@{duration}!qiskit.pulse.instructions.delay.Delay@{qiskit.pulse.instructions.delay.Delay}}
+\doxysubsubsection{\texorpdfstring{duration()}{duration()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1delay_1_1_delay_a664c2b1e060a20f86ec538a7147fe8dc_a664c2b1e060a20f86ec538a7147fe8dc} 
+ int \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}} qiskit.\+pulse.\+instructions.\+delay.\+Delay.\+duration (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Duration of this instruction.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_a3dda6e0c42b2af9b763d251f97bc17dc_a3dda6e0c42b2af9b763d251f97bc17dc}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/instructions/delay.\+py\end{DoxyCompactItemize}

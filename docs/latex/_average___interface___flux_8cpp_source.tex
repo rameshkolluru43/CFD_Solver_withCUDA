@@ -1,0 +1,102 @@
+\doxysection{Average\+\_\+\+Interface\+\_\+\+Flux.\+cpp}
+\hypertarget{_average___interface___flux_8cpp_source}{}\label{_average___interface___flux_8cpp_source}\index{Flux\_Types/Average\_Interface\_Flux.cpp@{Flux\_Types/Average\_Interface\_Flux.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//This\ function\ evaluates\ flux\ on\ a\ given\ face.\ It\ takes\ 4\ arguments\ like\ current\ cell\ no,\ its\ neighbour\ cell\ corresponding\ to\ the\ face\ and\ the\ face\ number\ also\ needs\ to\ know}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//whether\ the\ face\ is\ a\ boundary\ face\ or\ not.}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keywordtype}{void}\ Calculate\_Face\_Average\_Flux(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No,\textcolor{keywordtype}{bool}\ \ Is\_Wall\_Face)}
+\DoxyCodeLine{00007\ \{}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ cout<<"{}Evaluating\ Average\ Fluxes\ endl\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00010\ \ \ \ \ Rho\_L=0.0,P\_L=0.0,u\_L=0.0,v\_L=0.0,Vdotn\_L=0.0,nx=0.0,ny=0.0,Vmag\_L=0.0;}
+\DoxyCodeLine{00011\ \ \ \ \ Rho\_R=0.0,P\_R=0.0,u\_R=0.0,v\_R=0.0,Vdotn\_R=0.0,Vmag\_R\ =\ 0.0,dl\ =0.0;}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ double\ Avg\_Rho=0.0,Avg\_u=0.0,Avg\_v=0.0,Avg\_P=0.0;}}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ Flux\_L[0]\ =\ 0.0;\ \ \ \ Flux\_R[0]\ =\ 0.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Flux\_L[1]\ =\ 0.0;\ \ \ \ Flux\_R[1]\ =\ 0.0;}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ Flux\_L[2]\ =\ 0.0;\ \ \ \ Flux\_R[2]\ =\ 0.0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ Flux\_L[3]\ =\ 0.0;\ \ \ \ Flux\_R[3]\ =\ 0.0;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[0]\ =\ 0.0;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[1]\ =\ 0.0;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[2]\ =\ 0.0;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[3]\ =\ 0.0;}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ Left\ state\ variables\ }}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ Rho\_L\ =\ Primitive\_Cells[Cell\_No][0];\ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ P\_L\ =\ Primitive\_Cells[Cell\_No][4];\ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ u\_L\ =\ Primitive\_Cells[Cell\_No][1];\ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ v\_L\ =\ Primitive\_Cells[Cell\_No][2];}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<Rho\_L<<"{}\(\backslash\)t"{}<<P\_L<<"{}\(\backslash\)t"{}<<u\_L<<"{}\(\backslash\)t"{}<<v\_L<<endl;}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ Right\ state\ variables\ \ \ \ \ }}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ Rho\_R\ =\ Primitive\_Cells[N\_Cell\_No][0];\ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ P\_R\ =\ Primitive\_Cells[N\_Cell\_No][4];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ u\_R\ =\ Primitive\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ v\_R\ =\ Primitive\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ \ \ \ \ \ Obtaining\ the\ Normals\ of\ the\ face\ and\ face\ length\ \ \ }}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][index+0];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ nx\ =\ dy/dl}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][index+1];\textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\ ny\ =\ -\/dx/dl}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];\ \ \ \ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/length\ of\ the\ face}}
+\DoxyCodeLine{00048\ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ Vdotn\_L\ \ =\ (u\_L*nx\ +\ v\_L*ny);\ \ \ \ \ \ \ \ \textcolor{comment}{//\ V\ dot\ n\ =\ (u\ dy\ -\/\ v\ dx)\ /\ dl}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ Vdotn\_R\ \ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ Velocity\ Magnitudes\ for\ Left\ and\ Right\ states\ of\ the\ face\ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \textcolor{comment}{//\ \ \ \ \ \ if\ the\ face\ is\ a\ wall\ face\ then\ the\ pressure\ and\ Temperature\ are\ extrapolated\ from\ cell\ centers\ first\ order\ extrapolation\ for\ pressure\ and\ Temperature}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Wall\_Face)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ P\_R\ =\ P\_L;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ \ Left\ state\ Flux\ F\_L\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Right\ state\ flux\ F\_R}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ Flux\_L[0]\ =\ Rho\_L*Vdotn\_L*dl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Flux\_R[0]\ =\ Rho\_R*Vdotn\_R*dl;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ Flux\_L[1]\ =\ Rho\_L*u\_L*Vdotn\_L*dl\ +\ P\_L*nx*dl;\ \ \ \ \ \ \ Flux\_R[1]\ =\ Rho\_R*u\_R*Vdotn\_R*dl\ +\ P\_R*nx*dl;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ Flux\_L[2]\ =\ Rho\_L*v\_L*Vdotn\_L*dl\ +\ P\_L*ny*dl;\ \ \ \ \ \ \ Flux\_R[2]\ =\ Rho\_R*v\_R*Vdotn\_R*dl\ +\ P\_R*ny*dl;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ Flux\_L[3]\ =\ (gamma1*P\_L\ +\ Rho\_L*Vmag\_L\ )*Vdotn\_L*dl;Flux\_R[3]\ =\ (gamma1*P\_R\ +\ Rho\_R*Vmag\_R)*Vdotn\_R*dl;}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Evaluating\ Cell\ Average\ fluxes\ obtained\ from\ left\ state\ and\ Rigt\ state\ 1/2(F\_L\ +\ F\_R)\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[0]\ =\ 0.5*(Flux\_L[0]\ +\ Flux\_R[0]);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[1]\ =\ 0.5*(Flux\_L[1]\ +\ Flux\_R[1]);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[2]\ =\ 0.5*(Flux\_L[2]\ +\ Flux\_R[2]);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ Average\_Convective\_Flux[3]\ =\ 0.5*(Flux\_L[3]\ +\ Flux\_R[3]);\ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ \ \ \ \ \ if(Cell\_No\ ==\ 2050)}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<endl;}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Variables\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}P=\(\backslash\)t"{}<<P\_L<<"{}\(\backslash\)t"{}<<P\_R<<endl;}}
+\DoxyCodeLine{00082\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}d=\(\backslash\)t"{}<<Rho\_L<<"{}\(\backslash\)t"{}<<Rho\_R<<endl;}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}u=\(\backslash\)t"{}<<u\_L<<"{}\(\backslash\)t"{}<<u\_R<<endl;}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}v=\(\backslash\)t"{}<<v\_L<<"{}\(\backslash\)t"{}<<v\_R<<endl;}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Average\ flux\ on\ face\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Average\_Convective\_Flux[0]<<endl;}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Average\_Convective\_Flux[1]<<endl;}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Average\_Convective\_Flux[2]<<endl;}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ cout<<Average\_Convective\_Flux[3]<<endl;}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ \}*/}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+
+\end{DoxyCode}

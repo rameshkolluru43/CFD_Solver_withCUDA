@@ -1,0 +1,58 @@
+\doxysection{setuptools.\+config.\+expand.\+Lazy\+Mapping\+Proxy Class Reference}
+\hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy}{}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy}\index{setuptools.config.expand.LazyMappingProxy@{setuptools.config.expand.LazyMappingProxy}}
+Inheritance diagram for setuptools.\+config.\+expand.\+Lazy\+Mapping\+Proxy\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.367521cm]{da/d82/classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a23b803c2c61414980d2aa466c016542a}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a23b803c2c61414980d2aa466c016542a} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, Callable\mbox{[}\mbox{[}$\,$\mbox{]}, Mapping\mbox{[}\+\_\+K, \+\_\+\+V\+\_\+co\mbox{]}\mbox{]} obtain\+\_\+mapping\+\_\+value)
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_acd1ff8f88c96fab3321ba08c30969736}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_acd1ff8f88c96fab3321ba08c30969736} 
+\+\_\+\+V\+\_\+co {\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, \+\_\+K key)
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aeced8ad23f8b1df5dcda07fe840bf128}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aeced8ad23f8b1df5dcda07fe840bf128} 
+int {\bfseries \+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aafe21017733330a571d34b3ce5b97f88}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aafe21017733330a571d34b3ce5b97f88} 
+Iterator\mbox{[}\+\_\+K\mbox{]} {\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a1972e25cb527d18108b35adcf5469f5c}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a1972e25cb527d18108b35adcf5469f5c} 
+Mapping\mbox{[}\+\_\+K, \+\_\+\+V\+\_\+co\mbox{]} {\bfseries \+\_\+target} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a7cbaedfee416f90e0dd798acab30e3e6}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_a7cbaedfee416f90e0dd798acab30e3e6} 
+{\bfseries \+\_\+obtain} = obtain\+\_\+mapping\+\_\+value
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aa7ede4ea16f8e5588de25cf55c22b3cf}\label{classsetuptools_1_1config_1_1expand_1_1_lazy_mapping_proxy_aa7ede4ea16f8e5588de25cf55c22b3cf} 
+Mapping\mbox{[}\+\_\+K, \+\_\+\+V\+\_\+co\mbox{]}\texorpdfstring{$\vert$}{|}None {\bfseries \+\_\+value} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Mapping proxy that delays resolving the target object, until really needed.
+
+>>> def obtain_mapping():
+...     print("Running expensive function!")
+...     return {"key": "value", "other key": "other value"}
+>>> mapping = LazyMappingProxy(obtain_mapping)
+>>> mapping["key"]
+Running expensive function!
+'value'
+>>> mapping["other key"]
+'other value'
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/config/expand.\+py\end{DoxyCompactItemize}

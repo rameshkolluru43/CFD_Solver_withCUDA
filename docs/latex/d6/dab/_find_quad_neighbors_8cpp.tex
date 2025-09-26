@@ -1,0 +1,160 @@
+\doxysection{Gmsh\+\_\+\+Grids/\+Find\+Quad\+Neighbors.cpp File Reference}
+\hypertarget{_find_quad_neighbors_8cpp}{}\label{_find_quad_neighbors_8cpp}\index{Gmsh\_Grids/FindQuadNeighbors.cpp@{Gmsh\_Grids/FindQuadNeighbors.cpp}}
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid\+Reader.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Smart\+Pointer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Cell.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Points.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Id\+List.\+h$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+Include dependency graph for Find\+Quad\+Neighbors.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d70/_find_quad_neighbors_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_find_quad_neighbors_8cpp_acd5be7392797cf63bc66721c1909def1_acd5be7392797cf63bc66721c1909def1}{Find\+Neighbors\+And\+Print}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ mesh)
+\item 
+int \mbox{\hyperlink{_find_quad_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_find_quad_neighbors_8cpp_acd5be7392797cf63bc66721c1909def1_acd5be7392797cf63bc66721c1909def1}\index{FindQuadNeighbors.cpp@{FindQuadNeighbors.cpp}!FindNeighborsAndPrint@{FindNeighborsAndPrint}}
+\index{FindNeighborsAndPrint@{FindNeighborsAndPrint}!FindQuadNeighbors.cpp@{FindQuadNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{FindNeighborsAndPrint()}{FindNeighborsAndPrint()}}
+{\footnotesize\ttfamily \label{_find_quad_neighbors_8cpp_acd5be7392797cf63bc66721c1909def1_acd5be7392797cf63bc66721c1909def1} 
+void Find\+Neighbors\+And\+Print (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{mesh}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_find_quad_neighbors_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_find_quad_neighbors_8cpp_source}{Find\+Quad\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{int}\ numCells\ =\ mesh-\/>GetNumberOfCells();}
+\DoxyCodeLine{00017\ \ \ \ \ vtkSmartPointer<vtkPoints>\ points\ =\ mesh-\/>GetPoints();}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{comment}{//\ Store\ cell\ connectivity\ and\ neighbor\ information}}
+\DoxyCodeLine{00020\ \ \ \ \ map<int,\ vector<int>>\ cellNeighbors;}
+\DoxyCodeLine{00021\ \ \ \ \ map<int,\ vector<array<double,\ 3>>>\ cellVertices;\ \textcolor{comment}{//\ Store\ cell\ vertex\ coordinates}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Loop\ through\ all\ cells\ and\ store\ point\ connectivity}}
+\DoxyCodeLine{00024\ \ \ \ \ map<int,\ set<int>>\ cellPoints;}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cellId\ =\ 0;\ cellId\ <\ numCells;\ ++cellId)\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkCell>\ cell\ =\ mesh-\/>GetCell(cellId);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ set<int>\ pointSet;}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ vector<array<double,\ 3>>\ vertexCoordinates;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ cell-\/>GetNumberOfPoints();\ ++i)\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ pointId\ =\ cell-\/>GetPointId(i);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ pointSet.insert(pointId);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ coords[3];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ points-\/>GetPoint(pointId,\ coords);}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ vertexCoordinates.push\_back(\{coords[0],\ coords[1],\ coords[2]\});}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ cellPoints[cellId]\ =\ pointSet;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ cellVertices[cellId]\ =\ vertexCoordinates;}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ Find\ neighbors\ by\ checking\ shared\ edges}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ cellId\ =\ 0;\ cellId\ <\ numCells;\ ++cellId)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ set<int>\ currentCellPoints\ =\ cellPoints[cellId];}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ otherCellId\ =\ 0;\ otherCellId\ <\ numCells;\ ++otherCellId)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellId\ ==\ otherCellId)\ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ Skip\ self}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \ \ \ \ set<int>\ otherCellPoints\ =\ cellPoints[otherCellId];}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ shared\ points\ (common\ edge)}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \ \ \ \ set<int>\ sharedPoints;}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ pt\ :\ currentCellPoints)\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (otherCellPoints.find(pt)\ !=\ otherCellPoints.end())\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sharedPoints.insert(pt);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ exactly\ 2\ points\ are\ shared,\ add\ as\ a\ neighbor\ (edge-\/based\ neighbor\ detection)}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sharedPoints.size()\ ==\ 2)\ \{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cellNeighbors[cellId].push\_back(otherCellId);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00065\ \ \ \ \ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Print\ results}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ pair\ :\ cellNeighbors)\ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellId\ =\ pair.first;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Cell\ "{}}\ <<\ cellId\ <<\ \textcolor{stringliteral}{"{}\ Vertices:\ "{}};}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ cell\ vertices}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ vertex\ :\ cellVertices[cellId])\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ vertex[0]\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ vertex[1]\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ <<\ vertex[2]\ <<\ \textcolor{stringliteral}{"{})\ "{}};}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Print\ neighbors}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}\ \ \ Neighbors:\ "{}};}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ neighbor\ :\ pair.second)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ cout\ <<\ endl;}
+\DoxyCodeLine{00084\ \ \ \ \ \}}
+\DoxyCodeLine{00085\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{d6/dab/_find_quad_neighbors_8cpp_acd5be7392797cf63bc66721c1909def1_acd5be7392797cf63bc66721c1909def1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_find_quad_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}\index{FindQuadNeighbors.cpp@{FindQuadNeighbors.cpp}!main@{main}}
+\index{main@{main}!FindQuadNeighbors.cpp@{FindQuadNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_find_quad_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_find_quad_neighbors_8cpp_source_l00087}{87}} of file \mbox{\hyperlink{_find_quad_neighbors_8cpp_source}{Find\+Quad\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Usage:\ "{}}\ <<\ argv[0]\ <<\ \textcolor{stringliteral}{"{}\ <vtk\_file>"{}}\ <<\ endl;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00091\ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ VTK\ file}}
+\DoxyCodeLine{00094\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGridReader>\ reader\ =\ vtkSmartPointer<vtkUnstructuredGridReader>::New();}
+\DoxyCodeLine{00095\ \ \ \ \ reader-\/>SetFileName(argv[1]);}
+\DoxyCodeLine{00096\ \ \ \ \ reader-\/>Update();}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGrid>\ mesh\ =\ reader-\/>GetOutput();}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{comment}{//\ Find\ and\ print\ neighbors\ along\ with\ vertex\ coordinates}}
+\DoxyCodeLine{00101\ \ \ \ \ \mbox{\hyperlink{_find_quad_neighbors_8cpp_acd5be7392797cf63bc66721c1909def1_acd5be7392797cf63bc66721c1909def1}{FindNeighborsAndPrint}}(mesh);}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00104\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{d6/dab/_find_quad_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}

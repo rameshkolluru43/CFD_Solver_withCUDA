@@ -1,0 +1,159 @@
+\doxysection{setuptools.\+Command Class Reference}
+\hypertarget{classsetuptools_1_1_command}{}\label{classsetuptools_1_1_command}\index{setuptools.Command@{setuptools.Command}}
+Inheritance diagram for setuptools.\+Command\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=10.599369cm]{classsetuptools_1_1_command}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1_command_a90fd92ff2a02be9cb270cc6d3b81b53b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} dist, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kw)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1_command_ab7b03708c30ea695ddd1397357dabc00}{ensure\+\_\+string\+\_\+list}} (self, str option)
+\item 
+\Hypertarget{classsetuptools_1_1_command_abd0629133957d20c19418dd1bc1f226e}\label{classsetuptools_1_1_command_abd0629133957d20c19418dd1bc1f226e} 
+\+\_\+\+Command {\bfseries reinitialize\+\_\+command} (self, str command, bool reinit\+\_\+subcommands=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kw)
+\item 
+\Hypertarget{classsetuptools_1_1_command_a4529d015cd82aee9315cbd7749786752}\label{classsetuptools_1_1_command_a4529d015cd82aee9315cbd7749786752} 
+\+\_\+\+CommandT {\bfseries reinitialize\+\_\+command} (self, \+\_\+\+CommandT command, bool reinit\+\_\+subcommands=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kw)
+\item 
+\Hypertarget{classsetuptools_1_1_command_a1f97f5412e17f9df57317266413b2a04}\label{classsetuptools_1_1_command_a1f97f5412e17f9df57317266413b2a04} 
+\+\_\+\+Command {\bfseries reinitialize\+\_\+command} (self, str\texorpdfstring{$\vert$}{|}\+\_\+\+Command command, bool reinit\+\_\+subcommands=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kw)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1_command_adef511b756350d8e07a1848c8fa3ad9d}{initialize\+\_\+options}} (self)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1_command_ad2f8b87ba92c26daf2359f6097524e68}{finalize\+\_\+options}} (self)
+\item 
+None \mbox{\hyperlink{classsetuptools_1_1_command_a2d7105ed45236cb45f76614dee71cb97}{run}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1_command_ab8d0e32eac3aedfa2c21950afbf30764}\label{classsetuptools_1_1_command_ab8d0e32eac3aedfa2c21950afbf30764} 
+bool {\bfseries command\+\_\+consumes\+\_\+arguments} = False
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1_command_a001d793ea7db5e854f3fcdbb7fb685b6}\label{classsetuptools_1_1_command_a001d793ea7db5e854f3fcdbb7fb685b6} 
+{\bfseries \+\_\+ensure\+\_\+stringlike} (self, option, what, default=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Setuptools internal actions are organized using a *command design pattern*.
+This means that each action (or group of closely related actions) executed during
+the build should be implemented as a ``Command`` subclass.
+
+These commands are abstractions and do not necessarily correspond to a command that
+can (or should) be executed via a terminal, in a CLI fashion (although historically
+they would).
+
+When creating a new command from scratch, custom defined classes **SHOULD** inherit
+from ``setuptools.Command`` and implement a few mandatory methods.
+Between these mandatory methods, are listed:
+:meth:`initialize_options`, :meth:`finalize_options` and :meth:`run`.
+
+A useful analogy for command classes is to think of them as subroutines with local
+variables called "options".  The options are "declared" in :meth:`initialize_options`
+and "defined" (given their final values, aka "finalized") in :meth:`finalize_options`,
+both of which must be defined by every command class. The "body" of the subroutine,
+(where it does all the work) is the :meth:`run` method.
+Between :meth:`initialize_options` and :meth:`finalize_options`, ``setuptools`` may set
+the values for options/attributes based on user's input (or circumstance),
+which means that the implementation should be careful to not overwrite values in
+:meth:`finalize_options` unless necessary.
+
+Please note that other commands (or other parts of setuptools) may also overwrite
+the values of the command's options/attributes multiple times during the build
+process.
+Therefore it is important to consistently implement :meth:`initialize_options` and
+:meth:`finalize_options`. For example, all derived attributes (or attributes that
+depend on the value of other attributes) **SHOULD** be recomputed in
+:meth:`finalize_options`.
+
+When overwriting existing commands, custom defined classes **MUST** abide by the
+same APIs implemented by the original class. They also **SHOULD** inherit from the
+original class.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classsetuptools_1_1_command_a90fd92ff2a02be9cb270cc6d3b81b53b}\index{setuptools.Command@{setuptools.Command}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!setuptools.Command@{setuptools.Command}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1_command_a90fd92ff2a02be9cb270cc6d3b81b53b} 
+ None setuptools.\+Command.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}}}]{dist}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kw}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct the command for dist, updating
+vars(self) with any keyword parameters.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1_command_ab7b03708c30ea695ddd1397357dabc00}\index{setuptools.Command@{setuptools.Command}!ensure\_string\_list@{ensure\_string\_list}}
+\index{ensure\_string\_list@{ensure\_string\_list}!setuptools.Command@{setuptools.Command}}
+\doxysubsubsection{\texorpdfstring{ensure\_string\_list()}{ensure\_string\_list()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1_command_ab7b03708c30ea695ddd1397357dabc00} 
+ None setuptools.\+Command.\+ensure\+\_\+string\+\_\+list (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{str}]{option}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Ensure that 'option' is a list of strings.  If 'option' is
+currently a string, we split it either on /,\s*/ or /\s+/, so
+"foo bar baz", "foo,bar,baz", and "foo,   bar baz" all become
+["foo", "bar", "baz"].
+
+..
+TODO: This method seems to be similar to the one in ``distutils.cmd``
+Probably it is just here for backward compatibility with old Python versions?
+
+:meta private:
+\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1_command_ad2f8b87ba92c26daf2359f6097524e68}\index{setuptools.Command@{setuptools.Command}!finalize\_options@{finalize\_options}}
+\index{finalize\_options@{finalize\_options}!setuptools.Command@{setuptools.Command}}
+\doxysubsubsection{\texorpdfstring{finalize\_options()}{finalize\_options()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1_command_ad2f8b87ba92c26daf2359f6097524e68} 
+ None setuptools.\+Command.\+finalize\+\_\+options (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set final values for all options/attributes used by the command.
+Most of the time, each option/attribute/cache should only be set if it does not
+have any value yet (e.g. ``if self.attr is None: self.attr = val``).
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_deb_version_a5992339e7b8f3fc5fc37688be2cccd8c}{pbr.\+packaging.\+Local\+Deb\+Version}}, \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_r_p_m_version_a70c9ceb28387448e7e96389a7bdf1eb9}{pbr.\+packaging.\+Local\+RPMVersion}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1alias_1_1alias_ae5fb7601f153eabb6c7d3f997543e74f}{setuptools.\+command.\+alias.\+alias}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1bdist__egg_1_1bdist__egg_ae79aa740d7b5ee5cc7d76e2c7846b398}{setuptools.\+command.\+bdist\+\_\+egg.\+bdist\+\_\+egg}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1develop_1_1develop_a35ffeb71c0f84999e2510c6917705453}{setuptools.\+command.\+develop.\+develop}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1easy__install_1_1easy__install_aabe33e880432269d734453488c3b46de}{setuptools.\+command.\+easy\+\_\+install.\+easy\+\_\+install}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1egg__info_1_1egg__info_a3edbfa601a6da8d17ed8663e474d443c}{setuptools.\+command.\+egg\+\_\+info.\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1install__egg__info_1_1install__egg__info_a5e11ec12e22ffc9650b8da95add50efc}{setuptools.\+command.\+install\+\_\+egg\+\_\+info.\+install\+\_\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1setopt_1_1option__base_a43b3749bfce2c4a8b00663b6f6bc124d}{setuptools.\+command.\+setopt.\+option\+\_\+base}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1setopt_1_1setopt_a775c96d0171e4ed465bc5ef61704e32b}{setuptools.\+command.\+setopt.\+setopt}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1test_1_1__test_aa518f8e9d56a1a83c8f9a273219ef596}{setuptools.\+command.\+test.\+\_\+test}}, \mbox{\hyperlink{classsetuptools_1_1tests_1_1test__build_1_1_subcommand_abbc14ee0160a84772be3cfd6d7739005}{setuptools.\+tests.\+test\+\_\+build.\+Subcommand}}, and \mbox{\hyperlink{classwheel_1_1bdist__wheel_1_1bdist__wheel_a5d0144cbd120454ffbc1b9f771f36065}{wheel.\+bdist\+\_\+wheel.\+bdist\+\_\+wheel}}.
+
+\Hypertarget{classsetuptools_1_1_command_adef511b756350d8e07a1848c8fa3ad9d}\index{setuptools.Command@{setuptools.Command}!initialize\_options@{initialize\_options}}
+\index{initialize\_options@{initialize\_options}!setuptools.Command@{setuptools.Command}}
+\doxysubsubsection{\texorpdfstring{initialize\_options()}{initialize\_options()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1_command_adef511b756350d8e07a1848c8fa3ad9d} 
+ None setuptools.\+Command.\+initialize\+\_\+options (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set or (reset) all options/attributes/caches used by the command
+to their default values. Note that these values may be overwritten during
+the build.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_deb_version_a49e20d4193f2b3f3eaeb26937d5a8002}{pbr.\+packaging.\+Local\+Deb\+Version}}, \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_r_p_m_version_aba4cd0d045835e67138b9c50868495ab}{pbr.\+packaging.\+Local\+RPMVersion}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1alias_1_1alias_a994a8679b4bde9bb9fdbce6913f2bec4}{setuptools.\+command.\+alias.\+alias}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1bdist__egg_1_1bdist__egg_a6793de36e92eb7151c0869673fc28410}{setuptools.\+command.\+bdist\+\_\+egg.\+bdist\+\_\+egg}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1develop_1_1develop_aaf5ae9820bad9381d94a9f7a9c1c215d}{setuptools.\+command.\+develop.\+develop}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1easy__install_1_1easy__install_a74e154b14bd29232e727e5ee9e6af080}{setuptools.\+command.\+easy\+\_\+install.\+easy\+\_\+install}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1egg__info_1_1egg__info_a3ef792b575d1d0a2a8795193498c9750}{setuptools.\+command.\+egg\+\_\+info.\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1install__egg__info_1_1install__egg__info_af9e9de817088ca9081c8cdd899d1fade}{setuptools.\+command.\+install\+\_\+egg\+\_\+info.\+install\+\_\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1setopt_1_1option__base_ab8ac4d189751e687671da5da433b26e8}{setuptools.\+command.\+setopt.\+option\+\_\+base}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1setopt_1_1setopt_ac8b5255ed198461d9b93558dc7c1b07d}{setuptools.\+command.\+setopt.\+setopt}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1test_1_1__test_add3291daf48150d2403a280943303c7e}{setuptools.\+command.\+test.\+\_\+test}}, \mbox{\hyperlink{classsetuptools_1_1tests_1_1test__build_1_1_subcommand_aaf0947a248e0eac3865d7c088f67a44a}{setuptools.\+tests.\+test\+\_\+build.\+Subcommand}}, and \mbox{\hyperlink{classwheel_1_1bdist__wheel_1_1bdist__wheel_a3b89eae632bc81268c3ce29337922a6f}{wheel.\+bdist\+\_\+wheel.\+bdist\+\_\+wheel}}.
+
+\Hypertarget{classsetuptools_1_1_command_a2d7105ed45236cb45f76614dee71cb97}\index{setuptools.Command@{setuptools.Command}!run@{run}}
+\index{run@{run}!setuptools.Command@{setuptools.Command}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1_command_a2d7105ed45236cb45f76614dee71cb97} 
+ None setuptools.\+Command.\+run (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Execute the actions intended by the command.
+(Side effects **SHOULD** only take place when :meth:`run` is executed,
+for example, creating new files or writing to the terminal output).
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_deb_version_a8a674cf02b522ce92e401d6695c53b76}{pbr.\+packaging.\+Local\+Deb\+Version}}, \mbox{\hyperlink{classpbr_1_1packaging_1_1_local_r_p_m_version_a58f092b14732f5b8bb52e51e7459fd72}{pbr.\+packaging.\+Local\+RPMVersion}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1alias_1_1alias_a0f585466914745d9e799793820316688}{setuptools.\+command.\+alias.\+alias}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1bdist__egg_1_1bdist__egg_a1d5efaf94859f9b85520a1ca39e59d39}{setuptools.\+command.\+bdist\+\_\+egg.\+bdist\+\_\+egg}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1develop_1_1develop_a43f05c435c7958743b49584e0ceb743f}{setuptools.\+command.\+develop.\+develop}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1easy__install_1_1easy__install_adfb4f5e1c016350b396b9b3859416111}{setuptools.\+command.\+easy\+\_\+install.\+easy\+\_\+install}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1egg__info_1_1egg__info_a174f67f62882b5e39c5c16206a8c5a0b}{setuptools.\+command.\+egg\+\_\+info.\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1install__egg__info_1_1install__egg__info_abb0fad4f6dafd77297c2c325a915f327}{setuptools.\+command.\+install\+\_\+egg\+\_\+info.\+install\+\_\+egg\+\_\+info}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1saveopts_1_1saveopts_a53596fe29b5df788b04b6ec0ecb7fd72}{setuptools.\+command.\+saveopts.\+saveopts}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1setopt_1_1setopt_aa02885f54f62edcc3a07c6675847545a}{setuptools.\+command.\+setopt.\+setopt}}, \mbox{\hyperlink{classsetuptools_1_1command_1_1test_1_1__test_a4dd9a931dde393679b3978c7f220f811}{setuptools.\+command.\+test.\+\_\+test}}, \mbox{\hyperlink{classsetuptools_1_1tests_1_1test__build_1_1_subcommand_a488042534d80ea912f833737da3db36f}{setuptools.\+tests.\+test\+\_\+build.\+Subcommand}}, and \mbox{\hyperlink{classwheel_1_1bdist__wheel_1_1bdist__wheel_acc0b3c176d0fd14a2aad899dff652ee4}{wheel.\+bdist\+\_\+wheel.\+bdist\+\_\+wheel}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

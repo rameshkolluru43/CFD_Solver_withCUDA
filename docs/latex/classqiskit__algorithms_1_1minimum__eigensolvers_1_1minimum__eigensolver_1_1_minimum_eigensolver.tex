@@ -1,0 +1,73 @@
+\doxysection{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+minimum\+\_\+eigensolver.\+Minimum\+Eigensolver Class Reference}
+\hypertarget{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver}{}\label{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver}\index{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver@{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+minimum\+\_\+eigensolver.\+Minimum\+Eigensolver\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.984183cm]{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+"{}Minimum\+Eigensolver\+Result"{} \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a16008b0a7df53f30d5706fbcbbbee839}{compute\+\_\+minimum\+\_\+eigenvalue}} (self, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} operator, List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]}\texorpdfstring{$\vert$}{|}None aux\+\_\+operators=None)
+\item 
+bool \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a9a93567a0efb29dc5c5333ddae17a8ce}{supports\+\_\+aux\+\_\+operators}} (cls)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The minimum eigensolver interface.
+
+Algorithms that can compute a minimum eigenvalue for an operator may implement this interface to
+allow different algorithms to be used interchangeably.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a16008b0a7df53f30d5706fbcbbbee839}\index{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver@{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver}!compute\_minimum\_eigenvalue@{compute\_minimum\_eigenvalue}}
+\index{compute\_minimum\_eigenvalue@{compute\_minimum\_eigenvalue}!qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver@{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver}}
+\doxysubsubsection{\texorpdfstring{compute\_minimum\_eigenvalue()}{compute\_minimum\_eigenvalue()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a16008b0a7df53f30d5706fbcbbbee839} 
+ "{}Minimum\+Eigensolver\+Result"{} qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+minimum\+\_\+eigensolver.\+Minimum\+Eigensolver.\+compute\+\_\+minimum\+\_\+eigenvalue (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}}]{operator}{, }\item[{List\+Or\+Dict\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{aux\+\_\+operators}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Computes the minimum eigenvalue. The ``operator`` and ``aux_operators`` are supplied here.
+While an ``operator`` is required by algorithms, ``aux_operators`` are optional.
+
+Args:
+    operator: Qubit operator of the observable.
+    aux_operators: Optional list of auxiliary operators to be evaluated with the
+        parameters of the minimum eigenvalue main result and their expectation values
+        returned. For instance in chemistry these can be dipole operators and total particle
+        count operators, so we can get values for these at the ground state.
+
+Returns:
+    A minimum eigensolver result.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1adapt__vqe_1_1_adapt_v_q_e_a86dbf469a19e0aadc2bbe50d8f2ce2f5}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+adapt\+\_\+vqe.\+Adapt\+VQE}}, \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1numpy__minimum__eigensolver_1_1_num_py_minimum_eigensolver_ab292e2c83b445dc1fb5b10cfe7b54e62}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+numpy\+\_\+minimum\+\_\+eigensolver.\+Num\+Py\+Minimum\+Eigensolver}}, and \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1vqe_1_1_v_q_e_a6a89b26b77905d89364f98058f6c5957}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+vqe.\+VQE}}.
+
+\Hypertarget{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a9a93567a0efb29dc5c5333ddae17a8ce}\index{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver@{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver}!supports\_aux\_operators@{supports\_aux\_operators}}
+\index{supports\_aux\_operators@{supports\_aux\_operators}!qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver@{qiskit\_algorithms.minimum\_eigensolvers.minimum\_eigensolver.MinimumEigensolver}}
+\doxysubsubsection{\texorpdfstring{supports\_aux\_operators()}{supports\_aux\_operators()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1minimum__eigensolvers_1_1minimum__eigensolver_1_1_minimum_eigensolver_a9a93567a0efb29dc5c5333ddae17a8ce} 
+ bool qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+minimum\+\_\+eigensolver.\+Minimum\+Eigensolver.\+supports\+\_\+aux\+\_\+operators (\begin{DoxyParamCaption}\item[{}]{cls}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Whether computing the expectation value of auxiliary operators is supported.
+
+If the minimum eigensolver computes an eigenvalue of the main ``operator`` then it can
+compute the expectation value of the ``aux_operators`` for that state. Otherwise they will
+be ignored.
+
+Returns:
+    True if aux_operator expectations can be evaluated, False otherwise
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1adapt__vqe_1_1_adapt_v_q_e_a80a8007ce890a865d674869ce62b5f97}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+adapt\+\_\+vqe.\+Adapt\+VQE}}, \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1numpy__minimum__eigensolver_1_1_num_py_minimum_eigensolver_adc6e0b50735d8fe6bd3194ead9e8709b}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+numpy\+\_\+minimum\+\_\+eigensolver.\+Num\+Py\+Minimum\+Eigensolver}}, and \mbox{\hyperlink{classqiskit__algorithms_1_1minimum__eigensolvers_1_1vqe_1_1_v_q_e_a0abb54bd42531fcc4efbd868e43c4a28}{qiskit\+\_\+algorithms.\+minimum\+\_\+eigensolvers.\+vqe.\+VQE}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/minimum\+\_\+eigensolvers/minimum\+\_\+eigensolver.\+py\end{DoxyCompactItemize}

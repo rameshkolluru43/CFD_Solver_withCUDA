@@ -1,0 +1,106 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+utils.\+minimum\+\_\+point.\+Minimum\+Point Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point}{}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point}\index{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint@{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+utils.\+minimum\+\_\+point.\+Minimum\+Point\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.477876cm]{dc/db3/classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a65a261d2337f7c9df12a0ca93011dc27_a65a261d2337f7c9df12a0ca93011dc27}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, property\+\_\+set\+\_\+list, prefix, backtrack\+\_\+depth=5)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a5d9dd8e73c9ef92e93ea383d592659b5_a5d9dd8e73c9ef92e93ea383d592659b5}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_ab89da6fc06d719d2380edb3850f6126a}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_ab89da6fc06d719d2380edb3850f6126a} 
+{\bfseries property\+\_\+set\+\_\+list} = property\+\_\+set\+\_\+list
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_acb0ea9a6c66994f92da7c81426c06cf7}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_acb0ea9a6c66994f92da7c81426c06cf7} 
+str {\bfseries backtrack\+\_\+name} = f"{}\{prefix\}\+\_\+minimum\+\_\+point\+\_\+state"{}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_af797354ccd4b08cde58770815ab94478}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_af797354ccd4b08cde58770815ab94478} 
+str {\bfseries minimum\+\_\+reached} = f"{}\{prefix\}\+\_\+minimum\+\_\+point"{}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a24b0dfb1833cdb5faf9d61d1a82dfeb6}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a24b0dfb1833cdb5faf9d61d1a82dfeb6} 
+{\bfseries backtrack\+\_\+depth} = backtrack\+\_\+depth
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Check if the DAG has reached a relative semi-stable point over previous runs
+
+This pass is similar to the :class:`~.FixedPoint` transpiler pass and is intended
+primarily to be used to set a loop break condition in the property set.
+However, unlike the :class:`~.FixedPoint` class which only sets the
+condition if 2 consecutive runs have the same value property set value
+this pass is designed to find a local minimum and use that instead. This
+pass is designed for an optimization loop where a fixed point may never
+get reached (for example if synthesis is used and there are multiple
+equivalent outputs for some cases).
+
+This pass will track the state of fields in the property set over its past
+executions and set a boolean field when either a fixed point is reached
+over the backtracking depth or selecting the minimum value found if the
+backtracking depth is reached. To do this it stores a deep copy of the
+current minimum DAG in the property set and when ``backtrack_depth`` number
+of executions is reached since the last minimum the output dag is set to
+that copy of the earlier minimum.
+
+Fields used by this pass in the property set are (all relative to the ``prefix``
+argument):
+
+* ``{prefix}_minimum_point_state`` - Used to track the state of the minimum point search
+* ``{prefix}_minimum_point`` - This value gets set to ``True`` when either a fixed point
+    is reached over the ``backtrack_depth`` executions, or ``backtrack_depth`` was exceeded
+    and an earlier minimum is restored.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a65a261d2337f7c9df12a0ca93011dc27_a65a261d2337f7c9df12a0ca93011dc27}\index{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint@{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint@{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a65a261d2337f7c9df12a0ca93011dc27_a65a261d2337f7c9df12a0ca93011dc27} 
+qiskit.\+transpiler.\+passes.\+utils.\+minimum\+\_\+point.\+Minimum\+Point.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{property\+\_\+set\+\_\+list}{, }\item[{}]{prefix}{, }\item[{}]{backtrack\+\_\+depth}{ = {\ttfamily 5}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize an instance of this pass
+
+Args:
+    property_set_list (list): A list of property set keys that will
+        be used to evaluate the local minimum. The values of these
+        property set keys will be used as a tuple for comparison
+    prefix (str): The prefix to use for the property set key that is used
+        for tracking previous evaluations
+    backtrack_depth (int): The maximum number of entries to store. If
+        this number is reached and the next iteration doesn't have
+        a decrease in the number of values the minimum of the previous
+        n will be set as the output dag and ``minimum_point`` will be set to
+        ``True`` in the property set
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a5d9dd8e73c9ef92e93ea383d592659b5_a5d9dd8e73c9ef92e93ea383d592659b5}\index{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint@{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint@{qiskit.transpiler.passes.utils.minimum\_point.MinimumPoint}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1minimum__point_1_1_minimum_point_a5d9dd8e73c9ef92e93ea383d592659b5_a5d9dd8e73c9ef92e93ea383d592659b5} 
+qiskit.\+transpiler.\+passes.\+utils.\+minimum\+\_\+point.\+Minimum\+Point.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the MinimumPoint pass on `dag`.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/utils/minimum\+\_\+point.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,91 @@
+\doxysection{dyld\+::File\+Opener Class Reference}
+\hypertarget{classdyld_1_1_file_opener}{}\label{classdyld_1_1_file_opener}\index{dyld::FileOpener@{dyld::FileOpener}}
+
+
+{\ttfamily \#include $<$dyld.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classdyld_1_1_file_opener_a44853c8fb59e99b0f0a21120198bf3a3_a44853c8fb59e99b0f0a21120198bf3a3}{File\+Opener}} (const char \texorpdfstring{$\ast$}{*}path)
+\item 
+\mbox{\hyperlink{classdyld_1_1_file_opener_aa1eda0b342a14f290a22210bb817ee19_aa1eda0b342a14f290a22210bb817ee19}{\texorpdfstring{$\sim$}{\string~}\+File\+Opener}} ()
+\item 
+int \mbox{\hyperlink{classdyld_1_1_file_opener_a4d0d48812d59418b37eb051f65ab20e1_a4d0d48812d59418b37eb051f65ab20e1}{get\+File\+Descriptor}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00425}{425}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classdyld_1_1_file_opener_a44853c8fb59e99b0f0a21120198bf3a3_a44853c8fb59e99b0f0a21120198bf3a3}\index{dyld::FileOpener@{dyld::FileOpener}!FileOpener@{FileOpener}}
+\index{FileOpener@{FileOpener}!dyld::FileOpener@{dyld::FileOpener}}
+\doxysubsubsection{\texorpdfstring{FileOpener()}{FileOpener()}}
+{\footnotesize\ttfamily \label{classdyld_1_1_file_opener_a44853c8fb59e99b0f0a21120198bf3a3_a44853c8fb59e99b0f0a21120198bf3a3} 
+dyld\+::\+File\+Opener\+::\+File\+Opener (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00434}{434}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00435\ \ :\ fd(-\/1)}
+\DoxyCodeLine{00436\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ fd\ =\ open(path,\ O\_RDONLY,\ 0);}
+\DoxyCodeLine{00438\ \}}
+
+\end{DoxyCode}
+\Hypertarget{classdyld_1_1_file_opener_aa1eda0b342a14f290a22210bb817ee19_aa1eda0b342a14f290a22210bb817ee19}\index{dyld::FileOpener@{dyld::FileOpener}!````~FileOpener@{\texorpdfstring{$\sim$}{\string~}FileOpener}}
+\index{````~FileOpener@{\texorpdfstring{$\sim$}{\string~}FileOpener}!dyld::FileOpener@{dyld::FileOpener}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}FileOpener()}{\string~FileOpener()}}
+{\footnotesize\ttfamily \label{classdyld_1_1_file_opener_aa1eda0b342a14f290a22210bb817ee19_aa1eda0b342a14f290a22210bb817ee19} 
+dyld\+::\+File\+Opener\+::\texorpdfstring{$\sim$}{\string~}\+File\+Opener (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00440}{440}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00441\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ fd\ !=\ -\/1\ )}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ close(fd);}
+\DoxyCodeLine{00444\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classdyld_1_1_file_opener_a4d0d48812d59418b37eb051f65ab20e1_a4d0d48812d59418b37eb051f65ab20e1}\index{dyld::FileOpener@{dyld::FileOpener}!getFileDescriptor@{getFileDescriptor}}
+\index{getFileDescriptor@{getFileDescriptor}!dyld::FileOpener@{dyld::FileOpener}}
+\doxysubsubsection{\texorpdfstring{getFileDescriptor()}{getFileDescriptor()}}
+{\footnotesize\ttfamily \label{classdyld_1_1_file_opener_a4d0d48812d59418b37eb051f65ab20e1_a4d0d48812d59418b37eb051f65ab20e1} 
+int dyld\+::\+File\+Opener\+::get\+File\+Descriptor (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00429}{429}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00429\ \{\ \textcolor{keywordflow}{return}\ fd;\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{d9/d67/classdyld_1_1_file_opener_a4d0d48812d59418b37eb051f65ab20e1_a4d0d48812d59418b37eb051f65ab20e1_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{dyld_8h}{dyld.\+h}}\end{DoxyCompactItemize}

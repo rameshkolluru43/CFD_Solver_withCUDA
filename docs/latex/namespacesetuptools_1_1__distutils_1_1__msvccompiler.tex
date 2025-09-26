@@ -1,0 +1,135 @@
+\doxysection{setuptools.\+\_\+distutils.\+\_\+msvccompiler Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler}{}\label{namespacesetuptools_1_1__distutils_1_1__msvccompiler}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1__msvccompiler_1_1_m_s_v_c_compiler}{MSVCCompiler}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a6e644fa1fccafa614382b8adad0ef3b6}\label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a6e644fa1fccafa614382b8adad0ef3b6} 
+{\bfseries \+\_\+find\+\_\+vc2015} ()
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aea6c721f8064d01031c9404735cc9ee3}{\+\_\+find\+\_\+vc2017}} ()
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a74f273c4ea950fddae422e62a95b57b0}\label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a74f273c4ea950fddae422e62a95b57b0} 
+{\bfseries \+\_\+find\+\_\+vcvarsall} (plat\+\_\+spec)
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a7c40fac0baa118e2727e52f1cfee79db}\label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a7c40fac0baa118e2727e52f1cfee79db} 
+{\bfseries \+\_\+get\+\_\+vc\+\_\+env} (plat\+\_\+spec)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a4ed746591ef14b11ae7b30311bfe12a7}{\+\_\+find\+\_\+exe}} (exe, paths=None)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a3cd7fa5160322c41eee92e0e019d35a9}{\+\_\+get\+\_\+vcvars\+\_\+spec}} (host\+\_\+platform, platform)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aa87e8324de599a251f020e89325266ab}{PLAT\+\_\+\+SPEC\+\_\+\+TO\+\_\+\+RUNTIME}}
+\item 
+dict \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a50adf24792ac207713bca36d1dab5091}{\+\_\+vcvars\+\_\+names}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}distutils._msvccompiler
+
+Contains MSVCCompiler, an implementation of the abstract CCompiler class
+for Microsoft Visual Studio 2015.
+
+This module requires VS 2015 or later.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a4ed746591ef14b11ae7b30311bfe12a7}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}!\_find\_exe@{\_find\_exe}}
+\index{\_find\_exe@{\_find\_exe}!setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection{\texorpdfstring{\_find\_exe()}{\_find\_exe()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a4ed746591ef14b11ae7b30311bfe12a7} 
+setuptools.\+\_\+distutils.\+\_\+msvccompiler.\+\_\+find\+\_\+exe (\begin{DoxyParamCaption}\item[{}]{exe}{, }\item[{}]{paths}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return path to an MSVC executable program.
+
+Tries to find the program in several places: first, one of the
+MSVC program search paths from the registry; next, the directories
+in the PATH environment variable.  If any of those work, return an
+absolute path that is known to exist.  If none of them work, just
+return the original program name, 'exe'.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aea6c721f8064d01031c9404735cc9ee3}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}!\_find\_vc2017@{\_find\_vc2017}}
+\index{\_find\_vc2017@{\_find\_vc2017}!setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection{\texorpdfstring{\_find\_vc2017()}{\_find\_vc2017()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aea6c721f8064d01031c9404735cc9ee3} 
+setuptools.\+\_\+distutils.\+\_\+msvccompiler.\+\_\+find\+\_\+vc2017 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns "15, path" based on the result of invoking vswhere.exe
+If no install is found, returns "None, None"
+
+The version is returned to avoid unnecessarily changing the function
+result. It may be ignored when the path is not None.
+
+If vswhere.exe is not available, by definition, VS 2017 is not
+installed.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a3cd7fa5160322c41eee92e0e019d35a9}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}!\_get\_vcvars\_spec@{\_get\_vcvars\_spec}}
+\index{\_get\_vcvars\_spec@{\_get\_vcvars\_spec}!setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection{\texorpdfstring{\_get\_vcvars\_spec()}{\_get\_vcvars\_spec()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a3cd7fa5160322c41eee92e0e019d35a9} 
+setuptools.\+\_\+distutils.\+\_\+msvccompiler.\+\_\+get\+\_\+vcvars\+\_\+spec (\begin{DoxyParamCaption}\item[{}]{host\+\_\+platform}{, }\item[{}]{platform}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Given a host platform and platform, determine the spec for vcvarsall.
+
+Uses the native MSVC host if the host platform would need expensive
+emulation for x86.
+
+>>> _get_vcvars_spec('win-arm64', 'win32')
+'arm64_x86'
+>>> _get_vcvars_spec('win-arm64', 'win-amd64')
+'arm64_amd64'
+
+Otherwise, always cross-compile from x86 to work with the
+lighter-weight MSVC installs that do not include native 64-bit tools.
+
+>>> _get_vcvars_spec('win32', 'win32')
+'x86'
+>>> _get_vcvars_spec('win-arm32', 'win-arm32')
+'x86_arm'
+>>> _get_vcvars_spec('win-amd64', 'win-arm64')
+'x86_arm64'
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a50adf24792ac207713bca36d1dab5091}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}!\_vcvars\_names@{\_vcvars\_names}}
+\index{\_vcvars\_names@{\_vcvars\_names}!setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection{\texorpdfstring{\_vcvars\_names}{\_vcvars\_names}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_a50adf24792ac207713bca36d1dab5091} 
+dict setuptools.\+\_\+distutils.\+\_\+msvccompiler.\+\_\+vcvars\+\_\+names\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'win32'}:\ \textcolor{stringliteral}{'x86'},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'win-\/amd64'}:\ \textcolor{stringliteral}{'amd64'},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{'win-\/arm32'}:\ \textcolor{stringliteral}{'arm'},}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{'win-\/arm64'}:\ \textcolor{stringliteral}{'arm64'},}
+\DoxyCodeLine{00006\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aa87e8324de599a251f020e89325266ab}\index{setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}!PLAT\_SPEC\_TO\_RUNTIME@{PLAT\_SPEC\_TO\_RUNTIME}}
+\index{PLAT\_SPEC\_TO\_RUNTIME@{PLAT\_SPEC\_TO\_RUNTIME}!setuptools.\_distutils.\_msvccompiler@{setuptools.\_distutils.\_msvccompiler}}
+\doxysubsubsection{\texorpdfstring{PLAT\_SPEC\_TO\_RUNTIME}{PLAT\_SPEC\_TO\_RUNTIME}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1__msvccompiler_aa87e8324de599a251f020e89325266ab} 
+dict setuptools.\+\_\+distutils.\+\_\+msvccompiler.\+PLAT\+\_\+\+SPEC\+\_\+\+TO\+\_\+\+RUNTIME}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \{}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{'x86'}:\ \textcolor{stringliteral}{'x86'},}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{stringliteral}{'x86\_amd64'}:\ \textcolor{stringliteral}{'x64'},}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{stringliteral}{'x86\_arm'}:\ \textcolor{stringliteral}{'arm'},}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{stringliteral}{'x86\_arm64'}:\ \textcolor{stringliteral}{'arm64'},}
+\DoxyCodeLine{00006\ \}}
+
+\end{DoxyCode}

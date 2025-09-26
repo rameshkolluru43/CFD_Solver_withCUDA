@@ -1,0 +1,294 @@
+\doxysection{Assemble\+\_\+\+Matrix.\+cpp}
+\hypertarget{_assemble___matrix_8cpp_source}{}\label{_assemble___matrix_8cpp_source}\index{Basic\_Files/Assemble\_Matrix.cpp@{Basic\_Files/Assemble\_Matrix.cpp}}
+\mbox{\hyperlink{_assemble___matrix_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{definitions_8h}{definitions.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00003}00003\ \textcolor{comment}{//\ Function\ to\ assemble\ the\ matrix\ A\ and\ vector\ b\ in\ terms\ of\ total\ number\ of\ cells}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00005}00005\ \textcolor{comment}{//\ V\_D\ b;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00007}\mbox{\hyperlink{_assemble___matrix_8cpp_ad90382595c8b02e815e463639d84baa7_ad90382595c8b02e815e463639d84baa7}{00007}}\ vector<V\_D>\ \mbox{\hyperlink{_assemble___matrix_8cpp_ad90382595c8b02e815e463639d84baa7_ad90382595c8b02e815e463639d84baa7}{Assemble\_A}}(vector<V\_D>\ \&\mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}},\ \textcolor{keywordtype}{double}\ \&dt)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{comment}{//\ \ Ac.resize(4*No\_Physical\_Cells,V\_D(4*No\_Physical\_Cells,0.0));}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{comment}{//\ Loop\ over\ each\ cell\ by\ flattening\ the\ 2D\ index\ into\ a\ 1D\ index}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_No\ =\ 0;\ Cell\_No\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00012}00012\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ int\ cell\_index\ =\ (i\ -\/\ 1)\ *\ (ny\ -\/\ 1)\ +\ (j\ -\/\ 1);\ //\ Compute\ the\ 1D\ index\ for\ the\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Assembling\ the\ matrix\ for\ Cell\ Number\(\backslash\)t"{}<<Cell\_No<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Get\ the\ state\ variables\ for\ the\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Omega\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Area;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ Face\_No;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[0];\ \textcolor{comment}{//(i-\/1,j,k)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[1];\ \textcolor{comment}{//(i,j-\/1,k)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[2];\ \textcolor{comment}{//(i+1,j,k)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[3];\ \textcolor{comment}{//(i,j+1,k)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ghp\_3khiZTI4glhwT54rrWpgWMRk8o8hW50Vf6I9}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Scale\ the\ Jacobians\ by\ the\ face\ lengths\ for\ the\ specific\ cell}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\_right\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[2];\ \ \textcolor{comment}{//\ Right\ face\ length\ in\ x-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\_left\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[0];\ \ \ \textcolor{comment}{//\ Left\ face\ length\ in\ x-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\_top\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[3];\ \ \ \ \textcolor{comment}{//\ Top\ face\ length\ in\ y-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\_bottom\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[1];\ \textcolor{comment}{//\ Bottom\ face\ length\ in\ y-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ Jacobian\ for\ the\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Flux\ Jacobian\ in\ x\ direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ Face\_No\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ Face\_No\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Flux\ Jacobian\ in\ y\ direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ Face\_No\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ Face\_No\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Scale\ the\ Jacobians\ by\ the\ face\ lengths}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}[row][col]\ *=\ dy\_bottom;\ \textcolor{comment}{//\ Scale\ by\ face\ length\ in\ y-\/direction\ for\ x-\/fluxes}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}[row][col]\ *=\ dx\_right;\ \ \textcolor{comment}{//\ Scale\ by\ face\ length\ in\ x-\/direction\ for\ y-\/fluxes}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}[row][col]\ *=\ dy\_top;\ \ \ \ \textcolor{comment}{//\ Scale\ by\ face\ length\ in\ y-\/direction\ for\ x-\/fluxes}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}[row][col]\ *=\ dx\_left;\ \ \ \textcolor{comment}{//\ Scale\ by\ face\ length\ in\ x-\/direction\ for\ y-\/fluxes}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ the\ time\ derivative\ term\ (Omega\ /\ dt\ *\ I)\ to\ the\ diagonal}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ 0;\ d\ <\ 4;\ ++d)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ d][4\ *\ Cell\_No\ +\ d]\ +=\ Omega\ /\ dt;\ \textcolor{comment}{//\ Identity\ matrix\ scaling}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Loop\ through\ the\ conserved\ variables\ (4\ variables\ per\ cell:\ rho,\ rho*u,\ rho*v,\ E)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Self\ contribution\ (current\ cell)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ row][4\ *\ Cell\_No\ +\ col]\ +=}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ (dx\_left\ +\ dx\_right)))\ *\ (\mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}[row][col]\ +\ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}[row][col])\ +\ (dt\ /\ (2.0\ *\ (dy\_bottom\ +\ dy\_top)))\ *\ (\mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}[row][col]\ +\ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ neighbor\ (i+1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ Face\_No\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col]\ *=\ dx\_right;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ row][4\ *\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ +\ col]\ +=}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ dx\_right))\ *\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col];}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00085}00085\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ neighbor\ (i-\/1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ Face\_No\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col]\ *=\ dx\_left;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ row][4\ *\ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ +\ col]\ -\/=}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ dx\_left))\ *\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col];}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00098}00098\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ Face\_No\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Upper\ neighbor\ (i,\ j+1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col]\ *=\ dy\_top;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ row][4\ *\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ +\ col]\ +=}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ dy\_top))\ *\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col];}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00111}00111\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Lower\ neighbor\ (i,\ j-\/1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ Face\_No\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col]\ *=\ dy\_bottom;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}}[4\ *\ Cell\_No\ +\ row][4\ *\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ +\ col]\ -\/=}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ dy\_bottom))\ *\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col];}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00124}00124\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{definitions_8h_a4f97eb569bd6e170cefe44acdf9fc845_a4f97eb569bd6e170cefe44acdf9fc845}{A}};}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00126}00126\ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00127}00127\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00128}\mbox{\hyperlink{_assemble___matrix_8cpp_a19cccc9540fb68aa18547238ebc80951_a19cccc9540fb68aa18547238ebc80951}{00128}}\ \mbox{\hyperlink{definitions_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \mbox{\hyperlink{_assemble___matrix_8cpp_a19cccc9540fb68aa18547238ebc80951_a19cccc9540fb68aa18547238ebc80951}{Assemble\_b}}(\mbox{\hyperlink{definitions_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ \&\mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00129}00129\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00131}00131\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_ab9d15df79912189413a253d6271fcfa4_ab9d15df79912189413a253d6271fcfa4}{Is\_Second\_Order}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4db2fe24c2a78f98ac91e9d7d271430f_a4db2fe24c2a78f98ac91e9d7d271430f}{Evaluate\_Cell\_Net\_Flux\_2O}}();}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad25c9a53b380204dd243bc1351d6b098_ad25c9a53b380204dd243bc1351d6b098}{Evaluate\_Cell\_Net\_Flux\_1O}}();}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00136}00136\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_No\ =\ 0;\ Cell\_No\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00137}00137\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00138}00138\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ d\ =\ 0;\ d\ <\ 4;\ ++d)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00139}00139\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00140}00140\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}[4\ *\ Cell\_No\ +\ d]\ =\ -\/\mbox{\hyperlink{definitions_8h_ac60a2ebe583809a30cb6961b38cac7f8_ac60a2ebe583809a30cb6961b38cac7f8}{Cells\_Net\_Flux}}[Cell\_No][d];}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00141}00141\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00142}00142\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00143}00143\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{definitions_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}};}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00145}00145\ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00146}00146\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00147}\mbox{\hyperlink{_assemble___matrix_8cpp_ab40202302c5e7f6e97927b7fba467369_ab40202302c5e7f6e97927b7fba467369}{00147}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_assemble___matrix_8cpp_ab40202302c5e7f6e97927b7fba467369_ab40202302c5e7f6e97927b7fba467369}{Assemble\_A1}}(\textcolor{keywordtype}{double}\ \&dt)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00148}00148\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00149}00149\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.clear();}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00150}00150\ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.clear();}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00151}00151\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.clear();}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00152}00152\ \ \ \ \ \textcolor{keywordtype}{int}\ Face\_No\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00153}00153\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_No\ =\ 0;\ Cell\_No\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_No++)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00154}00154\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Omega\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Area;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[0];\ \textcolor{comment}{//\ Left\ neighbor\ (i-\/1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[1];\ \textcolor{comment}{//\ Bottom\ neighbor\ (i,\ j-\/1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[2];\ \textcolor{comment}{//\ Right\ neighbor\ (i+1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Neighbours[3];\ \textcolor{comment}{//\ Top\ neighbor\ (i,\ j+1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00160}00160\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\_right\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[2];\ \ \textcolor{comment}{//\ Right\ face\ length\ in\ x-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00162}00162\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dx\_left\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[0];\ \ \ \textcolor{comment}{//\ Left\ face\ length\ in\ x-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\_top\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[3];\ \ \ \ \textcolor{comment}{//\ Top\ face\ length\ in\ y-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ dy\_bottom\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_No].Face\_Areas[1];\ \textcolor{comment}{//\ Bottom\ face\ length\ in\ y-\/direction}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00165}00165\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ the\ Jacobians\ for\ the\ current\ cell}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ Face\_No\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}},\ Face\_No);\ \textcolor{comment}{//\ Left\ face\ (i-\/1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00169}00169\ \ \ \ \ \ \ \ \ Face\_No\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00170}00170\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}},\ Face\_No);\ \textcolor{comment}{//\ Right\ face\ (i+1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00171}00171\ \ \ \ \ \ \ \ \ Face\_No\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00172}00172\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}},\ Face\_No);\ \textcolor{comment}{//\ Bottom\ face\ (i,\ j-\/1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00173}00173\ \ \ \ \ \ \ \ \ Face\_No\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}\ =\ \mbox{\hyperlink{definitions_8h_aeaa00a33dea6355a2e0104d7215d0f00_aeaa00a33dea6355a2e0104d7215d0f00}{Compute\_Flux\_Jacobian}}(Cell\_No,\ \mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}},\ Face\_No);\ \textcolor{comment}{//\ Top\ face\ (i,\ j+1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00175}00175\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Update\ the\ center\ cell\ and\ add\ time\ derivative\ term\ to\ diagonal\ elements}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00179}00179\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.push\_back(4\ *\ Cell\_No\ +\ row);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.push\_back(4\ *\ Cell\_No\ +\ col);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00185}00185\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Calculate\ the\ flux\ contributions}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ flux\_contrib\ =\ (dt\ /\ (2.0\ *\ (dy\_bottom\ +\ dy\_top)))\ *\ (\mbox{\hyperlink{definitions_8h_ab6f97986fcb9e786c841eed43af7b045_ab6f97986fcb9e786c841eed43af7b045}{A\_x\_L}}[row][col]\ +\ \mbox{\hyperlink{definitions_8h_a1c2342775f0ea4ddf92110b43997ef74_a1c2342775f0ea4ddf92110b43997ef74}{A\_x\_R}}[row][col])\ +}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (dt\ /\ (2.0\ *\ (dx\_left\ +\ dx\_right)))\ *\ (\mbox{\hyperlink{definitions_8h_abd4764a196066238eeb12e3097ca190a_abd4764a196066238eeb12e3097ca190a}{A\_y\_T}}[row][col]\ +\ \mbox{\hyperlink{definitions_8h_aa36e401caa93464f91a23e55a654fa31_aa36e401caa93464f91a23e55a654fa31}{A\_y\_B}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00189}00189\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Add\ time\ derivative\ term\ to\ diagonal\ elements}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (row\ ==\ col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00192}00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00193}00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back(flux\_contrib\ +\ Omega\ /\ dt);\ \textcolor{comment}{//\ Add\ diagonal\ contribution}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00194}00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00195}00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00196}00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00197}00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back(flux\_contrib);\ \textcolor{comment}{//\ Non-\/diagonal\ entries,\ only\ flux\ contribution}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00198}00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00199}00199\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00200}00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00201}00201\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Right\ neighbor\ (i+1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<Neighbour\_3<<"{}\(\backslash\)t"{}<<Cell\_No<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ Face\_No\ =\ 2;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.push\_back(4\ *\ Cell\_No\ +\ row);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00213}00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.push\_back(4\ *\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ +\ col);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00214}00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back((dt\ /\ (2.0\ *\ dx\_right))\ *\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00215}00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00216}00216\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00217}00217\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00218}00218\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00219}00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ neighbor\ (i-\/1,\ j)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00220}00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00221}00221\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00222}00222\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<Neighbour\_1<<"{}\(\backslash\)t"{}<<Cell\_No<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00223}00223\ \ \ \ \ \ \ \ \ \ \ \ \ Face\_No\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00224}00224\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00225}00225\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.push\_back(4\ *\ Cell\_No\ +\ row);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.push\_back(4\ *\ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ +\ col);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back(-\/(dt\ /\ (2.0\ *\ dx\_left))\ *\ \mbox{\hyperlink{definitions_8h_ac65bee68e7d2f842542e63e8036f9339_ac65bee68e7d2f842542e63e8036f9339}{A\_x}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00235}00235\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Top\ neighbor\ (i,\ j+1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00239}00239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<Neighbour\_4<<"{}\(\backslash\)t"{}<<Cell\_No<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ \ \ \ \ Face\_No\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00241}00241\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00242}00242\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00243}00243\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00244}00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00245}00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00246}00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.push\_back(4\ *\ Cell\_No\ +\ row);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.push\_back(4\ *\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ +\ col);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00248}00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back((dt\ /\ (2.0\ *\ dy\_top))\ *\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00252}00252\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Bottom\ neighbor\ (i,\ j-\/1)}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<Neighbour\_2<<"{}\(\backslash\)t"{}<<Cell\_No<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00257}00257\ \ \ \ \ \ \ \ \ \ \ \ \ Face\_No\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00258}00258\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}\ =\ \mbox{\hyperlink{definitions_8h_a608148e5354c363434760be92e86e787_a608148e5354c363434760be92e86e787}{ComputeGhostCell\_Flux\_Jacobian}}(\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ Cell\_No,\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}},\ Face\_No);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00259}00259\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ row\ =\ 0;\ row\ <\ 4;\ ++row)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00260}00260\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ col\ =\ 0;\ col\ <\ 4;\ ++col)}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00262}00262\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00263}00263\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}}.push\_back(4\ *\ Cell\_No\ +\ row);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00264}00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}}.push\_back(4\ *\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ +\ col);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00265}00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}}.push\_back(-\/(dt\ /\ (2.0\ *\ dy\_bottom))\ *\ \mbox{\hyperlink{definitions_8h_ab0cb295739bb8e590b3e81ff7e998f06_ab0cb295739bb8e590b3e81ff7e998f06}{A\_y}}[row][col]);}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00266}00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00268}00268\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00269}00269\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00270}00270\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00271}00271\ \ \ \ \ \textcolor{comment}{//\ cout<<row\_indices.size()<<"{}\(\backslash\)t"{}<<col\_indices.size()<<"{}\(\backslash\)t"{}<<values.size()<<endl;}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00272}00272\ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00273}00273\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00274}00274\ \textcolor{comment}{//\ Functions\ to\ get\ the\ stored\ sparse\ matrix\ data}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00275}\mbox{\hyperlink{_assemble___matrix_8cpp_aa63518129313abaf6254effef748de7b_aa63518129313abaf6254effef748de7b}{00275}}\ vector<int>\ \mbox{\hyperlink{_assemble___matrix_8cpp_aa63518129313abaf6254effef748de7b_aa63518129313abaf6254effef748de7b}{get\_row\_indices}}()}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00276}00276\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00277}00277\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{definitions_8h_a9bc14a512a2d0428b782d98dc925053f_a9bc14a512a2d0428b782d98dc925053f}{row\_indices}};}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00278}00278\ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00279}00279\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00280}\mbox{\hyperlink{_assemble___matrix_8cpp_a762521c651db0bbce3610ffc670578e2_a762521c651db0bbce3610ffc670578e2}{00280}}\ vector<int>\ \mbox{\hyperlink{_assemble___matrix_8cpp_a762521c651db0bbce3610ffc670578e2_a762521c651db0bbce3610ffc670578e2}{get\_col\_indices}}()}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00281}00281\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00282}00282\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{definitions_8h_afd80d0914f75c8773b3d1381a72a89a7_afd80d0914f75c8773b3d1381a72a89a7}{col\_indices}};}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00283}00283\ \}}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00284}00284\ }
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00285}\mbox{\hyperlink{_assemble___matrix_8cpp_a713f086469e637fe00c7986e8b3a3f12_a713f086469e637fe00c7986e8b3a3f12}{00285}}\ vector<double>\ \mbox{\hyperlink{_assemble___matrix_8cpp_a713f086469e637fe00c7986e8b3a3f12_a713f086469e637fe00c7986e8b3a3f12}{get\_Values}}()}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00286}00286\ \{}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00287}00287\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{definitions_8h_a5a1145f7e999bf102ee3ba391e953258_a5a1145f7e999bf102ee3ba391e953258}{values}};}
+\DoxyCodeLine{\Hypertarget{_assemble___matrix_8cpp_source_l00288}00288\ \}}
+
+\end{DoxyCode}

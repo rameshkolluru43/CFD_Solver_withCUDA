@@ -1,0 +1,55 @@
+\doxysection{qiskit.\+synthesis.\+evolution.\+pauli\+\_\+network Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1pauli__network}{}\label{namespaceqiskit_1_1synthesis_1_1evolution_1_1pauli__network}\index{qiskit.synthesis.evolution.pauli\_network@{qiskit.synthesis.evolution.pauli\_network}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1evolution_1_1pauli__network_ac172486e5930ffb8b2c6b0591a4f53d6}{synth\+\_\+pauli\+\_\+network\+\_\+rustiq}} (int num\+\_\+qubits, list pauli\+\_\+network, bool optimize\+\_\+count=True, bool preserve\+\_\+order=True, bool upto\+\_\+clifford=False, bool upto\+\_\+phase=False, int resynth\+\_\+clifford\+\_\+method=0)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Circuit synthesis for pauli evolution gates.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1evolution_1_1pauli__network_ac172486e5930ffb8b2c6b0591a4f53d6}\index{qiskit.synthesis.evolution.pauli\_network@{qiskit.synthesis.evolution.pauli\_network}!synth\_pauli\_network\_rustiq@{synth\_pauli\_network\_rustiq}}
+\index{synth\_pauli\_network\_rustiq@{synth\_pauli\_network\_rustiq}!qiskit.synthesis.evolution.pauli\_network@{qiskit.synthesis.evolution.pauli\_network}}
+\doxysubsubsection{\texorpdfstring{synth\_pauli\_network\_rustiq()}{synth\_pauli\_network\_rustiq()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1evolution_1_1pauli__network_ac172486e5930ffb8b2c6b0591a4f53d6} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+evolution.\+pauli\+\_\+network.\+synth\+\_\+pauli\+\_\+network\+\_\+rustiq (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{list}]{pauli\+\_\+network}{, }\item[{bool }]{optimize\+\_\+count}{ = {\ttfamily True}, }\item[{bool }]{preserve\+\_\+order}{ = {\ttfamily True}, }\item[{bool }]{upto\+\_\+clifford}{ = {\ttfamily False}, }\item[{bool }]{upto\+\_\+phase}{ = {\ttfamily False}, }\item[{int }]{resynth\+\_\+clifford\+\_\+method}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calls Rustiq's pauli network synthesis algorithm.
+
+The algorithm is described in [1]. The source code (in Rust) is available at
+https://github.com/smartiel/rustiq-core.
+
+Args:
+    num_qubits: the number of qubits over which the pauli network is defined.
+    pauli_network: a list of pauli rotations, represented in sparse format: a list of
+        triples such as `[("XX", [0, 3], theta), ("ZZ", [0, 1], 0.1)]`.
+    optimize_count: if `True` the synthesis algorithm will try to optimize the 2-qubit
+        gate count; and if `False` then the 2-qubit depth.
+    preserve_order: whether the order of paulis should be preserved, up to
+        commutativity. If the order is not preserved, the returned circuit will
+        generally not be equivalent to the given pauli network.
+    upto_clifford: if `True`, the final Clifford operator is not synthesized
+        and the returned circuit will generally not be equivalent to the given
+        pauli network. In addition, the argument `upto_phase` would be ignored.
+    upto_phase: if `True`, the global phase of the returned circuit may differ
+         from the global phase of the given pauli network. The argument is ignored
+         when `upto_clifford` is `True`.
+    resynth_clifford_method: describes the strategy to synthesize the final Clifford
+        operator. If `0` a naive approach is used, which doubles the number of gates
+        but preserves the global phase of the circuit. If `1`, the Clifford is
+        resynthesized using Qiskit's greedy Clifford synthesis algorithm. If `2`, it
+        is resynthesized by Rustiq itself. If `upto_phase` is `False`, the naive
+        approach is used, as neither synthesis method preserves the global phase.
+
+Returns:
+    A circuit implementation of the pauli network.
+
+References:
+    1. Timothée Goubault de Brugière and Simon Martiel,
+       *Faster and shorter synthesis of Hamiltonian simulation circuits*,
+       `arXiv:2404.03280 [quant-ph] <https://arxiv.org/abs/2404.03280>`_\end{DoxyVerb}
+ 

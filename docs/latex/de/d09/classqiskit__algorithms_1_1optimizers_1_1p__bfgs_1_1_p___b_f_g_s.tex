@@ -1,0 +1,109 @@
+\doxysection{qiskit\+\_\+algorithms.\+optimizers.\+p\+\_\+bfgs.\+P\+\_\+\+BFGS Class Reference}
+\hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s}{}\label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s}\index{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS@{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+optimizers.\+p\+\_\+bfgs.\+P\+\_\+\+BFGS\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{de/d09/classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a71d53c125d13793dc0a16147db541596_a71d53c125d13793dc0a16147db541596}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int maxfun=1000, Supports\+Float ftol=10 \texorpdfstring{$\ast$}{*}np.\+finfo(float).eps, int iprint=-\/1, int\texorpdfstring{$\vert$}{|}None max\+\_\+processes=None, dict\texorpdfstring{$\vert$}{|}None options=None, int max\+\_\+evals\+\_\+grouped=1, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_result}{Optimizer\+Result}} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_add000bf723bd3f064ee63c6877ae61ee_add000bf723bd3f064ee63c6877ae61ee}{minimize}} (self, Callable\mbox{[}\mbox{[}POINT\mbox{]}, float\mbox{]} fun, POINT x0, Callable\mbox{[}\mbox{[}POINT\mbox{]}, POINT\mbox{]}\texorpdfstring{$\vert$}{|}None jac=None, list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}None bounds=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_aac2d10c6fc01b0da19de5067c7b8fdaf}\label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_aac2d10c6fc01b0da19de5067c7b8fdaf} 
+tuple\mbox{[}POINT, float, int\mbox{]} {\bfseries \+\_\+optimize} (self, objective\+\_\+function, initial\+\_\+point, gradient\+\_\+function=None, variable\+\_\+bounds=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a3a88de9ba0d6a385c1d1c8f0019086a4}\label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a3a88de9ba0d6a385c1d1c8f0019086a4} 
+{\bfseries \+\_\+max\+\_\+processes} = max\+\_\+processes
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a42a64bb5170b19d308ea74bdf3aab03e}\label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a42a64bb5170b19d308ea74bdf3aab03e} 
+list {\bfseries \+\_\+\+OPTIONS} = \mbox{[}"{}maxfun"{}, "{}ftol"{}, "{}iprint"{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Parallelized Limited-memory BFGS optimizer.
+
+P-BFGS is a parallelized version of :class:`L_BFGS_B` with which it shares the same parameters.
+P-BFGS can be useful when the target hardware is a quantum simulator running on a classical
+machine. This allows the multiple processes to use simulation to potentially reach a minimum
+faster. The parallelization may also help the optimizer avoid getting stuck at local optima.
+
+Uses scipy.optimize.fmin_l_bfgs_b.
+For further detail, please refer to
+https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.fmin_l_bfgs_b.html
+
+.. note::
+
+    This component has some function that is normally random. If you want to reproduce behavior
+    then you should set the random number generator seed in the algorithm_globals
+    (``qiskit_algorithms.utils.algorithm_globals.random_seed = seed``).
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a71d53c125d13793dc0a16147db541596_a71d53c125d13793dc0a16147db541596}\index{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS@{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS@{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_a71d53c125d13793dc0a16147db541596_a71d53c125d13793dc0a16147db541596} 
+ None qiskit\+\_\+algorithms.\+optimizers.\+p\+\_\+bfgs.\+P\+\_\+\+BFGS.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int }]{maxfun}{ = {\ttfamily 1000}, }\item[{Supports\+Float }]{ftol}{ = {\ttfamily 10~\texorpdfstring{$\ast$}{*}~np.finfo(float).eps}, }\item[{int }]{iprint}{ = {\ttfamily -\/1}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{max\+\_\+processes}{ = {\ttfamily None}, }\item[{dict \texorpdfstring{$\vert$}{|} None }]{options}{ = {\ttfamily None}, }\item[{int }]{max\+\_\+evals\+\_\+grouped}{ = {\ttfamily 1}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        maxfun: Maximum number of function evaluations.
+        ftol: The iteration stops when (f\^k - f\^{k+1})/max{\|f\^k\|,\|f\^{k+1}\|,1} <= ftol.
+        iprint: Controls the frequency of output. iprint < 0 means no output;
+            iprint = 0 print only one line at the last iteration; 0 < iprint < 99
+            print also f and \|proj g\| every iprint iterations; iprint = 99 print
+            details of every iteration except n-vectors; iprint = 100 print also the
+            changes of active set and final x; iprint > 100 print details of
+            every iteration including x and g.
+        max_processes: maximum number of processes allowed, has a min. value of 1 if not None.
+        options: A dictionary of solver options.
+        max_evals_grouped: Max number of default gradient evaluations performed simultaneously.
+        kwargs: additional kwargs for scipy.optimize.minimize.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1scipy__optimizer_1_1_sci_py_optimizer_a9a46f6d96e9012aaf041a4aafd4a30ee_a9a46f6d96e9012aaf041a4aafd4a30ee}{qiskit\+\_\+algorithms.\+optimizers.\+scipy\+\_\+optimizer.\+Sci\+Py\+Optimizer}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_add000bf723bd3f064ee63c6877ae61ee_add000bf723bd3f064ee63c6877ae61ee}\index{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS@{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS}!minimize@{minimize}}
+\index{minimize@{minimize}!qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS@{qiskit\_algorithms.optimizers.p\_bfgs.P\_BFGS}}
+\doxysubsubsection{\texorpdfstring{minimize()}{minimize()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1p__bfgs_1_1_p___b_f_g_s_add000bf723bd3f064ee63c6877ae61ee_add000bf723bd3f064ee63c6877ae61ee} 
+ \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_result}{Optimizer\+Result}} qiskit\+\_\+algorithms.\+optimizers.\+p\+\_\+bfgs.\+P\+\_\+\+BFGS.\+minimize (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Callable\mbox{[}\mbox{[}POINT\mbox{]}, float\mbox{]}}]{fun}{, }\item[{POINT}]{x0}{, }\item[{Callable\mbox{[}\mbox{[}POINT\mbox{]}, POINT\mbox{]} \texorpdfstring{$\vert$}{|} None }]{jac}{ = {\ttfamily None}, }\item[{list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{bounds}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Minimize the scalar function.
+
+Args:
+    fun: The scalar function to minimize.
+    x0: The initial point for the minimization.
+    jac: The gradient of the scalar function ``fun``.
+    bounds: Bounds for the variables of ``fun``. This argument might be ignored if the
+        optimizer does not support bounds.
+
+Returns:
+    The result of the optimization, containing e.g. the result as attribute ``x``.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1scipy__optimizer_1_1_sci_py_optimizer_a2036d814cf97ac93e35b346e128d0e8c_a2036d814cf97ac93e35b346e128d0e8c}{qiskit\+\_\+algorithms.\+optimizers.\+scipy\+\_\+optimizer.\+Sci\+Py\+Optimizer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/optimizers/p\+\_\+bfgs.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,123 @@
+\doxysection{four\+\_\+unitary\+\_\+cvqls.\+Utility Class Reference}
+\hypertarget{classfour__unitary__cvqls_1_1_utility}{}\label{classfour__unitary__cvqls_1_1_utility}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+
+
+Inheritance diagram for four\+\_\+unitary\+\_\+cvqls.\+Utility\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{d9/dd4/classfour__unitary__cvqls_1_1_utility__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classfour__unitary__cvqls_1_1_utility_a33dab7acb7a46ea2176c6e7de4f606b9}\label{classfour__unitary__cvqls_1_1_utility_a33dab7acb7a46ea2176c6e7de4f606b9} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\item 
+complex\+\_\+array\+\_\+type \mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_af638c25452745748831231ef8c5167d6_af638c25452745748831231ef8c5167d6}{normalize}} (self, complex\+\_\+array\+\_\+type v)
+\item 
+complex\+\_\+array\+\_\+type \mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_a9ff9191e8a224c4f82a70a7222ae2045_a9ff9191e8a224c4f82a70a7222ae2045}{normalize\+\_\+matrix}} (self, complex\+\_\+array\+\_\+type A)
+\item 
+\mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_a94de27642d443091f721418b0d6febf8_a94de27642d443091f721418b0d6febf8}{norm\+L2norm}} (self, qu, cl)
+\item 
+\mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_a4d9610327f609ec6eb7cf9f68221b207_a4d9610327f609ec6eb7cf9f68221b207}{convert\+\_\+bin}} (self, num, ancilla\+\_\+size=1)
+\item 
+complex\+\_\+array\+\_\+type \mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_ad17482f1fa6040133db4bd0638a08e3f_ad17482f1fa6040133db4bd0638a08e3f}{auxilliary\+\_\+matrix}} (self, Union\mbox{[}npt.\+NDArray\mbox{[}np.\+float64\mbox{]}, complex\+\_\+array\+\_\+type\mbox{]} x)
+\item 
+complex\+\_\+array\+\_\+type \mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_ab54e306be8e1df2f073ebcdff5d43361_ab54e306be8e1df2f073ebcdff5d43361}{decompose}} (self, complex\+\_\+array\+\_\+type A, complex\+\_\+array\+\_\+type b)
+\item 
+\mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_a45ff842cb057e5f51d57f7dfa07dcebd_a45ff842cb057e5f51d57f7dfa07dcebd}{is\+\_\+identity\+\_\+matrix}} (self, mat, ignore\+\_\+phase=False, rtol=RTOL\+\_\+\+DEFAULT, atol=ATOL\+\_\+\+DEFAULT)
+\item 
+float \mbox{\hyperlink{classfour__unitary__cvqls_1_1_utility_a90a9dad03440fb50dc676053d0a0b955_a90a9dad03440fb50dc676053d0a0b955}{is\+\_\+\+A\+\_\+matrix\+\_\+accurate}} (self, List unitaries)
+\item 
+\Hypertarget{classfour__unitary__cvqls_1_1_utility_a76cb0995be5af2d2bbb5810946625e28}\label{classfour__unitary__cvqls_1_1_utility_a76cb0995be5af2d2bbb5810946625e28} 
+{\bfseries define\+\_\+\+A\+\_\+b} (self, A\+\_\+pass, b\+\_\+pass)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classfour__unitary__cvqls_1_1_utility_ad17482f1fa6040133db4bd0638a08e3f_ad17482f1fa6040133db4bd0638a08e3f}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!auxilliary\_matrix@{auxilliary\_matrix}}
+\index{auxilliary\_matrix@{auxilliary\_matrix}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{auxilliary\_matrix()}{auxilliary\_matrix()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_ad17482f1fa6040133db4bd0638a08e3f_ad17482f1fa6040133db4bd0638a08e3f} 
+ complex\+\_\+array\+\_\+type four\+\_\+unitary\+\_\+cvqls.\+Utility.\+auxilliary\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Union\mbox{[}npt.\+NDArray\mbox{[}np.\+float64\mbox{]}, complex\+\_\+array\+\_\+type\mbox{]}         }]{x}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the auxiliary matrix for the decomposition of size n.
+derived and defined as : i * sqrt(I - x^2)
+
+Args:
+    x (Union[npt.NDArray[np.float_], complex_array_type]): original matrix.
+
+Returns:
+    complex_array_type: The auxiliary matrix.
+\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_a4d9610327f609ec6eb7cf9f68221b207_a4d9610327f609ec6eb7cf9f68221b207}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!convert\_bin@{convert\_bin}}
+\index{convert\_bin@{convert\_bin}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{convert\_bin()}{convert\_bin()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_a4d9610327f609ec6eb7cf9f68221b207_a4d9610327f609ec6eb7cf9f68221b207} 
+four\+\_\+unitary\+\_\+cvqls.\+Utility.\+convert\+\_\+bin (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{num}{, }\item[{}]{ancilla\+\_\+size}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Function changes a decimal number to binary number of deired length. By default the length is 1\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_ab54e306be8e1df2f073ebcdff5d43361_ab54e306be8e1df2f073ebcdff5d43361}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!decompose@{decompose}}
+\index{decompose@{decompose}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{decompose()}{decompose()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_ab54e306be8e1df2f073ebcdff5d43361_ab54e306be8e1df2f073ebcdff5d43361} 
+ complex\+\_\+array\+\_\+type four\+\_\+unitary\+\_\+cvqls.\+Utility.\+decompose (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{complex\+\_\+array\+\_\+type}]{A}{, }\item[{complex\+\_\+array\+\_\+type}]{b}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Decompose a given matrix A into B and C.
+
+Args:
+    A (complex_array_type): The matrix to be decomposed.
+    b (complex_array_type): The vector to be normalized. 
+
+Returns:
+    Ub, Vb, Uc, Vc: The decomposed matrices, it's coefficients, and normlized b vector. 
+\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_a90a9dad03440fb50dc676053d0a0b955_a90a9dad03440fb50dc676053d0a0b955}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!is\_A\_matrix\_accurate@{is\_A\_matrix\_accurate}}
+\index{is\_A\_matrix\_accurate@{is\_A\_matrix\_accurate}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{is\_A\_matrix\_accurate()}{is\_A\_matrix\_accurate()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_a90a9dad03440fb50dc676053d0a0b955_a90a9dad03440fb50dc676053d0a0b955} 
+ float four\+\_\+unitary\+\_\+cvqls.\+Utility.\+is\+\_\+\+A\+\_\+matrix\+\_\+accurate (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{List}]{unitaries}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb} to evaluate the given matrices representation accuracy.
+
+Args:
+    unitaries (List): 4 unitary matrix list.
+
+Returns:
+    float: returns a the Forbenius norm of the difference between the original and reconstructed matrix.
+\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_a45ff842cb057e5f51d57f7dfa07dcebd_a45ff842cb057e5f51d57f7dfa07dcebd}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!is\_identity\_matrix@{is\_identity\_matrix}}
+\index{is\_identity\_matrix@{is\_identity\_matrix}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{is\_identity\_matrix()}{is\_identity\_matrix()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_a45ff842cb057e5f51d57f7dfa07dcebd_a45ff842cb057e5f51d57f7dfa07dcebd} 
+four\+\_\+unitary\+\_\+cvqls.\+Utility.\+is\+\_\+identity\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{mat}{, }\item[{}]{ignore\+\_\+phase}{ = {\ttfamily False}, }\item[{}]{rtol}{ = {\ttfamily RTOL\+\_\+DEFAULT}, }\item[{}]{atol}{ = {\ttfamily ATOL\+\_\+DEFAULT}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Test if an array is an identity matrix.\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_af638c25452745748831231ef8c5167d6_af638c25452745748831231ef8c5167d6}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!normalize@{normalize}}
+\index{normalize@{normalize}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_af638c25452745748831231ef8c5167d6_af638c25452745748831231ef8c5167d6} 
+ complex\+\_\+array\+\_\+type four\+\_\+unitary\+\_\+cvqls.\+Utility.\+normalize (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{complex\+\_\+array\+\_\+type}]{v}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Normalize the given vector.\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_a9ff9191e8a224c4f82a70a7222ae2045_a9ff9191e8a224c4f82a70a7222ae2045}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!normalize\_matrix@{normalize\_matrix}}
+\index{normalize\_matrix@{normalize\_matrix}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{normalize\_matrix()}{normalize\_matrix()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_a9ff9191e8a224c4f82a70a7222ae2045_a9ff9191e8a224c4f82a70a7222ae2045} 
+ complex\+\_\+array\+\_\+type four\+\_\+unitary\+\_\+cvqls.\+Utility.\+normalize\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{complex\+\_\+array\+\_\+type}]{A}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Normalize the given matrix.\end{DoxyVerb}
+ \Hypertarget{classfour__unitary__cvqls_1_1_utility_a94de27642d443091f721418b0d6febf8_a94de27642d443091f721418b0d6febf8}\index{four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}!normL2norm@{normL2norm}}
+\index{normL2norm@{normL2norm}!four\_unitary\_cvqls.Utility@{four\_unitary\_cvqls.Utility}}
+\doxysubsubsection{\texorpdfstring{normL2norm()}{normL2norm()}}
+{\footnotesize\ttfamily \label{classfour__unitary__cvqls_1_1_utility_a94de27642d443091f721418b0d6febf8_a94de27642d443091f721418b0d6febf8} 
+four\+\_\+unitary\+\_\+cvqls.\+Utility.\+norm\+L2norm (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{qu}{, }\item[{}]{cl}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calculation of L2 Norm between quantum generated vector and classical vector\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/four\+\_\+unitary\+\_\+cvqls.\+py\end{DoxyCompactItemize}

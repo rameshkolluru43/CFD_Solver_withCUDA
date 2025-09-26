@@ -1,0 +1,75 @@
+\doxysection{qiskit.\+primitives.\+containers.\+bindings\+\_\+array Namespace Reference}
+\hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array}{}\label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array}\index{qiskit.primitives.containers.bindings\_array@{qiskit.primitives.containers.bindings\_array}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1bindings__array_1_1_bindings_array}{Bindings\+Array}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_aaf5a3c90203feb25ece37f92c1b750ec}{\+\_\+standardize\+\_\+shape}} (np.\+ndarray val, tuple\mbox{[}int,...\mbox{]} shape)
+\item 
+tuple\mbox{[}int,...\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_ad522513af4722df294557c1ab97822e5}{\+\_\+infer\+\_\+shape}} (dict\mbox{[}tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}},...\mbox{]}, np.\+ndarray\mbox{]} data)
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_aecf0e50a46a4e6599aea9f667166ee96}\label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_aecf0e50a46a4e6599aea9f667166ee96} 
+{\bfseries \+\_\+format\+\_\+key} (tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\texorpdfstring{$\vert$}{|}str,...\mbox{]} key)
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a460ae735bac08cb3698e983aff10e8f4}\label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a460ae735bac08cb3698e983aff10e8f4} 
+str {\bfseries \+\_\+param\+\_\+name} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}\texorpdfstring{$\vert$}{|}str param)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a74ecfdc451752ba7e7bd3ef3aa479fae}\label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a74ecfdc451752ba7e7bd3ef3aa479fae} 
+{\bfseries Parameter\+Like} = Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, str\mbox{]}
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a74254dd4cfbcba4e01ac81045f2c6c79}\label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_a74254dd4cfbcba4e01ac81045f2c6c79} 
+{\bfseries Bindings\+Array\+Like} = Mapping\mbox{[}Union\mbox{[}Parameter\+Like, Tuple\mbox{[}Parameter\+Like, ...\mbox{]}\mbox{]}, Array\+Like\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Bindings array class
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_ad522513af4722df294557c1ab97822e5}\index{qiskit.primitives.containers.bindings\_array@{qiskit.primitives.containers.bindings\_array}!\_infer\_shape@{\_infer\_shape}}
+\index{\_infer\_shape@{\_infer\_shape}!qiskit.primitives.containers.bindings\_array@{qiskit.primitives.containers.bindings\_array}}
+\doxysubsubsection{\texorpdfstring{\_infer\_shape()}{\_infer\_shape()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_ad522513af4722df294557c1ab97822e5} 
+ tuple\mbox{[}int, ...\mbox{]} qiskit.\+primitives.\+containers.\+bindings\+\_\+array.\+\_\+infer\+\_\+shape (\begin{DoxyParamCaption}\item[{dict\mbox{[}tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}, ...\mbox{]}, np.\+ndarray\mbox{]}}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return a shape tuple that consistently defines the leading dimensions of all arrays.
+
+Args:
+    data: A mapping from tuples to arrays, where the length of each tuple should match the
+        last dimension of the corresponding array.
+
+Returns:
+    A shape tuple that matches the leading dimension of every array.
+
+Raises:
+    ValueError: If this cannot be done unambiguously.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_aaf5a3c90203feb25ece37f92c1b750ec}\index{qiskit.primitives.containers.bindings\_array@{qiskit.primitives.containers.bindings\_array}!\_standardize\_shape@{\_standardize\_shape}}
+\index{\_standardize\_shape@{\_standardize\_shape}!qiskit.primitives.containers.bindings\_array@{qiskit.primitives.containers.bindings\_array}}
+\doxysubsubsection{\texorpdfstring{\_standardize\_shape()}{\_standardize\_shape()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1bindings__array_aaf5a3c90203feb25ece37f92c1b750ec} 
+ np.\+ndarray qiskit.\+primitives.\+containers.\+bindings\+\_\+array.\+\_\+standardize\+\_\+shape (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{val}{, }\item[{tuple\mbox{[}int, ...\mbox{]}}]{shape}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return ``val`` or ``val[..., None]``.
+
+Args:
+    val: The array whose shape to standardize.
+    shape: The shape to standardize to.
+
+Returns:
+    An array with one more dimension than ``len(shape)``, and whose leading dimensions match
+    ``shape``.
+
+Raises:
+    ValueError: If the leading shape of ``val`` does not match the ``shape``.
+\end{DoxyVerb}
+ 

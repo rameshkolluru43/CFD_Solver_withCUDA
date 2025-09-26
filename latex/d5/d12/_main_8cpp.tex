@@ -1,0 +1,215 @@
+\doxysection{src/\+Main.cpp File Reference}
+\hypertarget{_main_8cpp}{}\label{_main_8cpp}\index{src/Main.cpp@{src/Main.cpp}}
+
+
+Main entry point for the simulation program. Contains the main function and initialization routines. Reads the input JSON file and initializes the simulation parameters. Calls the appropriate solver based on the configuration.  
+
+
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}Main.\+h"{}}\newline
+{\ttfamily \#include "{}Directory\+\_\+\+Files.\+h"{}}\newline
+{\ttfamily \#include "{}Solver.\+h"{}}\newline
+Include dependency graph for Main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/dfb/_main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}{initialize\+Grid\+Dimensions}} ()
+\item 
+void \mbox{\hyperlink{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}{read\+Input\+File}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}{run\+Solver}} ()
+\begin{DoxyCompactList}\small\item\em Executes the appropriate solver based on the simulation configuration. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{_main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main entry point for the simulation program. Contains the main function and initialization routines. Reads the input JSON file and initializes the simulation parameters. Calls the appropriate solver based on the configuration. 
+
+
+
+Definition in file \mbox{\hyperlink{_main_8cpp_source}{Main.\+cpp}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}\index{Main.cpp@{Main.cpp}!initializeGridDimensions@{initializeGridDimensions}}
+\index{initializeGridDimensions@{initializeGridDimensions}!Main.cpp@{Main.cpp}}
+\doxysubsubsection{\texorpdfstring{initializeGridDimensions()}{initializeGridDimensions()}}
+{\footnotesize\ttfamily \label{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64} 
+void initialize\+Grid\+Dimensions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_main_8cpp_source_l00014}{14}} of file \mbox{\hyperlink{_main_8cpp_source}{Main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \mbox{\hyperlink{_globals_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ =\ 0;}
+\DoxyCodeLine{00017\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ =\ 0;}
+\DoxyCodeLine{00018\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{d5/d12/_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}\index{Main.cpp@{Main.cpp}!main@{main}}
+\index{main@{main}!Main.cpp@{Main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_main_8cpp_source_l00083}{83}} of file \mbox{\hyperlink{_main_8cpp_source}{Main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00084\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_aa11da64d972e81c2f4e93c820ef5bc64_aa11da64d972e81c2f4e93c820ef5bc64}{initializeGridDimensions}}();}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}{readInputFile}}(argc,\ argv);}
+\DoxyCodeLine{00087\ \ \ \ \ \mbox{\hyperlink{_directory___files_8h_ad1e8310b421e1dce51a8b2c5e72a3cff_ad1e8310b421e1dce51a8b2c5e72a3cff}{readTestCaseJSON}}(\mbox{\hyperlink{_globals_8h_a7cde7021ac80f284a5792b02032e2822_a7cde7021ac80f284a5792b02032e2822}{Test\_Case\_JSON\_File}});}
+\DoxyCodeLine{00088\ \ \ \ \ \mbox{\hyperlink{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}{runSolver}}();}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00090\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d12/_main_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b}\index{Main.cpp@{Main.cpp}!readInputFile@{readInputFile}}
+\index{readInputFile@{readInputFile}!Main.cpp@{Main.cpp}}
+\doxysubsubsection{\texorpdfstring{readInputFile()}{readInputFile()}}
+{\footnotesize\ttfamily \label{_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b} 
+void read\+Input\+File (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_main_8cpp_source_l00020}{20}} of file \mbox{\hyperlink{_main_8cpp_source}{Main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)}
+\DoxyCodeLine{00023\ \ \ \ \ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ No\ JSON\ input\ file\ provided."{}}\ <<\ endl;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00026\ \ \ \ \ \}}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{string}\ jsonFileName\ =\ argv[1];}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{try}}
+\DoxyCodeLine{00029\ \ \ \ \ \{}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_directory___files_8h_a2018060f7673ea212cdcdb26b0d747d7_a2018060f7673ea212cdcdb26b0d747d7}{readJSON}}(jsonFileName);}
+\DoxyCodeLine{00031\ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ std::exception\ \&e)}
+\DoxyCodeLine{00033\ \ \ \ \ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error\ while\ reading\ JSON\ file:\ "{}}\ <<\ e.what()\ <<\ endl;}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7cde7021ac80f284a5792b02032e2822_a7cde7021ac80f284a5792b02032e2822}{Test\_Case\_JSON\_File}}.empty())}
+\DoxyCodeLine{00038\ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Test\_Case\_JSON\_File\ is\ not\ set.\ Please\ check\ the\ JSON\ file\ or\ initialization."{}}\ <<\ endl;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=250pt]{d5/d12/_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{d5/d12/_main_8cpp_ae054ce42f1487402d05337400b64042b_ae054ce42f1487402d05337400b64042b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663}\index{Main.cpp@{Main.cpp}!runSolver@{runSolver}}
+\index{runSolver@{runSolver}!Main.cpp@{Main.cpp}}
+\doxysubsubsection{\texorpdfstring{runSolver()}{runSolver()}}
+{\footnotesize\ttfamily \label{_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663} 
+void run\+Solver (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Executes the appropriate solver based on the simulation configuration. 
+
+This function validates the test case setting and then dispatches control to the corresponding solver\+:
+\begin{DoxyItemize}
+\item If the test case is not set (i.\+e., Test\+\_\+\+Case equals 0), it logs an error message and terminates the program.
+\item If the viscous wall condition (Is\+\_\+\+Viscous\+\_\+\+Wall) is active, it runs the Navier-\/\+Stokes solver with viscous terms.
+\item Otherwise, it runs the solver for Euler equations.
+\end{DoxyItemize}
+
+The function verifies that Test\+\_\+\+Case is properly set. A Test\+\_\+\+Case value of 0 is considered an error since test case numbers should start at 1. Upon validation, it prints a message indicating the current solver in use, then calls either the Viscous\+\_\+\+Solver or Inviscid\+\_\+\+Solver function based on the Is\+\_\+\+Viscous\+\_\+\+Wall flag.
+
+\begin{DoxyNote}{Note}
+Proper initialization is assumed to be performed elsewhere; the Test\+\_\+\+Case should be assigned a valid, non-\/zero value.
+\end{DoxyNote}
+\begin{DoxySeeAlso}{See also}
+\doxylink{_solver_8h_a8803b4e843c1a418d899148a3406c47c_a8803b4e843c1a418d899148a3406c47c}{Viscous\+\_\+\+Solver}, \doxylink{_solver_8h_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb}{Inviscid\+\_\+\+Solver} 
+\end{DoxySeeAlso}
+
+
+Definition at line \mbox{\hyperlink{_main_8cpp_source_l00062}{62}} of file \mbox{\hyperlink{_main_8cpp_source}{Main.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_adde10c6a1cf16596bd76c5f5cdb4e89b_adde10c6a1cf16596bd76c5f5cdb4e89b}{Test\_Case}}\ ==\ 0)}
+\DoxyCodeLine{00065\ \ \ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Test\_Case\ is\ not\ set.\ Please\ check\ the\ JSON\ file\ or\ initialization."{}}\ <<\ endl;}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Test\ Case\ Number\ starts\ from\ 1\(\backslash\)n"{}};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}*******-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/The\ Following\ Solver\ is\ currently\ Running-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/**********\(\backslash\)n"{}};}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Viscous\ Terms\ are\ Enabled\ solving\ NS\ Solver"{}}\ <<\ endl;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_a8803b4e843c1a418d899148a3406c47c_a8803b4e843c1a418d899148a3406c47c}{Viscous\_Solver}}(\mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}},\ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}});}
+\DoxyCodeLine{00075\ \ \ \ \ \}}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00077\ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Inviscid\ Solver\ -\/-\/-\/-\/\ Solving\ Euler\ Equations"{}}\ <<\ endl;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_solver_8h_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb_a77d5bc23ae6c00b6bb2f8fa7d3f1b5bb}{Inviscid\_Solver}}(\mbox{\hyperlink{_globals_8h_ac2b530597e73e570020adecef98f784b_ac2b530597e73e570020adecef98f784b}{Error\_File}},\ \mbox{\hyperlink{_globals_8h_a846c493c642b95e01652386577759c59_a846c493c642b95e01652386577759c59}{Solution\_File}});}
+\DoxyCodeLine{00080\ \ \ \ \ \}}
+\DoxyCodeLine{00081\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d12/_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d5/d12/_main_8cpp_a35d775933750ace299102f06a1712663_a35d775933750ace299102f06a1712663_icgraph}
+\end{center}
+\end{figure}

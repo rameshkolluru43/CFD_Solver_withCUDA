@@ -1,0 +1,71 @@
+\doxysection{qiskit.\+circuit.\+library.\+phase\+\_\+estimation Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1phase__estimation}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1phase__estimation}\index{qiskit.circuit.library.phase\_estimation@{qiskit.circuit.library.phase\_estimation}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1phase__estimation_1_1_phase_estimation}{Phase\+Estimation}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1phase__estimation_ad18ae1d91c20e4cc399eb583ce969527}{phase\+\_\+estimation}} (int num\+\_\+evaluation\+\_\+qubits, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} unitary, str name="{}QPE"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Phase estimation circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1phase__estimation_ad18ae1d91c20e4cc399eb583ce969527}\index{qiskit.circuit.library.phase\_estimation@{qiskit.circuit.library.phase\_estimation}!phase\_estimation@{phase\_estimation}}
+\index{phase\_estimation@{phase\_estimation}!qiskit.circuit.library.phase\_estimation@{qiskit.circuit.library.phase\_estimation}}
+\doxysubsubsection{\texorpdfstring{phase\_estimation()}{phase\_estimation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1phase__estimation_ad18ae1d91c20e4cc399eb583ce969527} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+phase\+\_\+estimation.\+phase\+\_\+estimation (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+evaluation\+\_\+qubits}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{unitary}{, }\item[{str }]{name}{ = {\ttfamily "{}QPE"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Phase Estimation circuit.
+
+In the Quantum Phase Estimation (QPE) algorithm [1, 2, 3], the Phase Estimation circuit is used
+to estimate the phase :math:`\phi` of an eigenvalue :math:`e^{2\pi i\phi}` of a unitary operator
+:math:`U`, provided with the corresponding eigenstate :math:`|\psi\rangle`.
+That is
+
+.. math::
+
+U|\psi\rangle = e^{2\pi i\phi} |\psi\rangle
+
+This estimation (and thereby this circuit) is a central routine to several well-known
+algorithms, such as Shor's algorithm or Quantum Amplitude Estimation.
+
+Args:
+num_evaluation_qubits: The number of evaluation qubits.
+unitary: The unitary operation :math:`U` which will be repeated and controlled.
+name: The name of the circuit.
+
+**Reference Circuit:**
+
+.. plot::
+:alt: Circuit diagram output by the previous code.
+:include-source:
+
+from qiskit.circuit import QuantumCircuit
+from qiskit.circuit.library import phase_estimation
+unitary = QuantumCircuit(2)
+unitary.x(0)
+unitary.y(1)
+circuit = phase_estimation(3, unitary)
+circuit.draw('mpl')
+
+**References:**
+
+[1]: Kitaev, A. Y. (1995). Quantum measurements and the Abelian Stabilizer Problem. 1–22.
+`quant-ph/9511026 <http://arxiv.org/abs/quant-ph/9511026>`_
+
+[2]: Michael A. Nielsen and Isaac L. Chuang. 2011.
+ Quantum Computation and Quantum Information: 10th Anniversary Edition (10th ed.).
+ Cambridge University Press, New York, NY, USA.
+
+[3]: Qiskit
+`textbook <https://github.com/Qiskit/textbook/blob/main/notebooks/ch-algorithms/
+quantum-phase-estimation.ipynb>`_\end{DoxyVerb}
+ 

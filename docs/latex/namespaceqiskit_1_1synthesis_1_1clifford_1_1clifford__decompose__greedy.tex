@@ -1,0 +1,46 @@
+\doxysection{qiskit.\+synthesis.\+clifford.\+clifford\+\_\+decompose\+\_\+greedy Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1clifford_1_1clifford__decompose__greedy}{}\label{namespaceqiskit_1_1synthesis_1_1clifford_1_1clifford__decompose__greedy}\index{qiskit.synthesis.clifford.clifford\_decompose\_greedy@{qiskit.synthesis.clifford.clifford\_decompose\_greedy}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1clifford_1_1clifford__decompose__greedy_a51bb56918e078dd462499a5f81a3856a}{synth\+\_\+clifford\+\_\+greedy}} (Clifford clifford)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Circuit synthesis for the Clifford class.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1clifford_1_1clifford__decompose__greedy_a51bb56918e078dd462499a5f81a3856a}\index{qiskit.synthesis.clifford.clifford\_decompose\_greedy@{qiskit.synthesis.clifford.clifford\_decompose\_greedy}!synth\_clifford\_greedy@{synth\_clifford\_greedy}}
+\index{synth\_clifford\_greedy@{synth\_clifford\_greedy}!qiskit.synthesis.clifford.clifford\_decompose\_greedy@{qiskit.synthesis.clifford.clifford\_decompose\_greedy}}
+\doxysubsubsection{\texorpdfstring{synth\_clifford\_greedy()}{synth\_clifford\_greedy()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1clifford_1_1clifford__decompose__greedy_a51bb56918e078dd462499a5f81a3856a} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+clifford.\+clifford\+\_\+decompose\+\_\+greedy.\+synth\+\_\+clifford\+\_\+greedy (\begin{DoxyParamCaption}\item[{Clifford}]{clifford}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Decompose a :class:`.Clifford` operator into a :class:`.QuantumCircuit` based
+on the greedy Clifford compiler that is described in Appendix A of
+Bravyi, Hu, Maslov and Shaydulin [1].
+
+This method typically yields better CX cost compared to the Aaronson-Gottesman method.
+
+Note that this function only implements the greedy Clifford compiler from Appendix A
+of [1], and not the templates and symbolic Pauli gates optimizations
+that are mentioned in the same paper.
+
+Args:
+    clifford: A Clifford operator.
+
+Returns:
+    A circuit implementation of the Clifford.
+
+Raises:
+    QiskitError: if symplectic Gaussian elimination fails.
+
+References:
+    1. Sergey Bravyi, Shaohan Hu, Dmitri Maslov, Ruslan Shaydulin,
+       *Clifford Circuit Optimization with Templates and Symbolic Pauli Gates*,
+       `arXiv:2105.02291 [quant-ph] <https://arxiv.org/abs/2105.02291>`_
+\end{DoxyVerb}
+ 

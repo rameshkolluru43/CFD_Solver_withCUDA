@@ -1,0 +1,59 @@
+\doxysection{Basic\+\_\+\+Function\+\_\+\+Files/\+Cell\+\_\+\+Viscous\+\_\+functions.cpp File Reference}
+\hypertarget{_cell___viscous__functions_8cpp}{}\label{_cell___viscous__functions_8cpp}\index{Basic\_Function\_Files/Cell\_Viscous\_functions.cpp@{Basic\_Function\_Files/Cell\_Viscous\_functions.cpp}}
+
+
+Contains the implementation of viscous stress calculations on a face.  
+
+
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Function\+\_\+\+Files/headers.\+hpp"{}}\newline
+Include dependency graph for Cell\+\_\+\+Viscous\+\_\+functions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d1a/_cell___viscous__functions_8cpp__incl}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+Contains the implementation of viscous stress calculations on a face. 
+
+Calculates the viscous stress on a face based on the properties of the current cell and its neighbor.
+
+This function computes the viscous stress tensor components and fluxes on a face using the velocity and temperature gradients of the current and neighboring cells. It also accounts for heat flux contributions.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Current\+\_\+\+Cell} & Pointer to the current cell. \\
+\hline
+{\em Neighbour\+\_\+\+Cell} & Pointer to the neighboring cell. This can be a ghost cell. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A constant reference to a vector containing the calculated flux values\+:
+\begin{DoxyItemize}
+\item Flux\mbox{[}0\mbox{]}\+: Placeholder (always 0.\+0).
+\item Flux\mbox{[}1\mbox{]}\+: Viscous stress flux in the x-\/direction.
+\item Flux\mbox{[}2\mbox{]}\+: Viscous stress flux in the y-\/direction.
+\item Flux\mbox{[}3\mbox{]}\+: Viscous stress flux in the z-\/direction.
+\item Flux\mbox{[}4\mbox{]}\+: Total energy flux including heat flux contributions.
+\end{DoxyItemize}
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+If the neighboring cell is a ghost cell, the gradients from the current cell are used directly. Otherwise, the gradients are averaged between the current and neighboring cells.
+\end{DoxyNote}
+The function performs the following steps\+:
+\begin{DoxyEnumerate}
+\item Initializes the flux vector to zero.
+\item Determines the average velocity and temperature gradients on the face.
+\item Computes the components of the viscous stress tensor (Tij).
+\item Calculates the flux contributions due to viscous stresses and heat flux.
+\end{DoxyEnumerate}
+
+\begin{DoxyWarning}{Warning}
+Ensure that the input cells are properly initialized and that the neighbor cell is correctly identified as either a ghost cell or a real cell.
+\end{DoxyWarning}
+const std\+::vector$<$double$>$ \&\doxylink{class_face_acf8f42dee4b478f9a2ce69e7af80204f_acf8f42dee4b478f9a2ce69e7af80204f}{Face\+::\+Cal\+\_\+\+Viscous\+\_\+\+Stress\+\_\+\+On\+\_\+\+Face(const Cell \texorpdfstring{$\ast$}{*}const Current\+\_\+\+Cell, const Cell \texorpdfstring{$\ast$}{*}const Neighbour\+\_\+\+Cell)}; 
+
+Definition in file \mbox{\hyperlink{_cell___viscous__functions_8cpp_source}{Cell\+\_\+\+Viscous\+\_\+functions.\+cpp}}.
+

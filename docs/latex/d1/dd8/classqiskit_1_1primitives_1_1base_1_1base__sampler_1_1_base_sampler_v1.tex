@@ -1,0 +1,130 @@
+\doxysection{qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V1 Class Reference}
+\hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1}{}\label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1}\index{qiskit.primitives.base.base\_sampler.BaseSamplerV1@{qiskit.primitives.base.base\_sampler.BaseSamplerV1}}
+Inheritance diagram for qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V1\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.001072cm]{d1/dd8/classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a1fb06342e2e1869a232f4ad3233d73f2_a1fb06342e2e1869a232f4ad3233d73f2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}, dict\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive_1_1_base_primitive_a68886e96fcc3f1d20e44cfe6f96661fc_a68886e96fcc3f1d20e44cfe6f96661fc}{options}}=None)
+\item 
+T \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a09d615fffd2d2a494a8fdbd4bc54c5d8_a09d615fffd2d2a494a8fdbd4bc54c5d8}{run}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} circuits, Sequence\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}Sequence\mbox{[}float\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}None parameter\+\_\+values=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}run\+\_\+options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a73f03a2c676116e383f0d15dca0a0453}\label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a73f03a2c676116e383f0d15dca0a0453} 
+T {\bfseries \+\_\+run} (self, tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}},...\mbox{]} circuits, tuple\mbox{[}tuple\mbox{[}float,...\mbox{]},...\mbox{]} parameter\+\_\+values, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}run\+\_\+options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Sampler V1 base class
+
+Base class of Sampler that calculates quasi-probabilities of bitstrings from quantum circuits.
+
+A sampler is initialized with an empty parameter set. The sampler is used to
+create a :class:`~qiskit.providers.JobV1`, via the :meth:`qiskit.primitives.Sampler.run()`
+method. This method is called with the following parameters
+
+* quantum circuits (:math:`\psi_i(\theta)`): list of (parameterized) quantum circuits.
+  (a list of :class:`~qiskit.circuit.QuantumCircuit` objects)
+
+* parameter values (:math:`\theta_k`): list of sets of parameter values
+  to be bound to the parameters of the quantum circuits.
+  (list of list of float)
+
+The method returns a :class:`~qiskit.providers.JobV1` object, calling
+:meth:`qiskit.providers.JobV1.result()` yields a :class:`~qiskit.primitives.SamplerResult`
+object, which contains probabilities or quasi-probabilities of bitstrings,
+plus optional metadata like error bars in the samples.
+
+Here is an example of how sampler is used.
+
+.. code-block:: python
+
+    from qiskit.primitives import Sampler
+    from qiskit import QuantumCircuit
+    from qiskit.circuit.library import RealAmplitudes
+
+    # a Bell circuit
+    bell = QuantumCircuit(2)
+    bell.h(0)
+    bell.cx(0, 1)
+    bell.measure_all()
+
+    # two parameterized circuits
+    pqc = RealAmplitudes(num_qubits=2, reps=2)
+    pqc.measure_all()
+    pqc2 = RealAmplitudes(num_qubits=2, reps=3)
+    pqc2.measure_all()
+
+    theta1 = [0, 1, 1, 2, 3, 5]
+    theta2 = [0, 1, 2, 3, 4, 5, 6, 7]
+
+    # initialization of the sampler
+    sampler = Sampler()
+
+    # Sampler runs a job on the Bell circuit
+    job = sampler.run(circuits=[bell], parameter_values=[[]], parameters=[[]])
+    job_result = job.result()
+    print([q.binary_probabilities() for q in job_result.quasi_dists])
+
+    # Sampler runs a job on the parameterized circuits
+    job2 = sampler.run(
+        circuits=[pqc, pqc2],
+        parameter_values=[theta1, theta2],
+        parameters=[pqc.parameters, pqc2.parameters])
+    job_result = job2.result()
+    print([q.binary_probabilities() for q in job_result.quasi_dists])\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a1fb06342e2e1869a232f4ad3233d73f2_a1fb06342e2e1869a232f4ad3233d73f2}\index{qiskit.primitives.base.base\_sampler.BaseSamplerV1@{qiskit.primitives.base.base\_sampler.BaseSamplerV1}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.primitives.base.base\_sampler.BaseSamplerV1@{qiskit.primitives.base.base\_sampler.BaseSamplerV1}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a1fb06342e2e1869a232f4ad3233d73f2_a1fb06342e2e1869a232f4ad3233d73f2} 
+qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V1.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{dict \texorpdfstring{$\vert$}{|} None }]{options}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    options: Default options.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive_1_1_base_primitive}{qiskit.\+primitives.\+base.\+base\+\_\+primitive.\+Base\+Primitive}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1primitives_1_1backend__sampler_1_1_backend_sampler_a47fdb6f2edc027532e7a886eb30c7e64_a47fdb6f2edc027532e7a886eb30c7e64}{qiskit.\+primitives.\+backend\+\_\+sampler.\+Backend\+Sampler}}, \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_a32df4f4e952178fdb852a0db777e5e3d_a32df4f4e952178fdb852a0db777e5e3d}{qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler}}, and \mbox{\hyperlink{classqiskit_1_1primitives_1_1sampler_1_1_sampler_a5ed57d19f5d7fd05f313afdcba26d72c_a5ed57d19f5d7fd05f313afdcba26d72c}{qiskit.\+primitives.\+sampler.\+Sampler}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a09d615fffd2d2a494a8fdbd4bc54c5d8_a09d615fffd2d2a494a8fdbd4bc54c5d8}\index{qiskit.primitives.base.base\_sampler.BaseSamplerV1@{qiskit.primitives.base.base\_sampler.BaseSamplerV1}!run@{run}}
+\index{run@{run}!qiskit.primitives.base.base\_sampler.BaseSamplerV1@{qiskit.primitives.base.base\_sampler.BaseSamplerV1}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v1_a09d615fffd2d2a494a8fdbd4bc54c5d8_a09d615fffd2d2a494a8fdbd4bc54c5d8} 
+ T qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V1.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}}]{circuits}{, }\item[{Sequence\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}Sequence\mbox{[}float\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{parameter\+\_\+values}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{run\+\_\+options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the job of the sampling of bitstrings.
+
+Args:
+    circuits: One of more circuit objects.
+    parameter_values: Parameters to be bound to the circuit.
+    run_options: Backend runtime options used for circuit execution.
+
+Returns:
+    The job object of the result of the sampler. The i-th result corresponds to
+    ``circuits[i]`` evaluated with parameters bound as ``parameter_values[i]``.
+
+Raises:
+    ValueError: Invalid arguments are given.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/primitives/base/base\+\_\+sampler.\+py\end{DoxyCompactItemize}

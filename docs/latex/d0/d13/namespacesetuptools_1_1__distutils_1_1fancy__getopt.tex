@@ -1,0 +1,92 @@
+\doxysection{setuptools.\+\_\+distutils.\+fancy\+\_\+getopt Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt}{}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt}\index{setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1fancy__getopt_1_1_fancy_getopt}{Fancy\+Getopt}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1fancy__getopt_1_1_option_dummy}{Option\+Dummy}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a01a9b41e96b953c2b89fb917d6f2a335}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a01a9b41e96b953c2b89fb917d6f2a335} 
+{\bfseries fancy\+\_\+getopt} (options, negative\+\_\+opt, object, args)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ad47d2daa077790f4dc451d655d439578_ad47d2daa077790f4dc451d655d439578}{wrap\+\_\+text}} (text, width)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ab91128501db47d96e92e8d488060f1ed_ab91128501db47d96e92e8d488060f1ed}{translate\+\_\+longopt}} (opt)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a7c3ecd778074bcc2fe84a9a8802e852e}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a7c3ecd778074bcc2fe84a9a8802e852e} 
+str {\bfseries longopt\+\_\+pat} = r\textquotesingle{}\mbox{[}a-\/zA-\/Z\mbox{]}(?\+:\mbox{[}a-\/zA-\/Z0-\/9-\/\mbox{]}\texorpdfstring{$\ast$}{*})\textquotesingle{}
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a60c7a52f45f6d8f931dea97318acf6f2}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a60c7a52f45f6d8f931dea97318acf6f2} 
+{\bfseries longopt\+\_\+re} = re.\+compile(rf\textquotesingle{}\texorpdfstring{$^\wedge$}{\string^}\{longopt\+\_\+pat\}\$\textquotesingle{})
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a000db048c630080d1070094183581a4a}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a000db048c630080d1070094183581a4a} 
+{\bfseries neg\+\_\+alias\+\_\+re} = re.\+compile(f"{}\texorpdfstring{$^\wedge$}{\string^}(\{longopt\+\_\+pat\})=!(\{longopt\+\_\+pat\})\$"{})
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a6d04bb4bdf093a0d2ff173f530388fdd}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a6d04bb4bdf093a0d2ff173f530388fdd} 
+{\bfseries longopt\+\_\+xlate} = str.\+maketrans(\textquotesingle{}-\/\textquotesingle{}, \textquotesingle{}\+\_\+\textquotesingle{})
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a2d2986c289afa35a400a8e32749547a5}\label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a2d2986c289afa35a400a8e32749547a5} 
+dict {\bfseries WS\+\_\+\+TRANS} = \{ord(\+\_\+wschar)\+: \textquotesingle{} \textquotesingle{} for \+\_\+wschar in string.\+whitespace\}
+\item 
+str \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a8fd70e95dbd6828d22d95781c9aad70e_a8fd70e95dbd6828d22d95781c9aad70e}{text}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}distutils.fancy_getopt
+
+Wrapper around the standard getopt module that provides the following
+additional features:
+  * short and long options are tied together
+  * options have help strings, so fancy_getopt could potentially
+    create a complete usage summary
+  * options set attributes of a passed-in object
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ab91128501db47d96e92e8d488060f1ed_ab91128501db47d96e92e8d488060f1ed}\index{setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}!translate\_longopt@{translate\_longopt}}
+\index{translate\_longopt@{translate\_longopt}!setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}}
+\doxysubsubsection{\texorpdfstring{translate\_longopt()}{translate\_longopt()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ab91128501db47d96e92e8d488060f1ed_ab91128501db47d96e92e8d488060f1ed} 
+setuptools.\+\_\+distutils.\+fancy\+\_\+getopt.\+translate\+\_\+longopt (\begin{DoxyParamCaption}\item[{}]{opt}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert a long option name to a valid Python identifier by
+changing "-" to "_".
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ad47d2daa077790f4dc451d655d439578_ad47d2daa077790f4dc451d655d439578}\index{setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}!wrap\_text@{wrap\_text}}
+\index{wrap\_text@{wrap\_text}!setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}}
+\doxysubsubsection{\texorpdfstring{wrap\_text()}{wrap\_text()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_ad47d2daa077790f4dc451d655d439578_ad47d2daa077790f4dc451d655d439578} 
+setuptools.\+\_\+distutils.\+fancy\+\_\+getopt.\+wrap\+\_\+text (\begin{DoxyParamCaption}\item[{}]{text}{, }\item[{}]{width}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}wrap_text(text : string, width : int) -> [string]
+
+Split 'text' into multiple lines of no more than 'width' characters
+each, and return the list of strings that results.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a8fd70e95dbd6828d22d95781c9aad70e_a8fd70e95dbd6828d22d95781c9aad70e}\index{setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}!text@{text}}
+\index{text@{text}!setuptools.\_distutils.fancy\_getopt@{setuptools.\_distutils.fancy\_getopt}}
+\doxysubsubsection{\texorpdfstring{text}{text}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1fancy__getopt_a8fd70e95dbd6828d22d95781c9aad70e_a8fd70e95dbd6828d22d95781c9aad70e} 
+str setuptools.\+\_\+distutils.\+fancy\+\_\+getopt.\+text}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ \textcolor{stringliteral}{"{}"{}"{}\(\backslash\)}}
+\DoxyCodeLine{00002\ \textcolor{stringliteral}{Tra-\/la-\/la,\ supercalifragilisticexpialidocious.}}
+\DoxyCodeLine{00003\ \textcolor{stringliteral}{How\ *do*\ you\ spell\ that\ odd\ word,\ anyways?}}
+\DoxyCodeLine{00004\ \textcolor{stringliteral}{(Someone\ ask\ Mary\ -\/-\/\ she'll\ know\ [or\ she'll}}
+\DoxyCodeLine{00005\ \textcolor{stringliteral}{say,\ "{}How\ should\ I\ know?"{}].)"{}"{}"{}}}
+
+\end{DoxyCode}

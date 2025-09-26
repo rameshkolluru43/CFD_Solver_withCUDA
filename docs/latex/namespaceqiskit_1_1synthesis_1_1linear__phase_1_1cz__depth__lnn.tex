@@ -1,0 +1,49 @@
+\doxysection{qiskit.\+synthesis.\+linear\+\_\+phase.\+cz\+\_\+depth\+\_\+lnn Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cz__depth__lnn}{}\label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cz__depth__lnn}\index{qiskit.synthesis.linear\_phase.cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cz\_depth\_lnn}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cz__depth__lnn_ac14bc66b7279ea86097af187425f3bea}{synth\+\_\+cz\+\_\+depth\+\_\+line\+\_\+mr}} (np.\+ndarray mat)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Synthesis of an n-qubit circuit containing only CZ gates for
+linear nearest neighbor (LNN) connectivity, using CX and phase (S, Sdg or Z) gates.
+The two-qubit depth of the circuit is bounded by 2*n+2.
+This algorithm reverts the order of qubits.
+
+References:
+    [1]: Dmitri Maslov, Martin Roetteler,
+         Shorter stabilizer circuits via Bruhat decomposition and quantum circuit transformations,
+         `arXiv:1705.09176 <https://arxiv.org/abs/1705.09176>`_.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cz__depth__lnn_ac14bc66b7279ea86097af187425f3bea}\index{qiskit.synthesis.linear\_phase.cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cz\_depth\_lnn}!synth\_cz\_depth\_line\_mr@{synth\_cz\_depth\_line\_mr}}
+\index{synth\_cz\_depth\_line\_mr@{synth\_cz\_depth\_line\_mr}!qiskit.synthesis.linear\_phase.cz\_depth\_lnn@{qiskit.synthesis.linear\_phase.cz\_depth\_lnn}}
+\doxysubsubsection{\texorpdfstring{synth\_cz\_depth\_line\_mr()}{synth\_cz\_depth\_line\_mr()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear__phase_1_1cz__depth__lnn_ac14bc66b7279ea86097af187425f3bea} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+linear\+\_\+phase.\+cz\+\_\+depth\+\_\+lnn.\+synth\+\_\+cz\+\_\+depth\+\_\+line\+\_\+mr (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{mat}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Synthesis of a CZ circuit for linear nearest neighbor (LNN) connectivity,
+    based on Maslov and Roetteler.
+
+    Note that this method *reverts* the order of qubits in the circuit,
+    and returns a circuit containing :class:`.CXGate`\s and phase gates
+    (:class:`.SGate`, :class:`.SdgGate` or :class:`.ZGate`).
+
+    Args:
+        mat: an upper-diagonal matrix representing the CZ circuit.
+            ``mat[i][j]=1 for i<j`` represents a ``cz(i,j)`` gate
+
+    Returns:
+        A circuit implementation of the CZ circuit of depth :math:`2n+2` for LNN
+        connectivity.
+
+    References:
+        1. Dmitri Maslov, Martin Roetteler,
+           *Shorter stabilizer circuits via Bruhat decomposition and quantum circuit transformations*,
+           `arXiv:1705.09176 <https://arxiv.org/abs/1705.09176>`_.\end{DoxyVerb}
+ 

@@ -1,0 +1,74 @@
+\doxysection{qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae}{}\label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae}\index{qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation}{Amplitude\+Estimation}}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a44b3e629fff12cbc5789783d7d7a6b97_a44b3e629fff12cbc5789783d7d7a6b97}{\+\_\+compute\+\_\+fisher\+\_\+information}} (\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}} result, bool observed=False)
+\item 
+tuple\mbox{[}float, float\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a2f59694048607da0a18538284b0d1558_a2f59694048607da0a18538284b0d1558}{\+\_\+fisher\+\_\+confint}} (\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}} result, float alpha, bool observed=False)
+\item 
+tuple\mbox{[}float, float\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a99d1a836565b9b6fe2edcebc13a159bc_a99d1a836565b9b6fe2edcebc13a159bc}{\+\_\+likelihood\+\_\+ratio\+\_\+confint}} (\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}} result, float alpha)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Quantum Phase Estimation-based Amplitude Estimation algorithm.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a44b3e629fff12cbc5789783d7d7a6b97_a44b3e629fff12cbc5789783d7d7a6b97}\index{qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}!\_compute\_fisher\_information@{\_compute\_fisher\_information}}
+\index{\_compute\_fisher\_information@{\_compute\_fisher\_information}!qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}}
+\doxysubsubsection{\texorpdfstring{\_compute\_fisher\_information()}{\_compute\_fisher\_information()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a44b3e629fff12cbc5789783d7d7a6b97_a44b3e629fff12cbc5789783d7d7a6b97} 
+ float qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae.\+\_\+compute\+\_\+fisher\+\_\+information (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}}}]{result}{, }\item[{bool }]{observed}{ = {\ttfamily False}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Computes the Fisher information for the output of the previous run.
+
+Args:
+    result: An amplitude estimation result for which to compute the confidence interval.
+    observed: If True, the observed Fisher information is returned, otherwise
+        the expected Fisher information.
+
+Returns:
+    The Fisher information.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a2f59694048607da0a18538284b0d1558_a2f59694048607da0a18538284b0d1558}\index{qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}!\_fisher\_confint@{\_fisher\_confint}}
+\index{\_fisher\_confint@{\_fisher\_confint}!qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}}
+\doxysubsubsection{\texorpdfstring{\_fisher\_confint()}{\_fisher\_confint()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a2f59694048607da0a18538284b0d1558_a2f59694048607da0a18538284b0d1558} 
+ tuple\mbox{[}float, float\mbox{]} qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae.\+\_\+fisher\+\_\+confint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}}}]{result}{, }\item[{float}]{alpha}{, }\item[{bool }]{observed}{ = {\ttfamily False}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the Fisher information confidence interval for the MLE of the previous run.
+
+Args:
+    result: An amplitude estimation result for which to compute the confidence interval.
+    alpha: Specifies the (1 - alpha) confidence level (0 < alpha < 1).
+    observed: If True, the observed Fisher information is used to construct the
+        confidence interval, otherwise the expected Fisher information.
+
+Returns:
+    The Fisher information confidence interval.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a99d1a836565b9b6fe2edcebc13a159bc_a99d1a836565b9b6fe2edcebc13a159bc}\index{qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}!\_likelihood\_ratio\_confint@{\_likelihood\_ratio\_confint}}
+\index{\_likelihood\_ratio\_confint@{\_likelihood\_ratio\_confint}!qiskit\_algorithms.amplitude\_estimators.ae@{qiskit\_algorithms.amplitude\_estimators.ae}}
+\doxysubsubsection{\texorpdfstring{\_likelihood\_ratio\_confint()}{\_likelihood\_ratio\_confint()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae_a99d1a836565b9b6fe2edcebc13a159bc_a99d1a836565b9b6fe2edcebc13a159bc} 
+ tuple\mbox{[}float, float\mbox{]} qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae.\+\_\+likelihood\+\_\+ratio\+\_\+confint (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1ae_1_1_amplitude_estimation_result}{Amplitude\+Estimation\+Result}}}]{result}{, }\item[{float }]{alpha}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the likelihood ratio confidence interval for the MLE of the previous run.
+
+Args:
+    result: An amplitude estimation result for which to compute the confidence interval.
+    alpha: Specifies the (1 - alpha) confidence level (0 < alpha < 1).
+
+Returns:
+    The likelihood ratio confidence interval.
+\end{DoxyVerb}
+ 

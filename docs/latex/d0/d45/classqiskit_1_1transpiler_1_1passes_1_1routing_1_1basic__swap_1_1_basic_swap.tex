@@ -1,0 +1,109 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+basic\+\_\+swap.\+Basic\+Swap Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap}{}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap}\index{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+routing.\+basic\+\_\+swap.\+Basic\+Swap\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.576687cm]{d0/d45/classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_af8732a39a124d36367ee4d5abe7de5ba_af8732a39a124d36367ee4d5abe7de5ba}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, coupling\+\_\+map, fake\+\_\+run=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_ad0f686df59841d506b2a8caec6faffe6_ad0f686df59841d506b2a8caec6faffe6}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a1bb5afd4454d98768c7ccd46b09da709}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a1bb5afd4454d98768c7ccd46b09da709} 
+{\bfseries target} = coupling\+\_\+map
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a13fee3366875d9a90d7e6e6fd936c1ba}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a13fee3366875d9a90d7e6e6fd936c1ba} 
+{\bfseries coupling\+\_\+map} = self.\+target.\+build\+\_\+coupling\+\_\+map()
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a234a5c8bcfff80f75aaa05af25893225}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_a234a5c8bcfff80f75aaa05af25893225} 
+{\bfseries fake\+\_\+run} = fake\+\_\+run
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_aa5b54279ec7a757b7363d7438ac6036c_aa5b54279ec7a757b7363d7438ac6036c}{\+\_\+fake\+\_\+run}} (self, dag)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Map (with minimum effort) a DAGCircuit onto a ``coupling_map`` adding swap gates.
+
+The basic mapper is a minimum effort to insert swap gates to map the DAG onto
+a coupling map. When a cx is not in the coupling map possibilities, it inserts
+one or more swaps in front to make it compatible.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_af8732a39a124d36367ee4d5abe7de5ba_af8732a39a124d36367ee4d5abe7de5ba}\index{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_af8732a39a124d36367ee4d5abe7de5ba_af8732a39a124d36367ee4d5abe7de5ba} 
+qiskit.\+transpiler.\+passes.\+routing.\+basic\+\_\+swap.\+Basic\+Swap.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{coupling\+\_\+map}{, }\item[{}]{fake\+\_\+run}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}BasicSwap initializer.
+
+Args:
+    coupling_map (Union[CouplingMap, Target]): Directed graph represented a coupling map.
+    fake_run (bool): if true, it will only pretend to do routing, i.e., no
+        swap is effectively added.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_aa5b54279ec7a757b7363d7438ac6036c_aa5b54279ec7a757b7363d7438ac6036c}\index{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}!\_fake\_run@{\_fake\_run}}
+\index{\_fake\_run@{\_fake\_run}!qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}}
+\doxysubsubsection{\texorpdfstring{\_fake\_run()}{\_fake\_run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_aa5b54279ec7a757b7363d7438ac6036c_aa5b54279ec7a757b7363d7438ac6036c} 
+qiskit.\+transpiler.\+passes.\+routing.\+basic\+\_\+swap.\+Basic\+Swap.\+\_\+fake\+\_\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Do a fake run the BasicSwap pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to improve initial layout.
+
+Returns:
+    DAGCircuit: The same DAG.
+
+Raises:
+    TranspilerError: if the coupling map or the layout are not
+    compatible with the DAG.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_ad0f686df59841d506b2a8caec6faffe6_ad0f686df59841d506b2a8caec6faffe6}\index{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.routing.basic\_swap.BasicSwap@{qiskit.transpiler.passes.routing.basic\_swap.BasicSwap}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1basic__swap_1_1_basic_swap_ad0f686df59841d506b2a8caec6faffe6_ad0f686df59841d506b2a8caec6faffe6} 
+qiskit.\+transpiler.\+passes.\+routing.\+basic\+\_\+swap.\+Basic\+Swap.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the BasicSwap pass on `dag`.
+
+Args:
+    dag (DAGCircuit): DAG to map.
+
+Returns:
+    DAGCircuit: A mapped DAG.
+
+Raises:
+    TranspilerError: if the coupling map or the layout are not
+    compatible with the DAG, or if the ``coupling_map=None``.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/routing/basic\+\_\+swap.\+py\end{DoxyCompactItemize}

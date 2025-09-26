@@ -1,0 +1,148 @@
+\doxysection{Boundary\+\_\+\+Conditions/\+Inlet\+\_\+\+Boundary\+\_\+\+Conditions.cpp File Reference}
+\hypertarget{_inlet___boundary___conditions_8cpp}{}\label{_inlet___boundary___conditions_8cpp}\index{Boundary\_Conditions/Inlet\_Boundary\_Conditions.cpp@{Boundary\_Conditions/Inlet\_Boundary\_Conditions.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Inlet\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{de/df6/_inlet___boundary___conditions_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{dd/d1d/_inlet___boundary___conditions_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_a92317da30905d779544dbc465c46f00c_a92317da30905d779544dbc465c46f00c}{Subsonic\+\_\+\+Inlet\+\_\+\+Condition}} (\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inlet\+Cond}}, \mbox{\hyperlink{definitions_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&\mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\+\_\+\+Cells\+\_\+\+List}})
+\item 
+void \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_a25cc0bf77642815d139d73ca5be9e3dc_a25cc0bf77642815d139d73ca5be9e3dc}{Supersonic\+\_\+\+Inlet\+\_\+\+Condition}} (\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&inlet, \mbox{\hyperlink{definitions_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&\mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\+\_\+\+Cells\+\_\+\+List}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_inlet___boundary___conditions_8cpp_a92317da30905d779544dbc465c46f00c_a92317da30905d779544dbc465c46f00c}\index{Inlet\_Boundary\_Conditions.cpp@{Inlet\_Boundary\_Conditions.cpp}!Subsonic\_Inlet\_Condition@{Subsonic\_Inlet\_Condition}}
+\index{Subsonic\_Inlet\_Condition@{Subsonic\_Inlet\_Condition}!Inlet\_Boundary\_Conditions.cpp@{Inlet\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Subsonic\_Inlet\_Condition()}{Subsonic\_Inlet\_Condition()}}
+{\footnotesize\ttfamily \label{_inlet___boundary___conditions_8cpp_a92317da30905d779544dbc465c46f00c_a92317da30905d779544dbc465c46f00c} 
+void Subsonic\+\_\+\+Inlet\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&}]{inlet\+Cond}{, }\item[{\mbox{\hyperlink{definitions_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&}]{Inlet\+\_\+\+Cells\+\_\+\+List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_source}{Inlet\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{comment}{//\ The\ implementation\ is\ as\ described\ in\ the\ Blazek\ Text\ book\ Page\ 283}}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{comment}{//\ Pressure\ and\ Density\ are\ prescribed\ and\ the\ velocity\ is\ extrapolated\ from\ the\ interior\ cells}}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{definitions_8h_aa93fca21f25b0d32d27e567c58be1514_aa93fca21f25b0d32d27e567c58be1514}{V\_Magnitude}}\ =\ 0.0;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.size()\ \%\ 3\ !=\ 0)}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Inlet\_Cells\_List\ size\ is\ not\ a\ multiple\ of\ 3."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00013\ \ \ \ \ \}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00015\ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}[i\ +\ 0];\ \textcolor{comment}{//\ fetch\ the\ current\ cell\ index}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}[i\ +\ 2];\ \textcolor{comment}{//\ fetch\ the\ ghost\ cell\ index}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1];\ \textcolor{comment}{//\ extrapolate\ the\ velocity\ from\ the\ interior\ cells\ u}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2];\ \textcolor{comment}{//\ extrapolate\ the\ velocity\ from\ the\ interior\ cells\ v}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aa93fca21f25b0d32d27e567c58be1514_aa93fca21f25b0d32d27e567c58be1514}{V\_Magnitude}}\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ *\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ +\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ *\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}});\ \textcolor{comment}{//\ 0.5*V\string^2}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho*u}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho*v}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ (\mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a2058f3c845b38d2d202a1354a33b6f90_a2058f3c845b38d2d202a1354a33b6f90}{P}}\ /\ \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\_M\_1}})\ +\ \mbox{\hyperlink{definitions_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}}.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ \mbox{\hyperlink{definitions_8h_aa93fca21f25b0d32d27e567c58be1514_aa93fca21f25b0d32d27e567c58be1514}{V\_Magnitude}}\ *\ \mbox{\hyperlink{definitions_8h_aa93fca21f25b0d32d27e567c58be1514_aa93fca21f25b0d32d27e567c58be1514}{V\_Magnitude}};\ \textcolor{comment}{//\ P/(gamma-\/1)\ +\ 0.5*rho*V\string^2}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_a1c199e756f8458978961b4d9ab4cbe63}{Calculate\_Primitive\_Variables}}(Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ std::copy(\mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.begin(),\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.end(),\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index].begin());}
+\DoxyCodeLine{00033\ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}*******************\ Subsonic\ Inlet\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00035\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d15/_inlet___boundary___conditions_8cpp_a92317da30905d779544dbc465c46f00c_a92317da30905d779544dbc465c46f00c_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d15/_inlet___boundary___conditions_8cpp_a92317da30905d779544dbc465c46f00c_a92317da30905d779544dbc465c46f00c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_inlet___boundary___conditions_8cpp_a25cc0bf77642815d139d73ca5be9e3dc_a25cc0bf77642815d139d73ca5be9e3dc}\index{Inlet\_Boundary\_Conditions.cpp@{Inlet\_Boundary\_Conditions.cpp}!Supersonic\_Inlet\_Condition@{Supersonic\_Inlet\_Condition}}
+\index{Supersonic\_Inlet\_Condition@{Supersonic\_Inlet\_Condition}!Inlet\_Boundary\_Conditions.cpp@{Inlet\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Supersonic\_Inlet\_Condition()}{Supersonic\_Inlet\_Condition()}}
+{\footnotesize\ttfamily \label{_inlet___boundary___conditions_8cpp_a25cc0bf77642815d139d73ca5be9e3dc_a25cc0bf77642815d139d73ca5be9e3dc} 
+void Supersonic\+\_\+\+Inlet\+\_\+\+Condition (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_inlet_condition}{Inlet\+Condition}} \&}]{inlet}{, }\item[{\mbox{\hyperlink{definitions_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\+\_\+I}} \&}]{Inlet\+\_\+\+Cells\+\_\+\+List}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_inlet___boundary___conditions_8cpp_source}{Inlet\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//\ The\ implementation\ is\ as\ described\ in\ the\ Blazek\ Text\ book\ Page\ 283}}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{comment}{//\ Pressure\ and\ Density\ are\ prescribed\ and\ the\ velocity\ is\ extrapolated\ from\ the\ interior\ cells}}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{double}\ vmag\ =\ 0.0;}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.size()\ \%\ 3\ !=\ 0)}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Inlet\_Cells\_List\ size\ is\ not\ a\ multiple\ of\ 3."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}inlet\ cell\ index\(\backslash\)t"{}<<Cell\_Index<<endl;}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}inlet\ ghost\ cell\ index\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ inlet.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1];}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ inlet.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2];}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ vmag\ =\ (inlet.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ *\ inlet.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}}\ +\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}}\ *\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}})\ *\ 0.5;\ \textcolor{comment}{//\ 0.5*V\string^2}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ inlet.\mbox{\hyperlink{struct_inlet_condition_a52d6159f3a6fb1d541d734cf674c454e_a52d6159f3a6fb1d541d734cf674c454e}{u}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho*u}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1d4aefc1a5c58f3521ab28fbcde7a2f2_a1d4aefc1a5c58f3521ab28fbcde7a2f2}{v}};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rho*v}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ (inlet.\mbox{\hyperlink{struct_inlet_condition_a2058f3c845b38d2d202a1354a33b6f90_a2058f3c845b38d2d202a1354a33b6f90}{P}}\ /\ \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\_M\_1}})\ +\ inlet.\mbox{\hyperlink{struct_inlet_condition_a1790f355ead72e06cbae601dd6973ae0_a1790f355ead72e06cbae601dd6973ae0}{Rho}}\ *\ vmag;\ \textcolor{comment}{//\ P/(gamma-\/1)\ +\ 0.5*rho*V\string^2}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_a1c199e756f8458978961b4d9ab4cbe63}{Calculate\_Primitive\_Variables}}(Ghost\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00069\ \ \ \ \ \}}
+\DoxyCodeLine{00070\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d15/_inlet___boundary___conditions_8cpp_a25cc0bf77642815d139d73ca5be9e3dc_a25cc0bf77642815d139d73ca5be9e3dc_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d15/_inlet___boundary___conditions_8cpp_a25cc0bf77642815d139d73ca5be9e3dc_a25cc0bf77642815d139d73ca5be9e3dc_icgraph}
+\end{center}
+\end{figure}

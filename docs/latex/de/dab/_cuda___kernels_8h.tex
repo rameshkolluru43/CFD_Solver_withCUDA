@@ -1,0 +1,60 @@
+\doxysection{CUDA\+\_\+\+KERNELS/\+Cuda\+\_\+\+Kernels.h File Reference}
+\hypertarget{_cuda___kernels_8h}{}\label{_cuda___kernels_8h}\index{CUDA\_KERNELS/Cuda\_Kernels.h@{CUDA\_KERNELS/Cuda\_Kernels.h}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+Include dependency graph for Cuda\+\_\+\+Kernels.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d1/d35/_cuda___kernels_8h__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void \mbox{\hyperlink{_cuda___kernels_8h_ab5c11edbb8ddc84c23f73aafb07bd08e_ab5c11edbb8ddc84c23f73aafb07bd08e}{runge\+\_\+kutta\+\_\+stage\+\_\+kernel}} (double \texorpdfstring{$\ast$}{*}d\+\_\+\+U\+\_\+\+Cells, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Net\+\_\+\+Flux, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Viscous\+\_\+\+Flux, double \texorpdfstring{$\ast$}{*}d\+\_\+\+U\+\_\+\+Cells\+\_\+\+RK, double \texorpdfstring{$\ast$}{*}d\+\_\+\+Inv\+\_\+\+Area, double \mbox{\hyperlink{definitions_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\+\_\+dt}}, int \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\+\_\+\+Physical\+\_\+\+Cells}}, int stage)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_cuda___kernels_8h_ab5c11edbb8ddc84c23f73aafb07bd08e_ab5c11edbb8ddc84c23f73aafb07bd08e}\index{Cuda\_Kernels.h@{Cuda\_Kernels.h}!runge\_kutta\_stage\_kernel@{runge\_kutta\_stage\_kernel}}
+\index{runge\_kutta\_stage\_kernel@{runge\_kutta\_stage\_kernel}!Cuda\_Kernels.h@{Cuda\_Kernels.h}}
+\doxysubsubsection{\texorpdfstring{runge\_kutta\_stage\_kernel()}{runge\_kutta\_stage\_kernel()}}
+{\footnotesize\ttfamily \label{_cuda___kernels_8h_ab5c11edbb8ddc84c23f73aafb07bd08e_ab5c11edbb8ddc84c23f73aafb07bd08e} 
+\+\_\+\+\_\+global\+\_\+\+\_\+ void runge\+\_\+kutta\+\_\+stage\+\_\+kernel (\begin{DoxyParamCaption}\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+U\+\_\+\+Cells}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Net\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Viscous\+\_\+\+Flux}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+U\+\_\+\+Cells\+\_\+\+RK}{, }\item[{double \texorpdfstring{$\ast$}{*}}]{d\+\_\+\+Inv\+\_\+\+Area}{, }\item[{double}]{Min\+\_\+dt}{, }\item[{int}]{No\+\_\+\+Physical\+\_\+\+Cells}{, }\item[{int}]{stage}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_cuda___kernels_8h_source_l00004}{4}} of file \mbox{\hyperlink{_cuda___kernels_8h_source}{Cuda\+\_\+\+Kernels.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00007\ \ \ \ \ }
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ blockIdx.x\ *\ blockDim.x\ +\ threadIdx.x;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (Cell\_Index\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_Area\ =\ d\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00012\ \ \ \ \ }
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ Stage-\/specific\ logic}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (stage\ ==\ 1)\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stage\ 1\ updates}}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_Cells\_RK[Cell\_Index\ *\ 4\ +\ i]\ =\ d\_U\_Cells[Cell\_Index\ *\ 4\ +\ i]\ -\/\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ *\ inv\_Area\ *\ (d\_Net\_Flux[Cell\_Index\ *\ 4\ +\ i]\ -\/\ d\_Viscous\_Flux[Cell\_Index\ *\ 4\ +\ i]);}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00020\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (stage\ ==\ 2)\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stage\ 2\ updates}}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_Cells\_RK[Cell\_Index\ *\ 4\ +\ i]\ =\ 0.25\ *\ (d\_U\_Cells\_RK[Cell\_Index\ *\ 4\ +\ i]\ +\ }
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 3.0\ *\ d\_U\_Cells[Cell\_Index\ *\ 4\ +\ i]\ -\/\ \mbox{\hyperlink{definitions_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ *\ inv\_Area\ *\ (d\_Net\_Flux[Cell\_Index\ *\ 4\ +\ i]\ -\/\ d\_Viscous\_Flux[Cell\_Index\ *\ 4\ +\ i]));}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (stage\ ==\ 3)\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Stage\ 3\ updates}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 4;\ ++i)\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_Cells\_RK[Cell\_Index\ *\ 4\ +\ i]\ =\ (2.0\ /\ 3.0)\ *\ (d\_U\_Cells\_RK[Cell\_Index\ *\ 4\ +\ i]\ -\/\ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ d\_U\_Cells[Cell\_Index\ *\ 4\ +\ i]\ -\/\ \mbox{\hyperlink{definitions_8h_adc8d653b35d8d7a61a1489951c964dc6_adc8d653b35d8d7a61a1489951c964dc6}{Min\_dt}}\ *\ inv\_Area\ *\ (d\_Net\_Flux[Cell\_Index\ *\ 4\ +\ i]\ -\/\ d\_Viscous\_Flux[Cell\_Index\ *\ 4\ +\ i]));}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \}}
+\DoxyCodeLine{00033\ \}}
+
+\end{DoxyCode}

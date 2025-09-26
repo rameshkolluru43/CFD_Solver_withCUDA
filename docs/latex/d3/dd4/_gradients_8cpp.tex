@@ -1,0 +1,485 @@
+\doxysection{Basic\+\_\+\+Files/\+Gradients.cpp File Reference}
+\hypertarget{_gradients_8cpp}{}\label{_gradients_8cpp}\index{Basic\_Files/Gradients.cpp@{Basic\_Files/Gradients.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+Include dependency graph for Gradients.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d8/d64/_gradients_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=211pt]{d0/d42/_gradients_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \& \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{get\+Neighbour}} (int cell\+Index, int direction)
+\begin{DoxyCompactList}\small\item\em Identifies the secondary neighbors of a given cell to evaluate second gradients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_gradients_8cpp_add867401ba6818c3d6480ec342cb0eaa_add867401ba6818c3d6480ec342cb0eaa}{Identify\+\_\+\+Neighbours\+\_\+\+For\+\_\+\+Second\+\_\+\+Gradients}} (int \&Current\+\_\+\+Cell\+\_\+\+Index)
+\item 
+void \mbox{\hyperlink{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6}{Calculate\+\_\+\+Gradient\+\_\+\+On\+\_\+\+Face}} (const int \&Current\+\_\+\+Cell\+\_\+\+Index, const int \&Grad\+\_\+\+Type, const int \&Face\+\_\+\+No)
+\item 
+void \mbox{\hyperlink{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}{Viscous\+\_\+\+Flux\+\_\+on\+\_\+\+Face}} (const int \&Cell\+\_\+\+No, const int \&Face\+\_\+\+No)
+\item 
+void \mbox{\hyperlink{_gradients_8cpp_a23f2145125f9b089e43c4c69c4a8905c_a23f2145125f9b089e43c4c69c4a8905c}{Evaluate\+\_\+\+Viscous\+\_\+\+Fluxes}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6}\index{Gradients.cpp@{Gradients.cpp}!Calculate\_Gradient\_On\_Face@{Calculate\_Gradient\_On\_Face}}
+\index{Calculate\_Gradient\_On\_Face@{Calculate\_Gradient\_On\_Face}!Gradients.cpp@{Gradients.cpp}}
+\doxysubsubsection{\texorpdfstring{Calculate\_Gradient\_On\_Face()}{Calculate\_Gradient\_On\_Face()}}
+{\footnotesize\ttfamily \label{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6} 
+void Calculate\+\_\+\+Gradient\+\_\+\+On\+\_\+\+Face (\begin{DoxyParamCaption}\item[{const int \&}]{Current\+\_\+\+Cell\+\_\+\+Index}{, }\item[{const int \&}]{Grad\+\_\+\+Type}{, }\item[{const int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_gradients_8cpp_source_l00116}{116}} of file \mbox{\hyperlink{_gradients_8cpp_source}{Gradients.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{comment}{/*\ This\ Function\ Evaluates\ the\ gradient\ on\ the\ face\ of\ the\ cell\ for\ the\ variable\ using\ Green-\/Gauss\ Method\ using\ Co-\/Volume\ method.*/}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{double}\ nx\_0\ =\ 0.0,\ ny\_0\ =\ 0.0,\ dl\_0\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ =\ 0.0,\ dl\_1\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ =\ 0.0,\ dl\_2\ =\ 0.0,\ nx\_3\ =\ 0.0,\ ny\_3\ =\ 0.0,\ dl\_3\ =\ 0.0,\ Co\_Volume\_Inv\_Area\ =\ 0.0;}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordtype}{double}\ Vertex\_Average\_o\ =\ 0.0,\ Vertex\_Average\_a\ =\ 0.0,\ Vertex\_Average\_b\ =\ 0.0,\ Vertex\_Average\_c\ =\ 0.0;}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{double}\ Cell\_Average\_CC\ =\ 0.0,\ Cell\_Average\_N1\ =\ 0.0,\ Cell\_Average\_N2\ =\ 0.0,\ Cell\_Average\_N3\ =\ 0.0,\ Cell\_Average\_N4\ =\ 0.0;}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{keywordtype}{double}\ Cell\_Average\_N5\ =\ 0.0,\ Cell\_Average\_N6\ =\ 0.0,\ Cell\_Average\_N7\ =\ 0.0,\ Cell\_Average\_N8\ =\ 0.0;}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{double}\ av1\ =\ 0.0,\ av2\ =\ 0.0,\ av3\ =\ 0.0,\ av4\ =\ 0.0;}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_aeb50e914fc6a41058710d3fc8068f8f8_aeb50e914fc6a41058710d3fc8068f8f8}{Neighbour\_5}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_ae15f8802fa8bed8f45c70945aead61bf_ae15f8802fa8bed8f45c70945aead61bf}{Neighbour\_6}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_af86617044dfc202a4517bd036886764a_af86617044dfc202a4517bd036886764a}{Neighbour\_7}}\ =\ 0,\ \mbox{\hyperlink{definitions_8h_a0f6a182ce6d8eb573c91488623218346_a0f6a182ce6d8eb573c91488623218346}{Neighbour\_8}}\ =\ 0;}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordtype}{double}\ WCC\ =\ 1.0,\ WN1\ =\ 1.0,\ WN2\ =\ 1.0,\ WN3\ =\ 1.0,\ WN4\ =\ 1.0,\ WN5\ =\ 1.0,\ WN6\ =\ 1.0,\ WN7\ =\ 1.0,\ WN8\ =\ 1.0;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{comment}{//\ Following\ Neighbouring\ information\ is\ required\ for\ gradient\ computation}}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ \ \ \ \ \ \ \ (i-\/1,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j+1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j+1)}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ \ \ \ \ \ \ \ (i-\/1,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j)}}
+\DoxyCodeLine{00132\ \textcolor{comment}{\ \ \ \ \ \ \ \ (i-\/1,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (i,j-\/1)\ \ \ \ \ \ \ \ \ \ \ \ \ (i+1,j-\/1)}}
+\DoxyCodeLine{00133\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{//\ Obtaining\ The\ neighbours\ for\ a\ given\ cell}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{comment}{//\ Current\_Cell\_Index\ =\ (i,j)}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Neighbours[0];\ \textcolor{comment}{//\ (i-\/1,j)}}
+\DoxyCodeLine{00139\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Neighbours[1];\ \textcolor{comment}{//\ (i,j-\/1)}}
+\DoxyCodeLine{00140\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Neighbours[2];\ \textcolor{comment}{//\ (i+1,j)}}
+\DoxyCodeLine{00141\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Neighbours[3];\ \textcolor{comment}{//\ (i,j+1)}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \mbox{\hyperlink{definitions_8h_aeb50e914fc6a41058710d3fc8068f8f8_aeb50e914fc6a41058710d3fc8068f8f8}{Neighbour\_5}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0];\ \textcolor{comment}{//\ (i-\/1,j+1)}}
+\DoxyCodeLine{00144\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae15f8802fa8bed8f45c70945aead61bf_ae15f8802fa8bed8f45c70945aead61bf}{Neighbour\_6}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1];\ \textcolor{comment}{//\ (i,j+1)}}
+\DoxyCodeLine{00145\ \ \ \ \ \mbox{\hyperlink{definitions_8h_af86617044dfc202a4517bd036886764a_af86617044dfc202a4517bd036886764a}{Neighbour\_7}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2];\ \textcolor{comment}{//\ (i+1,j+1)}}
+\DoxyCodeLine{00146\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a0f6a182ce6d8eb573c91488623218346_a0f6a182ce6d8eb573c91488623218346}{Neighbour\_8}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3];\ \textcolor{comment}{//\ (i+1,j)}}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Current\_Cell\_Index<<"{}\(\backslash\)tCell\ Neighbours\(\backslash\)t"{}<<Neighbour\_5<<"{}\(\backslash\)t"{}<<Neighbour\_6<<"{}\(\backslash\)t"{}<<Neighbour\_7<<"{}\(\backslash\)t"{}<<Neighbour\_8<<endl;}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{comment}{//\ Obtaining\ The\ Cell\ Averages\ from\ Immediate\ Neighbours}}
+\DoxyCodeLine{00151\ \ \ \ \ Cell\_Average\_CC\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Current\_Cell\_Index][Grad\_Type];}
+\DoxyCodeLine{00152\ \ \ \ \ Cell\_Average\_N1\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}][Grad\_Type];}
+\DoxyCodeLine{00153\ \ \ \ \ Cell\_Average\_N2\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}][Grad\_Type];}
+\DoxyCodeLine{00154\ \ \ \ \ Cell\_Average\_N3\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}][Grad\_Type];}
+\DoxyCodeLine{00155\ \ \ \ \ Cell\_Average\_N4\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}][Grad\_Type];}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{//\ Average\ values\ at\ the\ vertices\ o,a,b,c\ for\ the\ given\ cell}}
+\DoxyCodeLine{00157\ \ \ \ \ Cell\_Average\_N5\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_aeb50e914fc6a41058710d3fc8068f8f8_aeb50e914fc6a41058710d3fc8068f8f8}{Neighbour\_5}}][Grad\_Type];}
+\DoxyCodeLine{00158\ \ \ \ \ Cell\_Average\_N6\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_ae15f8802fa8bed8f45c70945aead61bf_ae15f8802fa8bed8f45c70945aead61bf}{Neighbour\_6}}][Grad\_Type];}
+\DoxyCodeLine{00159\ \ \ \ \ Cell\_Average\_N7\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_af86617044dfc202a4517bd036886764a_af86617044dfc202a4517bd036886764a}{Neighbour\_7}}][Grad\_Type];}
+\DoxyCodeLine{00160\ \ \ \ \ Cell\_Average\_N8\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[\mbox{\hyperlink{definitions_8h_a0f6a182ce6d8eb573c91488623218346_a0f6a182ce6d8eb573c91488623218346}{Neighbour\_8}}][Grad\_Type];}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ Finding\ Aera\ Weighted\ Average\ value\ at\ the\ vertices\ of\ the\ face\ o,a,b,c}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{definitions_8h_acf16a5c869b1562de7a7780d6d9758b3_acf16a5c869b1562de7a7780d6d9758b3}{Area\_Weighted\_Average}})}
+\DoxyCodeLine{00164\ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ Area\ Weigheted\ Average}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ WCC\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[Current\_Cell\_Index];}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ WN1\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}];}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ WN2\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}];}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ WN3\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}];}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ WN4\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}];}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ WN5\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_aeb50e914fc6a41058710d3fc8068f8f8_aeb50e914fc6a41058710d3fc8068f8f8}{Neighbour\_5}}];}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ WN6\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_ae15f8802fa8bed8f45c70945aead61bf_ae15f8802fa8bed8f45c70945aead61bf}{Neighbour\_6}}];}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ WN7\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_af86617044dfc202a4517bd036886764a_af86617044dfc202a4517bd036886764a}{Neighbour\_7}}];}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ WN8\ =\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a0f6a182ce6d8eb573c91488623218346_a0f6a182ce6d8eb573c91488623218346}{Neighbour\_8}}];}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ Inverse\ Area\ Weighted\ Average}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ WCC\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[Current\_Cell\_Index];}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ WN1\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}];}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ WN2\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}];}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ WN3\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}];}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ WN4\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}];}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ WN5\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_aeb50e914fc6a41058710d3fc8068f8f8_aeb50e914fc6a41058710d3fc8068f8f8}{Neighbour\_5}}];}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ WN6\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_ae15f8802fa8bed8f45c70945aead61bf_ae15f8802fa8bed8f45c70945aead61bf}{Neighbour\_6}}];}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ WN7\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_af86617044dfc202a4517bd036886764a_af86617044dfc202a4517bd036886764a}{Neighbour\_7}}];}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ WN8\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a368735273b921237d1a8f5ab1ce4c561_a368735273b921237d1a8f5ab1ce4c561}{Cells\_Area}}[\mbox{\hyperlink{definitions_8h_a0f6a182ce6d8eb573c91488623218346_a0f6a182ce6d8eb573c91488623218346}{Neighbour\_8}}];}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ Equal\ weights}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ WCC\ =\ 1.0;}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ WN1\ =\ 1.0;}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ WN2\ =\ 1.0;}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ WN3\ =\ 1.0;}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ WN4\ =\ 1.0;}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ WN5\ =\ 1.0;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ WN6\ =\ 1.0;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ WN7\ =\ 1.0;}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ WN8\ =\ 1.0;}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00198\ \ \ \ \ \}}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Size\ of\ Co\_Volume\ Cell\ face\ normals\(\backslash\)t"{}<<Co\_Volume\_Cell\_Face\_Normals[Current\_Cell\_Index].size()<<endl;}}
+\DoxyCodeLine{00202\ \ \ \ \ nx\_0\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 0];\ \textcolor{comment}{//\ Co-\/Volume\ Face\ 0}}
+\DoxyCodeLine{00203\ \ \ \ \ ny\_0\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 1];}
+\DoxyCodeLine{00204\ \ \ \ \ dl\_0\ =\ \mbox{\hyperlink{definitions_8h_a3dad083193b1da03adfcc5c5fa216042_a3dad083193b1da03adfcc5c5fa216042}{Co\_Volume\_Cell\_Face\_Areas}}[Current\_Cell\_Index][Face\_No\ *\ 4\ +\ 0];}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ \ \ \ \ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 2];\ \textcolor{comment}{//\ Co-\/Volume\ Face\ 1}}
+\DoxyCodeLine{00207\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 3];}
+\DoxyCodeLine{00208\ \ \ \ \ dl\_1\ =\ \mbox{\hyperlink{definitions_8h_a3dad083193b1da03adfcc5c5fa216042_a3dad083193b1da03adfcc5c5fa216042}{Co\_Volume\_Cell\_Face\_Areas}}[Current\_Cell\_Index][Face\_No\ *\ 4\ +\ 1];}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 4];\ \textcolor{comment}{//\ Co-\/Volume\ Face\ 2}}
+\DoxyCodeLine{00211\ \ \ \ \ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 5];}
+\DoxyCodeLine{00212\ \ \ \ \ dl\_2\ =\ \mbox{\hyperlink{definitions_8h_a3dad083193b1da03adfcc5c5fa216042_a3dad083193b1da03adfcc5c5fa216042}{Co\_Volume\_Cell\_Face\_Areas}}[Current\_Cell\_Index][Face\_No\ *\ 4\ +\ 2];}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ nx\_3\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 6];\ \textcolor{comment}{//\ Co-\/Volume\ Face\ 3}}
+\DoxyCodeLine{00215\ \ \ \ \ ny\_3\ =\ \mbox{\hyperlink{definitions_8h_a49afbf61918a1f5c50a7101f4015413b_a49afbf61918a1f5c50a7101f4015413b}{Co\_Volume\_Cell\_Face\_Normals}}[Current\_Cell\_Index][Face\_No\ *\ 8\ +\ 7];}
+\DoxyCodeLine{00216\ \ \ \ \ dl\_3\ =\ \mbox{\hyperlink{definitions_8h_a3dad083193b1da03adfcc5c5fa216042_a3dad083193b1da03adfcc5c5fa216042}{Co\_Volume\_Cell\_Face\_Areas}}[Current\_Cell\_Index][Face\_No\ *\ 4\ +\ 3];}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}co\ volume\ area\ size\(\backslash\)t"{}<<Co\_Volume\_Cell\_Area[Current\_Cell\_Index].size()<<endl;}}
+\DoxyCodeLine{00219\ \ \ \ \ Co\_Volume\_Inv\_Area\ =\ 1.0\ /\ \mbox{\hyperlink{definitions_8h_a960b36c8f4e86b96c7c8d26d6a340c2b_a960b36c8f4e86b96c7c8d26d6a340c2b}{Co\_Volume\_Cell\_Area}}[Current\_Cell\_Index][Face\_No];}
+\DoxyCodeLine{00220\ }
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Face\_No)}
+\DoxyCodeLine{00222\ \ \ \ \ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:\ \textcolor{comment}{//\ For\ Face\_0}}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ 0\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ Vertex\_Average\_o\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN1\ *\ Cell\_Average\_N1\ +\ WN2\ *\ Cell\_Average\_N2\ +\ WN5\ *\ Cell\_Average\_N5)\ /\ (WCC\ +\ WN1\ +\ WN2\ +\ WN5);}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ Vertex\_Average\_c\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN1\ *\ Cell\_Average\_N1\ +\ WN4\ *\ Cell\_Average\_N4\ +\ WN8\ *\ Cell\_Average\_N8)\ /\ (WCC\ +\ WN1\ +\ WN4\ +\ WN8);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ av2\ =\ 0.5\ *\ (Cell\_Average\_N1\ +\ Vertex\_Average\_o);\ \textcolor{comment}{//\ Average\ for\ Face\ 0}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ av3\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_o);\ \textcolor{comment}{//\ Average\ for\ Face\ 1}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ av4\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_c);\ \textcolor{comment}{//\ Average\ for\ Face\ 2}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ av1\ =\ 0.5\ *\ (Cell\_Average\_N1\ +\ Vertex\_Average\_c);\ \textcolor{comment}{//\ Average\ for\ Face\ 3}}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:\ \textcolor{comment}{//\ For\ Face\_1}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Neighbours\(\backslash\)t"{}<<Neighbour\_1<<"{}\(\backslash\)t"{}<<Neighbour\_2<<"{}\(\backslash\)t"{}<<Neighbour\_3<<"{}\(\backslash\)t"{}<<Neighbour\_4<<"{}\(\backslash\)t"{}<<Neighbour\_5<<"{}\(\backslash\)t"{}<<Neighbour\_6<<"{}\(\backslash\)t"{}<<Neighbour\_7<<"{}\(\backslash\)t"{}<<Neighbour\_8<<endl;}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ Vertex\_Average\_o\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN1\ *\ Cell\_Average\_N1\ +\ WN2\ *\ Cell\_Average\_N2\ +\ WN5\ *\ Cell\_Average\_N5)\ /\ (WCC\ +\ WN1\ +\ WN2\ +\ WN5);}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ Vertex\_Average\_a\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN2\ *\ Cell\_Average\_N2\ +\ WN3\ *\ Cell\_Average\_N3\ +\ WN6\ *\ Cell\_Average\_N6)\ /\ (WCC\ +\ WN2\ +\ WN3\ +\ WN6);}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ No\(\backslash\)t"{}<<Face\_No<<"{}Vertex\ Averages\(\backslash\)t"{}<<Vertex\_Average\_o<<"{}\(\backslash\)t"{}<<Vertex\_Average\_a<<"{}\(\backslash\)t"{}<<Vertex\_Average\_b<<"{}\(\backslash\)t"{}<<Vertex\_Average\_c<<endl;}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ av2\ =\ 0.5\ *\ (Cell\_Average\_N2\ +\ Vertex\_Average\_o);}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ av3\ =\ 0.5\ *\ (Cell\_Average\_N2\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ av4\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ av1\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_o);}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \textcolor{comment}{//\ For\ Face\_2}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Face\ 2\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ Vertex\_Average\_a\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN2\ *\ Cell\_Average\_N2\ +\ WN3\ *\ Cell\_Average\_N3\ +\ WN6\ *\ Cell\_Average\_N6)\ /\ (WCC\ +\ WN2\ +\ WN3\ +\ WN6);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ Vertex\_Average\_b\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN3\ *\ Cell\_Average\_N3\ +\ WN4\ *\ Cell\_Average\_N4\ +\ WN7\ *\ Cell\_Average\_N7)\ /\ (WCC\ +\ WN3\ +\ WN4\ +\ WN7);}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ av2\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ av3\ =\ 0.5\ *\ (Cell\_Average\_N3\ +\ Vertex\_Average\_a);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ av4\ =\ 0.5\ *\ (Cell\_Average\_N3\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ av1\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<av1<<"{}\(\backslash\)t"{}<<av2<<"{}\(\backslash\)t"{}<<av3<<"{}\(\backslash\)t"{}<<av4<<endl;}}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00256\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:\ \textcolor{comment}{//\ For\ Face\_3}}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ Vertex\_Average\_b\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN3\ *\ Cell\_Average\_N3\ +\ WN4\ *\ Cell\_Average\_N4\ +\ WN7\ *\ Cell\_Average\_N7)\ /\ (WCC\ +\ WN3\ +\ WN4\ +\ WN7);}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ Vertex\_Average\_c\ =\ (WCC\ *\ Cell\_Average\_CC\ +\ WN1\ *\ Cell\_Average\_N1\ +\ WN4\ *\ Cell\_Average\_N4\ +\ WN8\ *\ Cell\_Average\_N8)\ /\ (WCC\ +\ WN1\ +\ WN4\ +\ WN8);}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ av2\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_c);}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ av3\ =\ 0.5\ *\ (Cell\_Average\_CC\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ av4\ =\ 0.5\ *\ (Cell\_Average\_N4\ +\ Vertex\_Average\_b);}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ av1\ =\ 0.5\ *\ (Cell\_Average\_N4\ +\ Vertex\_Average\_c);}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00265\ \ \ \ \ \}}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[0]\ =\ 0.0;}
+\DoxyCodeLine{00268\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[1]\ =\ 0.0;}
+\DoxyCodeLine{00269\ \ \ \ \ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[0]\ =\ 0.0;}
+\DoxyCodeLine{00270\ \ \ \ \ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[1]\ =\ 0.0;}
+\DoxyCodeLine{00271\ \ \ \ \ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[0]\ =\ 0.0;}
+\DoxyCodeLine{00272\ \ \ \ \ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[1]\ =\ 0.0;}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Grad\_Type)}
+\DoxyCodeLine{00275\ \ \ \ \ \{}
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ rho\_gradient[0]\ =\ (av1\ *\ nx\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ *\ dl\_2\ +\ av4\ *\ nx\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ rho\_gradient[1]\ =\ (av1\ *\ ny\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ *\ dl\_2\ +\ av4\ *\ ny\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ u\ Velocity}}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[0]\ =\ (av1\ *\ nx\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ *\ dl\_2\ +\ av4\ *\ nx\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[1]\ =\ (av1\ *\ ny\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ *\ dl\_2\ +\ av4\ *\ ny\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00285\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ v\ Velocity\ for\ a\ particular\ face}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[0]\ =\ (av1\ *\ nx\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ *\ dl\_2\ +\ av4\ *\ nx\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[1]\ =\ (av1\ *\ ny\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ *\ dl\_2\ +\ av4\ *\ ny\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}v\ gradient\(\backslash\)t"{}<<v\_Gradient[0]<<"{}\(\backslash\)t"{}<<v\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00291\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Looping\ around\ Co\_Volume\ Faces\ and\ finding\ the\ Gradient\ of\ Temperature\ on\ a\ particular\ face}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[0]\ =\ (av1\ *\ nx\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ *\ dl\_2\ +\ av4\ *\ nx\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[1]\ =\ (av1\ *\ ny\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ *\ dl\_2\ +\ av4\ *\ ny\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}T\ gradient\(\backslash\)t"{}<<T\_Gradient[0]<<"{}\(\backslash\)t"{}<<T\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00298\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a203043868bf04f75f11fe76dcf741b91_a203043868bf04f75f11fe76dcf741b91}{P\_Gradient}}[0]\ =\ (av1\ *\ nx\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ *\ dl\_2\ +\ av4\ *\ nx\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00299\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a203043868bf04f75f11fe76dcf741b91_a203043868bf04f75f11fe76dcf741b91}{P\_Gradient}}[1]\ =\ (av1\ *\ ny\_0\ *\ dl\_0\ +\ av2\ *\ \mbox{\hyperlink{definitions_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ *\ dl\_1\ +\ av3\ *\ \mbox{\hyperlink{definitions_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}}\ *\ dl\_2\ +\ av4\ *\ ny\_3\ *\ dl\_3)\ *\ Co\_Volume\_Inv\_Area;}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00301\ \ \ \ \ \}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}///////////////////////////////////////////////////////////////"{}\ <<endl;}}
+\DoxyCodeLine{00303\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dd4/_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_gradients_8cpp_a23f2145125f9b089e43c4c69c4a8905c_a23f2145125f9b089e43c4c69c4a8905c}\index{Gradients.cpp@{Gradients.cpp}!Evaluate\_Viscous\_Fluxes@{Evaluate\_Viscous\_Fluxes}}
+\index{Evaluate\_Viscous\_Fluxes@{Evaluate\_Viscous\_Fluxes}!Gradients.cpp@{Gradients.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Viscous\_Fluxes()}{Evaluate\_Viscous\_Fluxes()}}
+{\footnotesize\ttfamily \label{_gradients_8cpp_a23f2145125f9b089e43c4c69c4a8905c_a23f2145125f9b089e43c4c69c4a8905c} 
+void Evaluate\+\_\+\+Viscous\+\_\+\+Fluxes (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_gradients_8cpp_source_l00384}{384}} of file \mbox{\hyperlink{_gradients_8cpp_source}{Gradients.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00385\ \{}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \ \textcolor{comment}{//\ \ cout<<\ "{}Evaluating\ Viscous\ Fluxes\(\backslash\)n"{};}}
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Current\_Cell\_Index\ =\ 0;\ Current\_Cell\_Index\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Current\_Cell\_Index++)}
+\DoxyCodeLine{00389\ \ \ \ \ \{}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Resetting\ all\ viscous\ flux\ to\ zero}}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Current\_Cell\_Index][0]\ =\ 0.0;}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Current\_Cell\_Index][1]\ =\ 0.0;}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Current\_Cell\_Index][2]\ =\ 0.0;}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Current\_Cell\_Index][3]\ =\ 0.0;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Evaluating\ Viscous\ flux\ which\ includes\ heat\ flux\ on\ each\ face\ for\ a\ given\ cell}}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}{Viscous\_Flux\_on\_Face}}(Current\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_ac6916a0ca68394b62ca346d4779d0911_ac6916a0ca68394b62ca346d4779d0911}{Face\_0}});}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}{Viscous\_Flux\_on\_Face}}(Current\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5947f39215100323bd94bf78b70337e7_a5947f39215100323bd94bf78b70337e7}{Face\_1}});}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}{Viscous\_Flux\_on\_Face}}(Current\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_ae4a2194b04b27ec48f676b456a2145c5_ae4a2194b04b27ec48f676b456a2145c5}{Face\_2}});}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}{Viscous\_Flux\_on\_Face}}(Current\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a8935ffd68275ab778444f23f96af680d_a8935ffd68275ab778444f23f96af680d}{Face\_3}});}
+\DoxyCodeLine{00400\ \ \ \ \ \}}
+\DoxyCodeLine{00401\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Evaluating\ Viscous\ Fluxes\ Done"{}<<endl;}}
+\DoxyCodeLine{00402\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}\index{Gradients.cpp@{Gradients.cpp}!getNeighbour@{getNeighbour}}
+\index{getNeighbour@{getNeighbour}!Gradients.cpp@{Gradients.cpp}}
+\doxysubsubsection{\texorpdfstring{getNeighbour()}{getNeighbour()}}
+{\footnotesize\ttfamily \label{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89} 
+int \& get\+Neighbour (\begin{DoxyParamCaption}\item[{int}]{cell\+Index}{, }\item[{int}]{direction}{}\end{DoxyParamCaption})}
+
+
+
+Identifies the secondary neighbors of a given cell to evaluate second gradients. 
+
+This function determines the secondary neighbors of the cell specified by {\ttfamily Current\+\_\+\+Cell\+\_\+\+Index}. Secondary neighbors are used for extended stencil calculations in gradient evaluation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Current\+\_\+\+Cell\+\_\+\+Index} & Reference to the index of the current cell for which neighbors are identified.\\
+\hline
+\end{DoxyParams}
+Identifies the secondary neighbors of a given cell to evaluate second gradients.
+
+This function determines the secondary neighbors of the cell specified by {\ttfamily Current\+\_\+\+Cell\+\_\+\+Index}. Secondary neighbors are used for extended stencil calculations in gradient evaluation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Current\+\_\+\+Cell\+\_\+\+Index} & Reference to the index of the current cell for which neighbors are identified. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \mbox{\hyperlink{_gradients_8cpp_source_l00040}{40}} of file \mbox{\hyperlink{_gradients_8cpp_source}{Gradients.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{return}\ (cellIndex\ >=\ 0\ \&\&\ cellIndex\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ ?\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[cellIndex].Neighbours[direction]\ :\ 0;}
+\DoxyCodeLine{00043\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dd4/_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_gradients_8cpp_add867401ba6818c3d6480ec342cb0eaa_add867401ba6818c3d6480ec342cb0eaa}\index{Gradients.cpp@{Gradients.cpp}!Identify\_Neighbours\_For\_Second\_Gradients@{Identify\_Neighbours\_For\_Second\_Gradients}}
+\index{Identify\_Neighbours\_For\_Second\_Gradients@{Identify\_Neighbours\_For\_Second\_Gradients}!Gradients.cpp@{Gradients.cpp}}
+\doxysubsubsection{\texorpdfstring{Identify\_Neighbours\_For\_Second\_Gradients()}{Identify\_Neighbours\_For\_Second\_Gradients()}}
+{\footnotesize\ttfamily \label{_gradients_8cpp_add867401ba6818c3d6480ec342cb0eaa_add867401ba6818c3d6480ec342cb0eaa} 
+void Identify\+\_\+\+Neighbours\+\_\+\+For\+\_\+\+Second\+\_\+\+Gradients (\begin{DoxyParamCaption}\item[{int \&}]{Current\+\_\+\+Cell\+\_\+\+Index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_gradients_8cpp_source_l00045}{45}} of file \mbox{\hyperlink{_gradients_8cpp_source}{Gradients.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{comment}{//\ Initialize\ secondary\ neighbors\ to\ zero}}
+\DoxyCodeLine{00048\ \ \ \ \ std::fill(std::begin(\mbox{\hyperlink{definitions_8h_a5f22a17ca8ff95195e832d405ec1384f_a5f22a17ca8ff95195e832d405ec1384f}{Co\_Volume\_Cells}}[Current\_Cell\_Index]),}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ std::end(\mbox{\hyperlink{definitions_8h_a5f22a17ca8ff95195e832d405ec1384f_a5f22a17ca8ff95195e832d405ec1384f}{Co\_Volume\_Cells}}[Current\_Cell\_Index]),\ 0);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{comment}{//\ Fetch\ primary\ neighbors}}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&Neighbours\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Neighbours;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ =\ Neighbours[0];}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ =\ Neighbours[1];}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ =\ Neighbours[2];}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ =\ Neighbours[3];}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{comment}{//\ Lambda\ to\ fetch\ a\ neighbor\ safely}}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keyword}{auto}\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}\ =\ [](\textcolor{keywordtype}{int}\ cellIndex,\ \textcolor{keywordtype}{int}\ direction)\ -\/>\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (cellIndex\ >=\ 0\ \&\&\ cellIndex\ <\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ ?\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[cellIndex].Neighbours[direction]\ :\ 0;}
+\DoxyCodeLine{00062\ \ \ \ \ \};}
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours.empty())}
+\DoxyCodeLine{00064\ \ \ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours.resize(4,\ 0);}
+\DoxyCodeLine{00066\ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ Determine\ secondary\ neighbors\ based\ on\ boundary\ conditions}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ \&\&\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ \textcolor{comment}{//\ Bottom-\/left\ corner}}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0]\ =\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ 2);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ 1);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 0);}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ \&\&\ \mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ \textcolor{comment}{//\ Bottom-\/right\ corner}}
+\DoxyCodeLine{00076\ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 1);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1]\ =\ \mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ 2);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 3);}
+\DoxyCodeLine{00081\ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ \&\&\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ \textcolor{comment}{//\ Top-\/right\ corner}}
+\DoxyCodeLine{00083\ \ \ \ \ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 1);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ 0);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2]\ =\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}};}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 3);}
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}}\ \&\&\ \mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}}\ >=\ \mbox{\hyperlink{definitions_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}})\ \textcolor{comment}{//\ Top-\/left\ corner}}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ 0);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ 2);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ 3);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3]\ =\ \mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}};}
+\DoxyCodeLine{00095\ \ \ \ \ \}}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ Interior\ or\ boundary\ cells}}
+\DoxyCodeLine{00097\ \ \ \ \ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[0]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a86589e19a6e735fc32e550d385807ea0_a86589e19a6e735fc32e550d385807ea0}{Neighbour\_1}},\ 1);\ \textcolor{comment}{//\ (i-\/1,j-\/1)}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[1]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a055230d4cf7c29f2c66e8d8eaf38c172_a055230d4cf7c29f2c66e8d8eaf38c172}{Neighbour\_2}},\ 2);\ \textcolor{comment}{//\ (i+1,j-\/1)}}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[2]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_ad65e68304301afbeebbe893c1adbb996_ad65e68304301afbeebbe893c1adbb996}{Neighbour\_3}},\ 3);\ \textcolor{comment}{//\ (i+1,j+1)}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Current\_Cell\_Index].Secondary\_Neighbours[3]\ =\ \mbox{\hyperlink{_gradients_8cpp_a841d8b51ae49ac6ee37c9246228c1f89_a841d8b51ae49ac6ee37c9246228c1f89}{getNeighbour}}(\mbox{\hyperlink{definitions_8h_a8cbc7b98d2c12f426177d69e96ca278e_a8cbc7b98d2c12f426177d69e96ca278e}{Neighbour\_4}},\ 0);\ \textcolor{comment}{//\ (i-\/1,j+1)}}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4}\index{Gradients.cpp@{Gradients.cpp}!Viscous\_Flux\_on\_Face@{Viscous\_Flux\_on\_Face}}
+\index{Viscous\_Flux\_on\_Face@{Viscous\_Flux\_on\_Face}!Gradients.cpp@{Gradients.cpp}}
+\doxysubsubsection{\texorpdfstring{Viscous\_Flux\_on\_Face()}{Viscous\_Flux\_on\_Face()}}
+{\footnotesize\ttfamily \label{_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4} 
+void Viscous\+\_\+\+Flux\+\_\+on\+\_\+\+Face (\begin{DoxyParamCaption}\item[{const int \&}]{Cell\+\_\+\+No}{, }\item[{const int \&}]{Face\+\_\+\+No}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_gradients_8cpp_source_l00306}{306}} of file \mbox{\hyperlink{_gradients_8cpp_source}{Gradients.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00307\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Calculating\ Viscous\ flux\ for\ Cell\ No\(\backslash\)t"{}<<Cell\_No<<"{}\(\backslash\)t\ on\ face\ \(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{double}\ u11,\ u12,\ u21,\ u22,\ T11,\ T12,\ T21,\ T22;}
+\DoxyCodeLine{00310\ \ \ \ \ \textcolor{keywordtype}{double}\ v1\ =\ 0.0,\ v2\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ =\ 0.0;}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No\ *\ 2,\ Grad\_Type\ =\ 0,\ N\_Cell\_No\ =\ 0;}
+\DoxyCodeLine{00312\ }
+\DoxyCodeLine{00313\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a512734fd86de6571e0cb0a66d7aa2671_a512734fd86de6571e0cb0a66d7aa2671}{Qx}}\ =\ 0.0;}
+\DoxyCodeLine{00314\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a65602d55615c6e9c7409712628d73448_a65602d55615c6e9c7409712628d73448}{Qy}}\ =\ 0.0;}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \textcolor{comment}{//\ Normals\ and\ Face\ Area\ (in\ 2D\ Length\ of\ the\ face)}}
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ \mbox{\hyperlink{definitions_8h_a36efaa7dfa93de652304f1ecc6d0ef65_a36efaa7dfa93de652304f1ecc6d0ef65}{Cell\_Face\_Normals}}[Cell\_No][index\ +\ 0];}
+\DoxyCodeLine{00319\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ \mbox{\hyperlink{definitions_8h_a36efaa7dfa93de652304f1ecc6d0ef65_a36efaa7dfa93de652304f1ecc6d0ef65}{Cell\_Face\_Normals}}[Cell\_No][index\ +\ 1];}
+\DoxyCodeLine{00320\ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ \mbox{\hyperlink{definitions_8h_a71df476ee0b5954685bdb7b8f3125a8c_a71df476ee0b5954685bdb7b8f3125a8c}{Cell\_Face\_Areas}}[Cell\_No][Face\_No];}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{comment}{//\ Fetching\ the\ Corresponding\ Neighbours\ for\ the\ given\ cell\ and\ given\ face}}
+\DoxyCodeLine{00323\ \ \ \ \ \textcolor{keywordflow}{switch}\ (Face\_No)}
+\DoxyCodeLine{00324\ \ \ \ \ \{}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][1];}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00328\ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][2];}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00331\ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][3];}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ N\_Cell\_No\ =\ \mbox{\hyperlink{definitions_8h_a087b2a2338e08d069c290d0e20b347ca_a087b2a2338e08d069c290d0e20b347ca}{Cell\_Neighbours}}[Cell\_No][4];}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00337\ \ \ \ \ \}}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{comment}{//\ Find\ the\ arthematic\ average\ of\ the\ velocities\ and\ Temperature\ on\ the\ Face}}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \ \ \ \ v1\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][1]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][1]);}
+\DoxyCodeLine{00342\ \ \ \ \ v2\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][2]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][2]);}
+\DoxyCodeLine{00343\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_No][8]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[N\_Cell\_No][8]);}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Velocities\ on\ Face\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<endl;}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ Grad\_Type\ =\ 1;\ \textcolor{comment}{//\ U\ velocity\ Gradient\ \ \ \ \ \ \ //\ Finds\ the\ u\ Velocity\ gradient\ on\ the\ face\ required}}
+\DoxyCodeLine{00348\ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6}{Calculate\_Gradient\_On\_Face}}(Cell\_No,\ Grad\_Type,\ Face\_No);}
+\DoxyCodeLine{00349\ \ \ \ \ u11\ =\ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[0];}
+\DoxyCodeLine{00350\ \ \ \ \ u12\ =\ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[1];}
+\DoxyCodeLine{00351\ \ \ \ \ Grad\_Type\ =\ 2;\ \textcolor{comment}{//\ V\ Velocity\ Gradient}}
+\DoxyCodeLine{00352\ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6}{Calculate\_Gradient\_On\_Face}}(Cell\_No,\ Grad\_Type,\ Face\_No);}
+\DoxyCodeLine{00353\ \ \ \ \ u21\ =\ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[0];}
+\DoxyCodeLine{00354\ \ \ \ \ u22\ =\ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[1];}
+\DoxyCodeLine{00355\ \ \ \ \ Grad\_Type\ =\ 3;\ \textcolor{comment}{//\ Temperature\ Gradient}}
+\DoxyCodeLine{00356\ \ \ \ \ \mbox{\hyperlink{_gradients_8cpp_a82a2c55106b4dfc3af8c36a285ee05b6_a82a2c55106b4dfc3af8c36a285ee05b6}{Calculate\_Gradient\_On\_Face}}(Cell\_No,\ Grad\_Type,\ Face\_No);}
+\DoxyCodeLine{00357\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Gradients\(\backslash\)t"{}<<Cell\_No<<"{}\(\backslash\)t"{}<<u11<<"{}\(\backslash\)t"{}<<u12<<"{}\(\backslash\)t"{}<<u21<<"{}\(\backslash\)t"{}<<u22<<"{}\(\backslash\)t"{}<<T\_Gradient[0]<<"{}\(\backslash\)t"{}<<T\_Gradient[1]<<endl;}}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{comment}{//\ \ cout<<T<<"{}\(\backslash\)t"{}<<mu<<"{}\(\backslash\)t"{}<<Re<<"{}\(\backslash\)t"{}<<Pr<<endl;}}
+\DoxyCodeLine{00359\ \ \ \ \ T11\ =\ (2.0\ /\ 3.0)\ *\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (2.0\ *\ u11\ -\/\ u22);}
+\DoxyCodeLine{00360\ \ \ \ \ T12\ =\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (u12\ +\ u21);}
+\DoxyCodeLine{00361\ \ \ \ \ T21\ =\ T12;}
+\DoxyCodeLine{00362\ \ \ \ \ T22\ =\ (2.0\ /\ 3.0)\ *\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (2.0\ *\ u22\ -\/\ u11);}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{comment}{//\ \ cout<<T11<<"{}\(\backslash\)t"{}<<T12<<"{}\(\backslash\)t"{}<<T21<<"{}\(\backslash\)t"{}<<T22<<endl;}}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{comment}{//\ \ K1\ =\ mu/(gamma\_M\_1*M\_ref*M\_ref*Re*Pr);}}
+\DoxyCodeLine{00365\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a512734fd86de6571e0cb0a66d7aa2671_a512734fd86de6571e0cb0a66d7aa2671}{Qx}}\ =\ \mbox{\hyperlink{definitions_8h_a9f00f56b6145687842cf478b182b8f36_a9f00f56b6145687842cf478b182b8f36}{K1}}\ *\ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[0];}
+\DoxyCodeLine{00366\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a65602d55615c6e9c7409712628d73448_a65602d55615c6e9c7409712628d73448}{Qy}}\ =\ \mbox{\hyperlink{definitions_8h_a9f00f56b6145687842cf478b182b8f36_a9f00f56b6145687842cf478b182b8f36}{K1}}\ *\ \mbox{\hyperlink{definitions_8h_afe77b3eaa34e47a97466d30088f1a06e_afe77b3eaa34e47a97466d30088f1a06e}{T\_Gradient}}[1];}
+\DoxyCodeLine{00367\ }
+\DoxyCodeLine{00368\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Cell\_No][0]\ +=\ 0.0;}
+\DoxyCodeLine{00369\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Cell\_No][1]\ +=\ (T11\ *\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ T21\ *\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Ti1Ai}}
+\DoxyCodeLine{00370\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Cell\_No][2]\ +=\ (T12\ *\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ T22\ *\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}};\ \textcolor{comment}{//\ Ti2Ai}}
+\DoxyCodeLine{00371\ \ \ \ \ \mbox{\hyperlink{definitions_8h_a4690547791790e4f732ff227adf36049_a4690547791790e4f732ff227adf36049}{Cells\_Viscous\_Flux}}[Cell\_No][3]\ +=\ ((T11\ *\ v1\ +\ T12\ *\ v2\ +\ \mbox{\hyperlink{definitions_8h_a512734fd86de6571e0cb0a66d7aa2671_a512734fd86de6571e0cb0a66d7aa2671}{Qx}})\ *\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ *\ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ +\ (T21\ *\ v1\ +\ T22\ *\ v2\ +\ \mbox{\hyperlink{definitions_8h_a65602d55615c6e9c7409712628d73448_a65602d55615c6e9c7409712628d73448}{Qy}})\ *\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ *\ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}});}
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{keywordflow}{if}\ (isnan(T11)\ or\ isnan(T21)\ or\ isnan(T22)\ or\ isnan(\mbox{\hyperlink{definitions_8h_a512734fd86de6571e0cb0a66d7aa2671_a512734fd86de6571e0cb0a66d7aa2671}{Qx}})\ or\ isnan(\mbox{\hyperlink{definitions_8h_a65602d55615c6e9c7409712628d73448_a65602d55615c6e9c7409712628d73448}{Qy}}))}
+\DoxyCodeLine{00374\ \ \ \ \ \{}
+\DoxyCodeLine{00375\ }
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ cout\ <<\ Cell\_No\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ Face\_No\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ T11\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ T12\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ T21\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ T22\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a512734fd86de6571e0cb0a66d7aa2671_a512734fd86de6571e0cb0a66d7aa2671}{Qx}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a65602d55615c6e9c7409712628d73448_a65602d55615c6e9c7409712628d73448}{Qy}}\ <<\ endl;}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ cout\ <<\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{definitions_8h_a9f00f56b6145687842cf478b182b8f36_a9f00f56b6145687842cf478b182b8f36}{K1}}\ <<\ endl;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ cout\ <<\ u11\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ u12\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ u21\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ u22\ <<\ endl;}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00380\ \ \ \ \ \}}
+\DoxyCodeLine{00381\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/dd4/_gradients_8cpp_a3a0810f5dcad0d068c35cb8aa9180be4_a3a0810f5dcad0d068c35cb8aa9180be4_icgraph}
+\end{center}
+\end{figure}

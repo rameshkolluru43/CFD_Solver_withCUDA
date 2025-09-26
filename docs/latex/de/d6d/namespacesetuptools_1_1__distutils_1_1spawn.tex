@@ -1,0 +1,69 @@
+\doxysection{setuptools.\+\_\+distutils.\+spawn Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1spawn}{}\label{namespacesetuptools_1_1__distutils_1_1spawn}\index{setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1spawn_aec9364cee067bb7d5c8811db5f485a0f_aec9364cee067bb7d5c8811db5f485a0f}{\+\_\+debug}} (cmd)
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1spawn_a7cfa6f0f72c1f26d2b584a60bd6ca29e}\label{namespacesetuptools_1_1__distutils_1_1spawn_a7cfa6f0f72c1f26d2b584a60bd6ca29e} 
+Mapping\mbox{[}str\+:str\mbox{]}\texorpdfstring{$\vert$}{|}None {\bfseries \+\_\+inject\+\_\+macos\+\_\+ver} (Mapping\mbox{[}str\+:str\mbox{]}\texorpdfstring{$\vert$}{|}None env)
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1spawn_a7078385153ef264b0baaf8e9ba4eff52}\label{namespacesetuptools_1_1__distutils_1_1spawn_a7078385153ef264b0baaf8e9ba4eff52} 
+Mapping\mbox{[}str\+:str\mbox{]} {\bfseries \+\_\+resolve} (Mapping\mbox{[}str\+:str\mbox{]}\texorpdfstring{$\vert$}{|}None env)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1spawn_aee783479b993b8aac37a6987f9902f9b_aee783479b993b8aac37a6987f9902f9b}{spawn}} (cmd, search\+\_\+path=True, verbose=False, dry\+\_\+run=False, env=None)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1spawn_a4dfcf97a520165258a14278b720faedd_a4dfcf97a520165258a14278b720faedd}{find\+\_\+executable}} (executable, path=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}distutils.spawn
+
+Provides the 'spawn()' function, a front-end to various platform-
+specific functions for launching another program in a sub-process.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1spawn_aec9364cee067bb7d5c8811db5f485a0f_aec9364cee067bb7d5c8811db5f485a0f}\index{setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}!\_debug@{\_debug}}
+\index{\_debug@{\_debug}!setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}}
+\doxysubsubsection{\texorpdfstring{\_debug()}{\_debug()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1spawn_aec9364cee067bb7d5c8811db5f485a0f_aec9364cee067bb7d5c8811db5f485a0f} 
+setuptools.\+\_\+distutils.\+spawn.\+\_\+debug (\begin{DoxyParamCaption}\item[{}]{cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Render a subprocess command differently depending on DEBUG.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1spawn_a4dfcf97a520165258a14278b720faedd_a4dfcf97a520165258a14278b720faedd}\index{setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}!find\_executable@{find\_executable}}
+\index{find\_executable@{find\_executable}!setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}}
+\doxysubsubsection{\texorpdfstring{find\_executable()}{find\_executable()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1spawn_a4dfcf97a520165258a14278b720faedd_a4dfcf97a520165258a14278b720faedd} 
+setuptools.\+\_\+distutils.\+spawn.\+find\+\_\+executable (\begin{DoxyParamCaption}\item[{}]{executable}{, }\item[{}]{path}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tries to find 'executable' in the directories listed in 'path'.
+
+A string listing directories separated by 'os.pathsep'; defaults to
+os.environ['PATH'].  Returns the complete filename or None if not found.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1spawn_aee783479b993b8aac37a6987f9902f9b_aee783479b993b8aac37a6987f9902f9b}\index{setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}!spawn@{spawn}}
+\index{spawn@{spawn}!setuptools.\_distutils.spawn@{setuptools.\_distutils.spawn}}
+\doxysubsubsection{\texorpdfstring{spawn()}{spawn()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1spawn_aee783479b993b8aac37a6987f9902f9b_aee783479b993b8aac37a6987f9902f9b} 
+setuptools.\+\_\+distutils.\+spawn.\+spawn (\begin{DoxyParamCaption}\item[{}]{cmd}{, }\item[{}]{search\+\_\+path}{ = {\ttfamily True}, }\item[{}]{verbose}{ = {\ttfamily False}, }\item[{}]{dry\+\_\+run}{ = {\ttfamily False}, }\item[{}]{env}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run another program, specified as a command list 'cmd', in a new process.
+
+'cmd' is just the argument list for the new process, ie.
+cmd[0] is the program to run and cmd[1:] are the rest of its arguments.
+There is no way to run a program with a name different from that of its
+executable.
+
+If 'search_path' is true (the default), the system's executable
+search path will be used to find the program; otherwise, cmd[0]
+must be the exact path to the executable.  If 'dry_run' is true,
+the command will not actually be run.
+
+Raise DistutilsExecError if running the program fails in any way; just
+return on success.
+\end{DoxyVerb}
+ 

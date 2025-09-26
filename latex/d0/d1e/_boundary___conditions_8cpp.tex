@@ -1,0 +1,128 @@
+\doxysection{src/\+Boundary\+\_\+\+Conditions.cpp File Reference}
+\hypertarget{_boundary___conditions_8cpp}{}\label{_boundary___conditions_8cpp}\index{src/Boundary\_Conditions.cpp@{src/Boundary\_Conditions.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Boundary\+\_\+\+Conditions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+Include dependency graph for Boundary\+\_\+\+Conditions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d2/d54/_boundary___conditions_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}{Apply\+\_\+\+Boundary\+\_\+\+Conditions}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}{BCFile\+Name}}
+\item 
+string \mbox{\hyperlink{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}{Init\+Cond\+File\+Name}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!Apply\_Boundary\_Conditions@{Apply\_Boundary\_Conditions}}
+\index{Apply\_Boundary\_Conditions@{Apply\_Boundary\_Conditions}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Apply\_Boundary\_Conditions()}{Apply\_Boundary\_Conditions()}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa} 
+void Apply\+\_\+\+Boundary\+\_\+\+Conditions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00013\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Applying\ Boundary\ Conditions\(\backslash\)n"{};}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_aa88f905e9c827c44260e081aa390e44d_aa88f905e9c827c44260e081aa390e44d}{Is\_Inlet\_SubSonic}})}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subsonic\_Inlet\_Boundary\_Condition();}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a223563e3f71e9357055943bd2bbf8003_a223563e3f71e9357055943bd2bbf8003}{Subsonic\_Inlet\_Condition}}(\mbox{\hyperlink{_globals_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}},\ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}});}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Supersonic\_Inlet\_Boundary\_Condition();}}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_aeabb185d028ff0d92b1f080de6dfe9e5_aeabb185d028ff0d92b1f080de6dfe9e5}{Supersonic\_Inlet\_Condition}}(\mbox{\hyperlink{_globals_8h_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}},\ \mbox{\hyperlink{_globals_8h_a0d3253c718c18022312a33f5ad6a9774_a0d3253c718c18022312a33f5ad6a9774}{Inlet\_Cells\_List}});}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00025\ \ \ \ \ \}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_abdbdb3329e719d2f3146a9c7493c511c_abdbdb3329e719d2f3146a9c7493c511c}{Is\_Exit\_SubSonic}})}
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Subsonic\_Exit\_Boundary\_Condition(i);}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a200490ce85f126503add88e25c5c3c34_a200490ce85f126503add88e25c5c3c34}{Subsonic\_Exit\_Condition}}(\mbox{\hyperlink{_globals_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}},\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}});}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Supersonic\_Exit\_Boundary\_Condition(i);}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a9a667f569fefbd832cb6eb2a5edece97_a9a667f569fefbd832cb6eb2a5edece97}{Supersonic\_Exit\_Condition}}(\mbox{\hyperlink{_globals_8h_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}},\ \mbox{\hyperlink{_globals_8h_a469665af70a74bc79bde808f1405f24d_a469665af70a74bc79bde808f1405f24d}{Exit\_Cells\_List}});}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00042\ \ \ \ \ \}}
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Inlet\ and\ Exit\ applied"{}<<endl;}}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_a7fed54b3b46aab6b4cfa237c8667cd79_a7fed54b3b46aab6b4cfa237c8667cd79}{Is\_Viscous\_Wall}})}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Viscous\ wall\ enabled"{}<<endl;}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7}{Viscous\_Wall\_Boundary\_Condition}}();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{false}:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921}{InViscid\_Wall\_Boundary\_Condition}}();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Boundary\ Conditions\ Properly\ applied"{}<<endl;}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{switch}\ (\mbox{\hyperlink{_globals_8h_afd0e5a394d40c779b4222335243645be_afd0e5a394d40c779b4222335243645be}{has\_Symmetry\_BC}})}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordflow}{case}\ \textcolor{keyword}{true}:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_boundary___conditions_8h_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4}{Symmetry\_Boundary\_Condition}}();}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00060\ \ \ \ \ \}}
+\DoxyCodeLine{00061\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1e/_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d0/d1e/_boundary___conditions_8cpp_af3770504ee20d68a2295133e7aa72bfa_af3770504ee20d68a2295133e7aa72bfa_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!BCFileName@{BCFileName}}
+\index{BCFileName@{BCFileName}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{BCFileName}{BCFileName}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_a407ca74d714986e313c4cb88fba2d158_a407ca74d714986e313c4cb88fba2d158} 
+string BCFile\+Name}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+
+\Hypertarget{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048}\index{Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}!InitCondFileName@{InitCondFileName}}
+\index{InitCondFileName@{InitCondFileName}!Boundary\_Conditions.cpp@{Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{InitCondFileName}{InitCondFileName}}
+{\footnotesize\ttfamily \label{_boundary___conditions_8cpp_af21e7075103d6f69bb306c0308cf6048_af21e7075103d6f69bb306c0308cf6048} 
+string Init\+Cond\+File\+Name}
+
+
+
+Definition at line \mbox{\hyperlink{_boundary___conditions_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_boundary___conditions_8cpp_source}{Boundary\+\_\+\+Conditions.\+cpp}}.
+

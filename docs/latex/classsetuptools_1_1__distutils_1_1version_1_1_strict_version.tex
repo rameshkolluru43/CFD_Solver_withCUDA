@@ -1,0 +1,127 @@
+\doxysection{setuptools.\+\_\+distutils.\+version.\+Strict\+Version Class Reference}
+\hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version}{}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version}\index{setuptools.\_distutils.version.StrictVersion@{setuptools.\_distutils.version.StrictVersion}}
+Inheritance diagram for setuptools.\+\_\+distutils.\+version.\+Strict\+Version\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classsetuptools_1_1__distutils_1_1version_1_1_strict_version}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_ab0c9e14fa4df95cd3e139439942de444}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_ab0c9e14fa4df95cd3e139439942de444} 
+{\bfseries parse} (self, vstring)
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a8d088ea2b9ec20a54671c466e9f82d72}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a8d088ea2b9ec20a54671c466e9f82d72} 
+{\bfseries \+\_\+\+\_\+str\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1version_1_1_version}{setuptools.\+\_\+distutils.\+version.\+Version}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, vstring=None)
+\item 
+{\bfseries \+\_\+\+\_\+repr\+\_\+\+\_\+} (self)
+\item 
+{\bfseries \+\_\+\+\_\+eq\+\_\+\+\_\+} (self, other)
+\item 
+{\bfseries \+\_\+\+\_\+lt\+\_\+\+\_\+} (self, other)
+\item 
+{\bfseries \+\_\+\+\_\+le\+\_\+\+\_\+} (self, other)
+\item 
+{\bfseries \+\_\+\+\_\+gt\+\_\+\+\_\+} (self, other)
+\item 
+{\bfseries \+\_\+\+\_\+ge\+\_\+\+\_\+} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a3dedcc2c334c6567e2d92964b3f07c99}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a3dedcc2c334c6567e2d92964b3f07c99} 
+{\bfseries version} = tuple(map(int, \mbox{[}major, minor, patch\mbox{]}))
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_ad050194e5d6aeb62a516fc15efa12dfd}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_ad050194e5d6aeb62a516fc15efa12dfd} 
+tuple {\bfseries prerelease} = (prerelease\mbox{[}0\mbox{]}, int(prerelease\+\_\+num))
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a94d0d0d109081b71e41ad7d513e5419f}{version\+\_\+re}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a4ee1ca0787935f5c04b658198e72c56b}\label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a4ee1ca0787935f5c04b658198e72c56b} 
+{\bfseries \+\_\+cmp} (self, other)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a37694492325748dcdc5d22f6d37e15d0}{\+\_\+cmp\+\_\+prerelease}} (self, other)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Version numbering for anal retentives and software idealists.
+Implements the standard interface for version number classes as
+described above.  A version number consists of two or three
+dot-separated numeric components, with an optional "pre-release" tag
+on the end.  The pre-release tag consists of the letter 'a' or 'b'
+followed by a number.  If the numeric components of two version
+numbers are equal, then one with a pre-release tag will always
+be deemed earlier (lesser) than one without.
+
+The following are valid version numbers (shown in the order that
+would be obtained by sorting according to the supplied cmp function):
+
+    0.4       0.4.0  (these two are equivalent)
+    0.4.1
+    0.5a1
+    0.5b3
+    0.5
+    0.9.6
+    1.0
+    1.0.4a3
+    1.0.4b1
+    1.0.4
+
+The following are examples of invalid version numbers:
+
+    1
+    2.7.2.2
+    1.3.a4
+    1.3pl1
+    1.3c4
+
+The rationale for this version numbering system will be explained
+in the distutils documentation.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a37694492325748dcdc5d22f6d37e15d0}\index{setuptools.\_distutils.version.StrictVersion@{setuptools.\_distutils.version.StrictVersion}!\_cmp\_prerelease@{\_cmp\_prerelease}}
+\index{\_cmp\_prerelease@{\_cmp\_prerelease}!setuptools.\_distutils.version.StrictVersion@{setuptools.\_distutils.version.StrictVersion}}
+\doxysubsubsection{\texorpdfstring{\_cmp\_prerelease()}{\_cmp\_prerelease()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a37694492325748dcdc5d22f6d37e15d0} 
+setuptools.\+\_\+distutils.\+version.\+Strict\+Version.\+\_\+cmp\+\_\+prerelease (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}case 1: self has prerelease, other doesn't; other is greater
+case 2: self doesn't have prerelease, other does: self is greater
+case 3: both or neither have prerelease: compare them!
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a94d0d0d109081b71e41ad7d513e5419f}\index{setuptools.\_distutils.version.StrictVersion@{setuptools.\_distutils.version.StrictVersion}!version\_re@{version\_re}}
+\index{version\_re@{version\_re}!setuptools.\_distutils.version.StrictVersion@{setuptools.\_distutils.version.StrictVersion}}
+\doxysubsubsection{\texorpdfstring{version\_re}{version\_re}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1__distutils_1_1version_1_1_strict_version_a94d0d0d109081b71e41ad7d513e5419f} 
+setuptools.\+\_\+distutils.\+version.\+Strict\+Version.\+version\+\_\+re\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ re.compile(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{stringliteral}{r'\string^(\(\backslash\)d+)\ \(\backslash\).\ (\(\backslash\)d+)\ (\(\backslash\).\ (\(\backslash\)d+))?\ ([ab](\(\backslash\)d+))?\$'},\ re.VERBOSE\ |\ re.ASCII}
+\DoxyCodeLine{\ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+distutils/version.\+py\end{DoxyCompactItemize}

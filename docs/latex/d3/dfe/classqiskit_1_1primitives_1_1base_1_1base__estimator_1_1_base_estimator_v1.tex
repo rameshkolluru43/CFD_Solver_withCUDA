@@ -1,0 +1,158 @@
+\doxysection{qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V1 Class Reference}
+\hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1}{}\label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1}\index{qiskit.primitives.base.base\_estimator.BaseEstimatorV1@{qiskit.primitives.base.base\_estimator.BaseEstimatorV1}}
+Inheritance diagram for qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V1\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.898551cm]{d3/dfe/classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a05befdf94059ae8ec07f5aae6c8f1122_a05befdf94059ae8ec07f5aae6c8f1122}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}, dict\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive_1_1_base_primitive_a68886e96fcc3f1d20e44cfe6f96661fc_a68886e96fcc3f1d20e44cfe6f96661fc}{options}}=None)
+\item 
+T \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a29300cf5a6a6f830495f60a343d94e83_a29300cf5a6a6f830495f60a343d94e83}{run}} (self, Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuits, Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\texorpdfstring{$\vert$}{|}str\mbox{]}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}}\texorpdfstring{$\vert$}{|}str observables, Sequence\mbox{[}Sequence\mbox{[}float\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}float\texorpdfstring{$\vert$}{|}None parameter\+\_\+values=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}run\+\_\+options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a3aeaa79a4b7f25756cd1487714c5dc08}\label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a3aeaa79a4b7f25756cd1487714c5dc08} 
+T {\bfseries \+\_\+run} (self, tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}},...\mbox{]} circuits, tuple\mbox{[}Sparse\+Pauli\+Op,...\mbox{]} observables, tuple\mbox{[}tuple\mbox{[}float,...\mbox{]},...\mbox{]} parameter\+\_\+values, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}run\+\_\+options)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Estimator V1 base class.
+
+Base class for Estimator that estimates expectation values of quantum circuits and observables.
+
+An estimator is initialized with an empty parameter set. The estimator is used to
+create a :class:`~qiskit.providers.JobV1`, via the
+:meth:`qiskit.primitives.Estimator.run()` method. This method is called
+with the following parameters
+
+* quantum circuits (:math:`\psi_i(\theta)`): list of (parameterized) quantum circuits
+  (a list of :class:`~qiskit.circuit.QuantumCircuit` objects).
+
+* observables (:math:`H_j`): a list of :class:`~qiskit.quantum_info.SparsePauliOp`
+  objects.
+
+* parameter values (:math:`\theta_k`): list of sets of values
+  to be bound to the parameters of the quantum circuits
+  (list of list of float).
+
+The method returns a :class:`~qiskit.providers.JobV1` object, calling
+:meth:`qiskit.providers.JobV1.result()` yields the
+a list of expectation values plus optional metadata like confidence intervals for
+the estimation.
+
+.. math::
+
+    \langle\psi_i(\theta_k)|H_j|\psi_i(\theta_k)\rangle
+
+Here is an example of how the estimator is used.
+
+.. code-block:: python
+
+    from qiskit.primitives import Estimator
+    from qiskit.circuit.library import RealAmplitudes
+    from qiskit.quantum_info import SparsePauliOp
+
+    psi1 = RealAmplitudes(num_qubits=2, reps=2)
+    psi2 = RealAmplitudes(num_qubits=2, reps=3)
+
+    H1 = SparsePauliOp.from_list([("II", 1), ("IZ", 2), ("XI", 3)])
+    H2 = SparsePauliOp.from_list([("IZ", 1)])
+    H3 = SparsePauliOp.from_list([("ZI", 1), ("ZZ", 1)])
+
+    theta1 = [0, 1, 1, 2, 3, 5]
+    theta2 = [0, 1, 1, 2, 3, 5, 8, 13]
+    theta3 = [1, 2, 3, 4, 5, 6]
+
+    estimator = Estimator()
+
+    # calculate [ <psi1(theta1)|H1|psi1(theta1)> ]
+    job = estimator.run([psi1], [H1], [theta1])
+    job_result = job.result() # It will block until the job finishes.
+    print(f"The primitive-job finished with result {job_result}")
+
+    # calculate [ <psi1(theta1)|H1|psi1(theta1)>,
+    #             <psi2(theta2)|H2|psi2(theta2)>,
+    #             <psi1(theta3)|H3|psi1(theta3)> ]
+    job2 = estimator.run([psi1, psi2, psi1], [H1, H2, H3], [theta1, theta2, theta3])
+    job_result = job2.result()
+    print(f"The primitive-job finished with result {job_result}")
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a05befdf94059ae8ec07f5aae6c8f1122_a05befdf94059ae8ec07f5aae6c8f1122}\index{qiskit.primitives.base.base\_estimator.BaseEstimatorV1@{qiskit.primitives.base.base\_estimator.BaseEstimatorV1}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.primitives.base.base\_estimator.BaseEstimatorV1@{qiskit.primitives.base.base\_estimator.BaseEstimatorV1}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a05befdf94059ae8ec07f5aae6c8f1122_a05befdf94059ae8ec07f5aae6c8f1122} 
+qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V1.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{dict \texorpdfstring{$\vert$}{|} None }]{options}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Creating an instance of an Estimator V1, or using one in a ``with`` context opens a session that
+holds resources until the instance is ``close()`` ed or the context is exited.
+
+Args:
+    options: Default options.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive_1_1_base_primitive}{qiskit.\+primitives.\+base.\+base\+\_\+primitive.\+Base\+Primitive}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1primitives_1_1backend__estimator_1_1_backend_estimator_a278673e8b8717f6d6badc9410490976e_a278673e8b8717f6d6badc9410490976e}{qiskit.\+primitives.\+backend\+\_\+estimator.\+Backend\+Estimator}}, \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_ae1446a0e02449abb6a1c8a4d3765472d_ae1446a0e02449abb6a1c8a4d3765472d}{qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator}}, and \mbox{\hyperlink{classqiskit_1_1primitives_1_1estimator_1_1_estimator_a3cccade103a88fa1c08cb84193cadeb1_a3cccade103a88fa1c08cb84193cadeb1}{qiskit.\+primitives.\+estimator.\+Estimator}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a29300cf5a6a6f830495f60a343d94e83_a29300cf5a6a6f830495f60a343d94e83}\index{qiskit.primitives.base.base\_estimator.BaseEstimatorV1@{qiskit.primitives.base.base\_estimator.BaseEstimatorV1}!run@{run}}
+\index{run@{run}!qiskit.primitives.base.base\_estimator.BaseEstimatorV1@{qiskit.primitives.base.base\_estimator.BaseEstimatorV1}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__estimator_1_1_base_estimator_v1_a29300cf5a6a6f830495f60a343d94e83_a29300cf5a6a6f830495f60a343d94e83} 
+ T qiskit.\+primitives.\+base.\+base\+\_\+estimator.\+Base\+Estimator\+V1.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuits}{, }\item[{Sequence\mbox{[}\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} \texorpdfstring{$\vert$}{|} str\mbox{]} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1base__operator_1_1_base_operator}{Base\+Operator}} \texorpdfstring{$\vert$}{|} str}]{observables}{, }\item[{Sequence\mbox{[}Sequence\mbox{[}float\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} float \texorpdfstring{$\vert$}{|} None }]{parameter\+\_\+values}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{run\+\_\+options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the job of the estimation of expectation value(s).
+
+``circuits``, ``observables``, and ``parameter_values`` should have the same
+length. The i-th element of the result is the expectation of observable
+
+.. code-block:: python
+
+    obs = observables[i]
+
+for the state prepared by
+
+.. code-block:: python
+
+    circ = circuits[i]
+
+with bound parameters
+
+.. code-block:: python
+
+    values = parameter_values[i]
+
+Args:
+    circuits: one or more circuit objects.
+    observables: one or more observable objects. Several formats are allowed;
+        importantly, ``str`` should follow the string representation format for
+        :class:`~qiskit.quantum_info.Pauli` objects.
+    parameter_values: concrete parameters to be bound.
+    run_options: runtime options used for circuit execution.
+
+Returns:
+    The job object of EstimatorResult.
+
+Raises:
+    TypeError: Invalid argument type given.
+    ValueError: Invalid argument values given.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/primitives/base/base\+\_\+estimator.\+py\end{DoxyCompactItemize}

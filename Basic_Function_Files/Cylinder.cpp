@@ -1,0 +1,994 @@
+#include "Geometry_Header.h"
+
+Cylinder::Cylinder()
+{
+	dia1=0.0;dia2=0.0;Cylinder_Length=0.0;Total_No_Cells=0;
+}
+
+Cylinder::~Cylinder(){}
+
+void Cylinder::operator()(double &diameter,int &length,int &nop,int &nopz)
+{
+	double radius=0.0;
+	dia1=diameter;
+	radius = 0.5*dia1;
+        C1(radius,nop); // creates a circle with number of points nop
+	plist1=C1.Get_Point_list();
+	Cylinder_Length=length;
+	nr=ntheta=nop;
+	nlength=nopz;
+}
+
+void Cylinder::operator()(double &d1,double &d2,double &length,int &nx,int &ny,int &nz,bool & Cluster_Grid,bool  & Is_Elliptic_Core)
+{
+	nr=ny;
+	ntheta=nx;
+	nlength=nz;
+	dia1=d1;
+	dia2=d2;
+	Cylinder_Length = length;
+	cout<<ntheta<<"\t"<<nr<<"\t"<<nlength<<endl;
+/* Is_Elliptic Core signifies that the grid has elliptic grid at the core of a tube and a polar grid upon Based on this criteria this function calculates the required number of cells and calls the respective functions to construct the grid.*/	
+	switch(Is_Elliptic_Core)
+	{
+	  case true:
+			nx_c = (0.25*(ntheta-1))+1; ny_c = (0.25*(ntheta-1))+1; // Number of points in the core based on the number of points on the circle.
+			cout<<nx_c<<"\t"<<ny_c<<endl;
+			cells_in_Plane_Cartesian= (nx_c-1)*(ny_c-1); // Total number of cells in cartesian core
+			cells_in_Plane_Polar =(ntheta-1)*(nr-1);	//Total number of cells in polar region
+			no_of_Cells_Cartesian = cells_in_Plane_Cartesian*(nlength-1);
+			no_of_Cells_Polar = cells_in_Plane_Polar*(nlength-1);
+			Total_No_Cells = no_of_Cells_Cartesian + no_of_Cells_Polar;
+			cout<<"Cells in Plane core\t"<<cells_in_Plane_Cartesian<<endl;
+			cout<<"Cells in plane Polar\t"<<cells_in_Plane_Polar<<endl;
+			cout<<"Total Cells \t"<<Total_No_Cells<<endl;
+			TGCFP=cells_in_Plane_Cartesian+cells_in_Plane_Polar;
+			TGCBaP = TGCFP;
+			TGCWall=(ntheta-1)*(nlength-1);
+			break;
+	  case false:
+			cells_in_Plane_Cartesian= 0;
+			cells_in_Plane_Polar =(ntheta-1)*(nr-1);
+			no_of_Cells_Cartesian = cells_in_Plane_Cartesian*(nlength-1);
+			no_of_Cells_Polar = cells_in_Plane_Polar*(nlength-1);
+			Total_No_Cells = no_of_Cells_Cartesian + no_of_Cells_Polar;
+			cout<<"Cells in Plane core\t"<<cells_in_Plane_Cartesian<<endl;
+			cout<<"Cells in plane Polar\t"<<cells_in_Plane_Polar<<endl;
+			cout<<"Total Cells \t"<<Total_No_Cells<<endl;
+			TGCFP=cells_in_Plane_Cartesian+cells_in_Plane_Polar;
+			TGCBaP = TGCFP;
+			TGCWall=(ntheta-1)*(nlength-1);
+			break;
+	}
+	if(Cluster_Grid)
+		Cluster_Grid_Cylinder_Plane(Is_Elliptic_Core);
+	else
+		Grid_Cylinder_Plane(Is_Elliptic_Core);
+	Stack_Grid(Grid_Plane_Polar,Cylinder_Length,nlength,Cluster_Grid);
+	
+}
+
+void Cylinder::Cluster_Grid_Cylinder_Plane(bool & Is_Elliptic_Core)
+{
+	double n_r,zi,radius=0.0,radius1=0.0;
+	Stretch_Ratio=1.0/1.1,a=0.0;
+	Cold_Layers = 0;
+	Hot_Layers =0;
+	switch(Is_Elliptic_Core)
+	{
+		case true:
+				radius = 0.5*dia1;
+				cout<<radius<<endl;
+				C1(radius,ntheta);
+				Elliptic_Core(C1);
+				Elliptic_Core.Generate_Grid();
+				Grid_Plane_Cartesian = Elliptic_Core.Get_Grid_List();
+				Elliptic_Core.Stack_Grid(Cylinder_Length,nlength,Core_Grid_List);
+				n_r = 0.5*(dia2-dia1);
+				a = n_r*(1.0-Stretch_Ratio)/(1.0-pow(Stretch_Ratio,nr-1.0));
+				cout<<"Length over which stacking is done\t"<<n_r<<"\tNumber of Radial Points\t"<<nr<<"\t"<<a<<endl;
+				for(int i=0;i<nr;i++)
+				{
+					if(i==0)
+					{
+						radius1 = 0.5*dia1;
+						cout<<i<<"\t"<<radius<<"\t\t"<<Cold_Layers<<"\t"<<Hot_Layers<<endl;
+					}
+					else
+					{
+						radius1 = radius + a *((1.0- pow(Stretch_Ratio,i))/(1.0-Stretch_Ratio));
+						cout<<i<<"\t"<<radius1<<"\t\t"<<Cold_Layers<<"\t"<<Hot_Layers<<endl;
+					}					
+					C2(radius1,ntheta);
+					Grid_Plane_Polar=C2.Get_Point_list();
+					if(radius<=2.5)
+						Cold_Layers++;
+					if(radius<=7.5)
+						Hot_Layers++;
+				}
+				break;
+		case false:
+					zi=1.0/(nr-1);
+					n_r=(dia2-dia1);
+					radius=0.0;
+					for(int i=0;i<nr;i++)
+					{
+						radius=0.5*(dia1+n_r*i*zi);
+						if(radius<=2.5)
+							Cold_Layers++;
+						if(radius<=7.5)
+							Hot_Layers++;
+						cout<<i<<"\t"<<radius<<"\t\t"<<Cold_Layers<<"\t"<<Hot_Layers<<endl;
+						C1(radius,ntheta);
+						Grid_Plane_Polar=C1.Get_Point_list();
+					}
+					break;
+	}
+}
+
+void Cylinder::Grid_Cylinder_Plane(bool & Is_Elliptic_Core)
+{
+	double nd=0.0,radius=0.0;
+	Cold_Layers = 0;
+	Hot_Layers =0;
+	switch(Is_Elliptic_Core)
+	{
+		case true:
+			radius = 0.5*dia1;
+			C1(radius,ntheta);
+			Elliptic_Core(C1);
+			Elliptic_Core.Generate_Grid();
+			Grid_Plane_Cartesian = Elliptic_Core.Get_Grid_List();
+			Elliptic_Core.Stack_Grid(Cylinder_Length,nlength,Core_Grid_List);
+			cout<<"Core Elliptic Grid Done.....On for Polar Grid\n";
+			nd=(dia2-dia1)/(nr-1);
+			for(int i=0;i<nr;i++)
+			{
+				radius = 0.5*(dia1+i*nd);
+				if(radius<=2.5)
+					Cold_Layers++;
+				if(radius<=7.5)
+					Hot_Layers++;
+				cout<<i<<"\t"<<radius<<"\t\t"<<Cold_Layers<<"\t"<<Hot_Layers<<endl;
+				C2(radius,ntheta); // ntheta is number of points in theta direction i.e. along the circumference of the cylinder
+// 				cout<<nr<<"\t"<<dia1+i*nd<<"\t"<<ntheta<<endl;
+				Grid_Plane_Polar=C2.Get_Point_list();
+// 				cout<<Grid_Plane_Polar.size()<<endl;
+			}
+			break;
+		case false:
+			nd=(dia2-dia1)/(nr-1);
+			for(int i=0;i<nr;i++)
+			{
+				radius = 0.5*(dia1+i*nd);
+				if(radius<=2.5)
+					Cold_Layers++;
+				if(radius<=8.5)
+					Hot_Layers++;
+				cout<<i<<"\t"<<radius<<"\t\t"<<Cold_Layers<<"\t"<<Hot_Layers<<endl;
+				C1(radius,ntheta); // ntheta is number of points in theta direction i.e. along the circumference of the cylinder
+// 				cout<<nr<<"\t"<<dia1+i*nd<<"\t"<<ntheta<<endl;
+				Grid_Plane_Polar=C1.Get_Point_list();
+			}
+			break;
+	}
+}
+
+void Cylinder::Write_Grid_Plane(const string &filename,const bool & has_Elliptic_Core)
+{
+        ofstream myfileout;
+        myfileout.open(filename.c_str(),ios::out);
+        Point temp_Point;
+	vector<Point> Grid_Plane;
+	cout<<"Writing Grid Plane vtk file\n ";
+	if(has_Elliptic_Core)
+		Grid_Plane = Grid_Plane_Cartesian;
+	else
+		Grid_Plane = Grid_Plane_Polar;
+	cout<<"Grid plane size\t"<<Grid_Plane.size()<<endl;
+	cout<<"List size\t"<<Grid_Plane.size()<<endl;
+        if(myfileout.is_open())
+        {
+                for(unsigned int i=0;i<Grid_Plane.size();i++)
+                {
+                        temp_Point=Grid_Plane[i];
+                        myfileout<<temp_Point.Get_x()<<"\t"<<temp_Point.Get_y()<<"\t"<<temp_Point.Get_z()<<endl;
+                }
+        }
+        else
+        {
+                cout<<" unble to open output file\n"; 
+        }
+        myfileout.close();
+}
+
+void Cylinder::write_output(string &filename)
+{
+        ofstream myfileout;
+        myfileout.open(filename.c_str(),ios::out);
+        Point temp_Point;
+        if(myfileout.is_open())
+        {
+                for(unsigned int i=0;i<plist1.size();i++)
+                {
+                        temp_Point=plist1[i];
+                        myfileout<<temp_Point.Get_x()<<"\t"<<temp_Point.Get_y()<<"\t"<<temp_Point.Get_z()<<endl;
+                }
+        }
+        else
+        {
+                cout<<" unble to open output file\n";
+        }
+        myfileout.close();
+}
+
+/*
+ * Stack Grid Function Stacks the grid plane in +Z direction.  It needs 3 arguments arg1 is the List of points in a plane, arg 2 is the length
+ * over which this grid is to be stacked and arg3 is the number of points in the stacking direction.
+*/
+void Cylinder::Stack_Grid(vector<Point> &list,double &length,int &nop,bool & CG)
+{
+	cout<<"Stacking grid \n";
+	cout<<"Grid plane size\t"<<list.size()<<endl;
+	cout<<"Length over which Grid to be stacked\t"<<length<<endl;
+	double delz=length/(nop-1),z=0.0,d_theta = 3.0*M_PI*dia2/(ntheta-1),inlet_Area=0.0;
+	I_N_L=0;
+	cout<<"spacing in Z direction \t"<<delz<<endl;
+	Point p;
+	if(CG)
+	{
+		
+		Stretch_Ratio = 1.05;
+		a = 0.5*length*(1.0-Stretch_Ratio)/(1.0-pow(Stretch_Ratio,0.5*(nop-1)));
+		cout<<"Initial Length\t"<<a<<endl;
+		for(int i=0;i<0.5*nop;i++)
+		{
+			if(i==0)
+				z= 0.0;
+			else
+				z = a *((1.0- pow(Stretch_Ratio,i))/(1-Stretch_Ratio));
+			inlet_Area += z*d_theta;
+			if(inlet_Area<=20.0)
+				I_N_L++;
+			cout<<i<<"\t"<<z<<"\t"<<inlet_Area<<"\t"<<I_N_L<<"\n";
+			for(unsigned int j=0;j<list.size();j++)
+			{
+				p(list[j].Get_x(),list[j].Get_y(),z);
+				Polar_Grid_List.push_back(p);
+			}
+		}
+		cout<<endl;
+		Stretch_Ratio = 1.0/1.05;
+		a = 0.5*length*(1-Stretch_Ratio)/(1-pow(Stretch_Ratio,0.5*(nop-1)));
+		cout<<"Initial Length\t"<<a<<endl;
+		double z1=0.0;
+		for(int i=1;i<=0.5*nop;i++)
+		{
+			z1= a* ((1.0-pow(Stretch_Ratio,i))/(1-Stretch_Ratio));
+			cout<<i<<"\t"<<z<<"\t"<<z1<<"\t"<<z+z1<<endl;
+			for(unsigned int j=0;j<list.size();j++)
+			{
+				
+				p(list[j].Get_x(),list[j].Get_y(),z+z1);
+				Polar_Grid_List.push_back(p);
+			}
+		}
+		cout<<endl;
+	}
+	else
+	{
+		for(int i=0;i<nop;i++)
+		{
+			for(unsigned int j=0;j<list.size();j++)
+			{
+				p(list[j].Get_x(),list[j].Get_y(),i*delz+list[j].Get_z());
+				Polar_Grid_List.push_back(p);
+			}
+		}
+	}
+	cout<<"Stacking Grid Done\t Size of Grid list\t"<<Polar_Grid_List.size()<<endl;
+}
+
+
+/*
+This  Function Identifies the Cell numbering for a given cell in Polar coordinates. The Cell Points for all cells are oriented in clock wise direction and is same for all cells in the domain.
+*/
+
+void Cylinder::Identify_Cells_Polar()
+{
+	int a,p=0;
+	cout<<nlength<<"\t"<<nr<<"\t"<<ntheta<<endl;
+	cout<<"Number of Cells polar\t"<<no_of_Cells_Polar<<endl;
+	C_P_DP.resize(no_of_Cells_Polar*8,0);
+	for(int k=0;k<(nlength-1);k++)
+	{
+		for(int j=0;j<(nr-1);j++)
+		{
+			for(int i=0;i<(ntheta-1);i++)
+			{
+				a=p*8;
+// 				cout<<i<<"\t"<<j<<"\t"<<k<<endl;
+				C_P_DP[a+0]=i+j*(ntheta-1)+k*(ntheta-1)*nr;				// Point O
+				C_P_DP[a+1]=i+(j+1)*(ntheta-1)+k*(ntheta-1)*nr;			//Point A
+				C_P_DP[a+4]=i+j*(ntheta-1)+(k+1)*(ntheta-1)*nr;			//Point O1
+				C_P_DP[a+5]=i+(j+1)*(ntheta-1)+(k+1)*(ntheta-1)*nr;		//Point A1
+				if(i==(ntheta-2))
+				{
+                                     C_P_DP[a+2]=(i+1)+j*(ntheta-1)+k*(ntheta-1)*nr;
+					C_P_DP[a+3]=(i+1)+(j-1)*(ntheta-1)+k*(ntheta-1)*nr;
+					C_P_DP[a+6]=(i+1)+j*(ntheta-1)+(k+1)*(ntheta-1)*nr;
+					C_P_DP[a+7]=(i+1)+(j-1)*(ntheta-1)+(k+1)*(ntheta-1)*nr;
+				}
+				else
+				{
+					C_P_DP[a+2]=(i+1)+(j+1)*(ntheta-1)+k*(ntheta-1)*nr;			//Point B
+					C_P_DP[a+3]=(i+1)+j*(ntheta-1)+k*(ntheta-1)*nr;				//Point C
+					C_P_DP[a+6]=(i+1)+(j+1)*(ntheta-1)+(k+1)*(ntheta-1)*nr;		//Point B1
+					C_P_DP[a+7]=(i+1)+j*(ntheta-1)+(k+1)*(ntheta-1)*nr;			//Point C1
+				}
+//  cout<<C_P_DP[a+0]<<"\t"<<C_P_DP[a+1]<<"\t"<<C_P_DP[a+2]<<"\t"<<C_P_DP[a+3]<<"\t"<<C_P_DP[a+4]<<"\t"<<C_P_DP[a+5]<<"\t"<<C_P_DP[a+6]<<"\t"<<C_P_DP[a+7]<<endl;
+				p++;
+			}
+		}
+	}
+	cout<<"Identifying Polar Cells done \n";
+	cout<<"Number of Cells\t"<<p<<endl;
+}
+
+void Cylinder::Identify_Cells_Cartesian()
+{
+	int a=0,p=0,Points_In_Plane;
+	Points_In_Plane = nx_c*ny_c;
+	cout<<"Points in Cartesian plane\t"<<Points_In_Plane<<endl;
+	C_P_DC.resize(no_of_Cells_Cartesian*8,0);
+	for(int k=0;k<(nlength-1);k++)
+	{
+		for(int j=0;j<(ny_c-1);j++)
+		{
+			for(int i=0;i<(nx_c-1);i++)
+			{
+				a=p*8;
+				C_P_DC[a+1]=i+j*nx_c+k*Points_In_Plane;
+				C_P_DC[a+0]=i+(j+1)*nx_c+k*Points_In_Plane;
+				C_P_DC[a+3]=(i+1)+(j+1)*nx_c+k*Points_In_Plane;
+				C_P_DC[a+2]=(i+1)+j*nx_c+k*Points_In_Plane;
+				C_P_DC[a+5]=i+j*nx_c+(k+1)*Points_In_Plane;
+				C_P_DC[a+4]=i+(j+1)*nx_c+(k+1)*Points_In_Plane;
+				C_P_DC[a+7]=(i+1)+(j+1)*nx_c+(k+1)*Points_In_Plane;
+ 				C_P_DC[a+6]=(i+1)+j*nx_c+(k+1)*Points_In_Plane;
+// cout<<C_P_DC[a+0]<<"\t"<<C_P_DC[a+1]<<"\t"<<C_P_DC[a+2]<<"\t"<<C_P_DC[a+3]<<"\t"<<C_P_DC[a+4]<<"\t"<<C_P_DC[a+5]<<"\t"<<C_P_DC[a+6]<<"\t"<<C_P_DC[a+7]<<endl;
+				p++;
+			}	
+		}
+	}
+		cout<<"Identifying Cartesian Cells done \n";
+		cout<<"Number of Cells\t"<<p<<endl;
+}
+
+
+void Cylinder::Identify_Neighbours_Cartesian()
+{
+	int nbwgc,ntwgc,nlwgc,nrwgc,nigc,nogc,a,index0,index1,index2,index3,index4,index5,index6;
+	a=0;
+	C_N_DC.resize(no_of_Cells_Cartesian*7,0);
+	cout<<cells_in_Plane_Cartesian<<endl;
+	cout<<cells_in_Plane_Polar<<endl;
+	cout<<TGCFP<<"\t"<<TGCBaP<<endl;
+	cout<<C_N_DC.size()<<endl;
+	for(int k=0;k<(nlength-1);k++)
+	{
+		nlwgc=0;nrwgc=0;nbwgc=0;ntwgc=0,nogc=0,nigc=0;
+		for(int j=0;j<(ny_c-1);j++)
+		{
+			for(int i=0;i<(nx_c-1);i++)
+			{
+// 				cout<<i<<"\t"<<j<<"\t"<<k<<endl;
+				index0 = i+j*(nx_c-1)+k*TGCFP;						//	Current cell
+				if(i==0)
+				{
+					index4 =((cells_in_Plane_Cartesian-1)+(ntheta-1))+k*TGCFP-nlwgc;
+					nlwgc++;
+				}
+				else
+					index4 = (i-1)+j*(nx_c-1)+k*TGCFP;				//	Right cell
+																	
+				 if(i==(nx_c-2))
+					{
+						index3 = cells_in_Plane_Cartesian+(nx_c-1)+k*TGCFP + nrwgc;
+						nrwgc++;
+					}
+				  else
+					  index3 = (i+1)+j*(nx_c-1)+k*TGCFP;			//	Left cell
+				if(j==0)
+					{
+						index5 = cells_in_Plane_Cartesian + nbwgc+k*TGCFP;
+						nbwgc++;
+					}
+				else
+					index5 = i+(j-1)*(nx_c-1)+k*TGCFP;				//	Bottom cell
+		                if(j==(ny_c-2))
+					{
+						++ntwgc;
+						index6 =cells_in_Plane_Cartesian + 3*(nx_c-1)-ntwgc+k*TGCFP;
+						
+					}
+	                        else
+					index6 = i+(j+1)*(nx_c-1)+k*TGCFP;				//	Top cell
+	                        if(k==(nlength-2))
+					{
+						index1 = Total_No_Cells+TGCFP+TGCWall+nogc;
+						nogc++;
+					}
+	                        else
+					index1 = i+(cells_in_Plane_Cartesian+cells_in_Plane_Polar)+j*(nx_c-1)+k*TGCFP;	 //	Front cell
+	                        if(k==0)
+					{
+						index2 =Total_No_Cells  + nigc;
+						nigc++;
+					}
+	                        else
+					index2 = i-(cells_in_Plane_Cartesian+cells_in_Plane_Polar)+j*(nx_c-1)+k*TGCFP; 		// Back cell
+// 	cout<<index0<<"\t"<<index1<<"\t"<<index2<<"\t"<<index3<<"\t"<<index4<<"\t"<<index5<<"\t"<<index6<<"\n";
+// 	                        a = index0*7;
+				C_N_DC[a+0]=index0;		//Current Cell		(I,J,K)
+				C_N_DC[a+1]=index1;		//Front Cell		(I,J,K+1)
+				C_N_DC[a+2]=index2;		//Back Cell		(I,J,K-1)
+				C_N_DC[a+3]=index3;		//Right Cell		(I+1,J,K)
+				C_N_DC[a+4]=index4;		//Left Cell		(I-1,J,K)
+				C_N_DC[a+5]=index5;		//Top Cell		(I,J+1,K)
+				C_N_DC[a+6]=index6;		//Bottom Cell		(I,J-1,K)
+				a+=7;
+			}
+		}
+// 		cout<<"--------------------------------------------------------\t"<<k<<endl;
+	}
+cout<<"Identifying Cartesian Neighbours done \n";
+}
+
+void Cylinder::Identify_Neighbours_Polar(const bool & Is_Core_Elliptic)
+{
+	cout<<"Number of Cells in Polar Grid\t"<<no_of_Cells_Polar<<endl;
+	int nwgc,nigc,nogc,a,index0,index1,index2,index3,index4,index5,index6;
+	int GCFP=0,GCTP=0,GCBoP=0;
+	GCFP = (ntheta-1)*(nr-1);
+	GCBoP = (ntheta-1)*(nlength-1);
+	GCTP = GCBoP;
+	nwgc=0;nigc=0;nogc=0;a=0;
+	C_N_DP.resize(no_of_Cells_Polar*7,0);
+	Indicies.resize(ntheta-1,0);
+	Get_BPoint_Details(Indicies);
+	for(int k=0;k<(nlength-1);k++)
+	{
+		for(int j=0;j<(nr-1);j++)
+		{
+			for(int i=0;i<ntheta-1;i++)
+			{
+				index0 = (k+1)*cells_in_Plane_Cartesian+ i+j*(ntheta-1)+k*GCFP;// Current cell
+
+		//************Index for Left Cell (i+1,j,k)l******************
+				if(i==(ntheta-2))
+					index3 = index0-(ntheta-2);
+				else
+					index3 = (k+1)*cells_in_Plane_Cartesian+(i+1)+j*(ntheta-1)+k*GCFP;		//	Left Cell
+				
+		//************Index for Right Cell (i-1,j,k)******************
+				if(i==0)
+					{
+						index4 =index0+(ntheta-2);
+					}
+				else
+					index4 = (k+1)*cells_in_Plane_Cartesian+((i-1)+j*(ntheta-1)+k*GCFP);		//	Right Cell
+					
+		//************Index for Top Cell******************
+				if(j==(nr-2))
+					{
+						index5 =Total_No_Cells+(TGCFP)+nwgc;
+						nwgc++;
+					}
+				else
+					index5 = (k+1)*cells_in_Plane_Cartesian+(i+(j+1)*(ntheta-1)+k*GCFP);		//	Top cell
+		//************Index for Top Cell******************
+				if(j==0)
+				{
+					index6 = Indicies[i] + k*(TGCFP);
+				}
+				else
+					index6 = (k+1)*(cells_in_Plane_Cartesian)+(i+(j-1)*(ntheta-1)+k*GCFP);		//	Bottom cell
+				if(k==(nlength-2))
+				{
+					index1 = (Total_No_Cells+2.0*cells_in_Plane_Cartesian+cells_in_Plane_Polar)+TGCWall+nogc;
+					nogc++;
+				}
+				else
+					index1 = (k+2)*(cells_in_Plane_Cartesian)+i+cells_in_Plane_Polar+j*(ntheta-1)+k*GCFP; //	Front Cell
+				if(k==0)
+				{
+					index2 = (k+1)*(Total_No_Cells+cells_in_Plane_Cartesian)+nigc;
+					nigc++;
+				}
+				else
+					index2 = (k+1)*(cells_in_Plane_Cartesian)+(i-(cells_in_Plane_Cartesian+cells_in_Plane_Polar)+j*(ntheta-1)+k*(ntheta-1)*(nr-1));
+				//	 Back cell
+// 				cout<<k<<"\t"<<index0<<"\t"<<index1<<"\t"<<index2<<"\t"<<index3<<"\t"<<index4<<"\t"<<index5<<"\t"<<index6<<"\n";
+				C_N_DP[a+0]=index0; 		 //self index
+				C_N_DP[a+1]=index1;		 //Front cell index		(i,j,k+1)
+				C_N_DP[a+2]=index2; 		//Back cell index		(i,j,k-1)
+				C_N_DP[a+3]=index3; 		// Left cell index		(i+1,j,k)
+				C_N_DP[a+4]=index4; 		// Right cell index		(i-1,j,k)
+				C_N_DP[a+5]=index5; 		// Top cell index		(i,j+1,k)
+				C_N_DP[a+6]=index6; 		// Bottom cell index		(i,j-1,k)
+				a+=7;
+			}
+		}
+// 		cout<<"---------------------------------------------------------------\n";
+	}
+	cout<<"Identifying Neighbours Polar Cells done \n";
+}
+
+void Cylinder::Get_BPoint_Details(vector<int> & indicies)
+{
+	int index1=0,index=0,p=0;
+	cout<<nx_c<<"\t"<<ny_c<<endl;
+	for(int j=0;j<(ny_c-1);j++)
+	{
+		for(int i=0;i<(nx_c-1);i++)
+		{
+			index = i + j*(nx_c-1);
+			if(j==0)
+			{
+				index1 = i + j*(nx_c-1);
+				indicies[p]=index1;
+				p++;
+			}
+		}
+	}
+	for(int j=0;j<(ny_c-1);j++)
+	{
+		for(int i=0;i<(nx_c-1);i++)
+		{
+			index = i + j*(nx_c-1);
+			if(i==(nx_c-2))
+			{
+				index1 = i + j*(nx_c-1);
+				indicies[p]=index1;
+				p++;
+			}
+		}
+	}
+	for(int j=0;j<(ny_c-1);j++)
+	{
+		for(int i=(nx_c-2);i>=0;i--)
+		{
+			index = i + j*(nx_c-1);
+			if(j==(ny_c-2))
+			{
+				index1 = i + j*(nx_c-1);
+				indicies[p]=index1;
+				p++;
+			}
+		}
+	}
+	for(int j=(ny_c-2);j>=0;j--)
+	{
+		for(int i=0;i<(nx_c-1);i++)
+		{
+			index = i + j*(nx_c-1);
+			if(i==0)
+			{
+				index1 = i + j*(nx_c-1);
+				indicies[p]=index1;
+				p++;
+			}
+		}
+	}
+/*	for(unsigned int i=0;i<indicies.size();i++)
+		cout<<indicies[i]<<endl;*/
+}
+
+void Cylinder::write_VTK(const string &filename,const bool & Core_Grid)
+{
+	ofstream myfile_out;
+	double size_of_pointlist;
+	myfile_out.open(filename.c_str(),ios::out);
+	int j=0,no_of_Cells;
+	Point P;
+	vector<int> Cell_Point_Data;
+	if(myfile_out.is_open())
+	{
+		if(Core_Grid)
+		{
+			Point_List = Core_Grid_List;
+			Cell_Point_Data = C_P_DC;
+// 			myfile_out<<nx_c<<"\t"<<ny_c<<"\t"<<nlength<<endl;
+			no_of_Cells = no_of_Cells_Cartesian;
+		}
+		else
+		{
+			Point_List = Polar_Grid_List;
+			Cell_Point_Data = C_P_DP;
+// 			myfile_out<<ntheta<<"\t"<<nr<<"\t"<<nlength<<endl;
+			no_of_Cells = no_of_Cells_Polar;
+		}
+		size_of_pointlist = Point_List.size();
+		myfile_out<<"# vtk DataFile Version 2.0"<<endl;
+		myfile_out<<"Unstructured Grid Vortex tube"<<endl;
+		myfile_out<<"ASCII"<<endl;
+		myfile_out<<"DATASET UNSTRUCTURED_GRID"<<endl;
+		myfile_out<<"POINTS\t"<<size_of_pointlist<<"\t double"<<endl;
+		for(int i=0;i<size_of_pointlist;i++)
+		{
+			P=Point_List[i];
+			myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+		}
+		myfile_out<<"CELLS\t"<<no_of_Cells<<"\t"<<no_of_Cells*9<<endl;
+		for(int i=0;i<no_of_Cells;i++)
+		{
+			j=i*8;
+			myfile_out<<8<<"\t"<<
+					Cell_Point_Data[j+3]<<"\t"<<Cell_Point_Data[j+0]<<"\t"<<
+					Cell_Point_Data[j+4]<<"\t"<<Cell_Point_Data[j+7]<<"\t"<<
+					Cell_Point_Data[j+2]<<"\t"<<Cell_Point_Data[j+1]<<"\t"<<
+					Cell_Point_Data[j+5]<<"\t"<<Cell_Point_Data[j+6]<<"\n";
+		}
+		myfile_out<<"CELL_TYPES \t"<<no_of_Cells<<endl;
+		for(int i=0;i<no_of_Cells;i++)
+			myfile_out<<12<<endl;
+	}
+	else
+	{
+		cout<<"Could not open file for writing"<<endl;
+	}
+	cout<<"VTK file written for Pipe\n";
+}
+
+void Cylinder::write_inputfile(const string &filename,const bool & Core_Grid)
+{
+	ofstream myfile_out;
+	double size_of_pointlist;
+	size_of_pointlist = Point_List.size();
+	myfile_out.open(filename.c_str(),ios::out);
+	vector<Point> Point_List;
+	vector<int> Cell_Point_Data,Cell_Neighbours;
+	int k=0,k1=0,j=0,id_dissipation_length;
+	Point P;
+	if(myfile_out.is_open())
+	{
+		if(Core_Grid)
+		{
+			myfile_out<<2<<endl;
+			myfile_out<<1<<endl;
+			myfile_out<<nx_c<<"\t"<<ny_c<<"\t"<<nlength<<endl;
+			myfile_out<< no_of_Cells_Cartesian<<endl;
+			myfile_out<<ntheta<<"\t"<<nr<<"\t"<<nlength<<endl;
+			myfile_out<<no_of_Cells_Polar<<endl;
+			id_dissipation_length=(nlength-11);
+			for(int p=0;p<(nlength-1);p++)
+			{
+				for(int i=0;i<cells_in_Plane_Cartesian;i++)
+				{
+					j=(i+p*cells_in_Plane_Cartesian)*8;
+					P=Core_Grid_List[C_P_DC[j+0]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+1]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+2]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+3]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+4]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+5]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+6]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Core_Grid_List[C_P_DC[j+7]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					k=(i+p*cells_in_Plane_Cartesian)*7;
+					if(p>=id_dissipation_length)
+						myfile_out<<C_N_DC[k+0]<<"\t"<<C_N_DC[k+1]<<"\t"<<
+								C_N_DC[k+2]<<"\t"<<C_N_DC[k+3]<<"\t"<<
+								C_N_DC[k+4]<<"\t"<<C_N_DC[k+5]<<"\t"<<
+								C_N_DC[k+6]<<"\t"<<0<<"\n";
+					else
+						myfile_out<<C_N_DC[k+0]<<"\t"<<C_N_DC[k+1]<<"\t"<<
+								C_N_DC[k+2]<<"\t"<<C_N_DC[k+3]<<"\t"<<
+								C_N_DC[k+4]<<"\t"<<C_N_DC[k+5]<<"\t"<<
+								C_N_DC[k+6]<<"\t"<<1<<"\n";
+				}
+				
+				for(int i=0;i<cells_in_Plane_Polar;i++)
+				{
+					j=(i+p*cells_in_Plane_Polar)*8;
+					P=Polar_Grid_List[C_P_DP[j+0]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+1]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+2]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+3]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+4]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+5]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+6]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+					P=Polar_Grid_List[C_P_DP[j+7]];
+					myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+ 					k1=(i+p*cells_in_Plane_Polar)*7;
+					if((i>=(cells_in_Plane_Polar-(10*(nr-1)))))
+					{	//cout<<i<<"\t"<<p<<endl;
+						if(p<=13)
+							myfile_out<<C_N_DP[k1+0]<<"\t"<<C_N_DP[k1+1]<<"\t"<<
+									C_N_DP[k1+2]<<"\t"<<C_N_DP[k1+3]<<"\t"<<
+									C_N_DP[k1+4]<<"\t"<<C_N_DP[k1+5]<<"\t"<<
+									C_N_DP[k1+6]<<"\t"<<1<<"\n";
+						else
+								myfile_out<<C_N_DP[k1+0]<<"\t"<<C_N_DP[k1+1]<<"\t"<<
+									C_N_DP[k1+2]<<"\t"<<C_N_DP[k1+3]<<"\t"<<
+									C_N_DP[k1+4]<<"\t"<<C_N_DP[k1+5]<<"\t"<<
+									C_N_DP[k1+6]<<"\t"<<0<<"\n";
+					}
+					else
+						myfile_out<<C_N_DP[k1+0]<<"\t"<<C_N_DP[k1+1]<<"\t"<<
+								C_N_DP[k1+2]<<"\t"<<C_N_DP[k1+3]<<"\t"<<
+								C_N_DP[k1+4]<<"\t"<<C_N_DP[k1+5]<<"\t"<<
+								C_N_DP[k1+6]<<"\t"<<1<<"\n";
+				}
+			}
+			
+		}
+		else
+		{
+			myfile_out<<"Reading Polar Grid\n";
+			Point_List = Polar_Grid_List;
+			myfile_out<<ntheta<<"\t"<<nr<<"\t"<<nlength<<endl;
+			myfile_out<<no_of_Cells_Polar<<endl;
+			for(int i=0;i<no_of_Cells_Polar;i++)
+			{
+				j=i*8;
+				P=Point_List[C_P_DP[j+0]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+1]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+2]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+3]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+4]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+5]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+6]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				P=Point_List[C_P_DP[j+7]];
+				myfile_out<<P.Get_x()<<"\t"<<P.Get_y()<<"\t"<<P.Get_z()<<endl;
+				k=j*7;
+				myfile_out<<Cell_Neighbours[k+0]<<"\t"<<Cell_Neighbours[k+1]<<"\t"<<
+							Cell_Neighbours[k+2]<<"\t"<<Cell_Neighbours[k+3]<<"\t"<<
+							Cell_Neighbours[k+4]<<"\t"<<Cell_Neighbours[k+5]<<"\t"<<
+							Cell_Neighbours[k+6]<<"\n";
+			}
+		}
+	}
+	else
+	{
+		cout<<"Could not open file for writing"<<endl;
+	}
+	cout<<"Input file written for Pipe\n";
+}
+
+void Cylinder::Identify_Boundaries(const bool & Grid_For_Vortex_Tube,const bool & Is_Core_Elliptic)
+{
+	int index=0,a=0,CL=0,HL=0;
+	CL = Cold_Layers*(nr-1);
+	HL = Hot_Layers*(nr-1);
+	switch(Grid_For_Vortex_Tube)
+	{
+		case true:
+			switch(Is_Core_Elliptic)
+			{
+				case true:
+					for(int i=0;i<cells_in_Plane_Cartesian;i++)
+					{
+						EB_List.push_back(C_N_DC[i*7+0]);
+						EB_List.push_back(1);
+						EB_List.push_back(C_N_DC[i*7+2]);
+					}
+					for(int i=0;i<CL;i++)
+					{
+						EB_List.push_back(C_N_DP[i*7+0]);
+						EB_List.push_back(1);
+						EB_List.push_back(C_N_DP[i*7+2]);
+					}
+					for(int i=CL;i<cells_in_Plane_Polar;i++)
+					{
+						cout<<"Wall cell \t"<<i<<endl;
+						WB_List.push_back(C_N_DP[i*7+0]);
+						WB_List.push_back(1);
+						WB_List.push_back(C_N_DP[i*7+2]);
+					}
+					for(int i=(no_of_Cells_Cartesian-cells_in_Plane_Cartesian);i<no_of_Cells_Cartesian;i++)
+					{
+						cout<<"Wall cell \t"<<i<<endl;
+						WB_List.push_back(C_N_DC[i*7+0]);
+						WB_List.push_back(0);
+						WB_List.push_back(C_N_DC[i*7+1]);
+					}
+//					cells near the hot boundary are left for exit
+					index = (no_of_Cells_Polar-cells_in_Plane_Polar);
+					for(int i=index;i<(index+HL);i++)
+					{
+						cout<<"Wall cell \t"<<i<<endl;
+						WB_List.push_back(C_N_DP[i*7+0]);
+						WB_List.push_back(0);
+						WB_List.push_back(C_N_DP[i*7+1]);
+					}
+					for(int i=(index+HL);i<no_of_Cells_Polar;i++)
+					{
+						EB_List.push_back(C_N_DP[i*7+0]);
+						EB_List.push_back(0);
+						EB_List.push_back(C_N_DP[i*7+1]);
+					}
+					a=(ntheta-1)*(nr-2);
+					index=0;
+					for(int k=0;k<(nlength-1);k++)
+					{
+						for(int i=0;i<(ntheta-1);i++)
+						{
+							if( ((k==1)||(k==2)) && ((i==0)||(i==1)) )
+							{
+								index = i+a+k*cells_in_Plane_Polar;
+// 								cout<<"Inlet cells\t"<<index<<endl;
+								IB_List.push_back(C_N_DP[index*7+0]);
+								IB_List.push_back(4);
+								IB_List.push_back(C_N_DP[index*7+5]);
+							}
+							else
+							{
+								index = i+a+k*cells_in_Plane_Polar;
+								cout<<"wALL cells\t"<<index<<endl;
+								WB_List.push_back(C_N_DP[index*7+0]);
+								WB_List.push_back(4);
+								WB_List.push_back(C_N_DP[index*7+5]);
+							}
+						}
+					}
+				break;
+				case false:
+					for(int i=0;i<cells_in_Plane_Polar;i++)
+					{
+						IB_List.push_back(C_N_DP[i*7+0]);
+						IB_List.push_back(1);
+						IB_List.push_back(C_N_DP[i*7+1]);
+					}
+					for(int i=(no_of_Cells_Polar-cells_in_Plane_Polar);i<no_of_Cells_Polar;i++)
+					{
+						EB_List.push_back(C_N_DP[i*7+0]);
+						EB_List.push_back(0);
+						EB_List.push_back(C_N_DP[i*7+2]);
+					}
+					a=(ntheta-1)*(nr-2);
+		// 			delz = Cylinder_Length/(nlength-1);
+					for(int k=0;k<(nlength-1);k++)
+					{
+						for(int i=0;i<(ntheta-1);i++)
+						{
+							if(((k==1)||(k==2)||(k==3)||(k==4))&&((i==0)||(i==1)))
+							{
+								index = i+a+k*cells_in_Plane_Polar;
+								IB_List.push_back(C_N_DP[index*7+0]);
+								IB_List.push_back(4);
+								IB_List.push_back(C_N_DP[index*7+2]);
+							}
+							else
+							{
+								index = i+a+k*cells_in_Plane_Polar;
+								WB_List.push_back(C_N_DP[index*7+1]);
+								WB_List.push_back(4);
+								WB_List.push_back(C_N_DP[index*7+2]);
+							}
+						}
+					}
+				break;
+			}
+			break;
+		case false:
+					cout<<"Grid for plane pipe flow\n";
+					switch(Is_Core_Elliptic)
+					{
+						case true:
+									for(int i=0;i<cells_in_Plane_Cartesian;i++)
+									{
+										IB_List.push_back(C_N_DC[i*7+0]);
+										IB_List.push_back(1);
+										IB_List.push_back(C_N_DC[i*7+2]);
+									}
+									for(int i=0;i<cells_in_Plane_Polar;i++)
+									{
+										IB_List.push_back(C_N_DP[i*7+0]);
+										IB_List.push_back(1);
+										IB_List.push_back(C_N_DP[i*7+2]);
+									}
+									for(int i=(no_of_Cells_Cartesian-cells_in_Plane_Cartesian);i<no_of_Cells_Cartesian;i++)
+									{
+										EB_List.push_back(C_N_DC[i*7+0]);
+										EB_List.push_back(0);
+										EB_List.push_back(C_N_DC[i*7+1]);
+									}
+									for(int i=(no_of_Cells_Polar-cells_in_Plane_Polar);i<no_of_Cells_Polar;i++)
+									{
+										EB_List.push_back(C_N_DP[i*7+0]);
+										EB_List.push_back(0);
+										EB_List.push_back(C_N_DP[i*7+1]);
+									}
+									a=(ntheta-1)*(nr-2);
+									for(int k=0;k<(nlength-1);k++)
+									{
+										for(int i=0;i<(ntheta-1);i++)
+										{
+											index = (i+a+k*cells_in_Plane_Polar);
+											WB_List.push_back(C_N_DP[index*7+0]);
+											WB_List.push_back(4);
+											WB_List.push_back(C_N_DP[index*7+5]);
+										}
+									}
+									break;
+						case false:
+									for(int i=0;i<cells_in_Plane_Polar;i++)
+									{
+										IB_List.push_back(C_N_DP[i*7+0]);
+										IB_List.push_back(1);
+										IB_List.push_back(C_N_DP[i*7+1]);
+									}
+									for(int i=(no_of_Cells_Polar-cells_in_Plane_Polar);i<no_of_Cells_Polar;i++)
+									{
+										EB_List.push_back(C_N_DP[i*7+0]);
+										EB_List.push_back(0);
+										EB_List.push_back(C_N_DP[i*7+2]);
+									}
+									a=(ntheta-1)*(nr-2);
+									for(int k=0;k<(nlength-1);k++)
+									{
+										for(int i=0;i<(ntheta-1);i++)
+										{
+											index = i+a+k*cells_in_Plane_Polar;
+											WB_List.push_back(C_N_DP[index*7+0]);
+											WB_List.push_back(4);
+											WB_List.push_back(C_N_DP[index*7+5]);
+										}
+									}
+									break;
+						}
+					break;
+	}
+cout<<"Inlet boundary list\t"<<IB_List.size()<<endl;
+cout<<"Exit boundary list\t"<<EB_List.size()<<endl;
+cout<<"Wall boundary list\t"<<WB_List.size()<<endl;
+cout<<"Identified boundaries for grid type"<<endl;
+}
+
+
+void Cylinder::Append_Boundary_Information(const string & Inputfile,const bool & Grid_For_Vortex_Tube)
+{
+	ofstream File_Out(Inputfile.c_str(),ios::out|ios::app);
+	if(File_Out.is_open())
+	{
+		File_Out<<"Inlet_Boundary_Cells\t"<<0<<"\t"<<IB_List.size()/3<<endl;
+		for(unsigned int i=0;i<IB_List.size();i+=3)
+			File_Out<<IB_List[i+0]<<"\t"<<IB_List[i+1]<<"\t"<<IB_List[i+2]<<endl;
+		File_Out<<"Exit_Boundary_Cells\t"<<1<<"\t"<<EB_List.size()/3<<endl;
+		for(unsigned int i=0;i<EB_List.size();i+=3)
+			File_Out<<EB_List[i+0]<<"\t"<<EB_List[i+1]<<"\t"<<EB_List[i+2]<<endl;
+		File_Out<<"Wall_Boundary_Cells\t"<<2<<"\t"<<WB_List.size()/3<<endl;
+		for(unsigned int i=0;i<WB_List.size();i+=3)
+		{
+			File_Out<<WB_List[i+0]<<"\t"<<WB_List[i+1]<<"\t"<<WB_List[i+2]<<endl;
+			cout<<WB_List[i+0]<<"\t"<<WB_List[i+1]<<"\t"<<WB_List[i+2]<<endl;
+		}
+	}
+	else
+	{
+		cout<<"Could not open file to append Boundary points list\n";
+	}
+}

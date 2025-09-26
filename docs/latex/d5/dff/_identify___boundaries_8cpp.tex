@@ -1,0 +1,288 @@
+\doxysection{Gmsh\+\_\+\+Grids/\+Identify\+\_\+\+Boundaries.cpp File Reference}
+\hypertarget{_identify___boundaries_8cpp}{}\label{_identify___boundaries_8cpp}\index{Gmsh\_Grids/Identify\_Boundaries.cpp@{Gmsh\_Grids/Identify\_Boundaries.cpp}}
+{\ttfamily \#include $<$vtk\+Smart\+Pointer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+XMLUnstructured\+Grid\+Reader.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid\+Reader.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Feature\+Edges.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Id\+List.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Points.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+XMLPoly\+Data\+Writer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Poly\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Geometry\+Filter.\+h$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+Include dependency graph for Identify\+\_\+\+Boundaries.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d7/da1/_identify___boundaries_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ \mbox{\hyperlink{_identify___boundaries_8cpp_ab6fe813c30e279dc9bc9c3857cd78ab5_ab6fe813c30e279dc9bc9c3857cd78ab5}{read\+VTKFile}} (const std\+::string \&filename)
+\item 
+void \mbox{\hyperlink{_identify___boundaries_8cpp_a836d8cb5988a94c42f84b1a6107fd56a_a836d8cb5988a94c42f84b1a6107fd56a}{classify\+Boundaries}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&boundary\+Mapping)
+\item 
+void \mbox{\hyperlink{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010}{save\+Boundary\+To\+VTK}} (const std\+::string \&filename, const std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ \&boundary\+Points)
+\item 
+vtk\+Smart\+Pointer$<$ vtk\+Poly\+Data $>$ \mbox{\hyperlink{_identify___boundaries_8cpp_a0c8a684bcb2e72889cd7ffb21024124f_a0c8a684bcb2e72889cd7ffb21024124f}{Convert\+To\+Poly\+Data}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ unstructured\+Grid)
+\item 
+int \mbox{\hyperlink{_identify___boundaries_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_identify___boundaries_8cpp_a836d8cb5988a94c42f84b1a6107fd56a_a836d8cb5988a94c42f84b1a6107fd56a}\index{Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}!classifyBoundaries@{classifyBoundaries}}
+\index{classifyBoundaries@{classifyBoundaries}!Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}}
+\doxysubsubsection{\texorpdfstring{classifyBoundaries()}{classifyBoundaries()}}
+{\footnotesize\ttfamily \label{_identify___boundaries_8cpp_a836d8cb5988a94c42f84b1a6107fd56a_a836d8cb5988a94c42f84b1a6107fd56a} 
+void classify\+Boundaries (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::unordered\+\_\+map$<$ std\+::string, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&}]{boundary\+Mapping}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify___boundaries_8cpp_source_l00054}{54}} of file \mbox{\hyperlink{_identify___boundaries_8cpp_source}{Identify\+\_\+\+Boundaries.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Convert\ UnstructuredGrid\ to\ PolyData\ using\ vtkGeometryFilter}}
+\DoxyCodeLine{00057\ \ \ \ \ vtkSmartPointer<vtkGeometryFilter>\ geometryFilter\ =\ vtkSmartPointer<vtkGeometryFilter>::New();}
+\DoxyCodeLine{00058\ \ \ \ \ geometryFilter-\/>SetInputData(grid);}
+\DoxyCodeLine{00059\ \ \ \ \ geometryFilter-\/>Update();}
+\DoxyCodeLine{00060\ \ \ \ \ vtkSmartPointer<vtkPolyData>\ polyData\ =\ geometryFilter-\/>GetOutput();}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{comment}{//\ Extract\ boundary\ edges}}
+\DoxyCodeLine{00063\ \ \ \ \ vtkSmartPointer<vtkFeatureEdges>\ featureEdges\ =\ vtkSmartPointer<vtkFeatureEdges>::New();}
+\DoxyCodeLine{00064\ \ \ \ \ featureEdges-\/>SetInputData(polyData);}
+\DoxyCodeLine{00065\ \ \ \ \ featureEdges-\/>BoundaryEdgesOn();}
+\DoxyCodeLine{00066\ \ \ \ \ featureEdges-\/>FeatureEdgesOff();}
+\DoxyCodeLine{00067\ \ \ \ \ featureEdges-\/>ManifoldEdgesOff();}
+\DoxyCodeLine{00068\ \ \ \ \ featureEdges-\/>NonManifoldEdgesOff();}
+\DoxyCodeLine{00069\ \ \ \ \ featureEdges-\/>Update();}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ Get\ the\ boundary\ points}}
+\DoxyCodeLine{00072\ \ \ \ \ vtkSmartPointer<vtkPolyData>\ boundaryData\ =\ featureEdges-\/>GetOutput();}
+\DoxyCodeLine{00073\ \ \ \ \ vtkSmartPointer<vtkPoints>\ boundaryPoints\ =\ boundaryData-\/>GetPoints();}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{if}\ (!boundaryPoints\ ||\ boundaryPoints-\/>GetNumberOfPoints()\ ==\ 0)\ \{}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ No\ boundary\ points\ found\ in\ the\ grid."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00078\ \ \ \ \ \}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{comment}{//\ Classify\ boundary\ points}}
+\DoxyCodeLine{00081\ \ \ \ \ std::vector<std::tuple<double,\ double,\ double>>\ walls,\ inlets,\ outlets;}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ boundaryPoints-\/>GetNumberOfPoints();\ i++)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[3];}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ boundaryPoints-\/>GetPoint(i,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}});}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (std::abs(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0])\ <\ 1e-\/6)\ \{\ \textcolor{comment}{//\ Wall\ at\ x\ =\ 0.0}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ walls.emplace\_back(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[2]);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::abs(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1])\ <\ 1e-\/6)\ \{\ \textcolor{comment}{//\ Inlet\ at\ y\ =\ 0.0}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ inlets.emplace\_back(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[2]);}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (std::abs(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1]\ -\/\ 1.0)\ <\ 1e-\/6)\ \{\ \textcolor{comment}{//\ Outlet\ at\ y\ =\ 1.0}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ outlets.emplace\_back(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[2]);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ \ \ \ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{comment}{//\ Store\ classified\ boundaries}}
+\DoxyCodeLine{00097\ \ \ \ \ boundaryMapping[\textcolor{stringliteral}{"{}wall"{}}]\ =\ walls;}
+\DoxyCodeLine{00098\ \ \ \ \ boundaryMapping[\textcolor{stringliteral}{"{}inlet"{}}]\ =\ inlets;}
+\DoxyCodeLine{00099\ \ \ \ \ boundaryMapping[\textcolor{stringliteral}{"{}outlet"{}}]\ =\ outlets;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Boundary\ classification\ completed:\(\backslash\)n"{}}}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ Walls:\ "{}}\ <<\ walls.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ Inlets:\ "{}}\ <<\ inlets.size()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ \textcolor{stringliteral}{"{}\ \ Outlets:\ "{}}\ <<\ outlets.size()\ <<\ std::endl;}
+\DoxyCodeLine{00105\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{d5/dff/_identify___boundaries_8cpp_a836d8cb5988a94c42f84b1a6107fd56a_a836d8cb5988a94c42f84b1a6107fd56a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify___boundaries_8cpp_a0c8a684bcb2e72889cd7ffb21024124f_a0c8a684bcb2e72889cd7ffb21024124f}\index{Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}!ConvertToPolyData@{ConvertToPolyData}}
+\index{ConvertToPolyData@{ConvertToPolyData}!Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}}
+\doxysubsubsection{\texorpdfstring{ConvertToPolyData()}{ConvertToPolyData()}}
+{\footnotesize\ttfamily \label{_identify___boundaries_8cpp_a0c8a684bcb2e72889cd7ffb21024124f_a0c8a684bcb2e72889cd7ffb21024124f} 
+vtk\+Smart\+Pointer$<$ vtk\+Poly\+Data $>$ Convert\+To\+Poly\+Data (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{unstructured\+Grid}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify___boundaries_8cpp_source_l00125}{125}} of file \mbox{\hyperlink{_identify___boundaries_8cpp_source}{Identify\+\_\+\+Boundaries.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00126\ \ \ \ \ vtkSmartPointer<vtkGeometryFilter>\ geometryFilter\ =\ vtkSmartPointer<vtkGeometryFilter>::New();}
+\DoxyCodeLine{00127\ \ \ \ \ geometryFilter-\/>SetInputData(unstructuredGrid);}
+\DoxyCodeLine{00128\ \ \ \ \ geometryFilter-\/>Update();}
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{keywordflow}{return}\ geometryFilter-\/>GetOutput();}
+\DoxyCodeLine{00130\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=255pt]{d5/dff/_identify___boundaries_8cpp_a0c8a684bcb2e72889cd7ffb21024124f_a0c8a684bcb2e72889cd7ffb21024124f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify___boundaries_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}\index{Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}!main@{main}}
+\index{main@{main}!Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_identify___boundaries_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify___boundaries_8cpp_source_l00137}{137}} of file \mbox{\hyperlink{_identify___boundaries_8cpp_source}{Identify\+\_\+\+Boundaries.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)\ \{}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Usage:\ "{}}\ <<\ argv[0]\ <<\ \textcolor{stringliteral}{"{}\ <VTK\ File>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{00141\ \ \ \ \ \}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ std::string\ filename\ =\ argv[1];}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{comment}{//\ Load\ the\ unstructured\ grid}}
+\DoxyCodeLine{00146\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGrid>\ grid\ =\ \mbox{\hyperlink{_identify___boundaries_8cpp_ab6fe813c30e279dc9bc9c3857cd78ab5_ab6fe813c30e279dc9bc9c3857cd78ab5}{readVTKFile}}(filename);}
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{if}\ (!grid\ ||\ grid-\/>GetNumberOfCells()\ ==\ 0)\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Invalid\ or\ empty\ grid."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ vtkPolyData\ before\ using\ vtkFeatureEdges}}
+\DoxyCodeLine{00153\ \ \ \ \ vtkSmartPointer<vtkPolyData>\ polyData\ =\ \mbox{\hyperlink{_identify___boundaries_8cpp_a0c8a684bcb2e72889cd7ffb21024124f_a0c8a684bcb2e72889cd7ffb21024124f}{ConvertToPolyData}}(grid);}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{if}\ (!polyData\ ||\ polyData-\/>GetNumberOfPoints()\ ==\ 0)\ \{}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Failed\ to\ convert\ UnstructuredGrid\ to\ PolyData."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{comment}{//\ Boundary\ classification}}
+\DoxyCodeLine{00160\ \ \ \ \ std::unordered\_map<std::string,\ std::vector<std::tuple<double,\ double,\ double>>>\ boundaryMapping;}
+\DoxyCodeLine{00161\ \ \ \ \ \mbox{\hyperlink{_identify___boundaries_8cpp_a836d8cb5988a94c42f84b1a6107fd56a_a836d8cb5988a94c42f84b1a6107fd56a}{classifyBoundaries}}(grid,\ boundaryMapping);}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ Save\ classified\ boundaries\ to\ VTK\ files}}
+\DoxyCodeLine{00164\ \ \ \ \ \mbox{\hyperlink{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010}{saveBoundaryToVTK}}(\textcolor{stringliteral}{"{}wall\_boundary.vtp"{}},\ boundaryMapping[\textcolor{stringliteral}{"{}wall"{}}]);}
+\DoxyCodeLine{00165\ \ \ \ \ \mbox{\hyperlink{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010}{saveBoundaryToVTK}}(\textcolor{stringliteral}{"{}inlet\_boundary.vtp"{}},\ boundaryMapping[\textcolor{stringliteral}{"{}inlet"{}}]);}
+\DoxyCodeLine{00166\ \ \ \ \ \mbox{\hyperlink{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010}{saveBoundaryToVTK}}(\textcolor{stringliteral}{"{}outlet\_boundary.vtp"{}},\ boundaryMapping[\textcolor{stringliteral}{"{}outlet"{}}]);}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Boundary\ data\ saved\ as\ VTK\ files.\(\backslash\)n"{}};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_SUCCESS;}
+\DoxyCodeLine{00171\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{d5/dff/_identify___boundaries_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify___boundaries_8cpp_ab6fe813c30e279dc9bc9c3857cd78ab5_ab6fe813c30e279dc9bc9c3857cd78ab5}\index{Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}!readVTKFile@{readVTKFile}}
+\index{readVTKFile@{readVTKFile}!Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}}
+\doxysubsubsection{\texorpdfstring{readVTKFile()}{readVTKFile()}}
+{\footnotesize\ttfamily \label{_identify___boundaries_8cpp_ab6fe813c30e279dc9bc9c3857cd78ab5_ab6fe813c30e279dc9bc9c3857cd78ab5} 
+vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ read\+VTKFile (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify___boundaries_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_identify___boundaries_8cpp_source}{Identify\+\_\+\+Boundaries.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ std::ifstream\ fileCheck(filename);}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{if}\ (!fileCheck.good())\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ VTK\ file\ not\ found:\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00023\ \ \ \ \ \}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGrid>\ grid;}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Check\ file\ extension}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (filename.substr(filename.find\_last\_of(\textcolor{stringliteral}{"{}."{}})\ +\ 1)\ ==\ \textcolor{stringliteral}{"{}vtu"{}})\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkXMLUnstructuredGridReader>\ reader\ =\ vtkSmartPointer<vtkXMLUnstructuredGridReader>::New();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ reader-\/>SetFileName(filename.c\_str());}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ reader-\/>Update();}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ grid\ =\ reader-\/>GetOutput();}
+\DoxyCodeLine{00033\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (filename.substr(filename.find\_last\_of(\textcolor{stringliteral}{"{}."{}})\ +\ 1)\ ==\ \textcolor{stringliteral}{"{}vtk"{}})\ \{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkUnstructuredGridReader>\ reader\ =\ vtkSmartPointer<vtkUnstructuredGridReader>::New();}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ reader-\/>SetFileName(filename.c\_str());}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ reader-\/>Update();}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ grid\ =\ reader-\/>GetOutput();}
+\DoxyCodeLine{00038\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Unsupported\ file\ format.\ Use\ .vtu\ or\ .vtk"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00041\ \ \ \ \ \}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keywordflow}{if}\ (!grid\ ||\ grid-\/>GetNumberOfCells()\ ==\ 0)\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Failed\ to\ load\ VTK\ file\ or\ grid\ is\ empty."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00046\ \ \ \ \ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Loaded\ grid\ with\ "{}}\ <<\ grid-\/>GetNumberOfCells()\ <<\ \textcolor{stringliteral}{"{}\ cells\ and\ "{}}\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ grid-\/>GetNumberOfPoints()\ <<\ \textcolor{stringliteral}{"{}\ points."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordflow}{return}\ grid;}
+\DoxyCodeLine{00052\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{d5/dff/_identify___boundaries_8cpp_ab6fe813c30e279dc9bc9c3857cd78ab5_ab6fe813c30e279dc9bc9c3857cd78ab5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010}\index{Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}!saveBoundaryToVTK@{saveBoundaryToVTK}}
+\index{saveBoundaryToVTK@{saveBoundaryToVTK}!Identify\_Boundaries.cpp@{Identify\_Boundaries.cpp}}
+\doxysubsubsection{\texorpdfstring{saveBoundaryToVTK()}{saveBoundaryToVTK()}}
+{\footnotesize\ttfamily \label{_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010} 
+void save\+Boundary\+To\+VTK (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{const std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ \&}]{boundary\+Points}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify___boundaries_8cpp_source_l00108}{108}} of file \mbox{\hyperlink{_identify___boundaries_8cpp_source}{Identify\+\_\+\+Boundaries.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00109\ \ \ \ \ vtkSmartPointer<vtkPolyData>\ boundaryData\ =\ vtkSmartPointer<vtkPolyData>::New();}
+\DoxyCodeLine{00110\ \ \ \ \ vtkSmartPointer<vtkPoints>\ points\ =\ vtkSmartPointer<vtkPoints>::New();}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ :\ boundaryPoints)\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ points-\/>InsertNextPoint(std::get<0>(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}),\ std::get<1>(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}),\ std::get<2>(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}));}
+\DoxyCodeLine{00114\ \ \ \ \ \}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ boundaryData-\/>SetPoints(points);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \ \ \ \ vtkSmartPointer<vtkXMLPolyDataWriter>\ writer\ =\ vtkSmartPointer<vtkXMLPolyDataWriter>::New();}
+\DoxyCodeLine{00119\ \ \ \ \ writer-\/>SetFileName(filename.c\_str());}
+\DoxyCodeLine{00120\ \ \ \ \ writer-\/>SetInputData(boundaryData);}
+\DoxyCodeLine{00121\ \ \ \ \ writer-\/>Write();}
+\DoxyCodeLine{00122\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{d5/dff/_identify___boundaries_8cpp_a6dc226d18930077e09957f7af342d010_a6dc226d18930077e09957f7af342d010_icgraph}
+\end{center}
+\end{figure}

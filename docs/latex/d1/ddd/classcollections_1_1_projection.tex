@@ -1,0 +1,89 @@
+\doxysection{collections.\+Projection Class Reference}
+\hypertarget{classcollections_1_1_projection}{}\label{classcollections_1_1_projection}\index{collections.Projection@{collections.Projection}}
+Inheritance diagram for collections.\+Projection\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d1/ddd/classcollections_1_1_projection}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_projection_adb13fdcfa1111d26c38b9dcc272a04b5}\label{classcollections_1_1_projection_adb13fdcfa1111d26c38b9dcc272a04b5} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \+\_\+\+Matchable keys, Mapping space)
+\item 
+\Hypertarget{classcollections_1_1_projection_afca992eb95bf33d648b795029bb8a9a2}\label{classcollections_1_1_projection_afca992eb95bf33d648b795029bb8a9a2} 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, key)
+\item 
+\Hypertarget{classcollections_1_1_projection_ab1cee70708e394d700c564232afd0e40}\label{classcollections_1_1_projection_ab1cee70708e394d700c564232afd0e40} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classcollections_1_1_projection_a680d501b6c201dce9d6c25df7bb976ea}\label{classcollections_1_1_projection_a680d501b6c201dce9d6c25df7bb976ea} 
+{\bfseries \+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_projection_a9d38a6fece12ef732999a4224d1c280f}\label{classcollections_1_1_projection_a9d38a6fece12ef732999a4224d1c280f} 
+{\bfseries \+\_\+keys\+\_\+resolved} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_projection_afa861c0692b0faad49be4a388de68d21}\label{classcollections_1_1_projection_afa861c0692b0faad49be4a388de68d21} 
+{\bfseries \+\_\+match} = \+\_\+dispatch(keys)
+\item 
+\Hypertarget{classcollections_1_1_projection_abd822c7507cd433bc405fd6ce1022ec0}\label{classcollections_1_1_projection_abd822c7507cd433bc405fd6ce1022ec0} 
+{\bfseries \+\_\+space} = space
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Project a set of keys over a mapping
+
+>>> sample = {'a': 1, 'b': 2, 'c': 3}
+>>> prj = Projection(['a', 'c', 'd'], sample)
+>>> dict(prj)
+{'a': 1, 'c': 3}
+
+Projection also accepts an iterable or callable or pattern.
+
+>>> iter_prj = Projection(iter('acd'), sample)
+>>> call_prj = Projection(lambda k: ord(k) in (97, 99, 100), sample)
+>>> pat_prj = Projection(re.compile(r'[acd]'), sample)
+>>> prj == iter_prj == call_prj == pat_prj
+True
+
+Keys should only appear if they were specified and exist in the space.
+Order is retained.
+
+>>> list(prj)
+['a', 'c']
+
+Attempting to access a key not in the projection
+results in a KeyError.
+
+>>> prj['b']
+Traceback (most recent call last):
+...
+KeyError: 'b'
+
+Use the projection to update another dict.
+
+>>> target = {'a': 2, 'b': 2}
+>>> target.update(prj)
+>>> target
+{'a': 1, 'b': 2, 'c': 3}
+
+Projection keeps a reference to the original dict, so
+modifying the original dict may modify the Projection.
+
+>>> del sample['a']
+>>> dict(prj)
+{'c': 3}
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,94 @@
+\doxysection{Dissipation\+\_\+\+Cuda\+\_\+\+Kernel.\+cpp}
+\hypertarget{_dissipation___cuda___kernel_8cpp_source}{}\label{_dissipation___cuda___kernel_8cpp_source}\index{CUDA\_KERNELS/Dissipation\_Cuda\_Kernel.cpp@{CUDA\_KERNELS/Dissipation\_Cuda\_Kernel.cpp}}
+\mbox{\hyperlink{_dissipation___cuda___kernel_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <cuda\_runtime.h>}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00005}\mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_a50928bcbb01a720ed1573ee8a48b0ec0_a50928bcbb01a720ed1573ee8a48b0ec0}{00005}}\ \_\_device\_\_\ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114}{Sign}}(\textcolor{keywordtype}{double}\ value)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{keywordflow}{return}\ (value\ >=\ 0)\ ?\ 1.0\ :\ -\/1.0;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00007}00007\ \}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00009}\mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_ab340bcea2b3b10debe136fea5cff8d4b_ab340bcea2b3b10debe136fea5cff8d4b}{00009}}\ \_\_global\_\_\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_ab340bcea2b3b10debe136fea5cff8d4b_ab340bcea2b3b10debe136fea5cff8d4b}{Condition\_For\_MOVERS\_CUDA}}(\textcolor{keywordtype}{double}*\ \mbox{\hyperlink{_globals_8h_ad85ed9c1c30f75afe23a11a0d168e530_ad85ed9c1c30f75afe23a11a0d168e530}{d\_U}},\ \textcolor{keywordtype}{double}*\ \mbox{\hyperlink{_globals_8h_a53a3ae3d84bb3ac66ffec5077cca7f49_a53a3ae3d84bb3ac66ffec5077cca7f49}{d\_F}},\ \textcolor{keywordtype}{double}*\ L\_Max,\ \textcolor{keywordtype}{double}*\ L\_Min,\ \textcolor{keywordtype}{double}*\ Alpha,\ \textcolor{keywordtype}{int}\ n)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{int}\ idx\ =\ threadIdx.x\ +\ blockIdx.x\ *\ blockDim.x;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00011}00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (idx\ >=\ n)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{double}\ epsilon\ =\ 1e-\/10;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{double}\ local\_Alpha\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00015}00015\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00016}00016\ \ \ \ \ \textcolor{keywordflow}{if}\ (fabs(\mbox{\hyperlink{_globals_8h_a53a3ae3d84bb3ac66ffec5077cca7f49_a53a3ae3d84bb3ac66ffec5077cca7f49}{d\_F}}[idx])\ <\ epsilon\ \&\&\ fabs(\mbox{\hyperlink{_globals_8h_ad85ed9c1c30f75afe23a11a0d168e530_ad85ed9c1c30f75afe23a11a0d168e530}{d\_U}}[idx])\ >\ epsilon)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ local\_Alpha\ =\ 0.0;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00018}00018\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (fabs(\mbox{\hyperlink{_globals_8h_a53a3ae3d84bb3ac66ffec5077cca7f49_a53a3ae3d84bb3ac66ffec5077cca7f49}{d\_F}}[idx])\ <\ epsilon\ \&\&\ fabs(\mbox{\hyperlink{_globals_8h_ad85ed9c1c30f75afe23a11a0d168e530_ad85ed9c1c30f75afe23a11a0d168e530}{d\_U}}[idx])\ <\ epsilon)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ local\_Alpha\ =\ L\_Min[idx];}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00020}00020\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (fabs(\mbox{\hyperlink{_globals_8h_a53a3ae3d84bb3ac66ffec5077cca7f49_a53a3ae3d84bb3ac66ffec5077cca7f49}{d\_F}}[idx])\ >\ epsilon\ \&\&\ fabs(\mbox{\hyperlink{_globals_8h_ad85ed9c1c30f75afe23a11a0d168e530_ad85ed9c1c30f75afe23a11a0d168e530}{d\_U}}[idx])\ >\ epsilon)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ local\_Alpha\ =\ fabs(\mbox{\hyperlink{_globals_8h_a53a3ae3d84bb3ac66ffec5077cca7f49_a53a3ae3d84bb3ac66ffec5077cca7f49}{d\_F}}[idx]\ /\ \mbox{\hyperlink{_globals_8h_ad85ed9c1c30f75afe23a11a0d168e530_ad85ed9c1c30f75afe23a11a0d168e530}{d\_U}}[idx]);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (local\_Alpha\ >=\ L\_Max[idx])\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ local\_Alpha\ =\ \mbox{\hyperlink{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114}{Sign}}(local\_Alpha)\ *\ L\_Max[idx];}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (local\_Alpha\ <=\ L\_Min[idx])\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ local\_Alpha\ =\ \mbox{\hyperlink{definitions_8h_a956da109131dbcea0f4c96bb70aa0114_a956da109131dbcea0f4c96bb70aa0114}{Sign}}(local\_Alpha)\ *\ L\_Min[idx];}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00027}00027\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ local\_Alpha\ =\ L\_Min[idx];}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00029}00029\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00030}00030\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00031}00031\ \ \ \ \ Alpha[idx]\ =\ local\_Alpha;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00032}00032\ \}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00034}\mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{00034}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}()\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00035}00035\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ n\ =\ 1024;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00036}00036\ \ \ \ \ \textcolor{keywordtype}{double}\ *h\_d\_U,\ *h\_d\_F,\ *h\_L\_Max,\ *h\_L\_Min,\ *h\_Alpha;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00037}00037\ \ \ \ \ \textcolor{keywordtype}{double}\ *d\_d\_U,\ *d\_d\_F,\ *d\_L\_Max,\ *d\_L\_Min,\ *d\_Alpha;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00038}00038\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00039}00039\ \ \ \ \ \textcolor{comment}{//\ Allocate\ memory\ on\ host}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00040}00040\ \ \ \ \ h\_d\_U\ =\ (\textcolor{keywordtype}{double}*)malloc(n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00041}00041\ \ \ \ \ h\_d\_F\ =\ (\textcolor{keywordtype}{double}*)malloc(n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00042}00042\ \ \ \ \ h\_L\_Max\ =\ (\textcolor{keywordtype}{double}*)malloc(n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00043}00043\ \ \ \ \ h\_L\_Min\ =\ (\textcolor{keywordtype}{double}*)malloc(n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00044}00044\ \ \ \ \ h\_Alpha\ =\ (\textcolor{keywordtype}{double}*)malloc(n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00046}00046\ \ \ \ \ \textcolor{comment}{//\ Initialize\ data}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ n;\ i++)\ \{}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ h\_d\_U[i]\ =\ 1.0;\ \textcolor{comment}{//\ Replace\ with\ real\ values}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ h\_d\_F[i]\ =\ 0.5;\ \textcolor{comment}{//\ Replace\ with\ real\ values}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ h\_L\_Max[i]\ =\ 2.0;\ \textcolor{comment}{//\ Replace\ with\ real\ values}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ h\_L\_Min[i]\ =\ 0.1;\ \textcolor{comment}{//\ Replace\ with\ real\ values}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00054}00054\ \ \ \ \ \textcolor{comment}{//\ Allocate\ memory\ on\ device}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00055}00055\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}**)\&d\_d\_U,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00056}00056\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}**)\&d\_d\_F,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00057}00057\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}**)\&d\_L\_Max,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00058}00058\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}**)\&d\_L\_Min,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00059}00059\ \ \ \ \ cudaMalloc((\textcolor{keywordtype}{void}**)\&d\_Alpha,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}));}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00061}00061\ \ \ \ \ \textcolor{comment}{//\ Copy\ data\ from\ host\ to\ device}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00062}00062\ \ \ \ \ cudaMemcpy(d\_d\_U,\ h\_d\_U,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00063}00063\ \ \ \ \ cudaMemcpy(d\_d\_F,\ h\_d\_F,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00064}00064\ \ \ \ \ cudaMemcpy(d\_L\_Max,\ h\_L\_Max,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00065}00065\ \ \ \ \ cudaMemcpy(d\_L\_Min,\ h\_L\_Min,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyHostToDevice);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00067}00067\ \ \ \ \ \textcolor{comment}{//\ Launch\ kernel}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00068}00068\ \ \ \ \ \textcolor{keywordtype}{int}\ blockSize\ =\ 256;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00069}00069\ \ \ \ \ \textcolor{keywordtype}{int}\ numBlocks\ =\ (n\ +\ blockSize\ -\/\ 1)\ /\ blockSize;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00070}00070\ \ \ \ \ \mbox{\hyperlink{_dissipation___cuda___kernel_8cpp_ab340bcea2b3b10debe136fea5cff8d4b_ab340bcea2b3b10debe136fea5cff8d4b}{Condition\_For\_MOVERS\_CUDA<<<numBlocks,\ blockSize>}}>>(d\_d\_U,\ d\_d\_F,\ d\_L\_Max,\ d\_L\_Min,\ d\_Alpha,\ n);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00072}00072\ \ \ \ \ \textcolor{comment}{//\ Copy\ results\ from\ device\ to\ host}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00073}00073\ \ \ \ \ cudaMemcpy(h\_Alpha,\ d\_Alpha,\ n\ *\ \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{double}),\ cudaMemcpyDeviceToHost);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00074}00074\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00075}00075\ \ \ \ \ \textcolor{comment}{//\ Free\ memory}}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00076}00076\ \ \ \ \ cudaFree(d\_d\_U);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00077}00077\ \ \ \ \ cudaFree(d\_d\_F);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00078}00078\ \ \ \ \ cudaFree(d\_L\_Max);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00079}00079\ \ \ \ \ cudaFree(d\_L\_Min);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00080}00080\ \ \ \ \ cudaFree(d\_Alpha);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00081}00081\ \ \ \ \ free(h\_d\_U);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00082}00082\ \ \ \ \ free(h\_d\_F);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00083}00083\ \ \ \ \ free(h\_L\_Max);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00084}00084\ \ \ \ \ free(h\_L\_Min);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00085}00085\ \ \ \ \ free(h\_Alpha);}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00087}00087\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_dissipation___cuda___kernel_8cpp_source_l00088}00088\ \}}
+
+\end{DoxyCode}

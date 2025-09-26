@@ -1,0 +1,61 @@
+\doxysection{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Expr Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}{}\label{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}\index{qiskit.circuit.classical.expr.expr.Expr@{qiskit.circuit.classical.expr.expr.Expr}}
+Inheritance diagram for qiskit.\+circuit.\+classical.\+expr.\+expr.\+Expr\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.969697cm]{d9/d52/classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a2946a35678a13e2cc51d2ad2e913d8c2}\label{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a2946a35678a13e2cc51d2ad2e913d8c2} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\item 
+\+\_\+\+T\+\_\+co \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a1a0987bc9044be53ba12d57a07df2863_a1a0987bc9044be53ba12d57a07df2863}{accept}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1visitors_1_1_expr_visitor}{qiskit.\+circuit.\+classical.\+expr.\+Expr\+Visitor}}\mbox{[}\+\_\+\+T\+\_\+co\mbox{]} visitor)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a41888c3e6b17d1aae2c44eff77e89d18}\label{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a41888c3e6b17d1aae2c44eff77e89d18} 
+types {\bfseries type} .Type
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Root base class of all nodes in the expression tree.  The base case should never be
+instantiated directly.
+
+This must not be subclassed by users; subclasses form the internal data of the representation of
+expressions, and it does not make sense to add more outside of Qiskit library code.
+
+All subclasses are responsible for setting their ``type`` attribute in their ``__init__``, and
+should not call the parent initializer.\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a1a0987bc9044be53ba12d57a07df2863_a1a0987bc9044be53ba12d57a07df2863}\index{qiskit.circuit.classical.expr.expr.Expr@{qiskit.circuit.classical.expr.expr.Expr}!accept@{accept}}
+\index{accept@{accept}!qiskit.circuit.classical.expr.expr.Expr@{qiskit.circuit.classical.expr.expr.Expr}}
+\doxysubsubsection{\texorpdfstring{accept()}{accept()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr_a1a0987bc9044be53ba12d57a07df2863_a1a0987bc9044be53ba12d57a07df2863} 
+ \+\_\+\+T\+\_\+co qiskit.\+circuit.\+classical.\+expr.\+expr.\+Expr.\+accept (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1visitors_1_1_expr_visitor}{qiskit.\+circuit.\+classical.\+expr.\+Expr\+Visitor}}\mbox{[}\+\_\+\+T\+\_\+co\mbox{]}}]{visitor}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Call the relevant ``visit_*`` method on the given :class:`ExprVisitor`.  The usual entry
+point for a simple visitor is to construct it, and then call :meth:`accept` on the root
+object to be visited.  For example::
+
+    expr = ...
+    visitor = MyVisitor()
+    visitor.accept(expr)
+
+Subclasses of :class:`Expr` should override this to call the correct virtual method on the
+visitor.  This implements double dispatch with the visitor.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_binary_a572a4fe5cfbbbe0850cdcdf6c3367027_a572a4fe5cfbbbe0850cdcdf6c3367027}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Binary}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_cast_a07c230c46828abecc9727a75baffc6f9_a07c230c46828abecc9727a75baffc6f9}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Cast}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_index_a1dc77305f2f34c565a4da28b10d41906_a1dc77305f2f34c565a4da28b10d41906}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Index}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_unary_a9ff0bc7de004b355428b3b3a4337e2b0_a9ff0bc7de004b355428b3b3a4337e2b0}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Unary}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_value_a6400c65df1d510953dbb5144887a00ed_a6400c65df1d510953dbb5144887a00ed}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Value}}, and \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_var_ab90e4429b50198815765394f973cdaed_ab90e4429b50198815765394f973cdaed}{qiskit.\+circuit.\+classical.\+expr.\+expr.\+Var}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/classical/expr/expr.\+py\end{DoxyCompactItemize}

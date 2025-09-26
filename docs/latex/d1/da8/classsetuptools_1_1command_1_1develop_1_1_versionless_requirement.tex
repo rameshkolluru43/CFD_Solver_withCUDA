@@ -1,0 +1,34 @@
+\doxysection{setuptools.\+command.\+develop.\+Versionless\+Requirement Class Reference}
+\hypertarget{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement}{}\label{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement}\index{setuptools.command.develop.VersionlessRequirement@{setuptools.command.develop.VersionlessRequirement}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_ad23d302d09b80a92996924a0f9378adb}\label{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_ad23d302d09b80a92996924a0f9378adb} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, dist)
+\item 
+\Hypertarget{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_ad4a60866a0a92fbf99d2ae49eebc92c1}\label{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_ad4a60866a0a92fbf99d2ae49eebc92c1} 
+{\bfseries \+\_\+\+\_\+getattr\+\_\+\+\_\+} (self, str name)
+\item 
+\Hypertarget{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_a53b05b6e48d041eac4ec547f5831ceee}\label{classsetuptools_1_1command_1_1develop_1_1_versionless_requirement_a53b05b6e48d041eac4ec547f5831ceee} 
+{\bfseries as\+\_\+requirement} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Adapt a pkg_resources.Distribution to simply return the project
+name as the 'requirement' so that scripts will work across
+multiple versions.
+
+>>> from pkg_resources import Distribution
+>>> dist = Distribution(project_name='foo', version='1.0')
+>>> str(dist.as_requirement())
+'foo==1.0'
+>>> adapted_dist = VersionlessRequirement(dist)
+>>> str(adapted_dist.as_requirement())
+'foo'
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/command/develop.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,81 @@
+\doxysection{Exit\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}
+\hypertarget{_exit___boundary___conditions_8cpp_source}{}\label{_exit___boundary___conditions_8cpp_source}\index{Boundary\_Conditions/Exit\_Boundary\_Conditions.cpp@{Boundary\_Conditions/Exit\_Boundary\_Conditions.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//Case\_Type\ Indicates\ whether\ applicable\ for\ Supersonic\ case\ or\ subsnoic\ case}}
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{void}\ Subsonic\_Exit\_Boundary\_Condition(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&\ i)}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0,index,Face\_No;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ v1=0.0,v2=0.0,Rho=0.0,n1=0.0,n2=0.0;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{double}\ rho\_f\ =\ 0.0,u\_f=0.0,v\_f=0.0,v\_mag\_f\ =0.0,P\_f=0.0,P=0.0,temp\ =0.0,rho\_Et;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{double}\ Rho\_o=1.0,C\_o=1.0;\textcolor{comment}{//Representing\ Free\ Stream\ Conditions}}
+\DoxyCodeLine{00010\ \ \ \ \ V\_D\ U\_Face(5,0.0);}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{comment}{//\ values\ from\ the\ interior\ cell}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Exit\_Cells\_List[i+0];}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Exit\_Cells\_List[i+2];}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}\(\backslash\)ncell\ indexat\ exit\(\backslash\)t"{}<<Cell\_Index<<endl;}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Ghost\_Cell\_Index\ exit\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ Rho\ =\ Primitive\_Cells[Cell\_Index][0];}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ v1\ =\ Primitive\_Cells[Cell\_Index][1];}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ v2\ =\ Primitive\_Cells[Cell\_Index][2];}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ P\ =\ Primitive\_Cells[Cell\_Index][4];}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ rho\_Et\ =\ Primitive\_Cells[Cell\_Index][6];}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}\(\backslash\)nRho\ v1\ v2\ P\ C\ rho\_Et\ at\ exit\(\backslash\)n"{}<<Rho<<"{}\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<"{}\(\backslash\)t"{}<<P<<"{}\(\backslash\)t"{}<<C<<"{}\(\backslash\)t"{}<<rho\_Et<<endl;}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Face\_No\ =\ Exit\_Cells\_List[i+1];}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Face\ no\ on\ exit\ cell\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)n"{}<<endl;}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}index\(\backslash\)t"{}<<index<<endl;}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ n1=Cell\_Face\_Normals[Cell\_Index][index+0];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ n2=Cell\_Face\_Normals[Cell\_Index][index+1];}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}normals\(\backslash\)t"{}<<n1<<"{}\(\backslash\)t"{}<<n2<<"{}\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Pressure\ Value\ to\ be\ prescribed\ at\ the\ exit\ boundary}}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ P\_f\ =\ 0.9/1.4;\textcolor{comment}{//Pressure\_Static\_Exit;}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Pressure\_Static\_Exit<<endl;}}
+\DoxyCodeLine{00036\ \textcolor{comment}{//\ \ \ \ \ \ cout<<Rho\_o<<"{}\(\backslash\)t"{}<<C\_o<<endl;}}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ temp\ =\ (P\ -\/\ P\_f)/(Rho\_o*C\_o*C\_o);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ rho\_f\ =\ Rho\ \ -\/\ \ temp*Rho\_o;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ u\_f\ =\ v1\ +\ n1*temp*C\_o;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ v\_f\ =\ v2\ +\ n2*temp*C\_o;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ v\_mag\_f\ =\ 0.5\ *(u\_f*u\_f\ +\ v\_f*v\_f\ );}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Values\ at\ exit\ boundary\(\backslash\)t"{}<<rho\_f<<"{}\(\backslash\)t"{}<<u\_f<<"{}\(\backslash\)t"{}<<v\_f<<"{}\(\backslash\)t"{}<<T\_f<<"{}\(\backslash\)t"{}<<P\_f<<endl;}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ U\_Face[0]\ =\ rho\_f\ ;}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ U\_Face[1]\ =\ rho\_f*u\_f\ ;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ U\_Face[2]\ =\ rho\_f*v\_f\ ;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ U\_Face[3]\ =\ ((P\_f/(gamma-\/1.0))\ +\ rho\_f*\ v\_mag\_f);}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ =\ 2.0*U\_Face[0]\ -\/\ Rho\ ;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ =\ 2.0*U\_Face[1]\ -\/\ Rho*v1\ ;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ =\ 2.0*U\_Face[2]\ -\/\ Rho*v2\ ;}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ =\ 2.0*U\_Face[3]\ -\/\ rho\_Et;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00059\ \textcolor{comment}{//\ \ cout<<"{}*******************Exit\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00060\ \}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ Supersonic\_Exit\_Boundary\_Condition(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \&\ i)}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Applying\ Supersonic\ Exit\ Boundary\ Condition"{}<<endl;}}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Exit\_Cells\_List[i+0];}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Exit\_Cells\_List[i+2];}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<U\_Cells[Cell\_Index].size();i++)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][i]\ =\ U\_Cells[Cell\_Index][i];}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Ghost\_Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ cout<<"{}*******************Exit\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00075\ \}}
+
+\end{DoxyCode}

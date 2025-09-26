@@ -1,0 +1,88 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+utils.\+filter\+\_\+op\+\_\+nodes.\+Filter\+Op\+Nodes Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes}{}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes}\index{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes@{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+utils.\+filter\+\_\+op\+\_\+nodes.\+Filter\+Op\+Nodes\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.400000cm]{d3/db5/classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_ac3ad2b243422ac02905320515ebf15a2_ac3ad2b243422ac02905320515ebf15a2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Callable\mbox{[}\mbox{[}DAGOp\+Node\mbox{]}, bool\mbox{]} predicate)
+\item 
+DAGCircuit \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_a7b20fd109d69c5da89ba10e9868bfbbb_a7b20fd109d69c5da89ba10e9868bfbbb}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_a0d59bfa69492574a3cdf555d0719a1c7}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_a0d59bfa69492574a3cdf555d0719a1c7} 
+{\bfseries predicate} = predicate
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Remove all operations that match a filter function
+
+This transformation pass is used to remove any operations that matches a
+the provided filter function.
+
+Args:
+   predicate: A given callable that will be passed the :class:`.DAGOpNode`
+       for each node in the :class:`.DAGCircuit`. If the callable returns
+       ``True`` the :class:`.DAGOpNode` is retained in the circuit and if it
+       returns ``False`` it is removed from the circuit.
+
+Example:
+
+    Filter out operations that are labeled ``"foo"``
+
+    .. plot::
+       :alt: Circuit diagram output by the previous code.
+       :include-source:
+
+        from qiskit import QuantumCircuit
+        from qiskit.transpiler.passes import FilterOpNodes
+
+        circuit = QuantumCircuit(1)
+        circuit.x(0, label='foo')
+        circuit.barrier()
+        circuit.h(0)
+
+        circuit = FilterOpNodes(
+            lambda node: getattr(node.op, "label") != "foo"
+        )(circuit)
+        circuit.draw('mpl')
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_ac3ad2b243422ac02905320515ebf15a2_ac3ad2b243422ac02905320515ebf15a2}\index{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes@{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes@{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_ac3ad2b243422ac02905320515ebf15a2_ac3ad2b243422ac02905320515ebf15a2} 
+qiskit.\+transpiler.\+passes.\+utils.\+filter\+\_\+op\+\_\+nodes.\+Filter\+Op\+Nodes.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Callable\mbox{[}\mbox{[}DAGOp\+Node\mbox{]}, bool\mbox{]}}]{predicate}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_a7b20fd109d69c5da89ba10e9868bfbbb_a7b20fd109d69c5da89ba10e9868bfbbb}\index{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes@{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes@{qiskit.transpiler.passes.utils.filter\_op\_nodes.FilterOpNodes}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1filter__op__nodes_1_1_filter_op_nodes_a7b20fd109d69c5da89ba10e9868bfbbb_a7b20fd109d69c5da89ba10e9868bfbbb} 
+ DAGCircuit qiskit.\+transpiler.\+passes.\+utils.\+filter\+\_\+op\+\_\+nodes.\+Filter\+Op\+Nodes.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the RemoveBarriers pass on `dag`.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/utils/filter\+\_\+op\+\_\+nodes.\+py\end{DoxyCompactItemize}

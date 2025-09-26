@@ -1,0 +1,101 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer}{}\label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer1_q}{Layer1Q}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer2_q}{Layer2Q}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_1_1_layer_base}{Layer\+Base}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa3b9f53a6d59f2a0d803fff2bec1e3ba}{init\+\_\+layer1q\+\_\+matrices}} (np.\+ndarray thetas, np.\+ndarray dst)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa6f3c8bedd0f6c1fb42ce8798d360b69}{init\+\_\+layer1q\+\_\+deriv\+\_\+matrices}} (np.\+ndarray thetas, np.\+ndarray dst)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_a1f7903de1248d5b17cb9242a882ddaf9}{init\+\_\+layer2q\+\_\+matrices}} (np.\+ndarray thetas, np.\+ndarray dst)
+\item 
+np.\+ndarray \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aed5f4c3362ddc619bdaf92776388bb91}{init\+\_\+layer2q\+\_\+deriv\+\_\+matrices}} (np.\+ndarray thetas, np.\+ndarray dst)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Layer classes for the fast gradient implementation.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa6f3c8bedd0f6c1fb42ce8798d360b69}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}!init\_layer1q\_deriv\_matrices@{init\_layer1q\_deriv\_matrices}}
+\index{init\_layer1q\_deriv\_matrices@{init\_layer1q\_deriv\_matrices}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}}
+\doxysubsubsection{\texorpdfstring{init\_layer1q\_deriv\_matrices()}{init\_layer1q\_deriv\_matrices()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa6f3c8bedd0f6c1fb42ce8798d360b69} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+init\+\_\+layer1q\+\_\+deriv\+\_\+matrices (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{thetas}{, }\item[{np.\+ndarray}]{dst}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initializes 4x4 derivative matrices of 2-qubit gates defined in the paper.
+
+Args:
+    thetas: depth x 4 matrix of gate parameters for every layer, where
+            "depth" is the number of layers.
+    dst: destination array of size depth x 4 x 4 x 4 that will receive gate
+         derivative matrices of each layer; there are 4 parameters per gate,
+         hence, 4 derivative matrices per layer.
+
+Returns:
+    Returns the "dst" array.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa3b9f53a6d59f2a0d803fff2bec1e3ba}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}!init\_layer1q\_matrices@{init\_layer1q\_matrices}}
+\index{init\_layer1q\_matrices@{init\_layer1q\_matrices}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}}
+\doxysubsubsection{\texorpdfstring{init\_layer1q\_matrices()}{init\_layer1q\_matrices()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aa3b9f53a6d59f2a0d803fff2bec1e3ba} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+init\+\_\+layer1q\+\_\+matrices (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{thetas}{, }\item[{np.\+ndarray}]{dst}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initializes 4x4 matrices of 2-qubit gates defined in the paper.
+
+Args:
+    thetas: depth x 4 matrix of gate parameters for every layer, where
+            "depth" is the number of layers.
+    dst: destination array of size depth x 4 x 4 that will receive gate
+         matrices of each layer.
+
+Returns:
+    Returns the "dst" array.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aed5f4c3362ddc619bdaf92776388bb91}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}!init\_layer2q\_deriv\_matrices@{init\_layer2q\_deriv\_matrices}}
+\index{init\_layer2q\_deriv\_matrices@{init\_layer2q\_deriv\_matrices}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}}
+\doxysubsubsection{\texorpdfstring{init\_layer2q\_deriv\_matrices()}{init\_layer2q\_deriv\_matrices()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_aed5f4c3362ddc619bdaf92776388bb91} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+init\+\_\+layer2q\+\_\+deriv\+\_\+matrices (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{thetas}{, }\item[{np.\+ndarray}]{dst}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initializes 4 x 4 derivative matrices of 2-qubit gates defined in the paper.
+
+Args:
+    thetas: depth x 4 matrix of gate parameters for every layer, where
+            "depth" is the number of layers.
+    dst: destination array of size depth x 4 x 4 x 4 that will receive gate
+         derivative matrices of each layer; there are 4 parameters per gate,
+         hence, 4 derivative matrices per layer.
+
+Returns:
+    Returns the "dst" array.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_a1f7903de1248d5b17cb9242a882ddaf9}\index{qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}!init\_layer2q\_matrices@{init\_layer2q\_matrices}}
+\index{init\_layer2q\_matrices@{init\_layer2q\_matrices}!qiskit.synthesis.unitary.aqc.fast\_gradient.layer@{qiskit.synthesis.unitary.aqc.fast\_gradient.layer}}
+\doxysubsubsection{\texorpdfstring{init\_layer2q\_matrices()}{init\_layer2q\_matrices()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1aqc_1_1fast__gradient_1_1layer_a1f7903de1248d5b17cb9242a882ddaf9} 
+ np.\+ndarray qiskit.\+synthesis.\+unitary.\+aqc.\+fast\+\_\+gradient.\+layer.\+init\+\_\+layer2q\+\_\+matrices (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{thetas}{, }\item[{np.\+ndarray}]{dst}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initializes 4x4 matrices of 2-qubit gates defined in the paper.
+
+Args:
+    thetas: depth x 4 matrix of gate parameters for every layer, where
+            "depth" is the number of layers.
+    dst: destination array of size depth x 4 x 4 that will receive gate
+         matrices of each layer.
+
+Returns:
+    Returns the "dst" array.
+\end{DoxyVerb}
+ 

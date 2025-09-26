@@ -1,0 +1,38 @@
+\doxysection{dill.\+tests.\+test\+\_\+registered Namespace Reference}
+\hypertarget{namespacedill_1_1tests_1_1test__registered}{}\label{namespacedill_1_1tests_1_1test__registered}\index{dill.tests.test\_registered@{dill.tests.test\_registered}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a204e4fb5944220fa1cbeacfd01385ee0}\label{namespacedill_1_1tests_1_1test__registered_a204e4fb5944220fa1cbeacfd01385ee0} 
+{\bfseries check} (d, ok=True)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a38f50f35bbcb689c835dcf702796560e}\label{namespacedill_1_1tests_1_1test__registered_a38f50f35bbcb689c835dcf702796560e} 
+{\bfseries fails} = check(failures)
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a57701ee73ad131c1b2b950c9f47aa13a}\label{namespacedill_1_1tests_1_1test__registered_a57701ee73ad131c1b2b950c9f47aa13a} 
+{\bfseries register} = check(registered, ok=False)
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a481c4a6f9f785d78034bdc380e93798f}\label{namespacedill_1_1tests_1_1test__registered_a481c4a6f9f785d78034bdc380e93798f} 
+{\bfseries success} = check(succeeds, ok=False)
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a44200699b80325468c9b9e92ac2792fa}\label{namespacedill_1_1tests_1_1test__registered_a44200699b80325468c9b9e92ac2792fa} 
+{\bfseries q} = dill.\+\_\+dill.\+\_\+reverse\+\_\+typemap
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_ab611acfcf226adc14906bbe3f9d80d9f}\label{namespacedill_1_1tests_1_1test__registered_ab611acfcf226adc14906bbe3f9d80d9f} 
+dict {\bfseries p} = \{k\+:v for k,v in q.\+items() if k not in vars(builtins) and k not in vars(types)\}
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a23a5f71e7caf5e40fa2448d3b8a3923c}\label{namespacedill_1_1tests_1_1test__registered_a23a5f71e7caf5e40fa2448d3b8a3923c} 
+{\bfseries diff} = set(p.\+keys()).difference(registered.\+keys())
+\item 
+\Hypertarget{namespacedill_1_1tests_1_1test__registered_a97c3d26b5ac82d0523aa9731b580cb52}\label{namespacedill_1_1tests_1_1test__registered_a97c3d26b5ac82d0523aa9731b580cb52} 
+{\bfseries miss} = set(registered.\+keys()).difference(p.\+keys())
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}test pickling registered objects
+\end{DoxyVerb}
+ 

@@ -1,0 +1,67 @@
+\doxysection{Incompressible\+\_\+\+Solver/\+Incompressible\+\_\+\+NS.cpp File Reference}
+\hypertarget{_incompressible___n_s_8cpp}{}\label{_incompressible___n_s_8cpp}\index{Incompressible\_Solver/Incompressible\_NS.cpp@{Incompressible\_Solver/Incompressible\_NS.cpp}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_incompressible___n_s_8cpp_a5e9f0a5f022b6318f83dd5a762785d1f_a5e9f0a5f022b6318f83dd5a762785d1f}{In\+Compressible\+Solver}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_incompressible___n_s_8cpp_a5e9f0a5f022b6318f83dd5a762785d1f_a5e9f0a5f022b6318f83dd5a762785d1f}\index{Incompressible\_NS.cpp@{Incompressible\_NS.cpp}!InCompressibleSolver@{InCompressibleSolver}}
+\index{InCompressibleSolver@{InCompressibleSolver}!Incompressible\_NS.cpp@{Incompressible\_NS.cpp}}
+\doxysubsubsection{\texorpdfstring{InCompressibleSolver()}{InCompressibleSolver()}}
+{\footnotesize\ttfamily \label{_incompressible___n_s_8cpp_a5e9f0a5f022b6318f83dd5a762785d1f_a5e9f0a5f022b6318f83dd5a762785d1f} 
+void In\+Compressible\+Solver (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_incompressible___n_s_8cpp_source_l00001}{1}} of file \mbox{\hyperlink{_incompressible___n_s_8cpp_source}{Incompressible\+\_\+\+NS.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00002\ \{}
+\DoxyCodeLine{00003\ \ \ \ \ \textcolor{keywordflow}{do}\ }
+\DoxyCodeLine{00004\ \ \ \ \ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Step\ 1:\ Solve\ Momentum\ Equations}}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_implicit___momentum_8cpp_a720a0d00cec4bc0ffdc40e69de036355_a720a0d00cec4bc0ffdc40e69de036355}{Velocity\_Predictor\_Step}}();}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Step\ 2:\ Solve\ Pressure\ Correction}}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ ssolvePressurePoisson(maxIters\_Poission);}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Step\ 3:\ Correct\ Velocities}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_implicit___momentum_8cpp_a50230f674dde72ccf48cc520de73d726_a50230f674dde72ccf48cc520de73d726}{Velocity\_Corrector\_Step}}();}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ for\ Convergence}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ max\_divergence\ =\ 0.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_No\ =\ 0;\ Cell\_No\ <\ \mbox{\hyperlink{_globals_8h_a456d887e919a97b19dbd9414a61001c7_a456d887e919a97b19dbd9414a61001c7}{No\_Physical\_Cells}};\ Cell\_No++)}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ div\ =\ 0.0;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ Face\_No\ =\ 0;\ Face\_No\ <\ Neighbors[Cell\_No].size();Face\_No++)}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ neighbor\ =\ Cell\_Neighbours[Cell\_No][Face\_No\ +\ 1];}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ area\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ normal\ =\ face\_normals[Cell\_No][face];}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ velocity\ divergence}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ div\ +=\ (velocity\_u[neighbor]\ *\ normal[0]\ +\ velocity\_v[neighbor]\ *\ normal[1])\ *\ area;}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ \ \ max\_divergence\ =\ std::max(max\_divergence,\ std::abs(div\ /\ cell\_volumes[cell]));}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Max\ divergence:\ "{}}\ <<\ max\_divergence\ <<\ std::endl;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (max\_divergence\ <\ \mbox{\hyperlink{_source_8cpp_ab319cb41d2e6faf11ec8cfbc3e291967_ab319cb41d2e6faf11ec8cfbc3e291967}{tol}})\ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Converged!"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00036\ \ \ \ \ \}\textcolor{keywordflow}{while}(iteratons<Max\_Iterations)}
+\DoxyCodeLine{00037\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d4/d86/_incompressible___n_s_8cpp_a5e9f0a5f022b6318f83dd5a762785d1f_a5e9f0a5f022b6318f83dd5a762785d1f_cgraph}
+\end{center}
+\end{figure}

@@ -1,0 +1,196 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate}\index{qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.170543cm]{df/db4/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_aeae6b293aa11287d12bd21795b16ddd3_aeae6b293aa11287d12bd21795b16ddd3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Optional\mbox{[}str\mbox{]} label=None, Optional\mbox{[}Union\mbox{[}str, int\mbox{]}\mbox{]} ctrl\+\_\+state=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{}, \+\_\+base\+\_\+label=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a94dc5b68393661da64fd2d645901fe50_a94dc5b68393661da64fd2d645901fe50}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_abeef29cca77641828517412a8fa51dda_abeef29cca77641828517412a8fa51dda}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a3f0690e143543e2b65b833246fbb459b}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a3f0690e143543e2b65b833246fbb459b} 
+{\bfseries definition} = qc
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a832552430262a92de36961e234be0c63}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a832552430262a92de36961e234be0c63} 
+{\bfseries ctrl\+\_\+state} = other.\+ctrl\+\_\+state
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a673cfc6bffeee91d75c76230519c8b2e_a673cfc6bffeee91d75c76230519c8b2e}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_af196301f1241d9b871701c019e03cc2c}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_af196301f1241d9b871701c019e03cc2c} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+CSwap\+Gate
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a424cab45e27dc04f121ae5194c753e0a}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a424cab45e27dc04f121ae5194c753e0a} 
+{\bfseries \+\_\+singleton\+\_\+lookup\+\_\+key} = stdlib\+\_\+singleton\+\_\+key(num\+\_\+ctrl\+\_\+qubits=1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Controlled-SWAP gate, also known as the Fredkin gate.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.cswap` and
+:meth:`~qiskit.circuit.QuantumCircuit.fredkin` methods.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+    q_0: ─■─
+          │
+    q_1: ─X─
+          │
+    q_2: ─X─
+
+
+**Matrix representation:**
+
+.. math::
+
+    CSWAP\ q_0, q_1, q_2 =
+        I \otimes I \otimes |0 \rangle \langle 0| +
+        SWAP \otimes |1 \rangle \langle 1| =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+        \end{pmatrix}
+
+.. note::
+
+    In Qiskit's convention, higher qubit indices are more significant
+    (little endian convention). In many textbooks, controlled gates are
+    presented with the assumption of more significant qubits as control,
+    which in our case would be q_2. Thus a textbook matrix for this
+    gate will be:
+
+    .. code-block:: text
+
+        q_0: ─X─
+              │
+        q_1: ─X─
+              │
+        q_2: ─■─
+
+    .. math::
+
+        CSWAP\ q_2, q_1, q_0 =
+            |0 \rangle \langle 0| \otimes I \otimes I +
+            |1 \rangle \langle 1| \otimes SWAP =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+            \end{pmatrix}
+
+In the computational basis, this gate swaps the states of
+the two target qubits if the control qubit is in the
+:math:`|1\rangle` state.
+
+.. math::
+    |0, b, c\rangle \rightarrow |0, b, c\rangle
+    |1, b, c\rangle \rightarrow |1, c, b\rangle
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_aeae6b293aa11287d12bd21795b16ddd3_aeae6b293aa11287d12bd21795b16ddd3}\index{qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_aeae6b293aa11287d12bd21795b16ddd3_aeae6b293aa11287d12bd21795b16ddd3} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Optional\mbox{[}str\mbox{]} }]{label}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Union\mbox{[}str, int\mbox{]}\mbox{]} }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}, }\item[{}]{\+\_\+base\+\_\+label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new CSWAP gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_abac83bbb8775197e73afa85500dc6e69_abac83bbb8775197e73afa85500dc6e69}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_abeef29cca77641828517412a8fa51dda_abeef29cca77641828517412a8fa51dda}\index{qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_abeef29cca77641828517412a8fa51dda_abeef29cca77641828517412a8fa51dda} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac22f037571891574fde5e2815d6dc0e0_ac22f037571891574fde5e2815d6dc0e0}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a673cfc6bffeee91d75c76230519c8b2e_a673cfc6bffeee91d75c76230519c8b2e}\index{qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a673cfc6bffeee91d75c76230519c8b2e_a673cfc6bffeee91d75c76230519c8b2e} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}gate cswap a,b,c
+{ cx c,b;
+  ccx a,b,c;
+  cx c,b;
+}
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a94dc5b68393661da64fd2d645901fe50_a94dc5b68393661da64fd2d645901fe50}\index{qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.standard\_gates.swap.CSwapGate@{qiskit.circuit.library.standard\_gates.swap.CSwapGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1swap_1_1_c_swap_gate_a94dc5b68393661da64fd2d645901fe50_a94dc5b68393661da64fd2d645901fe50} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+swap.\+CSwap\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverse CSwap gate (itself).
+
+Args:
+    annotated: when set to ``True``, this is typically used to return an
+        :class:`.AnnotatedOperation` with an inverse modifier set instead of a concrete
+        :class:`.Gate`. However, for this class this argument is ignored as this gate
+        is self-inverse.
+
+Returns:
+    CSwapGate: inverse gate (self-inverse).
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac5112aa67def83a124c76d18f84afccf_ac5112aa67def83a124c76d18f84afccf}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/swap.\+py\end{DoxyCompactItemize}

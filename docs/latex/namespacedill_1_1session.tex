@@ -1,0 +1,347 @@
+\doxysection{dill.\+session Namespace Reference}
+\hypertarget{namespacedill_1_1session}{}\label{namespacedill_1_1session}\index{dill.session@{dill.session}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdill_1_1session_1_1___peekable_reader}{\+\_\+\+Peekable\+Reader}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedill_1_1session_ac47d4a94b4e9d4651602ea0e6adbedcb}{\+\_\+module\+\_\+map}} ()
+\item 
+\mbox{\hyperlink{namespacedill_1_1session_a343dac7579411a4667ea0b76b09e5888}{\+\_\+lookup\+\_\+module}} (modmap, name, obj, main\+\_\+module)
+\item 
+\Hypertarget{namespacedill_1_1session_acf519528ea5af1f1d90dfd4ab1a4b532}\label{namespacedill_1_1session_acf519528ea5af1f1d90dfd4ab1a4b532} 
+{\bfseries \+\_\+stash\+\_\+modules} (main\+\_\+module)
+\item 
+\Hypertarget{namespacedill_1_1session_adf0f390a7c82448fc4542da4fcd18d2c}\label{namespacedill_1_1session_adf0f390a7c82448fc4542da4fcd18d2c} 
+{\bfseries \+\_\+restore\+\_\+modules} (unpickler, main\+\_\+module)
+\item 
+None \mbox{\hyperlink{namespacedill_1_1session_ad074e36d4464a9503967b89901b46c38}{dump\+\_\+module}} (Union\mbox{[}str, os.\+Path\+Like\mbox{]} filename=None, Optional\mbox{[}Union\mbox{[}Module\+Type, str\mbox{]}\mbox{]} module=None, bool refimported=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\Hypertarget{namespacedill_1_1session_a338add9bd3167a713ca6d72931cf89c9}\label{namespacedill_1_1session_a338add9bd3167a713ca6d72931cf89c9} 
+{\bfseries dump\+\_\+session} (filename=None, main=None, byref=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\mbox{\hyperlink{namespacedill_1_1session_a77441660a9bd87386174788b96f14b21}{\+\_\+make\+\_\+peekable}} (stream)
+\item 
+\mbox{\hyperlink{namespacedill_1_1session_a6b53736bcafcef9820d12674fda0a0ae}{\+\_\+identify\+\_\+module}} (file, main=None)
+\item 
+Optional\mbox{[}Module\+Type\mbox{]} \mbox{\hyperlink{namespacedill_1_1session_a7d58b2bd77f57f388638ecf1271c6fd4}{load\+\_\+module}} (Union\mbox{[}str, os.\+Path\+Like\mbox{]} filename=None, Optional\mbox{[}Union\mbox{[}Module\+Type, str\mbox{]}\mbox{]} module=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+\Hypertarget{namespacedill_1_1session_ad8f2f9d6560dac8b0ba2f4e6d9443dba}\label{namespacedill_1_1session_ad8f2f9d6560dac8b0ba2f4e6d9443dba} 
+{\bfseries load\+\_\+session} (filename=None, main=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\item 
+dict \mbox{\hyperlink{namespacedill_1_1session_a82e29fe6cdc81ffd664d228b48f94beb}{load\+\_\+module\+\_\+asdict}} (Union\mbox{[}str, os.\+Path\+Like\mbox{]} filename=None, bool update=False, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwds)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1session_a27b1258e7e69acee7802ee10f54c1a9d}\label{namespacedill_1_1session_a27b1258e7e69acee7802ee10f54c1a9d} 
+{\bfseries TEMPDIR} = pathlib.\+Pure\+Path(tempfile.\+gettempdir())
+\item 
+\Hypertarget{namespacedill_1_1session_a2ae63499697f17e79758ccd0421c9b53}\label{namespacedill_1_1session_a2ae63499697f17e79758ccd0421c9b53} 
+tuple {\bfseries IMPORTED\+\_\+\+AS\+\_\+\+TYPES} = (Module\+Type, Type\+Type, Function\+Type, Method\+Type, Builtin\+Method\+Type)
+\item 
+tuple \mbox{\hyperlink{namespacedill_1_1session_a38f8b63fb2ba6dc808f9b4fae1932312}{IMPORTED\+\_\+\+AS\+\_\+\+MODULES}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Pickle and restore the intepreter session.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedill_1_1session_a6b53736bcafcef9820d12674fda0a0ae}\index{dill.session@{dill.session}!\_identify\_module@{\_identify\_module}}
+\index{\_identify\_module@{\_identify\_module}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{\_identify\_module()}{\_identify\_module()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a6b53736bcafcef9820d12674fda0a0ae} 
+dill.\+session.\+\_\+identify\+\_\+module (\begin{DoxyParamCaption}\item[{}]{file}{, }\item[{}]{main}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}identify the name of the module stored in the given file-type object\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_a343dac7579411a4667ea0b76b09e5888}\index{dill.session@{dill.session}!\_lookup\_module@{\_lookup\_module}}
+\index{\_lookup\_module@{\_lookup\_module}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{\_lookup\_module()}{\_lookup\_module()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a343dac7579411a4667ea0b76b09e5888} 
+dill.\+session.\+\_\+lookup\+\_\+module (\begin{DoxyParamCaption}\item[{}]{modmap}{, }\item[{}]{name}{, }\item[{}]{obj}{, }\item[{}]{main\+\_\+module}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}lookup name or id of obj if module is imported\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_a77441660a9bd87386174788b96f14b21}\index{dill.session@{dill.session}!\_make\_peekable@{\_make\_peekable}}
+\index{\_make\_peekable@{\_make\_peekable}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{\_make\_peekable()}{\_make\_peekable()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a77441660a9bd87386174788b96f14b21} 
+dill.\+session.\+\_\+make\+\_\+peekable (\begin{DoxyParamCaption}\item[{}]{stream}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}return stream as an object with a peek() method\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_ac47d4a94b4e9d4651602ea0e6adbedcb}\index{dill.session@{dill.session}!\_module\_map@{\_module\_map}}
+\index{\_module\_map@{\_module\_map}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{\_module\_map()}{\_module\_map()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_ac47d4a94b4e9d4651602ea0e6adbedcb} 
+dill.\+session.\+\_\+module\+\_\+map (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}get map of imported modules\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_ad074e36d4464a9503967b89901b46c38}\index{dill.session@{dill.session}!dump\_module@{dump\_module}}
+\index{dump\_module@{dump\_module}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{dump\_module()}{dump\_module()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_ad074e36d4464a9503967b89901b46c38} 
+ None dill.\+session.\+dump\+\_\+module (\begin{DoxyParamCaption}\item[{Union\mbox{[}str, os.\+Path\+Like\mbox{]} }]{filename}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Union\mbox{[}Module\+Type, str\mbox{]}\mbox{]} }]{module}{ = {\ttfamily None}, }\item[{bool }]{refimported}{ = {\ttfamily False}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Pickle the current state of :py:mod:`__main__` or another module to a file.
+
+Save the contents of :py:mod:`__main__` (e.g. from an interactive
+interpreter session), an imported module, or a module-type object (e.g.
+built with :py:class:`~types.ModuleType`), to a file. The pickled
+module can then be restored with the function :py:func:`load_module`.
+
+Args:
+    filename: a path-like object or a writable stream. If `None`
+        (the default), write to a named file in a temporary directory.
+    module: a module object or the name of an importable module. If `None`
+        (the default), :py:mod:`__main__` is saved.
+    refimported: if `True`, all objects identified as having been imported
+        into the module's namespace are saved by reference. *Note:* this is
+        similar but independent from ``dill.settings[`byref`]``, as
+        ``refimported`` refers to virtually all imported objects, while
+        ``byref`` only affects select objects.
+    **kwds: extra keyword arguments passed to :py:class:`Pickler()`.
+
+Raises:
+   :py:exc:`PicklingError`: if pickling fails.
+
+Examples:
+
+    - Save current interpreter session state:
+
+      >>> import dill
+      >>> squared = lambda x: x*x
+      >>> dill.dump_module() # save state of __main__ to /tmp/session.pkl
+
+    - Save the state of an imported/importable module:
+
+      >>> import dill
+      >>> import pox
+      >>> pox.plus_one = lambda x: x+1
+      >>> dill.dump_module('pox_session.pkl', module=pox)
+
+    - Save the state of a non-importable, module-type object:
+
+      >>> import dill
+      >>> from types import ModuleType
+      >>> foo = ModuleType('foo')
+      >>> foo.values = [1,2,3]
+      >>> import math
+      >>> foo.sin = math.sin
+      >>> dill.dump_module('foo_session.pkl', module=foo, refimported=True)
+
+    - Restore the state of the saved modules:
+
+      >>> import dill
+      >>> dill.load_module()
+      >>> squared(2)
+      4
+      >>> pox = dill.load_module('pox_session.pkl')
+      >>> pox.plus_one(1)
+      2
+      >>> foo = dill.load_module('foo_session.pkl')
+      >>> [foo.sin(x) for x in foo.values]
+      [0.8414709848078965, 0.9092974268256817, 0.1411200080598672]
+
+    - Use `refimported` to save imported objects by reference:
+
+      >>> import dill
+      >>> from html.entities import html5
+      >>> type(html5), len(html5)
+      (dict, 2231)
+      >>> import io
+      >>> buf = io.BytesIO()
+      >>> dill.dump_module(buf) # saves __main__, with html5 saved by value
+      >>> len(buf.getvalue()) # pickle size in bytes
+      71665
+      >>> buf = io.BytesIO()
+      >>> dill.dump_module(buf, refimported=True) # html5 saved by reference
+      >>> len(buf.getvalue())
+      438
+
+*Changed in version 0.3.6:* Function ``dump_session()`` was renamed to
+``dump_module()``.  Parameters ``main`` and ``byref`` were renamed to
+``module`` and ``refimported``, respectively.
+
+Note:
+    Currently, ``dill.settings['byref']`` and ``dill.settings['recurse']``
+    don't apply to this function.
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_a7d58b2bd77f57f388638ecf1271c6fd4}\index{dill.session@{dill.session}!load\_module@{load\_module}}
+\index{load\_module@{load\_module}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{load\_module()}{load\_module()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a7d58b2bd77f57f388638ecf1271c6fd4} 
+ Optional\mbox{[}Module\+Type\mbox{]} dill.\+session.\+load\+\_\+module (\begin{DoxyParamCaption}\item[{Union\mbox{[}str, os.\+Path\+Like\mbox{]} }]{filename}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Union\mbox{[}Module\+Type, str\mbox{]}\mbox{]} }]{module}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Update the selected module (default is :py:mod:`__main__`) with
+the state saved at ``filename``.
+
+Restore a module to the state saved with :py:func:`dump_module`. The
+saved module can be :py:mod:`__main__` (e.g. an interpreter session),
+an imported module, or a module-type object (e.g. created with
+:py:class:`~types.ModuleType`).
+
+When restoring the state of a non-importable module-type object, the
+current instance of this module may be passed as the argument ``main``.
+Otherwise, a new instance is created with :py:class:`~types.ModuleType`
+and returned.
+
+Args:
+    filename: a path-like object or a readable stream. If `None`
+        (the default), read from a named file in a temporary directory.
+    module: a module object or the name of an importable module;
+        the module name and kind (i.e. imported or non-imported) must
+        match the name and kind of the module stored at ``filename``.
+    **kwds: extra keyword arguments passed to :py:class:`Unpickler()`.
+
+Raises:
+    :py:exc:`UnpicklingError`: if unpickling fails.
+    :py:exc:`ValueError`: if the argument ``main`` and module saved
+        at ``filename`` are incompatible.
+
+Returns:
+    A module object, if the saved module is not :py:mod:`__main__` or
+    a module instance wasn't provided with the argument ``main``.
+
+Examples:
+
+    - Save the state of some modules:
+
+      >>> import dill
+      >>> squared = lambda x: x*x
+      >>> dill.dump_module() # save state of __main__ to /tmp/session.pkl
+      >>>
+      >>> import pox # an imported module
+      >>> pox.plus_one = lambda x: x+1
+      >>> dill.dump_module('pox_session.pkl', module=pox)
+      >>>
+      >>> from types import ModuleType
+      >>> foo = ModuleType('foo') # a module-type object
+      >>> foo.values = [1,2,3]
+      >>> import math
+      >>> foo.sin = math.sin
+      >>> dill.dump_module('foo_session.pkl', module=foo, refimported=True)
+
+    - Restore the state of the interpreter:
+
+      >>> import dill
+      >>> dill.load_module() # updates __main__ from /tmp/session.pkl
+      >>> squared(2)
+      4
+
+    - Load the saved state of an importable module:
+
+      >>> import dill
+      >>> pox = dill.load_module('pox_session.pkl')
+      >>> pox.plus_one(1)
+      2
+      >>> import sys
+      >>> pox in sys.modules.values()
+      True
+
+    - Load the saved state of a non-importable module-type object:
+
+      >>> import dill
+      >>> foo = dill.load_module('foo_session.pkl')
+      >>> [foo.sin(x) for x in foo.values]
+      [0.8414709848078965, 0.9092974268256817, 0.1411200080598672]
+      >>> import math
+      >>> foo.sin is math.sin # foo.sin was saved by reference
+      True
+      >>> import sys
+      >>> foo in sys.modules.values()
+      False
+
+    - Update the state of a non-importable module-type object:
+
+      >>> import dill
+      >>> from types import ModuleType
+      >>> foo = ModuleType('foo')
+      >>> foo.values = ['a','b']
+      >>> foo.sin = lambda x: x*x
+      >>> dill.load_module('foo_session.pkl', module=foo)
+      >>> [foo.sin(x) for x in foo.values]
+      [0.8414709848078965, 0.9092974268256817, 0.1411200080598672]
+
+*Changed in version 0.3.6:* Function ``load_session()`` was renamed to
+``load_module()``. Parameter ``main`` was renamed to ``module``.
+
+See also:
+    :py:func:`load_module_asdict` to load the contents of module saved
+    with :py:func:`dump_module` into a dictionary.
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1session_a82e29fe6cdc81ffd664d228b48f94beb}\index{dill.session@{dill.session}!load\_module\_asdict@{load\_module\_asdict}}
+\index{load\_module\_asdict@{load\_module\_asdict}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{load\_module\_asdict()}{load\_module\_asdict()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a82e29fe6cdc81ffd664d228b48f94beb} 
+ dict dill.\+session.\+load\+\_\+module\+\_\+asdict (\begin{DoxyParamCaption}\item[{Union\mbox{[}str, os.\+Path\+Like\mbox{]} }]{filename}{ = {\ttfamily None}, }\item[{bool }]{update}{ = {\ttfamily False}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwds}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Load the contents of a saved module into a dictionary.
+
+``load_module_asdict()`` is the near-equivalent of::
+
+    lambda filename: vars(dill.load_module(filename)).copy()
+
+however, does not alter the original module. Also, the path of
+the loaded module is stored in the ``__session__`` attribute.
+
+Args:
+    filename: a path-like object or a readable stream. If `None`
+        (the default), read from a named file in a temporary directory.
+    update: if `True`, initialize the dictionary with the current state
+        of the module prior to loading the state stored at filename.
+    **kwds: extra keyword arguments passed to :py:class:`Unpickler()`
+
+Raises:
+    :py:exc:`UnpicklingError`: if unpickling fails
+
+Returns:
+    A copy of the restored module's dictionary.
+
+Note:
+    If ``update`` is True, the corresponding module may first be imported
+    into the current namespace before the saved state is loaded from
+    filename to the dictionary. Note that any module that is imported into
+    the current namespace as a side-effect of using ``update`` will not be
+    modified by loading the saved module in filename to a dictionary.
+
+Example:
+    >>> import dill
+    >>> alist = [1, 2, 3]
+    >>> anum = 42
+    >>> dill.dump_module()
+    >>> anum = 0
+    >>> new_var = 'spam'
+    >>> main = dill.load_module_asdict()
+    >>> main['__name__'], main['__session__']
+    ('__main__', '/tmp/session.pkl')
+    >>> main is globals() # loaded objects don't reference globals
+    False
+    >>> main['alist'] == alist
+    True
+    >>> main['alist'] is alist # was saved by value
+    False
+    >>> main['anum'] == anum # changed after the session was saved
+    False
+    >>> new_var in main # would be True if the option 'update' was set
+    False
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedill_1_1session_a38f8b63fb2ba6dc808f9b4fae1932312}\index{dill.session@{dill.session}!IMPORTED\_AS\_MODULES@{IMPORTED\_AS\_MODULES}}
+\index{IMPORTED\_AS\_MODULES@{IMPORTED\_AS\_MODULES}!dill.session@{dill.session}}
+\doxysubsubsection{\texorpdfstring{IMPORTED\_AS\_MODULES}{IMPORTED\_AS\_MODULES}}
+{\footnotesize\ttfamily \label{namespacedill_1_1session_a38f8b63fb2ba6dc808f9b4fae1932312} 
+dill.\+session.\+IMPORTED\+\_\+\+AS\+\_\+\+MODULES}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (\textcolor{stringliteral}{'ctypes'},\ \textcolor{stringliteral}{'typing'},\ \textcolor{stringliteral}{'subprocess'},\ \textcolor{stringliteral}{'threading'},}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{r'concurrent\(\backslash\).futures(\(\backslash\).\(\backslash\)w+)?'},\ \textcolor{stringliteral}{r'multiprocessing(\(\backslash\).\(\backslash\)w+)?'})}
+
+\end{DoxyCode}

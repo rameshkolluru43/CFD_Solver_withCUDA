@@ -1,0 +1,58 @@
+\doxysection{qiskit.\+synthesis.\+arithmetic.\+multipliers.\+hrs\+\_\+cumulative\+\_\+multiplier Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier}{}\label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier}\index{qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier@{qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_ab703fb6ea3a36f1489cbc943961b0944}{multiplier\+\_\+cumulative\+\_\+h18}} (int num\+\_\+state\+\_\+qubits, int\texorpdfstring{$\vert$}{|}None num\+\_\+result\+\_\+qubits=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Compute the product of two qubit registers using classical multiplication approach.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_ab703fb6ea3a36f1489cbc943961b0944}\index{qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier@{qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier}!multiplier\_cumulative\_h18@{multiplier\_cumulative\_h18}}
+\index{multiplier\_cumulative\_h18@{multiplier\_cumulative\_h18}!qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier@{qiskit.synthesis.arithmetic.multipliers.hrs\_cumulative\_multiplier}}
+\doxysubsubsection{\texorpdfstring{multiplier\_cumulative\_h18()}{multiplier\_cumulative\_h18()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1hrs__cumulative__multiplier_ab703fb6ea3a36f1489cbc943961b0944} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+arithmetic.\+multipliers.\+hrs\+\_\+cumulative\+\_\+multiplier.\+multiplier\+\_\+cumulative\+\_\+h18 (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+result\+\_\+qubits}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A multiplication circuit to store product of two input registers out-of-place.
+
+    The circuit uses the approach from Ref. [1]. As an example, a multiplier circuit that
+    performs a non-modular multiplication on two 3-qubit sized registers is:
+
+    .. plot::
+        :alt: Circuit diagram output by the previous code.
+        :include-source:
+
+        from qiskit.synthesis.arithmetic import multiplier_cumulative_h18
+
+        num_state_qubits = 3
+        circuit = multiplier_cumulative_h18(num_state_qubits)
+        circuit.draw("mpl")
+
+    Multiplication in this circuit is implemented in a classical approach by performing
+    a series of shifted additions using one of the input registers while the qubits
+    from the other input register act as control qubits for the adders.
+
+    Args:
+        num_state_qubits: The number of qubits in either input register for
+            state :math:`|a\rangle` or :math:`|b\rangle`. The two input
+            registers must have the same number of qubits.
+        num_result_qubits: The number of result qubits to limit the output to.
+            If number of result qubits is :math:`n`, multiplication modulo :math:`2^n` is performed
+            to limit the output to the specified number of qubits. Default
+            value is ``2 * num_state_qubits`` to represent any possible
+            result from the multiplication of the two inputs.
+
+    Raises:
+        ValueError: If ``num_result_qubits`` is given and not valid, meaning not
+            in ``[num_state_qubits, 2 * num_state_qubits]``.
+
+    **References:**
+
+    [1] Häner et al., Optimizing Quantum Circuits for Arithmetic, 2018.
+    `arXiv:1805.12445 <https://arxiv.org/pdf/1805.12445.pdf>`_\end{DoxyVerb}
+ 

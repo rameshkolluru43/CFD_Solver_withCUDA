@@ -1,0 +1,92 @@
+\doxysection{setuptools.\+\_\+distutils.\+unixccompiler Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1unixccompiler}{}\label{namespacesetuptools_1_1__distutils_1_1unixccompiler}\index{setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1unixccompiler_1_1_unix_c_compiler}{Unix\+CCompiler}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1unixccompiler_a56a8274c3866a89c8401a19264d89fd7_a56a8274c3866a89c8401a19264d89fd7}{\+\_\+split\+\_\+env}} (cmd)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1unixccompiler_aea3fa287bac88eb41ecd1f6b65f5e1c2_aea3fa287bac88eb41ecd1f6b65f5e1c2}{\+\_\+split\+\_\+aix}} (cmd)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1unixccompiler_ab50ee40e8b5a3a9cc71c96cfd9f60fdb_ab50ee40e8b5a3a9cc71c96cfd9f60fdb}{\+\_\+linker\+\_\+params}} (linker\+\_\+cmd, compiler\+\_\+cmd)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}distutils.unixccompiler
+
+Contains the UnixCCompiler class, a subclass of CCompiler that handles
+the "typical" Unix-style command-line C compiler:
+  * macros defined with -Dname[=value]
+  * macros undefined with -Uname
+  * include search directories specified with -Idir
+  * libraries specified with -lllib
+  * library search directories specified with -Ldir
+  * compile handled by 'cc' (or similar) executable with -c option:
+    compiles .c to .o
+  * link static library handled by 'ar' command (possibly with 'ranlib')
+  * link shared library handled by 'cc -shared'
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1unixccompiler_ab50ee40e8b5a3a9cc71c96cfd9f60fdb_ab50ee40e8b5a3a9cc71c96cfd9f60fdb}\index{setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}!\_linker\_params@{\_linker\_params}}
+\index{\_linker\_params@{\_linker\_params}!setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}}
+\doxysubsubsection{\texorpdfstring{\_linker\_params()}{\_linker\_params()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1unixccompiler_ab50ee40e8b5a3a9cc71c96cfd9f60fdb_ab50ee40e8b5a3a9cc71c96cfd9f60fdb} 
+setuptools.\+\_\+distutils.\+unixccompiler.\+\_\+linker\+\_\+params (\begin{DoxyParamCaption}\item[{}]{linker\+\_\+cmd}{, }\item[{}]{compiler\+\_\+cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}The linker command usually begins with the compiler
+command (possibly multiple elements), followed by zero or more
+params for shared library building.
+
+If the LDSHARED env variable overrides the linker command,
+however, the commands may not match.
+
+Return the best guess of the linker parameters by stripping
+the linker command. If the compiler command does not
+match the linker command, assume the linker command is
+just the first element.
+
+>>> _linker_params('gcc foo bar'.split(), ['gcc'])
+['foo', 'bar']
+>>> _linker_params('gcc foo bar'.split(), ['other'])
+['foo', 'bar']
+>>> _linker_params('ccache gcc foo bar'.split(), 'ccache gcc'.split())
+['foo', 'bar']
+>>> _linker_params(['gcc'], ['gcc'])
+[]
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1unixccompiler_aea3fa287bac88eb41ecd1f6b65f5e1c2_aea3fa287bac88eb41ecd1f6b65f5e1c2}\index{setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}!\_split\_aix@{\_split\_aix}}
+\index{\_split\_aix@{\_split\_aix}!setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}}
+\doxysubsubsection{\texorpdfstring{\_split\_aix()}{\_split\_aix()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1unixccompiler_aea3fa287bac88eb41ecd1f6b65f5e1c2_aea3fa287bac88eb41ecd1f6b65f5e1c2} 
+setuptools.\+\_\+distutils.\+unixccompiler.\+\_\+split\+\_\+aix (\begin{DoxyParamCaption}\item[{}]{cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}AIX platforms prefix the compiler with the ld_so_aix
+script, so split that from the linker command.
+
+>>> _split_aix(['a', 'b', 'c'])
+([], ['a', 'b', 'c'])
+>>> _split_aix(['/bin/foo/ld_so_aix', 'gcc'])
+(['/bin/foo/ld_so_aix'], ['gcc'])
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1unixccompiler_a56a8274c3866a89c8401a19264d89fd7_a56a8274c3866a89c8401a19264d89fd7}\index{setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}!\_split\_env@{\_split\_env}}
+\index{\_split\_env@{\_split\_env}!setuptools.\_distutils.unixccompiler@{setuptools.\_distutils.unixccompiler}}
+\doxysubsubsection{\texorpdfstring{\_split\_env()}{\_split\_env()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1unixccompiler_a56a8274c3866a89c8401a19264d89fd7_a56a8274c3866a89c8401a19264d89fd7} 
+setuptools.\+\_\+distutils.\+unixccompiler.\+\_\+split\+\_\+env (\begin{DoxyParamCaption}\item[{}]{cmd}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}For macOS, split command into 'env' portion (if any)
+and the rest of the linker command.
+
+>>> _split_env(['a', 'b', 'c'])
+([], ['a', 'b', 'c'])
+>>> _split_env(['/usr/bin/env', 'A=3', 'gcc'])
+(['/usr/bin/env', 'A=3'], ['gcc'])
+\end{DoxyVerb}
+ 

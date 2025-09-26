@@ -1,0 +1,103 @@
+\doxysection{qiskit.\+circuit.\+library.\+arithmetic.\+adders.\+vbe\+\_\+ripple\+\_\+carry\+\_\+adder.\+VBERipple\+Carry\+Adder Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder}{}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder}\index{qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder@{qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+arithmetic.\+adders.\+vbe\+\_\+ripple\+\_\+carry\+\_\+adder.\+VBERipple\+Carry\+Adder\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d0/d54/classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder_a309293decdda51c63c19cb51b3949d83_a309293decdda51c63c19cb51b3949d83}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1adder_1_1_adder_a8a01de74007b2008f0ac891fbb119f0a_a8a01de74007b2008f0ac891fbb119f0a}{num\+\_\+state\+\_\+qubits}}, str kind="{}full"{}, str name="{}VBERipple\+Carry\+Adder"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder_a47973e76b9a6cd8096f6f3956428332c}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder_a47973e76b9a6cd8096f6f3956428332c} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The VBE ripple carry adder [1].
+
+This circuit performs inplace addition of two equally-sized quantum registers.
+As an example, a classical adder circuit that performs full addition (i.e. including
+a carry-in bit) on two 2-qubit sized registers is as follows:
+
+.. code-block:: text
+
+              ┌────────┐                       ┌───────────┐┌──────┐
+       cin_0: ┤0       ├───────────────────────┤0          ├┤0     ├
+              │        │                       │           ││      │
+         a_0: ┤1       ├───────────────────────┤1          ├┤1     ├
+              │        │┌────────┐     ┌──────┐│           ││  Sum │
+         a_1: ┤        ├┤1       ├──■──┤1     ├┤           ├┤      ├
+              │        ││        │  │  │      ││           ││      │
+         b_0: ┤2 Carry ├┤        ├──┼──┤      ├┤2 Carry_dg ├┤2     ├
+              │        ││        │┌─┴─┐│      ││           │└──────┘
+         b_1: ┤        ├┤2 Carry ├┤ X ├┤2 Sum ├┤           ├────────
+              │        ││        │└───┘│      ││           │
+      cout_0: ┤        ├┤3       ├─────┤      ├┤           ├────────
+              │        ││        │     │      ││           │
+    helper_0: ┤3       ├┤0       ├─────┤0     ├┤3          ├────────
+              └────────┘└────────┘     └──────┘└───────────┘
+
+
+Here *Carry* and *Sum* gates correspond to the gates introduced in [1].
+*Carry_dg* correspond to the inverse of the *Carry* gate. Note that
+in this implementation the input register qubits are ordered as all qubits from
+the first input register, followed by all qubits from the second input register.
+This is different ordering as compared to Figure 2 in [1], which leads to a different
+drawing of the circuit.
+
+.. seealso::
+
+    The following generic gate objects perform additions, like this circuit class,
+    but allow the compiler to select the optimal decomposition based on the context.
+    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit
+    can be chosen via ``Adder=["ripple_v95"]``.
+
+    :class:`.ModularAdderGate`: A generic inplace adder, modulo :math:`2^n`. This
+        is functionally equivalent to ``kind="fixed"``.
+
+    :class:`.HalfAdderGate`: A generic inplace adder. This
+        is functionally equivalent to ``kind="half"``.
+
+    :class:`.FullAdderGate`: A generic inplace adder, with a carry-in bit. This
+        is functionally equivalent to ``kind="full"``.
+
+**References:**
+
+[1] Vedral et al., Quantum Networks for Elementary Arithmetic Operations, 1995.
+`arXiv:quant-ph/9511018 <https://arxiv.org/pdf/quant-ph/9511018.pdf>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder_a309293decdda51c63c19cb51b3949d83_a309293decdda51c63c19cb51b3949d83}\index{qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder@{qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder@{qiskit.circuit.library.arithmetic.adders.vbe\_ripple\_carry\_adder.VBERippleCarryAdder}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_1_1_v_b_e_ripple_carry_adder_a309293decdda51c63c19cb51b3949d83_a309293decdda51c63c19cb51b3949d83} 
+ None qiskit.\+circuit.\+library.\+arithmetic.\+adders.\+vbe\+\_\+ripple\+\_\+carry\+\_\+adder.\+VBERipple\+Carry\+Adder.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{str }]{kind}{ = {\ttfamily "{}full"{}}, }\item[{str }]{name}{ = {\ttfamily "{}VBERippleCarryAdder"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_state_qubits: The size of the register.
+    kind: The kind of adder, can be ``'full'`` for a full adder, ``'half'`` for a half
+        adder, or ``'fixed'`` for a fixed-sized adder. A full adder includes both carry-in
+        and carry-out, a half only carry-out, and a fixed-sized adder neither carry-in
+        nor carry-out.
+    name: The name of the circuit.
+
+Raises:
+    ValueError: If ``num_state_qubits`` is lower than 1.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1adders_1_1adder_1_1_adder_ac17cd8a0e341ab2e89015948d23ac6c3_ac17cd8a0e341ab2e89015948d23ac6c3}{qiskit.\+circuit.\+library.\+arithmetic.\+adders.\+adder.\+Adder}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/arithmetic/adders/vbe\+\_\+ripple\+\_\+carry\+\_\+adder.\+py\end{DoxyCompactItemize}

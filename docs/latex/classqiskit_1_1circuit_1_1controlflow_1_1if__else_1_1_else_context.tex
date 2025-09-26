@@ -1,0 +1,52 @@
+\doxysection{qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+Else\+Context Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context}{}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context}\index{qiskit.circuit.controlflow.if\_else.ElseContext@{qiskit.circuit.controlflow.if\_else.ElseContext}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ab85364e813183f600686456e75864011}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ab85364e813183f600686456e75864011} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_context}{If\+Context}} if\+\_\+context)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a0fea0f736ce3b1cb5213ca0038cbe6bd}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a0fea0f736ce3b1cb5213ca0038cbe6bd} 
+{\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ac4151b1bf68839090d6248b497abfbc2}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ac4151b1bf68839090d6248b497abfbc2} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, exc\+\_\+type, exc\+\_\+val, exc\+\_\+tb)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ae51e07d9f28356c795e4facb744ec617}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_ae51e07d9f28356c795e4facb744ec617} 
+{\bfseries \+\_\+if\+\_\+instruction} = None
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a48d55fde9834f712435830bc8f8f14c7}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a48d55fde9834f712435830bc8f8f14c7} 
+{\bfseries \+\_\+if\+\_\+registers} = None
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a232558d4e9d1c6dd14c0d3cbd576b220}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a232558d4e9d1c6dd14c0d3cbd576b220} 
+{\bfseries \+\_\+if\+\_\+context} = if\+\_\+context
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a266c59dd8b1e1d8c65fa9d7f5b69298a}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_else_context_a266c59dd8b1e1d8c65fa9d7f5b69298a} 
+bool {\bfseries \+\_\+used} = False
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A context manager for building up an ``else`` statements onto circuits in a natural order,
+without having to construct the statement body first.
+
+Instances of this context manager should only ever be gained as the output of the
+:obj:`.IfContext` manager, so they know what they refer to.  Instances of this context are
+"friends" of the circuit that created the :obj:`.IfContext` that in turn created this object.
+The context will manipulate the circuit's defined scopes when it is entered (by popping the old
+:obj:`.IfElseOp` if it exists and pushing a new scope onto the stack) and exited (by popping its
+scope, building it, and appending the resulting :obj:`.IfElseOp`).
+
+.. warning::
+
+    This is an internal interface and no part of it should be relied upon outside of Qiskit
+    Terra.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/controlflow/if\+\_\+else.\+py\end{DoxyCompactItemize}

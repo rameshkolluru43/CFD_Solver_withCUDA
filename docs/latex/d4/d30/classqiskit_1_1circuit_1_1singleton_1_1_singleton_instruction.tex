@@ -1,0 +1,33 @@
+\doxysection{qiskit.\+circuit.\+singleton.\+Singleton\+Instruction Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1singleton_1_1_singleton_instruction}{}\label{classqiskit_1_1circuit_1_1singleton_1_1_singleton_instruction}\index{qiskit.circuit.singleton.SingletonInstruction@{qiskit.circuit.singleton.SingletonInstruction}}
+Inheritance diagram for qiskit.\+circuit.\+singleton.\+Singleton\+Instruction\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.465409cm]{d4/d30/classqiskit_1_1circuit_1_1singleton_1_1_singleton_instruction}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A base class to use for :class:`~.circuit.Instruction` objects that by default are singleton
+instances.
+
+This class should be used for instruction classes that have fixed definitions and do not contain
+any unique state. The canonical example of something like this is :class:`.Measure` which has an
+immutable definition and any instance of :class:`.Measure` is the same. Using singleton
+instructions as a base class for these types of gate classes provides a large advantage in the
+memory footprint of multiple instructions.
+
+The exception to be aware of with this class though are the :class:`~.circuit.Instruction`
+attributes :attr:`~.Instruction.label`, :attr:`~.Instruction.condition`,
+:attr:`~.Instruction.duration`, and :attr:`~.Instruction.unit` which can be set differently for
+specific instances of gates.  For :class:`SingletonInstruction` usage to be sound setting these
+attributes is not available and they can only be set at creation time, or on an object that has
+been specifically made mutable using :meth:`~.Instruction.to_mutable`. If any of these
+attributes are used during creation, then instead of using a single shared global instance of
+the same gate a new separate instance will be created.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/singleton.\+py\end{DoxyCompactItemize}

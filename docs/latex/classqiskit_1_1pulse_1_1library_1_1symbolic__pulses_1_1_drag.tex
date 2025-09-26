@@ -1,0 +1,100 @@
+\doxysection{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Drag Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag}{}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag}\index{qiskit.pulse.library.symbolic\_pulses.Drag@{qiskit.pulse.library.symbolic\_pulses.Drag}}
+Inheritance diagram for qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Drag\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.916667cm]{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}{Scalable\+Symbolic\+Pulse}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_ac100a2209b8612d879d44141ff83a415}{\+\_\+\+\_\+new\+\_\+\+\_\+}} (cls, int\texorpdfstring{$\vert$}{|}Parameter\+Value\+Type duration, Parameter\+Value\+Type amp, Parameter\+Value\+Type sigma, Parameter\+Value\+Type beta, Parameter\+Value\+Type angle=0.\+0, str\texorpdfstring{$\vert$}{|}None name=None, bool\texorpdfstring{$\vert$}{|}None limit\+\_\+amplitude=None)
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_ae6ec7bd87a59de5aa3b9de43e3ca88af}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_ae6ec7bd87a59de5aa3b9de43e3ca88af} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1___pulse_type}{qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+\_\+\+Pulse\+Type}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+\+\_\+instancecheck\+\_\+\+\_\+} (cls, instance)
+\item 
+{\bfseries \+\_\+\+\_\+getattr\+\_\+\+\_\+} (cls, item)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_aed2ceae27cf37bbe656fca77b090f36f}\label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_aed2ceae27cf37bbe656fca77b090f36f} 
+str {\bfseries alias} = "{}Drag"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Derivative Removal by Adiabatic Gate (DRAG) pulse is a standard Gaussian pulse
+with an additional Gaussian derivative component and lifting applied.
+
+It can be calibrated either to reduce the phase error due to virtual population of the
+:math:`|2\\rangle` state during the pulse or to reduce the frequency spectrum of a
+standard Gaussian pulse near the :math:`|1\\rangle\\leftrightarrow|2\\rangle` transition,
+reducing the chance of leakage to the :math:`|2\\rangle` state.
+
+.. math::
+
+    \\begin{aligned}
+    g(x) &= \\exp\\Bigl(-\\frac12 \\frac{(x - \\text{duration}/2)^2}{\\text{sigma}^2}\\Bigr)\\\\
+    g'(x) &= \\text{A}\\times\\frac{g(x)-g(-1)}{1-g(-1)}\\\\
+    f(x) &=  g'(x) \\times \\Bigl(1 + 1j \\times \\text{beta} \\times\
+        \\Bigl(-\\frac{x - \\text{duration}/2}{\\text{sigma}^2}\\Bigr)  \\Bigr),
+        \\quad 0 \\le x < \\text{duration}
+    \\end{aligned}
+
+where :math:`g(x)` is a standard unlifted Gaussian waveform, :math:`g'(x)` is the lifted
+:class:`~qiskit.pulse.library.Gaussian` waveform, and
+:math:`\\text{A} = \\text{amp} \\times \\exp\\left(i\\times\\text{angle}\\right)`.
+
+References:
+    1. |citation1|_
+
+    .. _citation1: https://link.aps.org/doi/10.1103/PhysRevA.83.012308
+
+    .. |citation1| replace:: *Gambetta, J. M., Motzoi, F., Merkel, S. T. & Wilhelm, F. K.
+       Analytic control methods for high-fidelity unitary operations
+       in a weakly nonlinear oscillator. Phys. Rev. A 83, 012308 (2011).*
+
+    2. |citation2|_
+
+    .. _citation2: https://link.aps.org/doi/10.1103/PhysRevLett.103.110501
+
+    .. |citation2| replace:: *F. Motzoi, J. M. Gambetta, P. Rebentrost, and F. K. Wilhelm
+       Phys. Rev. Lett. 103, 110501 – Published 8 September 2009.*
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_ac100a2209b8612d879d44141ff83a415}\index{qiskit.pulse.library.symbolic\_pulses.Drag@{qiskit.pulse.library.symbolic\_pulses.Drag}!\_\_new\_\_@{\_\_new\_\_}}
+\index{\_\_new\_\_@{\_\_new\_\_}!qiskit.pulse.library.symbolic\_pulses.Drag@{qiskit.pulse.library.symbolic\_pulses.Drag}}
+\doxysubsubsection{\texorpdfstring{\_\_new\_\_()}{\_\_new\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_drag_ac100a2209b8612d879d44141ff83a415} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1library_1_1symbolic__pulses_1_1_scalable_symbolic_pulse}{Scalable\+Symbolic\+Pulse}} qiskit.\+pulse.\+library.\+symbolic\+\_\+pulses.\+Drag.\+\_\+\+\_\+new\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{cls}{, }\item[{int \texorpdfstring{$\vert$}{|} Parameter\+Value\+Type}]{duration}{, }\item[{Parameter\+Value\+Type}]{amp}{, }\item[{Parameter\+Value\+Type}]{sigma}{, }\item[{Parameter\+Value\+Type}]{beta}{, }\item[{Parameter\+Value\+Type }]{angle}{ = {\ttfamily 0.0}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{limit\+\_\+amplitude}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new pulse instance.
+
+Args:
+    duration: Pulse length in terms of the sampling period `dt`.
+    amp: The magnitude of the amplitude of the DRAG envelope.
+    sigma: A measure of how wide or narrow the Gaussian peak is; described mathematically
+           in the class docstring.
+    beta: The correction amplitude.
+    angle: The angle of the complex amplitude of the DRAG envelope. Default value 0.
+    name: Display name for this pulse envelope.
+    limit_amplitude: If ``True``, then limit the amplitude of the
+        waveform to 1. The default is ``True`` and the amplitude is constrained to 1.
+
+Returns:
+    ScalableSymbolicPulse instance.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/library/symbolic\+\_\+pulses.\+py\end{DoxyCompactItemize}

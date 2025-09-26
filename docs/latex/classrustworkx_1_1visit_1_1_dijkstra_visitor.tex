@@ -1,0 +1,79 @@
+\doxysection{rustworkx.\+visit.\+Dijkstra\+Visitor Class Reference}
+\hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor}{}\label{classrustworkx_1_1visit_1_1_dijkstra_visitor}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+Inheritance diagram for rustworkx.\+visit.\+Dijkstra\+Visitor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrustworkx_1_1visit_1_1_dijkstra_visitor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_dijkstra_visitor_ae6586bdc9f3a87afadade7fe2b992d7c}{discover\+\_\+vertex}} (self, v, score)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_dijkstra_visitor_a970f6452c44711f0f7d0c8f16a50c171}{finish\+\_\+vertex}} (self, v)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_dijkstra_visitor_af3d7675cd6faed9c2dd2678775025961}{examine\+\_\+edge}} (self, edge)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_dijkstra_visitor_a19bdd8e1e9e339c5748a4469ba5f2008}{edge\+\_\+relaxed}} (self, edge)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_dijkstra_visitor_a8357e2cc6c3490b6b0ff0b90aa580d0f}{edge\+\_\+not\+\_\+relaxed}} (self, edge)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A visitor object that is invoked at the event-points inside the
+:func:`~rustworkx.dijkstra_search` algorithm. By default, it performs no
+action, and should be used as a base class in order to be useful.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor_ae6586bdc9f3a87afadade7fe2b992d7c}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}!discover\_vertex@{discover\_vertex}}
+\index{discover\_vertex@{discover\_vertex}!rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+\doxysubsubsection{\texorpdfstring{discover\_vertex()}{discover\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_dijkstra_visitor_ae6586bdc9f3a87afadade7fe2b992d7c} 
+rustworkx.\+visit.\+Dijkstra\+Visitor.\+discover\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{, }\item[{}]{score}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked when a vertex is encountered for the first time and
+it's popped from the queue. Together with the node, we report the optimal
+distance of the node.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor_a8357e2cc6c3490b6b0ff0b90aa580d0f}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}!edge\_not\_relaxed@{edge\_not\_relaxed}}
+\index{edge\_not\_relaxed@{edge\_not\_relaxed}!rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+\doxysubsubsection{\texorpdfstring{edge\_not\_relaxed()}{edge\_not\_relaxed()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_dijkstra_visitor_a8357e2cc6c3490b6b0ff0b90aa580d0f} 
+rustworkx.\+visit.\+Dijkstra\+Visitor.\+edge\+\_\+not\+\_\+relaxed (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{edge}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Upon examination, if the edge is not relaxed, this event is emitted.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor_a19bdd8e1e9e339c5748a4469ba5f2008}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}!edge\_relaxed@{edge\_relaxed}}
+\index{edge\_relaxed@{edge\_relaxed}!rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+\doxysubsubsection{\texorpdfstring{edge\_relaxed()}{edge\_relaxed()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_dijkstra_visitor_a19bdd8e1e9e339c5748a4469ba5f2008} 
+rustworkx.\+visit.\+Dijkstra\+Visitor.\+edge\+\_\+relaxed (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{edge}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Upon examination, if the distance of the target of the edge is reduced,
+this event is emitted.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor_af3d7675cd6faed9c2dd2678775025961}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}!examine\_edge@{examine\_edge}}
+\index{examine\_edge@{examine\_edge}!rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+\doxysubsubsection{\texorpdfstring{examine\_edge()}{examine\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_dijkstra_visitor_af3d7675cd6faed9c2dd2678775025961} 
+rustworkx.\+visit.\+Dijkstra\+Visitor.\+examine\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{edge}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on every out-edge of each vertex after it is discovered.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_dijkstra_visitor_a970f6452c44711f0f7d0c8f16a50c171}\index{rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}!finish\_vertex@{finish\_vertex}}
+\index{finish\_vertex@{finish\_vertex}!rustworkx.visit.DijkstraVisitor@{rustworkx.visit.DijkstraVisitor}}
+\doxysubsubsection{\texorpdfstring{finish\_vertex()}{finish\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_dijkstra_visitor_a970f6452c44711f0f7d0c8f16a50c171} 
+rustworkx.\+visit.\+Dijkstra\+Visitor.\+finish\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on vertex `v` after all of its out edges have been examined.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/rustworkx/visit.\+py\end{DoxyCompactItemize}

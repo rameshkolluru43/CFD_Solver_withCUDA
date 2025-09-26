@@ -1,0 +1,39 @@
+\doxysection{qiskit.\+scheduler.\+sequence Namespace Reference}
+\hypertarget{namespaceqiskit_1_1scheduler_1_1sequence}{}\label{namespaceqiskit_1_1scheduler_1_1sequence}\index{qiskit.scheduler.sequence@{qiskit.scheduler.sequence}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \mbox{\hyperlink{namespaceqiskit_1_1scheduler_1_1sequence_ac609e4b8aa07cc1d2c59bd82048e8cb0_ac609e4b8aa07cc1d2c59bd82048e8cb0}{sequence}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} scheduled\+\_\+circuit, \mbox{\hyperlink{classqiskit_1_1scheduler_1_1config_1_1_schedule_config}{Schedule\+Config}} schedule\+\_\+config, Optional\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v1}{Backend\+V1}}, \mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v2}{Backend\+V2}}\mbox{]}\mbox{]} backend=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Mapping a scheduled QuantumCircuit to a pulse Schedule.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1scheduler_1_1sequence_ac609e4b8aa07cc1d2c59bd82048e8cb0_ac609e4b8aa07cc1d2c59bd82048e8cb0}\index{qiskit.scheduler.sequence@{qiskit.scheduler.sequence}!sequence@{sequence}}
+\index{sequence@{sequence}!qiskit.scheduler.sequence@{qiskit.scheduler.sequence}}
+\doxysubsubsection{\texorpdfstring{sequence()}{sequence()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1scheduler_1_1sequence_ac609e4b8aa07cc1d2c59bd82048e8cb0_ac609e4b8aa07cc1d2c59bd82048e8cb0} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} qiskit.\+scheduler.\+sequence.\+sequence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{scheduled\+\_\+circuit}{, }\item[{\mbox{\hyperlink{classqiskit_1_1scheduler_1_1config_1_1_schedule_config}{Schedule\+Config}}}]{schedule\+\_\+config}{, }\item[{Optional\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v1}{Backend\+V1}}, \mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v2}{Backend\+V2}}\mbox{]}\mbox{]} }]{backend}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the pulse Schedule which implements the input scheduled circuit.
+
+Assume all measurements are done at once at the last of the circuit.
+Schedules according to the command definition given by the schedule_config.
+
+Args:
+    scheduled_circuit: The scheduled quantum circuit to translate.
+    schedule_config: Backend specific parameters used for building the Schedule.
+    backend: A backend used to build the Schedule, the backend could be BackendV1
+             or BackendV2
+
+Returns:
+    A schedule corresponding to the input ``circuit``.
+
+Raises:
+    QiskitError: If invalid scheduled circuit is supplied.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,85 @@
+\doxysection{wheel.\+wheelfile.\+Wheel\+File Class Reference}
+\hypertarget{classwheel_1_1wheelfile_1_1_wheel_file}{}\label{classwheel_1_1wheelfile_1_1_wheel_file}\index{wheel.wheelfile.WheelFile@{wheel.wheelfile.WheelFile}}
+Inheritance diagram for wheel.\+wheelfile.\+Wheel\+File\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classwheel_1_1wheelfile_1_1_wheel_file}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a8c56674fc570df46f85552538bf34ec3}\label{classwheel_1_1wheelfile_1_1_wheel_file_a8c56674fc570df46f85552538bf34ec3} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, file, mode="{}r"{}, compression=ZIP\+\_\+\+DEFLATED)
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_ab09d9c15b471cd4db6e00efa7e3e3a7a}\label{classwheel_1_1wheelfile_1_1_wheel_file_ab09d9c15b471cd4db6e00efa7e3e3a7a} 
+{\bfseries open} (self, name\+\_\+or\+\_\+info, mode="{}r"{}, pwd=None)
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a12f4800e6d79f6a3ad59c0fb757b9989}\label{classwheel_1_1wheelfile_1_1_wheel_file_a12f4800e6d79f6a3ad59c0fb757b9989} 
+{\bfseries write\+\_\+files} (self, base\+\_\+dir)
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_ad7b89472e45c3ed39ff8372089cc65b2}\label{classwheel_1_1wheelfile_1_1_wheel_file_ad7b89472e45c3ed39ff8372089cc65b2} 
+{\bfseries write} (self, filename, arcname=None, compress\+\_\+type=None)
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a1c9f8fff21bbbbf7643321449756b09b}\label{classwheel_1_1wheelfile_1_1_wheel_file_a1c9f8fff21bbbbf7643321449756b09b} 
+{\bfseries writestr} (self, zinfo\+\_\+or\+\_\+arcname, data, compress\+\_\+type=None)
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a214d2730db455913c48b4c079770b7f6}\label{classwheel_1_1wheelfile_1_1_wheel_file_a214d2730db455913c48b4c079770b7f6} 
+{\bfseries close} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_adb28289ac9470e45ac16ceec1fa609c6}\label{classwheel_1_1wheelfile_1_1_wheel_file_adb28289ac9470e45ac16ceec1fa609c6} 
+{\bfseries parsed\+\_\+filename} = WHEEL\+\_\+\+INFO\+\_\+\+RE.\+match(basename)
+\item 
+str \mbox{\hyperlink{classwheel_1_1wheelfile_1_1_wheel_file_a57bff96f2553f377f590987e7c1f416f}{dist\+\_\+info\+\_\+path}}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a754d0dfa1404355d4e62770fdfb3537d}\label{classwheel_1_1wheelfile_1_1_wheel_file_a754d0dfa1404355d4e62770fdfb3537d} 
+str {\bfseries record\+\_\+path} = self.\+dist\+\_\+info\+\_\+path + "{}/RECORD"{}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_abb7d885631fed816798bff0b4a281479}\label{classwheel_1_1wheelfile_1_1_wheel_file_abb7d885631fed816798bff0b4a281479} 
+str {\bfseries mode} = "{}w"{} and self.\+\_\+file\+\_\+hashes\+:
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a2484f3cba103f41170ca0dcdd2907a0c}\label{classwheel_1_1wheelfile_1_1_wheel_file_a2484f3cba103f41170ca0dcdd2907a0c} 
+dict {\bfseries \+\_\+file\+\_\+hashes} = \{\}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a89669de2c58ab33e7217bd6f5d89a245}\label{classwheel_1_1wheelfile_1_1_wheel_file_a89669de2c58ab33e7217bd6f5d89a245} 
+dict {\bfseries \+\_\+file\+\_\+sizes} = \{\}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a82199eca2f2ac1516f6035c95e7dffb4}\label{classwheel_1_1wheelfile_1_1_wheel_file_a82199eca2f2ac1516f6035c95e7dffb4} 
+{\bfseries \+\_\+default\+\_\+algorithm} = hashlib.\+sha256
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A ZipFile derivative class that also reads SHA-256 hashes from
+.dist-info/RECORD and checks any read files against those.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{classwheel_1_1wheelfile_1_1_wheel_file_a57bff96f2553f377f590987e7c1f416f}\index{wheel.wheelfile.WheelFile@{wheel.wheelfile.WheelFile}!dist\_info\_path@{dist\_info\_path}}
+\index{dist\_info\_path@{dist\_info\_path}!wheel.wheelfile.WheelFile@{wheel.wheelfile.WheelFile}}
+\doxysubsubsection{\texorpdfstring{dist\_info\_path}{dist\_info\_path}}
+{\footnotesize\ttfamily \label{classwheel_1_1wheelfile_1_1_wheel_file_a57bff96f2553f377f590987e7c1f416f} 
+str wheel.\+wheelfile.\+Wheel\+File.\+dist\+\_\+info\+\_\+path}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ \ \textcolor{stringliteral}{"{}\{\}.dist-\/info"{}}.format(}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ self.parsed\_filename.group(\textcolor{stringliteral}{"{}namever"{}})}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ )}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/wheel/wheelfile.\+py\end{DoxyCompactItemize}

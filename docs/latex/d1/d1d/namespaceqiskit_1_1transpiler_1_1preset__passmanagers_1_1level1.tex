@@ -1,0 +1,44 @@
+\doxysection{qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level1 Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level1}{}\label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level1}\index{qiskit.transpiler.preset\_passmanagers.level1@{qiskit.transpiler.preset\_passmanagers.level1}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} \mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level1_aa8abeba7a1c573a308be030a029e48f6_aa8abeba7a1c573a308be030a029e48f6}{level\+\_\+1\+\_\+pass\+\_\+manager}} (\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}} pass\+\_\+manager\+\_\+config)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Pass manager for optimization level 1, providing light optimization.
+
+Level 1 pass manager: light optimization by simple adjacent gate collapsing.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level1_aa8abeba7a1c573a308be030a029e48f6_aa8abeba7a1c573a308be030a029e48f6}\index{qiskit.transpiler.preset\_passmanagers.level1@{qiskit.transpiler.preset\_passmanagers.level1}!level\_1\_pass\_manager@{level\_1\_pass\_manager}}
+\index{level\_1\_pass\_manager@{level\_1\_pass\_manager}!qiskit.transpiler.preset\_passmanagers.level1@{qiskit.transpiler.preset\_passmanagers.level1}}
+\doxysubsubsection{\texorpdfstring{level\_1\_pass\_manager()}{level\_1\_pass\_manager()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1preset__passmanagers_1_1level1_aa8abeba7a1c573a308be030a029e48f6_aa8abeba7a1c573a308be030a029e48f6} 
+ \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager_1_1_staged_pass_manager}{Staged\+Pass\+Manager}} qiskit.\+transpiler.\+preset\+\_\+passmanagers.\+level1.\+level\+\_\+1\+\_\+pass\+\_\+manager (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passmanager__config_1_1_pass_manager_config}{Pass\+Manager\+Config}}}]{pass\+\_\+manager\+\_\+config}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Level 1 pass manager: light optimization by simple adjacent gate collapsing.
+
+This pass manager applies the user-given initial layout. If none is given,
+and a trivial layout (i-th virtual -> i-th physical) makes the circuit fit
+the coupling map, that is used.
+Otherwise, the circuit is mapped to the most densely connected coupling subgraph,
+and swaps are inserted to map. Any unused physical qubit is allocated as ancilla space.
+The pass manager then unrolls the circuit to the desired basis, and transforms the
+circuit to match the coupling map. Finally, optimizations in the form of adjacent
+gate collapse and redundant reset removal are performed.
+
+Args:
+    pass_manager_config: configuration of the pass manager.
+
+Returns:
+    a level 1 pass manager.
+
+Raises:
+    TranspilerError: if the passmanager config is invalid.
+\end{DoxyVerb}
+ 

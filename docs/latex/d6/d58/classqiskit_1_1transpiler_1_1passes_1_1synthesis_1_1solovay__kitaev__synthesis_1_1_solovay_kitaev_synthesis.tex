@@ -1,0 +1,206 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis}{}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d6/d58/classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a01940a704f38f3b6573040c11974fdcc_a01940a704f38f3b6573040c11974fdcc}{max\+\_\+qubits}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aedbd44038862d0611e0a34f77c2c212b_aedbd44038862d0611e0a34f77c2c212b}{min\+\_\+qubits}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a78aa5e276f49d27dcb10219b4b57f466_a78aa5e276f49d27dcb10219b4b57f466}{supports\+\_\+natural\+\_\+direction}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a9c3ce24fdf2e8716cf0ffa832fd44e0d_a9c3ce24fdf2e8716cf0ffa832fd44e0d}{supports\+\_\+pulse\+\_\+optimize}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_ae3a2e085da3dcf71e6f17e8dd515c60b_ae3a2e085da3dcf71e6f17e8dd515c60b}{supports\+\_\+gate\+\_\+lengths}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aa18ea0edd64ff74c6142ae82ac7fcf9f_aa18ea0edd64ff74c6142ae82ac7fcf9f}{supports\+\_\+gate\+\_\+errors}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_af44b94b20620e78b35e1337d3410f873_af44b94b20620e78b35e1337d3410f873}{supported\+\_\+bases}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a27f4bc9551600eaeb22d68eb1830274e_a27f4bc9551600eaeb22d68eb1830274e}{supports\+\_\+basis\+\_\+gates}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a42212d1f802084a5815061c744092a50_a42212d1f802084a5815061c744092a50}{supports\+\_\+coupling\+\_\+map}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a1327ad5f47e8ad15a3fed532e220a1ff_a1327ad5f47e8ad15a3fed532e220a1ff}{run}} (self, unitary, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}options)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a155accb2567ad45f5e4de75cdddeda78}\label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a155accb2567ad45f5e4de75cdddeda78} 
+{\bfseries \+\_\+sk} = None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A Solovay-Kitaev Qiskit unitary synthesis plugin.
+
+This plugin is invoked by :func:`~.compiler.transpile` when the ``unitary_synthesis_method``
+parameter is set to ``"sk"``.
+
+This plugin supports customization and additional parameters can be passed to the plugin
+by passing a dictionary as the ``unitary_synthesis_plugin_config`` parameter of
+the :func:`~qiskit.compiler.transpile` function.
+
+Supported parameters in the dictionary:
+
+basis_approximations (str | dict):
+    The basic approximations for the finding the best discrete decomposition at the root of the
+    recursion. If a string, it specifies the ``.npy`` file to load the approximations from.
+    If a dictionary, it contains ``{label: SO(3)-matrix}`` pairs. If None, a default based on
+    the specified ``basis_gates`` and ``depth`` is generated.
+
+basis_gates (list):
+    A list of strings specifying the discrete basis gates to decompose to. If None,
+    defaults to ``["h", "t", "tdg"]``.
+
+depth (int):
+    The gate-depth of the basic approximations. All possible, unique combinations of the
+    basis gates up to length ``depth`` are considered. If None, defaults to 10.
+
+recursion_degree (int):
+    The number of times the decomposition is recursively improved. If None, defaults to 3.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a01940a704f38f3b6573040c11974fdcc_a01940a704f38f3b6573040c11974fdcc}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!max\_qubits@{max\_qubits}}
+\index{max\_qubits@{max\_qubits}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{max\_qubits()}{max\_qubits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a01940a704f38f3b6573040c11974fdcc_a01940a704f38f3b6573040c11974fdcc} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+max\+\_\+qubits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Maximum number of supported qubits is ``1``.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a379fb0dd3a0bbebf9462f0482f761dc5_a379fb0dd3a0bbebf9462f0482f761dc5}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aedbd44038862d0611e0a34f77c2c212b_aedbd44038862d0611e0a34f77c2c212b}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!min\_qubits@{min\_qubits}}
+\index{min\_qubits@{min\_qubits}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{min\_qubits()}{min\_qubits()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aedbd44038862d0611e0a34f77c2c212b_aedbd44038862d0611e0a34f77c2c212b} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+min\+\_\+qubits (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Minimum number of supported qubits is ``1``.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ac59bdb84906bf04aed3dbb6bdb5a64f4_ac59bdb84906bf04aed3dbb6bdb5a64f4}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a1327ad5f47e8ad15a3fed532e220a1ff_a1327ad5f47e8ad15a3fed532e220a1ff}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a1327ad5f47e8ad15a3fed532e220a1ff_a1327ad5f47e8ad15a3fed532e220a1ff} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{unitary}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{options}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run synthesis for the given unitary matrix
+
+Args:
+    unitary (numpy.ndarray): The unitary matrix to synthesize to a
+        :class:`~qiskit.dagcircuit.DAGCircuit` object
+    options: The optional kwargs that are passed based on the output
+        the ``support_*`` methods on the class. Refer to the
+        documentation for these methods on
+        :class:`~qiskit.transpiler.passes.synthesis.plugin.UnitarySynthesisPlugin`
+        to see what the keys and values are.
+
+Returns:
+    DAGCircuit: The dag circuit representation of the unitary. Alternatively, you can return
+    a tuple of the form ``(dag, wires)`` where ``dag`` is the dag circuit representation of
+    the circuit representation of the unitary and ``wires`` is the mapping wires to use for
+    :meth:`qiskit.dagcircuit.DAGCircuit.substitute_node_with_dag`. If you return a tuple
+    and ``wires`` is ``None`` this will behave just as if only a
+    :class:`~qiskit.dagcircuit.DAGCircuit` was returned. Additionally if this returns
+    ``None`` no substitution will be made.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ad61500c8ce2b7d732be2167fe81346d7_ad61500c8ce2b7d732be2167fe81346d7}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_af44b94b20620e78b35e1337d3410f873_af44b94b20620e78b35e1337d3410f873}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supported\_bases@{supported\_bases}}
+\index{supported\_bases@{supported\_bases}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supported\_bases()}{supported\_bases()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_af44b94b20620e78b35e1337d3410f873_af44b94b20620e78b35e1337d3410f873} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supported\+\_\+bases (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support bases for synthesis.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a83d3fe84e9e510d44263b60dc34cd8b3_a83d3fe84e9e510d44263b60dc34cd8b3}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a27f4bc9551600eaeb22d68eb1830274e_a27f4bc9551600eaeb22d68eb1830274e}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_basis\_gates@{supports\_basis\_gates}}
+\index{supports\_basis\_gates@{supports\_basis\_gates}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_basis\_gates()}{supports\_basis\_gates()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a27f4bc9551600eaeb22d68eb1830274e_a27f4bc9551600eaeb22d68eb1830274e} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+basis\+\_\+gates (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support basis gates. By default it synthesis to the
+``["h", "t", "tdg"]`` gate basis.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a7e147338df923e20751b3d720a823da7_a7e147338df923e20751b3d720a823da7}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a42212d1f802084a5815061c744092a50_a42212d1f802084a5815061c744092a50}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_coupling\_map@{supports\_coupling\_map}}
+\index{supports\_coupling\_map@{supports\_coupling\_map}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_coupling\_map()}{supports\_coupling\_map()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a42212d1f802084a5815061c744092a50_a42212d1f802084a5815061c744092a50} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+coupling\+\_\+map (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support coupling maps.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_acfd2338924370bd1f83d7c0c54e08c2a_acfd2338924370bd1f83d7c0c54e08c2a}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aa18ea0edd64ff74c6142ae82ac7fcf9f_aa18ea0edd64ff74c6142ae82ac7fcf9f}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_gate\_errors@{supports\_gate\_errors}}
+\index{supports\_gate\_errors@{supports\_gate\_errors}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_gate\_errors()}{supports\_gate\_errors()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_aa18ea0edd64ff74c6142ae82ac7fcf9f_aa18ea0edd64ff74c6142ae82ac7fcf9f} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+gate\+\_\+errors (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support gate errors.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a815be01735aa70b98f24df95307e4cd0_a815be01735aa70b98f24df95307e4cd0}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_ae3a2e085da3dcf71e6f17e8dd515c60b_ae3a2e085da3dcf71e6f17e8dd515c60b}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_gate\_lengths@{supports\_gate\_lengths}}
+\index{supports\_gate\_lengths@{supports\_gate\_lengths}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_gate\_lengths()}{supports\_gate\_lengths()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_ae3a2e085da3dcf71e6f17e8dd515c60b_ae3a2e085da3dcf71e6f17e8dd515c60b} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+gate\+\_\+lengths (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support gate lengths.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_a9e1c2ac72e7e016774ae7344468d4c7c_a9e1c2ac72e7e016774ae7344468d4c7c}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a78aa5e276f49d27dcb10219b4b57f466_a78aa5e276f49d27dcb10219b4b57f466}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_natural\_direction@{supports\_natural\_direction}}
+\index{supports\_natural\_direction@{supports\_natural\_direction}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_natural\_direction()}{supports\_natural\_direction()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a78aa5e276f49d27dcb10219b4b57f466_a78aa5e276f49d27dcb10219b4b57f466} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+natural\+\_\+direction (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support natural direction, it does not assume
+bidirectional two qubit gates.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_aaa4f9ddedfdd635562e51575316b365a_aaa4f9ddedfdd635562e51575316b365a}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a9c3ce24fdf2e8716cf0ffa832fd44e0d_a9c3ce24fdf2e8716cf0ffa832fd44e0d}\index{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}!supports\_pulse\_optimize@{supports\_pulse\_optimize}}
+\index{supports\_pulse\_optimize@{supports\_pulse\_optimize}!qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis@{qiskit.transpiler.passes.synthesis.solovay\_kitaev\_synthesis.SolovayKitaevSynthesis}}
+\doxysubsubsection{\texorpdfstring{supports\_pulse\_optimize()}{supports\_pulse\_optimize()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1solovay__kitaev__synthesis_1_1_solovay_kitaev_synthesis_a9c3ce24fdf2e8716cf0ffa832fd44e0d_a9c3ce24fdf2e8716cf0ffa832fd44e0d} 
+qiskit.\+transpiler.\+passes.\+synthesis.\+solovay\+\_\+kitaev\+\_\+synthesis.\+Solovay\+Kitaev\+Synthesis.\+supports\+\_\+pulse\+\_\+optimize (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The plugin does not support optimization of pulses.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1synthesis_1_1plugin_1_1_unitary_synthesis_plugin_ac3acbf8ece506d3ba3eca847546b3ec8_ac3acbf8ece506d3ba3eca847546b3ec8}{qiskit.\+transpiler.\+passes.\+synthesis.\+plugin.\+Unitary\+Synthesis\+Plugin}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/synthesis/solovay\+\_\+kitaev\+\_\+synthesis.\+py\end{DoxyCompactItemize}

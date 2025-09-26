@@ -1,0 +1,103 @@
+\doxysection{qiskit.\+visualization.\+timeline.\+layouts Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts}{}\label{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts}\index{qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\mbox{[}types.\+Bits\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_af275e1222d0e532a897b137a177b50d8_af275e1222d0e532a897b137a177b50d8}{qreg\+\_\+creg\+\_\+ascending}} (List\mbox{[}types.\+Bits\mbox{]} bits)
+\item 
+List\mbox{[}types.\+Bits\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a757096af38fa600393ab42e4920cfe39_a757096af38fa600393ab42e4920cfe39}{qreg\+\_\+creg\+\_\+descending}} (List\mbox{[}types.\+Bits\mbox{]} bits)
+\item 
+types.\+Horizontal\+Axis \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a4b84b551f68fc6360718f550ca7d8752_a4b84b551f68fc6360718f550ca7d8752}{time\+\_\+map\+\_\+in\+\_\+dt}} (Tuple\mbox{[}int, int\mbox{]} time\+\_\+window)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A collection of functions that decide the layout of an output image.
+See :py:mod:`~qiskit.visualization.timeline.types` for more info on the required data.
+
+There are 2 types of layout functions in this module.
+
+1. layout.bit_arrange
+
+In this stylesheet entry the input data is a list of `types.Bits` and returns a
+sorted list of `types.Bits`.
+
+
+The function signature of the layout is restricted to:
+
+    ```python
+
+    def my_layout(bits: List[types.Bits]) -> List[types.Bits]:
+
+        # your code here: sort input bits and return list of bits
+    ```
+
+2. layout.time_axis_map
+
+In this stylesheet entry the input data is `Tuple[int, int]` that represents horizontal
+axis limit of the output image. The layout function returns `types.HorizontalAxis` data
+which is consumed by the plotter API to make horizontal axis.
+
+The function signature of the layout is restricted to:
+
+    ```python
+
+    def my_layout(time_window: Tuple[int, int]) -> types.HorizontalAxis:
+
+        # your code here: create and return axis config
+    ```
+
+Arbitrary layout function satisfying the above format can be accepted.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_af275e1222d0e532a897b137a177b50d8_af275e1222d0e532a897b137a177b50d8}\index{qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}!qreg\_creg\_ascending@{qreg\_creg\_ascending}}
+\index{qreg\_creg\_ascending@{qreg\_creg\_ascending}!qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}}
+\doxysubsubsection{\texorpdfstring{qreg\_creg\_ascending()}{qreg\_creg\_ascending()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_af275e1222d0e532a897b137a177b50d8_af275e1222d0e532a897b137a177b50d8} 
+ List\mbox{[}types.\+Bits\mbox{]} qiskit.\+visualization.\+timeline.\+layouts.\+qreg\+\_\+creg\+\_\+ascending (\begin{DoxyParamCaption}\item[{List\mbox{[}types.\+Bits\mbox{]}}]{bits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sort bits by ascending order.
+
+Bit order becomes Q0, Q1, ..., Cl0, Cl1, ...
+
+Args:
+    bits: List of bits to sort.
+
+Returns:
+    Sorted bits.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a757096af38fa600393ab42e4920cfe39_a757096af38fa600393ab42e4920cfe39}\index{qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}!qreg\_creg\_descending@{qreg\_creg\_descending}}
+\index{qreg\_creg\_descending@{qreg\_creg\_descending}!qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}}
+\doxysubsubsection{\texorpdfstring{qreg\_creg\_descending()}{qreg\_creg\_descending()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a757096af38fa600393ab42e4920cfe39_a757096af38fa600393ab42e4920cfe39} 
+ List\mbox{[}types.\+Bits\mbox{]} qiskit.\+visualization.\+timeline.\+layouts.\+qreg\+\_\+creg\+\_\+descending (\begin{DoxyParamCaption}\item[{List\mbox{[}types.\+Bits\mbox{]}}]{bits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Sort bits by descending order.
+
+Bit order becomes Q_N, Q_N-1, ..., Cl_N, Cl_N-1, ...
+
+Args:
+    bits: List of bits to sort.
+
+Returns:
+    Sorted bits.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a4b84b551f68fc6360718f550ca7d8752_a4b84b551f68fc6360718f550ca7d8752}\index{qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}!time\_map\_in\_dt@{time\_map\_in\_dt}}
+\index{time\_map\_in\_dt@{time\_map\_in\_dt}!qiskit.visualization.timeline.layouts@{qiskit.visualization.timeline.layouts}}
+\doxysubsubsection{\texorpdfstring{time\_map\_in\_dt()}{time\_map\_in\_dt()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1layouts_a4b84b551f68fc6360718f550ca7d8752_a4b84b551f68fc6360718f550ca7d8752} 
+ types.\+Horizontal\+Axis qiskit.\+visualization.\+timeline.\+layouts.\+time\+\_\+map\+\_\+in\+\_\+dt (\begin{DoxyParamCaption}\item[{Tuple\mbox{[}int, int\mbox{]}}]{time\+\_\+window}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Layout function for the horizontal axis formatting.
+
+Generate equispaced 6 horizontal axis ticks.
+
+Args:
+    time_window: Left and right edge of this graph.
+
+Returns:
+    Axis formatter object.
+\end{DoxyVerb}
+ 

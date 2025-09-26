@@ -1,0 +1,46 @@
+\doxysection{qiskit.\+pulse.\+parser Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1parser}{}\label{namespaceqiskit_1_1pulse_1_1parser}\index{qiskit.pulse.parser@{qiskit.pulse.parser}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1parser_1_1_pulse_expression}{Pulse\+Expression}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1parser_1_1_pulse_expression}{Pulse\+Expression}} \mbox{\hyperlink{namespaceqiskit_1_1pulse_1_1parser_a1d48e5ec85dbc5402c7da2aa836221e8_a1d48e5ec85dbc5402c7da2aa836221e8}{parse\+\_\+string\+\_\+expr}} (str source, bool partial\+\_\+binding=False)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Parser for mathematical string expressions returned by backends.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1pulse_1_1parser_a1d48e5ec85dbc5402c7da2aa836221e8_a1d48e5ec85dbc5402c7da2aa836221e8}\index{qiskit.pulse.parser@{qiskit.pulse.parser}!parse\_string\_expr@{parse\_string\_expr}}
+\index{parse\_string\_expr@{parse\_string\_expr}!qiskit.pulse.parser@{qiskit.pulse.parser}}
+\doxysubsubsection{\texorpdfstring{parse\_string\_expr()}{parse\_string\_expr()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1pulse_1_1parser_a1d48e5ec85dbc5402c7da2aa836221e8_a1d48e5ec85dbc5402c7da2aa836221e8} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1parser_1_1_pulse_expression}{Pulse\+Expression}} qiskit.\+pulse.\+parser.\+parse\+\_\+string\+\_\+expr (\begin{DoxyParamCaption}\item[{str}]{source}{, }\item[{bool }]{partial\+\_\+binding}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Safe parsing of string expression.
+
+Args:
+    source: String expression to parse.
+    partial_binding: Allow partial bind of parameters.
+
+Returns:
+    PulseExpression: Returns a expression object.
+
+Example:
+
+    expr = 'P1 + P2 + P3'
+    parsed_expr = parse_string_expr(expr, partial_binding=True)
+
+    # create new PulseExpression
+    bound_two = parsed_expr(P1=1, P2=2)
+    # evaluate expression
+    value1 = bound_two(P3=3)
+    value2 = bound_two(P3=4)
+    value3 = bound_two(P3=5)\end{DoxyVerb}
+ 

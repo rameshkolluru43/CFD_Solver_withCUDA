@@ -1,0 +1,105 @@
+\doxysection{qiskit.\+circuit.\+add\+\_\+control Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1add__control}{}\label{namespaceqiskit_1_1circuit_1_1add__control}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Controlled\+Gate \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1add__control_a06b3e5d66877d7c1ce3b161678db3b35}{add\+\_\+control}} (Gate\texorpdfstring{$\vert$}{|}Controlled\+Gate operation, int num\+\_\+ctrl\+\_\+qubits, str\texorpdfstring{$\vert$}{|}None label, str\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state)
+\item 
+Controlled\+Gate \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1add__control_a8fec8a85789fefbd339c07aaf017ce38}{control}} (Gate\texorpdfstring{$\vert$}{|}Controlled\+Gate operation, int\texorpdfstring{$\vert$}{|}None num\+\_\+ctrl\+\_\+qubits=1, str\texorpdfstring{$\vert$}{|}None label=None, str\texorpdfstring{$\vert$}{|}int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1add__control_a00d203ede5ff23601015ea716dcd6aef}{apply\+\_\+basic\+\_\+controlled\+\_\+gate}} (circuit, gate, controls, target)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1add__control_a267e60c7393072c664a481453ffef9ea}{\+\_\+gate\+\_\+to\+\_\+circuit}} (operation)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1add__control_ac296b4a5e634d56d5941af0c547dde21}{\+\_\+unroll\+\_\+gate}} (operation, basis\+\_\+gates)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Add control to operation if supported.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1add__control_a267e60c7393072c664a481453ffef9ea}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}!\_gate\_to\_circuit@{\_gate\_to\_circuit}}
+\index{\_gate\_to\_circuit@{\_gate\_to\_circuit}!qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection{\texorpdfstring{\_gate\_to\_circuit()}{\_gate\_to\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1add__control_a267e60c7393072c664a481453ffef9ea} 
+qiskit.\+circuit.\+add\+\_\+control.\+\_\+gate\+\_\+to\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{operation}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Converts a gate instance to a QuantumCircuit\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1add__control_ac296b4a5e634d56d5941af0c547dde21}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}!\_unroll\_gate@{\_unroll\_gate}}
+\index{\_unroll\_gate@{\_unroll\_gate}!qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection{\texorpdfstring{\_unroll\_gate()}{\_unroll\_gate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1add__control_ac296b4a5e634d56d5941af0c547dde21} 
+qiskit.\+circuit.\+add\+\_\+control.\+\_\+unroll\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{operation}{, }\item[{}]{basis\+\_\+gates}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Unrolls a gate, possibly composite, to the target basis\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1add__control_a06b3e5d66877d7c1ce3b161678db3b35}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}!add\_control@{add\_control}}
+\index{add\_control@{add\_control}!qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection{\texorpdfstring{add\_control()}{add\_control()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1add__control_a06b3e5d66877d7c1ce3b161678db3b35} 
+ Controlled\+Gate qiskit.\+circuit.\+add\+\_\+control.\+add\+\_\+control (\begin{DoxyParamCaption}\item[{Gate \texorpdfstring{$\vert$}{|} Controlled\+Gate}]{operation}{, }\item[{int}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{str \texorpdfstring{$\vert$}{|} None}]{label}{, }\item[{str \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None}]{ctrl\+\_\+state}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}For standard gates, if the controlled version already exists in the
+library, it will be returned (e.g. XGate.control() = CnotGate().
+
+For more generic gates, this method implements the controlled
+version by first decomposing into the ['u1', 'u3', 'cx'] basis, then
+controlling each gate in the decomposition.
+
+Open controls are implemented by conjugating the control line with
+X gates. Adds num_ctrl_qubits controls to operation.
+
+This function is meant to be called from the
+:method:`qiskit.circuit.gate.Gate.control()` method.
+
+Args:
+    operation: The operation to be controlled.
+    num_ctrl_qubits: The number of controls to add to gate.
+    label: An optional gate label.
+    ctrl_state: The control state in decimal or as a bitstring
+        (e.g. '111'). If specified as a bitstring the length
+        must equal num_ctrl_qubits, MSB on left. If None, use
+        2**num_ctrl_qubits-1.
+
+Returns:
+    Controlled version of gate.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1add__control_a00d203ede5ff23601015ea716dcd6aef}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}!apply\_basic\_controlled\_gate@{apply\_basic\_controlled\_gate}}
+\index{apply\_basic\_controlled\_gate@{apply\_basic\_controlled\_gate}!qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection{\texorpdfstring{apply\_basic\_controlled\_gate()}{apply\_basic\_controlled\_gate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1add__control_a00d203ede5ff23601015ea716dcd6aef} 
+qiskit.\+circuit.\+add\+\_\+control.\+apply\+\_\+basic\+\_\+controlled\+\_\+gate (\begin{DoxyParamCaption}\item[{}]{circuit}{, }\item[{}]{gate}{, }\item[{}]{controls}{, }\item[{}]{target}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Apply a controlled version of ``gate`` to the circuit.
+
+This implements multi-control operations for the following basis gates:
+
+    ["p", "u", "x", "z", "rx", "ry", "rz", "cx"]\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1add__control_a8fec8a85789fefbd339c07aaf017ce38}\index{qiskit.circuit.add\_control@{qiskit.circuit.add\_control}!control@{control}}
+\index{control@{control}!qiskit.circuit.add\_control@{qiskit.circuit.add\_control}}
+\doxysubsubsection{\texorpdfstring{control()}{control()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1add__control_a8fec8a85789fefbd339c07aaf017ce38} 
+ Controlled\+Gate qiskit.\+circuit.\+add\+\_\+control.\+control (\begin{DoxyParamCaption}\item[{Gate \texorpdfstring{$\vert$}{|} Controlled\+Gate}]{operation}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+ctrl\+\_\+qubits}{ = {\ttfamily 1}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} int \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return controlled version of gate using controlled rotations. This function
+first checks the name of the operation to see if it knows of a method from which
+to generate a controlled version. Currently, these are ``x``, ``rx``, ``ry``, and ``rz``.
+If a method is not directly known, it calls the unroller to convert to `u1`, `u3`,
+and `cx` gates.
+
+Args:
+    operation: The gate used to create the ControlledGate.
+    num_ctrl_qubits: The number of controls to add to gate (default=1).
+    label: An optional gate label.
+    ctrl_state: The control state in decimal or as
+        a bitstring (e.g. '111'). If specified as a bitstring the length
+        must equal num_ctrl_qubits, MSB on left. If None, use
+        2**num_ctrl_qubits-1.
+
+Returns:
+    Controlled version of gate.
+
+Raises:
+    CircuitError: gate contains non-gate in definition
+\end{DoxyVerb}
+ 

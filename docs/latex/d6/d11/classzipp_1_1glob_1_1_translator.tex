@@ -1,0 +1,116 @@
+\doxysection{zipp.\+glob.\+Translator Class Reference}
+\hypertarget{classzipp_1_1glob_1_1_translator}{}\label{classzipp_1_1glob_1_1_translator}\index{zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1glob_1_1_translator_acd2df58c579ad3a2d4dc162833f44bf4}\label{classzipp_1_1glob_1_1_translator_acd2df58c579ad3a2d4dc162833f44bf4} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, str seps=\+\_\+default\+\_\+seps)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_a052e577c9dca08ceb0d2e2251519d636_a052e577c9dca08ceb0d2e2251519d636}{translate}} (self, pattern)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_acab052736c2bd8268239388126cde1c4_acab052736c2bd8268239388126cde1c4}{extend}} (self, pattern)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_a9b61acc5186107a8056818c3415decb4_a9b61acc5186107a8056818c3415decb4}{translate\+\_\+core}} (self, pattern)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_a229ac81f9c763befcefee89ed89426d7_a229ac81f9c763befcefee89ed89426d7}{replace}} (self, match)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_a07767b0e7b2adc593d85180e6940545e_a07767b0e7b2adc593d85180e6940545e}{restrict\+\_\+rglob}} (self, pattern)
+\item 
+\mbox{\hyperlink{classzipp_1_1glob_1_1_translator_a4d5db592c5a222eb1f68940fd1f9c520_a4d5db592c5a222eb1f68940fd1f9c520}{star\+\_\+not\+\_\+empty}} (self, pattern)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classzipp_1_1glob_1_1_translator_ab27979f9cf4b284e18f39b9b5a9668bc}\label{classzipp_1_1glob_1_1_translator_ab27979f9cf4b284e18f39b9b5a9668bc} 
+{\bfseries seps} = seps
+\item 
+\Hypertarget{classzipp_1_1glob_1_1_translator_a003d2d04850ff9a3d8c25bbdb6886cc0}\label{classzipp_1_1glob_1_1_translator_a003d2d04850ff9a3d8c25bbdb6886cc0} 
+{\bfseries replace}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}>>> Translator('xyz')
+Traceback (most recent call last):
+...
+AssertionError: Invalid separators
+
+>>> Translator('')
+Traceback (most recent call last):
+...
+AssertionError: Invalid separators
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classzipp_1_1glob_1_1_translator_acab052736c2bd8268239388126cde1c4_acab052736c2bd8268239388126cde1c4}\index{zipp.glob.Translator@{zipp.glob.Translator}!extend@{extend}}
+\index{extend@{extend}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{extend()}{extend()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_acab052736c2bd8268239388126cde1c4_acab052736c2bd8268239388126cde1c4} 
+zipp.\+glob.\+Translator.\+extend (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Extend regex for pattern-wide concerns.
+
+Apply '(?s:)' to create a non-matching group that
+matches newlines (valid on Unix).
+
+Append '\Z' to imply fullmatch even when match is used.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1glob_1_1_translator_a229ac81f9c763befcefee89ed89426d7_a229ac81f9c763befcefee89ed89426d7}\index{zipp.glob.Translator@{zipp.glob.Translator}!replace@{replace}}
+\index{replace@{replace}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{replace()}{replace()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_a229ac81f9c763befcefee89ed89426d7_a229ac81f9c763befcefee89ed89426d7} 
+zipp.\+glob.\+Translator.\+replace (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{match}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Perform the replacements for a match from :func:`separate`.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1glob_1_1_translator_a07767b0e7b2adc593d85180e6940545e_a07767b0e7b2adc593d85180e6940545e}\index{zipp.glob.Translator@{zipp.glob.Translator}!restrict\_rglob@{restrict\_rglob}}
+\index{restrict\_rglob@{restrict\_rglob}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{restrict\_rglob()}{restrict\_rglob()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_a07767b0e7b2adc593d85180e6940545e_a07767b0e7b2adc593d85180e6940545e} 
+zipp.\+glob.\+Translator.\+restrict\+\_\+rglob (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Raise ValueError if ** appears in anything but a full path segment.
+
+>>> Translator().translate('**foo')
+Traceback (most recent call last):
+...
+ValueError: ** must appear alone in a path segment
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1glob_1_1_translator_a4d5db592c5a222eb1f68940fd1f9c520_a4d5db592c5a222eb1f68940fd1f9c520}\index{zipp.glob.Translator@{zipp.glob.Translator}!star\_not\_empty@{star\_not\_empty}}
+\index{star\_not\_empty@{star\_not\_empty}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{star\_not\_empty()}{star\_not\_empty()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_a4d5db592c5a222eb1f68940fd1f9c520_a4d5db592c5a222eb1f68940fd1f9c520} 
+zipp.\+glob.\+Translator.\+star\+\_\+not\+\_\+empty (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Ensure that * will not match an empty segment.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1glob_1_1_translator_a052e577c9dca08ceb0d2e2251519d636_a052e577c9dca08ceb0d2e2251519d636}\index{zipp.glob.Translator@{zipp.glob.Translator}!translate@{translate}}
+\index{translate@{translate}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{translate()}{translate()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_a052e577c9dca08ceb0d2e2251519d636_a052e577c9dca08ceb0d2e2251519d636} 
+zipp.\+glob.\+Translator.\+translate (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a glob pattern, produce a regex that matches it.
+\end{DoxyVerb}
+ \Hypertarget{classzipp_1_1glob_1_1_translator_a9b61acc5186107a8056818c3415decb4_a9b61acc5186107a8056818c3415decb4}\index{zipp.glob.Translator@{zipp.glob.Translator}!translate\_core@{translate\_core}}
+\index{translate\_core@{translate\_core}!zipp.glob.Translator@{zipp.glob.Translator}}
+\doxysubsubsection{\texorpdfstring{translate\_core()}{translate\_core()}}
+{\footnotesize\ttfamily \label{classzipp_1_1glob_1_1_translator_a9b61acc5186107a8056818c3415decb4_a9b61acc5186107a8056818c3415decb4} 
+zipp.\+glob.\+Translator.\+translate\+\_\+core (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{pattern}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Given a glob pattern, produce a regex that matches it.
+
+>>> t = Translator()
+>>> t.translate_core('*.txt').replace('\\\\', '')
+'[^/]*\\.txt'
+>>> t.translate_core('a?txt')
+'a[^/]txt'
+>>> t.translate_core('**/*').replace('\\\\', '')
+'.*/[^/][^/]*'
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/zipp/glob.\+py\end{DoxyCompactItemize}

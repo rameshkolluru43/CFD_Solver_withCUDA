@@ -1,0 +1,142 @@
+\doxysection{LLF.\+cpp}
+\hypertarget{_l_l_f_8cpp_source}{}\label{_l_l_f_8cpp_source}\index{Flux\_Types/LLF.cpp@{Flux\_Types/LLF.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ This\ Function\ evaluates\ the\ amount\ of\ dissipation\ that\ is\ to\ be\ added\ on\ to\ the\ flux\ at\ a\ givne\ face,\ the\ face\ which\ is\ common\ to\ the\ current\ cell\ and\ the\ neighbour\ cell\ .}}
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{void}\ LLF(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Evaluating\ LLF\ Dissipation"{}<<endl;}}
+\DoxyCodeLine{00007\ \ \ \ \ max\_eigen\_value\ =0.0,u\_L=0.0,v\_L=0.0,u\_R=0.0,v\_R=0.0,nx=0.0,ny=0.0,Vdotn\_L=0.0,Vdotn\_R=0.0,dl=0.0,C\_L=0.0,C\_R=0.0,mev\_L=0.0,mev\_R=0.0;}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ \ \ \ \ \ \ \ V\_D\ S(6,0.0);}}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Max1\ =\ 0.0,Max2\ =\ 0.0;}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \ \ \ \ \ Initializing\ the\ Left\ sate\ and\ Right\ State\ Conservative\ variables\ to\ be\ zero}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[0]=0.0;\ U\_R[0]=0.0;}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[1]=0.0;\ U\_R[1]=0.0;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[2]=0.0;\ U\_R[2]=0.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[3]=0.0;\ U\_R[3]=0.0;}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ \ \ \ \ \ Initializing\ the\ Cell\ dissipation\ to\ be\ zero\ to\ avoid\ any\ type\ of\ over\ writing}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.0;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.0;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.0;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.0;}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ \ Left\ state\ Varialbes\ for\ each\ face\ in\ a\ given\ cell\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_L\ =\ Primitive\_Cells[Cell\_No][1];}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_L\ =\ Primitive\_Cells[Cell\_No][2];}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\_L\ =\ Primitive\_Cells[Cell\_No][5];}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[0]\ =\ U\_Cells[Cell\_No][0];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[1]\ =\ U\_Cells[Cell\_No][1];}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[2]\ =\ U\_Cells[Cell\_No][2];}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_L[3]\ =\ U\_Cells[Cell\_No][3];}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//\ \ \ \ \ \ \ cout<<"{}Left\ State\(\backslash\)t"{}<<U\_L[0]<<"{}\(\backslash\)t"{}<<U\_L[1]<<"{}\(\backslash\)t"{}<<U\_L[2]<<"{}\(\backslash\)t"{}<<U\_L[3]<<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ Right\ State\ Variables\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_R[0]\ =\ U\_Cells[N\_Cell\_No][0];}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_R[1]\ =\ U\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_R[2]\ =\ U\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_R[3]\ =\ U\_Cells[N\_Cell\_No][3];}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Right\ State\(\backslash\)t"{}<<U\_R[0]<<"{}\(\backslash\)t"{}<<U\_R[1]<<"{}\(\backslash\)t"{}<<U\_R[2]<<"{}\(\backslash\)t"{}<<U\_R[3]<<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ u\_R\ =\ Primitive\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ v\_R\ =\ Primitive\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\_R\ =\ Primitive\_Cells[N\_Cell\_No][5];}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+0];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+1];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{//\ Normal\ Velocity\ of\ left\ and\ Right\ state\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_L\ =\ (u\_L*nx\ +\ v\_L*ny);}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_R\ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Wave\ Speed\ evaluation}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[0]\ =\ (fabs(Vdotn\_L)\ -\/\ C\_L)*dl;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[1]\ =\ (fabs(Vdotn\_L)\ +\ C\_L)*dl;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[2]\ =\ fabs(Vdotn\_L)*dl;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[3]\ =\ (fabs(Vdotn\_R)\ -\/\ C\_R)*dl;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[4]\ =\ (fabs(Vdotn\_R)\ +\ C\_R)*dl;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[5]\ =\ fabs(Vdotn\_R)*dl;}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Finding\ Minimum\ and\ Maximum\ Wave\ speeds\ from\ neighbouring\ cells}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[0],S[1],\ S[2],Max1);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ Eigen\ values}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[3],S[4],\ S[5],Max2);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(Max1,\ Max2\ ,\ max\_eigen\_value);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ and\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Max1<<"{}\(\backslash\)t"{}<<Max2<<"{}\(\backslash\)t"{}<<max\_eigen\_value<<endl;}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \textcolor{comment}{//\ Evaluation\ of\ Dissipation\ on\ Face\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.5*max\_eigen\_value*(U\_R[0]-\/U\_L[0]);}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.5*max\_eigen\_value*(U\_R[1]-\/U\_L[1]);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.5*max\_eigen\_value*(U\_R[2]-\/U\_L[2]);}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.5*max\_eigen\_value*(U\_R[3]-\/U\_L[3]);}
+\DoxyCodeLine{00076\ \ \ \ \ }
+\DoxyCodeLine{00077\ \}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ LLF\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00080\ \{}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Evaluating\ LLF\ Dissipation"{}<<endl;}}
+\DoxyCodeLine{00082\ \ \ \ \ max\_eigen\_value\ =0.0,u\_L=0.0,v\_L=0.0,u\_R=0.0,v\_R=0.0,nx=0.0,ny=0.0,Vdotn\_L=0.0,Vdotn\_R=0.0,dl=0.0,C\_L=0.0,C\_R=0.0,mev\_L=0.0,mev\_R=0.0;}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ V\_D\ S(6,0.0);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Max1\ =\ 0.0,Max2\ =\ 0.0;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ vector<double>\ d\_U(4,0.0);}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ \ \ \ \ \ Initializing\ the\ Cell\ dissipation\ to\ be\ zero\ to\ avoid\ any\ type\ of\ over\ writing}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.0;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.0;}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.0;}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.0;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\_L\ =\ sqrt(gamma*P\_L/Rho\_L);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\_R\ =\ sqrt(gamma*P\_R/Rho\_R);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+0];}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+1];}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//\ Normal\ Velocity\ of\ left\ and\ Right\ state\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_L\ =\ (u\_L*nx\ +\ v\_L*ny);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Vdotn\_R\ =\ (u\_R*nx\ +\ v\_R*ny);}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Wave\ Speed\ evaluation}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[0]\ =\ (fabs(Vdotn\_L)\ -\/\ C\_L)*dl;}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[1]\ =\ (fabs(Vdotn\_L)\ +\ C\_L)*dl;}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[2]\ =\ fabs(Vdotn\_L)*dl;}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[3]\ =\ (fabs(Vdotn\_R)\ -\/\ C\_R)*dl;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[4]\ =\ (fabs(Vdotn\_R)\ +\ C\_R)*dl;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ S[5]\ =\ fabs(Vdotn\_R)*dl;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Finding\ Minimum\ and\ Maximum\ Wave\ speeds\ from\ neighbouring\ cells}}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[0],S[1],\ S[2],Max1);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ Eigen\ values}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(S[3],S[4],\ S[5],Max2);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Maximum(Max1,\ Max2\ ,\ max\_eigen\_value);\ \ \ \ \ \ \textcolor{comment}{//\ Maximum\ of\ Left\ state\ and\ Right\ state\ Eigen\ values}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Second\_Order\_Limiter(Cell\_No,Face\_No,d\_U);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<Max1<<"{}\(\backslash\)t"{}<<Max2<<"{}\(\backslash\)t"{}<<max\_eigen\_value<<endl;}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ Evaluation\ of\ Dissipation\ on\ Face\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.5*max\_eigen\_value*d\_U[0];}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.5*max\_eigen\_value*d\_U[1];}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.5*max\_eigen\_value*d\_U[2];}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.5*max\_eigen\_value*d\_U[3];}
+\DoxyCodeLine{00135\ \ \ \ \ }
+\DoxyCodeLine{00136\ \}}
+
+\end{DoxyCode}

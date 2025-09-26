@@ -1,0 +1,53 @@
+\doxysection{more\+\_\+itertools.\+more.\+islice\+\_\+extended Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1islice__extended}{}\label{classmore__itertools_1_1more_1_1islice__extended}\index{more\_itertools.more.islice\_extended@{more\_itertools.more.islice\_extended}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1islice__extended_aa173e71ac178c3a2ab293954d8a3988a}\label{classmore__itertools_1_1more_1_1islice__extended_aa173e71ac178c3a2ab293954d8a3988a} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, iterable, \texorpdfstring{$\ast$}{*}args)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1islice__extended_a5c6053e06d4349483bafb1e855b9fe72}\label{classmore__itertools_1_1more_1_1islice__extended_a5c6053e06d4349483bafb1e855b9fe72} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1islice__extended_ab012eef5bf545e227d4df69a9a842766}\label{classmore__itertools_1_1more_1_1islice__extended_ab012eef5bf545e227d4df69a9a842766} 
+{\bfseries \+\_\+\+\_\+next\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1islice__extended_a2c19517e54dd0b1b4fc612b5c711cbd8}\label{classmore__itertools_1_1more_1_1islice__extended_a2c19517e54dd0b1b4fc612b5c711cbd8} 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, key)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1islice__extended_a4906b166087aeeccdc6df7e6c9544985}\label{classmore__itertools_1_1more_1_1islice__extended_a4906b166087aeeccdc6df7e6c9544985} 
+{\bfseries \+\_\+iterable} = \+\_\+islice\+\_\+helper(it, slice(\texorpdfstring{$\ast$}{*}args))
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}An extension of :func:`itertools.islice` that supports negative values
+for *stop*, *start*, and *step*.
+
+    >>> iterable = iter('abcdefgh')
+    >>> list(islice_extended(iterable, -4, -1))
+    ['e', 'f', 'g']
+
+Slices with negative values require some caching of *iterable*, but this
+function takes care to minimize the amount of memory required.
+
+For example, you can use a negative step with an infinite iterator:
+
+    >>> from itertools import count
+    >>> list(islice_extended(count(), 110, 99, -2))
+    [110, 108, 106, 104, 102, 100]
+
+You can also use slice notation directly:
+
+    >>> iterable = map(str, count())
+    >>> it = islice_extended(iterable)[10:20:2]
+    >>> list(it)
+    ['10', '12', '14', '16', '18']\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

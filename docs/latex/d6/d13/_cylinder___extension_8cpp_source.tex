@@ -1,0 +1,130 @@
+\doxysection{Cylinder\+\_\+\+Extension.\+cpp}
+\hypertarget{_cylinder___extension_8cpp_source}{}\label{_cylinder___extension_8cpp_source}\index{Basic\_Function\_Files/Cylinder\_Extension.cpp@{Basic\_Function\_Files/Cylinder\_Extension.cpp}}
+\mbox{\hyperlink{_cylinder___extension_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00001}00001\ \textcolor{keywordtype}{void}\ Cylinder::Identify\_Cells\_3h()}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00002}00002\ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00003}00003\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}=0;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00004}00004\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ k=0;k<nlength-\/1;k++)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00005}00005\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00006}00006\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<nr-\/2;j++)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00007}00007\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00008}00008\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<ntheta-\/1;i++)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00009}00009\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00010}00010\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i+j*(ntheta-\/1)+k*(ntheta-\/1)*(nr-\/1)<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}*8;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00013}00013\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+(ntheta-\/1)+j*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(ntheta-\/1)+(j+3)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+(ntheta-\/1)+j*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(ntheta-\/1)+(j+3)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+(ntheta-\/1)+(j-\/1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(ntheta-\/1)+(j+2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+(ntheta-\/1)+(j-\/1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(ntheta-\/1)+(j+2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+j*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(j+3)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+j*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(j+3)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00040}00040\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+(j-\/1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(j+2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+(j-\/1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(j+2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i==(ntheta-\/3)||(i==(ntheta-\/2)))}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00047}00047\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00049}00049\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)-\/(ntheta-\/1)+j*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)-\/(ntheta-\/1)+(j+3)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)-\/(ntheta-\/1)+j*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)-\/(ntheta-\/1)+(j+3)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00056}00056\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)-\/(ntheta-\/1)+(j-\/1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00058}00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)-\/(ntheta-\/1)+(j+2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)-\/(ntheta-\/1)+(j-\/1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)-\/(ntheta-\/1)+(j+2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00065}00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00067}00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)+j*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)+(j+3)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)+j*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)+(j+3)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00071}00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00074}00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)+(j-\/1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)+(j+2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00076}00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)+(j-\/1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)+(j+2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00080}00080\ \textcolor{comment}{//\ cout<<Cell\_Point\_Data\_3h[a+0]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+1]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+2]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+3]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+4]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+5]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+6]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+7]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}++;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00083}00083\ \textcolor{comment}{//\ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00084}00084\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00085}00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ j=0;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00086}00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<(ntheta-\/1);i++)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ j=nr-\/2;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00089}00089\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i+j*(ntheta-\/1)+k*(ntheta-\/1)*(nr-\/1)<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(i==0)}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+(ntheta-\/1)+(j-\/2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(ntheta-\/1)+(j+1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+(ntheta-\/1)+(j-\/2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(ntheta-\/1)+(j+1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+0]=(i-\/1)+(j-\/2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+1]=(i-\/1)+(j+1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+4]=(i-\/1)+(j-\/2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+5]=(i-\/1)+(j+1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00103}00103\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00104}00104\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((i==(ntheta-\/2))||(i==(ntheta-\/3)))}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00105}00105\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00106}00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)-\/(ntheta-\/1)+(j+1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00107}00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)-\/(ntheta-\/1)+(j-\/2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00108}00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)-\/(ntheta-\/1)+(j+1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00109}00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)-\/(ntheta-\/1)+(j-\/2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00110}00110\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00111}00111\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+3]=(i+2)+(j-\/2)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+2]=(i+2)+(j+1)*(ntheta-\/1)+k*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+6]=(i+2)+(j+1)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cell\_Point\_Data\_3h[a+7]=(i+2)+(j-\/2)*(ntheta-\/1)+(k+1)*(ntheta-\/1)*nr;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00118}00118\ \textcolor{comment}{//\ cout<<Cell\_Point\_Data\_3h[a+0]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+1]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+2]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+3]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+4]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+5]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+6]<<"{}\(\backslash\)t"{}<<Cell\_Point\_Data\_3h[a+7]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}++}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00121}00121\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00122}00122\ \}}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00123}00123\ cout<<\textcolor{stringliteral}{"{}Identifying\ 3h\ cells\ done"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{_cylinder___extension_8cpp_source_l00124}00124\ \}}
+
+\end{DoxyCode}

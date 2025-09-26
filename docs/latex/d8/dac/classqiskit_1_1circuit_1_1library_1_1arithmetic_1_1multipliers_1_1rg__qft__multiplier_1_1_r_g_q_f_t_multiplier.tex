@@ -1,0 +1,89 @@
+\doxysection{qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+rg\+\_\+qft\+\_\+multiplier.\+RGQFTMultiplier Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier}{}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier}\index{qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier@{qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+rg\+\_\+qft\+\_\+multiplier.\+RGQFTMultiplier\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d8/dac/classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_aa36076ea3542e01f0795ca12747cdd84_aa36076ea3542e01f0795ca12747cdd84}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1multiplier_1_1_multiplier_a72fc70a485b4de543b81789c043adffa_a72fc70a485b4de543b81789c043adffa}{num\+\_\+state\+\_\+qubits}}, Optional\mbox{[}int\mbox{]} num\+\_\+result\+\_\+qubits=None, str name="{}RGQFTMultiplier"{})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_a7cf0cca3da0b7091825041491e59a93f}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_a7cf0cca3da0b7091825041491e59a93f} 
+{\bfseries num\+\_\+result\+\_\+qubits}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_ab7735d4e8e2764a9718b554f0233c3f7}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_ab7735d4e8e2764a9718b554f0233c3f7} 
+{\bfseries qubits} = False).\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a90412b17718bc32608d7781b689712aa_a90412b17718bc32608d7781b689712aa}{inverse}}().\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a24408dc9fe661698477622e85ab62578_a24408dc9fe661698477622e85ab62578}{to\+\_\+gate}}(), qr\+\_\+out\mbox{[}\+:\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A QFT multiplication circuit to store product of two input registers out-of-place.
+
+Multiplication in this circuit is implemented using the procedure of Fig. 3 in [1], where
+weighted sum rotations are implemented as given in Fig. 5 in [1]. QFT is used on the output
+register and is followed by rotations controlled by input registers. The rotations
+transform the state into the product of two input registers in QFT base, which is
+reverted from QFT base using inverse QFT.
+As an example, a circuit that performs a modular QFT multiplication on two 2-qubit
+sized input registers with an output register of 2 qubits, is as follows:
+
+.. code-block:: text
+
+      a_0: ────────────────────────────────────────■───────■──────■──────■────────────────
+                                                   │       │      │      │
+      a_1: ─────────■───────■───────■───────■──────┼───────┼──────┼──────┼────────────────
+                    │       │       │       │      │       │      │      │
+      b_0: ─────────┼───────┼───────■───────■──────┼───────┼──────■──────■────────────────
+                    │       │       │       │      │       │      │      │
+      b_1: ─────────■───────■───────┼───────┼──────■───────■──────┼──────┼────────────────
+           ┌──────┐ │P(4π)  │       │P(2π)  │      │P(2π)  │      │P(π)  │       ┌───────┐
+    out_0: ┤0     ├─■───────┼───────■───────┼──────■───────┼──────■──────┼───────┤0      ├
+           │  qft │         │P(2π)          │P(π)          │P(π)         │P(π/2) │  iqft │
+    out_1: ┤1     ├─────────■───────────────■──────────────■─────────────■───────┤1      ├
+           └──────┘                                                              └───────┘
+
+.. seealso::
+
+    The :class:`.MultiplierGate` objects represents a multiplication, like this circuit class,
+    but allows the compiler to select the optimal decomposition based on the context.
+    Specific implementations can be set via the :class:`.HLSConfig`, e.g. this circuit
+    can be chosen via ``Multiplier=["qft_r17"]``.
+
+**References:**
+
+[1] Ruiz-Perez et al., Quantum arithmetic with the Quantum Fourier Transform, 2017.
+`arXiv:1411.5949 <https://arxiv.org/pdf/1411.5949.pdf>`_\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_aa36076ea3542e01f0795ca12747cdd84_aa36076ea3542e01f0795ca12747cdd84}\index{qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier@{qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier@{qiskit.circuit.library.arithmetic.multipliers.rg\_qft\_multiplier.RGQFTMultiplier}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_1_1_r_g_q_f_t_multiplier_aa36076ea3542e01f0795ca12747cdd84_aa36076ea3542e01f0795ca12747cdd84} 
+ None qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+rg\+\_\+qft\+\_\+multiplier.\+RGQFTMultiplier.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{Optional\mbox{[}int\mbox{]} }]{num\+\_\+result\+\_\+qubits}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}RGQFTMultiplier"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        num_state_qubits: The number of qubits in either input register for
+            state :math:`|a\rangle` or :math:`|b\rangle`. The two input
+            registers must have the same number of qubits.
+        num_result_qubits: The number of result qubits to limit the output to.
+            If number of result qubits is :math:`n`, multiplication modulo :math:`2^n` is performed
+            to limit the output to the specified number of qubits. Default
+            value is ``2 * num_state_qubits`` to represent any possible
+            result from the multiplication of the two inputs.
+        name: The name of the circuit object.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1multipliers_1_1multiplier_1_1_multiplier_af170d548fc622ad39fab7cae97dd0a13_af170d548fc622ad39fab7cae97dd0a13}{qiskit.\+circuit.\+library.\+arithmetic.\+multipliers.\+multiplier.\+Multiplier}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/arithmetic/multipliers/rg\+\_\+qft\+\_\+multiplier.\+py\end{DoxyCompactItemize}

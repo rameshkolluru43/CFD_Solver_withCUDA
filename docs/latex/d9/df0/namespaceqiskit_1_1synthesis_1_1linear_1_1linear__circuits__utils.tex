@@ -1,0 +1,76 @@
+\doxysection{qiskit.\+synthesis.\+linear.\+linear\+\_\+circuits\+\_\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils}{}\label{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils}\index{qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a9a6c5652eded45ddfbaa5b45aa0249ab_a9a6c5652eded45ddfbaa5b45aa0249ab}{transpose\+\_\+cx\+\_\+circ}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qc)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a621223c3b0686343c483f1f6282374ea_a621223c3b0686343c483f1f6282374ea}{optimize\+\_\+cx\+\_\+4\+\_\+options}} (Callable function, np.\+ndarray mat, bool optimize\+\_\+count=True)
+\item 
+bool \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a35e67b63bb25e9d3f587005231118295_a35e67b63bb25e9d3f587005231118295}{check\+\_\+lnn\+\_\+connectivity}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qc)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utility functions for handling linear reversible circuits.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a35e67b63bb25e9d3f587005231118295_a35e67b63bb25e9d3f587005231118295}\index{qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}!check\_lnn\_connectivity@{check\_lnn\_connectivity}}
+\index{check\_lnn\_connectivity@{check\_lnn\_connectivity}!qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}}
+\doxysubsubsection{\texorpdfstring{check\_lnn\_connectivity()}{check\_lnn\_connectivity()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a35e67b63bb25e9d3f587005231118295_a35e67b63bb25e9d3f587005231118295} 
+ bool qiskit.\+synthesis.\+linear.\+linear\+\_\+circuits\+\_\+utils.\+check\+\_\+lnn\+\_\+connectivity (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{qc}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Check that the synthesized circuit qc fits linear nearest neighbor connectivity.
+
+Args:
+    qc: a :class:`.QuantumCircuit` containing only CX and single qubit gates.
+
+Returns:
+    bool: True if the circuit has linear nearest neighbor connectivity.
+
+Raises:
+    CircuitError: if qc has a non-CX two-qubit gate.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a621223c3b0686343c483f1f6282374ea_a621223c3b0686343c483f1f6282374ea}\index{qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}!optimize\_cx\_4\_options@{optimize\_cx\_4\_options}}
+\index{optimize\_cx\_4\_options@{optimize\_cx\_4\_options}!qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}}
+\doxysubsubsection{\texorpdfstring{optimize\_cx\_4\_options()}{optimize\_cx\_4\_options()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a621223c3b0686343c483f1f6282374ea_a621223c3b0686343c483f1f6282374ea} 
+qiskit.\+synthesis.\+linear.\+linear\+\_\+circuits\+\_\+utils.\+optimize\+\_\+cx\+\_\+4\+\_\+options (\begin{DoxyParamCaption}\item[{Callable}]{function}{, }\item[{np.\+ndarray}]{mat}{, }\item[{bool }]{optimize\+\_\+count}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the best implementation of a circuit implementing a binary invertible matrix M,
+by considering all four options: M,M^(-1),M^T,M^(-1)^T.
+Optimizing either the CX count or the depth.
+
+Args:
+    function: the synthesis function.
+    mat: a binary invertible matrix.
+    optimize_count: True if the number of CX gates in optimize, False if the depth is optimized.
+
+Returns:
+    QuantumCircuit: an optimized :class:`.QuantumCircuit`, has the best depth or CX count of
+        the four options.
+
+Raises:
+    QiskitError: if mat is not an invertible matrix.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a9a6c5652eded45ddfbaa5b45aa0249ab_a9a6c5652eded45ddfbaa5b45aa0249ab}\index{qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}!transpose\_cx\_circ@{transpose\_cx\_circ}}
+\index{transpose\_cx\_circ@{transpose\_cx\_circ}!qiskit.synthesis.linear.linear\_circuits\_utils@{qiskit.synthesis.linear.linear\_circuits\_utils}}
+\doxysubsubsection{\texorpdfstring{transpose\_cx\_circ()}{transpose\_cx\_circ()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1linear_1_1linear__circuits__utils_a9a6c5652eded45ddfbaa5b45aa0249ab_a9a6c5652eded45ddfbaa5b45aa0249ab} 
+qiskit.\+synthesis.\+linear.\+linear\+\_\+circuits\+\_\+utils.\+transpose\+\_\+cx\+\_\+circ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{qc}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Takes a circuit having only CX gates, and calculates its transpose.
+This is done by recursively replacing CX(i, j) with CX(j, i) in all instructions.
+
+Args:
+    qc: a :class:`.QuantumCircuit` containing only CX gates.
+
+Returns:
+    QuantumCircuit: the transposed circuit.
+
+Raises:
+    CircuitError: if qc has a non-CX gate.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,118 @@
+\doxysection{wheel.\+metadata Namespace Reference}
+\hypertarget{namespacewheel_1_1metadata}{}\label{namespacewheel_1_1metadata}\index{wheel.metadata@{wheel.metadata}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacewheel_1_1metadata_a64641b16fdbe1265f1c20c7fafbc6c8b}\label{namespacewheel_1_1metadata_a64641b16fdbe1265f1c20c7fafbc6c8b} 
+{\bfseries \+\_\+nonblank} (str)
+\item 
+\mbox{\hyperlink{namespacewheel_1_1metadata_ac320072877231cdea6141d412956736a_ac320072877231cdea6141d412956736a}{yield\+\_\+lines}} (iterable)
+\item 
+\Hypertarget{namespacewheel_1_1metadata_adb68d6aa24c5ddb6f2dac1830ed3b07a}\label{namespacewheel_1_1metadata_adb68d6aa24c5ddb6f2dac1830ed3b07a} 
+{\bfseries \+\_\+} (text)
+\item 
+\mbox{\hyperlink{namespacewheel_1_1metadata_a8b6dc73d9a7ac8c4e953fdb183f63194_a8b6dc73d9a7ac8c4e953fdb183f63194}{split\+\_\+sections}} (s)
+\item 
+\mbox{\hyperlink{namespacewheel_1_1metadata_a4f95275d98c55a4dbdbb93be99783a84_a4f95275d98c55a4dbdbb93be99783a84}{safe\+\_\+extra}} (extra)
+\item 
+\mbox{\hyperlink{namespacewheel_1_1metadata_a38d4bf2b458e05c0ad08e616b9505807_a38d4bf2b458e05c0ad08e616b9505807}{safe\+\_\+name}} (name)
+\item 
+str \mbox{\hyperlink{namespacewheel_1_1metadata_ab2ec119a19b36114655ae62bc897b211_ab2ec119a19b36114655ae62bc897b211}{requires\+\_\+to\+\_\+requires\+\_\+dist}} (\mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1requirements_1_1_requirement}{Requirement}} requirement)
+\item 
+Iterator\mbox{[}str\mbox{]} \mbox{\hyperlink{namespacewheel_1_1metadata_a10fdee10310b3821c5577d02ec3defcd_a10fdee10310b3821c5577d02ec3defcd}{convert\+\_\+requirements}} (list\mbox{[}str\mbox{]} requirements)
+\item 
+Iterator\mbox{[}tuple\mbox{[}str, str\mbox{]}\mbox{]} \mbox{\hyperlink{namespacewheel_1_1metadata_a81354cc4f1bfdd5597a812a37778a8cd_a81354cc4f1bfdd5597a812a37778a8cd}{generate\+\_\+requirements}} (dict\mbox{[}str, list\mbox{[}str\mbox{]}\mbox{]} extras\+\_\+require)
+\item 
+Message \mbox{\hyperlink{namespacewheel_1_1metadata_a5c6569ddb5e493194bb6b4f59396ff41_a5c6569ddb5e493194bb6b4f59396ff41}{pkginfo\+\_\+to\+\_\+metadata}} (str egg\+\_\+info\+\_\+path, str pkginfo\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Tools for converting old- to new-style metadata.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacewheel_1_1metadata_a10fdee10310b3821c5577d02ec3defcd_a10fdee10310b3821c5577d02ec3defcd}\index{wheel.metadata@{wheel.metadata}!convert\_requirements@{convert\_requirements}}
+\index{convert\_requirements@{convert\_requirements}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{convert\_requirements()}{convert\_requirements()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a10fdee10310b3821c5577d02ec3defcd_a10fdee10310b3821c5577d02ec3defcd} 
+ Iterator\mbox{[}str\mbox{]} wheel.\+metadata.\+convert\+\_\+requirements (\begin{DoxyParamCaption}\item[{list\mbox{[}str\mbox{]}}]{requirements}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Yield Requires-Dist: strings for parsed requirements strings.\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_a81354cc4f1bfdd5597a812a37778a8cd_a81354cc4f1bfdd5597a812a37778a8cd}\index{wheel.metadata@{wheel.metadata}!generate\_requirements@{generate\_requirements}}
+\index{generate\_requirements@{generate\_requirements}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{generate\_requirements()}{generate\_requirements()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a81354cc4f1bfdd5597a812a37778a8cd_a81354cc4f1bfdd5597a812a37778a8cd} 
+ Iterator\mbox{[}tuple\mbox{[}str, str\mbox{]}\mbox{]} wheel.\+metadata.\+generate\+\_\+requirements (\begin{DoxyParamCaption}\item[{dict\mbox{[}str, list\mbox{[}str\mbox{]}\mbox{]}}]{extras\+\_\+require}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert requirements from a setup()-style dictionary to
+('Requires-Dist', 'requirement') and ('Provides-Extra', 'extra') tuples.
+
+extras_require is a dictionary of {extra: [requirements]} as passed to setup(),
+using the empty extra {'': [requirements]} to hold install_requires.
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_a5c6569ddb5e493194bb6b4f59396ff41_a5c6569ddb5e493194bb6b4f59396ff41}\index{wheel.metadata@{wheel.metadata}!pkginfo\_to\_metadata@{pkginfo\_to\_metadata}}
+\index{pkginfo\_to\_metadata@{pkginfo\_to\_metadata}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{pkginfo\_to\_metadata()}{pkginfo\_to\_metadata()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a5c6569ddb5e493194bb6b4f59396ff41_a5c6569ddb5e493194bb6b4f59396ff41} 
+ Message wheel.\+metadata.\+pkginfo\+\_\+to\+\_\+metadata (\begin{DoxyParamCaption}\item[{str}]{egg\+\_\+info\+\_\+path}{, }\item[{str}]{pkginfo\+\_\+path}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert .egg-info directory with PKG-INFO to the Metadata 2.1 format
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_ab2ec119a19b36114655ae62bc897b211_ab2ec119a19b36114655ae62bc897b211}\index{wheel.metadata@{wheel.metadata}!requires\_to\_requires\_dist@{requires\_to\_requires\_dist}}
+\index{requires\_to\_requires\_dist@{requires\_to\_requires\_dist}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{requires\_to\_requires\_dist()}{requires\_to\_requires\_dist()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_ab2ec119a19b36114655ae62bc897b211_ab2ec119a19b36114655ae62bc897b211} 
+ str wheel.\+metadata.\+requires\+\_\+to\+\_\+requires\+\_\+dist (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classwheel_1_1vendored_1_1packaging_1_1requirements_1_1_requirement}{Requirement}}}]{requirement}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the version specifier for a requirement in PEP 345/566 fashion.\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_a4f95275d98c55a4dbdbb93be99783a84_a4f95275d98c55a4dbdbb93be99783a84}\index{wheel.metadata@{wheel.metadata}!safe\_extra@{safe\_extra}}
+\index{safe\_extra@{safe\_extra}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{safe\_extra()}{safe\_extra()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a4f95275d98c55a4dbdbb93be99783a84_a4f95275d98c55a4dbdbb93be99783a84} 
+wheel.\+metadata.\+safe\+\_\+extra (\begin{DoxyParamCaption}\item[{}]{extra}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert an arbitrary string to a standard 'extra' name
+Any runs of non-alphanumeric characters are replaced with a single '_',
+and the result is always lowercased.
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_a38d4bf2b458e05c0ad08e616b9505807_a38d4bf2b458e05c0ad08e616b9505807}\index{wheel.metadata@{wheel.metadata}!safe\_name@{safe\_name}}
+\index{safe\_name@{safe\_name}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{safe\_name()}{safe\_name()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a38d4bf2b458e05c0ad08e616b9505807_a38d4bf2b458e05c0ad08e616b9505807} 
+wheel.\+metadata.\+safe\+\_\+name (\begin{DoxyParamCaption}\item[{}]{name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Convert an arbitrary string to a standard distribution name
+Any runs of non-alphanumeric/. characters are replaced with a single '-'.
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_a8b6dc73d9a7ac8c4e953fdb183f63194_a8b6dc73d9a7ac8c4e953fdb183f63194}\index{wheel.metadata@{wheel.metadata}!split\_sections@{split\_sections}}
+\index{split\_sections@{split\_sections}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{split\_sections()}{split\_sections()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_a8b6dc73d9a7ac8c4e953fdb183f63194_a8b6dc73d9a7ac8c4e953fdb183f63194} 
+wheel.\+metadata.\+split\+\_\+sections (\begin{DoxyParamCaption}\item[{}]{s}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Split a string or iterable thereof into (section, content) pairs
+Each ``section`` is a stripped version of the section header ("[section]")
+and each ``content`` is a list of stripped lines excluding blank lines and
+comment-only lines.  If there are any such lines before the first section
+header, they're returned in a first ``section`` of ``None``.
+\end{DoxyVerb}
+ \Hypertarget{namespacewheel_1_1metadata_ac320072877231cdea6141d412956736a_ac320072877231cdea6141d412956736a}\index{wheel.metadata@{wheel.metadata}!yield\_lines@{yield\_lines}}
+\index{yield\_lines@{yield\_lines}!wheel.metadata@{wheel.metadata}}
+\doxysubsubsection{\texorpdfstring{yield\_lines()}{yield\_lines()}}
+{\footnotesize\ttfamily \label{namespacewheel_1_1metadata_ac320072877231cdea6141d412956736a_ac320072877231cdea6141d412956736a} 
+wheel.\+metadata.\+yield\+\_\+lines (\begin{DoxyParamCaption}\item[{}]{iterable}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Yield valid lines of a string or iterable.
+    >>> list(yield_lines(''))
+    []
+    >>> list(yield_lines(['foo', 'bar']))
+    ['foo', 'bar']
+    >>> list(yield_lines('foo\nbar'))
+    ['foo', 'bar']
+    >>> list(yield_lines('\nfoo\n#bar\nbaz #comment'))
+    ['foo', 'baz #comment']
+    >>> list(yield_lines(['foo\nbar', 'baz', 'bing\n\n\n']))
+    ['foo', 'bar', 'baz', 'bing']\end{DoxyVerb}
+ 

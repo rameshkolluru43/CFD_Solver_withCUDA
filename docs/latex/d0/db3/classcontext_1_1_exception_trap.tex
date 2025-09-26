@@ -1,0 +1,132 @@
+\doxysection{context.\+Exception\+Trap Class Reference}
+\hypertarget{classcontext_1_1_exception_trap}{}\label{classcontext_1_1_exception_trap}\index{context.ExceptionTrap@{context.ExceptionTrap}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a11ccb430fddface97b9f2b240295bcbc}\label{classcontext_1_1_exception_trap_a11ccb430fddface97b9f2b240295bcbc} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, exceptions=(Exception,))
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a897cbb02421bb4f1eb2cda0da72aca82}\label{classcontext_1_1_exception_trap_a897cbb02421bb4f1eb2cda0da72aca82} 
+{\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a6a3d002a53f63ddb7835c9d840c25362}\label{classcontext_1_1_exception_trap_a6a3d002a53f63ddb7835c9d840c25362} 
+{\bfseries type} (self)
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a542b38b10d8f96b1a1649c159ac2b9c7}\label{classcontext_1_1_exception_trap_a542b38b10d8f96b1a1649c159ac2b9c7} 
+{\bfseries value} (self)
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a3b5ef1978e76c876c64d1c34eec9cb22}\label{classcontext_1_1_exception_trap_a3b5ef1978e76c876c64d1c34eec9cb22} 
+{\bfseries tb} (self)
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a6d2bac0420f9e711ae82691d55a7f7c6}\label{classcontext_1_1_exception_trap_a6d2bac0420f9e711ae82691d55a7f7c6} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, \texorpdfstring{$\ast$}{*}exc\+\_\+info)
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_aab3166072823634f54e5ebd1ef03a961}\label{classcontext_1_1_exception_trap_aab3166072823634f54e5ebd1ef03a961} 
+{\bfseries \+\_\+\+\_\+bool\+\_\+\+\_\+} (self)
+\item 
+\mbox{\hyperlink{classcontext_1_1_exception_trap_aef7d1174a257dfe3403c641a3bf43cc5_aef7d1174a257dfe3403c641a3bf43cc5}{raises}} (self, func, \texorpdfstring{$\ast$}{*}, \+\_\+test=bool)
+\item 
+\mbox{\hyperlink{classcontext_1_1_exception_trap_a0e90a103be7c76700a478df208b10607_a0e90a103be7c76700a478df208b10607}{passes}} (self, func)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a29e1c7db441da8bd71bd99ee6ce7e326}\label{classcontext_1_1_exception_trap_a29e1c7db441da8bd71bd99ee6ce7e326} 
+{\bfseries exceptions} = exceptions
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_abe46fdf265734b35fa10c1e8a6122523}\label{classcontext_1_1_exception_trap_abe46fdf265734b35fa10c1e8a6122523} 
+{\bfseries type}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcontext_1_1_exception_trap_a762f74963510feb2b5a003c9dbe6bd25}\label{classcontext_1_1_exception_trap_a762f74963510feb2b5a003c9dbe6bd25} 
+{\bfseries exc\+\_\+info} = None, None, None
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A context manager that will catch certain exceptions and provide an
+indication they occurred.
+
+>>> with ExceptionTrap() as trap:
+...     raise Exception()
+>>> bool(trap)
+True
+
+>>> with ExceptionTrap() as trap:
+...     pass
+>>> bool(trap)
+False
+
+>>> with ExceptionTrap(ValueError) as trap:
+...     raise ValueError("1 + 1 is not 3")
+>>> bool(trap)
+True
+>>> trap.value
+ValueError('1 + 1 is not 3')
+>>> trap.tb
+<traceback object at ...>
+
+>>> with ExceptionTrap(ValueError) as trap:
+...     raise Exception()
+Traceback (most recent call last):
+...
+Exception
+
+>>> bool(trap)
+False
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcontext_1_1_exception_trap_a0e90a103be7c76700a478df208b10607_a0e90a103be7c76700a478df208b10607}\index{context.ExceptionTrap@{context.ExceptionTrap}!passes@{passes}}
+\index{passes@{passes}!context.ExceptionTrap@{context.ExceptionTrap}}
+\doxysubsubsection{\texorpdfstring{passes()}{passes()}}
+{\footnotesize\ttfamily \label{classcontext_1_1_exception_trap_a0e90a103be7c76700a478df208b10607_a0e90a103be7c76700a478df208b10607} 
+context.\+Exception\+Trap.\+passes (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{func}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrap func and replace the result with the truth
+value of the trap (True if no exception).
+
+First, give the decorator an alias to support Python 3.8
+Syntax.
+
+>>> passes = ExceptionTrap(ValueError).passes
+
+Now decorate a function that always fails.
+
+>>> @passes
+... def fail():
+...     raise ValueError('failed')
+
+>>> fail()
+False
+\end{DoxyVerb}
+ \Hypertarget{classcontext_1_1_exception_trap_aef7d1174a257dfe3403c641a3bf43cc5_aef7d1174a257dfe3403c641a3bf43cc5}\index{context.ExceptionTrap@{context.ExceptionTrap}!raises@{raises}}
+\index{raises@{raises}!context.ExceptionTrap@{context.ExceptionTrap}}
+\doxysubsubsection{\texorpdfstring{raises()}{raises()}}
+{\footnotesize\ttfamily \label{classcontext_1_1_exception_trap_aef7d1174a257dfe3403c641a3bf43cc5_aef7d1174a257dfe3403c641a3bf43cc5} 
+context.\+Exception\+Trap.\+raises (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{func}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{\+\_\+test}{ = {\ttfamily bool}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Wrap func and replace the result with the truth
+value of the trap (True if an exception occurred).
+
+First, give the decorator an alias to support Python 3.8
+Syntax.
+
+>>> raises = ExceptionTrap(ValueError).raises
+
+Now decorate a function that always fails.
+
+>>> @raises
+... def fail():
+...     raise ValueError('failed')
+>>> fail()
+True
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/context.\+py\end{DoxyCompactItemize}

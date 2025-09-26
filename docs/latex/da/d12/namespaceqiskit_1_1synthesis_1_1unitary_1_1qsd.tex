@@ -1,0 +1,131 @@
+\doxysection{qiskit.\+synthesis.\+unitary.\+qsd Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd}{}\label{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd}\index{qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_ab3ff3e1c7f1757bd9bea78c674a651cf_ab3ff3e1c7f1757bd9bea78c674a651cf}{qs\+\_\+decomposition}} (np.\+ndarray mat, bool opt\+\_\+a1=True, bool opt\+\_\+a2=True, Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\texorpdfstring{$\vert$}{|}None decomposer\+\_\+1q=None, Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\texorpdfstring{$\vert$}{|}None decomposer\+\_\+2q=None, \texorpdfstring{$\ast$}{*}, \+\_\+depth=0)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a77e3126235d8f9785c070c4128711c67_a77e3126235d8f9785c070c4128711c67}{\+\_\+demultiplex}} (um0, um1, opt\+\_\+a1=False, opt\+\_\+a2=False, \texorpdfstring{$\ast$}{*}, \+\_\+depth=0)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a4988756e886865b4824e9c0dd57790e0_a4988756e886865b4824e9c0dd57790e0}{\+\_\+get\+\_\+ucry\+\_\+cz}} (nqubits, angles)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a2ac9d363296829047b34f7794abb89c4}\label{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a2ac9d363296829047b34f7794abb89c4} 
+{\bfseries \+\_\+apply\+\_\+a2} (circ)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Quantum Shannon Decomposition.
+
+Method is described in arXiv:quant-ph/0406176.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a77e3126235d8f9785c070c4128711c67_a77e3126235d8f9785c070c4128711c67}\index{qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}!\_demultiplex@{\_demultiplex}}
+\index{\_demultiplex@{\_demultiplex}!qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}}
+\doxysubsubsection{\texorpdfstring{\_demultiplex()}{\_demultiplex()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a77e3126235d8f9785c070c4128711c67_a77e3126235d8f9785c070c4128711c67} 
+qiskit.\+synthesis.\+unitary.\+qsd.\+\_\+demultiplex (\begin{DoxyParamCaption}\item[{}]{um0}{, }\item[{}]{um1}{, }\item[{}]{opt\+\_\+a1}{ = {\ttfamily False}, }\item[{}]{opt\+\_\+a2}{ = {\ttfamily False}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{\+\_\+depth}{ = {\ttfamily 0}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Decompose a generic multiplexer.
+
+      ────□────
+       ┌──┴──┐
+     /─┤     ├─
+       └─────┘
+
+represented by the block diagonal matrix
+
+        ┏         ┓
+        ┃ um0     ┃
+        ┃     um1 ┃
+        ┗         ┛
+
+to
+           ┌───┐
+    ───────┤ Rz├──────
+      ┌───┐└─┬─┘┌───┐
+    /─┤ w ├──□──┤ v ├─
+      └───┘     └───┘
+
+where v and w are general unitaries determined from decomposition.
+
+Args:
+   um0 (ndarray): applied if MSB is 0
+   um1 (ndarray): applied if MSB is 1
+   opt_a1 (bool): whether to try optimization A.1 from Shende. This should eliminate 1 cnot
+      per call. If True CZ gates are left in the output. If desired these can be further decomposed
+   opt_a2 (bool): whether to try  optimization A.2 from Shende. This decomposes two qubit
+      unitaries into a diagonal gate and a two cx unitary and reduces overall cx count by
+      4^(n-2) - 1.
+   _depth (int): This is an internal variable to track the recursion depth.
+
+Returns:
+    QuantumCircuit: decomposed circuit
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a4988756e886865b4824e9c0dd57790e0_a4988756e886865b4824e9c0dd57790e0}\index{qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}!\_get\_ucry\_cz@{\_get\_ucry\_cz}}
+\index{\_get\_ucry\_cz@{\_get\_ucry\_cz}!qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}}
+\doxysubsubsection{\texorpdfstring{\_get\_ucry\_cz()}{\_get\_ucry\_cz()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_a4988756e886865b4824e9c0dd57790e0_a4988756e886865b4824e9c0dd57790e0} 
+qiskit.\+synthesis.\+unitary.\+qsd.\+\_\+get\+\_\+ucry\+\_\+cz (\begin{DoxyParamCaption}\item[{}]{nqubits}{, }\item[{}]{angles}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get uniformly controlled Ry gate in CZ-Ry as in UCPauliRotGate.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_ab3ff3e1c7f1757bd9bea78c674a651cf_ab3ff3e1c7f1757bd9bea78c674a651cf}\index{qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}!qs\_decomposition@{qs\_decomposition}}
+\index{qs\_decomposition@{qs\_decomposition}!qiskit.synthesis.unitary.qsd@{qiskit.synthesis.unitary.qsd}}
+\doxysubsubsection{\texorpdfstring{qs\_decomposition()}{qs\_decomposition()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1unitary_1_1qsd_ab3ff3e1c7f1757bd9bea78c674a651cf_ab3ff3e1c7f1757bd9bea78c674a651cf} 
+qiskit.\+synthesis.\+unitary.\+qsd.\+qs\+\_\+decomposition (\begin{DoxyParamCaption}\item[{np.\+ndarray}]{mat}{, }\item[{bool }]{opt\+\_\+a1}{ = {\ttfamily True}, }\item[{bool }]{opt\+\_\+a2}{ = {\ttfamily True}, }\item[{Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{decomposer\+\_\+1q}{ = {\ttfamily None}, }\item[{Callable\mbox{[}\mbox{[}np.\+ndarray\mbox{]}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{decomposer\+\_\+2q}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{\+\_\+depth}{ = {\ttfamily 0}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Decomposes a unitary matrix into one and two qubit gates using Quantum Shannon Decomposition,
+
+    This decomposition is described in Shende et al. [1].
+
+    .. code-block:: text
+
+          ┌───┐               ┌───┐     ┌───┐     ┌───┐
+         ─┤   ├─       ───────┤ Rz├─────┤ Ry├─────┤ Rz├─────
+          │   │    ≃     ┌───┐└─┬─┘┌───┐└─┬─┘┌───┐└─┬─┘┌───┐
+        /─┤   ├─       /─┤   ├──□──┤   ├──□──┤   ├──□──┤   ├
+          └───┘          └───┘     └───┘     └───┘     └───┘
+
+    The number of :class:`.CXGate`\ s generated with the decomposition without optimizations is:
+
+    .. math::
+
+        \frac{9}{16} 4^n - \frac{3}{2} 2^n
+
+    If ``opt_a1 = True``, the default, the CX count is reduced by:
+
+    .. math::
+
+        \frac{1}{3} 4^{n - 2} - 1.
+
+    If ``opt_a2 = True``, the default, the CX count is reduced by:
+
+    .. math::
+
+        4^{n-2} - 1.
+
+    Args:
+        mat: unitary matrix to decompose
+        opt_a1: whether to try optimization A.1 from Shende et al. [1].
+            This should eliminate 1 ``cx`` per call.
+            If ``True``, :class:`.CZGate`\s are left in the output.
+            If desired these can be further decomposed to :class:`.CXGate`\s.
+        opt_a2: whether to try optimization A.2 from Shende et al. [1].
+            This decomposes two qubit unitaries into a diagonal gate and
+            a two cx unitary and reduces overall cx count by :math:`4^{n-2} - 1`.
+        decomposer_1q: optional 1Q decomposer. If None, uses
+            :class:`~qiskit.synthesis.OneQubitEulerDecomposer`.
+        decomposer_2q: optional 2Q decomposer. If None, uses
+            :class:`~qiskit.synthesis.TwoQubitBasisDecomposer`.
+
+    Returns:
+        QuantumCircuit: Decomposed quantum circuit.
+
+    References:
+        1. Shende, Bullock, Markov, *Synthesis of Quantum Logic Circuits*,
+           `arXiv:0406176 [quant-ph] <https://arxiv.org/abs/quant-ph/0406176>`_\end{DoxyVerb}
+ 

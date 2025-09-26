@@ -1,0 +1,53 @@
+\doxysection{context.\+on\+\_\+interrupt Class Reference}
+\hypertarget{classcontext_1_1on__interrupt}{}\label{classcontext_1_1on__interrupt}\index{context.on\_interrupt@{context.on\_interrupt}}
+Inheritance diagram for context.\+on\+\_\+interrupt\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{dd/d0b/classcontext_1_1on__interrupt}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcontext_1_1on__interrupt_a4c36dca8899a1b8fad8160242ed1e6b2}\label{classcontext_1_1on__interrupt_a4c36dca8899a1b8fad8160242ed1e6b2} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, action=\textquotesingle{}error\textquotesingle{}, code=1)
+\item 
+\Hypertarget{classcontext_1_1on__interrupt_a956926c40fa6dbd2e56edc22be9ad4f3}\label{classcontext_1_1on__interrupt_a956926c40fa6dbd2e56edc22be9ad4f3} 
+{\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classcontext_1_1on__interrupt_a0bfe1f53003b13a559f9b1029aa41c09}\label{classcontext_1_1on__interrupt_a0bfe1f53003b13a559f9b1029aa41c09} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, exctype, excinst, exctb)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcontext_1_1on__interrupt_a217c980a0dc2c6c0769cc3b9217395af}\label{classcontext_1_1on__interrupt_a217c980a0dc2c6c0769cc3b9217395af} 
+str {\bfseries action} = action
+\item 
+\Hypertarget{classcontext_1_1on__interrupt_aca88d1fc3eb388e285bd95d97613f637}\label{classcontext_1_1on__interrupt_aca88d1fc3eb388e285bd95d97613f637} 
+{\bfseries code} = code
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Replace a KeyboardInterrupt with SystemExit(1)
+
+>>> def do_interrupt():
+...     raise KeyboardInterrupt()
+>>> on_interrupt('error')(do_interrupt)()
+Traceback (most recent call last):
+...
+SystemExit: 1
+>>> on_interrupt('error', code=255)(do_interrupt)()
+Traceback (most recent call last):
+...
+SystemExit: 255
+>>> on_interrupt('suppress')(do_interrupt)()
+>>> with __import__('pytest').raises(KeyboardInterrupt):
+...     on_interrupt('ignore')(do_interrupt)()
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/context.\+py\end{DoxyCompactItemize}

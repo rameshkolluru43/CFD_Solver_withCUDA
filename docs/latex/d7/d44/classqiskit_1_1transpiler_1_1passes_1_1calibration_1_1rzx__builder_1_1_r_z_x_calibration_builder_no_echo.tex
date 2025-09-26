@@ -1,0 +1,67 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+calibration.\+rzx\+\_\+builder.\+RZXCalibration\+Builder\+No\+Echo Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo}{}\label{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo}\index{qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho@{qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+calibration.\+rzx\+\_\+builder.\+RZXCalibration\+Builder\+No\+Echo\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.472406cm]{d7/d44/classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo_a4d88d3393f24133d97544a52ec7bf295_a4d88d3393f24133d97544a52ec7bf295}{get\+\_\+calibration}} (self, Circuit\+Inst node\+\_\+op, list qubits)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo_ac17753eb24bff1ce3533571c845644a4}\label{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo_ac17753eb24bff1ce3533571c845644a4} 
+{\bfseries \+\_\+verbose}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Creates calibrations for RZXGate(theta) by stretching and compressing
+Gaussian square pulses in the CX gate.
+
+The ``RZXCalibrationBuilderNoEcho`` is a variation of the
+:class:`~qiskit.transpiler.passes.RZXCalibrationBuilder` pass
+that creates calibrations for the cross-resonance pulses without inserting
+the echo pulses in the pulse schedule. This enables exposing the echo in
+the cross-resonance sequence as gates so that the transpiler can simplify them.
+The ``RZXCalibrationBuilderNoEcho`` only supports the hardware-native direction
+of the CX gate.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo_a4d88d3393f24133d97544a52ec7bf295_a4d88d3393f24133d97544a52ec7bf295}\index{qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho@{qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho}!get\_calibration@{get\_calibration}}
+\index{get\_calibration@{get\_calibration}!qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho@{qiskit.transpiler.passes.calibration.rzx\_builder.RZXCalibrationBuilderNoEcho}}
+\doxysubsubsection{\texorpdfstring{get\_calibration()}{get\_calibration()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_no_echo_a4d88d3393f24133d97544a52ec7bf295_a4d88d3393f24133d97544a52ec7bf295} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}} qiskit.\+transpiler.\+passes.\+calibration.\+rzx\+\_\+builder.\+RZXCalibration\+Builder\+No\+Echo.\+get\+\_\+calibration (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Circuit\+Inst}]{node\+\_\+op}{, }\item[{list}]{qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Builds the calibration schedule for the RZXGate(theta) without echos.
+
+Args:
+    node_op: Instruction of the RZXGate(theta). I.e. params[0] is theta.
+    qubits: List of qubits for which to get the schedules. The first qubit is
+        the control and the second is the target.
+
+Returns:
+    schedule: The calibration schedule for the RZXGate(theta).
+
+Raises:
+    QiskitError: if rotation angle is not assigned.
+    QiskitError: If the control and target qubits cannot be identified,
+        or the backend does not natively support the specified direction of the cx.
+    CalibrationNotAvailable: RZX schedule cannot be built for input node.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1calibration_1_1rzx__builder_1_1_r_z_x_calibration_builder_ab3bdec7858a2d250bbc1bea5e9a3a850_ab3bdec7858a2d250bbc1bea5e9a3a850}{qiskit.\+transpiler.\+passes.\+calibration.\+rzx\+\_\+builder.\+RZXCalibration\+Builder}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/calibration/rzx\+\_\+builder.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,354 @@
+\doxysection{Incompressible\+\_\+\+Solver/\+CType\+\_\+\+Elliptic\+\_\+\+Grid.cpp File Reference}
+\hypertarget{_c_type___elliptic___grid_8cpp}{}\label{_c_type___elliptic___grid_8cpp}\index{Incompressible\_Solver/CType\_Elliptic\_Grid.cpp@{Incompressible\_Solver/CType\_Elliptic\_Grid.cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+Include dependency graph for CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{dc/d05/_c_type___elliptic___grid_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_a9d9acf133a5b966f0cbd16a2c57a7d79}{x}} (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}, std\+::vector$<$ double $>$(\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}, 0.\+0))
+\item 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_aae4b761a64c952b4c008655d1dc59a12}{y}} (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}, std\+::vector$<$ double $>$(\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}, 0.\+0))
+\item 
+double \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_a6122be421b972a00ce8e6e636589966d}{P}} (int i, int j)
+\item 
+double \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_ab180cb902cf4be5a8d26b78172e9491f}{Q}} (int i, int j)
+\item 
+void \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a871e0a1e3ae5655a6e3631c5c0393af4_a871e0a1e3ae5655a6e3631c5c0393af4}{initialize\+Grid}} ()
+\item 
+void \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944}{solve\+Elliptic\+Grid}} ()
+\item 
+void \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a5548910e5a130b55390401645274a0d2_a5548910e5a130b55390401645274a0d2}{write\+VTK}} (const std\+::string \&filename)
+\item 
+int \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}} = 100
+\item 
+const int \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}} = 100
+\item 
+const double \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}} = 10.\+0
+\item 
+const double \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}{cylinder\+Radius}} = 0.\+1
+\item 
+const double \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_a628d801d093e5d9b41ecaa82592ee92d}{tolerance}} = 1e-\/7
+\item 
+const int \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ac179f158b0dfac3f42d1c68eccc245c8_ac179f158b0dfac3f42d1c68eccc245c8}{max\+Iterations}} = 5000
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_c_type___elliptic___grid_8cpp_a871e0a1e3ae5655a6e3631c5c0393af4_a871e0a1e3ae5655a6e3631c5c0393af4}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!initializeGrid@{initializeGrid}}
+\index{initializeGrid@{initializeGrid}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{initializeGrid()}{initializeGrid()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a871e0a1e3ae5655a6e3631c5c0393af4_a871e0a1e3ae5655a6e3631c5c0393af4} 
+void initialize\+Grid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00048}{48}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{double}\ dTheta\ =\ M\_PI\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1);\ \ \ \ \ \ \textcolor{comment}{//\ Half-\/circle\ around\ the\ cylinder}}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{double}\ dR\ =\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}}\ -\/\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}{cylinderRadius}})\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1);\ \textcolor{comment}{//\ Radial\ spacing}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{comment}{//\ Wrap\ around\ the\ cylinder\ from\ θ\ =\ -\/π\ to\ θ\ =\ π}}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}};\ ++i)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ theta\ =\ -\/M\_PI\ +\ i\ *\ dTheta;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][0]\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}{cylinderRadius}}\ *\ cos(theta);\ \textcolor{comment}{//\ Inner\ boundary\ at\ cylinder\ surface}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][0]\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}{cylinderRadius}}\ *\ sin(theta);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Far-\/field\ boundary\ (more\ spaced\ outward)}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1]\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}}\ *\ cos(theta);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1]\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}}\ *\ sin(theta);}
+\DoxyCodeLine{00061\ \ \ \ \ \}}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{//\ Initialize\ downstream\ boundary\ with\ smoother\ spacing}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}};\ ++j)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ r\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}{cylinderRadius}}\ +\ j\ *\ dR;}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[0][j]\ =\ -\/\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}};\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0][j]\ =\ r;\ \ \ \ \ \ \ \textcolor{comment}{//\ Left\ side\ of\ the\ grid,\ downstream}}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1][j]\ =\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}{Lx}};\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1][j]\ =\ r;\ \textcolor{comment}{//\ Right\ side\ of\ the\ grid,\ downstream}}
+\DoxyCodeLine{00068\ \ \ \ \ \}}
+\DoxyCodeLine{00069\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{d3/d82/_c_type___elliptic___grid_8cpp_a871e0a1e3ae5655a6e3631c5c0393af4_a871e0a1e3ae5655a6e3631c5c0393af4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_type___elliptic___grid_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!main@{main}}
+\index{main@{main}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4} 
+int main (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00123}{123}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a871e0a1e3ae5655a6e3631c5c0393af4_a871e0a1e3ae5655a6e3631c5c0393af4}{initializeGrid}}();}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944}{solveEllipticGrid}}();}
+\DoxyCodeLine{00126\ \ \ \ \ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a5548910e5a130b55390401645274a0d2_a5548910e5a130b55390401645274a0d2}{writeVTK}}(\textcolor{stringliteral}{"{}elliptic\_c\_grid.vtk"{}});}
+\DoxyCodeLine{00127\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Improved\ C-\/type\ grid\ generated\ with\ control\ functions.\ Output\ written\ to\ elliptic\_c\_grid\_control\_functions.vtk."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00129\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{d3/d82/_c_type___elliptic___grid_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_a6122be421b972a00ce8e6e636589966d}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!P@{P}}
+\index{P@{P}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{P()}{P()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_a6122be421b972a00ce8e6e636589966d} 
+double P (\begin{DoxyParamCaption}\item[{int}]{i}{, }\item[{int}]{j}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00019}{19}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordtype}{double}\ xi\ =\ (double)i\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1);\ \textcolor{comment}{//\ Normalized\ ξ\ direction\ (0\ to\ 1)}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{double}\ eta\ =\ (double)j\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1);\ \textcolor{comment}{//\ Normalized\ η\ direction\ (0\ to\ 1)}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//\ Control\ function\ for\ downstream\ stretching}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Increasing\ with\ η\ (more\ influence\ in\ downstream)}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{double}\ downstream\_influence\ =\ 5.0\ *\ eta\ *\ eta;\ \textcolor{comment}{//\ Quadratic\ growth\ in\ downstream}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{comment}{//\ Control\ function\ for\ near-\/cylinder\ refinement}}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{comment}{//\ Higher\ near\ cylinder\ (closer\ to\ ξ=0.5)}}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keywordtype}{double}\ near\_cylinder\_influence\ =\ 1.0\ /\ (1.0\ +\ 100.0\ *\ (xi\ -\/\ 0.5)\ *\ (xi\ -\/\ 0.5));}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{keywordflow}{return}\ downstream\_influence\ +\ near\_cylinder\_influence;}
+\DoxyCodeLine{00032\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_ab180cb902cf4be5a8d26b78172e9491f}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!Q@{Q}}
+\index{Q@{Q}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{Q()}{Q()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_ab180cb902cf4be5a8d26b78172e9491f} 
+double Q (\begin{DoxyParamCaption}\item[{int}]{i}{, }\item[{int}]{j}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00034}{34}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \textcolor{keywordtype}{double}\ xi\ =\ (double)i\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1);\ \textcolor{comment}{//\ Normalized\ ξ\ direction\ (0\ to\ 1)}}
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{keywordtype}{double}\ eta\ =\ (double)j\ /\ (\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1);\ \textcolor{comment}{//\ Normalized\ η\ direction\ (0\ to\ 1)}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//\ Control\ function\ for\ downstream\ stretching}}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{double}\ downstream\_influence\ =\ 5.0\ *\ eta\ *\ eta;\ \textcolor{comment}{//\ Quadratic\ growth\ in\ downstream}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//\ Control\ function\ for\ near-\/cylinder\ refinement}}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{double}\ near\_cylinder\_influence\ =\ 1.0\ /\ (1.0\ +\ 100.0\ *\ (xi\ -\/\ 0.5)\ *\ (xi\ -\/\ 0.5));}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ downstream\_influence\ +\ near\_cylinder\_influence;}
+\DoxyCodeLine{00045\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_ab180cb902cf4be5a8d26b78172e9491f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!solveEllipticGrid@{solveEllipticGrid}}
+\index{solveEllipticGrid@{solveEllipticGrid}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{solveEllipticGrid()}{solveEllipticGrid()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944} 
+void solve\+Elliptic\+Grid (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00072}{72}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{double}\ maxError;}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordtype}{int}\ iteration\ =\ 0;}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{do}\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ maxError\ =\ 0.0;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 1;\ i\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ -\/\ 1;\ ++i)\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 1;\ j\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ -\/\ 1;\ ++j)\ \{}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ x\_old\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j];}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ y\_old\ =\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j];}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Poisson\ equation\ with\ control\ functions\ for\ smoother\ grid\ distribution}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j]\ =\ 0.25\ *\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i\ +\ 1][j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i\ -\/\ 1][j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j\ +\ 1]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j\ -\/\ 1]\ -\/\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}(i,\ j));}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ =\ 0.25\ *\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i\ +\ 1][j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i\ -\/\ 1][j]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j\ +\ 1]\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j\ -\/\ 1]\ -\/\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_ab180cb902cf4be5a8d26b78172e9491f}{Q}}(i,\ j));}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ error\ =\ std::max(std::abs(\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j]\ -\/\ x\_old),\ std::abs(\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ -\/\ y\_old));}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxError\ =\ std::max(maxError,\ error);}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Increment\ iteration\ count\ and\ print\ progress\ every\ 100\ iterations}}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ iteration++;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (iteration\ \%\ 100\ ==\ 0)\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Iteration:\ "{}}\ <<\ iteration\ <<\ \textcolor{stringliteral}{"{},\ Max\ Error:\ "{}}\ <<\ maxError\ <<\ std::endl;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ (maxError\ >\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_a628d801d093e5d9b41ecaa82592ee92d}{tolerance}}\ \&\&\ iteration\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ac179f158b0dfac3f42d1c68eccc245c8_ac179f158b0dfac3f42d1c68eccc245c8}{maxIterations}});}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Final\ iteration:\ "{}}\ <<\ iteration\ <<\ \textcolor{stringliteral}{"{},\ Final\ Max\ Error:\ "{}}\ <<\ maxError\ <<\ std::endl;}
+\DoxyCodeLine{00102\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{d3/d82/_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{d3/d82/_c_type___elliptic___grid_8cpp_acbf88f0a26870585d9ad602e89cb5944_acbf88f0a26870585d9ad602e89cb5944_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_type___elliptic___grid_8cpp_a5548910e5a130b55390401645274a0d2_a5548910e5a130b55390401645274a0d2}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!writeVTK@{writeVTK}}
+\index{writeVTK@{writeVTK}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{writeVTK()}{writeVTK()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a5548910e5a130b55390401645274a0d2_a5548910e5a130b55390401645274a0d2} 
+void write\+VTK (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00105}{105}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ std::ofstream\ vtkFile(filename);}
+\DoxyCodeLine{00107\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}\#\ vtk\ DataFile\ Version\ 2.0\(\backslash\)n"{}};}
+\DoxyCodeLine{00108\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}Improved\ Elliptic\ C-\/type\ grid\ with\ control\ functions\(\backslash\)n"{}};}
+\DoxyCodeLine{00109\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}ASCII\(\backslash\)n"{}};}
+\DoxyCodeLine{00110\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}DATASET\ STRUCTURED\_GRID\(\backslash\)n"{}};}
+\DoxyCodeLine{00111\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}DIMENSIONS\ "{}}\ <<\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ <<\ \textcolor{stringliteral}{"{}\ 1\(\backslash\)n"{}};}
+\DoxyCodeLine{00112\ \ \ \ \ vtkFile\ <<\ \textcolor{stringliteral}{"{}POINTS\ "{}}\ <<\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}\ *\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}}\ <<\ \textcolor{stringliteral}{"{}\ float\(\backslash\)n"{}};}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}{NY}};\ ++j)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}};\ ++i)\ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ vtkFile\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i][j]\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ <<\ \textcolor{stringliteral}{"{}\ 0\(\backslash\)n"{}};}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00118\ \ \ \ \ \}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ vtkFile.close();}
+\DoxyCodeLine{00121\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=210pt]{d3/d82/_c_type___elliptic___grid_8cpp_a5548910e5a130b55390401645274a0d2_a5548910e5a130b55390401645274a0d2_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_a9d9acf133a5b966f0cbd16a2c57a7d79}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!x@{x}}
+\index{x@{x}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{x()}{x()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_a9d9acf133a5b966f0cbd16a2c57a7d79} 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ x (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}}]{}{, }\item[{std\+::vector$<$ double $>$}]{}{NY, 0.\+0}\end{DoxyParamCaption})}
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_aae4b761a64c952b4c008655d1dc59a12}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!y@{y}}
+\index{y@{y}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{y()}{y()}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_aae4b761a64c952b4c008655d1dc59a12} 
+std\+::vector$<$ std\+::vector$<$ double $>$ $>$ y (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}{NX}}}]{}{, }\item[{std\+::vector$<$ double $>$}]{}{NY, 0.\+0}\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!cylinderRadius@{cylinderRadius}}
+\index{cylinderRadius@{cylinderRadius}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{cylinderRadius}{cylinderRadius}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_aadf11aee8d1ad31ff334a5c4ac84c071_aadf11aee8d1ad31ff334a5c4ac84c071} 
+const double cylinder\+Radius = 0.\+1}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00010}{10}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!Lx@{Lx}}
+\index{Lx@{Lx}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{Lx}{Lx}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a66aca928e291664c9bdd0303a12aff11_a66aca928e291664c9bdd0303a12aff11} 
+const double Lx = 10.\+0}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00009}{9}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_ac179f158b0dfac3f42d1c68eccc245c8_ac179f158b0dfac3f42d1c68eccc245c8}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!maxIterations@{maxIterations}}
+\index{maxIterations@{maxIterations}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{maxIterations}{maxIterations}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_ac179f158b0dfac3f42d1c68eccc245c8_ac179f158b0dfac3f42d1c68eccc245c8} 
+const int max\+Iterations = 5000}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00012}{12}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!NX@{NX}}
+\index{NX@{NX}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{NX}{NX}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_ad9f4c2a923468d289f0471a2d04d7923_ad9f4c2a923468d289f0471a2d04d7923} 
+const int NX = 100}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00007}{7}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!NY@{NY}}
+\index{NY@{NY}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{NY}{NY}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a821a7cd548c71f4ccad7724fa74e44f5_a821a7cd548c71f4ccad7724fa74e44f5} 
+const int NY = 100}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00008}{8}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+
+\Hypertarget{_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_a628d801d093e5d9b41ecaa82592ee92d}\index{CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}!tolerance@{tolerance}}
+\index{tolerance@{tolerance}!CType\_Elliptic\_Grid.cpp@{CType\_Elliptic\_Grid.cpp}}
+\doxysubsubsection{\texorpdfstring{tolerance}{tolerance}}
+{\footnotesize\ttfamily \label{_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_a628d801d093e5d9b41ecaa82592ee92d} 
+const double tolerance = 1e-\/7}
+
+
+
+Definition at line \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source_l00011}{11}} of file \mbox{\hyperlink{_c_type___elliptic___grid_8cpp_source}{CType\+\_\+\+Elliptic\+\_\+\+Grid.\+cpp}}.
+

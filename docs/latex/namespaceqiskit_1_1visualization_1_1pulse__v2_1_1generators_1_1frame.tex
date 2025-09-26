@@ -1,0 +1,216 @@
+\doxysection{qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame}{}\label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a9a75d35e678667caa754aba1defe7a41}{gen\+\_\+formatted\+\_\+phase}} (types.\+Pulse\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a5bc16542ed397ab1266bcde1eea0b674}{gen\+\_\+formatted\+\_\+freq\+\_\+mhz}} (types.\+Pulse\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a19fda2574b51267af7cd33de25fcfc1e}{gen\+\_\+formatted\+\_\+frame\+\_\+values}} (types.\+Pulse\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ae5024f7abbcef785412c32c7c224ef82}{gen\+\_\+raw\+\_\+operand\+\_\+values\+\_\+compact}} (types.\+Pulse\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ac2dc534e59418c6bd494aa2b96f4ea5f}{gen\+\_\+frame\+\_\+symbol}} (types.\+Pulse\+Instruction data, Dict\mbox{[}str, Any\mbox{]} formatter, \mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} device)
+\item 
+Tuple\mbox{[}str, str\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_af1b25a0c42648fe6986beda3ad0cd075}{\+\_\+phase\+\_\+to\+\_\+text}} (Dict\mbox{[}str, Any\mbox{]} formatter, float phase, int max\+\_\+denom=10, bool flip=True)
+\item 
+Tuple\mbox{[}str, str\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ad74a3814e5e35b41d4fea88dc60bee8d}{\+\_\+freq\+\_\+to\+\_\+text}} (Dict\mbox{[}str, Any\mbox{]} formatter, float freq, str unit="{}MHz"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Frame change generators.
+
+A collection of functions that generate drawings from formatted input data.
+See py:mod:`qiskit.visualization.pulse_v2.types` for more info on the required data.
+
+In this module the input data is `types.PulseInstruction`.
+
+An end-user can write arbitrary functions that generate custom drawings.
+Generators in this module are called with the `formatter` and `device` kwargs.
+These data provides stylesheet configuration and backend system configuration.
+
+The format of generator is restricted to:
+
+    ```python
+
+    def my_object_generator(data: PulseInstruction,
+                            formatter: Dict[str, Any],
+                            device: DrawerBackendInfo) -> List[ElementaryData]:
+        pass
+    ```
+
+Arbitrary generator function satisfying the above format can be accepted.
+Returned `ElementaryData` can be arbitrary subclasses that are implemented in
+the plotter API.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ad74a3814e5e35b41d4fea88dc60bee8d}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!\_freq\_to\_text@{\_freq\_to\_text}}
+\index{\_freq\_to\_text@{\_freq\_to\_text}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{\_freq\_to\_text()}{\_freq\_to\_text()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ad74a3814e5e35b41d4fea88dc60bee8d} 
+ Tuple\mbox{[}str, str\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+\_\+freq\+\_\+to\+\_\+text (\begin{DoxyParamCaption}\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{float}]{freq}{, }\item[{str }]{unit}{ = {\ttfamily "{}MHz"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to convert a freq value to text with supplementary unit.
+
+Args:
+    formatter: Dictionary of stylesheet settings.
+    freq: A frequency value in units of Hz.
+    unit: Supplementary unit. THz, GHz, MHz, kHz, Hz are supported.
+
+Returns:
+    Standard text and latex text of phase value.
+
+Raises:
+    VisualizationError: When unsupported unit is specified.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_af1b25a0c42648fe6986beda3ad0cd075}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!\_phase\_to\_text@{\_phase\_to\_text}}
+\index{\_phase\_to\_text@{\_phase\_to\_text}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{\_phase\_to\_text()}{\_phase\_to\_text()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_af1b25a0c42648fe6986beda3ad0cd075} 
+ Tuple\mbox{[}str, str\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+\_\+phase\+\_\+to\+\_\+text (\begin{DoxyParamCaption}\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{float}]{phase}{, }\item[{int }]{max\+\_\+denom}{ = {\ttfamily 10}, }\item[{bool }]{flip}{ = {\ttfamily True}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}A helper function to convert a float value to text with pi.
+
+Args:
+    formatter: Dictionary of stylesheet settings.
+    phase: A phase value in units of rad.
+    max_denom: Maximum denominator. Return raw value if exceed.
+    flip: Set `True` to flip the sign.
+
+Returns:
+    Standard text and latex text of phase value.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a19fda2574b51267af7cd33de25fcfc1e}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!gen\_formatted\_frame\_values@{gen\_formatted\_frame\_values}}
+\index{gen\_formatted\_frame\_values@{gen\_formatted\_frame\_values}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{gen\_formatted\_frame\_values()}{gen\_formatted\_frame\_values()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a19fda2574b51267af7cd33de25fcfc1e} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+gen\+\_\+formatted\+\_\+frame\+\_\+values (\begin{DoxyParamCaption}\item[{types.\+Pulse\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate the formatted virtual Z rotation label and the frequency change label
+from provided frame instruction.
+
+Phase value is placed on top of the symbol, and frequency value is placed below the symbol.
+See :py:func:`gen_formatted_phase` and :py:func:`gen_formatted_freq_mhz` for details.
+
+Stylesheets:
+    - The `frame_change` style is applied.
+    - The `annotate` style is applied for font size.
+
+Args:
+    data: Frame change instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a5bc16542ed397ab1266bcde1eea0b674}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!gen\_formatted\_freq\_mhz@{gen\_formatted\_freq\_mhz}}
+\index{gen\_formatted\_freq\_mhz@{gen\_formatted\_freq\_mhz}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{gen\_formatted\_freq\_mhz()}{gen\_formatted\_freq\_mhz()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a5bc16542ed397ab1266bcde1eea0b674} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+gen\+\_\+formatted\+\_\+freq\+\_\+mhz (\begin{DoxyParamCaption}\item[{types.\+Pulse\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate the formatted frequency change label from provided frame instruction.
+
+Frequency change is expressed in units of MHz.
+
+For example:
+    - A value 1,234,567 is converted into `\\Delta f = 1.23 MHz`
+
+Stylesheets:
+    - The `frame_change` style is applied.
+    - The `annotate` style is applied for font size.
+
+Args:
+    data: Frame change instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a9a75d35e678667caa754aba1defe7a41}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!gen\_formatted\_phase@{gen\_formatted\_phase}}
+\index{gen\_formatted\_phase@{gen\_formatted\_phase}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{gen\_formatted\_phase()}{gen\_formatted\_phase()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_a9a75d35e678667caa754aba1defe7a41} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+gen\+\_\+formatted\+\_\+phase (\begin{DoxyParamCaption}\item[{types.\+Pulse\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate the formatted virtual Z rotation label from provided frame instruction.
+
+Rotation angle is expressed in units of pi.
+If the denominator of fraction is larger than 10, the angle is expressed in units of radian.
+
+For example:
+    - A value -3.14 is converted into `VZ(\\pi)`
+    - A value 1.57 is converted into `VZ(-\\frac{\\pi}{2})`
+    - A value 0.123 is converted into `VZ(-0.123 rad.)`
+
+Stylesheets:
+    - The `frame_change` style is applied.
+    - The `annotate` style is applied for font size.
+
+Notes:
+    The phase operand of `PhaseShift` instruction has opposite sign to the Z gate definition.
+    Thus the sign of rotation angle is inverted.
+
+Args:
+    data: Frame change instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ac2dc534e59418c6bd494aa2b96f4ea5f}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!gen\_frame\_symbol@{gen\_frame\_symbol}}
+\index{gen\_frame\_symbol@{gen\_frame\_symbol}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{gen\_frame\_symbol()}{gen\_frame\_symbol()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ac2dc534e59418c6bd494aa2b96f4ea5f} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+gen\+\_\+frame\+\_\+symbol (\begin{DoxyParamCaption}\item[{types.\+Pulse\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate a frame change symbol with instruction meta data from provided frame instruction.
+
+Stylesheets:
+    - The `frame_change` style is applied.
+    - The symbol type in unicode is specified in `formatter.unicode_symbol.frame_change`.
+    - The symbol type in latex is specified in `formatter.latex_symbol.frame_change`.
+
+Args:
+    data: Frame change instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ae5024f7abbcef785412c32c7c224ef82}\index{qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}!gen\_raw\_operand\_values\_compact@{gen\_raw\_operand\_values\_compact}}
+\index{gen\_raw\_operand\_values\_compact@{gen\_raw\_operand\_values\_compact}!qiskit.visualization.pulse\_v2.generators.frame@{qiskit.visualization.pulse\_v2.generators.frame}}
+\doxysubsubsection{\texorpdfstring{gen\_raw\_operand\_values\_compact()}{gen\_raw\_operand\_values\_compact()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1pulse__v2_1_1generators_1_1frame_ae5024f7abbcef785412c32c7c224ef82} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+pulse\+\_\+v2.\+generators.\+frame.\+gen\+\_\+raw\+\_\+operand\+\_\+values\+\_\+compact (\begin{DoxyParamCaption}\item[{types.\+Pulse\+Instruction}]{data}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{\mbox{\hyperlink{classqiskit_1_1visualization_1_1pulse__v2_1_1device__info_1_1_drawer_backend_info}{device\+\_\+info.\+Drawer\+Backend\+Info}} }]{device}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate the formatted virtual Z rotation label and the frequency change label
+from provided frame instruction.
+
+Raw operand values are shown in compact form. Frequency change is expressed
+in scientific notation. Values are shown in two lines.
+
+For example:
+    - A phase change 1.57 and frequency change 1,234,567 are written by `1.57\\n1.2e+06`
+
+Stylesheets:
+    - The `frame_change` style is applied.
+    - The `annotate` style is applied for font size.
+
+Args:
+    data: Frame change instruction data to draw.
+    formatter: Dictionary of stylesheet settings.
+    device: Backend configuration.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ 

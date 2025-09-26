@@ -1,0 +1,78 @@
+\doxysection{qiskit\+\_\+algorithms.\+gradients.\+reverse.\+derive\+\_\+circuit Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit}{}\label{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit}\index{qiskit\_algorithms.gradients.reverse.derive\_circuit@{qiskit\_algorithms.gradients.reverse.derive\_circuit}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+list\mbox{[}tuple\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a681da33531d2fd6db4f0883d945f1295_a681da33531d2fd6db4f0883d945f1295}{gradient\+\_\+lookup}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} gate)
+\item 
+Sequence\mbox{[}tuple\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a8226cabe5e072d49460db94cf46cd7ae_a8226cabe5e072d49460db94cf46cd7ae}{derive\+\_\+circuit}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}} parameter, bool check=True)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Split a circuit into subcircuits, each containing a single parameterized gate.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a8226cabe5e072d49460db94cf46cd7ae_a8226cabe5e072d49460db94cf46cd7ae}\index{qiskit\_algorithms.gradients.reverse.derive\_circuit@{qiskit\_algorithms.gradients.reverse.derive\_circuit}!derive\_circuit@{derive\_circuit}}
+\index{derive\_circuit@{derive\_circuit}!qiskit\_algorithms.gradients.reverse.derive\_circuit@{qiskit\_algorithms.gradients.reverse.derive\_circuit}}
+\doxysubsubsection{\texorpdfstring{derive\_circuit()}{derive\_circuit()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a8226cabe5e072d49460db94cf46cd7ae_a8226cabe5e072d49460db94cf46cd7ae} 
+ Sequence\mbox{[}tuple\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} qiskit\+\_\+algorithms.\+gradients.\+reverse.\+derive\+\_\+circuit.\+derive\+\_\+circuit (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}}]{parameter}{, }\item[{bool }]{check}{ = {\ttfamily True}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the analytic gradient expression of the input circuit wrt. a single parameter.
+
+Returns a list of ``(coeff, gradient_circuit)`` tuples, where the derivative of the circuit is
+given by the sum of the gradient circuits multiplied by their coefficient.
+
+For example, the circuit::
+
+       ┌───┐┌───────┐┌─────┐
+    q: ┤ H ├┤ Rx(x) ├┤ Sdg ├
+       └───┘└───────┘└─────┘
+
+returns the coefficient `-0.5j` and the circuit equivalent to::
+
+       ┌───┐┌───────┐┌───┐┌─────┐
+    q: ┤ H ├┤ Rx(x) ├┤ X ├┤ Sdg ├
+       └───┘└───────┘└───┘└─────┘
+
+as the derivative of `Rx(x)` is `-0.5j Rx(x) X`.
+
+Args:
+    circuit: The quantum circuit to derive.
+    parameter: The parameter with respect to which we derive.
+    check: If ``True`` (default) check that the parameter is valid and that no product
+        rule is required.
+
+Returns:
+    A list of ``(coeff, gradient_circuit)`` tuples.
+
+Raises:
+    ValueError: If ``parameter`` is of the wrong type.
+    ValueError: If ``parameter`` is not in this circuit.
+    NotImplementedError: If a non-unique parameter is added, as the product rule is not yet
+        supported in this function.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a681da33531d2fd6db4f0883d945f1295_a681da33531d2fd6db4f0883d945f1295}\index{qiskit\_algorithms.gradients.reverse.derive\_circuit@{qiskit\_algorithms.gradients.reverse.derive\_circuit}!gradient\_lookup@{gradient\_lookup}}
+\index{gradient\_lookup@{gradient\_lookup}!qiskit\_algorithms.gradients.reverse.derive\_circuit@{qiskit\_algorithms.gradients.reverse.derive\_circuit}}
+\doxysubsubsection{\texorpdfstring{gradient\_lookup()}{gradient\_lookup()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1gradients_1_1reverse_1_1derive__circuit_a681da33531d2fd6db4f0883d945f1295_a681da33531d2fd6db4f0883d945f1295} 
+ list\mbox{[}tuple\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} qiskit\+\_\+algorithms.\+gradients.\+reverse.\+derive\+\_\+circuit.\+gradient\+\_\+lookup (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}}]{gate}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a circuit implementing the gradient of the input gate.
+
+Args:
+    gate: The gate whose derivative is returned.
+
+Returns:
+    The derivative of the input gate as list of ``(coeff, circuit)`` pairs,
+    where the sum of all ``coeff * circuit`` elements describes the full derivative.
+    The circuit is the unitary part of the derivative with a potential separate ``coeff``.
+    The output is a list as derivatives of e.g. controlled gates can only be described
+    as a sum of ``coeff * circuit`` pairs.
+
+Raises:
+    NotImplementedError: If the derivative of ``gate`` is not implemented.
+\end{DoxyVerb}
+ 

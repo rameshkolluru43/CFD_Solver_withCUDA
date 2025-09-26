@@ -1,0 +1,157 @@
+\doxysection{qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade}{}\label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+Inheritance diagram for qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.862069cm]{d1/dc8/classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_afaeeff0a2324186fae89c080bcbe1b49_afaeeff0a2324186fae89c080bcbe1b49}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int duration, chans.\+Channel channel, str\texorpdfstring{$\vert$}{|}None name=None)
+\item 
+chans.\+Channel \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_a4233738255af9db0842b22baedc28f1a_a4233738255af9db0842b22baedc28f1a}{channel}} (self)
+\item 
+tuple\mbox{[}chans.\+Channel\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac4a4c0626dd72b9721b7fd9ca32a713b_ac4a4c0626dd72b9721b7fd9ca32a713b}{channels}} (self)
+\item 
+int \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac7fd3f8bdc4824f07ff90c564036878d_ac7fd3f8bdc4824f07ff90c564036878d}{duration}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_a5cb786b0c4c9e7e95ce3c71a8530ee91}\label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_a5cb786b0c4c9e7e95ce3c71a8530ee91} 
+{\bfseries duration}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ad42cbcd920b9dadda220448b40bd7fb9}\label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ad42cbcd920b9dadda220448b40bd7fb9} 
+{\bfseries channel}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_af69b36825e623c27d93855b4daeebafb_af69b36825e623c27d93855b4daeebafb}{\+\_\+validate}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Pulse ``TimeBlockade`` directive.
+
+This instruction is intended to be used internally within the pulse builder,
+to convert :class:`.Schedule` into :class:`.ScheduleBlock`.
+Because :class:`.ScheduleBlock` cannot take an absolute instruction time interval,
+this directive helps the block representation to find the starting time of an instruction.
+
+Example:
+
+    This schedule plays constant pulse at t0 = 120.
+
+    .. code-block:: python
+
+        from qiskit.pulse import Schedule, Play, Constant, DriveChannel
+
+        schedule = Schedule()
+        schedule.insert(120, Play(Constant(10, 0.1), DriveChannel(0)))
+
+    This schedule block is expected to be identical to above at a time of execution.
+
+    .. code-block:: python
+
+        from qiskit.pulse import ScheduleBlock, Play, Constant, DriveChannel
+        from qiskit.pulse.instructions import TimeBlockade
+
+        block = ScheduleBlock()
+        block.append(TimeBlockade(120, DriveChannel(0)))
+        block.append(Play(Constant(10, 0.1), DriveChannel(0)))
+
+    Such conversion may be done by
+
+    .. code-block:: python
+
+        from qiskit.pulse.transforms import block_to_schedule, remove_directives
+
+        schedule = remove_directives(block_to_schedule(block))
+
+
+.. note::
+
+    The TimeBlockade instruction behaves almost identically
+    to :class:`~qiskit.pulse.instructions.Delay` instruction.
+    However, the TimeBlockade is just a compiler directive and must be removed before execution.
+    This may be done by :func:`~qiskit.pulse.transforms.remove_directives` transform.
+    Once these directives are removed, occupied timeslots are released and
+    user can insert another instruction without timing overlap.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_afaeeff0a2324186fae89c080bcbe1b49_afaeeff0a2324186fae89c080bcbe1b49}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_afaeeff0a2324186fae89c080bcbe1b49_afaeeff0a2324186fae89c080bcbe1b49} 
+qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{duration}{, }\item[{chans.\+Channel}]{channel}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{name}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a time blockade directive.
+
+Args:
+    duration: Length of time of the occupation in terms of dt.
+    channel: The channel that will be the occupied.
+    name: Name of the time blockade for display purposes.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_adbee9857aaf346e675afe47af542322e_adbee9857aaf346e675afe47af542322e}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_af69b36825e623c27d93855b4daeebafb_af69b36825e623c27d93855b4daeebafb}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}!\_validate@{\_validate}}
+\index{\_validate@{\_validate}!qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+\doxysubsubsection{\texorpdfstring{\_validate()}{\_validate()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_af69b36825e623c27d93855b4daeebafb_af69b36825e623c27d93855b4daeebafb} 
+qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade.\+\_\+validate (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Called after initialization to validate instruction data.
+
+Raises:
+    PulseError: If the input ``duration`` is not integer value.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_ac3a3ae60c2801a8f87b1d828d0a55772_ac3a3ae60c2801a8f87b1d828d0a55772}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_a4233738255af9db0842b22baedc28f1a_a4233738255af9db0842b22baedc28f1a}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}!channel@{channel}}
+\index{channel@{channel}!qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+\doxysubsubsection{\texorpdfstring{channel()}{channel()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_a4233738255af9db0842b22baedc28f1a_a4233738255af9db0842b22baedc28f1a} 
+ chans.\+Channel qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade.\+channel (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the :py:class:`~qiskit.pulse.channels.Channel` that this instruction is
+scheduled on.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac4a4c0626dd72b9721b7fd9ca32a713b_ac4a4c0626dd72b9721b7fd9ca32a713b}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}!channels@{channels}}
+\index{channels@{channels}!qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+\doxysubsubsection{\texorpdfstring{channels()}{channels()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac4a4c0626dd72b9721b7fd9ca32a713b_ac4a4c0626dd72b9721b7fd9ca32a713b} 
+ tuple\mbox{[}chans.\+Channel\mbox{]} qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade.\+channels (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the channels that this schedule uses.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac7fd3f8bdc4824f07ff90c564036878d_ac7fd3f8bdc4824f07ff90c564036878d}\index{qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}!duration@{duration}}
+\index{duration@{duration}!qiskit.pulse.instructions.directives.TimeBlockade@{qiskit.pulse.instructions.directives.TimeBlockade}}
+\doxysubsubsection{\texorpdfstring{duration()}{duration()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_time_blockade_ac7fd3f8bdc4824f07ff90c564036878d_ac7fd3f8bdc4824f07ff90c564036878d} 
+ int qiskit.\+pulse.\+instructions.\+directives.\+Time\+Blockade.\+duration (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Duration of this instruction.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1directives_1_1_directive_a30dcce5bc1c2f039079a9d439f89c1e0_a30dcce5bc1c2f039079a9d439f89c1e0}{qiskit.\+pulse.\+instructions.\+directives.\+Directive}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/instructions/directives.\+py\end{DoxyCompactItemize}

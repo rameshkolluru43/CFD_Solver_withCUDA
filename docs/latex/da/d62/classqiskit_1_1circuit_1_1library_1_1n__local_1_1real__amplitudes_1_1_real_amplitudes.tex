@@ -1,0 +1,182 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes.\+Real\+Amplitudes Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes}{}\label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes}\index{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes.\+Real\+Amplitudes\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.954802cm]{da/d62/classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_aa66212db90a39328c48cbb14cf5c258b_aa66212db90a39328c48cbb14cf5c258b}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int\texorpdfstring{$\vert$}{|}None num\+\_\+qubits=None, str\texorpdfstring{$\vert$}{|}list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} entanglement="{}reverse\+\_\+linear"{}, int reps=3, bool skip\+\_\+unentangled\+\_\+qubits=False, bool skip\+\_\+final\+\_\+rotation\+\_\+layer=False, str parameter\+\_\+prefix="{}θ"{}, bool \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a89ce32d1f086ad4b5aa78cfd37c9a253_a89ce32d1f086ad4b5aa78cfd37c9a253}{insert\+\_\+barriers}}=False, \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\texorpdfstring{$\vert$}{|}None initial\+\_\+state=None, str name="{}Real\+Amplitudes"{}, bool\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_a1e56fefa60888c66f6f558b50b4b288e_a1e56fefa60888c66f6f558b50b4b288e}{flatten}}=None)
+\item 
+list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_a6831a26ca5996900c3f31c49a2c565ea_a6831a26ca5996900c3f31c49a2c565ea}{parameter\+\_\+bounds}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The real-amplitudes 2-local circuit.
+
+The ``RealAmplitudes`` circuit is a heuristic trial wave function used as Ansatz in chemistry
+applications or classification circuits in machine learning. The circuit consists of
+alternating layers of :math:`Y` rotations and :math:`CX` entanglements. The entanglement
+pattern can be user-defined or selected from a predefined set.
+It is called ``RealAmplitudes`` since the prepared quantum states will only have
+real amplitudes, the complex part is always 0.
+
+For example a ``RealAmplitudes`` circuit with 2 repetitions on 3 qubits with ``'reverse_linear'``
+entanglement is
+
+.. code-block:: text
+
+     ┌──────────┐ ░            ░ ┌──────────┐ ░            ░ ┌──────────┐
+     ┤ Ry(θ[0]) ├─░────────■───░─┤ Ry(θ[3]) ├─░────────■───░─┤ Ry(θ[6]) ├
+     ├──────────┤ ░      ┌─┴─┐ ░ ├──────────┤ ░      ┌─┴─┐ ░ ├──────────┤
+     ┤ Ry(θ[1]) ├─░───■──┤ X ├─░─┤ Ry(θ[4]) ├─░───■──┤ X ├─░─┤ Ry(θ[7]) ├
+     ├──────────┤ ░ ┌─┴─┐└───┘ ░ ├──────────┤ ░ ┌─┴─┐└───┘ ░ ├──────────┤
+     ┤ Ry(θ[2]) ├─░─┤ X ├──────░─┤ Ry(θ[5]) ├─░─┤ X ├──────░─┤ Ry(θ[8]) ├
+     └──────────┘ ░ └───┘      ░ └──────────┘ ░ └───┘      ░ └──────────┘
+
+The entanglement can be set using the ``entanglement`` keyword as string or a list of
+index-pairs. See the documentation of :class:`~qiskit.circuit.library.TwoLocal` and
+:class:`~qiskit.circuit.NLocal` for more detail. Additional options that can be set include the
+number of repetitions, skipping rotation gates on qubits that are not entangled, leaving out
+the final rotation layer and inserting barriers in between the rotation and entanglement
+layers.
+
+If some qubits are not entangled with other qubits it makes sense to not apply rotation gates
+on these qubits, since a sequence of :math:`Y` rotations can be reduced to a single :math:`Y`
+rotation with summed rotation angles.
+
+Examples:
+
+    >>> ansatz = RealAmplitudes(3, reps=2)  # create the circuit on 3 qubits
+    >>> print(ansatz.decompose())
+         ┌──────────┐                 ┌──────────┐                 ┌──────────┐
+    q_0: ┤ Ry(θ[0]) ├──────────■──────┤ Ry(θ[3]) ├──────────■──────┤ Ry(θ[6]) ├
+         ├──────────┤        ┌─┴─┐    ├──────────┤        ┌─┴─┐    ├──────────┤
+    q_1: ┤ Ry(θ[1]) ├──■─────┤ X ├────┤ Ry(θ[4]) ├──■─────┤ X ├────┤ Ry(θ[7]) ├
+         ├──────────┤┌─┴─┐┌──┴───┴───┐└──────────┘┌─┴─┐┌──┴───┴───┐└──────────┘
+    q_2: ┤ Ry(θ[2]) ├┤ X ├┤ Ry(θ[5]) ├────────────┤ X ├┤ Ry(θ[8]) ├────────────
+         └──────────┘└───┘└──────────┘            └───┘└──────────┘
+
+    >>> ansatz = RealAmplitudes(3, entanglement='full', reps=2, flatten=True)
+    >>> print(ansatz)
+         ┌──────────┐          ┌──────────┐                      ┌──────────┐
+    q_0: ┤ RY(θ[0]) ├──■────■──┤ RY(θ[3]) ├──────────────■────■──┤ RY(θ[6]) ├────────────
+         ├──────────┤┌─┴─┐  │  └──────────┘┌──────────┐┌─┴─┐  │  └──────────┘┌──────────┐
+    q_1: ┤ RY(θ[1]) ├┤ X ├──┼───────■──────┤ RY(θ[4]) ├┤ X ├──┼───────■──────┤ RY(θ[7]) ├
+         ├──────────┤└───┘┌─┴─┐   ┌─┴─┐    ├──────────┤└───┘┌─┴─┐   ┌─┴─┐    ├──────────┤
+    q_2: ┤ RY(θ[2]) ├─────┤ X ├───┤ X ├────┤ RY(θ[5]) ├─────┤ X ├───┤ X ├────┤ RY(θ[8]) ├
+         └──────────┘     └───┘   └───┘    └──────────┘     └───┘   └───┘    └──────────┘
+
+    >>> ansatz = RealAmplitudes(3, entanglement='linear', reps=2, insert_barriers=True,
+    ... flatten=True)
+    >>> qc = QuantumCircuit(3)  # create a circuit and append the RY variational form
+    >>> qc.compose(ansatz, inplace=True)
+    >>> qc.draw()
+         ┌──────────┐ ░            ░ ┌──────────┐ ░            ░ ┌──────────┐
+    q_0: ┤ RY(θ[0]) ├─░───■────────░─┤ RY(θ[3]) ├─░───■────────░─┤ RY(θ[6]) ├
+         ├──────────┤ ░ ┌─┴─┐      ░ ├──────────┤ ░ ┌─┴─┐      ░ ├──────────┤
+    q_1: ┤ RY(θ[1]) ├─░─┤ X ├──■───░─┤ RY(θ[4]) ├─░─┤ X ├──■───░─┤ RY(θ[7]) ├
+         ├──────────┤ ░ └───┘┌─┴─┐ ░ ├──────────┤ ░ └───┘┌─┴─┐ ░ ├──────────┤
+    q_2: ┤ RY(θ[2]) ├─░──────┤ X ├─░─┤ RY(θ[5]) ├─░──────┤ X ├─░─┤ RY(θ[8]) ├
+         └──────────┘ ░      └───┘ ░ └──────────┘ ░      └───┘ ░ └──────────┘
+
+    >>> ansatz = RealAmplitudes(4, reps=1, entanglement='circular', insert_barriers=True,
+    ... flatten=True)
+    >>> print(ansatz)
+         ┌──────────┐ ░ ┌───┐                ░ ┌──────────┐
+    q_0: ┤ RY(θ[0]) ├─░─┤ X ├──■─────────────░─┤ RY(θ[4]) ├
+         ├──────────┤ ░ └─┬─┘┌─┴─┐           ░ ├──────────┤
+    q_1: ┤ RY(θ[1]) ├─░───┼──┤ X ├──■────────░─┤ RY(θ[5]) ├
+         ├──────────┤ ░   │  └───┘┌─┴─┐      ░ ├──────────┤
+    q_2: ┤ RY(θ[2]) ├─░───┼───────┤ X ├──■───░─┤ RY(θ[6]) ├
+         ├──────────┤ ░   │       └───┘┌─┴─┐ ░ ├──────────┤
+    q_3: ┤ RY(θ[3]) ├─░───■────────────┤ X ├─░─┤ RY(θ[7]) ├
+         └──────────┘ ░                └───┘ ░ └──────────┘
+
+    >>> ansatz = RealAmplitudes(4, reps=2, entanglement=[[0,3], [0,2]],
+    ... skip_unentangled_qubits=True, flatten=True)
+    >>> print(ansatz)
+         ┌──────────┐                 ┌──────────┐                 ┌──────────┐
+    q_0: ┤ RY(θ[0]) ├──■───────■──────┤ RY(θ[3]) ├──■───────■──────┤ RY(θ[6]) ├
+         └──────────┘  │       │      └──────────┘  │       │      └──────────┘
+    q_1: ──────────────┼───────┼────────────────────┼───────┼──────────────────
+         ┌──────────┐  │     ┌─┴─┐    ┌──────────┐  │     ┌─┴─┐    ┌──────────┐
+    q_2: ┤ RY(θ[1]) ├──┼─────┤ X ├────┤ RY(θ[4]) ├──┼─────┤ X ├────┤ RY(θ[7]) ├
+         ├──────────┤┌─┴─┐┌──┴───┴───┐└──────────┘┌─┴─┐┌──┴───┴───┐└──────────┘
+    q_3: ┤ RY(θ[2]) ├┤ X ├┤ RY(θ[5]) ├────────────┤ X ├┤ RY(θ[8]) ├────────────
+         └──────────┘└───┘└──────────┘            └───┘└──────────┘
+
+.. seealso::
+
+    The :func:`.real_amplitudes` function constructs a functionally equivalent circuit, but faster.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_aa66212db90a39328c48cbb14cf5c258b_aa66212db90a39328c48cbb14cf5c258b}\index{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_aa66212db90a39328c48cbb14cf5c258b_aa66212db90a39328c48cbb14cf5c258b} 
+ None qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes.\+Real\+Amplitudes.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+qubits}{ = {\ttfamily None}, }\item[{str \texorpdfstring{$\vert$}{|} list\mbox{[}list\mbox{[}int\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}int\mbox{]}, list\mbox{[}int\mbox{]}\mbox{]} }]{entanglement}{ = {\ttfamily "{}reverse\+\_\+linear"{}}, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{bool }]{skip\+\_\+unentangled\+\_\+qubits}{ = {\ttfamily False}, }\item[{bool }]{skip\+\_\+final\+\_\+rotation\+\_\+layer}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \texorpdfstring{$\vert$}{|} None }]{initial\+\_\+state}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}RealAmplitudes"{}}, }\item[{bool \texorpdfstring{$\vert$}{|} None }]{flatten}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: The number of qubits of the RealAmplitudes circuit.
+    reps: Specifies how often the structure of a rotation layer followed by an entanglement
+        layer is repeated.
+    entanglement: Specifies the entanglement structure. Can be a string ('full', 'linear'
+        'reverse_linear, 'circular' or 'sca'), a list of integer-pairs specifying the indices
+        of qubits entangled with one another, or a callable returning such a list provided with
+        the index of the entanglement layer.
+        Default to 'reverse_linear' entanglement.
+        Note that 'reverse_linear' entanglement provides the same unitary as 'full'
+        with fewer entangling gates.
+        See the Examples section of :class:`~qiskit.circuit.library.TwoLocal` for more
+        detail.
+    initial_state: A `QuantumCircuit` object to prepend to the circuit.
+    skip_unentangled_qubits: If True, the single qubit gates are only applied to qubits
+        that are entangled with another qubit. If False, the single qubit gates are applied
+        to each qubit in the Ansatz. Defaults to False.
+    skip_final_rotation_layer: If False, a rotation layer is added at the end of the
+        ansatz. If True, no rotation layer is added.
+    parameter_prefix: The parameterized gates require a parameter to be defined, for which
+        we use :class:`~qiskit.circuit.ParameterVector`.
+    insert_barriers: If True, barriers are inserted in between each layer. If False,
+        no barriers are inserted.
+    flatten: Set this to ``True`` to output a flat circuit instead of nesting it inside multiple
+        layers of gate objects. By default currently the contents of
+        the output circuit will be wrapped in nested objects for
+        cleaner visualization. However, if you're using this circuit
+        for anything besides visualization its **strongly** recommended
+        to set this flag to ``True`` to avoid a large performance
+        overhead for parameter binding.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1two__local_1_1_two_local_ac6b3de9751a910395d19c9e603aaa00f_ac6b3de9751a910395d19c9e603aaa00f}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+two\+\_\+local.\+Two\+Local}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_a6831a26ca5996900c3f31c49a2c565ea_a6831a26ca5996900c3f31c49a2c565ea}\index{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes}!parameter\_bounds@{parameter\_bounds}}
+\index{parameter\_bounds@{parameter\_bounds}!qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes.RealAmplitudes}}
+\doxysubsubsection{\texorpdfstring{parameter\_bounds()}{parameter\_bounds()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes_a6831a26ca5996900c3f31c49a2c565ea_a6831a26ca5996900c3f31c49a2c565ea} 
+ list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes.\+Real\+Amplitudes.\+parameter\+\_\+bounds (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the parameter bounds.
+
+Returns:
+    The parameter bounds.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1n__local_1_1_n_local_ad1318f9027c54c53782a3a48602927ab_ad1318f9027c54c53782a3a48602927ab}{qiskit.\+circuit.\+library.\+n\+\_\+local.\+n\+\_\+local.\+NLocal}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/n\+\_\+local/real\+\_\+amplitudes.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,206 @@
+#include "Geometry_Header.h"
+
+Grid::Grid()
+{
+        ermax=1e-12;
+}
+
+void Grid::operator()(Circle & C)
+{
+	int i,j, No_Points = C.get_Nop(),Total_Points;
+	vector<Point> Point_List;
+	Point_List = C.Get_Point_list();
+	cout<<"Number of Points on Circle\t"<<Point_List.size()<<endl;
+	nx = ny = (No_Points/4);
+	cout<<nx<<"\t"<<ny<<endl;
+	Total_Points = (nx+1)*(ny+1);
+// 	cout<<"=====================\n";
+	x=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+	y=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+	xtemp=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+	ytemp=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+	erx=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+	ery=vector<vector <double> > (nx+1,vector<double>(ny+1,0.0));
+
+
+// 	x = vector<double>(Total_Points,0.0);
+// 	y = vector<double>(Total_Points,0.0);
+// 	xtemp = vector<double>(Total_Points,0.0);
+// 	ytemp = vector<double>(Total_Points,0.0);
+	
+	for (int i=0;i<(nx+1);i++)
+	{
+		j=0;
+// 		cout<<i<<"\t"<<j<<"\t"<<i+j<<endl;
+		x[i][j] = Point_List[i+j].Get_x();
+		y[i][j] = Point_List[i+j].Get_y();
+// 		cout<<x[i][j]<<"\t"<<y[i][j]<<endl;
+	}
+// cout<<"=====================\n";
+	for (j=0;j<(ny+1);j++)
+	{
+		i=nx;
+// 		cout<<i<<"\t"<<j<<"\t"<<i+j<<endl;
+		x[i][j]=Point_List[i+j].Get_x();
+		y[i][j]=Point_List[i+j].Get_y();
+// 		cout<<x[i][j]<<"\t"<<y[i][j]<<endl;
+	}
+// 		cout<<"=====================\n";
+	for(i=0;i<(nx+1);i++)
+	{
+		j=ny;
+// 		cout<<i<<"\t"<<j<<"\t"<<No_Points -( i+j)<<endl;
+		x[i][j]=Point_List[No_Points -( i+j)].Get_x();
+		y[i][j]=Point_List[No_Points -( i+j)].Get_y();
+// 		cout<<x[i][j]<<"\t"<<y[i][j]<<endl;
+	}
+// 		cout<<"=====================\n";
+	for(j=ny;j>0;j--)
+	{
+		i=0;
+// 		cout<<i<<"\t"<<j<<"\t"<<No_Points -( i+j)<<endl;
+		x[i][j] = Point_List[No_Points -( i+j)].Get_x();
+		y[i][j] = Point_List[No_Points -( i+j)].Get_y();
+// 		cout<<x[i][j]<<"\t"<<y[i][j]<<endl;
+	}
+// 		cout<<"=====================\n";
+}
+
+void Grid::Read_data(string ipfile)
+{
+
+}
+
+/*This Function generates grid using Transfinite interpolation for 2D */
+void Grid::TFI()
+{
+	cout<<"Generating Grid using Algebriac Transfinite Interpolation\n";
+	cout<<"Displaying the control points of the curves \n\n";
+	cout<<nx<<"\t"<<ny<<endl;
+	cout<<"Control point 1 \t"<<x[0][0]<<"\t"<<y[0][0]<<"\n";
+	cout<<"Control point 2  \t"<<x[nx][0]<<"\t"<<y[nx][0]<<"\n";
+	cout<<"Control point 3 \t"<<x[nx][ny]<<"\t"<<y[nx][ny]<<"\n";
+	cout<<"Control point 4 \t"<<x[0][ny]<<"\t"<<y[0][ny]<<"\n";
+	eta	=	1.0/(ny+1);
+	zi	=	1.0/(nx+1);
+	cout<<eta<<"\t"<<zi<<endl;
+	for(int j=1;j<ny;j++)
+	{
+		for(int i=1;i<nx;i++)
+                {
+                        eta1=eta*j;
+                        zi1=zi*i;
+                        x[i][j]	=	eta1*x[i][ny]	+	(1-eta1)*x[i][0]	+  zi1*x[nx][j]		+	(1-zi1)*x[0][j]  -	(1-zi1)*(eta1)*x[0][ny] -
+						(1-zi1)*(1-eta1)*x[0][0]		-(zi1)*(eta1)*x[nx][ny-1]	-	(zi1)*(1-eta1)*x[nx][0];
+						
+                        y[i][j]	=	eta1*y[i][ny]	+	(1-eta1)*y[i][0]	+	zi1*y[nx][j]+(1-zi1)*y[0][j]
+						-(1-zi1)*(eta1)*y[0][ny]	-	(1-zi1)*(1-eta1)*y[0][0]  -	(zi1)*(eta1)*y[nx][ny]	-	(zi1)*(1-eta1)*y[nx][0];
+                }
+	}
+	xtemp=x;
+	ytemp=y;
+	cout<<"Finished TFI, Matrix Ready to perform Elliptic Grid Generation\n";
+}
+
+void Grid::Elliptic()
+{
+        noit=0;
+        do
+        {
+                ertot=0.0;//cout<<"ertot="<<ertot<<"\n";
+		for(int j=1;j<ny;j++)                       //loop increment in eta direction
+                {
+			for(int i=1;i<nx;i++)             //loop  increment in zi direction
+                        {
+                                eta1=eta*j;
+                                zi1=zi*i;
+                                xzi=(0.5/zi1)*(x[i+1][j]-x[i-1][j]);
+                                xeta=(0.5/eta1)*(x[i][j+1]-x[i][j-1]);
+                                yzi=(0.5/zi1)*(y[i+1][j]-y[i-1][j]);
+                                yeta=(0.5/eta1)*(y[i][j+1]-y[i][j-1]);
+                                a=(xeta*xeta+yeta*yeta); //(g22)i,j alpha
+                                b=(xzi*xzi+yzi*yzi);     //(g11)i,j gamma
+                                c=(xzi*xeta+yzi*yeta);//(g12)i,j beta
+
+				xtemp[i][j]= (0.5/((a/(zi1*zi1))+(b/(eta1*eta1))))*((a/(zi1*zi1))*(x[i+1][j]+x[i-1][j])+(b/(eta1*eta1))*(x[i][j+1]+x[i][j-1])
+	                                             -(0.5*c/(zi1*eta1))*((x[i+1][j+1]-x[i+1][j-1]+x[i-1][j-1]-x[i-1][j+1])));
+				
+                                ytemp[i][j]= (0.5/((a/(zi1*zi1))+(b/(eta1*eta1))))*((a/(zi1*zi1))*(y[i+1][j]+ytemp[i-1][j]) +(b/(eta1*eta1))*(y[i][j+1]+ytemp[i][j-1])
+								-(0.5*c/(zi1*eta1))*((y[i+1][j+1]-y[i+1][j-1]+ytemp[i-1][j-1]-y[i-1][j+1])));
+				
+				erx[i][j]=((xtemp[i][j]-x[i][j])/x[i][j])*((xtemp[i][j]-x[i][j])/x[i][j]);
+				ery[i][j]=((ytemp[i][j]-y[i][j])/y[i][j])*((ytemp[i][j]-y[i][j])/y[i][j]);
+				ertot=ertot+erx[i][j]+ery[i][j];
+			}//end of zi direction loop
+                }//end of eta direction loop
+                ertot=sqrt(ertot); 
+//                 cout<<"total error=\t"<<ertot<<"\t";
+                noit=noit+1;
+//                 cout<<"Total Iterations\t"<<noit<<"\n";
+                for(int j=1;j<ny-1;j++)
+                {
+			for(int i=1;i<nx-1;i++)
+                        {
+                                x[i][j]=xtemp[i][j];
+                                y[i][j]=ytemp[i][j];
+                                xtemp[i][j]=0.0;
+                                ytemp[i][j]=0.0;
+                                erx[i][j]=0.0;
+                                ery[i][j]=0.0;
+                        }
+                }
+        }while(noit<100000); //end of iterative loops
+}
+
+void Grid::Generate_Grid()
+{
+	TFI();
+	Elliptic();
+	cout<<"Elliptic Grid Generated\t......Generating Grid List\n";
+	Generate_Grid_List();
+}
+
+
+void Grid::Generate_Grid_List()
+{
+        Point Temp_Point;
+	for(int j=0;j<(ny+1);j++)
+        {
+		for (int i=0;i<(nx+1);i++)
+                {
+                         Temp_Point(x[i][j],y[i][j],0.0);
+                         Grid_List.push_back(Temp_Point);
+                }
+        }
+        cout<<"Planar Grid, List generated"<<endl;
+}
+
+vector<Point> & Grid::Get_Grid_List()
+{
+        return Grid_List;
+}
+
+void Grid::Stack_Grid(double & length,int &nop,vector<Point>& Stacked_Grid_List)
+{
+	cout<<"Stacking grid \n";
+        cout<<"Grid plane size\t"<<Grid_List.size()<<endl;
+	cout<<"Length over which Grid to be stacked\t"<<length<<endl;
+	cout<<"Nop in stacking direction\t"<<nop<<endl;
+        vector<Point> temp_list;
+	double delx=length/(nop-1);
+	cout<<"spacing in Z direction \t"<<delx<<endl;
+        Point p;
+	int k=0;
+        for(int i=0;i<nop;i++)
+        {
+		for(unsigned int j=0;j<Grid_List.size();j++)
+		{
+			p(Grid_List[j].Get_x(),Grid_List[j].Get_y(),i*delx+Grid_List[j].Get_z());
+			Stacked_Grid_List.push_back(p);
+// 			cout<<p.Get_x()<<"\t"<<p.Get_y()<<"\t"<<p.Get_z()<<endl;
+		}
+		k++;
+//		cout<<k<<"\t"<<"i\t"<<i<<endl;
+        }
+        cout<<"Stacking Elliptic Core Grid Done\t Size of Grid list\t"<<Stacked_Grid_List.size()<<endl;
+}

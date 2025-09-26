@@ -1,0 +1,67 @@
+\doxysection{hash\+\_\+pair Struct Reference}
+\hypertarget{structhash__pair}{}\label{structhash__pair}\index{hash\_pair@{hash\_pair}}
+
+
+{\ttfamily \#include $<$Globals.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class T1 , class T2 $>$ }\\size\+\_\+t \mbox{\hyperlink{structhash__pair_a6c5b07cbfc191373c7a429ab7a5b5a1c_a6c5b07cbfc191373c7a429ab7a5b5a1c}{operator()}} (const pair$<$ T1, T2 $>$ \&\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}) const
+\item 
+{\footnotesize template$<$class T1 , class T2 $>$ }\\size\+\_\+t \mbox{\hyperlink{structhash__pair_ae3a28e26883393320322db0e4aa1c7d2_ae3a28e26883393320322db0e4aa1c7d2}{operator()}} (const std\+::pair$<$ T1, T2 $>$ \&\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}) const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_convert___tri__to___quad_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_convert___tri__to___quad_8cpp_source}{Convert\+\_\+\+Tri\+\_\+to\+\_\+\+Quad.\+cpp}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structhash__pair_a6c5b07cbfc191373c7a429ab7a5b5a1c_a6c5b07cbfc191373c7a429ab7a5b5a1c}\index{hash\_pair@{hash\_pair}!operator()@{operator()}}
+\index{operator()@{operator()}!hash\_pair@{hash\_pair}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{structhash__pair_a6c5b07cbfc191373c7a429ab7a5b5a1c_a6c5b07cbfc191373c7a429ab7a5b5a1c} 
+template$<$class T1 , class T2 $>$ \\
+size\+\_\+t hash\+\_\+pair\+::operator() (\begin{DoxyParamCaption}\item[{const pair$<$ T1, T2 $>$ \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_convert___tri__to___quad_8cpp_source_l00015}{15}} of file \mbox{\hyperlink{_convert___tri__to___quad_8cpp_source}{Convert\+\_\+\+Tri\+\_\+to\+\_\+\+Quad.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hash<T1>()(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}.first)\ \string^\ hash<T2>()(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}.second);}
+\DoxyCodeLine{00017\ \ \ \ \ \}}
+
+\end{DoxyCode}
+\Hypertarget{structhash__pair_ae3a28e26883393320322db0e4aa1c7d2_ae3a28e26883393320322db0e4aa1c7d2}\index{hash\_pair@{hash\_pair}!operator()@{operator()}}
+\index{operator()@{operator()}!hash\_pair@{hash\_pair}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{structhash__pair_ae3a28e26883393320322db0e4aa1c7d2_ae3a28e26883393320322db0e4aa1c7d2} 
+template$<$class T1 , class T2 $>$ \\
+size\+\_\+t hash\+\_\+pair\+::operator() (\begin{DoxyParamCaption}\item[{const std\+::pair$<$ T1, T2 $>$ \&}]{p}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line \mbox{\hyperlink{_globals_8h_source_l00209}{209}} of file \mbox{\hyperlink{_globals_8h_source}{Globals.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00210\ \ \ \ \ \{}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash1\ =\ std::hash<T1>\{\}(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}.first);}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keyword}{auto}\ hash2\ =\ std::hash<T2>\{\}(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}.second);}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ hash1\ \string^\ (hash2\ <<\ 1);\ \textcolor{comment}{//\ Bitwise\ XOR\ and\ shift\ to\ avoid\ collisions}}
+\DoxyCodeLine{00214\ \ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Gmsh\+\_\+\+Grids/\mbox{\hyperlink{_convert___tri__to___quad_8cpp}{Convert\+\_\+\+Tri\+\_\+to\+\_\+\+Quad.\+cpp}}\item 
+include/\mbox{\hyperlink{_globals_8h}{Globals.\+h}}\end{DoxyCompactItemize}

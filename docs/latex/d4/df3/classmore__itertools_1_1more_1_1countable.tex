@@ -1,0 +1,50 @@
+\doxysection{more\+\_\+itertools.\+more.\+countable Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1countable}{}\label{classmore__itertools_1_1more_1_1countable}\index{more\_itertools.more.countable@{more\_itertools.more.countable}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1countable_ae324fdb26e3097c26fe8f40b5ca5dc2a}\label{classmore__itertools_1_1more_1_1countable_ae324fdb26e3097c26fe8f40b5ca5dc2a} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1countable_ad50267a23d266498a4913331fb435dc4}\label{classmore__itertools_1_1more_1_1countable_ad50267a23d266498a4913331fb435dc4} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1countable_ab9b3fdba170ce38b3940d8267f57ae3d}\label{classmore__itertools_1_1more_1_1countable_ab9b3fdba170ce38b3940d8267f57ae3d} 
+{\bfseries \+\_\+\+\_\+next\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1countable_a9c42c1c9db5065f6e295a62472dc55a0}\label{classmore__itertools_1_1more_1_1countable_a9c42c1c9db5065f6e295a62472dc55a0} 
+int {\bfseries items\+\_\+seen} = 0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1countable_ab80cf31e418698b147eaefe1b2ff3da8}\label{classmore__itertools_1_1more_1_1countable_ab80cf31e418698b147eaefe1b2ff3da8} 
+{\bfseries \+\_\+it} = iter(iterable)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Wrap *iterable* and keep a count of how many items have been consumed.
+
+The ``items_seen`` attribute starts at ``0`` and increments as the iterable
+is consumed:
+
+    >>> iterable = map(str, range(10))
+    >>> it = countable(iterable)
+    >>> it.items_seen
+    0
+    >>> next(it), next(it)
+    ('0', '1')
+    >>> list(it)
+    ['2', '3', '4', '5', '6', '7', '8', '9']
+    >>> it.items_seen
+    10
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

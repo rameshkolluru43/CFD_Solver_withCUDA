@@ -1,0 +1,64 @@
+\doxysection{qiskit\+\_\+algorithms.\+optimizers.\+nft Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1optimizers_1_1nft}{}\label{namespaceqiskit__algorithms_1_1optimizers_1_1nft}\index{qiskit\_algorithms.optimizers.nft@{qiskit\_algorithms.optimizers.nft}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1nft_1_1_n_f_t}{NFT}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1nft_aa5d343637ed28353d1240b8722adb581}{nakanishi\+\_\+fujii\+\_\+todo}} (fun, x0, args=(), maxiter=None, maxfev=1024, reset\+\_\+interval=32, eps=1e-\/32, callback=None, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Nakanishi-Fujii-Todo algorithm.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1optimizers_1_1nft_aa5d343637ed28353d1240b8722adb581}\index{qiskit\_algorithms.optimizers.nft@{qiskit\_algorithms.optimizers.nft}!nakanishi\_fujii\_todo@{nakanishi\_fujii\_todo}}
+\index{nakanishi\_fujii\_todo@{nakanishi\_fujii\_todo}!qiskit\_algorithms.optimizers.nft@{qiskit\_algorithms.optimizers.nft}}
+\doxysubsubsection{\texorpdfstring{nakanishi\_fujii\_todo()}{nakanishi\_fujii\_todo()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1optimizers_1_1nft_aa5d343637ed28353d1240b8722adb581} 
+qiskit\+\_\+algorithms.\+optimizers.\+nft.\+nakanishi\+\_\+fujii\+\_\+todo (\begin{DoxyParamCaption}\item[{}]{fun}{, }\item[{}]{x0}{, }\item[{}]{args}{ = {\ttfamily ()}, }\item[{}]{maxiter}{ = {\ttfamily None}, }\item[{}]{maxfev}{ = {\ttfamily 1024}, }\item[{}]{reset\+\_\+interval}{ = {\ttfamily 32}, }\item[{}]{eps}{ = {\ttfamily 1e-\/32}, }\item[{}]{callback}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{\+\_\+}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Find the global minimum of a function using the nakanishi_fujii_todo
+algorithm [1].
+Args:
+    fun (callable): ``f(x, *args)``
+        Function to be optimized.  ``args`` can be passed as an optional item
+        in the dict ``minimizer_kwargs``.
+        This function must satisfy the three condition written in Ref. [1].
+    x0 (ndarray): shape (n,)
+        Initial guess. Array of real elements of size (n,),
+        where 'n' is the number of independent variables.
+    args (tuple, optional):
+        Extra arguments passed to the objective function.
+    maxiter (int):
+        Maximum number of iterations to perform.
+        Default: None.
+    maxfev (int):
+        Maximum number of function evaluations to perform.
+        Default: 1024.
+    reset_interval (int):
+        The minimum estimates directly once in ``reset_interval`` times.
+        Default: 32.
+    eps (float): eps
+    **_ : additional options
+    callback (callable, optional):
+        Called after each iteration.
+Returns:
+    OptimizeResult:
+        The optimization result represented as a ``OptimizeResult`` object.
+        Important attributes are: ``x`` the solution array. See
+        `OptimizeResult` for a description of other attributes.
+Notes:
+    In this optimization method, the optimization function have to satisfy
+    three conditions written in [1].
+References:
+    .. [1] K. M. Nakanishi, K. Fujii, and S. Todo. 2019.
+    Sequential minimal optimization for quantum-classical hybrid algorithms.
+    arXiv preprint arXiv:1903.12166.
+\end{DoxyVerb}
+ 

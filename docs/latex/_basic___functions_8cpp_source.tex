@@ -1,0 +1,272 @@
+\doxysection{Basic\+\_\+\+Functions.\+cpp}
+\hypertarget{_basic___functions_8cpp_source}{}\label{_basic___functions_8cpp_source}\index{Basic\_Files/Basic\_Functions.cpp@{Basic\_Files/Basic\_Functions.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keywordtype}{void}\ Set\_DelU(V\_D\ \&\ dU)}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ Cell\_No=0;Cell\_No<No\_Physical\_Cells;Cell\_No++)}
+\DoxyCodeLine{00008\ \ \ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<4;i++)}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_No][i]\ =\ dU[4*Cell\_No\ +\ i];}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00013\ \ \ \ \ \}}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//\ Calculates\ Viscosity\ by\ Sutherlands\ law\ taking\ Average\ temperature\ on\ face}}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ Viscosity(\textcolor{keywordtype}{double}\ \&\ T\_Star)\ \textcolor{comment}{//\ This\ function\ takes\ T*\ as\ input\ and\ evaluates\ the\ non-\/dimensional\ Viscosity\ Function\ Mu*}}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keywordtype}{double}\ Term1\ =0,\ Term2=0;}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ cout<<T\_S\_Mu<<"{}\(\backslash\)t"{}<<T\_ref<<endl;}}
+\DoxyCodeLine{00021\ \ \ \ \ Term1\ =\ T\_S\_Mu/T\_ref;}
+\DoxyCodeLine{00022\ \ \ \ \ Term2\ =\ T\_Star\ +\ Term1;}
+\DoxyCodeLine{00023\ \ \ \ \ mu\_star\ \ =\ pow(T\_Star,1.5)*((1.0\ +\ Term1)/Term2);\ \textcolor{comment}{//\ This\ would\ give\ the\ non-\/dimensional\ Viscosity\ mu*\ \ at\ T*}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ cout<<"{}In\ Viscosity\ Function\(\backslash\)t"{}<<Term1<<"{}\(\backslash\)t"{}<<Term2<<"{}\(\backslash\)t"{}<<T\_Star<<"{}\(\backslash\)t"{}<<mu\_star<<endl;\ }}
+\DoxyCodeLine{00025\ \}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{comment}{//Calculates\ Thermal\_Conductivity\ on\ face\ by\ Sutherlands\ law}}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}\ Thermal\_Conductivity(\textcolor{keywordtype}{double}\ \&\ T)}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \textcolor{comment}{//K\ \ =\ pow((T/T\_Ref),1.5)*((T\_Ref\ +\ T\_S\_K)/(T\ +\ T\_S\_K));\ \ //\ Gives\ non\ dimensional\ Thermal\ Conductivity/K\_Ref}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ K\ =\ mu\_star*cp\_ref/Pr;\ \textcolor{comment}{//\ mu\ has\ non-\/dimensional\ for\ \ \ \ }}
+\DoxyCodeLine{00033\ \textcolor{comment}{//\ \ cout<<"{}In\ THermal\ Conductivity\(\backslash\)tTref\(\backslash\)t"{}<<T\_Ref<<"{}\(\backslash\)t\ T\ S\ K\(\backslash\)t"{}<<T\_S\_K<<"{}\(\backslash\)t"{}<<T<<"{}\(\backslash\)t"{}<<K<<endl;}}
+\DoxyCodeLine{00034\ \}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ Reference\_Values()}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ mu\_ref\ =\ L\_ref/Re;}
+\DoxyCodeLine{00040\ \ \ \ \ cp\_ref\ =\ 1.0/(gamma\_M\_1*M\_ref*M\_ref);}
+\DoxyCodeLine{00041\ \ \ \ \ R\_ref\ =\ 1.0/(gamma*M\_ref*M\_ref);}
+\DoxyCodeLine{00042\ \ \ \ \ Rho\_inf\ =\ 1.0;}
+\DoxyCodeLine{00043\ \ \ \ \ T\_inf\ =\ 1.0;}
+\DoxyCodeLine{00044\ \ \ \ \ P\_inf\ =\ Rho\_inf*R\_ref*T\_inf;}
+\DoxyCodeLine{00045\ \ \ \ \ q\_inf\ =\ 1.0;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{//Given\ Conservative\ Variable\ U\ This\ function\ evaluates\ the\ Primitive\ Variables\ at\ the\ Cell\ Center\ and\ stores\ in\ }}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ Calculate\_Primitive\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,V\_D\ \&\ U\_Vect)}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<\ Cell\_No<<endl;}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \textcolor{keywordtype}{double}\ vmag=0.0,inv\_Density=0.0,v1=0.0,v2=0.0,Pressure=0.0,Temperature=0.0,C=0.0,Rho=0.0;}
+\DoxyCodeLine{00054\ \textcolor{comment}{//\ \ Vector\_Reset(Global\_Primitive);}}
+\DoxyCodeLine{00055\ \textcolor{comment}{//\ \ Print(U\_Vect);}}
+\DoxyCodeLine{00056\ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ Rho\ =\ U\_Vect[0];}
+\DoxyCodeLine{00058\ \ \ \ \ inv\_Density\ =\ 1.0/Rho;}
+\DoxyCodeLine{00059\ \ \ \ \ v1\ =\ U\_Vect[1]*inv\_Density;}
+\DoxyCodeLine{00060\ \ \ \ \ v2\ =\ U\_Vect[2]*inv\_Density;}
+\DoxyCodeLine{00061\ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v1)\ <=\ 1e-\/10)}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ v1=0.0;}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v2)\ <=\ 1e-\/10)}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ v2=0.0;}
+\DoxyCodeLine{00066\ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ vmag\ =\ (v1*v1\ +\ v2*v2);}
+\DoxyCodeLine{00068\ \ \ \ \ Pressure\ =\ gamma\_M\_1*(U\_Vect[3]\ -\/\ 0.5*Rho*vmag);\ \ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{keywordflow}{if}(Non\_Dimensional\_Form)\ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ Temperature\ =\ (Pressure/(Rho*R\_ref));\ \ \ \textcolor{comment}{//\ Non\ -\/\ Dimensionalized\ EOS}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00072\ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ Temperature\ =\ (Pressure*inv\_Density/R\_GC);\ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{if}(Pressure<0.0)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Here\ for\ negative\ pressure\(\backslash\)t"{}}<<Cell\_No<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Pressure<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Rho<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<U\_Vect[3]<<endl;\ \ \ \ }
+\DoxyCodeLine{00077\ \ \ \ \ C\ =\ sqrt(gamma*Pressure*inv\_Density);\ \ \ \ \ \ \ \textcolor{comment}{//sqrt(gamma*P/Rho)}}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ M\ =\ sqrt(vmag)/C;}
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<v1<<"{}\(\backslash\)t"{}<<v2<<"{}\(\backslash\)t"{}<<sqrt(vmag)<<"{}\(\backslash\)t"{}<<vmag<<"{}\(\backslash\)t"{}<<C<<"{}\(\backslash\)t"{}<<M<<endl;}}
+\DoxyCodeLine{00081\ \textcolor{comment}{//\ \ cout<<"{}In\ Primitive\ Function\(\backslash\)t"{}<<Temperature<<endl;}}
+\DoxyCodeLine{00082\ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00084\ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ Viscosity(Temperature);\ }
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<mu\_star<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ K\ =\ mu\_star*cp\_ref/Pr;\ \ \ \ \ \ }
+\DoxyCodeLine{00088\ \ \ \ \ \}}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00090\ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ K\ =\ 0.0;}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ mu\_star\ =\ 0.0;}
+\DoxyCodeLine{00093\ \ \ \ \ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ }
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ cout<<"{}inver\ of\ density\(\backslash\)t"{}<<inv\_Density<<"{}\(\backslash\)t"{}<<U\_Vect[3]<<endl;}}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ Global\_Primitive[0]\ =\ Rho;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//density}}
+\DoxyCodeLine{00099\ \ \ \ \ Global\_Primitive[1]\ =\ v1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//velociy\ u}}
+\DoxyCodeLine{00100\ \ \ \ \ Global\_Primitive[2]\ =\ v2;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//velociy\ v}}
+\DoxyCodeLine{00101\ \ \ \ \ Global\_Primitive[3]\ =\ Temperature;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Temperature}}
+\DoxyCodeLine{00102\ \ \ \ \ Global\_Primitive[4]\ =\ Pressure;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//pressure}}
+\DoxyCodeLine{00103\ \ \ \ \ Global\_Primitive[5]\ =\ C;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//sound\ speed}}
+\DoxyCodeLine{00104\ \ \ \ \ Global\_Primitive[6]\ =\ U\_Vect[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Storing\ Total\ Energy\ \(\backslash\)rho*E\_t}}
+\DoxyCodeLine{00105\ \ \ \ \ Global\_Primitive[7]\ =\ M;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ |V|/C\ =\ M\ ,\ Mach\ Number\ \ }}
+\DoxyCodeLine{00106\ \ \ \ \ Global\_Primitive[8]\ =\ mu\_star;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Non-\/Dimensional\ Viscosity}}
+\DoxyCodeLine{00107\ \ \ \ \ Global\_Primitive[9]\ =\ K;}
+\DoxyCodeLine{00108\ \ \ \ \ Global\_Primitive[10]\ =\ Pressure*pow((1.0+0.5*gamma\_M\_1*M*M),gamma/gamma\_M\_1);}
+\DoxyCodeLine{00109\ \ \ \ \ }
+\DoxyCodeLine{00110\ \textcolor{comment}{//\ \ Re\ =\ Rho*vmag*L\_ref/mu\_star;}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \ cout<<Re<<endl;}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ \ cout<<Global\_Primitive[8]<<endl;}}
+\DoxyCodeLine{00113\ \textcolor{comment}{//\ \ Print(Global\_Primitive);\ \ \ \ }}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isnan(C))}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}In\ Primitive\ Variable\ Function"{}}<<endl;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Negative\ Pressure\ Occured\ at\ Cell\(\backslash\)t"{}}<<Cell\_No<<\textcolor{stringliteral}{"{}\(\backslash\)t\ after\(\backslash\)t"{}}<<iterations<<\textcolor{stringliteral}{"{}\(\backslash\)t\ iterations"{}}<<endl;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ Print(U\_Vect);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ Print(Global\_Primitive);}
+\DoxyCodeLine{00120\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Update(Cell\_No);}}
+\DoxyCodeLine{00121\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Write\_Solution(Solution\_File,1);}}
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Read\_Write\_Grid(Grid\_Vtk\_File,Final\_Solution\_File);}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Append\_Solution(Solution\_File,Final\_Solution\_File);}}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{void}\ Calculate\_Primitive\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,V\_D\ \&\ U\_Vect,V\_D\ \&\ G\_Primitive)}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ }
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ cout<<"{}Cell\ No\(\backslash\)t"{}<<\ Cell\_No<<endl;}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \textcolor{keywordtype}{double}\ vmag=0.0,inv\_Density=0.0,v1=0.0,v2=0.0,Pressure=0.0,Temperature=0.0,C=0.0,Rho=0.0;}
+\DoxyCodeLine{00134\ \ \ \ \ \ mu\_star=0.0;K=0.0;}
+\DoxyCodeLine{00135\ \ \ \ \ Vector\_Reset(G\_Primitive);}
+\DoxyCodeLine{00136\ \textcolor{comment}{//\ \ Print(U\_Vect);}}
+\DoxyCodeLine{00137\ \ \ \ \ Rho\ =\ U\_Vect[0];}
+\DoxyCodeLine{00138\ \ \ \ \ inv\_Density\ =\ 1.0/Rho;}
+\DoxyCodeLine{00139\ \ \ \ \ v1\ =\ U\_Vect[1]*inv\_Density;}
+\DoxyCodeLine{00140\ \ \ \ \ v2\ =\ U\_Vect[2]*inv\_Density;}
+\DoxyCodeLine{00141\ \ \ \ \ }
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v1)\ <=\ 1e-\/10)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ v1=0.0;}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{if}(fabs(v2)\ <=\ 1e-\/10)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ v2=0.0;}
+\DoxyCodeLine{00146\ \ \ \ \ }
+\DoxyCodeLine{00147\ \ \ \ \ vmag\ =\ (v1*v1\ +\ v2*v2);}
+\DoxyCodeLine{00148\ \ \ \ \ Pressure\ =\ gamma\_M\_1*(U\_Vect[3]\ -\/\ 0.5*Rho*vmag);\ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{if}(Non\_Dimensional\_Form)\ \ \ \ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ Temperature\ =\ (Pressure/(Rho*R\_ref));\ \ \ \textcolor{comment}{//\ Non\ -\/\ Dimensionalized\ EOS}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ Temperature\ =\ (Pressure*inv\_Density/R\_GC);\ \ \ \ \ \ }
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<Pressure<<"{}\(\backslash\)t"{}<<Rho<<"{}\(\backslash\)t"{}<<R<<"{}\(\backslash\)t"{}<<Temperature<<endl;\ }}
+\DoxyCodeLine{00156\ \ \ \ \ C\ =\ sqrt(gamma*Pressure*inv\_Density);\ \ \ \ \ \ \ \textcolor{comment}{//sqrt(gamma*P/Rho)}}
+\DoxyCodeLine{00157\ \ \ \ \ M\ =\ sqrt(vmag)/C;}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ \ cout<<"{}In\ Primitive\ Function\(\backslash\)t"{}<<Temperature<<endl;}}
+\DoxyCodeLine{00159\ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00161\ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ Viscosity(Temperature);\ }
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<mu\_star<<"{}\(\backslash\)t"{};}}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ K\ =\ mu\_star*cp\_ref/Pr;\ \ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00167\ \ \ \ \ \{}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ K\ =\ 0.0;}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ mu\_star\ =\ 0.0;}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ }
+\DoxyCodeLine{00172\ \ \ \ \ \ }
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ cout<<"{}inver\ of\ density\(\backslash\)t"{}<<inv\_Density<<"{}\(\backslash\)t"{}<<U\_Vect[3]<<endl;}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00175\ \ \ \ \ G\_Primitive[0]\ =\ Rho;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//density}}
+\DoxyCodeLine{00176\ \ \ \ \ G\_Primitive[1]\ =\ v1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//velociy\ u}}
+\DoxyCodeLine{00177\ \ \ \ \ G\_Primitive[2]\ =\ v2;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//velociy\ v}}
+\DoxyCodeLine{00178\ \ \ \ \ G\_Primitive[3]\ =\ Temperature;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Temperature}}
+\DoxyCodeLine{00179\ \ \ \ \ G\_Primitive[4]\ =\ Pressure;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//pressure}}
+\DoxyCodeLine{00180\ \ \ \ \ G\_Primitive[5]\ =\ C;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//sound\ speed}}
+\DoxyCodeLine{00181\ \ \ \ \ G\_Primitive[6]\ =\ U\_Vect[3];\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Storing\ Total\ Energy\ \(\backslash\)rho*E\_t}}
+\DoxyCodeLine{00182\ \ \ \ \ G\_Primitive[7]\ =\ M;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ |V|/C\ =\ M\ ,\ Mach\ Number\ \ }}
+\DoxyCodeLine{00183\ \ \ \ \ G\_Primitive[8]\ =\ mu\_star;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Non-\/Dimensional\ Viscosity}}
+\DoxyCodeLine{00184\ \ \ \ \ G\_Primitive[9]\ =\ K;}
+\DoxyCodeLine{00185\ \ \ \ \ G\_Primitive[10]\ =\ Pressure*pow((1.0+0.5*gamma\_M\_1*M*M),gamma/gamma\_M\_1);}
+\DoxyCodeLine{00186\ \ \ \ \ }
+\DoxyCodeLine{00187\ \textcolor{comment}{//\ \ Re\ =\ Rho*vmag*L\_ref/mu\_star;}}
+\DoxyCodeLine{00188\ \textcolor{comment}{//\ \ cout<<Re<<endl;}}
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ \ cout<<Global\_Primitive[8]<<endl;}}
+\DoxyCodeLine{00190\ \textcolor{comment}{//\ \ Print(G\_Primitive);\ }}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(isnan(C))}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}In\ Primitive\ Variable\ Function"{}}<<endl;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Negative\ Pressure\ Occured\ at\ Cell\(\backslash\)t"{}}<<Cell\_No<<\textcolor{stringliteral}{"{}\(\backslash\)t\ after\(\backslash\)t"{}}<<iterations<<\textcolor{stringliteral}{"{}\(\backslash\)t\ iterations"{}}<<endl;}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ Print(U\_Vect);}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ Print(G\_Primitive);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ Update(Cell\_No);}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Write\_Solution(Solution\_File,1);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ Read\_Write\_Grid(Grid\_Vtk\_File,Final\_Solution\_File);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ Append\_Solution(Solution\_File,Final\_Solution\_File);}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00203\ \}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ Functions\ Calculate\_Computational\_Variables\ are\ used\ to\ calculate\ U\ value\ given\ a\ primitive\ variable\ vector\ or\ either\ individual\ arguments\ are\ passed.}}
+\DoxyCodeLine{00208\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(V\_D\ \&\ Primitive\_Vect)}
+\DoxyCodeLine{00209\ \{}
+\DoxyCodeLine{00210\ \ \ \ \ V\_D::iterator\ P\_V\_iter;}
+\DoxyCodeLine{00211\ \ \ \ \ P\_V\_iter\ =\ Primitive\_Vect.begin();}
+\DoxyCodeLine{00212\ \ \ \ \ Global\_U[0]\ =\ P\_V\_iter[0];\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Density\ Rho}}
+\DoxyCodeLine{00213\ \ \ \ \ Global\_U[1]\ =\ P\_V\_iter[0]*P\_V\_iter[1];\ \ \ \ \ \ \textcolor{comment}{//Rho*u}}
+\DoxyCodeLine{00214\ \ \ \ \ Global\_U[2]\ =\ P\_V\_iter[0]*P\_V\_iter[2];\ \ \ \ \ \ \textcolor{comment}{//Rho*v}}
+\DoxyCodeLine{00215\ \ \ \ \ Global\_U[3]\ =\ P\_V\_iter[6];\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//P/(gamma\ -\/\ 1.0)\ +\ 1/2*Rho*V*V}}
+\DoxyCodeLine{00216\ \}}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ }
+\DoxyCodeLine{00219\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(\textcolor{keywordtype}{int}\ \&\ Cell\_No,V\_D\ \&\ U)}
+\DoxyCodeLine{00220\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ Vector\_Reset(U);}
+\DoxyCodeLine{00222\ \ \ \ \ U[0]\ =\ Primitive\_Cells[Cell\_No][0];\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Density\ Rho}}
+\DoxyCodeLine{00223\ \ \ \ \ U[1]\ =\ Primitive\_Cells[Cell\_No][0]*Primitive\_Cells[Cell\_No][1];\ \ \ \ \ \textcolor{comment}{//Rho*u}}
+\DoxyCodeLine{00224\ \ \ \ \ U[2]\ =\ Primitive\_Cells[Cell\_No][0]*Primitive\_Cells[Cell\_No][2];\ \ \ \ \ \textcolor{comment}{//Rho*v}}
+\DoxyCodeLine{00225\ \ \ \ \ U[3]\ =\ Primitive\_Cells[Cell\_No][6];\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Rho*Et}}
+\DoxyCodeLine{00226\ \}\ \ \ }
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \textcolor{comment}{//This\ Function\ calculates\ U\ from\ the\ primitive\ variables.\ This\ takes\ three\ arguments\ first\ argument\ can\ be\ either\ pressure\ or\ density,\ velocity\ Vector\ ,\ temperature\ and\ an\ integer\ which\ is\ flag\ to\ identify\ whether\ the\ first\ argument\ is\ a\ pressure\ or\ density.}}
+\DoxyCodeLine{00232\ \textcolor{keywordtype}{void}\ Calculate\_Computational\_Variables(\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ var,\textcolor{keyword}{const}\ V\_D\ \&\ V,\textcolor{keyword}{const}\ \textcolor{keywordtype}{double}\ \&\ var1,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ i)}
+\DoxyCodeLine{00233\ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \textcolor{keywordtype}{double}\ temp\_rho=0.0,vmag=0.0,v1=0.0,v2=0.0,T=0.0,P=0.0;}
+\DoxyCodeLine{00235\ \textcolor{comment}{//\ \ cout<<i<<"{}\(\backslash\)t"{}<<var<<"{}\(\backslash\)t"{}<<var1<<"{}\(\backslash\)t"{}<<V[0]<<"{}\(\backslash\)t"{}<<V[1]<<endl;}}
+\DoxyCodeLine{00236\ \textcolor{comment}{//\ Zero\ Initialization\ before\ starting\ evaluation.}}
+\DoxyCodeLine{00237\ \ \ \ \ Global\_U[0]\ =\ 0.0;\ \ Global\_U[1]\ =\ 0.0;\ \ Global\_U[2]\ =\ 0.0;\ \ Global\_U[3]\ =\ 0.0;\ }
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ \textcolor{comment}{//This\ switch\ statement\ is\ used\ because\ \ var\ can\ be\ pressure\ or\ density,\ default\ value\ assumes\ density\ is\ passed\ other\ wise\ if\ Pressure\ is\ passed\ then\ i\ should\ take\ the\ value\ of\ 1.}}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{switch}(i)}
+\DoxyCodeLine{00241\ \ \ \ \ \{}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ T\ =\ var1;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_rho\ =\ var/(R\_GC*T);\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ If\ Pressure\ and\ Temperature\ are\ given}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ Pressure\ and\ Density\ are\ given}}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ P\ =\ var;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_rho\ =\ var1;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ density\ and\ Temperature\ are\ given}}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_rho\ =\ var;}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ T\ =\ var1;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ P\ =\ temp\_rho*R\_GC*T;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00255\ \ \ \ \ \}}
+\DoxyCodeLine{00256\ \ \ \ \ v1\ =\ V[0];\ v2\ =V[1];\ }
+\DoxyCodeLine{00257\ \ \ \ \ vmag\ =\ 0.5*(v1*v1\ +\ v2*v2);}
+\DoxyCodeLine{00258\ \ \ \ \ Global\_U[0]\ =\ temp\_rho;}
+\DoxyCodeLine{00259\ \ \ \ \ Global\_U[1]\ =\ temp\_rho*v1;}
+\DoxyCodeLine{00260\ \ \ \ \ Global\_U[2]\ =\ temp\_rho*v2;}
+\DoxyCodeLine{00261\ \ \ \ \ Global\_U[3]\ =((P/gamma\_M\_1)\ +\ temp\_rho*vmag);\ \ \ \ \ \ \ }
+\DoxyCodeLine{00262\ \textcolor{comment}{//\ \ Print(Global\_U);}}
+\DoxyCodeLine{00263\ \}}
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ }
+
+\end{DoxyCode}

@@ -1,0 +1,105 @@
+\doxysection{collections.\+Weighted\+Lookup Class Reference}
+\hypertarget{classcollections_1_1_weighted_lookup}{}\label{classcollections_1_1_weighted_lookup}\index{collections.WeightedLookup@{collections.WeightedLookup}}
+Inheritance diagram for collections.\+Weighted\+Lookup\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classcollections_1_1_weighted_lookup}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\Hypertarget{classcollections_1_1_weighted_lookup_a0020ea2b8b03622f9d4335af714e3e67}\label{classcollections_1_1_weighted_lookup_a0020ea2b8b03622f9d4335af714e3e67} 
+{\bfseries random} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}}
+\begin{DoxyCompactItemize}
+\item 
+Self {\bfseries left} (cls,(Supports\+Keys\+And\+Get\+Item\mbox{[}\+\_\+\+Range\+Map\+KT, \+\_\+\+VT\mbox{]}\texorpdfstring{$\vert$}{|}Iterable\mbox{[}tuple\mbox{[}\+\_\+\+Range\+Map\+KT, \+\_\+\+VT\mbox{]}\mbox{]}) source)
+\item 
+\+\_\+\+VT {\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, \+\_\+\+Range\+Map\+KT item)
+\item 
+\+\_\+\+VT\texorpdfstring{$\vert$}{|}\+\_\+T {\bfseries get} (self, \+\_\+\+Range\+Map\+KT key, \+\_\+T default)
+\item 
+\+\_\+\+VT\texorpdfstring{$\vert$}{|}None {\bfseries get} (self, \+\_\+\+Range\+Map\+KT key, None default=None)
+\item 
+\+\_\+\+VT\texorpdfstring{$\vert$}{|}\+\_\+T\texorpdfstring{$\vert$}{|}None \mbox{\hyperlink{classcollections_1_1_range_map_a4f4b6b14f33a7175a538d575973afe98}{get}} (self, \+\_\+\+Range\+Map\+KT key, \+\_\+T\texorpdfstring{$\vert$}{|}None default=None)
+\item 
+tuple\mbox{[}\+\_\+\+Range\+Map\+KT, \+\_\+\+Range\+Map\+KT\mbox{]} {\bfseries bounds} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Public Attributes inherited from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries sort\+\_\+params} = sort\+\_\+params
+\item 
+{\bfseries match} = key\+\_\+match\+\_\+comparator
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes inherited from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries undefined\+\_\+value} = type(\textquotesingle{}Range\+Value\+Undefined\textquotesingle{}, (), \{\})()
+\item 
+{\bfseries first\+\_\+item}
+\item 
+{\bfseries last\+\_\+item} = \mbox{\hyperlink{classcollections_1_1_range_map_1_1_item}{Item}}(-\/1)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}}
+\begin{DoxyCompactItemize}
+\item 
+\+\_\+\+Range\+Map\+KT {\bfseries \+\_\+find\+\_\+first\+\_\+match\+\_\+} (self, Iterable\mbox{[}\+\_\+\+Range\+Map\+KT\mbox{]} keys, \+\_\+\+Range\+Map\+KT item)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Given parameters suitable for a dict representing keys
+and a weighted proportion, return a RangeMap representing
+spans of values proportial to the weights:
+
+>>> even = WeightedLookup(a=1, b=1)
+
+[0, 1) -> a
+[1, 2) -> b
+
+>>> lk = WeightedLookup(a=1, b=2)
+
+[0, 1) -> a
+[1, 3) -> b
+
+>>> lk[.5]
+'a'
+>>> lk[1.5]
+'b'
+
+Adds ``.random()`` to select a random weighted value:
+
+>>> lk.random() in ['a', 'b']
+True
+
+>>> choices = [lk.random() for x in range(1000)]
+
+Statistically speaking, choices should be .5 a:b
+>>> ratio = choices.count('a') / choices.count('b')
+>>> .4 < ratio < .6
+True
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de}\index{collections.WeightedLookup@{collections.WeightedLookup}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!collections.WeightedLookup@{collections.WeightedLookup}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de} 
+collections.\+Weighted\+Lookup.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

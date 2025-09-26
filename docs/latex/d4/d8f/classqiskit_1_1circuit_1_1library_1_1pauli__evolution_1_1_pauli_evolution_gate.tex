@@ -1,0 +1,176 @@
+\doxysection{qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d4/d8f/classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_aabc7058675c30b4efc138fbe90830324_aabc7058675c30b4efc138fbe90830324}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Pauli\texorpdfstring{$\vert$}{|}Sparse\+Pauli\+Op\texorpdfstring{$\vert$}{|}list\mbox{[}Pauli\texorpdfstring{$\vert$}{|}Sparse\+Pauli\+Op\mbox{]} operator, Parameter\+Value\+Type \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a1cd136f664d088edf0a12bc7f7e6b372_a1cd136f664d088edf0a12bc7f7e6b372}{time}}=1.\+0, str\texorpdfstring{$\vert$}{|}None label=None, \mbox{\hyperlink{classqiskit_1_1synthesis_1_1evolution_1_1evolution__synthesis_1_1_evolution_synthesis}{Evolution\+Synthesis}}\texorpdfstring{$\vert$}{|}None synthesis=None)
+\item 
+Parameter\+Value\+Type \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a1cd136f664d088edf0a12bc7f7e6b372_a1cd136f664d088edf0a12bc7f7e6b372}{time}} (self)
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a05d302b142c7b0ea773834edc3e03488_a05d302b142c7b0ea773834edc3e03488}{time}} (self, Parameter\+Value\+Type time)
+\item 
+Parameter\+Value\+Type \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_ad3e7c79b38300eb97d5606d11c97014d_ad3e7c79b38300eb97d5606d11c97014d}{validate\+\_\+parameter}} (self, Parameter\+Value\+Type parameter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_aa75e20c676e051342da6f1106a6dcd59}\label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_aa75e20c676e051342da6f1106a6dcd59} 
+{\bfseries operator} = operator
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_ab3c0e0578f288af1cb8f5eb7bcc2c8e0}\label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_ab3c0e0578f288af1cb8f5eb7bcc2c8e0} 
+{\bfseries synthesis} = synthesis
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_adfc35e64a38c51e0610316c69e22609a}\label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_adfc35e64a38c51e0610316c69e22609a} 
+list {\bfseries params} = \mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a1cd136f664d088edf0a12bc7f7e6b372_a1cd136f664d088edf0a12bc7f7e6b372}{time}}\mbox{]}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a7905b95ab094fb15bd42219c1debad61}\label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a7905b95ab094fb15bd42219c1debad61} 
+{\bfseries definition} = self.\+synthesis.\+synthesize(self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a3664e6e9fb88712b5d2bc60e9eef2d46_a3664e6e9fb88712b5d2bc60e9eef2d46}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Time-evolution of an operator consisting of Paulis.
+
+For an operator :math:`H` consisting of Pauli terms and (real) evolution time :math:`t`
+this gate implements
+
+.. math::
+
+    U(t) = e^{-itH}.
+
+This gate serves as a high-level definition of the evolution and can be synthesized into
+a circuit using different algorithms.
+
+The evolution gates are related to the Pauli rotation gates by a factor of 2. For example
+the time evolution of the Pauli :math:`X` operator is connected to the Pauli :math:`X` rotation
+:math:`R_X` by
+
+.. math::
+
+    U(t) = e^{-itX} = R_X(2t).
+
+**Examples:**
+
+.. code-block:: python
+
+    from qiskit.circuit import QuantumCircuit
+    from qiskit.circuit.library import PauliEvolutionGate
+    from qiskit.quantum_info import SparsePauliOp
+
+    X = SparsePauliOp("X")
+    Z = SparsePauliOp("Z")
+    I = SparsePauliOp("I")
+
+    # build the evolution gate
+    operator = (Z ^ Z) - 0.1 * (X ^ I)
+    evo = PauliEvolutionGate(operator, time=0.2)
+
+    # plug it into a circuit
+    circuit = QuantumCircuit(2)
+    circuit.append(evo, range(2))
+    print(circuit.draw())
+
+The above will print (note that the ``-0.1`` coefficient is not printed!)::
+
+         ┌──────────────────────────┐
+    q_0: ┤0                         ├
+         │  exp(-it (ZZ + XI))(0.2) │
+    q_1: ┤1                         ├
+         └──────────────────────────┘
+
+
+**References:**
+
+[1] G. Li et al. Paulihedral: A Generalized Block-Wise Compiler Optimization
+Framework For Quantum Simulation Kernels (2021).
+[`arXiv:2109.03371 <https://arxiv.org/abs/2109.03371>`_]
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_aabc7058675c30b4efc138fbe90830324_aabc7058675c30b4efc138fbe90830324}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_aabc7058675c30b4efc138fbe90830324_aabc7058675c30b4efc138fbe90830324} 
+ None qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Pauli \texorpdfstring{$\vert$}{|} Sparse\+Pauli\+Op \texorpdfstring{$\vert$}{|} list\mbox{[}Pauli \texorpdfstring{$\vert$}{|} Sparse\+Pauli\+Op\mbox{]}}]{operator}{, }\item[{Parameter\+Value\+Type }]{time}{ = {\ttfamily 1.0}, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1synthesis_1_1evolution_1_1evolution__synthesis_1_1_evolution_synthesis}{Evolution\+Synthesis}} \texorpdfstring{$\vert$}{|} None }]{synthesis}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    operator (Pauli | SparsePauliOp | list):
+        The operator to evolve. Can also be provided as list of non-commuting
+        operators where the elements are sums of commuting operators.
+        For example: ``[XY + YX, ZZ + ZI + IZ, YY]``.
+    time: The evolution time.
+    label: A label for the gate to display in visualizations. Per default, the label is
+        set to ``exp(-it <operators>)`` where ``<operators>`` is the sum of the Paulis.
+        Note that the label does not include any coefficients of the Paulis. See the
+        class docstring for an example.
+    synthesis: A synthesis strategy. If None, the default synthesis is the Lie-Trotter
+        product formula with a single repetition.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a3664e6e9fb88712b5d2bc60e9eef2d46_a3664e6e9fb88712b5d2bc60e9eef2d46}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a3664e6e9fb88712b5d2bc60e9eef2d46_a3664e6e9fb88712b5d2bc60e9eef2d46} 
+qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Unroll, where the default synthesis is matrix based.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a1cd136f664d088edf0a12bc7f7e6b372_a1cd136f664d088edf0a12bc7f7e6b372}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}!time@{time}}
+\index{time@{time}!qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+\doxysubsubsection{\texorpdfstring{time()}{time()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a1cd136f664d088edf0a12bc7f7e6b372_a1cd136f664d088edf0a12bc7f7e6b372} 
+ Parameter\+Value\+Type qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate.\+time (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the evolution time as stored in the gate parameters.
+
+Returns:
+    The evolution time.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a05d302b142c7b0ea773834edc3e03488_a05d302b142c7b0ea773834edc3e03488}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}!time@{time}}
+\index{time@{time}!qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+\doxysubsubsection{\texorpdfstring{time()}{time()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_a05d302b142c7b0ea773834edc3e03488_a05d302b142c7b0ea773834edc3e03488} 
+ None qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate.\+time (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Parameter\+Value\+Type}]{time}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set the evolution time.
+
+Args:
+    time: The evolution time.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_ad3e7c79b38300eb97d5606d11c97014d_ad3e7c79b38300eb97d5606d11c97014d}\index{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}!validate\_parameter@{validate\_parameter}}
+\index{validate\_parameter@{validate\_parameter}!qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate@{qiskit.circuit.library.pauli\_evolution.PauliEvolutionGate}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter()}{validate\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1pauli__evolution_1_1_pauli_evolution_gate_ad3e7c79b38300eb97d5606d11c97014d_ad3e7c79b38300eb97d5606d11c97014d} 
+ Parameter\+Value\+Type qiskit.\+circuit.\+library.\+pauli\+\_\+evolution.\+Pauli\+Evolution\+Gate.\+validate\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Parameter\+Value\+Type}]{parameter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gate parameters should be int, float, or ParameterExpression\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_aec00645163d8a429066ca7d69b7e403b_aec00645163d8a429066ca7d69b7e403b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/pauli\+\_\+evolution.\+py\end{DoxyCompactItemize}

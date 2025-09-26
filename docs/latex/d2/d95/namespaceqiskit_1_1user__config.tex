@@ -1,0 +1,72 @@
+\doxysection{qiskit.\+user\+\_\+config Namespace Reference}
+\hypertarget{namespaceqiskit_1_1user__config}{}\label{namespaceqiskit_1_1user__config}\index{qiskit.user\_config@{qiskit.user\_config}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1user__config_1_1_user_config}{User\+Config}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1user__config_af45195e43789406e7e93e55e16a46f83_af45195e43789406e7e93e55e16a46f83}{set\+\_\+config}} (key, value, section=None, file\+\_\+path=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1user__config_ae00e963514ee9f92d2b5ad6b39662243_ae00e963514ee9f92d2b5ad6b39662243}{get\+\_\+config}} ()
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1user__config_a7de45f39b3553d5e21349331914a3585}\label{namespaceqiskit_1_1user__config_a7de45f39b3553d5e21349331914a3585} 
+{\bfseries DEFAULT\+\_\+\+FILENAME} = os.\+path.\+join(os.\+path.\+expanduser("{}\texorpdfstring{$\sim$}{\string~}"{}), "{}.qiskit"{}, "{}settings.\+conf"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utils for reading a user preference config files.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1user__config_ae00e963514ee9f92d2b5ad6b39662243_ae00e963514ee9f92d2b5ad6b39662243}\index{qiskit.user\_config@{qiskit.user\_config}!get\_config@{get\_config}}
+\index{get\_config@{get\_config}!qiskit.user\_config@{qiskit.user\_config}}
+\doxysubsubsection{\texorpdfstring{get\_config()}{get\_config()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1user__config_ae00e963514ee9f92d2b5ad6b39662243_ae00e963514ee9f92d2b5ad6b39662243} 
+qiskit.\+user\+\_\+config.\+get\+\_\+config (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Read the config file from the default location or env var
+
+It will read a config file at either the default location
+~/.qiskit/settings.conf or if set the value of the QISKIT_SETTINGS env var.
+
+It will return the parsed settings dict from the parsed config file.
+Returns:
+    dict: The settings dict from the parsed config file.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1user__config_af45195e43789406e7e93e55e16a46f83_af45195e43789406e7e93e55e16a46f83}\index{qiskit.user\_config@{qiskit.user\_config}!set\_config@{set\_config}}
+\index{set\_config@{set\_config}!qiskit.user\_config@{qiskit.user\_config}}
+\doxysubsubsection{\texorpdfstring{set\_config()}{set\_config()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1user__config_af45195e43789406e7e93e55e16a46f83_af45195e43789406e7e93e55e16a46f83} 
+qiskit.\+user\+\_\+config.\+set\+\_\+config (\begin{DoxyParamCaption}\item[{}]{key}{, }\item[{}]{value}{, }\item[{}]{section}{ = {\ttfamily None}, }\item[{}]{file\+\_\+path}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Adds or modifies a user configuration
+
+It will add configuration to the currently configured location
+or the value of file argument.
+
+Only valid user config can be set in 'default' section. Custom
+user config can be added in any other sections.
+
+Changes to the existing config file will not be reflected in
+the current session since the config file is parsed at import time.
+
+Args:
+    key (str): name of the config
+    value (obj): value of the config
+    section (str, optional): if not specified, adds it to the
+        `default` section of the config file.
+    file_path (str, optional): the file to which config is added.
+        If not specified, adds it to the default config file or
+        if set, the value of `QISKIT_SETTINGS` env variable.
+
+Raises:
+    QiskitUserConfigError: if the config is invalid
+\end{DoxyVerb}
+ 

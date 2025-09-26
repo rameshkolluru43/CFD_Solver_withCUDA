@@ -1,0 +1,142 @@
+\doxysection{qiskit.\+qasm2.\+export Namespace Reference}
+\hypertarget{namespaceqiskit_1_1qasm2_1_1export}{}\label{namespaceqiskit_1_1qasm2_1_1export}\index{qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_aa5081640a085a87940ef025686182bee}{dump}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, os.\+Path\+Like\texorpdfstring{$\vert$}{|}io.\+Text\+IOBase filename\+\_\+or\+\_\+stream)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_abc5926e7d6696566aea708d7e1b16574}{dumps}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_a00d14ca09280334747e1fdd33803c314}{\+\_\+escape\+\_\+name}} (str name, str prefix)
+\item 
+str \mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_ac3df6cf4b9b2b9cf3c92e478b11aa6bd}{\+\_\+make\+\_\+unique}} (str name, collections.\+abc.\+Set\mbox{[}str\mbox{]} already\+\_\+defined)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_ae7f4ee4acacb273ce29aa0692c8d58f9}{\+\_\+rename\+\_\+operation}} (operation)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_a9723df3a439b77f2a80a433bd44d9cd1}{\+\_\+instruction\+\_\+call\+\_\+site}} (operation)
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm2_1_1export_aefa8161f42de35768d98c8088655619f}\label{namespaceqiskit_1_1qasm2_1_1export_aefa8161f42de35768d98c8088655619f} 
+{\bfseries \+\_\+custom\+\_\+operation\+\_\+statement} (instruction, gates\+\_\+to\+\_\+define, bit\+\_\+labels)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_add2161a782aa485f9393b67c4884f8f5}{\+\_\+define\+\_\+custom\+\_\+operation}} (operation, gates\+\_\+to\+\_\+define)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm2_1_1export_a080b8e454400b3e459a957c578b1eda8}\label{namespaceqiskit_1_1qasm2_1_1export_a080b8e454400b3e459a957c578b1eda8} 
+{\bfseries \+\_\+\+EXISTING\+\_\+\+GATE\+\_\+\+NAMES}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qasm2_1_1export_a6167e60dc838a422b45b5997d9f11989}{\+\_\+\+RESERVED}}
+\item 
+\Hypertarget{namespaceqiskit_1_1qasm2_1_1export_aa098df719c92a1ca362c8272a301b2b4}\label{namespaceqiskit_1_1qasm2_1_1export_aa098df719c92a1ca362c8272a301b2b4} 
+list {\bfseries \+\_\+\+FIXED\+\_\+\+PARAMETERS} = \mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}param0"{}), \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}param1"{}), \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameter_1_1_parameter}{Parameter}}("{}param2"{})\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Export tools for OpenQASM 2.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1qasm2_1_1export_add2161a782aa485f9393b67c4884f8f5}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_define\_custom\_operation@{\_define\_custom\_operation}}
+\index{\_define\_custom\_operation@{\_define\_custom\_operation}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_define\_custom\_operation()}{\_define\_custom\_operation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_add2161a782aa485f9393b67c4884f8f5} 
+qiskit.\+qasm2.\+export.\+\_\+define\+\_\+custom\+\_\+operation (\begin{DoxyParamCaption}\item[{}]{operation}{, }\item[{}]{gates\+\_\+to\+\_\+define}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Extract a custom definition from the given operation, and append any necessary additional
+subcomponents' definitions to the ``gates_to_define`` ordered dictionary.
+
+Returns a potentially new :class:`.Instruction`, which should be used for the
+:meth:`~.Instruction.qasm` call (it may have been renamed).\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_a00d14ca09280334747e1fdd33803c314}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_escape\_name@{\_escape\_name}}
+\index{\_escape\_name@{\_escape\_name}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_escape\_name()}{\_escape\_name()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_a00d14ca09280334747e1fdd33803c314} 
+ str qiskit.\+qasm2.\+export.\+\_\+escape\+\_\+name (\begin{DoxyParamCaption}\item[{str}]{name}{, }\item[{str}]{prefix}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns a valid OpenQASM 2.0 identifier, using `prefix` as a prefix if necessary.  `prefix`
+must itself be a valid identifier.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_a9723df3a439b77f2a80a433bd44d9cd1}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_instruction\_call\_site@{\_instruction\_call\_site}}
+\index{\_instruction\_call\_site@{\_instruction\_call\_site}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_instruction\_call\_site()}{\_instruction\_call\_site()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_a9723df3a439b77f2a80a433bd44d9cd1} 
+qiskit.\+qasm2.\+export.\+\_\+instruction\+\_\+call\+\_\+site (\begin{DoxyParamCaption}\item[{}]{operation}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return an OpenQASM 2 string for the instruction.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_ac3df6cf4b9b2b9cf3c92e478b11aa6bd}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_make\_unique@{\_make\_unique}}
+\index{\_make\_unique@{\_make\_unique}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_make\_unique()}{\_make\_unique()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_ac3df6cf4b9b2b9cf3c92e478b11aa6bd} 
+ str qiskit.\+qasm2.\+export.\+\_\+make\+\_\+unique (\begin{DoxyParamCaption}\item[{str}]{name}{, }\item[{collections.\+abc.\+Set\mbox{[}str\mbox{]}}]{already\+\_\+defined}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Generate a name by suffixing the given stem that is unique within the defined set.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_ae7f4ee4acacb273ce29aa0692c8d58f9}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_rename\_operation@{\_rename\_operation}}
+\index{\_rename\_operation@{\_rename\_operation}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_rename\_operation()}{\_rename\_operation()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_ae7f4ee4acacb273ce29aa0692c8d58f9} 
+qiskit.\+qasm2.\+export.\+\_\+rename\+\_\+operation (\begin{DoxyParamCaption}\item[{}]{operation}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns the operation with a new name following this pattern: {operation name}_{operation id}\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_aa5081640a085a87940ef025686182bee}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!dump@{dump}}
+\index{dump@{dump}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_aa5081640a085a87940ef025686182bee} 
+qiskit.\+qasm2.\+export.\+dump (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{os.\+Path\+Like \texorpdfstring{$\vert$}{|} io.\+Text\+IOBase}]{filename\+\_\+or\+\_\+stream}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Dump a circuit as an OpenQASM 2 program to a file or stream.
+
+Args:
+    circuit: the :class:`.QuantumCircuit` to be exported.
+    filename_or_stream: either a path-like object (likely a :class:`str` or
+        :class:`pathlib.Path`), or an already opened text-mode stream.
+
+Raises:
+    QASM2ExportError: if the circuit cannot be represented by OpenQASM 2.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qasm2_1_1export_abc5926e7d6696566aea708d7e1b16574}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!dumps@{dumps}}
+\index{dumps@{dumps}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{dumps()}{dumps()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_abc5926e7d6696566aea708d7e1b16574} 
+ str qiskit.\+qasm2.\+export.\+dumps (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Export a circuit to an OpenQASM 2 program in a string.
+
+Args:
+    circuit: the :class:`.QuantumCircuit` to be exported.
+
+Returns:
+    An OpenQASM 2 string representing the circuit.
+
+Raises:
+    QASM2ExportError: if the circuit cannot be represented by OpenQASM 2.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1qasm2_1_1export_a6167e60dc838a422b45b5997d9f11989}\index{qiskit.qasm2.export@{qiskit.qasm2.export}!\_RESERVED@{\_RESERVED}}
+\index{\_RESERVED@{\_RESERVED}!qiskit.qasm2.export@{qiskit.qasm2.export}}
+\doxysubsubsection{\texorpdfstring{\_RESERVED}{\_RESERVED}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qasm2_1_1export_a6167e60dc838a422b45b5997d9f11989} 
+qiskit.\+qasm2.\+export.\+\_\+\+RESERVED\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ frozenset(}
+\DoxyCodeLine{00002\ \ \ \ \ [}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}OPENQASM"{}},}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}qreg"{}},}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}creg"{}},}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}include"{}},}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}gate"{}},}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}opaque"{}},}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}U"{}},}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}CX"{}},}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}measure"{}},}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}reset"{}},}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}if"{}},}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{stringliteral}{"{}barrier"{}},}
+\DoxyCodeLine{00015\ \ \ \ \ ]}
+\DoxyCodeLine{00016\ )}
+
+\end{DoxyCode}

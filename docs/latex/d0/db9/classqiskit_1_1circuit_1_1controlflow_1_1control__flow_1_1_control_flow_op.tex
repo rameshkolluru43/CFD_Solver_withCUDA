@@ -1,0 +1,126 @@
+\doxysection{qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op}{}\label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op}\index{qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}}
+Inheritance diagram for qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.229299cm]{d0/db9/classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a9c6701ecd91899268ec402e3facf60ed_a9c6701ecd91899268ec402e3facf60ed}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}},...\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_ab0e052acb19681cd253140f653260112_ab0e052acb19681cd253140f653260112}{blocks}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op}{Control\+Flow\+Op}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a642637f0b067a6bcdab212665b462b0e_a642637f0b067a6bcdab212665b462b0e}{replace\+\_\+blocks}} (self, typing.\+Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} blocks)
+\item 
+typing.\+Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_var}{expr.\+Var}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_afca5ad4ee685428539350464c327a66e_afca5ad4ee685428539350464c327a66e}{iter\+\_\+captured\+\_\+vars}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_af5e71012d55656ea6a876bffff4b709e}\label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_af5e71012d55656ea6a876bffff4b709e} 
+{\bfseries blocks}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract class to encapsulate all control flow operations.
+
+All subclasses of :class:`ControlFlowOp` have an internal attribute,
+:attr:`~ControlFlowOp.blocks`, which exposes the inner subcircuits used in the different blocks
+of the control flow.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a9c6701ecd91899268ec402e3facf60ed_a9c6701ecd91899268ec402e3facf60ed}\index{qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a9c6701ecd91899268ec402e3facf60ed_a9c6701ecd91899268ec402e3facf60ed} 
+qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{name}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{num\+\_\+qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create a new instruction.
+
+Args:
+    name (str): instruction name
+    num_qubits (int): instruction's qubit width
+    num_clbits (int): instruction's clbit width
+    params (list[int|float|complex|str|ndarray|list|ParameterExpression]):
+        list of parameters
+    duration (int or float): instruction's duration. it must be integer if ``unit`` is 'dt'
+    unit (str): time unit of duration
+    label (str or None): An optional label for identifying the instruction.
+
+Raises:
+    CircuitError: when the register is not in the correct format.
+    TypeError: when the optional label is provided, but it is not a string.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_af8938ce34861d0f96339a0d828a8962a_af8938ce34861d0f96339a0d828a8962a}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1for__loop_1_1_for_loop_op_a57464b55f8c999564ddd37d6c919826e_a57464b55f8c999564ddd37d6c919826e}{qiskit.\+circuit.\+controlflow.\+for\+\_\+loop.\+For\+Loop\+Op}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_op_a2d491b05b514d55fc8f4b3c357ff17f2_a2d491b05b514d55fc8f4b3c357ff17f2}{qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Op}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1switch__case_1_1_switch_case_op_a9501ed8d83f061382480e704251a4484_a9501ed8d83f061382480e704251a4484}{qiskit.\+circuit.\+controlflow.\+switch\+\_\+case.\+Switch\+Case\+Op}}, and \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_op_a9e537522f3895d377b3c7fcd9b718b81_a9e537522f3895d377b3c7fcd9b718b81}{qiskit.\+circuit.\+controlflow.\+while\+\_\+loop.\+While\+Loop\+Op}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_ab0e052acb19681cd253140f653260112_ab0e052acb19681cd253140f653260112}\index{qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}!blocks@{blocks}}
+\index{blocks@{blocks}!qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}}
+\doxysubsubsection{\texorpdfstring{blocks()}{blocks()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_ab0e052acb19681cd253140f653260112_ab0e052acb19681cd253140f653260112} 
+ tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, ...\mbox{]} qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op.\+blocks (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tuple of :class:`.QuantumCircuit`\\ s which may be executed as part of the
+execution of this :class:`ControlFlowOp`.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_afca5ad4ee685428539350464c327a66e_afca5ad4ee685428539350464c327a66e}\index{qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}!iter\_captured\_vars@{iter\_captured\_vars}}
+\index{iter\_captured\_vars@{iter\_captured\_vars}!qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}}
+\doxysubsubsection{\texorpdfstring{iter\_captured\_vars()}{iter\_captured\_vars()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_afca5ad4ee685428539350464c327a66e_afca5ad4ee685428539350464c327a66e} 
+ typing.\+Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_var}{expr.\+Var}}\mbox{]} qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op.\+iter\+\_\+captured\+\_\+vars (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get an iterator over the unique captured variables in all blocks of this construct.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a642637f0b067a6bcdab212665b462b0e_a642637f0b067a6bcdab212665b462b0e}\index{qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}!replace\_blocks@{replace\_blocks}}
+\index{replace\_blocks@{replace\_blocks}!qiskit.circuit.controlflow.control\_flow.ControlFlowOp@{qiskit.circuit.controlflow.control\_flow.ControlFlowOp}}
+\doxysubsubsection{\texorpdfstring{replace\_blocks()}{replace\_blocks()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op_a642637f0b067a6bcdab212665b462b0e_a642637f0b067a6bcdab212665b462b0e} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1control__flow_1_1_control_flow_op}{Control\+Flow\+Op}} qiskit.\+circuit.\+controlflow.\+control\+\_\+flow.\+Control\+Flow\+Op.\+replace\+\_\+blocks (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{typing.\+Iterable\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}}]{blocks}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a new version of this control-flow operations with the :attr:`blocks` mapped to
+the given new ones.
+
+Typically this is used in a workflow such as::
+
+    existing_op = ...
+
+    def map_block(block: QuantumCircuit) -> QuantumCircuit:
+        new_block = block.copy_empty_like()
+        # ... do something to `new_block` ...
+        return new_block
+
+    new_op = existing_op.replace_blocks(
+        map_block(block) for block in existing_op.blocks
+    )
+
+It is the caller's responsibility to ensure that the mapped blocks are defined over a
+unified set of circuit resources, much like constructing a :class:`ControlFlowOp` using its
+default constructor.
+
+Args:
+    blocks: the new subcircuit blocks to use.
+
+Returns:
+    New :class:`ControlFlowOp` with replaced blocks.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1for__loop_1_1_for_loop_op_a5b5dab41ce4de12e0d7ec8f8fc467e2c_a5b5dab41ce4de12e0d7ec8f8fc467e2c}{qiskit.\+circuit.\+controlflow.\+for\+\_\+loop.\+For\+Loop\+Op}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_op_a0c1140f72464caf15b89f5be3f97d63d_a0c1140f72464caf15b89f5be3f97d63d}{qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Op}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1switch__case_1_1_switch_case_op_a773e5b505bf4c15adae9fb5573c903cb_a773e5b505bf4c15adae9fb5573c903cb}{qiskit.\+circuit.\+controlflow.\+switch\+\_\+case.\+Switch\+Case\+Op}}, and \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1while__loop_1_1_while_loop_op_a989b63ed2aac694669c3bb77ba520b15_a989b63ed2aac694669c3bb77ba520b15}{qiskit.\+circuit.\+controlflow.\+while\+\_\+loop.\+While\+Loop\+Op}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/controlflow/control\+\_\+flow.\+py\end{DoxyCompactItemize}

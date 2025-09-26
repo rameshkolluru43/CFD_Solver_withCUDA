@@ -1,0 +1,742 @@
+\doxysection{Gnuplot Class Reference}
+\hypertarget{class_gnuplot}{}\label{class_gnuplot}\index{Gnuplot@{Gnuplot}}
+
+
+{\ttfamily \#include $<$gnuplot\+\_\+i.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}{Gnuplot}} ()
+\item 
+\mbox{\hyperlink{class_gnuplot_a4acdc327a6a9eb3c4ab3f37814dce26e_a4acdc327a6a9eb3c4ab3f37814dce26e}{Gnuplot}} (const string \&)
+\item 
+\mbox{\hyperlink{class_gnuplot_a93344aa5bd86c3ee4ab37aaa6bff92e0_a93344aa5bd86c3ee4ab37aaa6bff92e0}{Gnuplot}} (const string \&, const string \&, const string \&, const string \&, vector$<$ double $>$, vector$<$ double $>$)
+\item 
+\mbox{\hyperlink{class_gnuplot_a22ec497060171153b0ce321763e9c7f9_a22ec497060171153b0ce321763e9c7f9}{Gnuplot}} (const string \&, const string \&, const string \&, const string \&, vector$<$ double $>$)
+\item 
+\mbox{\hyperlink{class_gnuplot_a78a68f621caa87d1f34324fcd093c7bd_a78a68f621caa87d1f34324fcd093c7bd}{\texorpdfstring{$\sim$}{\string~}\+Gnuplot}} ()
+\item 
+void \mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}} (const char \texorpdfstring{$\ast$}{*},...)
+\item 
+void \mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\+\_\+style}} (const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\+\_\+ylabel}} (const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\+\_\+xlabel}} (const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be}{plot\+\_\+x}} (vector$<$ double $>$, const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a}{plot\+\_\+xy}} (vector$<$ double $>$, vector$<$ double $>$, const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_a80c9d9e6bc3e64db073d9d39d6ec5d5f_a80c9d9e6bc3e64db073d9d39d6ec5d5f}{plot\+\_\+slope}} (double, double, const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_a55e6430f1329bf8a66f155dcacb9d112_a55e6430f1329bf8a66f155dcacb9d112}{plot\+\_\+equation}} (const string \&, const string \&)
+\item 
+void \mbox{\hyperlink{class_gnuplot_ad54976652afe30231a850dd31e1ca70f_ad54976652afe30231a850dd31e1ca70f}{reset\+\_\+plot}} (void)
+\item 
+bool \mbox{\hyperlink{class_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd_a0daaf54cd8e41dbbd574722f3a831cfd}{is\+\_\+valid}} (void)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8hpp_source_l00054}{54}} of file \mbox{\hyperlink{gnuplot__i_8hpp_source}{gnuplot\+\_\+i.\+hpp}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae}\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{Gnuplot()}{Gnuplot()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily \label{class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae} 
+Gnuplot\+::\+Gnuplot (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00066}{66}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00067\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (getenv(\textcolor{stringliteral}{"{}DISPLAY"{}})\ ==\ NULL)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}cannot\ find\ DISPLAY\ variable"{}});}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>get\_program\_path(\textcolor{stringliteral}{"{}gnuplot"{}}))}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Can't\ find\ gnuplot\ in\ your\ PATH"{}});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00078\ \ \ \ \ }
+\DoxyCodeLine{00079\ \ \ \ \ this-\/>gnucmd\ =\ popen(\textcolor{stringliteral}{"{}gnuplot"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>gnucmd)}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Could'nt\ open\ connection\ to\ gnuplot"{}});}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(\textcolor{stringliteral}{"{}points"{}});}
+\DoxyCodeLine{00087\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00088\ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00089\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{d3/d27/class_gnuplot_a936d27de7b6f57d1f3d61491dc70f1ae_a936d27de7b6f57d1f3d61491dc70f1ae_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a4acdc327a6a9eb3c4ab3f37814dce26e_a4acdc327a6a9eb3c4ab3f37814dce26e}\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{Gnuplot()}{Gnuplot()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily \label{class_gnuplot_a4acdc327a6a9eb3c4ab3f37814dce26e_a4acdc327a6a9eb3c4ab3f37814dce26e} 
+Gnuplot\+::\+Gnuplot (\begin{DoxyParamCaption}\item[{const string \&}]{style}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00091}{91}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (getenv(\textcolor{stringliteral}{"{}DISPLAY"{}})\ ==\ NULL)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}cannot\ find\ DISPLAY\ variable"{}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>get\_program\_path(\textcolor{stringliteral}{"{}gnuplot"{}}))}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Can't\ find\ gnuplot\ in\ your\ PATH"{}});}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ this-\/>gnucmd\ =\ popen(\textcolor{stringliteral}{"{}gnuplot"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>gnucmd)}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Could'nt\ open\ connection\ to\ gnuplot"{}});}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00110\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(style);}
+\DoxyCodeLine{00111\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00112\ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00113\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{d3/d27/class_gnuplot_a4acdc327a6a9eb3c4ab3f37814dce26e_a4acdc327a6a9eb3c4ab3f37814dce26e_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a93344aa5bd86c3ee4ab37aaa6bff92e0_a93344aa5bd86c3ee4ab37aaa6bff92e0}\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{Gnuplot()}{Gnuplot()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily \label{class_gnuplot_a93344aa5bd86c3ee4ab37aaa6bff92e0_a93344aa5bd86c3ee4ab37aaa6bff92e0} 
+Gnuplot\+::\+Gnuplot (\begin{DoxyParamCaption}\item[{const string \&}]{title}{, }\item[{const string \&}]{style}{, }\item[{const string \&}]{labelx}{, }\item[{const string \&}]{labely}{, }\item[{vector$<$ double $>$}]{x}{, }\item[{vector$<$ double $>$}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00115}{115}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00120\ \{}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{keywordflow}{if}\ (getenv(\textcolor{stringliteral}{"{}DISPLAY"{}})\ ==\ NULL)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}cannot\ find\ DISPLAY\ variable"{}});}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>get\_program\_path(\textcolor{stringliteral}{"{}gnuplot"{}}))}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Can't\ find\ gnuplot\ in\ your\ PATH"{}});}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ this-\/>gnucmd\ =\ popen(\textcolor{stringliteral}{"{}gnuplot"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>gnucmd)}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Could'nt\ open\ connection\ to\ gnuplot"{}});}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00139\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00140\ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}.size()\ ==\ 0\ ||\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}.size()\ ==\ 0)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}vectors\ too\ small"{}});}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (style\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(\textcolor{stringliteral}{"{}lines"{}});}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(style);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (labelx\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\_xlabel}}(\textcolor{stringliteral}{"{}X"{}});}
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\_xlabel}}(labelx);}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{keywordflow}{if}\ (labely\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\_ylabel}}(\textcolor{stringliteral}{"{}Y"{}});}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\_ylabel}}(labely);}
+\DoxyCodeLine{00159\ \ \ \ \ }
+\DoxyCodeLine{00160\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a}{plot\_xy}}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},title);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Press\ enter\ to\ continue"{}}\ <<\ endl;}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordflow}{while}\ (getchar()\ !=\ \textcolor{charliteral}{'\(\backslash\)n'})\{\}}
+\DoxyCodeLine{00164\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d27/class_gnuplot_a93344aa5bd86c3ee4ab37aaa6bff92e0_a93344aa5bd86c3ee4ab37aaa6bff92e0_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a22ec497060171153b0ce321763e9c7f9_a22ec497060171153b0ce321763e9c7f9}\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\index{Gnuplot@{Gnuplot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{Gnuplot()}{Gnuplot()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily \label{class_gnuplot_a22ec497060171153b0ce321763e9c7f9_a22ec497060171153b0ce321763e9c7f9} 
+Gnuplot\+::\+Gnuplot (\begin{DoxyParamCaption}\item[{const string \&}]{title}{, }\item[{const string \&}]{style}{, }\item[{const string \&}]{labelx}{, }\item[{const string \&}]{labely}{, }\item[{vector$<$ double $>$}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00166}{166}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00171\ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{if}\ (getenv(\textcolor{stringliteral}{"{}DISPLAY"{}})\ ==\ NULL)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}cannot\ find\ DISPLAY\ variable"{}});}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>get\_program\_path(\textcolor{stringliteral}{"{}gnuplot"{}}))}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Can't\ find\ gnuplot\ in\ your\ PATH"{}});}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ this-\/>gnucmd\ =\ popen(\textcolor{stringliteral}{"{}gnuplot"{}},\textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>gnucmd)}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Could'nt\ open\ connection\ to\ gnuplot"{}});}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00191\ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00192\ \ \ \ \ }
+\DoxyCodeLine{00193\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00194\ \ \ \ \ this-\/>valid\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}.size()\ ==\ 0)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}vector\ too\ small"{}});}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordflow}{if}\ (!this-\/>gnucmd)}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \mbox{\hyperlink{class_gnuplot_exception}{GnuplotException}}(\textcolor{stringliteral}{"{}Could'nt\ open\ connection\ to\ gnuplot"{}});}
+\DoxyCodeLine{00201\ }
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{if}\ (style\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(\textcolor{stringliteral}{"{}lines"{}});}
+\DoxyCodeLine{00204\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}{set\_style}}(style);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (labelx\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\_xlabel}}(\textcolor{stringliteral}{"{}X"{}});}
+\DoxyCodeLine{00209\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}{set\_xlabel}}(labelx);}
+\DoxyCodeLine{00211\ \ \ \ \ \textcolor{keywordflow}{if}\ (labely\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\_ylabel}}(\textcolor{stringliteral}{"{}Y"{}});}
+\DoxyCodeLine{00213\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}{set\_ylabel}}(labely);}
+\DoxyCodeLine{00215\ \ \ \ \ }
+\DoxyCodeLine{00216\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be}{plot\_x}}(\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},title);}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00218\ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Press\ enter\ to\ continue"{}}\ <<\ endl;}
+\DoxyCodeLine{00219\ \ \ \ \ \textcolor{keywordflow}{while}\ (getchar()\ !=\ \textcolor{charliteral}{'\(\backslash\)n'})\{\}}
+\DoxyCodeLine{00220\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d27/class_gnuplot_a22ec497060171153b0ce321763e9c7f9_a22ec497060171153b0ce321763e9c7f9_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a78a68f621caa87d1f34324fcd093c7bd_a78a68f621caa87d1f34324fcd093c7bd}\index{Gnuplot@{Gnuplot}!````~Gnuplot@{\texorpdfstring{$\sim$}{\string~}Gnuplot}}
+\index{````~Gnuplot@{\texorpdfstring{$\sim$}{\string~}Gnuplot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}Gnuplot()}{\string~Gnuplot()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a78a68f621caa87d1f34324fcd093c7bd_a78a68f621caa87d1f34324fcd093c7bd} 
+Gnuplot\+::\texorpdfstring{$\sim$}{\string~}\+Gnuplot (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00225}{225}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00226\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{if}\ ((this-\/>to\_delete).size()\ >\ 0)}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ this-\/>to\_delete.size();\ i++)}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ remove(this-\/>to\_delete[i].c\_str());}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ to\_delete.clear();}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ \textcolor{keywordflow}{if}\ (pclose(this-\/>gnucmd)\ ==\ -\/1)}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Problem\ closing\ communication\ to\ gnuplot"{}}\ <<\ endl;}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00236\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}\index{Gnuplot@{Gnuplot}!cmd@{cmd}}
+\index{cmd@{cmd}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{cmd()}{cmd()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57} 
+void Gnuplot\+::cmd (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{cmdstr}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00296}{296}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00297\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ va\_list\ ap;}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{char}\ local\_cmd[\mbox{\hyperlink{gnuplot__i_8hpp_adc74c0a238dd6f2220b0b2839cdda632_adc74c0a238dd6f2220b0b2839cdda632}{GP\_CMD\_SIZE}}];}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ va\_start(ap,\ cmdstr);}
+\DoxyCodeLine{00302\ \ \ \ \ vsprintf(local\_cmd,\ cmdstr,\ ap);}
+\DoxyCodeLine{00303\ \ \ \ \ va\_end(ap);}
+\DoxyCodeLine{00304\ \ \ \ \ strcat(local\_cmd,\textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{00305\ \ \ \ \ fputs(local\_cmd,this-\/>gnucmd);}
+\DoxyCodeLine{00306\ \ \ \ \ fflush(this-\/>gnucmd);}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00308\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d3/d27/class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd_a0daaf54cd8e41dbbd574722f3a831cfd}\index{Gnuplot@{Gnuplot}!is\_valid@{is\_valid}}
+\index{is\_valid@{is\_valid}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{is\_valid()}{is\_valid()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd_a0daaf54cd8e41dbbd574722f3a831cfd} 
+bool Gnuplot\+::is\+\_\+valid (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00238}{238}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00239\ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordflow}{return}(this-\/>valid);}
+\DoxyCodeLine{00241\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_gnuplot_a55e6430f1329bf8a66f155dcacb9d112_a55e6430f1329bf8a66f155dcacb9d112}\index{Gnuplot@{Gnuplot}!plot\_equation@{plot\_equation}}
+\index{plot\_equation@{plot\_equation}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{plot\_equation()}{plot\_equation()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a55e6430f1329bf8a66f155dcacb9d112_a55e6430f1329bf8a66f155dcacb9d112} 
+void Gnuplot\+::plot\+\_\+equation (\begin{DoxyParamCaption}\item[{const string \&}]{equation}{, }\item[{const string \&}]{title}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00356}{356}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00357\ \{}
+\DoxyCodeLine{00358\ \ \ \ \ \textcolor{keywordtype}{string}\ titlestr,\ plotstr;}
+\DoxyCodeLine{00359\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ \ \ \ \ \textcolor{keywordflow}{if}\ (title\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ titlestr\ =\ \textcolor{stringliteral}{"{}no\ title"{}};}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ titlestr\ =\ title;}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>nplots\ >\ 0)}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ plotstr\ =\ \textcolor{stringliteral}{"{}replot"{}};}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ plotstr\ =\ \textcolor{stringliteral}{"{}plot"{}};}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \ \ \ \ cmdstr\ <<\ plotstr\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ equation\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ \textcolor{stringliteral}{"{}title\ \(\backslash\)"{}"{}}\ <<\ titlestr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ this-\/>pstyle;}
+\DoxyCodeLine{00372\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00373\ \ \ \ \ this-\/>nplots++;}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00375\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00376\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{d3/d27/class_gnuplot_a55e6430f1329bf8a66f155dcacb9d112_a55e6430f1329bf8a66f155dcacb9d112_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a80c9d9e6bc3e64db073d9d39d6ec5d5f_a80c9d9e6bc3e64db073d9d39d6ec5d5f}\index{Gnuplot@{Gnuplot}!plot\_slope@{plot\_slope}}
+\index{plot\_slope@{plot\_slope}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{plot\_slope()}{plot\_slope()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a80c9d9e6bc3e64db073d9d39d6ec5d5f_a80c9d9e6bc3e64db073d9d39d6ec5d5f} 
+void Gnuplot\+::plot\+\_\+slope (\begin{DoxyParamCaption}\item[{double}]{a}{, }\item[{double}]{b}{, }\item[{const string \&}]{title}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00334}{334}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00335\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ ostringstream\ stitle;}
+\DoxyCodeLine{00337\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00339\ \ \ \ \ \textcolor{keywordflow}{if}\ (title\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ stitle\ <<\ \textcolor{stringliteral}{"{}no\ title"{}};}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ stitle\ <<\ title;}
+\DoxyCodeLine{00343\ }
+\DoxyCodeLine{00344\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>nplots\ >\ 0)}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}replot\ "{}}\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ *\ x\ +\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ <<\ \textcolor{stringliteral}{"{}\ title\ \(\backslash\)"{}"{}}\ <<\ stitle.str()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ pstyle;}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}plot\ "{}}\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\ *\ x\ +\ "{}}\ <<\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ <<\ \textcolor{stringliteral}{"{}\ title\ \(\backslash\)"{}"{}}\ <<\ stitle.str()\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ pstyle;}
+\DoxyCodeLine{00348\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00349\ \ \ \ \ this-\/>nplots++;}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00351\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{d3/d27/class_gnuplot_a80c9d9e6bc3e64db073d9d39d6ec5d5f_a80c9d9e6bc3e64db073d9d39d6ec5d5f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be}\index{Gnuplot@{Gnuplot}!plot\_x@{plot\_x}}
+\index{plot\_x@{plot\_x}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{plot\_x()}{plot\_x()}}
+{\footnotesize\ttfamily \label{class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be} 
+void Gnuplot\+::plot\+\_\+x (\begin{DoxyParamCaption}\item[{vector$<$ double $>$}]{d}{, }\item[{const string \&}]{title}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00378}{378}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00379\ \{}
+\DoxyCodeLine{00380\ \ \ \ \ ofstream\ tmp;}
+\DoxyCodeLine{00381\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00382\ \ \ \ \ \textcolor{keywordtype}{char}\ name[]\ =\ \textcolor{stringliteral}{"{}/tmp/gnuplotiXXXXXX"{}};}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>to\_delete.size()\ ==\ \mbox{\hyperlink{gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2_a0b92738856c4bda43003d1c847483dd2}{GP\_MAX\_TMP\_FILES}}\ -\/\ 1)}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Maximum\ number\ of\ temporary\ files\ reached\ ("{}}\ <<\ \mbox{\hyperlink{gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2_a0b92738856c4bda43003d1c847483dd2}{GP\_MAX\_TMP\_FILES}}\ <<\ \textcolor{stringliteral}{"{}):\ cannot\ open\ more\ files"{}}\ <<\ endl;}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{comment}{//open\ temporary\ files\ for\ output}}
+\DoxyCodeLine{00392\ \ \ \ \ \textcolor{keywordflow}{if}\ (mkstemp(name)\ ==\ -\/1)}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ create\ temporary\ file:\ exiting\ plot"{}}\ <<\ endl;}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00397\ \ \ \ \ tmp.open(name);}
+\DoxyCodeLine{00398\ \ \ \ \ \textcolor{keywordflow}{if}\ (tmp.bad())}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ create\ temorary\ file:\ exiting\ plot"{}}\ <<\ endl;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00403\ }
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{comment}{//\ Save\ the\ temporary\ filename}}
+\DoxyCodeLine{00406\ \ \ \ \ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00407\ \ \ \ \ this-\/>to\_delete.push\_back(name);}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00410\ \ \ \ \ \textcolor{comment}{//\ write\ the\ data\ to\ file}}
+\DoxyCodeLine{00411\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00412\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ d.size();\ i++)}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ tmp\ <<\ d[i]\ <<\ endl;}
+\DoxyCodeLine{00414\ \ \ \ \ tmp.flush();\ \ \ \ }
+\DoxyCodeLine{00415\ \ \ \ \ tmp.close();}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{comment}{//\ command\ to\ be\ sent\ to\ gnuplot}}
+\DoxyCodeLine{00419\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00420\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>nplots\ >\ 0)}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}replot\ "{}};}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordflow}{else}\ cmdstr\ <<\ \textcolor{stringliteral}{"{}plot\ "{}};}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordflow}{if}\ (title\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ this-\/>pstyle;}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ title\ \(\backslash\)"{}"{}}\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ this-\/>pstyle;}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{comment}{//\ Do\ the\ actual\ plot}}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00431\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00432\ \ \ \ \ this-\/>nplots++;}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00434\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00435\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=273pt]{d3/d27/class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{d3/d27/class_gnuplot_ae3b7c28efb53f636431b9655085906be_ae3b7c28efb53f636431b9655085906be_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a}\index{Gnuplot@{Gnuplot}!plot\_xy@{plot\_xy}}
+\index{plot\_xy@{plot\_xy}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{plot\_xy()}{plot\_xy()}}
+{\footnotesize\ttfamily \label{class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a} 
+void Gnuplot\+::plot\+\_\+xy (\begin{DoxyParamCaption}\item[{vector$<$ double $>$}]{x}{, }\item[{vector$<$ double $>$}]{y}{, }\item[{const string \&}]{title}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00437}{437}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00438\ \{}
+\DoxyCodeLine{00439\ \ \ \ \ ofstream\ tmp;}
+\DoxyCodeLine{00440\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keywordtype}{char}\ name[]\ =\ \textcolor{stringliteral}{"{}/tmp/gnuplotiXXXXXX"{}};}
+\DoxyCodeLine{00442\ \ \ \ \ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{comment}{//\ should\ raise\ an\ exception}}
+\DoxyCodeLine{00444\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}.size()\ !=\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}.size())}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00446\ }
+\DoxyCodeLine{00447\ \ \ \ \ \textcolor{keywordflow}{if}\ ((this-\/>to\_delete).size()\ ==\ \mbox{\hyperlink{gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2_a0b92738856c4bda43003d1c847483dd2}{GP\_MAX\_TMP\_FILES}}\ -\/\ 1)}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Maximum\ number\ of\ temporary\ files\ reached\ ("{}}\ <<\ \mbox{\hyperlink{gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2_a0b92738856c4bda43003d1c847483dd2}{GP\_MAX\_TMP\_FILES}}\ <<\ \textcolor{stringliteral}{"{}):\ cannot\ open\ more\ files"{}}\ <<\ endl;}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00454\ \ \ \ \ \textcolor{comment}{//open\ temporary\ files\ for\ output}}
+\DoxyCodeLine{00455\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{if}\ (mkstemp(name)\ ==\ -\/1)}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ create\ temporary\ file:\ exiting\ plot"{}}\ <<\ endl;}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00461\ \ \ \ \ tmp.open(name);}
+\DoxyCodeLine{00462\ \ \ \ \ \textcolor{keywordflow}{if}\ (tmp.bad())}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Cannot\ create\ temorary\ file:\ exiting\ plot"{}}\ <<\ endl;}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00467\ }
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00469\ \ \ \ \ \textcolor{comment}{//\ Save\ the\ temporary\ filename}}
+\DoxyCodeLine{00470\ \ \ \ \ \textcolor{comment}{//\ }}
+\DoxyCodeLine{00471\ \ \ \ \ this-\/>to\_delete.push\_back(name);}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{comment}{//\ write\ the\ data\ to\ file}}
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}.size();\ i++)}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ tmp\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}[i]\ <<\ \textcolor{stringliteral}{"{}\ "{}}\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i]\ <<\ endl;}
+\DoxyCodeLine{00478\ \ \ \ \ tmp.flush();\ \ \ \ }
+\DoxyCodeLine{00479\ \ \ \ \ tmp.close();}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{comment}{//\ command\ to\ be\ sent\ to\ gnuplot}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>nplots\ >\ 0)}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}replot\ "{}};}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{keywordflow}{else}\ cmdstr\ <<\ \textcolor{stringliteral}{"{}plot\ "{}};}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{keywordflow}{if}\ (title\ ==\ \textcolor{stringliteral}{"{}"{}})}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ this-\/>pstyle;}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}}\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ title\ \(\backslash\)"{}"{}}\ <<\ title\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}\ with\ "{}}\ <<\ this-\/>pstyle;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00493\ \ \ \ \ \textcolor{comment}{//\ Do\ the\ actual\ plot}}
+\DoxyCodeLine{00494\ \ \ \ \ \textcolor{comment}{//}}
+\DoxyCodeLine{00495\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00496\ \ \ \ \ this-\/>nplots++;}
+\DoxyCodeLine{00497\ }
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00499\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=293pt]{d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_a1e817a58ef3e40ceaeb128c7e6437e8a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_ad54976652afe30231a850dd31e1ca70f_ad54976652afe30231a850dd31e1ca70f}\index{Gnuplot@{Gnuplot}!reset\_plot@{reset\_plot}}
+\index{reset\_plot@{reset\_plot}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{reset\_plot()}{reset\_plot()}}
+{\footnotesize\ttfamily \label{class_gnuplot_ad54976652afe30231a850dd31e1ca70f_ad54976652afe30231a850dd31e1ca70f} 
+void Gnuplot\+::reset\+\_\+plot (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00268}{268}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00269\ \{\ \ \ \ \ \ \ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>to\_delete.size()\ >\ 0)}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ this-\/>to\_delete.size();\ i++)}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ remove(this-\/>to\_delete[i].c\_str());}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ to\_delete.clear();}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00276\ \ \ \ \ this-\/>nplots\ =\ 0;}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00278\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f}\index{Gnuplot@{Gnuplot}!set\_style@{set\_style}}
+\index{set\_style@{set\_style}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{set\_style()}{set\_style()}}
+{\footnotesize\ttfamily \label{class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f} 
+void Gnuplot\+::set\+\_\+style (\begin{DoxyParamCaption}\item[{const string \&}]{stylestr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00280}{280}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00281\ \{}
+\DoxyCodeLine{00282\ \ \ \ \ \textcolor{keywordflow}{if}\ (stylestr\ !=\ \textcolor{stringliteral}{"{}lines"{}}\ \&\&}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}points"{}}\ \&\&}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}linespoints"{}}\ \&\&}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}impulses"{}}\ \&\&}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}dots"{}}\ \&\&}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}steps"{}}\ \&\&}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}errorbars"{}}\ \&\&}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}boxes"{}}\ \&\&}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ stylestr\ !=\ \textcolor{stringliteral}{"{}boxerrorbars"{}})}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ this-\/>pstyle\ =\ string(\textcolor{stringliteral}{"{}points"{}});}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ this-\/>pstyle\ =\ stylestr;}
+\DoxyCodeLine{00294\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{d3/d27/class_gnuplot_accdd7b69237ead4109c74e1e440c185f_accdd7b69237ead4109c74e1e440c185f_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e}\index{Gnuplot@{Gnuplot}!set\_xlabel@{set\_xlabel}}
+\index{set\_xlabel@{set\_xlabel}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{set\_xlabel()}{set\_xlabel()}}
+{\footnotesize\ttfamily \label{class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e} 
+void Gnuplot\+::set\+\_\+xlabel (\begin{DoxyParamCaption}\item[{const string \&}]{label}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00320}{320}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00321\ \{}
+\DoxyCodeLine{00322\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}set\ xlabel\ \(\backslash\)"{}"{}}\ <<\ label\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00325\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00328\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{d3/d27/class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{d3/d27/class_gnuplot_ac9b0c04d47e375eb82f50437eda5e46e_ac9b0c04d47e375eb82f50437eda5e46e_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde}\index{Gnuplot@{Gnuplot}!set\_ylabel@{set\_ylabel}}
+\index{set\_ylabel@{set\_ylabel}!Gnuplot@{Gnuplot}}
+\doxysubsubsection{\texorpdfstring{set\_ylabel()}{set\_ylabel()}}
+{\footnotesize\ttfamily \label{class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde} 
+void Gnuplot\+::set\+\_\+ylabel (\begin{DoxyParamCaption}\item[{const string \&}]{label}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{gnuplot__i_8cpp_source_l00310}{310}} of file \mbox{\hyperlink{gnuplot__i_8cpp_source}{gnuplot\+\_\+i.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00311\ \{}
+\DoxyCodeLine{00312\ \ \ \ \ ostringstream\ cmdstr;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \ \ \ \ cmdstr\ <<\ \textcolor{stringliteral}{"{}set\ xlabel\ \(\backslash\)"{}"{}}\ <<\ label\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)"{}"{}};}
+\DoxyCodeLine{00315\ \ \ \ \ this-\/>\mbox{\hyperlink{class_gnuplot_a6f299285af0a0ee2cf1722c469aa1a57_a6f299285af0a0ee2cf1722c469aa1a57}{cmd}}(cmdstr.str().c\_str());}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00318\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{d3/d27/class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{d3/d27/class_gnuplot_af85dd1d368699914112460285ead0fde_af85dd1d368699914112460285ead0fde_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{gnuplot__i_8hpp}{gnuplot\+\_\+i.\+hpp}}\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{gnuplot__i_8cpp}{gnuplot\+\_\+i.\+cpp}}\end{DoxyCompactItemize}

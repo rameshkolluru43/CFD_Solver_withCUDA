@@ -1,0 +1,81 @@
+\doxysection{pip.\+\_\+vendor.\+packaging.\+specifiers Namespace Reference}
+\hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers}{}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers}\index{pip.\_vendor.packaging.specifiers@{pip.\_vendor.packaging.specifiers}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1specifiers_1_1_base_specifier}{Base\+Specifier}}
+\item 
+class \mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1specifiers_1_1_invalid_specifier}{Invalid\+Specifier}}
+\item 
+class \mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1specifiers_1_1_specifier}{Specifier}}
+\item 
+class \mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1specifiers_1_1_specifier_set}{Specifier\+Set}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a2438d600c0497698735a80bbe0918552}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a2438d600c0497698735a80bbe0918552} 
+\mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1version_1_1_version}{Version}} {\bfseries \+\_\+coerce\+\_\+version} (Unparsed\+Version version)
+\item 
+list\mbox{[}str\mbox{]} \mbox{\hyperlink{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a292f581ade3315814d5e8da2b8f82354}{\+\_\+version\+\_\+split}} (str version)
+\item 
+str \mbox{\hyperlink{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_afce3c25befaa7b8e7cdb74ed39bfcd4b}{\+\_\+version\+\_\+join}} (list\mbox{[}str\mbox{]} components)
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a37c5a90a37477e77185971557c1cea55}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a37c5a90a37477e77185971557c1cea55} 
+bool {\bfseries \+\_\+is\+\_\+not\+\_\+suffix} (str segment)
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a3d452640ad2582baa0195eda2e66ca2b}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a3d452640ad2582baa0195eda2e66ca2b} 
+tuple\mbox{[}list\mbox{[}str\mbox{]}, list\mbox{[}str\mbox{]}\mbox{]} {\bfseries \+\_\+pad\+\_\+version} (list\mbox{[}str\mbox{]} left, list\mbox{[}str\mbox{]} right)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a72a62ad16de8c039a2c3293fcb57ea8c}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a72a62ad16de8c039a2c3293fcb57ea8c} 
+{\bfseries Unparsed\+Version} = Union\mbox{[}\mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1version_1_1_version}{Version}}, str\mbox{]}
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a33e20cc1f3737e3cdfffee92d0dfb82e}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a33e20cc1f3737e3cdfffee92d0dfb82e} 
+{\bfseries Unparsed\+Version\+Var} = Type\+Var("{}Unparsed\+Version\+Var"{}, bound=Unparsed\+Version)
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a6bd695ad18f9dc17d7ea2fc7b649b2ad}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a6bd695ad18f9dc17d7ea2fc7b649b2ad} 
+{\bfseries Callable\+Operator} = Callable\mbox{[}\mbox{[}\mbox{\hyperlink{classpip_1_1__vendor_1_1packaging_1_1version_1_1_version}{Version}}, str\mbox{]}, bool\mbox{]}
+\item 
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_ae787645ffed09d7caad4029f0e4d69e9}\label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_ae787645ffed09d7caad4029f0e4d69e9} 
+{\bfseries \+\_\+prefix\+\_\+regex} = re.\+compile(r"{}\texorpdfstring{$^\wedge$}{\string^}(\mbox{[}0-\/9\mbox{]}+)((?\+:a\texorpdfstring{$\vert$}{|}b\texorpdfstring{$\vert$}{|}c\texorpdfstring{$\vert$}{|}rc)\mbox{[}0-\/9\mbox{]}+)\$"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}.. testsetup::
+
+    from pip._vendor.packaging.specifiers import Specifier, SpecifierSet, InvalidSpecifier
+    from pip._vendor.packaging.version import Version
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_afce3c25befaa7b8e7cdb74ed39bfcd4b}\index{pip.\_vendor.packaging.specifiers@{pip.\_vendor.packaging.specifiers}!\_version\_join@{\_version\_join}}
+\index{\_version\_join@{\_version\_join}!pip.\_vendor.packaging.specifiers@{pip.\_vendor.packaging.specifiers}}
+\doxysubsubsection{\texorpdfstring{\_version\_join()}{\_version\_join()}}
+{\footnotesize\ttfamily \label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_afce3c25befaa7b8e7cdb74ed39bfcd4b} 
+ str pip.\+\_\+vendor.\+packaging.\+specifiers.\+\_\+version\+\_\+join (\begin{DoxyParamCaption}\item[{list\mbox{[}str\mbox{]}}]{components}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Join split version components into a version string.
+
+This function assumes the input came from :func:`_version_split`, where the
+first component must be the epoch (either empty or numeric), and all other
+components numeric.
+\end{DoxyVerb}
+ \Hypertarget{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a292f581ade3315814d5e8da2b8f82354}\index{pip.\_vendor.packaging.specifiers@{pip.\_vendor.packaging.specifiers}!\_version\_split@{\_version\_split}}
+\index{\_version\_split@{\_version\_split}!pip.\_vendor.packaging.specifiers@{pip.\_vendor.packaging.specifiers}}
+\doxysubsubsection{\texorpdfstring{\_version\_split()}{\_version\_split()}}
+{\footnotesize\ttfamily \label{namespacepip_1_1__vendor_1_1packaging_1_1specifiers_a292f581ade3315814d5e8da2b8f82354} 
+ list\mbox{[}str\mbox{]} pip.\+\_\+vendor.\+packaging.\+specifiers.\+\_\+version\+\_\+split (\begin{DoxyParamCaption}\item[{str}]{version}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Split version into components.
+
+The split components are intended for version comparison. The logic does
+not attempt to retain the original version string, so joining the
+components back with :func:`_version_join` may not produce the original
+version string.
+\end{DoxyVerb}
+ 

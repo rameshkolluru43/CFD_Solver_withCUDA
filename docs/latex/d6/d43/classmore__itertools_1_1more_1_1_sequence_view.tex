@@ -1,0 +1,63 @@
+\doxysection{more\+\_\+itertools.\+more.\+Sequence\+View Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1_sequence_view}{}\label{classmore__itertools_1_1more_1_1_sequence_view}\index{more\_itertools.more.SequenceView@{more\_itertools.more.SequenceView}}
+Inheritance diagram for more\+\_\+itertools.\+more.\+Sequence\+View\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d6/d43/classmore__itertools_1_1more_1_1_sequence_view}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1_sequence_view_a7bd8c17c2079eeb10b422b8110eea22b}\label{classmore__itertools_1_1more_1_1_sequence_view_a7bd8c17c2079eeb10b422b8110eea22b} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, target)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1_sequence_view_a40ad9e84fc7eb8b8c52b0907ba75bb2a}\label{classmore__itertools_1_1more_1_1_sequence_view_a40ad9e84fc7eb8b8c52b0907ba75bb2a} 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, index)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1_sequence_view_a7e31cfe733d5f1caf5bb52305efe2f3b}\label{classmore__itertools_1_1more_1_1_sequence_view_a7e31cfe733d5f1caf5bb52305efe2f3b} 
+{\bfseries \+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1_sequence_view_ad0849ea669057d6464b830207f87de0c}\label{classmore__itertools_1_1more_1_1_sequence_view_ad0849ea669057d6464b830207f87de0c} 
+{\bfseries \+\_\+\+\_\+repr\+\_\+\+\_\+} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1_sequence_view_a87c665a56261c192b8bfd9682f58d1f7}\label{classmore__itertools_1_1more_1_1_sequence_view_a87c665a56261c192b8bfd9682f58d1f7} 
+{\bfseries \+\_\+target} = target
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Return a read-only view of the sequence object *target*.
+
+:class:`SequenceView` objects are analogous to Python's built-in
+"dictionary view" types. They provide a dynamic view of a sequence's items,
+meaning that when the sequence updates, so does the view.
+
+    >>> seq = ['0', '1', '2']
+    >>> view = SequenceView(seq)
+    >>> view
+    SequenceView(['0', '1', '2'])
+    >>> seq.append('3')
+    >>> view
+    SequenceView(['0', '1', '2', '3'])
+
+Sequence views support indexing, slicing, and length queries. They act
+like the underlying sequence, except they don't allow assignment:
+
+    >>> view[1]
+    '1'
+    >>> view[1:-1]
+    ['1', '2']
+    >>> len(view)
+    4
+
+Sequence views are useful as an alternative to copying, as they don't
+require (much) extra storage.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

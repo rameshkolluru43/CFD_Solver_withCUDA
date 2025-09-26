@@ -1,0 +1,106 @@
+\doxysection{stevedore.\+hook.\+Hook\+Manager Class Reference}
+\hypertarget{classstevedore_1_1hook_1_1_hook_manager}{}\label{classstevedore_1_1hook_1_1_hook_manager}\index{stevedore.hook.HookManager@{stevedore.hook.HookManager}}
+Inheritance diagram for stevedore.\+hook.\+Hook\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{db/d7d/classstevedore_1_1hook_1_1_hook_manager}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classstevedore_1_1hook_1_1_hook_manager_a0b098fb81c44ee07e0a459df6f58f809_a0b098fb81c44ee07e0a459df6f58f809}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, namespace, name, invoke\+\_\+on\+\_\+load=False, invoke\+\_\+args=(), invoke\+\_\+kwds=\{\}, on\+\_\+load\+\_\+failure\+\_\+callback=None, verify\+\_\+requirements=False, on\+\_\+missing\+\_\+entrypoints\+\_\+callback=None, warn\+\_\+on\+\_\+missing\+\_\+entrypoint=False)
+\item 
+\mbox{\hyperlink{classstevedore_1_1hook_1_1_hook_manager_ab0b4848b1bf41d89310b0f9f303bd8f0_ab0b4848b1bf41d89310b0f9f303bd8f0}{\+\_\+\+\_\+getitem\+\_\+\+\_\+}} (self, name)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classstevedore_1_1hook_1_1_hook_manager_ae32bd85c4e4c90a709f6bf82aee683b5_ae32bd85c4e4c90a709f6bf82aee683b5}{\+\_\+init\+\_\+attributes}} (self, namespace, names, name\+\_\+order=False, propagate\+\_\+map\+\_\+exceptions=False, on\+\_\+load\+\_\+failure\+\_\+callback=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classstevedore_1_1hook_1_1_hook_manager_abbd3bfe88588831bd9549afafd634e05}\label{classstevedore_1_1hook_1_1_hook_manager_abbd3bfe88588831bd9549afafd634e05} 
+{\bfseries \+\_\+name} = names\mbox{[}0\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Coordinate execution of multiple extensions using a common name.
+
+:param namespace: The namespace for the entry points.
+:type namespace: str
+:param name: The name of the hooks to load.
+:type name: str
+:param invoke_on_load: Boolean controlling whether to invoke the
+    object returned by the entry point after the driver is loaded.
+:type invoke_on_load: bool
+:param invoke_args: Positional arguments to pass when invoking
+    the object returned by the entry point. Only used if invoke_on_load
+    is True.
+:type invoke_args: tuple
+:param invoke_kwds: Named arguments to pass when invoking
+    the object returned by the entry point. Only used if invoke_on_load
+    is True.
+:type invoke_kwds: dict
+:param on_load_failure_callback: Callback function that will be called when
+    an entrypoint can not be loaded. The arguments that will be provided
+    when this is called (when an entrypoint fails to load) are
+    (manager, entrypoint, exception)
+:type on_load_failure_callback: function
+:param verify_requirements: Use setuptools to enforce the
+    dependencies of the plugin(s) being loaded. Defaults to False.
+:type verify_requirements: bool
+:type on_missing_entrypoints_callback: function
+:param warn_on_missing_entrypoint: Flag to control whether failing
+    to load a plugin is reported via a log mess. Only applies if
+    on_missing_entrypoints_callback is None.
+:type warn_on_missing_entrypoint: bool\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classstevedore_1_1hook_1_1_hook_manager_a0b098fb81c44ee07e0a459df6f58f809_a0b098fb81c44ee07e0a459df6f58f809}\index{stevedore.hook.HookManager@{stevedore.hook.HookManager}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!stevedore.hook.HookManager@{stevedore.hook.HookManager}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1hook_1_1_hook_manager_a0b098fb81c44ee07e0a459df6f58f809_a0b098fb81c44ee07e0a459df6f58f809} 
+stevedore.\+hook.\+Hook\+Manager.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{namespace}{, }\item[{}]{name}{, }\item[{}]{invoke\+\_\+on\+\_\+load}{ = {\ttfamily False}, }\item[{}]{invoke\+\_\+args}{ = {\ttfamily ()}, }\item[{}]{invoke\+\_\+kwds}{ = {\ttfamily \{\}}, }\item[{}]{on\+\_\+load\+\_\+failure\+\_\+callback}{ = {\ttfamily None}, }\item[{}]{verify\+\_\+requirements}{ = {\ttfamily False}, }\item[{}]{on\+\_\+missing\+\_\+entrypoints\+\_\+callback}{ = {\ttfamily None}, }\item[{}]{warn\+\_\+on\+\_\+missing\+\_\+entrypoint}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classstevedore_1_1named_1_1_named_extension_manager}{stevedore.\+named.\+Named\+Extension\+Manager}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classstevedore_1_1hook_1_1_hook_manager_ab0b4848b1bf41d89310b0f9f303bd8f0_ab0b4848b1bf41d89310b0f9f303bd8f0}\index{stevedore.hook.HookManager@{stevedore.hook.HookManager}!\_\_getitem\_\_@{\_\_getitem\_\_}}
+\index{\_\_getitem\_\_@{\_\_getitem\_\_}!stevedore.hook.HookManager@{stevedore.hook.HookManager}}
+\doxysubsubsection{\texorpdfstring{\_\_getitem\_\_()}{\_\_getitem\_\_()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1hook_1_1_hook_manager_ab0b4848b1bf41d89310b0f9f303bd8f0_ab0b4848b1bf41d89310b0f9f303bd8f0} 
+stevedore.\+hook.\+Hook\+Manager.\+\_\+\+\_\+getitem\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the named extensions.
+
+Accessing a HookManager as a dictionary (``em['name']``)
+produces a list of the :class:`Extension` instance(s) with the
+specified name, in the order they would be invoked by map().
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classstevedore_1_1extension_1_1_extension_manager_a517e063e0fbe8320db0f27e1767dac47_a517e063e0fbe8320db0f27e1767dac47}{stevedore.\+extension.\+Extension\+Manager}}.
+
+\Hypertarget{classstevedore_1_1hook_1_1_hook_manager_ae32bd85c4e4c90a709f6bf82aee683b5_ae32bd85c4e4c90a709f6bf82aee683b5}\index{stevedore.hook.HookManager@{stevedore.hook.HookManager}!\_init\_attributes@{\_init\_attributes}}
+\index{\_init\_attributes@{\_init\_attributes}!stevedore.hook.HookManager@{stevedore.hook.HookManager}}
+\doxysubsubsection{\texorpdfstring{\_init\_attributes()}{\_init\_attributes()}}
+{\footnotesize\ttfamily \label{classstevedore_1_1hook_1_1_hook_manager_ae32bd85c4e4c90a709f6bf82aee683b5_ae32bd85c4e4c90a709f6bf82aee683b5} 
+stevedore.\+hook.\+Hook\+Manager.\+\_\+init\+\_\+attributes (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{namespace}{, }\item[{}]{names}{, }\item[{}]{name\+\_\+order}{ = {\ttfamily False}, }\item[{}]{propagate\+\_\+map\+\_\+exceptions}{ = {\ttfamily False}, }\item[{}]{on\+\_\+load\+\_\+failure\+\_\+callback}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classstevedore_1_1named_1_1_named_extension_manager}{stevedore.\+named.\+Named\+Extension\+Manager}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/stevedore/hook.\+py\end{DoxyCompactItemize}

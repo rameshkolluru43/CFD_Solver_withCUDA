@@ -1,0 +1,95 @@
+\doxysection{qiskit.\+circuit.\+\_\+utils Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1__utils}{}\label{namespaceqiskit_1_1circuit_1_1__utils}\index{qiskit.circuit.\_utils@{qiskit.circuit.\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1__utils_a9a74904ac2841cffc0daec851fbcc94e}{\+\_\+compute\+\_\+control\+\_\+matrix}} (base\+\_\+mat, num\+\_\+ctrl\+\_\+qubits, ctrl\+\_\+state=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1__utils_ae34fef7216f2074b6aabe2c99a79ccc0}{\+\_\+ctrl\+\_\+state\+\_\+to\+\_\+int}} (ctrl\+\_\+state, num\+\_\+ctrl\+\_\+qubits)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1__utils_a7a03eb7e91da324c92511a88e7fa0576}{with\+\_\+gate\+\_\+array}} (base\+\_\+array)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1__utils_aecb019e343a5e3924f680cf16e1074f0}{with\+\_\+controlled\+\_\+gate\+\_\+array}} (base\+\_\+array, num\+\_\+ctrl\+\_\+qubits, cached\+\_\+states=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1circuit_1_1__utils_a6d61bd9d18f0ab0a033f4f8f833b128a}\label{namespaceqiskit_1_1circuit_1_1__utils_a6d61bd9d18f0ab0a033f4f8f833b128a} 
+{\bfseries ctrl\+\_\+state}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}This module contains utility functions for circuits.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1__utils_a9a74904ac2841cffc0daec851fbcc94e}\index{qiskit.circuit.\_utils@{qiskit.circuit.\_utils}!\_compute\_control\_matrix@{\_compute\_control\_matrix}}
+\index{\_compute\_control\_matrix@{\_compute\_control\_matrix}!qiskit.circuit.\_utils@{qiskit.circuit.\_utils}}
+\doxysubsubsection{\texorpdfstring{\_compute\_control\_matrix()}{\_compute\_control\_matrix()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1__utils_a9a74904ac2841cffc0daec851fbcc94e} 
+qiskit.\+circuit.\+\_\+utils.\+\_\+compute\+\_\+control\+\_\+matrix (\begin{DoxyParamCaption}\item[{}]{base\+\_\+mat}{, }\item[{}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{}]{ctrl\+\_\+state}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}    Compute the controlled version of the input matrix with qiskit ordering.
+    This function computes the controlled unitary with :math:`n` control qubits
+    and :math:`m` target qubits,
+
+    .. math::
+
+        V_n^j(U_{2^m}) = (U_{2^m} \otimes |j\rangle\!\langle j|) +
+                         (I_{2^m} \otimes (I_{2^n} - |j\rangle\!\langle j|)).
+
+    where :math:`|j\rangle \in \mathcal{H}^{2^n}` is the control state.
+
+    Args:
+        base_mat (ndarray): unitary to be controlled
+        num_ctrl_qubits (int): number of controls for new unitary
+        ctrl_state (int or str or None): The control state in decimal or as
+            a bitstring (e.g. '111'). If None, use 2**num_ctrl_qubits-1.
+
+    Returns:
+        ndarray: controlled version of base matrix.
+
+    Raises:
+        QiskitError: unrecognized mode or invalid ctrl_state\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1__utils_ae34fef7216f2074b6aabe2c99a79ccc0}\index{qiskit.circuit.\_utils@{qiskit.circuit.\_utils}!\_ctrl\_state\_to\_int@{\_ctrl\_state\_to\_int}}
+\index{\_ctrl\_state\_to\_int@{\_ctrl\_state\_to\_int}!qiskit.circuit.\_utils@{qiskit.circuit.\_utils}}
+\doxysubsubsection{\texorpdfstring{\_ctrl\_state\_to\_int()}{\_ctrl\_state\_to\_int()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1__utils_ae34fef7216f2074b6aabe2c99a79ccc0} 
+qiskit.\+circuit.\+\_\+utils.\+\_\+ctrl\+\_\+state\+\_\+to\+\_\+int (\begin{DoxyParamCaption}\item[{}]{ctrl\+\_\+state}{, }\item[{}]{num\+\_\+ctrl\+\_\+qubits}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Convert ctrl_state to int.
+
+Args:
+    ctrl_state (None, str, int): ctrl_state. If None, set to 2**num_ctrl_qubits-1.
+        If str, convert to int. If int, pass.
+    num_ctrl_qubits (int): The number of control qubits.
+
+Return:
+    int: ctrl_state
+
+Raises:
+    CircuitError: invalid ctrl_state
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1__utils_aecb019e343a5e3924f680cf16e1074f0}\index{qiskit.circuit.\_utils@{qiskit.circuit.\_utils}!with\_controlled\_gate\_array@{with\_controlled\_gate\_array}}
+\index{with\_controlled\_gate\_array@{with\_controlled\_gate\_array}!qiskit.circuit.\_utils@{qiskit.circuit.\_utils}}
+\doxysubsubsection{\texorpdfstring{with\_controlled\_gate\_array()}{with\_controlled\_gate\_array()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1__utils_aecb019e343a5e3924f680cf16e1074f0} 
+qiskit.\+circuit.\+\_\+utils.\+with\+\_\+controlled\+\_\+gate\+\_\+array (\begin{DoxyParamCaption}\item[{}]{base\+\_\+array}{, }\item[{}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{}]{cached\+\_\+states}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Class decorator that adds an ``__array__`` method to a :class:`.ControlledGate` instance that
+returns singleton nonwritable views onto a relevant precomputed complex matrix for the given
+control state.
+
+If ``cached_states`` is not given, then all possible control states are precomputed.  If it is
+given, it should be an iterable of integers, and only these control states will be cached.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1circuit_1_1__utils_a7a03eb7e91da324c92511a88e7fa0576}\index{qiskit.circuit.\_utils@{qiskit.circuit.\_utils}!with\_gate\_array@{with\_gate\_array}}
+\index{with\_gate\_array@{with\_gate\_array}!qiskit.circuit.\_utils@{qiskit.circuit.\_utils}}
+\doxysubsubsection{\texorpdfstring{with\_gate\_array()}{with\_gate\_array()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1__utils_a7a03eb7e91da324c92511a88e7fa0576} 
+qiskit.\+circuit.\+\_\+utils.\+with\+\_\+gate\+\_\+array (\begin{DoxyParamCaption}\item[{}]{base\+\_\+array}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Class decorator that adds an ``__array__`` method to a :class:`.Gate` instance that returns a
+singleton nonwritable view onto the complex matrix described by ``base_array``.\end{DoxyVerb}
+ 

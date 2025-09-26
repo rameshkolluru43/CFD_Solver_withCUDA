@@ -1,0 +1,41 @@
+\doxysection{qiskit.\+compiler.\+sequencer Namespace Reference}
+\hypertarget{namespaceqiskit_1_1compiler_1_1sequencer}{}\label{namespaceqiskit_1_1compiler_1_1sequencer}\index{qiskit.compiler.sequencer@{qiskit.compiler.sequencer}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1compiler_1_1sequencer_a0a8795421a6d0b8d8a31906be0e165d6}{sequence}} (Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]} scheduled\+\_\+circuits, Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} backend=None, Optional\mbox{[}Instruction\+Schedule\+Map\mbox{]} inst\+\_\+map=None, Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} meas\+\_\+map=None, Optional\mbox{[}float\mbox{]} dt=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Mapping a scheduled ``QuantumCircuit`` to a pulse ``Schedule``.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1compiler_1_1sequencer_a0a8795421a6d0b8d8a31906be0e165d6}\index{qiskit.compiler.sequencer@{qiskit.compiler.sequencer}!sequence@{sequence}}
+\index{sequence@{sequence}!qiskit.compiler.sequencer@{qiskit.compiler.sequencer}}
+\doxysubsubsection{\texorpdfstring{sequence()}{sequence()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1compiler_1_1sequencer_a0a8795421a6d0b8d8a31906be0e165d6} 
+ Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule}{Schedule}}\mbox{]}\mbox{]} qiskit.\+compiler.\+sequencer.\+sequence (\begin{DoxyParamCaption}\item[{Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, List\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]}\mbox{]}}]{scheduled\+\_\+circuits}{, }\item[{Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend}{Backend}}\mbox{]} }]{backend}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Instruction\+Schedule\+Map\mbox{]} }]{inst\+\_\+map}{ = {\ttfamily None}, }\item[{Optional\mbox{[}List\mbox{[}List\mbox{[}int\mbox{]}\mbox{]}\mbox{]} }]{meas\+\_\+map}{ = {\ttfamily None}, }\item[{Optional\mbox{[}float\mbox{]} }]{dt}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Schedule a scheduled circuit to a pulse ``Schedule``, using the backend.
+
+Args:
+    scheduled_circuits: Scheduled circuit(s) to be translated
+    backend: A backend instance, which contains hardware-specific data required for scheduling
+    inst_map: Mapping of circuit operations to pulse schedules. If ``None``, defaults to the
+              ``backend``\'s ``instruction_schedule_map``
+    meas_map: List of sets of qubits that must be measured together. If ``None``, defaults to
+              the ``backend``\'s ``meas_map``
+    dt: The output sample rate of backend control electronics. For scheduled circuits
+        which contain time information, dt is required. If not provided, it will be
+        obtained from the backend configuration
+
+Returns:
+    A pulse ``Schedule`` that implements the input circuit
+
+Raises:
+    QiskitError: If ``inst_map`` and ``meas_map`` are not passed and ``backend`` is not passed
+\end{DoxyVerb}
+ 

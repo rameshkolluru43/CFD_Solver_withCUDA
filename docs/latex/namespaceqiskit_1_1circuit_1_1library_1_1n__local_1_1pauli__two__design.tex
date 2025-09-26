@@ -1,0 +1,85 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+pauli\+\_\+two\+\_\+design Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design}\index{qiskit.circuit.library.n\_local.pauli\_two\_design@{qiskit.circuit.library.n\_local.pauli\_two\_design}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_1_1_pauli_two_design}{Pauli\+Two\+Design}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_a3718c1d984ac08c50d5e7f9bcde4b33e}{pauli\+\_\+two\+\_\+design}} (int num\+\_\+qubits, int reps=3, int\texorpdfstring{$\vert$}{|}None seed=None, bool insert\+\_\+barriers=False, str parameter\+\_\+prefix="{}θ"{}, str name="{}Pauli\+Two\+Design"{})
+\item 
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_a0b2ccb11ef62a12eb2d1ceb07f3ee772}\label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_a0b2ccb11ef62a12eb2d1ceb07f3ee772} 
+{\bfseries \+\_\+random\+\_\+pauli\+\_\+builder} (params, rng)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Random Pauli circuit class.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_a3718c1d984ac08c50d5e7f9bcde4b33e}\index{qiskit.circuit.library.n\_local.pauli\_two\_design@{qiskit.circuit.library.n\_local.pauli\_two\_design}!pauli\_two\_design@{pauli\_two\_design}}
+\index{pauli\_two\_design@{pauli\_two\_design}!qiskit.circuit.library.n\_local.pauli\_two\_design@{qiskit.circuit.library.n\_local.pauli\_two\_design}}
+\doxysubsubsection{\texorpdfstring{pauli\_two\_design()}{pauli\_two\_design()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1pauli__two__design_a3718c1d984ac08c50d5e7f9bcde4b33e} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+n\+\_\+local.\+pauli\+\_\+two\+\_\+design.\+pauli\+\_\+two\+\_\+design (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{int \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{str }]{name}{ = {\ttfamily "{}PauliTwoDesign"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct a Pauli 2-design ansatz.
+
+    This class implements a particular form of a 2-design circuit [1], which is frequently studied
+    in quantum machine learning literature, such as, e.g., the investigation of Barren plateaus in
+    variational algorithms [2].
+
+    The circuit consists of alternating rotation and entanglement layers with
+    an initial layer of :math:`\sqrt{H} = RY(\pi/4)` gates.
+    The rotation layers contain single qubit Pauli rotations, where the axis is chosen uniformly
+    at random to be X, Y or Z. The entanglement layers is compromised of pairwise CZ gates
+    with a total depth of 2.
+
+    For instance, the circuit could look like this:
+
+    .. parsed-literal::
+
+             ┌─────────┐┌──────────┐       ░ ┌──────────┐       ░  ┌──────────┐
+        q_0: ┤ RY(π/4) ├┤ RZ(θ[0]) ├─■─────░─┤ RY(θ[4]) ├─■─────░──┤ RZ(θ[8]) ├
+             ├─────────┤├──────────┤ │     ░ ├──────────┤ │     ░  ├──────────┤
+        q_1: ┤ RY(π/4) ├┤ RZ(θ[1]) ├─■──■──░─┤ RY(θ[5]) ├─■──■──░──┤ RX(θ[9]) ├
+             ├─────────┤├──────────┤    │  ░ ├──────────┤    │  ░ ┌┴──────────┤
+        q_2: ┤ RY(π/4) ├┤ RX(θ[2]) ├─■──■──░─┤ RY(θ[6]) ├─■──■──░─┤ RX(θ[10]) ├
+             ├─────────┤├──────────┤ │     ░ ├──────────┤ │     ░ ├───────────┤
+        q_3: ┤ RY(π/4) ├┤ RZ(θ[3]) ├─■─────░─┤ RX(θ[7]) ├─■─────░─┤ RY(θ[11]) ├
+             └─────────┘└──────────┘       ░ └──────────┘       ░ └───────────┘
+
+    Examples:
+
+        .. plot::
+            :alt: Circuit diagram output by the previous code.
+            :include-source:
+
+            from qiskit.circuit.library import pauli_two_design
+            circuit = pauli_two_design(4, reps=2, seed=5, insert_barriers=True)
+            circuit.draw("mpl")
+
+    Args:
+        num_qubits: The number of qubits of the Pauli Two-Design circuit.
+        reps: Specifies how often a block consisting of a rotation layer and entanglement
+            layer is repeated.
+        seed: The seed for randomly choosing the axes of the Pauli rotations.
+        parameter_prefix: The prefix used for the rotation parameters.
+        insert_barriers: If ``True``, barriers are inserted in between each layer. If ``False``,
+            no barriers are inserted. Defaults to ``False``.
+        name: The circuit name.
+
+    Returns:
+        A Pauli 2-design circuit.
+
+    References:
+
+        [1]: Nakata et al., Unitary 2-designs from random X- and Z-diagonal unitaries.
+            `arXiv:1502.07514 <https://arxiv.org/pdf/1502.07514.pdf>`_
+
+        [2]: McClean et al., Barren plateaus in quantum neural network training landscapes.
+             `arXiv:1803.11173 <https://arxiv.org/pdf/1803.11173.pdf>`_\end{DoxyVerb}
+ 

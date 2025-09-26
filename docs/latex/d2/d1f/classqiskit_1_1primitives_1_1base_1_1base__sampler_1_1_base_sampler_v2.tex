@@ -1,0 +1,53 @@
+\doxysection{qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V2 Class Reference}
+\hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2}{}\label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2}\index{qiskit.primitives.base.base\_sampler.BaseSamplerV2@{qiskit.primitives.base.base\_sampler.BaseSamplerV2}}
+Inheritance diagram for qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V2\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.448980cm]{d2/d1f/classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive__job_1_1_base_primitive_job}{Base\+Primitive\+Job}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1primitive__result_1_1_primitive_result}{Primitive\+Result}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1sampler__pub__result_1_1_sampler_pub_result}{Sampler\+Pub\+Result}}\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2_a6ee4ec24086437fbad5166548305af91_a6ee4ec24086437fbad5166548305af91}{run}} (self, Iterable\mbox{[}Sampler\+Pub\+Like\mbox{]} pubs, \texorpdfstring{$\ast$}{*}, int\texorpdfstring{$\vert$}{|}None shots=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Sampler V2 base class.
+
+A Sampler returns samples of quantum circuit outputs.
+
+All sampler implementations must implement default value for the ``shots`` in the
+:meth:`.run` method if ``None`` is given both as a ``kwarg`` and in all of the pubs.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2_a6ee4ec24086437fbad5166548305af91_a6ee4ec24086437fbad5166548305af91}\index{qiskit.primitives.base.base\_sampler.BaseSamplerV2@{qiskit.primitives.base.base\_sampler.BaseSamplerV2}!run@{run}}
+\index{run@{run}!qiskit.primitives.base.base\_sampler.BaseSamplerV2@{qiskit.primitives.base.base\_sampler.BaseSamplerV2}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1primitives_1_1base_1_1base__sampler_1_1_base_sampler_v2_a6ee4ec24086437fbad5166548305af91_a6ee4ec24086437fbad5166548305af91} 
+ \mbox{\hyperlink{classqiskit_1_1primitives_1_1base_1_1base__primitive__job_1_1_base_primitive_job}{Base\+Primitive\+Job}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1primitive__result_1_1_primitive_result}{Primitive\+Result}}\mbox{[}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1sampler__pub__result_1_1_sampler_pub_result}{Sampler\+Pub\+Result}}\mbox{]}\mbox{]} qiskit.\+primitives.\+base.\+base\+\_\+sampler.\+Base\+Sampler\+V2.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Iterable\mbox{[}Sampler\+Pub\+Like\mbox{]}}]{pubs}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{shots}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run and collect samples from each pub.
+
+Args:
+    pubs: An iterable of pub-like objects. For example, a list of circuits
+          or tuples ``(circuit, parameter_values)``.
+    shots: The total number of shots to sample for each sampler pub that does
+           not specify its own shots. If ``None``, the primitive's default
+           shots value will be used, which can vary by implementation.
+
+Returns:
+    The job object of Sampler's result.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1primitives_1_1backend__sampler__v2_1_1_backend_sampler_v2_a7cfe21a1588d9e03fe4b36536ad80bb1_a7cfe21a1588d9e03fe4b36536ad80bb1}{qiskit.\+primitives.\+backend\+\_\+sampler\+\_\+v2.\+Backend\+Sampler\+V2}}, and \mbox{\hyperlink{classqiskit_1_1primitives_1_1statevector__sampler_1_1_statevector_sampler_a6b6c7ed17ddfee08fbffd0e14e04960b_a6b6c7ed17ddfee08fbffd0e14e04960b}{qiskit.\+primitives.\+statevector\+\_\+sampler.\+Statevector\+Sampler}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/primitives/base/base\+\_\+sampler.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,109 @@
+#include "definitions.h"
+#include "Globals.h"
+#include "Test_Cases.h"
+
+extern "C" void OED()
+{
+
+	// Kind of Boundary Conditions to be implemented in the code
+	Is_Viscous_Wall = false;
+	Is_Inlet_SubSonic = false;
+	Is_Exit_SubSonic = false;
+	has_Symmetry_BC = false;
+	Is_Time_Dependent = true;
+	Terminating_Time = 100;
+
+	Directory_Name();
+	File_Name();
+
+	switch (Grid_Size)
+	{
+	case 1:
+		Grid_File = "../Grid_Files/OED/OED_800_20.txt";
+		Grid_Vtk_File = "../Grid_Files/OED/OED_800_20.vtk";
+		Error_File += "_800_20.txt";
+		Initial_Solution_File += "_800_20.txt";
+		Solution_File += "_800_20.txt";
+		Final_Solution_File += "_800_20.vtk";
+		break;
+	}
+
+	/* Reads Input grid file and does the preprocessing required for grid
+	 * Calculates the Cell Normals, Cell Areas
+	 * Checks for Grid
+	 */
+	Form_Cells(Grid_File);
+	cout << "Grid_Type used \t" << Grid_Type << endl;
+	//	Write_Cell_Info("../Grid_Files/Forward_Step_Grid_Files/Forward_Step_241_81.txt");
+	V_D V(2, 0.0);
+	int index = 0;
+
+	cout << " Initial Data for Solution\t" << endl;
+	cout << "Initialize from a file or from Zero, Enter 1 to read data from file:\t";
+
+	cin >> Initialize_Type;
+	// Reynolds Number Re and Prandtl Number Pr
+	Re = 25000;
+	Pr = 0.72;
+	L_ref = 1.0; // Xsh
+	M_ref = 1.0;
+	Inv_Re = 1.0 / Re;
+	Inv_Pr = 1.0 / Pr;
+	Inlet_Mach_No = 6.0;
+
+	Reference_Values();
+
+	double Diaph = 0.3;
+
+	if (Initialize_Type == 1)
+		Initialize(Final_Solution_File);
+	else
+	{
+		Initialize(Test_Case);
+		for (int j = 0; j < (ny_c - 1); j++)
+		{
+			for (int i = 0; i < (nx_c - 1); i++)
+			{
+				if (i <= 20) // Pre Shock Conditions Left side of Shock
+				{
+					index = i + j * (nx_c - 1);
+					Pressure_Static_Inlet = 41.8333333;
+					Rho_Static_Inlet = 7.37561;
+					V_1 = 4.8611;
+					V_2 = 0.0;
+				}
+				else // Post Shock Conditions Right Side of SHock
+				{
+					index = i + j * (nx_c - 1);
+					Pressure_Static_Inlet = 1.0;
+					Rho_Static_Inlet = 1.4;
+					V_1 = 0.0;
+					V_2 = 0.0;
+				}
+
+				V[0] = V_1;
+				V[1] = V_2;
+
+				Calculate_Computational_Variables(Pressure_Static_Inlet, V, Rho_Static_Inlet, 2);
+				for (unsigned int j = 0; j < Global_U.size(); j++)
+				{
+					U_Cells[index][j] = Global_U[j];
+				}
+				Calculate_Primitive_Variables(index, U_Cells[index]);
+				for (unsigned int j = 0; j < Global_Primitive.size(); j++)
+				{
+					Primitive_Cells[index][j] = Global_Primitive[j];
+				}
+			}
+		}
+	}
+
+	Identify_Wall_Boundary_Faces(Grid_Type);
+
+	cout << "Writing Initial Solution to file " << endl;
+	Write_Solution(Initial_Solution_File, 1);
+
+	Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
+	Append_Solution(Initial_Solution_File, Final_Solution_File);
+	cout << "Intialized Solution with inlet conditions, Identified Boundaries......... Ready to solve" << endl;
+}

@@ -1,0 +1,151 @@
+\doxysection{qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate}\index{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{de/d35/classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a30eb0cb172b024dfc8ffb43fdc91b90c_a30eb0cb172b024dfc8ffb43fdc91b90c}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+variable\+\_\+qubits, list\mbox{[}int\mbox{]}\texorpdfstring{$\vert$}{|}None flags=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a32c1ce8a1aa301f2b156c76828d9658e_a32c1ce8a1aa301f2b156c76828d9658e}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a41e7dc9a38b5eff222c3fe8bc04bd185_a41e7dc9a38b5eff222c3fe8bc04bd185}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a58b11b7b81740e5cb3db681ab5701a9b}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a58b11b7b81740e5cb3db681ab5701a9b} 
+{\bfseries num\+\_\+variable\+\_\+qubits} = num\+\_\+variable\+\_\+qubits
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_ad84767c3d29871e90134872b83d8aa53}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_ad84767c3d29871e90134872b83d8aa53} 
+{\bfseries flags} = flags
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_aad0b1ccbd0e4d2f17d07b397545ec45e}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_aad0b1ccbd0e4d2f17d07b397545ec45e} 
+{\bfseries definition} = circuit
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_ac174be7c10d570c80fce871b2cb6a078_ac174be7c10d570c80fce871b2cb6a078}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A gate representing the logical OR operation on a number of qubits.
+
+For the OR operation the state :math:`|1\rangle` is interpreted as ``True``. The result
+qubit is flipped, if the state of any variable qubit is ``True``. The OR is implemented using
+a multi-open-controlled X gate (i.e. flips if the state is :math:`|0\rangle`) and
+applying an X gate on the result qubit.
+Using a list of flags, qubits can be skipped or negated.
+
+The OrGate gate without special flags:
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit import QuantumCircuit
+   from qiskit.circuit.library import OrGate
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   circuit = QuantumCircuit(6)
+   circuit.append(OrGate(5), [0, 1, 2, 3, 4, 5])
+   _generate_circuit_library_visualization(circuit)
+
+Using flags we can negate qubits or skip them. For instance, if we have 5 qubits and want to
+return ``True`` if the first qubit is ``False`` or one of the last two are ``True`` we use the
+flags ``[-1, 0, 0, 1, 1]``.
+
+.. plot::
+   :alt: Diagram illustrating the previously described circuit.
+
+   from qiskit.circuit import QuantumCircuit
+   from qiskit.circuit.library import OrGate
+   from qiskit.visualization.library import _generate_circuit_library_visualization
+   circuit = QuantumCircuit(6)
+   circuit.append(OrGate(5, flags=[-1, 0, 0, 1, 1]), [0, 1, 2, 3, 4, 5])
+   _generate_circuit_library_visualization(circuit)\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a30eb0cb172b024dfc8ffb43fdc91b90c_a30eb0cb172b024dfc8ffb43fdc91b90c}\index{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a30eb0cb172b024dfc8ffb43fdc91b90c_a30eb0cb172b024dfc8ffb43fdc91b90c} 
+ None qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+variable\+\_\+qubits}{, }\item[{list\mbox{[}int\mbox{]} \texorpdfstring{$\vert$}{|} None }]{flags}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_variable_qubits: The qubits of which the AND is computed. The result will be written
+        into an additional result qubit.
+    flags: A list of +1/0/-1 marking negations or omissions of qubits.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a41e7dc9a38b5eff222c3fe8bc04bd185_a41e7dc9a38b5eff222c3fe8bc04bd185}\index{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a41e7dc9a38b5eff222c3fe8bc04bd185_a41e7dc9a38b5eff222c3fe8bc04bd185} 
+qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_ac174be7c10d570c80fce871b2cb6a078_ac174be7c10d570c80fce871b2cb6a078}\index{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_ac174be7c10d570c80fce871b2cb6a078_ac174be7c10d570c80fce871b2cb6a078} 
+qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a32c1ce8a1aa301f2b156c76828d9658e_a32c1ce8a1aa301f2b156c76828d9658e}\index{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate@{qiskit.circuit.library.boolean\_logic.quantum\_or.OrGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1quantum__or_1_1_or_gate_a32c1ce8a1aa301f2b156c76828d9658e_a32c1ce8a1aa301f2b156c76828d9658e} 
+qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+quantum\+\_\+or.\+Or\+Gate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverted OR gate (itself).
+
+    Args:
+        annotated: when set to ``True``, this is typically used to return an
+            :class:`.AnnotatedOperation` with an inverse modifier set instead of a concrete
+            :class:`.Gate`. However, for this class this argument is ignored as this gate
+            is self-inverse.
+
+    Returns:
+        OrGate: inverse gate (self-inverse).\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/boolean\+\_\+logic/quantum\+\_\+or.\+py\end{DoxyCompactItemize}

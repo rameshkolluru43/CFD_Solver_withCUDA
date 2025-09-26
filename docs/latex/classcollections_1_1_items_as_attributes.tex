@@ -1,0 +1,64 @@
+\doxysection{collections.\+Items\+As\+Attributes Class Reference}
+\hypertarget{classcollections_1_1_items_as_attributes}{}\label{classcollections_1_1_items_as_attributes}\index{collections.ItemsAsAttributes@{collections.ItemsAsAttributes}}
+Inheritance diagram for collections.\+Items\+As\+Attributes\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcollections_1_1_items_as_attributes}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_items_as_attributes_a12fe00b119ec60177c0d67f333167854}\label{classcollections_1_1_items_as_attributes_a12fe00b119ec60177c0d67f333167854} 
+{\bfseries \+\_\+\+\_\+getattr\+\_\+\+\_\+} (self, key)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Mix-in class to enable a mapping object to provide items as
+attributes.
+
+>>> C = type('C', (dict, ItemsAsAttributes), dict())
+>>> i = C()
+>>> i['foo'] = 'bar'
+>>> i.foo
+'bar'
+
+Natural attribute access takes precedence
+
+>>> i.foo = 'henry'
+>>> i.foo
+'henry'
+
+But as you might expect, the mapping functionality is preserved.
+
+>>> i['foo']
+'bar'
+
+A normal attribute error should be raised if an attribute is
+requested that doesn't exist.
+
+>>> i.missing
+Traceback (most recent call last):
+...
+AttributeError: 'C' object has no attribute 'missing'
+
+It also works on dicts that customize __getitem__
+
+>>> missing_func = lambda self, key: 'missing item'
+>>> C = type(
+...     'C',
+...     (dict, ItemsAsAttributes),
+...     dict(__missing__ = missing_func),
+... )
+>>> i = C()
+>>> i.missing
+'missing item'
+>>> i.foo
+'missing item'
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

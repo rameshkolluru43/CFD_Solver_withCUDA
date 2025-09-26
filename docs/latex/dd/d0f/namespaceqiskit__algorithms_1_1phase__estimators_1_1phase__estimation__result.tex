@@ -1,0 +1,52 @@
+\doxysection{qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+phase\+\_\+estimation\+\_\+result Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result}{}\label{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result}\index{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result@{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_1_1_phase_estimation_result}{Phase\+Estimation\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_ace088bf32c2734ace0b4b4a83edef63c_ace088bf32c2734ace0b4b4a83edef63c}{\+\_\+bit\+\_\+string\+\_\+to\+\_\+phase}} (str binary\+\_\+string)
+\item 
+dict \mbox{\hyperlink{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_a53263e2b4db3b6c7ed8f6c4f3b7e44c6_a53263e2b4db3b6c7ed8f6c4f3b7e44c6}{\+\_\+sort\+\_\+phases}} (dict phases)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Result of running PhaseEstimation\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_ace088bf32c2734ace0b4b4a83edef63c_ace088bf32c2734ace0b4b4a83edef63c}\index{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result@{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result}!\_bit\_string\_to\_phase@{\_bit\_string\_to\_phase}}
+\index{\_bit\_string\_to\_phase@{\_bit\_string\_to\_phase}!qiskit\_algorithms.phase\_estimators.phase\_estimation\_result@{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result}}
+\doxysubsubsection{\texorpdfstring{\_bit\_string\_to\_phase()}{\_bit\_string\_to\_phase()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_ace088bf32c2734ace0b4b4a83edef63c_ace088bf32c2734ace0b4b4a83edef63c} 
+ float qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+phase\+\_\+estimation\+\_\+result.\+\_\+bit\+\_\+string\+\_\+to\+\_\+phase (\begin{DoxyParamCaption}\item[{str}]{binary\+\_\+string}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Convert bit string to a normalized phase in :math:`[0,1)`.
+
+It is assumed that the bit string is correctly padded and that the order of
+the bits has been reversed relative to their order when the counts
+were recorded. The LSB is the right most when interpreting the bitstring as
+a phase.
+
+Args:
+    binary_string: A string of characters '0' and '1'.
+
+Returns:
+    A phase scaled to :math:`[0,1)`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_a53263e2b4db3b6c7ed8f6c4f3b7e44c6_a53263e2b4db3b6c7ed8f6c4f3b7e44c6}\index{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result@{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result}!\_sort\_phases@{\_sort\_phases}}
+\index{\_sort\_phases@{\_sort\_phases}!qiskit\_algorithms.phase\_estimators.phase\_estimation\_result@{qiskit\_algorithms.phase\_estimators.phase\_estimation\_result}}
+\doxysubsubsection{\texorpdfstring{\_sort\_phases()}{\_sort\_phases()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1phase__estimators_1_1phase__estimation__result_a53263e2b4db3b6c7ed8f6c4f3b7e44c6_a53263e2b4db3b6c7ed8f6c4f3b7e44c6} 
+ dict qiskit\+\_\+algorithms.\+phase\+\_\+estimators.\+phase\+\_\+estimation\+\_\+result.\+\_\+sort\+\_\+phases (\begin{DoxyParamCaption}\item[{dict}]{phases}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Sort a dict of bit strings representing phases (keys) and frequencies (values) by bit string.
+
+The bit strings are sorted according to increasing phase. This relies on Python
+preserving insertion order when building dicts.
+\end{DoxyVerb}
+ 

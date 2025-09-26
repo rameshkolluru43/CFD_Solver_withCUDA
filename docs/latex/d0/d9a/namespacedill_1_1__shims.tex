@@ -1,0 +1,146 @@
+\doxysection{dill.\+\_\+shims Namespace Reference}
+\hypertarget{namespacedill_1_1__shims}{}\label{namespacedill_1_1__shims}\index{dill.\_shims@{dill.\_shims}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classdill_1_1__shims_1_1___callable_reduce}{\+\_\+\+Callable\+Reduce}}
+\item 
+class \mbox{\hyperlink{classdill_1_1__shims_1_1_reduce}{Reduce}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacedill_1_1__shims_aaf3688b9b70e062c5bf4396814f82d88_aaf3688b9b70e062c5bf4396814f82d88}{Getattr}} (object, name, default=\+\_\+\+\_\+\+NO\+\_\+\+DEFAULT)
+\item 
+\Hypertarget{namespacedill_1_1__shims_ab10fc40d68b12f7dc875d8f7469c6b74}\label{namespacedill_1_1__shims_ab10fc40d68b12f7dc875d8f7469c6b74} 
+{\bfseries move\+\_\+to} (module, name=None)
+\item 
+\mbox{\hyperlink{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}{register\+\_\+shim}} (name, default)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacedill_1_1__shims_a31add66ecf04279438767caefcfb725e}\label{namespacedill_1_1__shims_a31add66ecf04279438767caefcfb725e} 
+{\bfseries \+\_\+dill} = sys.\+modules\mbox{[}\textquotesingle{}dill.\+\_\+dill\textquotesingle{}\mbox{]}
+\item 
+\Hypertarget{namespacedill_1_1__shims_a2751a531be29ef7b02b56895a48ee36d}\label{namespacedill_1_1__shims_a2751a531be29ef7b02b56895a48ee36d} 
+{\bfseries NO\+\_\+\+DEFAULT}
+\item 
+\mbox{\hyperlink{namespacedill_1_1__shims_a47093cf98362bcb3b29879d16e86922c_a47093cf98362bcb3b29879d16e86922c}{\+\_\+\+CELL\+\_\+\+EMPTY}} = \mbox{\hyperlink{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}{register\+\_\+shim}}(\textquotesingle{}\+\_\+\+CELL\+\_\+\+EMPTY\textquotesingle{}, None)
+\begin{DoxyCompactList}\small\item\em Compatibility Shims are defined below. \end{DoxyCompactList}\item 
+\Hypertarget{namespacedill_1_1__shims_af44c597c40d50d2556a9a28cb7924593}\label{namespacedill_1_1__shims_af44c597c40d50d2556a9a28cb7924593} 
+{\bfseries \+\_\+setattr} = \mbox{\hyperlink{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}{register\+\_\+shim}}(\textquotesingle{}\+\_\+setattr\textquotesingle{}, setattr)
+\item 
+\Hypertarget{namespacedill_1_1__shims_a3f88902dd7206b1b879d267344b3436e}\label{namespacedill_1_1__shims_a3f88902dd7206b1b879d267344b3436e} 
+{\bfseries \+\_\+delattr} = \mbox{\hyperlink{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}{register\+\_\+shim}}(\textquotesingle{}\+\_\+delattr\textquotesingle{}, delattr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Provides shims for compatibility between versions of dill and Python.
+
+Compatibility shims should be provided in this file. Here are two simple example
+use cases.
+
+Deprecation of constructor function:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Assume that we were transitioning _import_module in _dill.py to
+the builtin function importlib.import_module when present.
+
+@move_to(_dill)
+def _import_module(import_name):
+    ... # code already in _dill.py
+
+_import_module = Getattr(importlib, 'import_module', Getattr(_dill, '_import_module', None))
+
+The code will attempt to find import_module in the importlib module. If not
+present, it will use the _import_module function in _dill.
+
+Emulate new Python behavior in older Python versions:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+CellType.cell_contents behaves differently in Python 3.6 and 3.7. It is
+read-only in Python 3.6 and writable and deletable in 3.7.
+
+if _dill.OLD37 and _dill.HAS_CTYPES and ...:
+    @move_to(_dill)
+    def _setattr(object, name, value):
+        if type(object) is _dill.CellType and name == 'cell_contents':
+            _PyCell_Set.argtypes = (ctypes.py_object, ctypes.py_object)
+            _PyCell_Set(object, value)
+        else:
+            setattr(object, name, value)
+... # more cases below
+
+_setattr = Getattr(_dill, '_setattr', setattr)
+
+_dill._setattr will be used when present to emulate Python 3.7 functionality in
+older versions of Python while defaulting to the standard setattr in 3.7+.
+
+See this PR for the discussion that lead to this system:
+https://github.com/uqfoundation/dill/pull/443
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedill_1_1__shims_aaf3688b9b70e062c5bf4396814f82d88_aaf3688b9b70e062c5bf4396814f82d88}\index{dill.\_shims@{dill.\_shims}!Getattr@{Getattr}}
+\index{Getattr@{Getattr}!dill.\_shims@{dill.\_shims}}
+\doxysubsubsection{\texorpdfstring{Getattr()}{Getattr()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1__shims_aaf3688b9b70e062c5bf4396814f82d88_aaf3688b9b70e062c5bf4396814f82d88} 
+dill.\+\_\+shims.\+Getattr (\begin{DoxyParamCaption}\item[{}]{object}{, }\item[{}]{name}{, }\item[{}]{default}{ = {\ttfamily \+\_\+\+\_\+NO\+\_\+DEFAULT}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A Reduce object that represents the getattr operation. When unpickled, the
+Getattr will access an attribute 'name' of 'object' and return the value
+stored there. If the attribute doesn't exist, the default value will be
+returned if present.
+
+The following statements are equivalent:
+
+Getattr(collections, 'OrderedDict')
+Getattr(collections, 'spam', None)
+Getattr(*args)
+
+Reduce(getattr, (collections, 'OrderedDict'))
+Reduce(getattr, (collections, 'spam', None))
+Reduce(getattr, args)
+
+During unpickling, the first two will result in collections.OrderedDict and
+None respectively because the first attribute exists and the second one does
+not, forcing it to use the default value given in the third argument.
+\end{DoxyVerb}
+ \Hypertarget{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}\index{dill.\_shims@{dill.\_shims}!register\_shim@{register\_shim}}
+\index{register\_shim@{register\_shim}!dill.\_shims@{dill.\_shims}}
+\doxysubsubsection{\texorpdfstring{register\_shim()}{register\_shim()}}
+{\footnotesize\ttfamily \label{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4} 
+dill.\+\_\+shims.\+register\+\_\+shim (\begin{DoxyParamCaption}\item[{}]{name}{, }\item[{}]{default}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A easier to understand and more compact way of "softly" defining a function.
+These two pieces of code are equivalent:
+
+if _dill.OLD3X:
+    def _create_class():
+        ...
+_create_class = register_shim('_create_class', types.new_class)
+
+if _dill.OLD3X:
+    @move_to(_dill)
+    def _create_class():
+        ...
+_create_class = Getattr(_dill, '_create_class', types.new_class)
+
+Intuitively, it creates a function or object in the versions of dill/python
+that require special reimplementations, and use a core library or default
+implementation if that function or object does not exist.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedill_1_1__shims_a47093cf98362bcb3b29879d16e86922c_a47093cf98362bcb3b29879d16e86922c}\index{dill.\_shims@{dill.\_shims}!\_CELL\_EMPTY@{\_CELL\_EMPTY}}
+\index{\_CELL\_EMPTY@{\_CELL\_EMPTY}!dill.\_shims@{dill.\_shims}}
+\doxysubsubsection{\texorpdfstring{\_CELL\_EMPTY}{\_CELL\_EMPTY}}
+{\footnotesize\ttfamily \label{namespacedill_1_1__shims_a47093cf98362bcb3b29879d16e86922c_a47093cf98362bcb3b29879d16e86922c} 
+dill.\+\_\+shims.\+\_\+\+CELL\+\_\+\+EMPTY = \mbox{\hyperlink{namespacedill_1_1__shims_ae282b7e4c839cf74b70bf1209903aec4_ae282b7e4c839cf74b70bf1209903aec4}{register\+\_\+shim}}(\textquotesingle{}\+\_\+\+CELL\+\_\+\+EMPTY\textquotesingle{}, None)\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Compatibility Shims are defined below. 
+

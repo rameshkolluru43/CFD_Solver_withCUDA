@@ -1,0 +1,41 @@
+\doxysection{qiskit.\+synthesis.\+multi\+\_\+controlled.\+mcmt\+\_\+vchain Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1multi__controlled_1_1mcmt__vchain}{}\label{namespaceqiskit_1_1synthesis_1_1multi__controlled_1_1mcmt__vchain}\index{qiskit.synthesis.multi\_controlled.mcmt\_vchain@{qiskit.synthesis.multi\_controlled.mcmt\_vchain}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1multi__controlled_1_1mcmt__vchain_a37aac638ec1b2058304aaee2ca4a8b1a_a37aac638ec1b2058304aaee2ca4a8b1a}{synth\+\_\+mcmt\+\_\+vchain}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}} gate, int num\+\_\+ctrl\+\_\+qubits, int num\+\_\+target\+\_\+qubits, int\texorpdfstring{$\vert$}{|}None ctrl\+\_\+state=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Synthesis for multiple-control, multiple-target Gate.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1multi__controlled_1_1mcmt__vchain_a37aac638ec1b2058304aaee2ca4a8b1a_a37aac638ec1b2058304aaee2ca4a8b1a}\index{qiskit.synthesis.multi\_controlled.mcmt\_vchain@{qiskit.synthesis.multi\_controlled.mcmt\_vchain}!synth\_mcmt\_vchain@{synth\_mcmt\_vchain}}
+\index{synth\_mcmt\_vchain@{synth\_mcmt\_vchain}!qiskit.synthesis.multi\_controlled.mcmt\_vchain@{qiskit.synthesis.multi\_controlled.mcmt\_vchain}}
+\doxysubsubsection{\texorpdfstring{synth\_mcmt\_vchain()}{synth\_mcmt\_vchain()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1multi__controlled_1_1mcmt__vchain_a37aac638ec1b2058304aaee2ca4a8b1a_a37aac638ec1b2058304aaee2ca4a8b1a} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+multi\+\_\+controlled.\+mcmt\+\_\+vchain.\+synth\+\_\+mcmt\+\_\+vchain (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate}{Gate}}}]{gate}{, }\item[{int}]{num\+\_\+ctrl\+\_\+qubits}{, }\item[{int}]{num\+\_\+target\+\_\+qubits}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{ctrl\+\_\+state}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Synthesize MCMT using a V-chain.
+
+This uses a chain of CCX gates, using ``num_ctrl_qubits - 1`` auxiliary qubits.
+
+For example, a 3-control and 2-target H gate will be synthesized as::
+
+    q_0: ──■────────────────────────■──
+           │                        │
+    q_1: ──■────────────────────────■──
+           │                        │
+    q_2: ──┼────■──────────────■────┼──
+           │    │  ┌───┐       │    │
+    q_3: ──┼────┼──┤ H ├───────┼────┼──
+           │    │  └─┬─┘┌───┐  │    │
+    q_4: ──┼────┼────┼──┤ H ├──┼────┼──
+         ┌─┴─┐  │    │  └─┬─┘  │  ┌─┴─┐
+    q_5: ┤ X ├──■────┼────┼────■──┤ X ├
+         └───┘┌─┴─┐  │    │  ┌─┴─┐└───┘
+    q_6: ─────┤ X ├──■────■──┤ X ├─────
+              └───┘          └───┘\end{DoxyVerb}
+ 

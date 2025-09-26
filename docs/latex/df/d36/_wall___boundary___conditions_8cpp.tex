@@ -1,0 +1,315 @@
+\doxysection{Boundary\+\_\+\+Conditions/\+Wall\+\_\+\+Boundary\+\_\+\+Conditions.cpp File Reference}
+\hypertarget{_wall___boundary___conditions_8cpp}{}\label{_wall___boundary___conditions_8cpp}\index{Boundary\_Conditions/Wall\_Boundary\_Conditions.cpp@{Boundary\_Conditions/Wall\_Boundary\_Conditions.cpp}}
+{\ttfamily \#include "{}../\+Basic\+\_\+\+Files/definitions.\+h"{}}\newline
+Include dependency graph for Wall\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d9b/_wall___boundary___conditions_8cpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d8/d08/_wall___boundary___conditions_8cpp__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_wall___boundary___conditions_8cpp_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4}{Symmetry\+\_\+\+Boundary\+\_\+\+Condition}} ()
+\item 
+void \mbox{\hyperlink{_wall___boundary___conditions_8cpp_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26}{Evaluate\+\_\+\+Wall\+\_\+\+Skin\+\_\+\+Friction}} ()
+\item 
+void \mbox{\hyperlink{_wall___boundary___conditions_8cpp_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7}{Viscous\+\_\+\+Wall\+\_\+\+Boundary\+\_\+\+Condition}} ()
+\item 
+void \mbox{\hyperlink{_wall___boundary___conditions_8cpp_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921}{In\+Viscid\+\_\+\+Wall\+\_\+\+Boundary\+\_\+\+Condition}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_wall___boundary___conditions_8cpp_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26}\index{Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}!Evaluate\_Wall\_Skin\_Friction@{Evaluate\_Wall\_Skin\_Friction}}
+\index{Evaluate\_Wall\_Skin\_Friction@{Evaluate\_Wall\_Skin\_Friction}!Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Evaluate\_Wall\_Skin\_Friction()}{Evaluate\_Wall\_Skin\_Friction()}}
+{\footnotesize\ttfamily \label{_wall___boundary___conditions_8cpp_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26} 
+void Evaluate\+\_\+\+Wall\+\_\+\+Skin\+\_\+\+Friction (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source_l00050}{50}} of file \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source}{Wall\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00051\ \{}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0,\ Face\_No\ =\ 0,\ Grad\_Type,\ index,\ ListSize,\ StartGridPoint;}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{double}\ u11,\ u12,\ u21,\ u22,\ dudn,\ dvdn,\ dVdn,\ dVxdn,\ dVydn,\ sgn,\ dVdna,\ vmag;}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{double}\ v1\ =\ 0.0,\ v2\ =\ 0.0,\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ =\ 0.0,\ tx\ =\ 0.0,\ ty\ =\ 0.0,\ tw\ =\ 0.0,\ T11\ =\ 0.0,\ T12\ =\ 0.0,\ T21\ =\ 0.0,\ T22\ =\ 0.0;}
+\DoxyCodeLine{00055\ \ \ \ \ ListSize\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.size();}
+\DoxyCodeLine{00056\ \ \ \ \ StartGridPoint\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[0];}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Wall\ List\ size"{}<<ListSize<<"{}\(\backslash\)t"{}<<StartGridPoint<<endl;}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ ListSize;\ i\ +=\ 3)}
+\DoxyCodeLine{00060\ \ \ \ \ \{}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ Face\_No\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 1];}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ index\ =\ Face\_No\ *\ 2;}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*Methodology\ to\ find\ Skin\ Friction\ on\ the\ wall*/}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*nx\ =\ Cell\_Face\_Normals[Cell\_Index][index+0];}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_Index][index+1];}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_Index][Face\_No];*/}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[index\ +\ 0];}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[index\ +\ 1];}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ae608e13b09ebd3836bb6840c096ea874_ae608e13b09ebd3836bb6840c096ea874}{dl}}\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Areas[Face\_No];}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ tx\ =\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ ty\ =\ -\/\mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ v1\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][1]);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ v2\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][2]);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ =\ 0.5\ *\ (\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][8]\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][8]);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<nx<<"{}\(\backslash\)t"{}<<ny<<"{}\(\backslash\)t"{}<<dl<<endl;}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<v1<<"{}\(\backslash\)t"{}<<v2<<"{}\(\backslash\)t"{}<<mu<<endl;}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ Grad\_Type\ =\ 1;\ \textcolor{comment}{//\ U\ velocity\ Gradient\ \ \ \ \ \ \ //\ Finds\ the\ u\ Velocity\ gradient\ on\ the\ face\ required}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aaba2caea764961926541016ae90e1092_aaba2caea764961926541016ae90e1092}{Calculate\_Gradient\_On\_Face}}(Cell\_Index,\ Grad\_Type,\ Face\_No);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ u11\ =\ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[0];}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ u12\ =\ \mbox{\hyperlink{definitions_8h_a8e526519758a145a041062d8b152b3a9_a8e526519758a145a041062d8b152b3a9}{u\_Gradient}}[1];}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ Grad\_Type\ =\ 2;\ \textcolor{comment}{//\ V\ Velocity\ Gradient}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aaba2caea764961926541016ae90e1092_aaba2caea764961926541016ae90e1092}{Calculate\_Gradient\_On\_Face}}(Cell\_Index,\ Grad\_Type,\ Face\_No);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ u21\ =\ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[0];}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ u22\ =\ \mbox{\hyperlink{definitions_8h_af527b16f90646a68fcea6bc5ce7d4d71_af527b16f90646a68fcea6bc5ce7d4d71}{v\_Gradient}}[1];}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ T11\ =\ (2.0\ /\ 3.0)\ *\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (2.0\ *\ u11\ -\/\ u22);}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ T12\ =\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (u12\ +\ u21);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ T21\ =\ T12;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ T22\ =\ (2.0\ /\ 3.0)\ *\ \mbox{\hyperlink{definitions_8h_a74577585cf12d1712ab9c57616d49205_a74577585cf12d1712ab9c57616d49205}{mu}}\ *\ \mbox{\hyperlink{definitions_8h_a8f0e539560baf6b104beb26d7f4c926f_a8f0e539560baf6b104beb26d7f4c926f}{Inv\_Re}}\ *\ (2.0\ *\ u22\ -\/\ u11);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a02ddd90ecae54191d509e33580e4a439_a02ddd90ecae54191d509e33580e4a439}{Pressure\_Static\_Inlet}}\ =\ \mbox{\hyperlink{definitions_8h_aed264dd9bc21b3d13622d9d4ef571643_aed264dd9bc21b3d13622d9d4ef571643}{P\_ref}};}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_ac661f16c78f79f0e1f69859cfa4c2ff1_ac661f16c78f79f0e1f69859cfa4c2ff1}{Rho\_Static\_Inlet}}\ =\ \mbox{\hyperlink{definitions_8h_a4511e7f82f52118b5d3603945994eabd_a4511e7f82f52118b5d3603945994eabd}{Rho\_ref}};}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a82d6f53431aee64b6015512e46b8b9bd_a82d6f53431aee64b6015512e46b8b9bd}{V\_1}}\ =\ \mbox{\hyperlink{definitions_8h_aaf7788267f7eb893e53ba585c6bad08d_aaf7788267f7eb893e53ba585c6bad08d}{Inlet\_Mach\_No}}\ *\ sqrt(\mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ *\ \mbox{\hyperlink{definitions_8h_a02ddd90ecae54191d509e33580e4a439_a02ddd90ecae54191d509e33580e4a439}{Pressure\_Static\_Inlet}}\ /\ \mbox{\hyperlink{definitions_8h_ac661f16c78f79f0e1f69859cfa4c2ff1_ac661f16c78f79f0e1f69859cfa4c2ff1}{Rho\_Static\_Inlet}});}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a6c66dc6126bd814de4319b54da15dabe_a6c66dc6126bd814de4319b54da15dabe}{V\_2}}\ =\ 0.0;}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ vmag\ =\ \mbox{\hyperlink{definitions_8h_a82d6f53431aee64b6015512e46b8b9bd_a82d6f53431aee64b6015512e46b8b9bd}{V\_1}}\ *\ \mbox{\hyperlink{definitions_8h_a82d6f53431aee64b6015512e46b8b9bd_a82d6f53431aee64b6015512e46b8b9bd}{V\_1}}\ +\ \mbox{\hyperlink{definitions_8h_a6c66dc6126bd814de4319b54da15dabe_a6c66dc6126bd814de4319b54da15dabe}{V\_2}}\ *\ \mbox{\hyperlink{definitions_8h_a6c66dc6126bd814de4319b54da15dabe_a6c66dc6126bd814de4319b54da15dabe}{V\_2}};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ tw\ =\ (T11\ *\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ T12\ *\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ tx\ +\ (T21\ *\ \mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}\ +\ T22\ *\ \mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}})\ *\ ty;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cout<<"{}Value\ of\ tw\(\backslash\)t"{}<<tw<<endl;}}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5a272aec1ddd5277d82b37bf71018cd2_a5a272aec1ddd5277d82b37bf71018cd2}{CF}}[Cell\_Index\ -\/\ StartGridPoint]\ =\ 2.0\ *\ tw\ /\ (\mbox{\hyperlink{definitions_8h_a367f1cbb9d95294fabb8c50578f3832f_a367f1cbb9d95294fabb8c50578f3832f}{Rho\_inf}}\ *\ \mbox{\hyperlink{definitions_8h_ae77cdc01ff511f77a095fe4c872c9914_ae77cdc01ff511f77a095fe4c872c9914}{q\_inf}}\ *\ \mbox{\hyperlink{definitions_8h_ae77cdc01ff511f77a095fe4c872c9914_ae77cdc01ff511f77a095fe4c872c9914}{q\_inf}});}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}Skin\ friction\(\backslash\)t"{}<<Cell\_Index-\/StartGridPoint<<"{}\(\backslash\)t"{}<<CF[Cell\_Index-\/StartGridPoint]<<endl;}}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a5d9a0b19b8197154141a02ed0e831e26_a5d9a0b19b8197154141a02ed0e831e26_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_wall___boundary___conditions_8cpp_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921}\index{Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}!InViscid\_Wall\_Boundary\_Condition@{InViscid\_Wall\_Boundary\_Condition}}
+\index{InViscid\_Wall\_Boundary\_Condition@{InViscid\_Wall\_Boundary\_Condition}!Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{InViscid\_Wall\_Boundary\_Condition()}{InViscid\_Wall\_Boundary\_Condition()}}
+{\footnotesize\ttfamily \label{_wall___boundary___conditions_8cpp_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921} 
+void In\+Viscid\+\_\+\+Wall\+\_\+\+Boundary\+\_\+\+Condition (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source_l00139}{139}} of file \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source}{Wall\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00140\ \{}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordtype}{double}\ v1\_Ghost\_Cell\ =\ 0.0,\ v2\_Ghost\_Cell\ =\ 0.0,\ v1\_Interior\_Cell\ =\ 0.0,\ v2\_Interior\_Cell\ =\ 0.0,\ n1\ =\ 0.0,\ n2\ =\ 0.0,\ vmag\ =\ 0.0,\ vdotn\ =\ 0.0;}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordtype}{int}\ Face\_Index\ =\ 0,\ Cell\_Index,\ Ghost\_Cell\_Index,\ Face\_No\ =\ 0;}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Size\ of\ Wall\_Cells\_List\(\backslash\)t"{}<<Wall\_Cells\_List.size()<<endl;}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00146\ \ \ \ \ \{}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ Face\_No\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 1];}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ v1\_Interior\_Cell\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1];}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ v2\_Interior\_Cell\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2];}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ Face\_Index\ =\ Face\_No\ *\ 2;\ \textcolor{comment}{//\ Face\_Index\ =\ Face\_No*2}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*n1\ =\ Cell\_Face\_Normals[Cell\_Index][Face\_Index+0];\ \ \ \ \ //Face\_No*2+0}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ \ \ \ \ \ \ \ n2\ =\ Cell\_Face\_Normals[Cell\_Index][Face\_Index+1];\ \ \ \ \ \ \ //Face\_No*2+1*/}}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ n1\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[Face\_Index\ +\ 0];}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ n2\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[Face\_Index\ +\ 1];}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_Index<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<n1<<"{}\(\backslash\)t"{}<<n2<<endl;}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ vdotn\ =\ (v1\_Interior\_Cell\ *\ n1\ +\ v2\_Interior\_Cell\ *\ n2);\ \textcolor{comment}{//\ V.n}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ cout<<"{}Vdotn\(\backslash\)t"{}<<vdotn<<endl;}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ v1\_Ghost\_Cell\ =\ v1\_Interior\_Cell\ -\/\ 2.0\ *\ vdotn\ *\ n1;}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ v2\_Ghost\_Cell\ =\ v2\_Interior\_Cell\ -\/\ 2.0\ *\ vdotn\ *\ n2;\ \textcolor{comment}{//\ V\ =\ V\ -\/\ 2*(V.n)\ component\ wise}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ vmag\ =\ 0.5\ *\ (v1\_Ghost\_Cell\ *\ v1\_Ghost\_Cell\ +\ v2\_Ghost\_Cell\ *\ v2\_Ghost\_Cell);}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<v1\_Interior\_Cell<<"{}\(\backslash\)t"{}<<v2\_Interior\_Cell<<"{}\(\backslash\)t"{}<<v1\_Ghost\_Cell<<"{}\(\backslash\)t"{}<<v2\_Ghost\_Cell<<endl;}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0];}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ v1\_Ghost\_Cell;}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ v2\_Ghost\_Cell;}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ ((\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][4]\ /\ \mbox{\hyperlink{definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_a634ae110df2d4f2ee54ed70486bcc4ff}{gamma\_M\_1}})\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ vmag);}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_a1c199e756f8458978961b4d9ab4cbe63}{Calculate\_Primitive\_Variables}}(Ghost\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a9e2645ad4f32bcba4ffb3a64134d2921_a9e2645ad4f32bcba4ffb3a64134d2921_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_wall___boundary___conditions_8cpp_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4}\index{Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}!Symmetry\_Boundary\_Condition@{Symmetry\_Boundary\_Condition}}
+\index{Symmetry\_Boundary\_Condition@{Symmetry\_Boundary\_Condition}!Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Symmetry\_Boundary\_Condition()}{Symmetry\_Boundary\_Condition()}}
+{\footnotesize\ttfamily \label{_wall___boundary___conditions_8cpp_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4} 
+void Symmetry\+\_\+\+Boundary\+\_\+\+Condition (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source_l00004}{4}} of file \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source}{Wall\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{double}\ v1\_Ghost\_Cell\ =\ 0.0,\ v2\_Ghost\_Cell\ =\ 0.0,\ v1\_Interior\_Cell\ =\ 0.0,\ v2\_Interior\_Cell\ =\ 0.0,\ n1\ =\ 0.0,\ n2\ =\ 0.0,\ vmag\ =\ 0.0,\ vdotn\ =\ 0.0;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{int}\ Face\_Index\ =\ 0,\ Cell\_Index,\ Ghost\_Cell\_Index,\ Face\_No\ =\ 0;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Size\ of\ Wall\_Cells\_List\(\backslash\)t"{}<<Wall\_Cells\_List.size()<<endl;}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a815ac70ea1f042a3f8b33547b63bbb76_a815ac70ea1f042a3f8b33547b63bbb76}{Symmetry\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00011\ \ \ \ \ \{}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a815ac70ea1f042a3f8b33547b63bbb76_a815ac70ea1f042a3f8b33547b63bbb76}{Symmetry\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ Face\_No\ =\ \mbox{\hyperlink{definitions_8h_a815ac70ea1f042a3f8b33547b63bbb76_a815ac70ea1f042a3f8b33547b63bbb76}{Symmetry\_Cells\_List}}[i\ +\ 1];}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a815ac70ea1f042a3f8b33547b63bbb76_a815ac70ea1f042a3f8b33547b63bbb76}{Symmetry\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ v1\_Interior\_Cell\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][1];}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ v2\_Interior\_Cell\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][2];}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Face\_Index\ =\ Face\_No\ *\ 2;\ \textcolor{comment}{//\ Face\_Index\ =\ Face\_No*2}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*n1\ =\ Cell\_Face\_Normals[Cell\_Index][Face\_Index+0];\ \ \ \ \ //Face\_No*2+0}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ \ \ \ \ \ \ \ n2\ =\ Cell\_Face\_Normals[Cell\_Index][Face\_Index+1];\ \ \ \ \ \ \ //Face\_No*2+1*/}}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ n1\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[Face\_Index\ +\ 0];}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ n2\ =\ \mbox{\hyperlink{definitions_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[Cell\_Index].Face\_Normals[Face\_Index\ +\ 1];}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Ghost\_Cell\_Index<<"{}\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)t"{}<<n1<<"{}\(\backslash\)t"{}<<n2<<endl;}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ vdotn\ =\ (v1\_Interior\_Cell\ *\ n1\ +\ v2\_Interior\_Cell\ *\ n2);\ \textcolor{comment}{//\ V.n}}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ cout<<"{}Vdotn\(\backslash\)t"{}<<vdotn<<endl;}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ v1\_Ghost\_Cell\ =\ v1\_Interior\_Cell\ -\/\ 2.0\ *\ vdotn\ *\ n1;}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ v2\_Ghost\_Cell\ =\ v2\_Interior\_Cell\ -\/\ 2.0\ *\ vdotn\ *\ n2;\ \textcolor{comment}{//\ V\ =\ V\ -\/\ 2*(V.n)\ component\ wise}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ vmag\ =\ 0.5\ *\ (v1\_Ghost\_Cell\ *\ v1\_Ghost\_Cell\ +\ v2\_Ghost\_Cell\ *\ v2\_Ghost\_Cell);}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<v1\_Interior\_Cell<<"{}\(\backslash\)t"{}<<v2\_Interior\_Cell<<"{}\(\backslash\)t"{}<<v1\_Ghost\_Cell<<"{}\(\backslash\)t"{}<<v2\_Ghost\_Cell<<endl;}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0];}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ v1\_Ghost\_Cell;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ v2\_Ghost\_Cell;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ ((\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][4]\ /\ (\mbox{\hyperlink{definitions_8h_a42e729077189bab1dae844253dd2ad1d_a42e729077189bab1dae844253dd2ad1d}{gamma}}\ -\/\ 1.0))\ +\ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Cell\_Index][0]\ *\ vmag);}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_a1c199e756f8458978961b4d9ab4cbe63}{Calculate\_Primitive\_Variables}}(Ghost\_Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a4d3a822572d76209fad9b1faec4086f4_a4d3a822572d76209fad9b1faec4086f4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_wall___boundary___conditions_8cpp_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7}\index{Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}!Viscous\_Wall\_Boundary\_Condition@{Viscous\_Wall\_Boundary\_Condition}}
+\index{Viscous\_Wall\_Boundary\_Condition@{Viscous\_Wall\_Boundary\_Condition}!Wall\_Boundary\_Conditions.cpp@{Wall\_Boundary\_Conditions.cpp}}
+\doxysubsubsection{\texorpdfstring{Viscous\_Wall\_Boundary\_Condition()}{Viscous\_Wall\_Boundary\_Condition()}}
+{\footnotesize\ttfamily \label{_wall___boundary___conditions_8cpp_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7} 
+void Viscous\+\_\+\+Wall\+\_\+\+Boundary\+\_\+\+Condition (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source_l00115}{115}} of file \mbox{\hyperlink{_wall___boundary___conditions_8cpp_source}{Wall\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00116\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0,\ Ghost\_Cell\_Index\ =\ 0,\ Face\_No\ =\ 0;}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}.size();\ i\ +=\ 3)}
+\DoxyCodeLine{00119\ \ \ \ \ \{}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 0];}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ Face\_No\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 1];}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ \mbox{\hyperlink{definitions_8h_a93a896706293209a6e2f9ccc1569499f_a93a896706293209a6e2f9ccc1569499f}{Wall\_Cells\_List}}[i\ +\ 2];}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Applying\ Wall\ Boundary\ Condition}}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][0]\ =\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index][0];}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][1]\ =\ -\/\mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index][1];}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][2]\ =\ -\/\mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index][2];}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index][3]\ =\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Cell\_Index][3];}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_a1c199e756f8458978961b4d9ab4cbe63}{Calculate\_Primitive\_Variables}}(Cell\_Index,\ \mbox{\hyperlink{definitions_8h_a5f3df7d7596cc2b84627060df8b4d979_a5f3df7d7596cc2b84627060df8b4d979}{U\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_a1ad9192125ad169c7ba4bdb6309c6ff1_a1ad9192125ad169c7ba4bdb6309c6ff1}{Vector\_Reset}}(\mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}.size();\ i++)}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{definitions_8h_aab611f0d14685e34d3574266b61a99ac_aab611f0d14685e34d3574266b61a99ac}{Primitive\_Cells}}[Ghost\_Cell\_Index][i]\ =\ \mbox{\hyperlink{definitions_8h_a54c6b9a5fa83020af3d80e1ed3545207_a54c6b9a5fa83020af3d80e1ed3545207}{Global\_Primitive}}[i];}
+\DoxyCodeLine{00135\ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{df/d36/_wall___boundary___conditions_8cpp_a35cf6a79b3a50b10bf277b98c8d14ed7_a35cf6a79b3a50b10bf277b98c8d14ed7_icgraph}
+\end{center}
+\end{figure}

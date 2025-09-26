@@ -1,0 +1,91 @@
+\doxysection{qiskit.\+providers.\+models.\+backendconfiguration.\+Backend\+Configuration Class Reference}
+\hypertarget{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration}{}\label{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration}\index{qiskit.providers.models.backendconfiguration.BackendConfiguration@{qiskit.providers.models.backendconfiguration.BackendConfiguration}}
+Inheritance diagram for qiskit.\+providers.\+models.\+backendconfiguration.\+Backend\+Configuration\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d7/d81/classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration_aa076f5395a976e3236c90a42963a7cab_aa076f5395a976e3236c90a42963a7cab}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Backwards compatibility shim representing an abstract backend configuration.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration_aa076f5395a976e3236c90a42963a7cab_aa076f5395a976e3236c90a42963a7cab}\index{qiskit.providers.models.backendconfiguration.BackendConfiguration@{qiskit.providers.models.backendconfiguration.BackendConfiguration}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.providers.models.backendconfiguration.BackendConfiguration@{qiskit.providers.models.backendconfiguration.BackendConfiguration}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_backend_configuration_aa076f5395a976e3236c90a42963a7cab_aa076f5395a976e3236c90a42963a7cab} 
+qiskit.\+providers.\+models.\+backendconfiguration.\+Backend\+Configuration.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{backend\+\_\+name}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{backend\+\_\+version}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Initialize a QasmBackendConfiguration Object
+
+Args:
+    backend_name (str): The backend name
+    backend_version (str): The backend version in the form X.Y.Z
+    n_qubits (int): the number of qubits for the backend
+    basis_gates (list): The list of strings for the basis gates of the
+        backends
+    gates (list): The list of GateConfig objects for the basis gates of
+        the backend
+    local (bool): True if the backend is local or False if remote
+    simulator (bool): True if the backend is a simulator
+    conditional (bool): True if the backend supports conditional
+        operations
+    open_pulse (bool): True if the backend supports OpenPulse
+    memory (bool): True if the backend supports memory
+    max_shots (int): The maximum number of shots allowed on the backend
+    coupling_map (list): The coupling map for the device
+    supported_instructions (List[str]): Instructions supported by the backend.
+    dynamic_reprate_enabled (bool): whether delay between programs can be set dynamically
+        (ie via ``rep_delay``). Defaults to False.
+    rep_delay_range (List[float]): 2d list defining supported range of repetition
+        delays for backend in μs. First entry is lower end of the range, second entry is
+        higher end of the range. Optional, but will be specified when
+        ``dynamic_reprate_enabled=True``.
+    default_rep_delay (float): Value of ``rep_delay`` if not specified by user and
+        ``dynamic_reprate_enabled=True``.
+    max_experiments (int): The maximum number of experiments per job
+    sample_name (str): Sample name for the backend
+    n_registers (int): Number of register slots available for feedback
+        (if conditional is True)
+    register_map (list): An array of dimension n_qubits X
+        n_registers that specifies whether a qubit can store a
+        measurement in a certain register slot.
+    configurable (bool): True if the backend is configurable, if the
+        backend is a simulator
+    credits_required (bool): True if backend requires credits to run a
+        job.
+    online_date (datetime.datetime): The date that the device went online
+    display_name (str): Alternate name field for the backend
+    description (str): A description for the backend
+    tags (list): A list of string tags to describe the backend
+    dt (float): Qubit drive channel timestep in nanoseconds.
+    dtm (float): Measurement drive channel timestep in nanoseconds.
+    processor_type (dict): Processor type for this backend. A dictionary of the
+        form ``{"family": <str>, "revision": <str>, segment: <str>}`` such as
+        ``{"family": "Canary", "revision": "1.0", segment: "A"}``.
+
+        - family: Processor family of this backend.
+        - revision: Revision version of this processor.
+        - segment: Segment this processor belongs to within a larger chip.
+    parametric_pulses (list): A list of pulse shapes which are supported on the backend.
+        For example: ``['gaussian', 'constant']``
+
+    **kwargs: optional fields
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1providers_1_1models_1_1backendconfiguration_1_1_qasm_backend_configuration_aed41a3f49ba932617f5e73ac9e6046be_aed41a3f49ba932617f5e73ac9e6046be}{qiskit.\+providers.\+models.\+backendconfiguration.\+Qasm\+Backend\+Configuration}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/providers/models/backendconfiguration.\+py\end{DoxyCompactItemize}

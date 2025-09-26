@@ -1,0 +1,289 @@
+\doxysection{Numerical\+\_\+\+Method.\+cpp}
+\hypertarget{_numerical___method_8cpp_source}{}\label{_numerical___method_8cpp_source}\index{Numerical\_Methods/Numerical\_Method.cpp@{Numerical\_Methods/Numerical\_Method.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{comment}{//V\_D\ b;}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{comment}{/*\ This\ function\ evaluates\ the\ net\ flux\ sum\ of\ viscous\ and\ inviscid\ fluxes\ for\ a\ given\ cell,\ the\ net\ flux\ also\ called\ as\ Residue\ for\ a\ given\ cell\ is\ evaluated\ here\ .\ */}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keywordtype}{void}\ Explict\_Method()}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_Area=0.0;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{comment}{//\ Precompute\ fluxes\ based\ on\ the\ method\ selected\ (WENO,\ 2nd\ Order,\ or\ 1st\ Order)}}
+\DoxyCodeLine{00011\ \ \ \ \ \textcolor{keywordflow}{if}\ (Is\_WENO)\ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_WENO();}
+\DoxyCodeLine{00013\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00014\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Is\_Second\_Order)}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O();}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O();\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00018\ \ \ \ \ \}}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Compute\ maximum\ and\ minimum\ time\ steps}}
+\DoxyCodeLine{00021\ \ \ \ \ Max\_dt\ =\ *max\_element(Cells\_DelT.begin(),\ Cells\_DelT.end());}
+\DoxyCodeLine{00022\ \ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),\ Cells\_DelT.end());}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//\ Loop\ over\ all\ physical\ cells\ and\ apply\ preconditioning\ to\ the\ fluxes}}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{comment}{//\#pragma\ omp\ parallel\ for\ private(Cell\_Index,\ inv\_Area)\ \ //\ Enable\ OpenMP\ for\ CPU\ parallelization}}
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ Cell\_Index\ =\ 0;\ Cell\_Index\ <\ No\_Physical\_Cells;\ Cell\_Index++)\ }
+\DoxyCodeLine{00027\ \ \ \ \ \{}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Precondition\ the\ fluxes\ (both\ inviscid\ and\ viscous)\ for\ each\ cell}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//\ \ \ \ \ \ \ \ applyPreconditioner(Cell\_Index,\ Is\_Viscous\_Wall);\ \ //\ Preconditioning\ as\ discussed\ previously}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Is\_Viscous\_Wall)}
+\DoxyCodeLine{00034\ \ \ \ \ \ \{}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ preconditioned\ viscous\ and\ inviscid\ fluxes\ when\ viscous\ fluxes\ are\ enabled}}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][0]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ (Cells\_Net\_Flux[Cell\_Index][0]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][0]);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][1]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ (Cells\_Net\_Flux[Cell\_Index][1]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][1]);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][2]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ (Cells\_Net\_Flux[Cell\_Index][2]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][2]);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][3]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ (Cells\_Net\_Flux[Cell\_Index][3]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][3]);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00042\ \ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Apply\ preconditioned\ inviscid\ fluxes\ only}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][0]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ Cells\_Net\_Flux[Cell\_Index][0];}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][1]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ Cells\_Net\_Flux[Cell\_Index][1];}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][2]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ Cells\_Net\_Flux[Cell\_Index][2];}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][3]\ =\ -\/Min\_dt\ *\ inv\_Area\ *\ Cells\_Net\_Flux[Cell\_Index][3];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{comment}{/*void\ Explict\_Method()}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\{}}
+\DoxyCodeLine{00056\ \textcolor{comment}{}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ \ double\ inv\_Area\ =\ 0.0;}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ \ \ \ int\ Cell\_Index;}}
+\DoxyCodeLine{00059\ \textcolor{comment}{}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ if(Is\_WENO)}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_WENO();}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ \ \ \ \}\ \ \ }}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ else}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ if(Is\_Second\_Order)}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O();}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ \ \ \ \ \ \ \ else}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O();\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ \ \ \ Max\_dt\ =\ *max\_element(Cells\_DelT.begin(),Cells\_DelT.end());}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}}
+\DoxyCodeLine{00074\ \textcolor{comment}{//\ \ for(unsigned\ int\ i=0;i<Cells\_DelT.size();i++)}}
+\DoxyCodeLine{00075\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<Cells\_DelT[i]<<endl;}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00077\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}value\ of\ dt\(\backslash\)t"{}<<Min\_dt<<endl;}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ \ \ \ switch(Is\_Viscous\_Wall)}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ true:}}
+\DoxyCodeLine{00082\ \textcolor{comment}{}}
+\DoxyCodeLine{00083\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ for(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}}
+\DoxyCodeLine{00084\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00085\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ if(Local\_Time\_Stepping)}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ Cells\_DelT[Cell\_Index];\ \ \ \ }}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][0]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][0]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][0]);}}
+\DoxyCodeLine{00089\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][1]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][1]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][1]);}}
+\DoxyCodeLine{00090\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][2]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][2]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][2]);}}
+\DoxyCodeLine{00091\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][3]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][3]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][3]);}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00094\ \textcolor{comment}{\ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ \ \ \ \ \ \ \ case\ false:}}
+\DoxyCodeLine{00096\ \textcolor{comment}{}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ for(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}}
+\DoxyCodeLine{00099\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00100\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ if(Local\_Time\_Stepping)}}
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ Cells\_DelT[Cell\_Index];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00102\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}}
+\DoxyCodeLine{00103\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][0]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][0]);}}
+\DoxyCodeLine{00104\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][1]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][1]);}}
+\DoxyCodeLine{00105\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][2]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][2]);}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][3]=-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][3]);}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}}
+\DoxyCodeLine{00108\ \textcolor{comment}{}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ \ \ \ \ \ \ \ break;}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ \ cout<<"{}Minimum\ Time\ Step\(\backslash\)t"{}<<Min\_dt<<"{}\(\backslash\)tMaximum\ Time\ Step\(\backslash\)t"{}<<Max\_dt<<endl;}}
+\DoxyCodeLine{00112\ \textcolor{comment}{//\ \ \ \ \ \ \ \ cout<<"{}At\ iteration\ \(\backslash\)t"{}<<iterations<<"{}\(\backslash\)t\ Global\ Minimum\ Time\ Step\(\backslash\)t"{}<<Min\_dt<<endl;}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00114\ \textcolor{comment}{\}}}
+\DoxyCodeLine{00115\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00116\ \textcolor{keywordtype}{void}\ Implicit\_Method()}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ }
+\DoxyCodeLine{00121\ \}}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{keywordtype}{double}\ get\_Min\_dt()}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{return}\ Min\_dt;}
+\DoxyCodeLine{00127\ \}}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \textcolor{keywordtype}{double}\ get\_Max\_dt()}
+\DoxyCodeLine{00130\ \{}
+\DoxyCodeLine{00131\ \ \ \ \ Max\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{return}\ Max\_dt;}
+\DoxyCodeLine{00133\ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{keywordtype}{void}\ Runge\_Kutta\_Method()}
+\DoxyCodeLine{00137\ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{int}\ Step\_Case\ =0,Cell\_Index;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{double}\ inv\_Area=0.0;}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ Step\ 1\ -\/\ This\ is\ the\ First\ step\ of\ Runge-\/Kutta\ Method\ }}
+\DoxyCodeLine{00141\ \ \ \ \ Step\_Case\ =1;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)\ }
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Viscous\_Fluxes();}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_WENO)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_WENO();}
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Complted\ WENO\ NET\ FLux"{}<<endl;}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Second\_Order)}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O();}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O();\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \ \ \ \ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Max\_dt\ =\ *max\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00162\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ if(Local\_Time\_Stepping)}}
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ Cells\_DelT[Cell\_Index];\ }}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_1[Cell\_Index][0]=U\_Cells[Cell\_Index][0]-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][0]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][0]);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_1[Cell\_Index][1]=U\_Cells[Cell\_Index][1]-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][1]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][1]);}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_1[Cell\_Index][2]=U\_Cells[Cell\_Index][2]-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][2]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][2]);}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_1[Cell\_Index][3]=U\_Cells[Cell\_Index][3]-\/Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][3]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][3]);}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ Update(Cell\_Index,Step\_Case);\ \textcolor{comment}{//\ This\ function\ updates\ the\ Primitive\ Variables\ using\ Updated\ Values\ of\ RK\ stage\ 1}}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{comment}{//\ Step\ 2}}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ Step\_Case\ =\ 2;}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ Apply\_Boundary\_Conditions();}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Viscous\_Fluxes();}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_WENO)}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_WENO();}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Second\_Order)}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O();}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O();\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ Max\_dt\ =\ *max\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ if(Local\_Time\_Stepping)}}
+\DoxyCodeLine{00210\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ Cells\_DelT[Cell\_Index];}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_2[Cell\_Index][0]=0.25*(U\_Cells\_RK\_1[Cell\_Index][0]\ +\ 3.0*U\_Cells[Cell\_Index][0]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][0]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][0]));}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_2[Cell\_Index][1]=0.25*(U\_Cells\_RK\_1[Cell\_Index][1]\ +\ 3.0*U\_Cells[Cell\_Index][1]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][1]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][1]));}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_2[Cell\_Index][2]=0.25*(U\_Cells\_RK\_1[Cell\_Index][2]\ +\ 3.0*U\_Cells[Cell\_Index][2]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][2]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][2]));}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells\_RK\_2[Cell\_Index][3]=0.25*(U\_Cells\_RK\_1[Cell\_Index][3]\ +\ 3.0*U\_Cells[Cell\_Index][3]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][3]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][3]));}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ This\ function\ updates\ the\ Primitive\ Variables\ using\ Updated\ Values\ of\ RK\ stage\ 2}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ Update(Cell\_Index,Step\_Case);\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{comment}{//Final\ Step\ }}
+\DoxyCodeLine{00227\ \ \ \ \ Apply\_Boundary\_Conditions();}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ Evaluate\_Viscous\_Fluxes();}
+\DoxyCodeLine{00231\ }
+\DoxyCodeLine{00232\ \ \ \ \ \textcolor{keywordflow}{if}(Is\_WENO)}
+\DoxyCodeLine{00233\ \ \ \ \ \{}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_WENO();}
+\DoxyCodeLine{00235\ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Second\_Order)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_2O();}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ Evaluate\_Cell\_Net\_Flux\_1O();\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00242\ \ \ \ \ \}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00244\ \ \ \ \ }
+\DoxyCodeLine{00245\ \ \ \ \ }
+\DoxyCodeLine{00246\ \ \ \ \ Max\_dt\ =\ *max\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00247\ \ \ \ \ Min\_dt\ =\ *min\_element(Cells\_DelT.begin(),Cells\_DelT.end());}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00251\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ if(Local\_Time\_Stepping)}}
+\DoxyCodeLine{00252\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Min\_dt\ =\ Cells\_DelT[Cell\_Index];}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][0]=(2.0/3.0)*(U\_Cells\_RK\_2[Cell\_Index][0]\ -\/\ U\_Cells[Cell\_Index][0]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][0]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][0]));}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][1]=(2.0/3.0)*(U\_Cells\_RK\_2[Cell\_Index][1]\ -\/\ U\_Cells[Cell\_Index][1]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][1]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][1]));}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][2]=(2.0/3.0)*(U\_Cells\_RK\_2[Cell\_Index][2]\ -\/\ U\_Cells[Cell\_Index][2]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][2]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][2]));}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Cells\_DelU[Cell\_Index][3]=(2.0/3.0)*(U\_Cells\_RK\_2[Cell\_Index][3]\ -\/\ U\_Cells[Cell\_Index][3]\ -\/\ Min\_dt*inv\_Area*(Cells\_Net\_Flux[Cell\_Index][3]\ -\/\ Cells\_Viscous\_Flux[Cell\_Index][3]));}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ }
+\DoxyCodeLine{00262\ \}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ }
+\DoxyCodeLine{00265\ \textcolor{keywordtype}{void}\ Lax\_Fedrichs()}
+\DoxyCodeLine{00266\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ }
+\DoxyCodeLine{00268\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ int\ Neighbour\_1=0,Neighbour\_2=0,Neighbour\_3=0,Neighbour\_4=0;\ //\ Indicates\ the\ numbers\ to\ neighbours\ of\ the\ cell}}
+\DoxyCodeLine{00269\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ double\ Dt\ =0.0,inv\_Area\ =\ 0.0;;}}
+\DoxyCodeLine{00270\ \textcolor{comment}{//\ \ for(int\ Cell\_Index=0;Cell\_Index<No\_Physical\_Cells;Cell\_Index++)}}
+\DoxyCodeLine{00271\ \textcolor{comment}{//\ \ \{}}
+\DoxyCodeLine{00272\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_1\ =\ Cell\_Neighbours[Cell\_Index][1];\ \ \ \ \ \ \ \ //(i-\/1,j,k)}}
+\DoxyCodeLine{00273\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_2\ =\ Cell\_Neighbours[Cell\_Index][2];\ \ \ \ \ \ \ \ //(i,j-\/1,k)}}
+\DoxyCodeLine{00274\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_3\ =\ Cell\_Neighbours[Cell\_Index][3];\ \ \ \ \ \ \ \ //(i+1,j,k)}}
+\DoxyCodeLine{00275\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Neighbour\_4\ =\ Cell\_Neighbours[Cell\_Index][4];\ \ \ \ \ \ \ \ //(i,j+1,k)}}
+\DoxyCodeLine{00276\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Dt\ =\ Cells\_DelT[Cell\_Index];}}
+\DoxyCodeLine{00277\ \textcolor{comment}{//\ \ \ \ \ \ inv\_Area\ =\ Cells\_Inv\_Area[Cell\_Index];}}
+\DoxyCodeLine{00278\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[Cell\_Index][0]=0.25*(U\_Cells[Neighbour\_1][0]\ +\ U\_Cells[Neighbour\_2][0]\ +U\_Cells[Neighbour\_3][0]\ +U\_Cells[Neighbour\_4][0])-\/Dt*inv\_Area*Convective\_Flux\_Cells[Cell\_Index][0];}}
+\DoxyCodeLine{00279\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[Cell\_Index][1]=0.25*(U\_Cells[Neighbour\_1][1]\ +\ U\_Cells[Neighbour\_2][1]\ +U\_Cells[Neighbour\_3][1]\ +U\_Cells[Neighbour\_4][1])-\/Dt*inv\_Area*Convective\_Flux\_Cells[Cell\_Index][1];}}
+\DoxyCodeLine{00280\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[Cell\_Index][2]=0.25*(U\_Cells[Neighbour\_1][2]\ +\ U\_Cells[Neighbour\_2][2]\ +U\_Cells[Neighbour\_3][2]\ +U\_Cells[Neighbour\_4][2])-\/Dt*inv\_Area*Convective\_Flux\_Cells[Cell\_Index][2];}}
+\DoxyCodeLine{00281\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[Cell\_Index][3]=0.25*(U\_Cells[Neighbour\_1][3]\ +\ U\_Cells[Neighbour\_2][3]\ +U\_Cells[Neighbour\_3][3]\ +U\_Cells[Neighbour\_4][3])-\/Dt*inv\_Area*Convective\_Flux\_Cells[Cell\_Index][3];}}
+\DoxyCodeLine{00282\ \textcolor{comment}{//\ \ \}}}
+\DoxyCodeLine{00283\ \}}
+
+\end{DoxyCode}

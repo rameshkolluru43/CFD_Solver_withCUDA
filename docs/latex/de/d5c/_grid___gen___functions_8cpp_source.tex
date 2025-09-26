@@ -1,0 +1,97 @@
+\doxysection{Grid\+\_\+\+Gen\+\_\+\+Functions.\+cpp}
+\hypertarget{_grid___gen___functions_8cpp_source}{}\label{_grid___gen___functions_8cpp_source}\index{Basic\_Function\_Files/Grid\_Gen\_Functions.cpp@{Basic\_Function\_Files/Grid\_Gen\_Functions.cpp}}
+\mbox{\hyperlink{_grid___gen___functions_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_geometry___header_8h}{Geometry\_Header.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00003}\mbox{\hyperlink{class_grid_a8e7565383b4eebbcee299c140187a0f9_a8e7565383b4eebbcee299c140187a0f9}{00003}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a92f6c54ea6427802111931af2157495f_a92f6c54ea6427802111931af2157495f}{Grid::operator()}}(vector<Point>\ \&\ List1,\ vector<Point>\ \&\ List2,vector<Point>\ \&\ List3,\ vector<Point>\ \&\ List4\ )}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00005}00005\ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ P1,P2,P3,P4,P5,P6,P7,P8;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00006}00006\ \ \ \ \ \textcolor{keywordtype}{int}\ No\_P\_Curve1,\ No\_P\_Curve2,No\_P\_Curve3,No\_P\_Curve4,i,j,Total\_Points;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00007}00007\ \ \ \ \ No\_P\_Curve1\ =\ List1.size();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00008}00008\ \ \ \ \ No\_P\_Curve2\ =\ List2.size();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00009}00009\ \ \ \ \ No\_P\_Curve3\ =\ List3.size();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00010}00010\ \ \ \ \ No\_P\_Curve4\ =\ List4.size();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00011}00011\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00012}00012\ \ \ \ \ \textcolor{keywordflow}{if}((No\_P\_Curve1\ ==\ No\_P\_Curve3)\&\&(No\_P\_Curve2==No\_P\_Curve4))}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00013}00013\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00014}00014\ \ \ \ \ \ \ \ \ List4[No\_P\_Curve4-\/1].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00015}00015\ \ \ \ \ \ \ \ \ List1[0].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00016}00016\ \ \ \ \ \ \ \ \ List1[No\_P\_Curve1-\/1].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00017}00017\ \ \ \ \ \ \ \ \ List2[0].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00018}00018\ \ \ \ \ \ \ \ \ List2[No\_P\_Curve2-\/1].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00019}00019\ \ \ \ \ \ \ \ \ List3[0].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00020}00020\ \ \ \ \ \ \ \ \ List3[No\_P\_Curve3-\/1].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00021}00021\ \ \ \ \ \ \ \ \ List4[0].Print();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Checking\ out\ for\ Closed\ Curve\ of\ Points\ List"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00023}00023\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(\ \ \ \ \ (List4[No\_P\_Curve4-\/1]==List1[0])}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00024}00024\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \ (List1[No\_P\_Curve1-\/1]==List2[0])}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00025}00025\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \ (List3[No\_P\_Curve3-\/1]==List4[0])}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00026}00026\ \ \ \ \ \ \ \ \ \ \ \ \ \&\&\ \ (List2[No\_P\_Curve2-\/1]==List3[0])}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00027}00027\ \ \ \ \ \ \ \ \ )}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00028}00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00029}00029\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}The\ Curves\ form\ a\ closed\ loop.....\(\backslash\)n\ Proceeding\ for\ Grid\ Generation"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00030}00030\ \ \ \ \ \ \ \ \ \ \ \ \ nx\ =\ No\_P\_Curve1;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00031}00031\ \ \ \ \ \ \ \ \ \ \ \ \ ny\ =\ No\_P\_Curve2;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00032}00032\ \ \ \ \ \ \ \ \ \ \ \ \ Total\_Points\ =\ nx*ny;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00034}00034\ \ \ \ \ \ \ \ \ \ \ \ \ x.resize(nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ y.resize\ (nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ xtemp.resize\ (nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00037}00037\ \ \ \ \ \ \ \ \ \ \ \ \ ytemp.resize\ (nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ erx.resize\ (nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ ery.resize\ (nx,vector<double>(\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}},0.0));}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\ i=0;i<nx;i++)}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00043}00043\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j=0;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00044}00044\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<i+j<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[i][j]\ =\ List1[i].Get\_x();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00046}00046\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i][j]\ =\ List1[i].Get\_y();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00047}00047\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00048}00048\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00049}00049\ \textcolor{comment}{//\ \ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00050}00050\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (j=0;j<\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}};j++)}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00052}00052\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i=\mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00053}00053\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<i+j<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[i][j]=List2[j].Get\_x();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00055}00055\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i][j]=List2[j].Get\_y();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00056}00056\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00057}00057\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00058}00058\ \textcolor{comment}{//\ \ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00059}00059\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;i<List3.size();i++)}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ j=\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00062}00062\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<(\ i+j)<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[\mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1-\/i][j]=List3[i].Get\_x();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00064}00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[\mbox{\hyperlink{definitions_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1-\/i][j]=List3[i].Get\_y();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00065}00065\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<x[nx-\/1-\/i][j]<<"{}\(\backslash\)t"{}<<y[nx-\/1-\/i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00066}00066\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00067}00067\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00068}00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;j<List4.size();j++)}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00069}00069\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00070}00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ i=0;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00071}00071\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<(i+j)<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00072}00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[i][\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1-\/j]\ =\ List4[j].Get\_x();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00073}00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i][\mbox{\hyperlink{definitions_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1-\/j]\ =\ List4[j].Get\_y();}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00074}00074\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<x[i][ny-\/1-\/j]<<"{}\(\backslash\)t"{}<<y[i][ny-\/1-\/j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00075}00075\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00076}00076\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00077}00077\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00078}00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00079}00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00080}00080\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00081}00081\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}The\ Points\ List\ doesn't\ Form\ a\ Closed\ Loop,\ Please\ Check\ them"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00082}00082\ \ \ \ \ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00083}00083\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00084}00084\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00085}00085\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00086}00086\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00087}00087\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Miss-\/Match\ of\ number\ of\ Points\ on\ the\ curves.........\(\backslash\)n\ Can\ not\ proceed\ to\ generate\ a\ grid"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00088}00088\ \ \ \ \ \ \ \ \ exit(0);}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00089}00089\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00090}00090\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{_grid___gen___functions_8cpp_source_l00091}00091\ \}}
+
+\end{DoxyCode}

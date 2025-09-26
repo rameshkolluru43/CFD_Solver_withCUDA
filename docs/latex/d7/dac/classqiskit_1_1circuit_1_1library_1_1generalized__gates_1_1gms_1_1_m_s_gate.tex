@@ -1,0 +1,123 @@
+\doxysection{qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+MSGate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate}\index{qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+MSGate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=5.000000cm]{d7/dac/classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_a8971e2c0977e7cc2754cbdafac9707f0_a8971e2c0977e7cc2754cbdafac9707f0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits, Parameter\+Value\+Type\texorpdfstring{$\vert$}{|}Sequence\mbox{[}Sequence\mbox{[}Parameter\+Value\+Type\mbox{]}\mbox{]} theta, str\texorpdfstring{$\vert$}{|}None label=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_acdb19b22eb6a28271283268f519f2944_acdb19b22eb6a28271283268f519f2944}{validate\+\_\+parameter}} (self, parameter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_a991ab440ac64d3b723250901463e1879}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_a991ab440ac64d3b723250901463e1879} 
+{\bfseries num\+\_\+qubits}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_ae50b4fffe8980ff8981a33cf2ef021b0}\label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_ae50b4fffe8980ff8981a33cf2ef021b0} 
+{\bfseries definition} = qc
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_abb4dae531438078085006da29cb6cc0e_abb4dae531438078085006da29cb6cc0e}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Mølmer–Sørensen gate.
+
+The Mølmer–Sørensen gate is native to ion-trap systems. The global MS
+can be applied to multiple ions to entangle multiple qubits simultaneously [1].
+
+In the two-qubit case, this is equivalent to an XX interaction,
+and is thus reduced to the :class:`.RXXGate`. The global MS gate is a sum of XX
+interactions on all pairs [2].
+
+.. math::
+
+    MS(\chi_{12}, \chi_{13}, ..., \chi_{n-1 n}) =
+    exp(-i \sum_{i=1}^{n} \sum_{j=i+1}^{n} X{\otimes}X \frac{\chi_{ij}}{2})
+
+Example::
+
+    import numpy as np
+    from qiskit.circuit.library import MSGate
+    from qiskit.quantum_info import Operator
+
+    gate = MSGate(num_qubits=3, theta=[[0, np.pi/4, np.pi/8],
+                                       [0, 0, np.pi/2],
+                                       [0, 0, 0]])
+    print(Operator(gate))
+
+
+**References:**
+
+[1] Sørensen, A. and Mølmer, K., Multi-particle entanglement of hot trapped ions.
+Physical Review Letters. 82 (9): 1835–1838.
+`arXiv:9810040 <https://arxiv.org/abs/quant-ph/9810040>`_
+
+[2] Maslov, D. and Nam, Y., Use of global interactions in efficient quantum circuit
+constructions. New Journal of Physics, 20(3), p.033018.
+`arXiv:1707.06356 <https://arxiv.org/abs/1707.06356>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_a8971e2c0977e7cc2754cbdafac9707f0_a8971e2c0977e7cc2754cbdafac9707f0}\index{qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_a8971e2c0977e7cc2754cbdafac9707f0_a8971e2c0977e7cc2754cbdafac9707f0} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+MSGate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{, }\item[{Parameter\+Value\+Type \texorpdfstring{$\vert$}{|} Sequence\mbox{[}Sequence\mbox{[}Parameter\+Value\+Type\mbox{]}\mbox{]}}]{theta}{, }\item[{str \texorpdfstring{$\vert$}{|} None }]{label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    num_qubits: The number of qubits the MS gate acts on.
+    theta: The XX rotation angles. If a single value, the same angle is used on all
+        interactions. Alternatively an upper-triangular, square matrix with width
+        ``num_qubits`` can be provided with interaction angles for each qubit pair.
+    label: A gate label.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_abb4dae531438078085006da29cb6cc0e_abb4dae531438078085006da29cb6cc0e}\index{qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_abb4dae531438078085006da29cb6cc0e_abb4dae531438078085006da29cb6cc0e} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+MSGate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_acdb19b22eb6a28271283268f519f2944_acdb19b22eb6a28271283268f519f2944}\index{qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}!validate\_parameter@{validate\_parameter}}
+\index{validate\_parameter@{validate\_parameter}!qiskit.circuit.library.generalized\_gates.gms.MSGate@{qiskit.circuit.library.generalized\_gates.gms.MSGate}}
+\doxysubsubsection{\texorpdfstring{validate\_parameter()}{validate\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1generalized__gates_1_1gms_1_1_m_s_gate_acdb19b22eb6a28271283268f519f2944_acdb19b22eb6a28271283268f519f2944} 
+qiskit.\+circuit.\+library.\+generalized\+\_\+gates.\+gms.\+MSGate.\+validate\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{parameter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Gate parameters should be int, float, or ParameterExpression\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_aec00645163d8a429066ca7d69b7e403b_aec00645163d8a429066ca7d69b7e403b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/generalized\+\_\+gates/gms.\+py\end{DoxyCompactItemize}

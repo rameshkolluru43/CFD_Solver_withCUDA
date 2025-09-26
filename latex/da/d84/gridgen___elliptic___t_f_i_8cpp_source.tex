@@ -1,0 +1,293 @@
+\doxysection{gridgen\+\_\+\+Elliptic\+\_\+\+TFI.\+cpp}
+\hypertarget{gridgen___elliptic___t_f_i_8cpp_source}{}\label{gridgen___elliptic___t_f_i_8cpp_source}\index{Basic\_Function\_Files/gridgen\_Elliptic\_TFI.cpp@{Basic\_Function\_Files/gridgen\_Elliptic\_TFI.cpp}}
+\mbox{\hyperlink{gridgen___elliptic___t_f_i_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_geometry___header_8h}{Geometry\_Header.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00003}\mbox{\hyperlink{class_grid_a4ac9ff4f63552b4c61ff90fcb35ad66c_a4ac9ff4f63552b4c61ff90fcb35ad66c}{00003}}\ \mbox{\hyperlink{class_grid_a4ac9ff4f63552b4c61ff90fcb35ad66c_a4ac9ff4f63552b4c61ff90fcb35ad66c}{Grid::Grid}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00004}00004\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00005}00005\ \ \ \ \ \ \ \ \ ermax=1e-\/12;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00006}00006\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00008}\mbox{\hyperlink{class_grid_a92f6c54ea6427802111931af2157495f_a92f6c54ea6427802111931af2157495f}{00008}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a92f6c54ea6427802111931af2157495f_a92f6c54ea6427802111931af2157495f}{Grid::operator()}}(\mbox{\hyperlink{class_circle}{Circle}}\ \&\ C)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00009}00009\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00010}00010\ \ \ \ \ \textcolor{keywordtype}{int}\ i,j,\ No\_Points\ =\ C.\mbox{\hyperlink{class_circle_a654fde16ec5471192243ccfa344c9f75_a654fde16ec5471192243ccfa344c9f75}{get\_Nop}}(),Total\_Points;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00011}00011\ \ \ \ \ vector<Point>\ Point\_List;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00012}00012\ \ \ \ \ Point\_List\ =\ C.\mbox{\hyperlink{class_circle_a468a9fd60b528d2a89f442d0e95d7031_a468a9fd60b528d2a89f442d0e95d7031}{Get\_Point\_list}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00013}00013\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Number\ of\ Points\ on\ Circle\(\backslash\)t"{}}<<Point\_List.size()<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00014}00014\ \ \ \ \ nx\ =\ ny\ =\ (No\_Points/4);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00015}00015\ \ \ \ \ cout<<nx<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<ny<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00016}00016\ \ \ \ \ Total\_Points\ =\ (nx+1)*(ny+1);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00017}00017\ \textcolor{comment}{//\ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00018}00018\ \ \ \ \ x=vector<vector\ <double>\ >\ (nx+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00019}00019\ \ \ \ \ y=vector<vector\ <double>\ >\ (\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00020}00020\ \ \ \ \ xtemp=vector<vector\ <double>\ >\ (\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00021}00021\ \ \ \ \ ytemp=vector<vector\ <double>\ >\ (\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00022}00022\ \ \ \ \ erx=vector<vector\ <double>\ >\ (\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00023}00023\ \ \ \ \ ery=vector<vector\ <double>\ >\ (\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1,vector<double>(ny+1,0.0));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00026}00026\ \textcolor{comment}{//\ \ x\ =\ vector<double>(Total\_Points,0.0);}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00027}00027\ \textcolor{comment}{//\ \ y\ =\ vector<double>(Total\_Points,0.0);}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00028}00028\ \textcolor{comment}{//\ \ xtemp\ =\ vector<double>(Total\_Points,0.0);}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00029}00029\ \textcolor{comment}{//\ \ ytemp\ =\ vector<double>(Total\_Points,0.0);}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00030}00030\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00031}00031\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00032}00032\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00033}00033\ \ \ \ \ \ \ \ \ j=0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00034}00034\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<i+j<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00035}00035\ \ \ \ \ \ \ \ \ x[i][j]\ =\ Point\_List[i].Get\_x();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00036}00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ =\ Point\_List[i].Get\_y();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00037}00037\ \textcolor{comment}{//\ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00038}00038\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00039}00039\ \textcolor{comment}{//\ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00040}00040\ \ \ \ \ \textcolor{keywordflow}{for}\ (j=0;j<(ny+1);j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00041}00041\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00042}00042\ \ \ \ \ \ \ \ \ i=\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00043}00043\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<i+j<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00044}00044\ \ \ \ \ \ \ \ \ x[i][j]=Point\_List[i+j].Get\_x();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00045}00045\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]=Point\_List[i+j].Get\_y();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00046}00046\ \textcolor{comment}{//\ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00047}00047\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00048}00048\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{for}(i=0;i<(\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}+1);i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00050}00050\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00051}00051\ \ \ \ \ \ \ \ \ j=ny;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00052}00052\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<No\_Points\ -\/(\ i+j)<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00053}00053\ \ \ \ \ \ \ \ \ x[i][j]=Point\_List[No\_Points\ -\/(\ i+j)].Get\_x();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00054}00054\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]=Point\_List[No\_Points\ -\/(\ i+j)].Get\_y();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00055}00055\ \textcolor{comment}{//\ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00056}00056\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00057}00057\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00058}00058\ \ \ \ \ \textcolor{keywordflow}{for}(j=ny;j>0;j-\/-\/)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00059}00059\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00060}00060\ \ \ \ \ \ \ \ \ i=0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00061}00061\ \textcolor{comment}{//\ \ \ \ \ \ cout<<i<<"{}\(\backslash\)t"{}<<j<<"{}\(\backslash\)t"{}<<No\_Points\ -\/(\ i+j)<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00062}00062\ \ \ \ \ \ \ \ \ x[i][j]\ =\ Point\_List[No\_Points\ -\/(\ i+j)].Get\_x();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00063}00063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ =\ Point\_List[No\_Points\ -\/(\ i+j)].Get\_y();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00064}00064\ \textcolor{comment}{//\ \ \ \ \ \ cout<<x[i][j]<<"{}\(\backslash\)t"{}<<y[i][j]<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00066}00066\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}=====================\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00067}00067\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00068}00068\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00069}\mbox{\hyperlink{class_grid_a6790fb68311c0479e976b1bc57bbf75b_a6790fb68311c0479e976b1bc57bbf75b}{00069}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a6790fb68311c0479e976b1bc57bbf75b_a6790fb68311c0479e976b1bc57bbf75b}{Grid::Read\_data}}(\textcolor{keywordtype}{string}\ ipfile)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00070}00070\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00074}00074\ \textcolor{comment}{/*This\ Function\ generates\ grid\ using\ Transfinite\ interpolation\ for\ 2D\ */}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00075}\mbox{\hyperlink{class_grid_a908819a747032ceba240db6d955ff931_a908819a747032ceba240db6d955ff931}{00075}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a908819a747032ceba240db6d955ff931_a908819a747032ceba240db6d955ff931}{Grid::TFI}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00076}00076\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00077}00077\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Generating\ Grid\ using\ Algebriac\ Transfinite\ Interpolation\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00078}00078\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Displaying\ the\ control\ points\ of\ the\ curves\ \(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00079}00079\ \ \ \ \ cout<<nx<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<ny<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00080}00080\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Control\ point\ 1\ \(\backslash\)t"{}}<<x[0][0]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<y[0][0]<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00081}00081\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Control\ point\ 2\ \ \(\backslash\)t"{}}<<x[nx-\/1][0]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[nx-\/1][0]<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00082}00082\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Control\ point\ 3\ \(\backslash\)t"{}}<<x[nx-\/1][ny-\/1]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[nx-\/1][ny-\/1]<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00083}00083\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Control\ point\ 4\ \(\backslash\)t"{}}<<x[0][ny-\/1]<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0][ny-\/1]<<\textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00084}00084\ \ \ \ \ eta\ =\ \ \ 1.0/(ny-\/1);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00085}00085\ \ \ \ \ zi\ \ =\ \ \ 1.0/(nx-\/1);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00086}00086\ \ \ \ \ cout<<eta<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<zi<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00087}00087\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=1;j<ny-\/1;j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00090}00090\ \ \ \ \ \ \ \ \ t\ =\ j*eta;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00091}00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;i<nx-\/1;i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00092}00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00093}00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s=zi*i;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00094}00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[i][j]\ =\ \ \ t*x[i][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]\ \ +\ \ \ (1.0-\/t)*x[i][0]\ +\ \ s*x[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][j]\ \ \ \ \ \ \ +\ \ \ (1.0-\/s)*x[0][j]}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00095}00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ \ \ (1-\/s)*(t)*x[0][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]\ \ -\/\ \ \ (1-\/s)*(1-\/t)*x[0][0]\ -\/\ \ \ (s)*(t)*x[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]\ \ \ \ \ \ \ -\/\ \ \ (s)*(1-\/t)*x[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][0];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00096}00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00097}00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][j]\ \ \ \ =\ \ \ t*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]\ +\ \ \ (1.0-\/t)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[i][0]\ \ \ \ +\ \ \ s*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][j]\ \ \ \ \ +\ (1.0-\/\ s)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0][j]\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ \ \ (1-\/s)*(t)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]-\/\ \ \ \ (1-\/s)*(1-\/t)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[0][0]\ \ -\/\ (s)*(t)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][\mbox{\hyperlink{_globals_8h_a147a8b14bbd79c0f1a3457805e2065ba_a147a8b14bbd79c0f1a3457805e2065ba}{ny}}-\/1]\ \ \ \ \ \ -\/\ \ \ \ \ \ \ (s)*(1.0-\/t)*\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}[\mbox{\hyperlink{_globals_8h_a74d07ed95c86939416c6a88f1daf8e1a_a74d07ed95c86939416c6a88f1daf8e1a}{nx}}-\/1][0];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00101}00101\ \ \ \ \ xtemp=x;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00102}00102\ \ \ \ \ ytemp=\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00103}00103\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Finished\ TFI,\ Matrix\ Ready\ to\ perform\ Elliptic\ Grid\ Generation\(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00104}00104\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00105}00105\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00106}00106\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00107}\mbox{\hyperlink{class_grid_a90c5271ba6fdba6112a562693bd9a0f2_a90c5271ba6fdba6112a562693bd9a0f2}{00107}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a90c5271ba6fdba6112a562693bd9a0f2_a90c5271ba6fdba6112a562693bd9a0f2}{Grid::Elliptic}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00108}00108\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00109}00109\ \textcolor{comment}{//\ \ int\ timer\ =\ clock();}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00110}00110\ \textcolor{comment}{//\ cout<<inv\_eta<<"{}\(\backslash\)t"{}<<inv\_zi<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00111}00111\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=1;j<ny-\/1;j++)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//loop\ increment\ in\ eta\ direction}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00112}00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00113}00113\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;i<nx-\/1;i++)\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//loop\ \ increment\ in\ zi\ direction}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00114}00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00115}00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_eta\ =\ 1.0\ \ /(eta*j);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00116}00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ inv\_zi\ =\ 1.0\ /(zi*i);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00117}00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00118}00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xzi=0.5*inv\_zi*(x[i+1][j]-\/xtemp[i-\/1][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00119}00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xeta=0.5*inv\_eta*(x[i][j+1]-\/xtemp[i][j-\/1]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00120}00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yzi=0.5*inv\_zi*(y[i+1][j]-\/ytemp[i-\/1][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00121}00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ yeta=0.5*inv\_eta*(y[i][j+1]-\/ytemp[i][j-\/1]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00122}00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00123}00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha=(xeta*xeta+yeta*yeta);\ \textcolor{comment}{//(g22)i,j\ alpha}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00124}00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gamma1=(xzi*xzi+yzi*yzi);\ \ \ \ \ \textcolor{comment}{//(g11)i,j\ gamma}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00125}00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ beta=(xzi*xeta+yzi*yeta);\textcolor{comment}{//(g12)i,j\ beta}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00126}00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00127}00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ B\ =\ alpha*\ inv\_zi*inv\_zi;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00128}00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ D\ =\ gamma1*inv\_eta*inv\_eta;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00129}00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ C\ =\ -\/0.5*beta*inv\_eta*inv\_zi;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00130}00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ A\ =\ B\ +\ D;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00131}00131\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00132}00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xtemp[i][j]=(0.5/A)*(B*(x[i+1][j]+xtemp[i-\/1][j])\ +\ C*(x[i+1][j+1]-\/xtemp[i+1][j-\/1]-\/x[i-\/1][j+1]+xtemp[i-\/1][j-\/1])+D*(x[i][j+1]+xtemp[i][j-\/1]));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00133}00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ytemp[i][j]=(0.5/A)*(B*(y[i+1][j]+ytemp[i-\/1][j])\ +\ C*(y[i+1][j+1]-\/ytemp[i+1][j-\/1]-\/y[i-\/1][j+1]+ytemp[i-\/1][j-\/1])+D*(y[i][j+1]+ytemp[i][j-\/1]));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00134}00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00135}00135\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//end\ of\ zi\ direction\ loop}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00136}00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{comment}{//end\ of\ eta\ direction\ loop}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00137}00137\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00138}00138\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<timer<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00139}00139\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00141}\mbox{\hyperlink{class_grid_a246dcc7405f9142fc624bafb817ed9fe_a246dcc7405f9142fc624bafb817ed9fe}{00141}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_a246dcc7405f9142fc624bafb817ed9fe_a246dcc7405f9142fc624bafb817ed9fe}{Grid::Periodic\_Boundary\_Condition}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00142}00142\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00143}00143\ \textcolor{comment}{//\ \ cout<<"{}Applying\ periodic\ boundary\ condition\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00144}00144\ \ \ \ \ \textcolor{keywordtype}{int}\ i=\ nx-\/1;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00145}00145\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=1;j<ny-\/1;j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00146}00146\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00147}00147\ \ \ \ \ \ \ \ \ inv\_eta\ =\ 1.0\ \ /(eta*j);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00148}00148\ \ \ \ \ \ \ \ \ inv\_zi\ =\ 1.0\ /(zi*i);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00149}00149\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00150}00150\ \ \ \ \ \ \ \ \ xzi=0.5*inv\_zi*(x[1][j]-\/x[i-\/1][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00151}00151\ \ \ \ \ \ \ \ \ xeta=0.5*inv\_eta*(x[i][j+1]-\/x[i][j-\/1]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00152}00152\ \ \ \ \ \ \ \ \ yzi=0.5*inv\_zi*(y[1][j]-\/y[i-\/1][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00153}00153\ \ \ \ \ \ \ \ \ yeta=0.5*inv\_eta*(y[i][j+1]-\/y[i][j-\/1]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00154}00154\ \ \ \ \ \ \ \ \ alpha=(xeta*xeta+yeta*yeta);\ \textcolor{comment}{//(g22)i,j\ alpha}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00155}00155\ \ \ \ \ \ \ \ \ gamma1=(xzi*xzi+yzi*yzi);\ \ \ \ \ \textcolor{comment}{//(g11)i,j\ gamma}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00156}00156\ \ \ \ \ \ \ \ \ beta=(xzi*xeta+yzi*yeta);\textcolor{comment}{//(g12)i,j\ beta}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00157}00157\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00158}00158\ \ \ \ \ \ \ \ \ B\ =\ alpha*\ inv\_zi*inv\_zi;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00159}00159\ \ \ \ \ \ \ \ \ D\ =\ gamma1*inv\_eta*inv\_eta;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00160}00160\ \ \ \ \ \ \ \ \ C\ =\ -\/0.5*beta*inv\_eta*inv\_zi;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00161}00161\ \ \ \ \ \ \ \ \ A\ =\ B\ +\ D;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00162}00162\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00163}00163\ \ \ \ \ \ \ \ \ xtemp[i][j]=(0.5/A)*(B*(x[1][j]+x[i-\/1][j])\ +\ C*(x[1][j+1]-\/x[1][j-\/1]-\/x[i-\/1][j+1]+x[i-\/1][j-\/1])+D*(x[i][j+1]+x[i][j-\/1]));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00164}00164\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00165}00165\ \ \ \ \ \ \ \ \ ytemp[i][j]=(0.5/A)*(B*(y[1][j]+y[i-\/1][j])\ +\ C*(y[1][j+1]-\/y[1][j+1]-\/y[i-\/1][j+1]+y[i-\/1][j-\/1])+D*(y[i][j+1]+y[i][j-\/1]));}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00166}00166\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00167}00167\ \ \ \ \ \ \ \ \ x[0][j]\ =\ xtemp[i][j];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00168}00168\ \ \ \ \ \ \ \ \ y[0][j]\ =\ ytemp[i][j];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00169}00169\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00170}00170\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00171}00171\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00172}\mbox{\hyperlink{class_grid_ac1e989c2a3c81fd365d9ae57e7f15b61_ac1e989c2a3c81fd365d9ae57e7f15b61}{00172}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_ac1e989c2a3c81fd365d9ae57e7f15b61_ac1e989c2a3c81fd365d9ae57e7f15b61}{Grid::Estimate\_Error\_and\_Update}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00173}00173\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00174}00174\ \ \ \ \ \ \ \ \ \ \ \ \ ertot=0.0;\textcolor{comment}{//cout<<"{}ertot="{}<<ertot<<"{}\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00175}00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=1;j<ny-\/1;j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00176}00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00177}00177\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;i<nx-\/1;i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00178}00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00179}00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ erx[i][j]=((xtemp[i][j]-\/x[i][j])/x[i][j])*((xtemp[i][j]-\/x[i][j])/x[i][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00180}00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ery[i][j]=((ytemp[i][j]-\/y[i][j])/y[i][j])*((ytemp[i][j]-\/y[i][j])/y[i][j]);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00181}00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ertot\ +=\ erx[i][j]+ery[i][j];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00183}00183\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ x[i][j]=xtemp[i][j];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00184}00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ y[i][j]=ytemp[i][j];}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00185}00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ xtemp[i][j]=0.0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00186}00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ytemp[i][j]=0.0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00187}00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ erx[i][j]=0.0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00188}00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ery[i][j]=0.0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00189}00189\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00190}00190\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00191}00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ertot=sqrt(ertot);\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00192}00192\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00193}00193\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00194}\mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{00194}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{Grid::Generate\_Grid}}(\textcolor{keywordtype}{bool}\ \&\ With\_Periodic\_Domain)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00195}00195\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00196}00196\ \ \ \ \ noit\ =0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00197}00197\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00198}00198\ \ \ \ \ \mbox{\hyperlink{class_grid_a908819a747032ceba240db6d955ff931_a908819a747032ceba240db6d955ff931}{TFI}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00199}00199\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00200}00200\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00201}00201\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ timer\ =\ clock();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00202}00202\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_a90c5271ba6fdba6112a562693bd9a0f2_a90c5271ba6fdba6112a562693bd9a0f2}{Elliptic}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00203}00203\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(With\_Periodic\_Domain)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00204}00204\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_a246dcc7405f9142fc624bafb817ed9fe_a246dcc7405f9142fc624bafb817ed9fe}{Periodic\_Boundary\_Condition}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00205}00205\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_ac1e989c2a3c81fd365d9ae57e7f15b61_ac1e989c2a3c81fd365d9ae57e7f15b61}{Estimate\_Error\_and\_Update}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00206}00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ noit=noit+1;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00207}00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(noit\%1000==0)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00208}00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00209}00209\ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00210}00210\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<noit<<\textcolor{stringliteral}{"{}\(\backslash\)ttotal\ error=\(\backslash\)t"{}}<<ertot<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<timer/CLOCKS\_PER\_SEC<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00211}00211\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00212}00212\ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{while}((noit<100000)\ );\ \textcolor{comment}{//end\ of\ iterative\ loops}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00213}00213\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00214}00214\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Elliptic\ Grid\ Generated\(\backslash\)t......Generating\ Grid\ List\(\backslash\)n"{}};\ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00215}00215\ \ \ \ \ \mbox{\hyperlink{class_grid_ab7768e9853f9b8e4530a25d242fdea1b_ab7768e9853f9b8e4530a25d242fdea1b}{Generate\_Grid\_List}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00216}00216\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00217}00217\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00218}\mbox{\hyperlink{class_grid_a4071cfdda8df7a3f8427379c49541126_a4071cfdda8df7a3f8427379c49541126}{00218}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_ab929318e5ef123712523299305dfe12f_ab929318e5ef123712523299305dfe12f}{Grid::Generate\_Grid}}(\textcolor{keywordtype}{bool}\ \&\ With\_Periodic\_Domain,\textcolor{keywordtype}{bool}\ \&\ EnableElliptic,\textcolor{keywordtype}{int}\ \&\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}})}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00219}00219\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00220}00220\ \ \ \ \ noit\ =0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00221}00221\ \ \ \ \ \mbox{\hyperlink{class_grid_a908819a747032ceba240db6d955ff931_a908819a747032ceba240db6d955ff931}{TFI}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00222}00222\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Enalbe\ Elliptic\ solver\(\backslash\)t"{}}<<EnableElliptic<<\textcolor{stringliteral}{"{}\(\backslash\)t\ with\ number\ of\ iterations\(\backslash\)t"{}}<<\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}}<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00223}00223\ \ \ \ \ \textcolor{keywordflow}{if}(EnableElliptic)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00224}00224\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00225}00225\ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00226}00226\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00227}00227\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ timer\ =\ clock();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00228}00228\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_a90c5271ba6fdba6112a562693bd9a0f2_a90c5271ba6fdba6112a562693bd9a0f2}{Elliptic}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00229}00229\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(With\_Periodic\_Domain)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00230}00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_a246dcc7405f9142fc624bafb817ed9fe_a246dcc7405f9142fc624bafb817ed9fe}{Periodic\_Boundary\_Condition}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00231}00231\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_grid_ac1e989c2a3c81fd365d9ae57e7f15b61_ac1e989c2a3c81fd365d9ae57e7f15b61}{Estimate\_Error\_and\_Update}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00232}00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ noit=noit+1;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00233}00233\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(noit\%1000==0)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00234}00234\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00235}00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ timer\ =\ clock();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00236}00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<noit<<\textcolor{stringliteral}{"{}\(\backslash\)ttotal\ error=\(\backslash\)t"{}}<<ertot<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<timer/CLOCKS\_PER\_SEC<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00237}00237\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00238}00238\ \ \ \ \ \ \ \ \ \ \ \ \ \}\textcolor{keywordflow}{while}((noit<\mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}})\ );\ \textcolor{comment}{//end\ of\ iterative\ loops}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00239}00239\ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00240}00240\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Elliptic\ Grid\ Generated\(\backslash\)t......Generating\ Grid\ List\(\backslash\)n"{}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00241}00241\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00242}00242\ \ \ \ \ \mbox{\hyperlink{class_grid_ab7768e9853f9b8e4530a25d242fdea1b_ab7768e9853f9b8e4530a25d242fdea1b}{Generate\_Grid\_List}}();}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00243}00243\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00244}00244\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00245}\mbox{\hyperlink{class_grid_ab7768e9853f9b8e4530a25d242fdea1b_ab7768e9853f9b8e4530a25d242fdea1b}{00245}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_ab7768e9853f9b8e4530a25d242fdea1b_ab7768e9853f9b8e4530a25d242fdea1b}{Grid::Generate\_Grid\_List}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00246}00246\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00247}00247\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ Temp\_Point;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00248}00248\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<ny;j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00249}00249\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00250}00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;i<nx;i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00251}00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00252}00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_Point(x[i][j],y[i][j],0.0);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00253}00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Grid\_List.push\_back(Temp\_Point);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00254}00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00255}00255\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00256}00256\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Planar\ Grid,\ List\ generated.....\(\backslash\)n\ Leaving\ Grid\ Generator\ to\ Basic\ Program\ File"{}}<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00257}00257\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00258}00258\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00259}\mbox{\hyperlink{class_grid_ada712360e862dad0f75e839a3c52fc14_ada712360e862dad0f75e839a3c52fc14}{00259}}\ vector<Point>\ \&\ \mbox{\hyperlink{class_grid_ada712360e862dad0f75e839a3c52fc14_ada712360e862dad0f75e839a3c52fc14}{Grid::Get\_Grid\_List}}()}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00260}00260\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00261}00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ Grid\_List;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00262}00262\ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00263}00263\ }
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00264}\mbox{\hyperlink{class_grid_abeb69c2204f0debb7fe803fbc111d2bf_abeb69c2204f0debb7fe803fbc111d2bf}{00264}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_grid_abeb69c2204f0debb7fe803fbc111d2bf_abeb69c2204f0debb7fe803fbc111d2bf}{Grid::Stack\_Grid}}(\textcolor{keywordtype}{double}\ \&\ length,\textcolor{keywordtype}{int}\ \&nop,vector<Point>\&\ Stacked\_Grid\_List)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00265}00265\ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00266}00266\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Stacking\ grid\ \(\backslash\)n"{}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00267}00267\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\ plane\ size\(\backslash\)t"{}}<<Grid\_List.size()<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00268}00268\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Length\ over\ which\ Grid\ to\ be\ stacked\(\backslash\)t"{}}<<length<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00269}00269\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Nop\ in\ stacking\ direction\(\backslash\)t"{}}<<nop<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00270}00270\ \ \ \ \ \ \ \ \ vector<Point>\ temp\_list;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00271}00271\ \ \ \ \ \textcolor{keywordtype}{double}\ delx=length/(nop-\/1);}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00272}00272\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}spacing\ in\ Z\ direction\ \(\backslash\)t"{}}<<delx<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00273}00273\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00274}00274\ \ \ \ \ \textcolor{keywordtype}{int}\ k=0;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00275}00275\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<nop;i++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00276}00276\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00277}00277\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Grid\_List.size();j++)}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00278}00278\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00279}00279\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}(Grid\_List[j].Get\_x(),Grid\_List[j].Get\_y(),i*delx+Grid\_List[j].Get\_z());}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00280}00280\ \ \ \ \ \ \ \ \ \ \ \ \ Stacked\_Grid\_List.push\_back(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}});}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00281}00281\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<p.Get\_x()<<"{}\(\backslash\)t"{}<<p.Get\_y()<<"{}\(\backslash\)t"{}<<p.Get\_z()<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00282}00282\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00283}00283\ \ \ \ \ \ \ \ \ k++;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00284}00284\ \textcolor{comment}{//\ \ \ \ \ \ cout<<k<<"{}\(\backslash\)t"{}<<"{}i\(\backslash\)t"{}<<i<<endl;}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00285}00285\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00286}00286\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Stacking\ Elliptic\ Core\ Grid\ Done\(\backslash\)t\ Size\ of\ Grid\ list\(\backslash\)t"{}}<<Stacked\_Grid\_List.size()<<endl;}
+\DoxyCodeLine{\Hypertarget{gridgen___elliptic___t_f_i_8cpp_source_l00287}00287\ \}}
+
+\end{DoxyCode}

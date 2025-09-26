@@ -1,0 +1,87 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+utils.\+check\+\_\+map.\+Check\+Map Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map}{}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map}\index{qiskit.transpiler.passes.utils.check\_map.CheckMap@{qiskit.transpiler.passes.utils.check\_map.CheckMap}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+utils.\+check\+\_\+map.\+Check\+Map\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.745098cm]{da/d25/classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_aecf2593be010b0d54cdc8ca3bade80ef_aecf2593be010b0d54cdc8ca3bade80ef}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, coupling\+\_\+map, property\+\_\+set\+\_\+field=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a5c3e2fdc5d185acddda820dd712612ef_a5c3e2fdc5d185acddda820dd712612ef}{run}} (self, dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_ae3a3d76e00b2794d462e5d57c9cc10e6}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_ae3a3d76e00b2794d462e5d57c9cc10e6} 
+str {\bfseries property\+\_\+set\+\_\+field} = "{}is\+\_\+swap\+\_\+mapped"{}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a4899d447d444882856c247445685247b}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a4899d447d444882856c247445685247b} 
+{\bfseries qargs} = None
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a9e3a250d1115df27705f501f425fb598}\label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a9e3a250d1115df27705f501f425fb598} 
+bool {\bfseries qargs} = True
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Check if a DAG circuit is already mapped to a coupling map.
+
+Check if a DAGCircuit is mapped to ``coupling_map`` by checking that all
+2-qubit interactions are laid out to be on adjacent qubits in the global coupling
+map of the device, setting the property set field (either specified with ``property_set_field``
+or the default ``is_swap_mapped``) to ``True`` or ``False`` accordingly. Note this does not
+validate directionality of the connectivity between  qubits. If you need to check gates are
+implemented in a native direction for a target use the :class:`~.CheckGateDirection` pass
+instead.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_aecf2593be010b0d54cdc8ca3bade80ef_aecf2593be010b0d54cdc8ca3bade80ef}\index{qiskit.transpiler.passes.utils.check\_map.CheckMap@{qiskit.transpiler.passes.utils.check\_map.CheckMap}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.utils.check\_map.CheckMap@{qiskit.transpiler.passes.utils.check\_map.CheckMap}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_aecf2593be010b0d54cdc8ca3bade80ef_aecf2593be010b0d54cdc8ca3bade80ef} 
+qiskit.\+transpiler.\+passes.\+utils.\+check\+\_\+map.\+Check\+Map.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{coupling\+\_\+map}{, }\item[{}]{property\+\_\+set\+\_\+field}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}CheckMap initializer.
+
+Args:
+    coupling_map (Union[CouplingMap, Target]): Directed graph representing a coupling map.
+    property_set_field (str): An optional string to specify the property set field to
+        store the result of the check. If not default the result is stored in
+        ``"is_swap_mapped"``.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a5c3e2fdc5d185acddda820dd712612ef_a5c3e2fdc5d185acddda820dd712612ef}\index{qiskit.transpiler.passes.utils.check\_map.CheckMap@{qiskit.transpiler.passes.utils.check\_map.CheckMap}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.utils.check\_map.CheckMap@{qiskit.transpiler.passes.utils.check\_map.CheckMap}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1utils_1_1check__map_1_1_check_map_a5c3e2fdc5d185acddda820dd712612ef_a5c3e2fdc5d185acddda820dd712612ef} 
+qiskit.\+transpiler.\+passes.\+utils.\+check\+\_\+map.\+Check\+Map.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the CheckMap pass on `dag`.
+
+If `dag` is mapped to `coupling_map`, the property
+`is_swap_mapped` is set to True (or to False otherwise).
+
+Args:
+    dag (DAGCircuit): DAG to map.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/utils/check\+\_\+map.\+py\end{DoxyCompactItemize}

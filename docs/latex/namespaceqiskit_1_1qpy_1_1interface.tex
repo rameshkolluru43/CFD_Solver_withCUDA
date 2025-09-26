@@ -1,0 +1,185 @@
+\doxysection{qiskit.\+qpy.\+interface Namespace Reference}
+\hypertarget{namespaceqiskit_1_1qpy_1_1interface}{}\label{namespaceqiskit_1_1qpy_1_1interface}\index{qiskit.qpy.interface@{qiskit.qpy.interface}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1qpy_1_1interface_a9c80b26270ace219e4e53a921f62e186}{dump}} (Union\mbox{[}List\mbox{[}QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]}, QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]} programs, Binary\+IO file\+\_\+obj, Optional\mbox{[}Type\mbox{[}JSONEncoder\mbox{]}\mbox{]} metadata\+\_\+serializer=None, bool use\+\_\+symengine=True, int version=common.\+QPY\+\_\+\+VERSION)
+\item 
+List\mbox{[}QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1qpy_1_1interface_a5b197f02ace7cb166f8db7aa6284a449}{load}} (Binary\+IO file\+\_\+obj, Optional\mbox{[}Type\mbox{[}JSONDecoder\mbox{]}\mbox{]} metadata\+\_\+deserializer=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1qpy_1_1interface_a3776a953ba0268a278444e52e6c68127}\label{namespaceqiskit_1_1qpy_1_1interface_a3776a953ba0268a278444e52e6c68127} 
+{\bfseries QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES} = Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1schedule_1_1_schedule_block}{Schedule\+Block}}\mbox{]}
+\item 
+tuple \mbox{\hyperlink{namespaceqiskit_1_1qpy_1_1interface_ae7a5f23f62ac2c86b7e0ea11e820eb8d}{VERSION\+\_\+\+PATTERN}}
+\item 
+\Hypertarget{namespaceqiskit_1_1qpy_1_1interface_a986046133a56f61acb4aa2a2aec7ca56}\label{namespaceqiskit_1_1qpy_1_1interface_a986046133a56f61acb4aa2a2aec7ca56} 
+{\bfseries VERSION\+\_\+\+PATTERN\+\_\+\+REGEX} = re.\+compile(VERSION\+\_\+\+PATTERN, re.\+VERBOSE \texorpdfstring{$\vert$}{|} re.\+IGNORECASE)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}User interface of qpy serializer.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1qpy_1_1interface_a9c80b26270ace219e4e53a921f62e186}\index{qiskit.qpy.interface@{qiskit.qpy.interface}!dump@{dump}}
+\index{dump@{dump}!qiskit.qpy.interface@{qiskit.qpy.interface}}
+\doxysubsubsection{\texorpdfstring{dump()}{dump()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qpy_1_1interface_a9c80b26270ace219e4e53a921f62e186} 
+qiskit.\+qpy.\+interface.\+dump (\begin{DoxyParamCaption}\item[{Union\mbox{[}List\mbox{[}QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]}, QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]}}]{programs}{, }\item[{Binary\+IO}]{file\+\_\+obj}{, }\item[{Optional\mbox{[}Type\mbox{[}JSONEncoder\mbox{]}\mbox{]} }]{metadata\+\_\+serializer}{ = {\ttfamily None}, }\item[{bool }]{use\+\_\+symengine}{ = {\ttfamily True}, }\item[{int }]{version}{ = {\ttfamily common.QPY\+\_\+VERSION}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Write QPY binary data to a file
+
+This function is used to save a circuit to a file for later use or transfer
+between machines. The QPY format is backwards compatible and can be
+loaded with future versions of Qiskit.
+
+For example:
+
+.. code-block:: python
+
+    from qiskit.circuit import QuantumCircuit
+    from qiskit import qpy
+
+    qc = QuantumCircuit(2, name='Bell', metadata={'test': True})
+    qc.h(0)
+    qc.cx(0, 1)
+    qc.measure_all()
+
+from this you can write the qpy data to a file:
+
+.. code-block:: python
+
+    with open('bell.qpy', 'wb') as fd:
+        qpy.dump(qc, fd)
+
+or a gzip compressed file:
+
+.. code-block:: python
+
+    import gzip
+
+    with gzip.open('bell.qpy.gz', 'wb') as fd:
+        qpy.dump(qc, fd)
+
+Which will save the qpy serialized circuit to the provided file.
+
+Args:
+    programs: QPY supported object(s) to store in the specified file like object.
+        QPY supports :class:`.QuantumCircuit` and :class:`.ScheduleBlock`.
+        Different data types must be separately serialized.
+        Support for :class:`.ScheduleBlock` is deprecated since Qiskit 1.3.0.
+    file_obj: The file like object to write the QPY data too
+    metadata_serializer: An optional JSONEncoder class that
+        will be passed the ``.metadata`` attribute for each program in ``programs`` and will be
+        used as the ``cls`` kwarg on the `json.dump()`` call to JSON serialize that dictionary.
+    use_symengine: If True, all objects containing symbolic expressions will be serialized
+        using symengine's native mechanism. This is a faster serialization alternative,
+        but not supported in all platforms. This flag only has an effect if the emitted QPY format
+        version is 10, 11, or 12. For QPY format version >= 13 (which is the default starting in
+        Qiskit 1.3.0) this flag is no longer used.
+    version: The QPY format version to emit. By default this defaults to
+        the latest supported format of :attr:`~.qpy.QPY_VERSION`, however for
+        compatibility reasons if you need to load the generated QPY payload with an older
+        version of Qiskit you can also select an older QPY format version down to the minimum
+        supported export version, which only can change during a Qiskit major version release,
+        to generate an older QPY format version.  You can access the current QPY version and
+        minimum compatible version with :attr:`.qpy.QPY_VERSION` and
+        :attr:`.qpy.QPY_COMPATIBILITY_VERSION` respectively.
+
+        .. note::
+
+            If specified with an older version of QPY the limitations and potential bugs stemming
+            from the QPY format at that version will persist. This should only be used if
+            compatibility with loading the payload with an older version of Qiskit is necessary.
+
+        .. note::
+
+            If serializing a :class:`.QuantumCircuit` or :class:`.ScheduleBlock` that contain
+            :class:`.ParameterExpression` objects with ``version`` set low with the intent to
+            load the payload using a historical release of Qiskit, it is safest to set the
+            ``use_symengine`` flag to ``False``.  Versions of Qiskit prior to 1.2.4 cannot load
+            QPY files containing ``symengine``-serialized :class:`.ParameterExpression` objects
+            unless the version of ``symengine`` used between the loading and generating
+            environments matches.
+
+
+Raises:
+    QpyError: When multiple data format is mixed in the output.
+    TypeError: When invalid data type is input.
+    ValueError: When an unsupported version number is passed in for the ``version`` argument
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1qpy_1_1interface_a5b197f02ace7cb166f8db7aa6284a449}\index{qiskit.qpy.interface@{qiskit.qpy.interface}!load@{load}}
+\index{load@{load}!qiskit.qpy.interface@{qiskit.qpy.interface}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qpy_1_1interface_a5b197f02ace7cb166f8db7aa6284a449} 
+ List\mbox{[}QPY\+\_\+\+SUPPORTED\+\_\+\+TYPES\mbox{]} qiskit.\+qpy.\+interface.\+load (\begin{DoxyParamCaption}\item[{Binary\+IO}]{file\+\_\+obj}{, }\item[{Optional\mbox{[}Type\mbox{[}JSONDecoder\mbox{]}\mbox{]} }]{metadata\+\_\+deserializer}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Load a QPY binary file
+
+This function is used to load a serialized QPY Qiskit program file and create
+:class:`~qiskit.circuit.QuantumCircuit` objects or
+:class:`~qiskit.pulse.schedule.ScheduleBlock` objects from its contents.
+For example:
+
+.. code-block:: python
+
+    from qiskit import qpy
+
+    with open('bell.qpy', 'rb') as fd:
+        circuits = qpy.load(fd)
+
+or with a gzip compressed file:
+
+.. code-block:: python
+
+    import gzip
+    from qiskit import qpy
+
+    with gzip.open('bell.qpy.gz', 'rb') as fd:
+        circuits = qpy.load(fd)
+
+which will read the contents of the qpy and return a list of
+:class:`~qiskit.circuit.QuantumCircuit` objects or
+:class:`~qiskit.pulse.schedule.ScheduleBlock` objects from the file.
+
+Args:
+    file_obj: A file like object that contains the QPY binary
+        data for a circuit or pulse schedule.
+    metadata_deserializer: An optional JSONDecoder class
+        that will be used for the ``cls`` kwarg on the internal
+        ``json.load`` call used to deserialize the JSON payload used for
+        the ``.metadata`` attribute for any programs in the QPY file.
+        If this is not specified the circuit metadata will
+        be parsed as JSON with the stdlib ``json.load()`` function using
+        the default ``JSONDecoder`` class.
+
+Returns:
+    The list of Qiskit programs contained in the QPY data.
+    A list is always returned, even if there is only 1 program in the QPY data.
+
+Raises:
+    QiskitError: if ``file_obj`` is not a valid QPY file
+    TypeError: When invalid data type is loaded.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1qpy_1_1interface_ae7a5f23f62ac2c86b7e0ea11e820eb8d}\index{qiskit.qpy.interface@{qiskit.qpy.interface}!VERSION\_PATTERN@{VERSION\_PATTERN}}
+\index{VERSION\_PATTERN@{VERSION\_PATTERN}!qiskit.qpy.interface@{qiskit.qpy.interface}}
+\doxysubsubsection{\texorpdfstring{VERSION\_PATTERN}{VERSION\_PATTERN}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1qpy_1_1interface_ae7a5f23f62ac2c86b7e0ea11e820eb8d} 
+tuple qiskit.\+qpy.\+interface.\+VERSION\+\_\+\+PATTERN}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ (}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}\string^"{}}}
+\DoxyCodeLine{00003\ \ \ \ \ +\ }
+\DoxyCodeLine{00004\ \ \ \ \ +\ \textcolor{stringliteral}{"{}\$"{}}}
+\DoxyCodeLine{00005\ )}
+
+\end{DoxyCode}

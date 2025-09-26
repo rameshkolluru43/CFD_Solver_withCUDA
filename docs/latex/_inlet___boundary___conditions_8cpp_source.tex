@@ -1,0 +1,349 @@
+\doxysection{Inlet\+\_\+\+Boundary\+\_\+\+Conditions.\+cpp}
+\hypertarget{_inlet___boundary___conditions_8cpp_source}{}\label{_inlet___boundary___conditions_8cpp_source}\index{Boundary\_Conditions/Inlet\_Boundary\_Conditions.cpp@{Boundary\_Conditions/Inlet\_Boundary\_Conditions.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{void}\ Subsonic\_Inlet\_Boundary\_Condition()}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \textcolor{comment}{//\ The\ implementation\ is\ as\ described\ in\ the\ Blazek\ Text\ book\ Page\ 283\ }}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{double}\ P\_d\ =0.0,v1=0.0,v2=0.0,vmag=0.0,Rho=0.0,n1=0.0,n2=0.0;}
+\DoxyCodeLine{00007\ \ \ \ \ V\_D\ U(4,0.0);}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0,Face\_No,index;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Inlet\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00010\ \ \ \ \ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Inlet\_Cells\_List[i+0];}
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}inlet\ cell\ index\(\backslash\)t"{}<<Cell\_Index<<endl;}}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index\ =\ Inlet\_Cells\_List[i+2];}
+\DoxyCodeLine{00014\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}inlet\ ghost\ cell\ index\(\backslash\)t"{}<<Ghost\_Cell\_Index<<endl;}}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \ \ v1\ =\ Primitive\_Cells[Cell\_Index][1];}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \ \ v2\ =\ Primitive\_Cells[Cell\_Index][2];}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \ \ Face\_No\ =\ Inlet\_Cells\_List[i+1];}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ cout<<"{}Face\ no\ on\ exit\ cell\(\backslash\)t"{}<<Face\_No<<"{}\(\backslash\)n"{}<<endl;}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ index\ =\ Face\_No*2;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ cout<<"{}index\(\backslash\)t"{}<<index<<endl;}}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ \ \ \ \ n1=Cell\_Face\_Normals[Cell\_Index][index+0];}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \ \ \ \ n2=Cell\_Face\_Normals[Cell\_Index][index+1];}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \ \ vmag\ =\ 0.5*(v1*v1\ +\ v2*v2);}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ \ \ \ \ \ \ \ T\_Static\_Inlet\ =\ Temperature\_Total\_Inlet-\/vmag/cp;}}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \ \ P\_d\ =\ 1.0;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//Pressure\_Total\_Inlet*(pow((T\_Static\_Inlet/Temperature\_Total\_Inlet),(gamma/(gamma-\/1))));}}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \ \ Rho\ =\ 1.4;\textcolor{comment}{//P\_Static\_Inlet/(R*T\_Static\_Inlet);}}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ =\ Rho;}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ =\ Rho*v1;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ =\ Rho*v2;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ =\ P\_d/(gamma-\/1.0)\ +\ Rho*vmag;\ \ }
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00036\ \ \ \ \ \}}
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ \ cout<<"{}*******************\ Subsonic\ Inlet\ Boundary\ Conditions***********************************\(\backslash\)n"{};}}
+\DoxyCodeLine{00038\ \}}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ Super\ Sonic\ Conditions\ Prescribe\ all\ the\ conditions\ in\ the\ Ghost\ Cells}}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{void}\ Supersonic\_Inlet\_Boundary\_Condition()}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0,Face\_No=0;\textcolor{comment}{//Face\_Index=0,n1=0,n2=0;}}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00046\ \textcolor{comment}{//\ \ cout<<"{}Applying\ Supersonic\ Inlet\ Boundary\ Condition\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ \ cout<<"{}Number\ of\ Inlet\ Cells\(\backslash\)t"{}<<Inlet\_Cells\_List.size()/3<<endl;}}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Inlet\_Cells\_List.size();i+=3)}
+\DoxyCodeLine{00049\ \ \ \ \ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ Cell\_Index\ =\ Inlet\_Cells\_List[i+0];}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ Face\_No\ =\ Inlet\_Cells\_List[i+1];}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ Ghost\_Cell\_Index=Inlet\_Cells\_List[i+2];}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}(Test\_Case)}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 1:}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Mach\_No\ =\ 6.0;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.4;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 0.0;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =-\/6.0;}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 4:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Mach\_No\ =\ 3.0;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.4;}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 3:}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ P\_ref;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=\ 0.0;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 10:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ P\_ref;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=\ 0.0;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 2:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Face\_No\ ==\ 3)}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ 1.2473*P\_ref;}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.1706*Rho\_ref;}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.0077*cos(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=\ -\/2.0077*sin(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.52819;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.69997;}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.61934;}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ -\/0.50633;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Face\_No\ ==\ 0)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ Conditions\ for\ Visocus\ Case}}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Cell\_Index>=14000)}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ 1.24729*P\_ref;}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.17069013*Rho\_ref;}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.0077*cos(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=\ -\/2.0077*sin(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//Test\ Conditions\ for\ Invisicd\ Case\ }}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ (1.0/1.4);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.9;}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 12:}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=0.0;}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1=Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}Inlet\ Velocity\ at\ Boundary\(\backslash\)t"{}<<V\_1<<endl;}}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 11:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=1.4;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=0.0;}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Cell\_Index<0.5*No\_Physical\_Cells)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1=2.0;}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1=3.0;}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 13:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 35.125;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=7.208510638;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 4.43182;}
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=0.0;}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 14:}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Conditions\ used\ by\ Maruti\ in\ his\ code\ Ic\_Unsteady\_Flow(id1,\ id2,\ jd1,\ jd2,\ 1,\ 22,\ 7.041132896,\ 1.4,\ 4.0779,\ 0.0,\ 0.0,\ 0.0,\ 30.05945,\ 1.0,\ x,\ y,\ cv);\ \ \ \ \ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 30.05945;}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=7.041132896;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 4.0779;}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 8:}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=Rho\_ref;}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 16:}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0/1.4;}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=1.25;}
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 1.22*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 17:}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 2.12*P\_ref;}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=(2.12/1.25469387)*Rho\_ref;}
+\DoxyCodeLine{00195\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.01761659*P\_ref;}}
+\DoxyCodeLine{00196\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=1.68946061*Rho\_ref;}}
+\DoxyCodeLine{00197\ }
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00201\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet=\ Rho\_ref;}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;\ \ }
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 18:\ \ \ \ \ \ \ \ \textcolor{comment}{//Ic\_Unsteady\_Flow(id1,\ id2,\ jd1,\ jd2,\ 1,\ 22,\ 7.37561,\ 1.4,\ 4.8611,\ 0.0,\ 0.0,\ 0.0,\ 41.8333,\ 1.0,\ x,\ y,\ cv);\ //oed\ from\ Maruthis\ Code\ for\ OED}}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 41.8333;}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 7.37561;}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =4.8611;}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 15:}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Face\_No\ ==\ 3)}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ 1.24729080*P\_ref;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ \ 1.17060913*Rho\_ref;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =2.00771568*cos(radian*3.81303835)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =-\/2.00771568*sin(radian*3.81303835)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.52819;}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.69997;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.61934;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ -\/0.50633;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(Face\_No\ ==\ 0)}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Is\_Viscous\_Wall)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Test\ Conditions\ for\ Visocus\ Case}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Cell\_Index>=400*160)}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ \ 1.24729080*P\_ref;}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ \ 1.17060913*Rho\_ref;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.00771568*cos(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);\ }
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2=\ -\/2.00771568*sin(radian*3.8131)*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{\textcolor{comment}{//Test\ Conditions\ for\ Invisicd\ Case\ }}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ (1.0/1.4);}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 2.9;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \ \ }
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 19:}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Inlet\_Mach\_No\ =\ 3.0;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ 1.0/(gamma*Inlet\_Mach\_No*Inlet\_Mach\_No);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ 1.0;}
+\DoxyCodeLine{00267\ }
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(Cell\_Index\ ==((nx\_c\ -\/\ 1)*0.5*(ny\_c-\/1)))}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ 0.0;}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(V\_1*V\_1\ +\ V\_2*V\_2);}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Pressure\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Rho\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Temperature\_Static\_Inlet<<"{}\(\backslash\)t"{}<<V\_1<<"{}\(\backslash\)t"{}<<V\_2<<"{}\(\backslash\)t"{}<<V\_Magnitude<<endl;}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ \ \ \ =\ \ \ Rho\_Static\_Inlet;}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*V\_1;}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*V\_2;}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ \ \ \ =\ \ \ ((Pressure\_Static\_Inlet/gamma\_M\_1)\ +\ Rho\_Static\_Inlet*0.5*V\_Magnitude\_Inlet*V\_Magnitude\_Inlet);\ \textcolor{comment}{//\ (P/(gamma-\/1)\ +\ 0.5*rho*|V|\string^2)}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Ghost\_Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00292\ \ \ \ \ \}}
+\DoxyCodeLine{00293\ \}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{comment}{//\ Super\ Sonic\ Conditions\ Prescribe\ all\ the\ conditions\ in\ the\ Ghost\ Cells}}
+\DoxyCodeLine{00296\ \textcolor{keywordtype}{void}\ Supersonic\_Inlet\_Boundary\_Condition(\textcolor{keywordtype}{double}\ \&\ Pressure\_Static\_Inlet,\textcolor{keywordtype}{double}\ \&\ Rho\_Static\_Inlet,\textcolor{keywordtype}{double}\ \&\ u\_Inlet,\textcolor{keywordtype}{double}\ \&\ v\_Inlet,\textcolor{keywordtype}{double}\ \&\ Inlet\_Mach\_No)}
+\DoxyCodeLine{00297\ \{}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{keywordtype}{int}\ Cell\_Index=0,Ghost\_Cell\_Index=0,Face\_No=0;\textcolor{comment}{//Face\_Index=0,n1=0,n2=0;}}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{double}\ VMagnitude=0.0;}
+\DoxyCodeLine{00300\ \ \ \ \ }
+\DoxyCodeLine{00301\ \textcolor{comment}{//\ \ cout<<"{}Applying\ Supersonic\ Inlet\ Boundary\ Condition\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00302\ \textcolor{comment}{//\ \ cout<<"{}Number\ of\ Inlet\ Cells\(\backslash\)t"{}<<Inlet\_Cells\_List.size()/3<<endl;}}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ VMagnitude\ =\ sqrt(u\_Inlet*u\_Inlet\ +\ v\_Inlet*v\_Inlet);}
+\DoxyCodeLine{00304\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Pressure\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Rho\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Temperature\_Static\_Inlet<<"{}\(\backslash\)t"{}<<V\_1<<"{}\(\backslash\)t"{}<<V\_2<<"{}\(\backslash\)t"{}<<V\_Magnitude<<endl;}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ \ \ \ =\ \ \ Rho\_Static\_Inlet;}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*u\_Inlet;}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*v\_Inlet;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ \ \ \ =\ \ \ ((Pressure\_Static\_Inlet/gamma\_M\_1)\ +\ Rho\_Static\_Inlet*0.5*VMagnitude*VMagnitude);\ \textcolor{comment}{//\ (P/(gamma-\/1)\ +\ 0.5*rho*|V|\string^2)}}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Ghost\_Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Global\_Primitive.size();i++)}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}
+\DoxyCodeLine{00314\ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ }
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{comment}{/*void\ Supersonic\_Inlet\_Boundary\_Condition(double\ \&\ Pressure\_Static\_Inlet,double\ \&\ Rho\_Static\_Inlet,double\ \&\ u\_Inlet,double\ \&\ v\_Inlet,double\ \&\ Inlet\_Mach\_No)}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\{}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ \ \ \ int\ Cell\_Index=0,Ghost\_Cell\_Index=0,Face\_No=0;//Face\_Index=0,n1=0,n2=0;}}
+\DoxyCodeLine{00322\ \textcolor{comment}{\ \ \ \ }}
+\DoxyCodeLine{00323\ \textcolor{comment}{//\ \ \ \ \ \ \ \ cout<<"{}Applying\ Supersonic\ Inlet\ Boundary\ Condition\(\backslash\)t"{}<<endl;}}
+\DoxyCodeLine{00324\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ cout<<"{}Number\ of\ Inlet\ Cells\(\backslash\)t"{}<<Inlet\_Cells\_List.size()/3<<endl;}}
+\DoxyCodeLine{00325\ \textcolor{comment}{\ \ \ \ for(unsigned\ int\ i=0;i<Inlet\_Cells\_List.size();i+=3)}}
+\DoxyCodeLine{00326\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{00327\ \textcolor{comment}{\ \ \ \ \ \ \ \ Cell\_Index\ =\ Inlet\_Cells\_List[i+0];}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ \ \ \ \ \ \ \ Face\_No\ =\ Inlet\_Cells\_List[i+1];}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ \ \ \ \ \ \ \ Ghost\_Cell\_Index=Inlet\_Cells\_List[i+2];}}
+\DoxyCodeLine{00330\ \textcolor{comment}{\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00331\ \textcolor{comment}{\ \ \ \ \ \ \ \ V\_Magnitude\_Inlet\ =\ sqrt(u\_Inlet*u\_Inlet\ +\ v\_Inlet*v\_Inlet);}}
+\DoxyCodeLine{00332\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<Cell\_Index<<"{}\(\backslash\)t"{}<<Pressure\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Rho\_Static\_Inlet<<"{}\(\backslash\)t"{}<<Temperature\_Static\_Inlet<<"{}\(\backslash\)t"{}<<V\_1<<"{}\(\backslash\)t"{}<<V\_2<<"{}\(\backslash\)t"{}<<V\_Magnitude<<endl;}}
+\DoxyCodeLine{00333\ \textcolor{comment}{\ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][0]\ \ \ \ =\ \ \ Rho\_Static\_Inlet;}}
+\DoxyCodeLine{00334\ \textcolor{comment}{\ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][1]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*V\_1;}}
+\DoxyCodeLine{00335\ \textcolor{comment}{\ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][2]\ \ \ \ =\ \ \ Rho\_Static\_Inlet*V\_2;}}
+\DoxyCodeLine{00336\ \textcolor{comment}{\ \ \ \ \ \ \ \ U\_Cells[Ghost\_Cell\_Index][3]\ \ \ \ =\ \ \ ((Pressure\_Static\_Inlet/(gamma-\/1.0))\ +\ Rho\_Static\_Inlet*0.5*V\_Magnitude\_Inlet*V\_Magnitude\_Inlet);\ //\ (P/(gamma-\/1)\ +\ 0.5*rho*|V|\string^2)}}
+\DoxyCodeLine{00337\ \textcolor{comment}{}}
+\DoxyCodeLine{00338\ \textcolor{comment}{\ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(Ghost\_Cell\_Index,U\_Cells[Ghost\_Cell\_Index]);}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ \ \ \ \ \ \ \ Vector\_Reset(Primitive\_Cells[Ghost\_Cell\_Index]);}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ \ \ \ \ \ \ \ for(unsigned\ int\ i=0;i<Global\_Primitive.size();i++)}}
+\DoxyCodeLine{00341\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[Ghost\_Cell\_Index][i]=Global\_Primitive[i];}}
+\DoxyCodeLine{00342\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{00343\ \textcolor{comment}{\}*/}}
+
+\end{DoxyCode}

@@ -1,0 +1,100 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+token\+\_\+swapper.\+Approximate\+Token\+Swapper Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper}{}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper}\index{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a814d8b4d9634578a2d46fa975950ad11}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, rx.\+Py\+Graph graph, int\texorpdfstring{$\vert$}{|}np.\+random.\+Generator\texorpdfstring{$\vert$}{|}None seed=None)
+\item 
+int \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a747a1caf7686ed4edeb0cab090b4a64d}{distance}} (self, int vertex0, int vertex1)
+\item 
+Permutation\+Circuit \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_ae9649b08c9ef80b240954132890f9392}{permutation\+\_\+circuit}} (self, Permutation permutation, int trials=4)
+\item 
+list\mbox{[}Swap\mbox{[}int\mbox{]}\mbox{]} \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_af2f07815e39f36a8a5a981a8b194ac58}{map}} (self, Mapping\mbox{[}int, int\mbox{]} mapping, int trials=4, int parallel\+\_\+threshold=50)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a610797673a5a341b8123717eb4184c66}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a610797673a5a341b8123717eb4184c66} 
+{\bfseries graph} = graph
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_af74351c4404dce287c156e1ab343d62d}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_af74351c4404dce287c156e1ab343d62d} 
+{\bfseries shortest\+\_\+paths} = rx.\+graph\+\_\+distance\+\_\+matrix(graph)
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a4ac2f7bfdc58304e5fe8a92774705b52}\label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a4ac2f7bfdc58304e5fe8a92774705b52} 
+{\bfseries seed} = seed
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A class for computing approximate solutions to the Token Swapping problem.
+
+Internally caches the graph and associated datastructures for re-use.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a814d8b4d9634578a2d46fa975950ad11}\index{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a814d8b4d9634578a2d46fa975950ad11} 
+ None qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+token\+\_\+swapper.\+Approximate\+Token\+Swapper.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{rx.\+Py\+Graph}]{graph}{, }\item[{int \texorpdfstring{$\vert$}{|} np.\+random.\+Generator \texorpdfstring{$\vert$}{|} None }]{seed}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct an ApproximateTokenSwapping object.
+
+Args:
+    graph: Undirected graph represented a coupling map.
+    seed: Seed to use for random trials.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a747a1caf7686ed4edeb0cab090b4a64d}\index{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}!distance@{distance}}
+\index{distance@{distance}!qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}}
+\doxysubsubsection{\texorpdfstring{distance()}{distance()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_a747a1caf7686ed4edeb0cab090b4a64d} 
+ int qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+token\+\_\+swapper.\+Approximate\+Token\+Swapper.\+distance (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{vertex0}{, }\item[{int}]{vertex1}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Compute the distance between two nodes in `graph`.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_af2f07815e39f36a8a5a981a8b194ac58}\index{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}!map@{map}}
+\index{map@{map}!qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}}
+\doxysubsubsection{\texorpdfstring{map()}{map()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_af2f07815e39f36a8a5a981a8b194ac58} 
+ list\mbox{[}Swap\mbox{[}int\mbox{]}\mbox{]} qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+token\+\_\+swapper.\+Approximate\+Token\+Swapper.\+map (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Mapping\mbox{[}int, int\mbox{]}}]{mapping}{, }\item[{int }]{trials}{ = {\ttfamily 4}, }\item[{int }]{parallel\+\_\+threshold}{ = {\ttfamily 50}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Perform an approximately optimal Token Swapping algorithm to implement the permutation.
+
+Supports partial mappings (i.e. not-permutations) for graphs with missing tokens.
+
+Based on the paper: Approximation and Hardness for Token Swapping by Miltzow et al. (2016)
+ArXiV: https://arxiv.org/abs/1602.05150
+and generalization based on our own work.
+
+Args:
+  mapping: The partial mapping to implement in swaps.
+  trials: The number of trials to try to perform the mapping. Minimize over the trials.
+  parallel_threshold: The number of nodes in the graph beyond which the algorithm
+        will use parallel processing
+
+Returns:
+  The swaps to implement the mapping
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_ae9649b08c9ef80b240954132890f9392}\index{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}!permutation\_circuit@{permutation\_circuit}}
+\index{permutation\_circuit@{permutation\_circuit}!qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper@{qiskit.transpiler.passes.routing.algorithms.token\_swapper.ApproximateTokenSwapper}}
+\doxysubsubsection{\texorpdfstring{permutation\_circuit()}{permutation\_circuit()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1algorithms_1_1token__swapper_1_1_approximate_token_swapper_ae9649b08c9ef80b240954132890f9392} 
+ Permutation\+Circuit qiskit.\+transpiler.\+passes.\+routing.\+algorithms.\+token\+\_\+swapper.\+Approximate\+Token\+Swapper.\+permutation\+\_\+circuit (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Permutation}]{permutation}{, }\item[{int }]{trials}{ = {\ttfamily 4}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Perform an approximately optimal Token Swapping algorithm to implement the permutation.
+
+Args:
+  permutation: The partial mapping to implement in swaps.
+  trials: The number of trials to try to perform the mapping. Minimize over the trials.
+
+Returns:
+  The circuit to implement the permutation
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/routing/algorithms/token\+\_\+swapper.\+py\end{DoxyCompactItemize}

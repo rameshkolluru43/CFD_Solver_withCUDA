@@ -1,0 +1,56 @@
+\doxysection{Test\+\_\+\+Gmsh\+\_\+\+Reader.\+cpp}
+\hypertarget{_test___gmsh___reader_8cpp_source}{}\label{_test___gmsh___reader_8cpp_source}\index{Unit\_Test\_Codes/Test\_Gmsh\_Reader.cpp@{Unit\_Test\_Codes/Test\_Gmsh\_Reader.cpp}}
+\mbox{\hyperlink{_test___gmsh___reader_8cpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00002}\mbox{\hyperlink{_test___gmsh___reader_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{00002}}\ \mbox{\hyperlink{struct_inlet_condition}{InletCondition}}\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_a3917ad85e3c151203e9422841b31a5eb_a3917ad85e3c151203e9422841b31a5eb}{inletCond}};}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00003}\mbox{\hyperlink{_test___gmsh___reader_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{00003}}\ \mbox{\hyperlink{struct_exit_condition}{ExitCondition}}\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_aa67b96b68d20618e2bb703387e98700d_aa67b96b68d20618e2bb703387e98700d}{exitCond}};}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00004}\mbox{\hyperlink{_test___gmsh___reader_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{00004}}\ \mbox{\hyperlink{struct_initial_condition}{InitialCondition}}\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_a8339b17bef27677c3e4132f68d352288_a8339b17bef27677c3e4132f68d352288}{initCond}};}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00005}\mbox{\hyperlink{_test___gmsh___reader_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{00005}}\ vector<string>\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_a12b28ba675b8402e8b84803c9cadde16_a12b28ba675b8402e8b84803c9cadde16}{gridFiles}};}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00006}\mbox{\hyperlink{_test___gmsh___reader_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{00006}}\ \textcolor{keywordtype}{string}\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_ad2f99f2a702c7edc40a7cac4736a48fb_ad2f99f2a702c7edc40a7cac4736a48fb}{gridDir}},\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_a18bff421007473a45e2b7494f14084b7_a18bff421007473a45e2b7494f14084b7}{Test\_Case\_Name}}\ =\ \textcolor{stringliteral}{"{}Default\_Test\_Case"{}},\ \mbox{\hyperlink{_test___gmsh___reader_8cpp_ad16a7808f3ef58d5f5ac5f53e9722dfb_ad16a7808f3ef58d5f5ac5f53e9722dfb}{GridVTKFile}};}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00007}\mbox{\hyperlink{_test___gmsh___reader_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{00007}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_half___cylinder_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ *argv[])}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00008}00008\ \{}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00009}00009\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00010}00010\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00011}00011\ \ \ \ \ \ \ \ \ cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ No\ JSON\ input\ file\ provided."{}}\ <<\ endl;}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00012}00012\ \ \ \ \ \ \ \ \ exit(EXIT\_FAILURE);}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00013}00013\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{string}\ GridFileName\ =\ argv[1];}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ grid\ file}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00017}00017\ \ \ \ \ \mbox{\hyperlink{_grid_8h_ac52640cd7cb369164c5ede8b208f0785_ac52640cd7cb369164c5ede8b208f0785}{Read\_GmshVTK\_Grid}}(GridFileName);}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00019}00019\ \ \ \ \ \textcolor{comment}{//\ \ Read\_Grid(GridFileName);}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ \mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}.size();\ i++)}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00021}00021\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00022}00022\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_utilities_8h_a6917acdc5103b75446a8901d4566ef79_a6917acdc5103b75446a8901d4566ef79}{Print}}(\mbox{\hyperlink{_globals_8h_a2e4e1bc33360d8b941e1f06c74ba1dfa_a2e4e1bc33360d8b941e1f06c74ba1dfa}{Cells}}[i]);}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00023}00023\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00024}00024\ }
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00025}00025\ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00026}00026\ \textcolor{comment}{\ \ \ \ //\ Example:\ a\ simple\ square\ in\ the\ XY\ plane\ with\ an\ extra\ point\ in\ the\ middle.}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00027}00027\ \textcolor{comment}{\ \ \ \ V\_D\ points\ =\ \{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00028}00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ 1.0,\ 0.0,\ 0.0,\ \ //\ Point\ A}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00029}00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ 0.0,\ 1.0,\ 0.0,\ \ //\ Point\ B}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00030}00030\ \textcolor{comment}{\ \ \ \ \ \ \ \ -\/1.0,\ 0.0,\ 0.0,\ //\ Point\ C}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00031}00031\ \textcolor{comment}{\ \ \ \ \ \ \ \ 0.0,\ -\/1.0,\ 0.0,\ //\ Point\ D}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00032}00032\ \textcolor{comment}{\ \ \ \ \};}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00033}00033\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00034}00034\ \textcolor{comment}{\ \ \ \ std::cout\ <<\ "{}Original\ Points\ (x,\ y,\ z):\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00035}00035\ \textcolor{comment}{\ \ \ \ for\ (size\_t\ i\ =\ 0;\ i\ <\ points.size();\ i\ +=\ 3)}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00036}00036\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00037}00037\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}("{}\ <<\ points[i]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 1]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 2]\ <<\ "{})\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00038}00038\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00039}00039\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00040}00040\ \textcolor{comment}{\ \ \ \ //\ Sort\ points\ anti-\/clockwise\ around\ their\ centroid\ (only\ using\ x,\ y)}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00041}00041\ \textcolor{comment}{\ \ \ \ Sort\_Points\_AntiClockWise(points);}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00042}00042\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00043}00043\ \textcolor{comment}{\ \ \ \ std::cout\ <<\ "{}\(\backslash\)nSorted\ Points\ (anti-\/clockwise\ around\ centroid):\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00044}00044\ \textcolor{comment}{\ \ \ \ for\ (size\_t\ i\ =\ 0;\ i\ <\ points.size();\ i\ +=\ 3)}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00045}00045\ \textcolor{comment}{\ \ \ \ \{}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00046}00046\ \textcolor{comment}{\ \ \ \ \ \ \ \ std::cout\ <<\ "{}("{}\ <<\ points[i]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 1]\ <<\ "{},\ "{}\ <<\ points[i\ +\ 2]\ <<\ "{})\(\backslash\)n"{};}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00047}00047\ \textcolor{comment}{\ \ \ \ \}}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00048}00048\ \textcolor{comment}{\ \ \ \ Sort\_Points\_AntiClockWise(points);*/}}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00049}00049\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{_test___gmsh___reader_8cpp_source_l00050}00050\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,67 @@
+\doxysection{qiskit.\+pulse.\+channels Namespace Reference}
+\hypertarget{namespaceqiskit_1_1pulse_1_1channels}{}\label{namespaceqiskit_1_1pulse_1_1channels}\index{qiskit.pulse.channels@{qiskit.pulse.channels}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_acquire_channel}{Acquire\+Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_channel}{Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_classical_i_o_channel}{Classical\+IOChannel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_control_channel}{Control\+Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_drive_channel}{Drive\+Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_measure_channel}{Measure\+Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_memory_slot}{Memory\+Slot}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_register_slot}{Register\+Slot}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_snapshot_channel}{Snapshot\+Channel}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}.. _pulse-channels:
+
+=======================================
+Channels (:mod:`qiskit.pulse.channels`)
+=======================================
+
+Pulse is meant to be agnostic to the underlying hardware implementation, while still allowing
+low-level control. Therefore, our signal channels are  *virtual* hardware channels. The backend
+which executes our programs is responsible for mapping these virtual channels to the proper
+physical channel within the quantum control hardware.
+
+Channels are characterized by their type and their index.  Channels include:
+
+* transmit channels, which should subclass ``PulseChannel``
+* receive channels, such as :class:`AcquireChannel`
+* non-signal "channels" such as :class:`SnapshotChannel`, :class:`MemorySlot` and
+  :class:`RegisterChannel`.
+
+Novel channel types can often utilize the :class:`ControlChannel`, but if this is not sufficient,
+new channel types can be created. Then, they must be supported in the PulseQobj schema and the
+assembler.  Channels are characterized by their type and their index. See each channel type below to
+learn more.
+
+.. autosummary::
+   :toctree: ../stubs/
+
+   DriveChannel
+   MeasureChannel
+   AcquireChannel
+   ControlChannel
+   RegisterSlot
+   MemorySlot
+   SnapshotChannel
+
+All channels are children of the same abstract base class:
+
+.. autoclass:: Channel
+\end{DoxyVerb}
+ 

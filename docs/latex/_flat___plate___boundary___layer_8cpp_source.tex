@@ -1,0 +1,107 @@
+\doxysection{Flat\+\_\+\+Plate\+\_\+\+Boundary\+\_\+\+Layer.\+cpp}
+\hypertarget{_flat___plate___boundary___layer_8cpp_source}{}\label{_flat___plate___boundary___layer_8cpp_source}\index{Test\_Cases/Flat\_Plate\_Boundary\_Layer.cpp@{Test\_Cases/Flat\_Plate\_Boundary\_Layer.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include"{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{keywordtype}{void}\ Flat\_Plate\_Boundary\_Layer()}
+\DoxyCodeLine{00005\ \{}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \ \ \ \ Is\_Inlet\_SubSonic\ =\textcolor{keyword}{false};}
+\DoxyCodeLine{00008\ \ \ \ \ Is\_Exit\_SubSonic\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00009\ \ \ \ \ Is\_Viscous\_Wall\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00010\ \ \ \ \ has\_Symmetry\_BC\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00011\ \ \ \ \ Viscous\_Time\_Case\ =\ 2;}
+\DoxyCodeLine{00012\ \ \ \ \ Is\_Time\_Dependent\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00013\ \ \ \ \ Terminating\_Time\ =\ 10000;}
+\DoxyCodeLine{00014\ \ \ \ \ }
+\DoxyCodeLine{00015\ \ \ \ \ Grid\_File=\textcolor{stringliteral}{"{}../Grid\_Files/Flat\_Plate\_Grid\_Files/Flat\_Plate\_BL\_21\_21.txt"{}};}
+\DoxyCodeLine{00016\ \ \ \ \ Grid\_Vtk\_File=\textcolor{stringliteral}{"{}../Grid\_Files/Flat\_Plate\_Grid\_Files/Flat\_Plate\_BL\_21\_21.vtk"{}};}
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ Reads\ Input\ grid\ file\ and\ does\ the\ preprocessing\ required\ for\ grid\ }}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ Calculates\ the\ Cell\ Normals,\ Cell\ Areas}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ Checks\ for\ Grid\ }}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ \ \ \ \ Form\_Cells(Grid\_File);}
+\DoxyCodeLine{00022\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Grid\_Type\ used\ \(\backslash\)t"{}}<<Grid\_Type<<endl;}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ \ Write\_Cell\_Info("{}../Grid\_Files/Channel\_Files/Channel\_Details\_101\_101.txt"{});}}
+\DoxyCodeLine{00024\ \ \ \ \ V\_D\ V(2,0.0);}
+\DoxyCodeLine{00025\ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ Directory\_Name();}
+\DoxyCodeLine{00027\ \ \ \ \ File\_Name();}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ Error\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};}
+\DoxyCodeLine{00030\ \ \ \ \ Initial\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};}
+\DoxyCodeLine{00031\ \ \ \ \ Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.txt"{}};\ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ Final\_Solution\_File\ +=\textcolor{stringliteral}{"{}\_101\_101.vtk"{}};\ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ \textcolor{comment}{//\ Reynolds\ Number\ Re\ and\ Prandtl\ Number\ Pr}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ Re\ =10000;}
+\DoxyCodeLine{00037\ \ \ \ \ Pr\ =\ 0.72;}
+\DoxyCodeLine{00038\ \ \ \ \ Inv\_Pr\ =\ 1.0/Pr;}
+\DoxyCodeLine{00039\ \ \ \ \ Inv\_Re\ =\ 1.0/Re;}
+\DoxyCodeLine{00040\ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \ \ \ L\_ref\ =\ 1.0;}
+\DoxyCodeLine{00042\ \ \ \ \ M\_ref\ =\ 0.15;}
+\DoxyCodeLine{00043\ \ \ \ \ Rho\_ref\ =\ 1.0;}
+\DoxyCodeLine{00044\ \ \ \ \ }
+\DoxyCodeLine{00045\ \ \ \ \ Reference\_Values();}
+\DoxyCodeLine{00046\ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ P\_ref\ =\ 1.0/(gamma*M\_ref*M\_ref);}
+\DoxyCodeLine{00048\ \ \ \ \ cs\ =\ sqrt(gamma*P\_ref/Rho\_ref);}
+\DoxyCodeLine{00049\ \ \ \ \ u\_inf\ =\ M\_ref*cs;}
+\DoxyCodeLine{00050\ \ \ \ \ Inlet\_Mach\_No\ =\ 1.0;}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}\ Initial\ Data\ for\ Solution\(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00054\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Initialize\ from\ a\ file\ or\ from\ Zero,\ Enter\ 1\ to\ read\ data\ from\ file:\(\backslash\)t"{}};}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ cin>>Initialize\_Type;}
+\DoxyCodeLine{00057\ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{if}(Initialize\_Type==1)}
+\DoxyCodeLine{00059\ \ \ \ \ \{}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ Initialize(Solution\_File);\ \ }
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Evaluating\ Skin\ Friction\ Coefficient"{}<<endl;}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ Evaluate\_Wall\_Skin\_Friction();}
+\DoxyCodeLine{00063\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Writing\ Skin\ Friction\ Coefficient\(\backslash\)t"{}<<CF\_File<<endl;}}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ Write\_CF\_File(CF\_File);}
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Writing\ Done"{}<<endl;}}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ exit(0);\ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ Initialize(Test\_Case);}
+\DoxyCodeLine{00071\ \ \ \ \ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Initalizing\ Data\ with\ inlet\ conditions\ \(\backslash\)t"{}}<<endl;}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ index\ =0;\ index<Total\_No\_Cells;index++)}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Pressure\_Static\_Inlet\ =\ P\_ref;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Rho\_Static\_Inlet\ =\ Rho\_ref;}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_1\ =\ Inlet\_Mach\_No*sqrt(gamma*Pressure\_Static\_Inlet/Rho\_Static\_Inlet)/u\_inf;}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V\_2\ =\ 0.0;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V[0]\ =\ V\_1;}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ V[1]\ =\ V\_2;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Computational\_Variables(Pressure\_Static\_Inlet,V,Rho\_Static\_Inlet,2);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ Print(Global\_U);}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_U.size();j++)}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ U\_Cells[index][j]\ =\ Global\_U[j];}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Calculate\_Primitive\_Variables(index,U\_Cells[index]);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ j=0;j<Global\_Primitive.size();j++)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Primitive\_Cells[index][j]\ =\ Global\_Primitive[j];}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00094\ \ }
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Intialized\ Solution\ with\ inlet\ conditions,\ Identified\ Boundaries.........\ Ready\ to\ solve"{}}<<endl;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Writing\ Initial\ Solution\ to\ file\ "{}}<<endl;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ Write\_Solution(Initial\_Solution\_File,1);}
+\DoxyCodeLine{00099\ \}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+
+\end{DoxyCode}

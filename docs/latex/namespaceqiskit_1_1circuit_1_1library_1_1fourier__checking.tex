@@ -1,0 +1,65 @@
+\doxysection{qiskit.\+circuit.\+library.\+fourier\+\_\+checking Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1fourier__checking}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1fourier__checking}\index{qiskit.circuit.library.fourier\_checking@{qiskit.circuit.library.fourier\_checking}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1fourier__checking_1_1_fourier_checking}{Fourier\+Checking}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1fourier__checking_adc92a7f6057dbb375ac4a0740e0415f9}{fourier\+\_\+checking}} (Sequence\mbox{[}int\mbox{]} f, Sequence\mbox{[}int\mbox{]} g)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Fourier checking circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1fourier__checking_adc92a7f6057dbb375ac4a0740e0415f9}\index{qiskit.circuit.library.fourier\_checking@{qiskit.circuit.library.fourier\_checking}!fourier\_checking@{fourier\_checking}}
+\index{fourier\_checking@{fourier\_checking}!qiskit.circuit.library.fourier\_checking@{qiskit.circuit.library.fourier\_checking}}
+\doxysubsubsection{\texorpdfstring{fourier\_checking()}{fourier\_checking()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1fourier__checking_adc92a7f6057dbb375ac4a0740e0415f9} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+fourier\+\_\+checking.\+fourier\+\_\+checking (\begin{DoxyParamCaption}\item[{Sequence\mbox{[}int\mbox{]}}]{f}{, }\item[{Sequence\mbox{[}int\mbox{]}}]{g}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Fourier checking circuit.
+
+The circuit for the Fourier checking algorithm, introduced in [1],
+involves a layer of Hadamards, the function :math:`f`, another layer of
+Hadamards, the function :math:`g`, followed by a final layer of Hadamards.
+The functions :math:`f` and :math:`g` are classical functions realized
+as phase oracles (diagonal operators with {-1, 1} on the diagonal).
+
+The probability of observing the all-zeros string is :math:`p(f,g)`.
+The algorithm solves the promise Fourier checking problem,
+which decides if f is correlated with the Fourier transform
+of g, by testing if :math:`p(f,g) <= 0.01` or :math:`p(f,g) >= 0.05`,
+promised that one or the other of these is true.
+
+The functions :math:`f` and :math:`g` are currently implemented
+from their truth tables but could be represented concisely and
+implemented efficiently for special classes of functions.
+
+Fourier checking is a special case of :math:`k`-fold forrelation [2].
+
+**Reference Circuit:**
+
+.. plot::
+   :alt: Circuit diagram output by the previous code.
+   :include-source:
+
+   from qiskit.circuit.library import fourier_checking
+   circuit = fourier_checking([1, -1, -1, -1], [1, 1, -1, -1])
+   circuit.draw('mpl')
+
+**Reference:**
+
+[1] S. Aaronson, BQP and the Polynomial Hierarchy, 2009 (Section 3.2).
+`arXiv:0910.4698 <https://arxiv.org/abs/0910.4698>`_
+
+[2] S. Aaronson, A. Ambainis, Forrelation: a problem that
+optimally separates quantum from classical computing, 2014.
+`arXiv:1411.5729 <https://arxiv.org/abs/1411.5729>`_
+\end{DoxyVerb}
+ 

@@ -1,0 +1,64 @@
+\doxysection{qiskit.\+scheduler.\+lowering Namespace Reference}
+\hypertarget{namespaceqiskit_1_1scheduler_1_1lowering}{}\label{namespaceqiskit_1_1scheduler_1_1lowering}\index{qiskit.scheduler.lowering@{qiskit.scheduler.lowering}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\mbox{[}Circuit\+Pulse\+Def\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1scheduler_1_1lowering_a5ba8cf61e64f352dc0fac7942f041980}{lower\+\_\+gates}} (\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} circuit, \mbox{\hyperlink{classqiskit_1_1scheduler_1_1config_1_1_schedule_config}{Schedule\+Config}} schedule\+\_\+config, Optional\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v1}{Backend\+V1}}, \mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v2}{Backend\+V2}}\mbox{]}\mbox{]} backend=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1scheduler_1_1lowering_a8888a30c627079a94642475e717784d5}{Circuit\+Pulse\+Def}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Lower gates to schedules. The relative timing within gates is respected. This
+module handles the translation, but does not handle timing.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1scheduler_1_1lowering_a5ba8cf61e64f352dc0fac7942f041980}\index{qiskit.scheduler.lowering@{qiskit.scheduler.lowering}!lower\_gates@{lower\_gates}}
+\index{lower\_gates@{lower\_gates}!qiskit.scheduler.lowering@{qiskit.scheduler.lowering}}
+\doxysubsubsection{\texorpdfstring{lower\_gates()}{lower\_gates()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1scheduler_1_1lowering_a5ba8cf61e64f352dc0fac7942f041980} 
+ List\mbox{[}Circuit\+Pulse\+Def\mbox{]} qiskit.\+scheduler.\+lowering.\+lower\+\_\+gates (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}}]{circuit}{, }\item[{\mbox{\hyperlink{classqiskit_1_1scheduler_1_1config_1_1_schedule_config}{Schedule\+Config}}}]{schedule\+\_\+config}{, }\item[{Optional\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v1}{Backend\+V1}}, \mbox{\hyperlink{classqiskit_1_1providers_1_1backend_1_1_backend_v2}{Backend\+V2}}\mbox{]}\mbox{]} }]{backend}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a list of Schedules and the qubits they operate on, for each element encountered in the
+input circuit.
+
+Without concern for the final schedule, extract and return a list of Schedules and the qubits
+they operate on, for each element encountered in the input circuit. Measures are grouped when
+possible, so ``qc.measure(q0, c0)`` or ``qc.measure(q1, c1)`` will generate a synchronous
+measurement pulse.
+
+Args:
+    circuit: The quantum circuit to translate.
+    schedule_config: Backend specific parameters used for building the Schedule.
+    backend: Pass in the backend used to build the Schedule, the backend could be BackendV1
+             or BackendV2
+
+Returns:
+    A list of CircuitPulseDefs: the pulse definition for each circuit element.
+
+Raises:
+    QiskitError: If circuit uses a command that isn't defined in config.inst_map.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1scheduler_1_1lowering_a8888a30c627079a94642475e717784d5}\index{qiskit.scheduler.lowering@{qiskit.scheduler.lowering}!CircuitPulseDef@{CircuitPulseDef}}
+\index{CircuitPulseDef@{CircuitPulseDef}!qiskit.scheduler.lowering@{qiskit.scheduler.lowering}}
+\doxysubsubsection{\texorpdfstring{CircuitPulseDef}{CircuitPulseDef}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1scheduler_1_1lowering_a8888a30c627079a94642475e717784d5} 
+qiskit.\+scheduler.\+lowering.\+Circuit\+Pulse\+Def}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ namedtuple(}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}CircuitPulseDef"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ [\textcolor{stringliteral}{"{}schedule"{}},\ \textcolor{stringliteral}{"{}qubits"{}}],\ \ \textcolor{comment}{\#\ The\ schedule\ which\ implements\ the\ quantum\ circuit\ command}}
+\DoxyCodeLine{00004\ )}
+
+\end{DoxyCode}

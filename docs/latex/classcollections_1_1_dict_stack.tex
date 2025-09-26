@@ -1,0 +1,81 @@
+\doxysection{collections.\+Dict\+Stack Class Reference}
+\hypertarget{classcollections_1_1_dict_stack}{}\label{classcollections_1_1_dict_stack}\index{collections.DictStack@{collections.DictStack}}
+Inheritance diagram for collections.\+Dict\+Stack\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcollections_1_1_dict_stack}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_a618bf79504b55c31bd61edfca6a821ac}\label{classcollections_1_1_dict_stack_a618bf79504b55c31bd61edfca6a821ac} 
+{\bfseries \+\_\+\+\_\+iter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_aba243d471a46f40e57b95b34e843be19}\label{classcollections_1_1_dict_stack_aba243d471a46f40e57b95b34e843be19} 
+{\bfseries \+\_\+\+\_\+getitem\+\_\+\+\_\+} (self, key)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_a18e4d2bb5ccd188b6dec2bed002fbf8d}\label{classcollections_1_1_dict_stack_a18e4d2bb5ccd188b6dec2bed002fbf8d} 
+{\bfseries \+\_\+\+\_\+contains\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_abeb78a170037e95c4e1e0cf150f93ace}\label{classcollections_1_1_dict_stack_abeb78a170037e95c4e1e0cf150f93ace} 
+{\bfseries \+\_\+\+\_\+len\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_a01cc0ff6d19f6d62a8c42441c6597cfe}\label{classcollections_1_1_dict_stack_a01cc0ff6d19f6d62a8c42441c6597cfe} 
+{\bfseries \+\_\+\+\_\+setitem\+\_\+\+\_\+} (self, key, item)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_a569db3727fc47e9b8d8558b07fcbf7f5}\label{classcollections_1_1_dict_stack_a569db3727fc47e9b8d8558b07fcbf7f5} 
+{\bfseries \+\_\+\+\_\+delitem\+\_\+\+\_\+} (self, key)
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_ac7c6b8eacb7e80a04af33300912c8902}\label{classcollections_1_1_dict_stack_ac7c6b8eacb7e80a04af33300912c8902} 
+{\bfseries pop} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classcollections_1_1_dict_stack_a73271f4a3f80ff11dbfa7ee64d92e0e7}\label{classcollections_1_1_dict_stack_a73271f4a3f80ff11dbfa7ee64d92e0e7} 
+{\bfseries push} = list.\+append
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A stack of dictionaries that behaves as a view on those dictionaries,
+giving preference to the last.
+
+>>> stack = DictStack([dict(a=1, c=2), dict(b=2, a=2)])
+>>> stack['a']
+2
+>>> stack['b']
+2
+>>> stack['c']
+2
+>>> len(stack)
+3
+>>> stack.push(dict(a=3))
+>>> stack['a']
+3
+>>> stack['a'] = 4
+>>> set(stack.keys()) == set(['a', 'b', 'c'])
+True
+>>> set(stack.items()) == set([('a', 4), ('b', 2), ('c', 2)])
+True
+>>> dict(**stack) == dict(stack) == dict(a=4, c=2, b=2)
+True
+>>> d = stack.pop()
+>>> stack['a']
+2
+>>> d = stack.pop()
+>>> stack['a']
+1
+>>> stack.get('b', None)
+>>> 'c' in stack
+True
+>>> del stack['c']
+>>> dict(stack)
+{'a': 1}
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

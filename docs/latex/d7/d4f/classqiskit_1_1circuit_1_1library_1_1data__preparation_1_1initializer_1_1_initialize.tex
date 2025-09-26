@@ -1,0 +1,164 @@
+\doxysection{qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize}{}\label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{d7/d4f/classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab7e75e13c6e1fc02835d6377da51b0c7_ab7e75e13c6e1fc02835d6377da51b0c7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}complex\mbox{]}\texorpdfstring{$\vert$}{|}str\texorpdfstring{$\vert$}{|}int \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a3666053811934a411e026e26dd2ef0a6_a3666053811934a411e026e26dd2ef0a6}{params}}, int\texorpdfstring{$\vert$}{|}None num\+\_\+qubits=None, bool normalize=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a93e04092f24f0b7b2e52a0bdaf29ea96_a93e04092f24f0b7b2e52a0bdaf29ea96}{gates\+\_\+to\+\_\+uncompute}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a3666053811934a411e026e26dd2ef0a6_a3666053811934a411e026e26dd2ef0a6}{params}} (self)
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a2840710733907c0d1119ed3c7eea78e7_a2840710733907c0d1119ed3c7eea78e7}{params}} (self, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}}\texorpdfstring{$\vert$}{|}Sequence\mbox{[}complex\mbox{]}\texorpdfstring{$\vert$}{|}str\texorpdfstring{$\vert$}{|}int parameters)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a8653300c56946ec40957c89ffdd850c8_a8653300c56946ec40957c89ffdd850c8}{broadcast\+\_\+arguments}} (self, qargs, cargs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a5ae67a529c2d8f3779301a1551c2b121}\label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a5ae67a529c2d8f3779301a1551c2b121} 
+{\bfseries definition} = initialize\+\_\+circuit
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab077225d6fe2f379e26496864ad3ad00_ab077225d6fe2f379e26496864ad3ad00}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab6ed1131d21f4e6bd4fc2f6fe3eb130e}\label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab6ed1131d21f4e6bd4fc2f6fe3eb130e} 
+{\bfseries \+\_\+stateprep} = \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1state__preparation_1_1_state_preparation}{State\+Preparation}}(\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a3666053811934a411e026e26dd2ef0a6_a3666053811934a411e026e26dd2ef0a6}{params}}, num\+\_\+qubits, normalize=normalize)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Complex amplitude initialization.
+
+Class that initializes some flexible collection of qubit registers, implemented by calling
+the :class:`~.library.StatePreparation` class.
+Note that ``Initialize`` is an :class:`~.circuit.Instruction` and not a :class:`.Gate` since it
+contains a reset instruction, which is not unitary.
+
+The initial state is prepared based on the :class:`~.library.Isometry` synthesis described in [1].
+
+References:
+    1. Iten et al., Quantum circuits for isometries (2016).
+       `Phys. Rev. A 93, 032318
+       <https://journals.aps.org/pra/abstract/10.1103/PhysRevA.93.032318>`__.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab7e75e13c6e1fc02835d6377da51b0c7_ab7e75e13c6e1fc02835d6377da51b0c7}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab7e75e13c6e1fc02835d6377da51b0c7_ab7e75e13c6e1fc02835d6377da51b0c7} 
+ None qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}complex\mbox{]} \texorpdfstring{$\vert$}{|} str \texorpdfstring{$\vert$}{|} int}]{params}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+qubits}{ = {\ttfamily None}, }\item[{bool }]{normalize}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        params: The state to initialize to, can be either of the following.
+
+            * Statevector or vector of complex amplitudes to initialize to.
+            * Labels of basis states of the Pauli eigenstates Z, X, Y. See
+              :meth:`.Statevector.from_label`. Notice the order of the labels is reversed with
+              respect to the qubit index to be applied to. Example label '01' initializes the
+              qubit zero to :math:`|1\rangle` and the qubit one to :math:`|0\rangle`.
+            * An integer that is used as a bitmap indicating which qubits to initialize to
+              :math:`|1\rangle`. Example: setting params to 5 would initialize qubit 0 and qubit
+              2 to :math:`|1\rangle` and qubit 1 to :math:`|0\rangle`.
+
+        num_qubits: This parameter is only used if params is an int. Indicates the total
+            number of qubits in the `initialize` call. Example: `initialize` covers 5 qubits
+            and params is 3. This allows qubits 0 and 1 to be initialized to :math:`|1\rangle`
+            and the remaining 3 qubits to be initialized to :math:`|0\rangle`.
+        normalize: Whether to normalize an input array to a unit vector.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_af8938ce34861d0f96339a0d828a8962a_af8938ce34861d0f96339a0d828a8962a}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab077225d6fe2f379e26496864ad3ad00_ab077225d6fe2f379e26496864ad3ad00}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_ab077225d6fe2f379e26496864ad3ad00_ab077225d6fe2f379e26496864ad3ad00} 
+qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Populate the cached :attr:`_definition` field of this :class:`Instruction`.
+
+Subclasses should implement this method to provide lazy construction of their public
+:attr:`definition` attribute.  A subclass can use its :attr:`params` at the time of the
+call.  The method should populate :attr:`_definition` with a :class:`.QuantumCircuit` and
+not return a value.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a8653300c56946ec40957c89ffdd850c8_a8653300c56946ec40957c89ffdd850c8}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!broadcast\_arguments@{broadcast\_arguments}}
+\index{broadcast\_arguments@{broadcast\_arguments}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{broadcast\_arguments()}{broadcast\_arguments()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a8653300c56946ec40957c89ffdd850c8_a8653300c56946ec40957c89ffdd850c8} 
+qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+broadcast\+\_\+arguments (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{qargs}{, }\item[{}]{cargs}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Validation of the arguments.
+
+Args:
+    qargs (List): List of quantum bit arguments.
+    cargs (List): List of classical bit arguments.
+
+Yields:
+    Tuple(List, List): A tuple with single arguments.
+
+Raises:
+    CircuitError: If the input is not valid. For example, the number of
+        arguments does not match the gate expectation.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aa49f7c251db727f68f662277868d9aa7_aa49f7c251db727f68f662277868d9aa7}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a93e04092f24f0b7b2e52a0bdaf29ea96_a93e04092f24f0b7b2e52a0bdaf29ea96}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!gates\_to\_uncompute@{gates\_to\_uncompute}}
+\index{gates\_to\_uncompute@{gates\_to\_uncompute}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{gates\_to\_uncompute()}{gates\_to\_uncompute()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a93e04092f24f0b7b2e52a0bdaf29ea96_a93e04092f24f0b7b2e52a0bdaf29ea96} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+gates\+\_\+to\+\_\+uncompute (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Call to create a circuit with gates that take the desired vector to zero.
+
+Returns:
+    QuantumCircuit: circuit to take ``self.params`` vector to :math:`|{00\\ldots0}\\rangle`
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a3666053811934a411e026e26dd2ef0a6_a3666053811934a411e026e26dd2ef0a6}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!params@{params}}
+\index{params@{params}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{params()}{params()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a3666053811934a411e026e26dd2ef0a6_a3666053811934a411e026e26dd2ef0a6} 
+qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+params (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return initialize params.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a2840710733907c0d1119ed3c7eea78e7_a2840710733907c0d1119ed3c7eea78e7}\index{qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}!params@{params}}
+\index{params@{params}!qiskit.circuit.library.data\_preparation.initializer.Initialize@{qiskit.circuit.library.data\_preparation.initializer.Initialize}}
+\doxysubsubsection{\texorpdfstring{params()}{params()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1data__preparation_1_1initializer_1_1_initialize_a2840710733907c0d1119ed3c7eea78e7_a2840710733907c0d1119ed3c7eea78e7} 
+ None qiskit.\+circuit.\+library.\+data\+\_\+preparation.\+initializer.\+Initialize.\+params (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1quantum__info_1_1states_1_1statevector_1_1_statevector}{Statevector}} \texorpdfstring{$\vert$}{|} Sequence\mbox{[}complex\mbox{]} \texorpdfstring{$\vert$}{|} str \texorpdfstring{$\vert$}{|} int}]{parameters}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set initialize params.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/data\+\_\+preparation/initializer.\+py\end{DoxyCompactItemize}

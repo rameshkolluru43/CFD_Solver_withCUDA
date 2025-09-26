@@ -1,0 +1,58 @@
+\doxysection{qiskit.\+synthesis.\+arithmetic.\+multipliers.\+rg\+\_\+qft\+\_\+multiplier Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier}{}\label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier}\index{qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier@{qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_aeaae4d425f2dafd4828a258e58165bd0_aeaae4d425f2dafd4828a258e58165bd0}{multiplier\+\_\+qft\+\_\+r17}} (int num\+\_\+state\+\_\+qubits, int\texorpdfstring{$\vert$}{|}None num\+\_\+result\+\_\+qubits=None)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Compute the product of two qubit registers using QFT.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_aeaae4d425f2dafd4828a258e58165bd0_aeaae4d425f2dafd4828a258e58165bd0}\index{qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier@{qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier}!multiplier\_qft\_r17@{multiplier\_qft\_r17}}
+\index{multiplier\_qft\_r17@{multiplier\_qft\_r17}!qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier@{qiskit.synthesis.arithmetic.multipliers.rg\_qft\_multiplier}}
+\doxysubsubsection{\texorpdfstring{multiplier\_qft\_r17()}{multiplier\_qft\_r17()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1multipliers_1_1rg__qft__multiplier_aeaae4d425f2dafd4828a258e58165bd0_aeaae4d425f2dafd4828a258e58165bd0} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+arithmetic.\+multipliers.\+rg\+\_\+qft\+\_\+multiplier.\+multiplier\+\_\+qft\+\_\+r17 (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{int \texorpdfstring{$\vert$}{|} None }]{num\+\_\+result\+\_\+qubits}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}A QFT multiplication circuit to store product of two input registers out-of-place.
+
+    Multiplication in this circuit is implemented using the procedure of Fig. 3 in [1], where
+    weighted sum rotations are implemented as given in Fig. 5 in [1]. QFT is used on the output
+    register and is followed by rotations controlled by input registers. The rotations
+    transform the state into the product of two input registers in QFT base, which is
+    reverted from QFT base using inverse QFT.
+    For example, on 3 state qubits, a full multiplier is given by:
+
+    .. plot::
+        :alt: Circuit diagram output by the previous code.
+        :include-source:
+
+        from qiskit.synthesis.arithmetic import multiplier_qft_r17
+
+        num_state_qubits = 3
+        circuit = multiplier_qft_r17(num_state_qubits)
+        circuit.draw("mpl")
+
+    Args:
+        num_state_qubits: The number of qubits in either input register for
+            state :math:`|a\rangle` or :math:`|b\rangle`. The two input
+            registers must have the same number of qubits.
+        num_result_qubits: The number of result qubits to limit the output to.
+            If number of result qubits is :math:`n`, multiplication modulo :math:`2^n` is performed
+            to limit the output to the specified number of qubits. Default
+            value is ``2 * num_state_qubits`` to represent any possible
+            result from the multiplication of the two inputs.
+
+    Raises:
+        ValueError: If ``num_result_qubits`` is given and not valid, meaning not
+            in ``[num_state_qubits, 2 * num_state_qubits]``.
+
+    **References:**
+
+    [1] Ruiz-Perez et al., Quantum arithmetic with the Quantum Fourier Transform, 2017.
+    `arXiv:1411.5949 <https://arxiv.org/pdf/1411.5949.pdf>`_\end{DoxyVerb}
+ 

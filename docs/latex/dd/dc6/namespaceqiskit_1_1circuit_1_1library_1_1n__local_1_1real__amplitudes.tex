@@ -1,0 +1,105 @@
+\doxysection{qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes Namespace Reference}
+\hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes}{}\label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes}\index{qiskit.circuit.library.n\_local.real\_amplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_1_1_real_amplitudes}{Real\+Amplitudes}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_a8fffefd999d9c8f19ccad0705c88a222_a8fffefd999d9c8f19ccad0705c88a222}{real\+\_\+amplitudes}} (int num\+\_\+qubits,(Block\+Entanglement\texorpdfstring{$\vert$}{|}Iterable\mbox{[}Block\+Entanglement\mbox{]}\texorpdfstring{$\vert$}{|}Callable\mbox{[}\mbox{[}int\mbox{]}, Block\+Entanglement\texorpdfstring{$\vert$}{|}Iterable\mbox{[}Block\+Entanglement\mbox{]}\mbox{]}) entanglement="{}reverse\+\_\+linear"{}, int reps=3, bool skip\+\_\+unentangled\+\_\+qubits=False, bool skip\+\_\+final\+\_\+rotation\+\_\+layer=False, str parameter\+\_\+prefix="{}θ"{}, bool insert\+\_\+barriers=False, str name="{}Real\+Amplitudes"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The real-amplitudes 2-local circuit.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_a8fffefd999d9c8f19ccad0705c88a222_a8fffefd999d9c8f19ccad0705c88a222}\index{qiskit.circuit.library.n\_local.real\_amplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes}!real\_amplitudes@{real\_amplitudes}}
+\index{real\_amplitudes@{real\_amplitudes}!qiskit.circuit.library.n\_local.real\_amplitudes@{qiskit.circuit.library.n\_local.real\_amplitudes}}
+\doxysubsubsection{\texorpdfstring{real\_amplitudes()}{real\_amplitudes()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1circuit_1_1library_1_1n__local_1_1real__amplitudes_a8fffefd999d9c8f19ccad0705c88a222_a8fffefd999d9c8f19ccad0705c88a222} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+circuit.\+library.\+n\+\_\+local.\+real\+\_\+amplitudes.\+real\+\_\+amplitudes (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+qubits}{, }\item[{(         Block\+Entanglement         \texorpdfstring{$\vert$}{|} Iterable\mbox{[}Block\+Entanglement\mbox{]}         \texorpdfstring{$\vert$}{|} Callable\mbox{[}\mbox{[}int\mbox{]}, Block\+Entanglement \texorpdfstring{$\vert$}{|} Iterable\mbox{[}Block\+Entanglement\mbox{]}\mbox{]}     ) }]{entanglement}{ = {\ttfamily "{}reverse\+\_\+linear"{}}, }\item[{int }]{reps}{ = {\ttfamily 3}, }\item[{bool }]{skip\+\_\+unentangled\+\_\+qubits}{ = {\ttfamily False}, }\item[{bool }]{skip\+\_\+final\+\_\+rotation\+\_\+layer}{ = {\ttfamily False}, }\item[{str }]{parameter\+\_\+prefix}{ = {\ttfamily "{}θ"{}}, }\item[{bool }]{insert\+\_\+barriers}{ = {\ttfamily False}, }\item[{str }]{name}{ = {\ttfamily "{}RealAmplitudes"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Construct a real-amplitudes 2-local circuit.
+
+    This circuit is a heuristic trial wave function used, e.g., as ansatz in chemistry, optimization
+    or machine learning applications. The circuit consists of alternating layers of :math:`Y`
+    rotations and :math:`CX` entanglements. The entanglement pattern can be user-defined or selected
+    from a predefined set. This circuit is  "real amplitudes" since the prepared quantum states will
+    only have real amplitudes.
+
+    For example a ``real_amplitudes`` circuit with 2 repetitions on 3 qubits with ``"reverse_linear"``
+    entanglement is
+
+    .. parsed-literal::
+
+         ┌──────────┐ ░            ░ ┌──────────┐ ░            ░ ┌──────────┐
+         ┤ Ry(θ[0]) ├─░────────■───░─┤ Ry(θ[3]) ├─░────────■───░─┤ Ry(θ[6]) ├
+         ├──────────┤ ░      ┌─┴─┐ ░ ├──────────┤ ░      ┌─┴─┐ ░ ├──────────┤
+         ┤ Ry(θ[1]) ├─░───■──┤ X ├─░─┤ Ry(θ[4]) ├─░───■──┤ X ├─░─┤ Ry(θ[7]) ├
+         ├──────────┤ ░ ┌─┴─┐└───┘ ░ ├──────────┤ ░ ┌─┴─┐└───┘ ░ ├──────────┤
+         ┤ Ry(θ[2]) ├─░─┤ X ├──────░─┤ Ry(θ[5]) ├─░─┤ X ├──────░─┤ Ry(θ[8]) ├
+         └──────────┘ ░ └───┘      ░ └──────────┘ ░ └───┘      ░ └──────────┘
+
+    The entanglement can be set using the ``entanglement`` keyword as string or a list of
+    index-pairs. See the documentation of :func:`.n_local`. Additional options that can be set include
+    the number of repetitions, skipping rotation gates on qubits that are not entangled, leaving out
+    the final rotation layer and inserting barriers in between the rotation and entanglement
+    layers.
+
+    Examples:
+
+        .. plot::
+           :alt: Circuit diagram output by the previous code.
+           :include-source:
+           :context:
+
+           from qiskit.circuit.library import real_amplitudes
+
+           ansatz = real_amplitudes(3, reps=2)  # create the circuit on 3 qubits
+           ansatz.draw("mpl")
+
+        .. plot::
+           :alt: Circuit diagram output by the previous code.
+           :include-source:
+           :context: close-figs
+
+           ansatz = real_amplitudes(3, entanglement="full", reps=2)  # it is the same unitary as above
+           ansatz.draw("mpl")
+
+        .. plot::
+           :alt: Circuit diagram output by the previous code.
+           :include-source:
+           :context: close-figs
+
+           ansatz = real_amplitudes(3, entanglement="linear", reps=2, insert_barriers=True)
+           ansatz.draw("mpl")
+
+        .. plot::
+           :alt: Circuit diagram output by the previous code.
+           :include-source:
+           :context: close-figs
+
+           ansatz = real_amplitudes(4, reps=2, entanglement=[[0,3], [0,2]], skip_unentangled_qubits=True)
+           ansatz.draw("mpl")
+
+    Args:
+        num_qubits: The number of qubits of the RealAmplitudes circuit.
+        reps: Specifies how often the structure of a rotation layer followed by an entanglement
+            layer is repeated.
+        entanglement: The indices specifying on which qubits the input blocks act.
+            See :func:`.n_local` for detailed information.
+        skip_final_rotation_layer: Whether a final rotation layer is added to the circuit.
+        skip_unentangled_qubits: If ``True``, the rotation gates act only on qubits that
+            are entangled. If ``False``, the rotation gates act on all qubits.
+        parameter_prefix: The name of the free parameters.
+        insert_barriers: If True, barriers are inserted in between each layer. If False,
+            no barriers are inserted.
+        name: The name of the circuit.
+
+    Returns:
+        A real-amplitudes circuit.\end{DoxyVerb}
+ 

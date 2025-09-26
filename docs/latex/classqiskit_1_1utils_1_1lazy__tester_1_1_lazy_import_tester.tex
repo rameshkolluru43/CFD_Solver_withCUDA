@@ -1,0 +1,111 @@
+\doxysection{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Import\+Tester Class Reference}
+\hypertarget{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester}{}\label{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester}\index{qiskit.utils.lazy\_tester.LazyImportTester@{qiskit.utils.lazy\_tester.LazyImportTester}}
+Inheritance diagram for qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Import\+Tester\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a4d376448ec58c6ab8fa60d00b441d35a}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Union\mbox{[}str, Dict\mbox{[}str, Iterable\mbox{[}str\mbox{]}\mbox{]}, Iterable\mbox{[}str\mbox{]}\mbox{]} name\+\_\+map\+\_\+or\+\_\+modules, \texorpdfstring{$\ast$}{*}, Optional\mbox{[}str\mbox{]} name=None, Optional\mbox{[}Callable\mbox{[}\mbox{[}bool\mbox{]}, None\mbox{]}\mbox{]} callback=None, Optional\mbox{[}str\mbox{]} install=None, Optional\mbox{[}str\mbox{]} msg=None)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager}{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Dependency\+Manager}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries \+\_\+\+\_\+bool\+\_\+\+\_\+} (self)
+\item 
+Callable {\bfseries require\+\_\+in\+\_\+call} (self, Callable feature\+\_\+or\+\_\+callable)
+\item 
+Callable\mbox{[}\mbox{[}Callable\mbox{]}, Callable\mbox{]} {\bfseries require\+\_\+in\+\_\+call} (self, str feature\+\_\+or\+\_\+callable)
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_a75cb912a5282630187940d89d0820ac0}{require\+\_\+in\+\_\+call}} (self, feature\+\_\+or\+\_\+callable)
+\item 
+Type {\bfseries require\+\_\+in\+\_\+instance} (self, Type feature\+\_\+or\+\_\+class)
+\item 
+Callable\mbox{[}\mbox{[}Type\mbox{]}, Type\mbox{]} {\bfseries require\+\_\+in\+\_\+instance} (self, str feature\+\_\+or\+\_\+class)
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_ab6f01c7e4fd2e59d6492fcf0f05639ee}{require\+\_\+in\+\_\+instance}} (self, feature\+\_\+or\+\_\+class)
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_a0bc8fcd00d9152e5446d355c6146aa4e}{require\+\_\+now}} (self, str feature)
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_a5a2f0b1cb2c3439c6bf9b3135c92b2c5}{disable\+\_\+locally}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a371fd33d561be5bfcafd5d99f582e2d5}{\+\_\+is\+\_\+available}} (self)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager}{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Dependency\+Manager}}}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a45f13c20f36fb82c1ce58795a92c07ed}\label{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a45f13c20f36fb82c1ce58795a92c07ed} 
+dict {\bfseries \+\_\+modules} = \{module\+: tuple(names) for module, names in name\+\_\+map\+\_\+or\+\_\+modules.\+items()\}
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager}{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Dependency\+Manager}}}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bfseries \+\_\+bool} = None
+\item 
+{\bfseries \+\_\+callback} = callback
+\item 
+{\bfseries \+\_\+name} = name
+\item 
+{\bfseries \+\_\+install} = install
+\item 
+{\bfseries \+\_\+msg} = msg
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A lazy dependency tester for importable Python modules.  Any required objects will only be
+imported at the point that this object is tested for its Boolean value.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a4d376448ec58c6ab8fa60d00b441d35a}\index{qiskit.utils.lazy\_tester.LazyImportTester@{qiskit.utils.lazy\_tester.LazyImportTester}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.utils.lazy\_tester.LazyImportTester@{qiskit.utils.lazy\_tester.LazyImportTester}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a4d376448ec58c6ab8fa60d00b441d35a} 
+qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Import\+Tester.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Union\mbox{[}str, Dict\mbox{[}str, Iterable\mbox{[}str\mbox{]}\mbox{]}, Iterable\mbox{[}str\mbox{]}\mbox{]}}]{name\+\_\+map\+\_\+or\+\_\+modules}{, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{Optional\mbox{[}str\mbox{]} }]{name}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Callable\mbox{[}\mbox{[}bool\mbox{]}, None\mbox{]}\mbox{]} }]{callback}{ = {\ttfamily None}, }\item[{Optional\mbox{[}str\mbox{]} }]{install}{ = {\ttfamily None}, }\item[{Optional\mbox{[}str\mbox{]} }]{msg}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    name_map_or_modules: if a name map, then a dictionary where the keys are modules or
+        packages, and the values are iterables of names to try and import from that
+        module.  It should be valid to write ``from <module> import <name1>, <name2>, ...``.
+        If simply a string or iterable of strings, then it should be valid to write
+        ``import <module>`` for each of them.
+
+Raises:
+    ValueError: if no modules are given.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_a3218cad7fbb5c31f9b495e725a0c1cc8}{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Dependency\+Manager}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a371fd33d561be5bfcafd5d99f582e2d5}\index{qiskit.utils.lazy\_tester.LazyImportTester@{qiskit.utils.lazy\_tester.LazyImportTester}!\_is\_available@{\_is\_available}}
+\index{\_is\_available@{\_is\_available}!qiskit.utils.lazy\_tester.LazyImportTester@{qiskit.utils.lazy\_tester.LazyImportTester}}
+\doxysubsubsection{\texorpdfstring{\_is\_available()}{\_is\_available()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_import_tester_a371fd33d561be5bfcafd5d99f582e2d5} 
+qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Import\+Tester.\+\_\+is\+\_\+available (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Subclasses of :class:`LazyDependencyManager` should override this method to implement the
+actual test of availability.  This method should return a Boolean, where ``True`` indicates
+that the dependency was available.  This method will only ever be called once.
+
+:meta public:
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1utils_1_1lazy__tester_1_1_lazy_dependency_manager_a39ab19ab58af1ef73187f1167f70c04d}{qiskit.\+utils.\+lazy\+\_\+tester.\+Lazy\+Dependency\+Manager}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/utils/lazy\+\_\+tester.\+py\end{DoxyCompactItemize}

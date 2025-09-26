@@ -1,0 +1,132 @@
+\doxysection{qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase Class Reference}
+\hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase}{}\label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+Inheritance diagram for qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d5/dbd/classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a4e1e6b6802a4065a6628015bfc579422_a4e1e6b6802a4065a6628015bfc579422}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Union\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_aa47265106c8c56d1309a69cc459304bc_aa47265106c8c56d1309a69cc459304bc}{phase}}, \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}} channel, Optional\mbox{[}str\mbox{]} name=None)
+\item 
+Union\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_aa47265106c8c56d1309a69cc459304bc_aa47265106c8c56d1309a69cc459304bc}{phase}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a5a1577e88734c1715880bead16ef3bf5_a5a1577e88734c1715880bead16ef3bf5}{channel}} (self)
+\item 
+Tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}}\mbox{]} \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a073dd1fbc16dc253d70cc1369ee781cb_a073dd1fbc16dc253d70cc1369ee781cb}{channels}} (self)
+\item 
+int \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_ab0e06f08d3984c58756db40c20bad6f0_ab0e06f08d3984c58756db40c20bad6f0}{duration}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a90d5cd612b1f9e0a4c271529e84c4069}\label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a90d5cd612b1f9e0a4c271529e84c4069} 
+{\bfseries channel}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_af0f3983bd51ca307a2ff39beeb728423_af0f3983bd51ca307a2ff39beeb728423}{\+\_\+validate}} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The shift phase instruction updates the modulation phase of proceeding pulses played on the
+same :py:class:`~qiskit.pulse.channels.Channel`. It is a relative increase in phase determined
+by the ``phase`` operand.
+
+In particular, a PulseChannel creates pulses of the form
+
+.. math::
+    Re[\exp(i 2\pi f jdt + \phi) d_j].
+
+The ``ShiftPhase`` instruction causes :math:`\phi` to be increased by the instruction's
+``phase`` operand. This will affect all pulses following on the same channel.
+
+The qubit phase is tracked in software, enabling instantaneous, nearly error-free Z-rotations
+by using a ShiftPhase to update the frame tracking the qubit state.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a4e1e6b6802a4065a6628015bfc579422_a4e1e6b6802a4065a6628015bfc579422}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a4e1e6b6802a4065a6628015bfc579422_a4e1e6b6802a4065a6628015bfc579422} 
+qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Union\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\mbox{]}}]{phase}{, }\item[{\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}}}]{channel}{, }\item[{Optional\mbox{[}str\mbox{]} }]{name}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Instantiate a shift phase instruction, increasing the output signal phase on ``channel``
+by ``phase`` [radians].
+
+Args:
+    phase: The rotation angle in radians.
+    channel: The channel this instruction operates on.
+    name: Display name for this instruction.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_adbee9857aaf346e675afe47af542322e_adbee9857aaf346e675afe47af542322e}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_af0f3983bd51ca307a2ff39beeb728423_af0f3983bd51ca307a2ff39beeb728423}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!\_validate@{\_validate}}
+\index{\_validate@{\_validate}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{\_validate()}{\_validate()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_af0f3983bd51ca307a2ff39beeb728423_af0f3983bd51ca307a2ff39beeb728423} 
+qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+\_\+validate (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Called after initialization to validate instruction data.
+
+Raises:
+    PulseError: If the input ``channel`` is not type :class:`PulseChannel`.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_ac3a3ae60c2801a8f87b1d828d0a55772_ac3a3ae60c2801a8f87b1d828d0a55772}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a5a1577e88734c1715880bead16ef3bf5_a5a1577e88734c1715880bead16ef3bf5}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!channel@{channel}}
+\index{channel@{channel}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{channel()}{channel()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a5a1577e88734c1715880bead16ef3bf5_a5a1577e88734c1715880bead16ef3bf5} 
+ \mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}} qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+channel (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the :py:class:`~qiskit.pulse.channels.Channel` that this instruction is
+scheduled on.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a073dd1fbc16dc253d70cc1369ee781cb_a073dd1fbc16dc253d70cc1369ee781cb}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!channels@{channels}}
+\index{channels@{channels}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{channels()}{channels()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_a073dd1fbc16dc253d70cc1369ee781cb_a073dd1fbc16dc253d70cc1369ee781cb} 
+ Tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1pulse_1_1channels_1_1_pulse_channel}{Pulse\+Channel}}\mbox{]} qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+channels (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns the channels that this schedule uses.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_ab0e06f08d3984c58756db40c20bad6f0_ab0e06f08d3984c58756db40c20bad6f0}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!duration@{duration}}
+\index{duration@{duration}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{duration()}{duration()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_ab0e06f08d3984c58756db40c20bad6f0_ab0e06f08d3984c58756db40c20bad6f0} 
+ int qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+duration (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Duration of this instruction.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1pulse_1_1instructions_1_1instruction_1_1_instruction_a3dda6e0c42b2af9b763d251f97bc17dc_a3dda6e0c42b2af9b763d251f97bc17dc}{qiskit.\+pulse.\+instructions.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_aa47265106c8c56d1309a69cc459304bc_aa47265106c8c56d1309a69cc459304bc}\index{qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}!phase@{phase}}
+\index{phase@{phase}!qiskit.pulse.instructions.phase.ShiftPhase@{qiskit.pulse.instructions.phase.ShiftPhase}}
+\doxysubsubsection{\texorpdfstring{phase()}{phase()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1pulse_1_1instructions_1_1phase_1_1_shift_phase_aa47265106c8c56d1309a69cc459304bc_aa47265106c8c56d1309a69cc459304bc} 
+ Union\mbox{[}complex, \mbox{\hyperlink{classqiskit_1_1circuit_1_1parameterexpression_1_1_parameter_expression}{Parameter\+Expression}}\mbox{]} qiskit.\+pulse.\+instructions.\+phase.\+Shift\+Phase.\+phase (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the rotation angle enacted by this instruction in radians.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/pulse/instructions/phase.\+py\end{DoxyCompactItemize}

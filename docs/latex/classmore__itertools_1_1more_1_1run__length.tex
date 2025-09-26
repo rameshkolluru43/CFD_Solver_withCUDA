@@ -1,0 +1,34 @@
+\doxysection{more\+\_\+itertools.\+more.\+run\+\_\+length Class Reference}
+\hypertarget{classmore__itertools_1_1more_1_1run__length}{}\label{classmore__itertools_1_1more_1_1run__length}\index{more\_itertools.more.run\_length@{more\_itertools.more.run\_length}}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1run__length_ad39d5b5b45e9cfa2268e260134ab0849}\label{classmore__itertools_1_1more_1_1run__length_ad39d5b5b45e9cfa2268e260134ab0849} 
+{\bfseries encode} (iterable)
+\item 
+\Hypertarget{classmore__itertools_1_1more_1_1run__length_aa4d403c4e48586b1d33cea82284ae4f7}\label{classmore__itertools_1_1more_1_1run__length_aa4d403c4e48586b1d33cea82284ae4f7} 
+{\bfseries decode} (iterable)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}:func:`run_length.encode` compresses an iterable with run-length encoding.
+It yields groups of repeated items with the count of how many times they
+were repeated:
+
+    >>> uncompressed = 'abbcccdddd'
+    >>> list(run_length.encode(uncompressed))
+    [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+
+:func:`run_length.decode` decompresses an iterable that was previously
+compressed with run-length encoding. It yields the items of the
+decompressed iterable:
+
+    >>> compressed = [('a', 1), ('b', 2), ('c', 3), ('d', 4)]
+    >>> list(run_length.decode(compressed))
+    ['a', 'b', 'b', 'c', 'c', 'c', 'd', 'd', 'd', 'd']\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/more\+\_\+itertools/more.\+py\end{DoxyCompactItemize}

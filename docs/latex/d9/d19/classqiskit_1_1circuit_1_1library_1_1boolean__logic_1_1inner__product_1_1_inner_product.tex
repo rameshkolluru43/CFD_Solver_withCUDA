@@ -1,0 +1,82 @@
+\doxysection{qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product}{}\label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d9/d19/classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_ac19cf17291c3cdbd1badf79d034586d0_ac19cf17291c3cdbd1badf79d034586d0}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+qubits)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A 2n-qubit Boolean function that computes the inner product of
+two n-qubit vectors over :math:`F_2`.
+
+This implementation is a phase oracle which computes the following transform.
+
+.. math::
+
+    \mathcal{IP}_{2n} : F_2^{2n} \rightarrow {-1, 1}
+    \mathcal{IP}_{2n}(x_1, \cdots, x_n, y_1, \cdots, y_n) = (-1)^{x.y}
+
+The corresponding unitary is a diagonal, which induces a -1 phase on any inputs
+where the inner product of the top and bottom registers is 1. Otherwise it keeps
+the input intact.
+
+.. code-block:: text
+
+
+    q0_0: ─■──────────
+           │
+    q0_1: ─┼──■───────
+           │  │
+    q0_2: ─┼──┼──■────
+           │  │  │
+    q0_3: ─┼──┼──┼──■─
+           │  │  │  │
+    q1_0: ─■──┼──┼──┼─
+              │  │  │
+    q1_1: ────■──┼──┼─
+                 │  │
+    q1_2: ───────■──┼─
+                    │
+    q1_3: ──────────■─
+
+
+Reference Circuit:
+    .. plot::
+       :alt: Diagram illustrating the previously described circuit.
+
+       from qiskit.circuit.library import InnerProduct
+       from qiskit.visualization.library import _generate_circuit_library_visualization
+       circuit = InnerProduct(4)
+       _generate_circuit_library_visualization(circuit)
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_ac19cf17291c3cdbd1badf79d034586d0_ac19cf17291c3cdbd1badf79d034586d0}\index{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct@{qiskit.circuit.library.boolean\_logic.inner\_product.InnerProduct}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1boolean__logic_1_1inner__product_1_1_inner_product_ac19cf17291c3cdbd1badf79d034586d0_ac19cf17291c3cdbd1badf79d034586d0} 
+ None qiskit.\+circuit.\+library.\+boolean\+\_\+logic.\+inner\+\_\+product.\+Inner\+Product.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+qubits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a circuit to compute the inner product of 2 n-qubit registers.
+
+Args:
+    num_qubits: width of top and bottom registers (half total circuit width)
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/boolean\+\_\+logic/inner\+\_\+product.\+py\end{DoxyCompactItemize}

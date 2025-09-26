@@ -1,0 +1,139 @@
+\doxysection{qiskit.\+circuit.\+library.\+arithmetic.\+linear\+\_\+amplitude\+\_\+function.\+Linear\+Amplitude\+Function Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function}{}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function}\index{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction@{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+arithmetic.\+linear\+\_\+amplitude\+\_\+function.\+Linear\+Amplitude\+Function\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d6/d05/classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_aa4e77f3c8b635d0a1db246fa93ca0d84_aa4e77f3c8b635d0a1db246fa93ca0d84}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int num\+\_\+state\+\_\+qubits, float\texorpdfstring{$\vert$}{|}list\mbox{[}float\mbox{]} slope, float\texorpdfstring{$\vert$}{|}list\mbox{[}float\mbox{]} offset, tuple\mbox{[}float, float\mbox{]} domain, tuple\mbox{[}float, float\mbox{]} image, float rescaling\+\_\+factor=1, list\mbox{[}float\mbox{]}\texorpdfstring{$\vert$}{|}None breakpoints=None, str name="{}F"{})
+\item 
+float \mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a3a643cf97f56e95b21b120640797e4dc_a3a643cf97f56e95b21b120640797e4dc}{post\+\_\+processing}} (self, float scaled\+\_\+value)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a5b9018a5d3bbd48e2caf4f94a7b35211}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a5b9018a5d3bbd48e2caf4f94a7b35211} 
+{\bfseries qubits}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_ab0efa318f98c98e93a1f0befebb4402c}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_ab0efa318f98c98e93a1f0befebb4402c} 
+{\bfseries \+\_\+domain} = domain
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a7508c93d021a89c178772511f5d19f2e}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a7508c93d021a89c178772511f5d19f2e} 
+{\bfseries \+\_\+image} = image
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a8e1fa824ffa77229030667ba702dd346}\label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a8e1fa824ffa77229030667ba702dd346} 
+{\bfseries \+\_\+rescaling\+\_\+factor} = rescaling\+\_\+factor
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A circuit implementing a (piecewise) linear function on qubit amplitudes.
+
+An amplitude function :math:`F` of a function :math:`f` is a mapping
+
+.. math::
+
+    F|x\rangle|0\rangle = \sqrt{1 - \hat{f}(x)} |x\rangle|0\rangle + \sqrt{\hat{f}(x)}
+        |x\rangle|1\rangle.
+
+for a function :math:`\hat{f}: \{ 0, ..., 2^n - 1 \} \rightarrow [0, 1]`, where
+:math:`|x\rangle` is a :math:`n` qubit state.
+
+This circuit implements :math:`F` for piecewise linear functions :math:`\hat{f}`.
+In this case, the mapping :math:`F` can be approximately implemented using a Taylor expansion
+and linearly controlled Pauli-Y rotations, see [1, 2] for more detail. This approximation
+uses a ``rescaling_factor`` to determine the accuracy of the Taylor expansion.
+
+In general, the function of interest :math:`f` is defined from some interval :math:`[a,b]`,
+the ``domain`` to :math:`[c,d]`, the ``image``, instead of :math:`\{ 1, ..., N \}` to
+:math:`[0, 1]`. Using an affine transformation we can rescale :math:`f` to :math:`\hat{f}`:
+
+.. math::
+
+    \hat{f}(x) = \frac{f(\phi(x)) - c}{d - c}
+
+with
+
+.. math::
+
+    \phi(x) = a + \frac{b - a}{2^n - 1} x.
+
+If :math:`f` is a piecewise linear function on :math:`m` intervals
+:math:`[p_{i-1}, p_i], i \in \{1, ..., m\}` with slopes :math:`\alpha_i` and
+offsets :math:`\beta_i` it can be written as
+
+.. math::
+
+    f(x) = \sum_{i=1}^m 1_{[p_{i-1}, p_i]}(x) (\alpha_i x + \beta_i)
+
+where :math:`1_{[a, b]}` is an indication function that is 1 if the argument is in the interval
+:math:`[a, b]` and otherwise 0. The breakpoints :math:`p_i` can be specified by the
+``breakpoints`` argument.
+
+References:
+
+    [1]: Woerner, S., & Egger, D. J. (2018).
+         Quantum Risk Analysis.
+         `arXiv:1806.06893 <http://arxiv.org/abs/1806.06893>`_
+
+    [2]: Gacon, J., Zoufal, C., & Woerner, S. (2020).
+         Quantum-Enhanced Simulation-Based Optimization.
+         `arXiv:2005.10780 <http://arxiv.org/abs/2005.10780>`_
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_aa4e77f3c8b635d0a1db246fa93ca0d84_aa4e77f3c8b635d0a1db246fa93ca0d84}\index{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction@{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction@{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_aa4e77f3c8b635d0a1db246fa93ca0d84_aa4e77f3c8b635d0a1db246fa93ca0d84} 
+ None qiskit.\+circuit.\+library.\+arithmetic.\+linear\+\_\+amplitude\+\_\+function.\+Linear\+Amplitude\+Function.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{float \texorpdfstring{$\vert$}{|} list\mbox{[}float\mbox{]}}]{slope}{, }\item[{float \texorpdfstring{$\vert$}{|} list\mbox{[}float\mbox{]}}]{offset}{, }\item[{tuple\mbox{[}float, float\mbox{]}}]{domain}{, }\item[{tuple\mbox{[}float, float\mbox{]}}]{image}{, }\item[{float }]{rescaling\+\_\+factor}{ = {\ttfamily 1}, }\item[{list\mbox{[}float\mbox{]} \texorpdfstring{$\vert$}{|} None }]{breakpoints}{ = {\ttfamily None}, }\item[{str }]{name}{ = {\ttfamily "{}F"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}    Args:
+        num_state_qubits: The number of qubits used to encode the variable :math:`x`.
+        slope: The slope of the linear function. Can be a list of slopes if it is a piecewise
+            linear function.
+        offset: The offset of the linear function. Can be a list of offsets if it is a piecewise
+            linear function.
+        domain: The domain of the function as tuple :math:`(x_\min{}, x_\max{})`.
+        image: The image of the function as tuple :math:`(f_\min{}, f_\max{})`.
+        rescaling_factor: The rescaling factor to adjust the accuracy in the Taylor
+            approximation.
+        breakpoints: The breakpoints if the function is piecewise linear. If None, the function
+            is not piecewise.
+        name: Name of the circuit.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit_a0976a87fcff0df1d922b3726e5d246f9_a0976a87fcff0df1d922b3726e5d246f9}{qiskit.\+circuit.\+quantumcircuit.\+Quantum\+Circuit}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a3a643cf97f56e95b21b120640797e4dc_a3a643cf97f56e95b21b120640797e4dc}\index{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction@{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction}!post\_processing@{post\_processing}}
+\index{post\_processing@{post\_processing}!qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction@{qiskit.circuit.library.arithmetic.linear\_amplitude\_function.LinearAmplitudeFunction}}
+\doxysubsubsection{\texorpdfstring{post\_processing()}{post\_processing()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1arithmetic_1_1linear__amplitude__function_1_1_linear_amplitude_function_a3a643cf97f56e95b21b120640797e4dc_a3a643cf97f56e95b21b120640797e4dc} 
+ float qiskit.\+circuit.\+library.\+arithmetic.\+linear\+\_\+amplitude\+\_\+function.\+Linear\+Amplitude\+Function.\+post\+\_\+processing (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{scaled\+\_\+value}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Map the function value of the approximated :math:`\hat{f}` to :math:`f`.
+
+Args:
+    scaled_value: A function value from the Taylor expansion of :math:`\hat{f}(x)`.
+
+Returns:
+    The ``scaled_value`` mapped back to the domain of :math:`f`, by first inverting
+    the transformation used for the Taylor approximation and then mapping back from
+    :math:`[0, 1]` to the original domain.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/arithmetic/linear\+\_\+amplitude\+\_\+function.\+py\end{DoxyCompactItemize}

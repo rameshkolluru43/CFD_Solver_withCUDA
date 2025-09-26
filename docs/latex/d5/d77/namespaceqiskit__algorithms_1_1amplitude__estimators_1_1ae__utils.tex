@@ -1,0 +1,199 @@
+\doxysection{qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils}{}\label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a4cfc9e36096aba5ce60865ebbd937bf1_a4cfc9e36096aba5ce60865ebbd937bf1}{bisect\+\_\+max}} (f, a, b, steps=50, minwidth=1e-\/12, retval=False)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a24fa1bd58ec52892c10c3bf1c8c8afe7_a24fa1bd58ec52892c10c3bf1c8c8afe7}{\+\_\+circ\+\_\+dist}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2543dd23bd63de8e910cb435a99e6077_a2543dd23bd63de8e910cb435a99e6077}{\+\_\+derivative\+\_\+circ\+\_\+dist}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aaca6fc67a0a3ea51ea113cd512c1e899_aaca6fc67a0a3ea51ea113cd512c1e899}{\+\_\+amplitude\+\_\+to\+\_\+angle}} (a)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a498af8b041b230a08decb21d0ac34dce_a498af8b041b230a08decb21d0ac34dce}{\+\_\+derivative\+\_\+amplitude\+\_\+to\+\_\+angle}} (a)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a77afff91327252a03c62790535f5cc89_a77afff91327252a03c62790535f5cc89}{\+\_\+alpha}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2dd1cd5a0d352536d9b04bef3f7b26e2_a2dd1cd5a0d352536d9b04bef3f7b26e2}{\+\_\+derivative\+\_\+alpha}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_abf920dffe739af07b63c1a373e69f934_abf920dffe739af07b63c1a373e69f934}{\+\_\+beta}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_acdc6812a76430f1495793fa3f01d0b2f_acdc6812a76430f1495793fa3f01d0b2f}{\+\_\+derivative\+\_\+beta}} (x, p)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_ab23ac03452efe32ffe6e749b243d57e1_ab23ac03452efe32ffe6e749b243d57e1}{\+\_\+pdf\+\_\+a\+\_\+single\+\_\+angle}} (x, p, m, pi\+\_\+delta)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a76e1c680bab5e7157cbf92f7f33f53ac_a76e1c680bab5e7157cbf92f7f33f53ac}{pdf\+\_\+a}} (x, p, m)
+\item 
+\mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aa58da3878e3951444f93dd6b627776ca_aa58da3878e3951444f93dd6b627776ca}{derivative\+\_\+log\+\_\+pdf\+\_\+a}} (x, p, m)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a6ab9112c24e2d4763fb7b25b8b4b6de6}\label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a6ab9112c24e2d4763fb7b25b8b4b6de6} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Utils for the Maximum-Likelihood estimation used in ``AmplitudeEstimation``.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a77afff91327252a03c62790535f5cc89_a77afff91327252a03c62790535f5cc89}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_alpha@{\_alpha}}
+\index{\_alpha@{\_alpha}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_alpha()}{\_alpha()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a77afff91327252a03c62790535f5cc89_a77afff91327252a03c62790535f5cc89} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+alpha (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Helper function for `pdf_a`, alpha = pi * d(omega(x), omega(p)).
+
+Here, omega(x) is `_amplitude_to_angle(x)`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aaca6fc67a0a3ea51ea113cd512c1e899_aaca6fc67a0a3ea51ea113cd512c1e899}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_amplitude\_to\_angle@{\_amplitude\_to\_angle}}
+\index{\_amplitude\_to\_angle@{\_amplitude\_to\_angle}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_amplitude\_to\_angle()}{\_amplitude\_to\_angle()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aaca6fc67a0a3ea51ea113cd512c1e899_aaca6fc67a0a3ea51ea113cd512c1e899} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+amplitude\+\_\+to\+\_\+angle (\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Transform from the amplitude :math:`a \in [0, 1]` to the generating angle.
+
+In QAE, the amplitude can be written from a generating angle :math:`\omega` as
+
+.. math:
+
+    a = \sin^2(\pi \omega)
+
+This returns the :math:`\omega` for a given :math:`a`.
+
+Args:
+    a (float): A value in :math:`[0,1]`.
+
+Returns:
+    float: :math:`\sin^{-1}(\sqrt{a}) / \pi`
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_abf920dffe739af07b63c1a373e69f934_abf920dffe739af07b63c1a373e69f934}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_beta@{\_beta}}
+\index{\_beta@{\_beta}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_beta()}{\_beta()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_abf920dffe739af07b63c1a373e69f934_abf920dffe739af07b63c1a373e69f934} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+beta (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Helper function for `pdf_a`, beta = pi * d(1 - omega(x), omega(p)).\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a24fa1bd58ec52892c10c3bf1c8c8afe7_a24fa1bd58ec52892c10c3bf1c8c8afe7}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_circ\_dist@{\_circ\_dist}}
+\index{\_circ\_dist@{\_circ\_dist}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_circ\_dist()}{\_circ\_dist()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a24fa1bd58ec52892c10c3bf1c8c8afe7_a24fa1bd58ec52892c10c3bf1c8c8afe7} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+circ\+\_\+dist (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Circumferential distance function.
+
+For two angles :math:`x` and :math:`p` on the unit circuit this function is defined as
+
+.. math::
+
+    d(x, p) = \min_{z \in [-1, 0, 1]} |z + p - x|
+
+Args:
+x (float): first angle
+p (float): second angle
+
+Returns:
+float: d(x, p)
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2dd1cd5a0d352536d9b04bef3f7b26e2_a2dd1cd5a0d352536d9b04bef3f7b26e2}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_derivative\_alpha@{\_derivative\_alpha}}
+\index{\_derivative\_alpha@{\_derivative\_alpha}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_derivative\_alpha()}{\_derivative\_alpha()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2dd1cd5a0d352536d9b04bef3f7b26e2_a2dd1cd5a0d352536d9b04bef3f7b26e2} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+derivative\+\_\+alpha (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the derivative of alpha.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a498af8b041b230a08decb21d0ac34dce_a498af8b041b230a08decb21d0ac34dce}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_derivative\_amplitude\_to\_angle@{\_derivative\_amplitude\_to\_angle}}
+\index{\_derivative\_amplitude\_to\_angle@{\_derivative\_amplitude\_to\_angle}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_derivative\_amplitude\_to\_angle()}{\_derivative\_amplitude\_to\_angle()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a498af8b041b230a08decb21d0ac34dce_a498af8b041b230a08decb21d0ac34dce} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+derivative\+\_\+amplitude\+\_\+to\+\_\+angle (\begin{DoxyParamCaption}\item[{}]{a}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the derivative of ``amplitude_to_angle``.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_acdc6812a76430f1495793fa3f01d0b2f_acdc6812a76430f1495793fa3f01d0b2f}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_derivative\_beta@{\_derivative\_beta}}
+\index{\_derivative\_beta@{\_derivative\_beta}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_derivative\_beta()}{\_derivative\_beta()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_acdc6812a76430f1495793fa3f01d0b2f_acdc6812a76430f1495793fa3f01d0b2f} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+derivative\+\_\+beta (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the derivative of beta.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2543dd23bd63de8e910cb435a99e6077_a2543dd23bd63de8e910cb435a99e6077}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_derivative\_circ\_dist@{\_derivative\_circ\_dist}}
+\index{\_derivative\_circ\_dist@{\_derivative\_circ\_dist}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_derivative\_circ\_dist()}{\_derivative\_circ\_dist()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a2543dd23bd63de8e910cb435a99e6077_a2543dd23bd63de8e910cb435a99e6077} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+derivative\+\_\+circ\+\_\+dist (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Derivative of circumferential distance function.
+
+Args:
+    x (float): first angle
+    p (float): second angle
+
+Returns:
+    float: The derivative.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_ab23ac03452efe32ffe6e749b243d57e1_ab23ac03452efe32ffe6e749b243d57e1}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!\_pdf\_a\_single\_angle@{\_pdf\_a\_single\_angle}}
+\index{\_pdf\_a\_single\_angle@{\_pdf\_a\_single\_angle}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{\_pdf\_a\_single\_angle()}{\_pdf\_a\_single\_angle()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_ab23ac03452efe32ffe6e749b243d57e1_ab23ac03452efe32ffe6e749b243d57e1} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+\_\+pdf\+\_\+a\+\_\+single\+\_\+angle (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{, }\item[{}]{m}{, }\item[{}]{pi\+\_\+delta}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Helper function for `pdf_a`.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a4cfc9e36096aba5ce60865ebbd937bf1_a4cfc9e36096aba5ce60865ebbd937bf1}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!bisect\_max@{bisect\_max}}
+\index{bisect\_max@{bisect\_max}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{bisect\_max()}{bisect\_max()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a4cfc9e36096aba5ce60865ebbd937bf1_a4cfc9e36096aba5ce60865ebbd937bf1} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+bisect\+\_\+max (\begin{DoxyParamCaption}\item[{}]{f}{, }\item[{}]{a}{, }\item[{}]{b}{, }\item[{}]{steps}{ = {\ttfamily 50}, }\item[{}]{minwidth}{ = {\ttfamily 1e-\/12}, }\item[{}]{retval}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Find the maximum of the real-valued function f in the interval [a, b] using bisection.
+
+Args:
+    f (callable): the function to find the maximum of
+    a (float): the lower limit of the interval
+    b (float): the upper limit of the interval
+    steps (int): the maximum number of steps in the bisection
+    minwidth (float): if the current interval is smaller than minwidth stop
+        the search
+    retval (bool): return value
+
+Returns:
+    float: The maximum of f in [a,b] according to this algorithm.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aa58da3878e3951444f93dd6b627776ca_aa58da3878e3951444f93dd6b627776ca}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!derivative\_log\_pdf\_a@{derivative\_log\_pdf\_a}}
+\index{derivative\_log\_pdf\_a@{derivative\_log\_pdf\_a}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{derivative\_log\_pdf\_a()}{derivative\_log\_pdf\_a()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_aa58da3878e3951444f93dd6b627776ca_aa58da3878e3951444f93dd6b627776ca} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+derivative\+\_\+log\+\_\+pdf\+\_\+a (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{, }\item[{}]{m}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the derivative of the logarithm of the PDF of a.
+
+Args:
+    x (float): the grid point
+    p (float): the true value
+    m (float): the number of evaluation qubits
+
+Returns:
+    float: d/dp log(PDF(x|p))
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a76e1c680bab5e7157cbf92f7f33f53ac_a76e1c680bab5e7157cbf92f7f33f53ac}\index{qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}!pdf\_a@{pdf\_a}}
+\index{pdf\_a@{pdf\_a}!qiskit\_algorithms.amplitude\_estimators.ae\_utils@{qiskit\_algorithms.amplitude\_estimators.ae\_utils}}
+\doxysubsubsection{\texorpdfstring{pdf\_a()}{pdf\_a()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1ae__utils_a76e1c680bab5e7157cbf92f7f33f53ac_a76e1c680bab5e7157cbf92f7f33f53ac} 
+qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+ae\+\_\+utils.\+pdf\+\_\+a (\begin{DoxyParamCaption}\item[{}]{x}{, }\item[{}]{p}{, }\item[{}]{m}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the PDF of a, i.e. the probability of getting the estimate x
+(in [0, 1]) if p (in [0, 1]) is the true value, given that we use m qubits.
+
+Args:
+    x (float): the grid point
+    p (float): the true value
+    m (float): the number of evaluation qubits
+
+Returns:
+    float: PDF(x|p)
+\end{DoxyVerb}
+ 

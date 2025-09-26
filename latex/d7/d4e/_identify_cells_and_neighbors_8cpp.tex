@@ -1,0 +1,883 @@
+\doxysection{Gmsh\+\_\+\+Grids/\+Identify\+Cells\+And\+Neighbors.cpp File Reference}
+\hypertarget{_identify_cells_and_neighbors_8cpp}{}\label{_identify_cells_and_neighbors_8cpp}\index{Gmsh\_Grids/IdentifyCellsAndNeighbors.cpp@{Gmsh\_Grids/IdentifyCellsAndNeighbors.cpp}}
+{\ttfamily \#include $<$vtk\+Smart\+Pointer.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Unstructured\+Grid\+Reader.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Id\+List.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Cell\+Data.\+h$>$}\newline
+{\ttfamily \#include $<$vtk\+Points.\+h$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\newline
+{\ttfamily \#include $<$unordered\+\_\+set$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$tuple$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+Include dependency graph for Identify\+Cells\+And\+Neighbors.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{d5/d1b/_identify_cells_and_neighbors_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}}
+\item 
+struct \mbox{\hyperlink{class_cell}{Cell}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_ad0e486817fb9f181f61db2589262092a_ad0e486817fb9f181f61db2589262092a}{extract\+Vertices}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&cell\+Vertices)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_aee7032e1dcceccd82f398f0015a3d846_aee7032e1dcceccd82f398f0015a3d846}{identify\+Line\+Cells}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells, double \&minX, double \&maxX, double \&minY, double \&maxY)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a87422716451b60e1806b7f5fef3b81e4_a87422716451b60e1806b7f5fef3b81e4}{classify\+Boundaries}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells, \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&boundaries, double minX, double maxX, double minY, double maxY)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_aad0387211ff6e5c3e9edf72b6ec9e69c_aad0387211ff6e5c3e9edf72b6ec9e69c}{identify\+Cells\+And\+Neighbors}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&neighbors)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a748b03b2e15f60c903f1e8b93e99c782_a748b03b2e15f60c903f1e8b93e99c782}{identify\+Boundaries}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&boundary\+Cells)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_ab9b41079773545c3ad8f1d20d27fd192_ab9b41079773545c3ad8f1d20d27fd192}{write\+Output}} (const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&neighbors, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&boundary\+Cells, const std\+::string \&filename)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_ac922745970a65ee035ade91aeadaf773_ac922745970a65ee035ade91aeadaf773}{write\+\_\+\+Output}} (const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&neighbors, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&boundary\+Cells, const std\+::string \&filename)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a93dc8494e006b127257e1d68bc6d933c_a93dc8494e006b127257e1d68bc6d933c}{write\+\_\+\+Output}} (const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&neighbors, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&boundary\+Cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&cell\+Vertices, const std\+::string \&filename)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a771a5984142aa21f436a7c1f9be2e67b_a771a5984142aa21f436a7c1f9be2e67b}{write\+Boundary\+Output}} (const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells, const \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&boundaries, double minX, double maxX, double minY, double maxY, const std\+::string \&filename)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a429b2625d3fada1602cc005152a9f882_a429b2625d3fada1602cc005152a9f882}{write\+Output}} (const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&neighbors, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&boundary\+Cells, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ cell\+Vertices, const \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&boundaries, double minX, double maxX, double minY, double maxY, const std\+::string \&filename, const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$ \&line\+Cell\+To\+Parent\+Quad)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_a3c7ccf2f0fe7aafecd4bd4dd69d91e31}{map\+Line\+Cells\+To\+Parent\+Quads}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells, std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$ line\+Cell\+To\+Parent\+Quad)
+\item 
+std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_acc98702cf524d404578f7632d7101f62_acc98702cf524d404578f7632d7101f62}{map\+Line\+Cells\+To\+Parent\+Quads}} (vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$ grid, const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&line\+Cells)
+\item 
+void \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_af6740e8247624b261d740830bcaa0c9d_af6740e8247624b261d740830bcaa0c9d}{Read\+\_\+\+Output\+Mesh\+Data}} (const std\+::string \&filename, int \&total\+Cells, int \&num\+Quads, int \&num\+Triangles, int \&num\+Lines, std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&cells, std\+::vector$<$ int $>$ \&boundary\+Cells)
+\item 
+int \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a87422716451b60e1806b7f5fef3b81e4_a87422716451b60e1806b7f5fef3b81e4}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!classifyBoundaries@{classifyBoundaries}}
+\index{classifyBoundaries@{classifyBoundaries}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{classifyBoundaries()}{classifyBoundaries()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a87422716451b60e1806b7f5fef3b81e4_a87422716451b60e1806b7f5fef3b81e4} 
+void classify\+Boundaries (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{, }\item[{\mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&}]{boundaries}{, }\item[{double}]{minX}{, }\item[{double}]{maxX}{, }\item[{double}]{minY}{, }\item[{double}]{maxY}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00087}{87}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ cellId\ :\ lineCells)\ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(cellId,\ cellPoints);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ x1,\ y1,\ x2,\ y2;}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ p1[3],\ p2[3];}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ grid-\/>GetPoint(cellPoints-\/>GetId(0),\ p1);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ grid-\/>GetPoint(cellPoints-\/>GetId(1),\ p2);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ x1\ =\ p1[0];\ y1\ =\ p1[1];}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ x2\ =\ p2[0];\ y2\ =\ p2[1];}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Classify\ based\ on\ bounding\ box}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (x1\ ==\ minX\ \&\&\ x2\ ==\ minX)\ \{}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ boundaries.\mbox{\hyperlink{struct_boundary_info_aa1e4478d1680520f818ecf0fe7e4383b_aa1e4478d1680520f818ecf0fe7e4383b}{leftBoundary}}.insert(cellId);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (x1\ ==\ maxX\ \&\&\ x2\ ==\ maxX)\ \{}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ boundaries.\mbox{\hyperlink{struct_boundary_info_a458bb5eb422e35d3e88e6417f74f37eb_a458bb5eb422e35d3e88e6417f74f37eb}{rightBoundary}}.insert(cellId);}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (y1\ ==\ maxY\ \&\&\ y2\ ==\ maxY)\ \{}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ boundaries.\mbox{\hyperlink{struct_boundary_info_a5c6bf91ad0fcce64f34c08e0b952d8a2_a5c6bf91ad0fcce64f34c08e0b952d8a2}{topBoundary}}.insert(cellId);}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (y1\ ==\ minY\ \&\&\ y2\ ==\ minY)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ boundaries.\mbox{\hyperlink{struct_boundary_info_aa685883d37110a54d043cc4c0438eb48_aa685883d37110a54d043cc4c0438eb48}{bottomBoundary}}.insert(cellId);}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ boundaries.\mbox{\hyperlink{struct_boundary_info_abbf907fd1e5f618876068e2e6726efca_abbf907fd1e5f618876068e2e6726efca}{cylinderBoundary}}.insert(cellId);\ \ \textcolor{comment}{//\ Remaining\ lines\ are\ cylinder\ boundary}}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00119\ \ \ \ \ \}}
+\DoxyCodeLine{00120\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=252pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_a87422716451b60e1806b7f5fef3b81e4_a87422716451b60e1806b7f5fef3b81e4_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_ad0e486817fb9f181f61db2589262092a_ad0e486817fb9f181f61db2589262092a}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!extractVertices@{extractVertices}}
+\index{extractVertices@{extractVertices}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{extractVertices()}{extractVertices()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_ad0e486817fb9f181f61db2589262092a_ad0e486817fb9f181f61db2589262092a} 
+void extract\+Vertices (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&}]{cell\+Vertices}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00037}{37}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ grid-\/>GetNumberOfCells();\ ++i)\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(i,\ cellPoints);}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ std::vector<std::tuple<double,\ double,\ double>>\ vertices;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ pointId\ =\ cellPoints-\/>GetId(j);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[3];}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetPoint(pointId,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}});\ \textcolor{comment}{//\ Get\ (x,\ y,\ z)\ coordinates}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \ \ \ \ vertices.emplace\_back(\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1],\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[2]);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ cellVertices[i]\ =\ vertices;}
+\DoxyCodeLine{00053\ \ \ \ \ \}}
+\DoxyCodeLine{00054\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=235pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_ad0e486817fb9f181f61db2589262092a_ad0e486817fb9f181f61db2589262092a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a748b03b2e15f60c903f1e8b93e99c782_a748b03b2e15f60c903f1e8b93e99c782}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!identifyBoundaries@{identifyBoundaries}}
+\index{identifyBoundaries@{identifyBoundaries}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{identifyBoundaries()}{identifyBoundaries()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a748b03b2e15f60c903f1e8b93e99c782_a748b03b2e15f60c903f1e8b93e99c782} 
+void identify\+Boundaries (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{boundary\+Cells}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00181}{181}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ grid-\/>GetNumberOfCells();\ ++i)\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(i,\ cellPoints);}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ isBoundary\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ \{}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ pointCells\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(cellPoints-\/>GetId(j),\ pointCells);}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pointCells-\/>GetNumberOfIds()\ ==\ 1)\ \{}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ isBoundary\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00196\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (isBoundary)\ \{}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ boundaryCells.insert(i);}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_a748b03b2e15f60c903f1e8b93e99c782_a748b03b2e15f60c903f1e8b93e99c782_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_aad0387211ff6e5c3e9edf72b6ec9e69c_aad0387211ff6e5c3e9edf72b6ec9e69c}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!identifyCellsAndNeighbors@{identifyCellsAndNeighbors}}
+\index{identifyCellsAndNeighbors@{identifyCellsAndNeighbors}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{identifyCellsAndNeighbors()}{identifyCellsAndNeighbors()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_aad0387211ff6e5c3e9edf72b6ec9e69c_aad0387211ff6e5c3e9edf72b6ec9e69c} 
+void identify\+Cells\+And\+Neighbors (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&}]{neighbors}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00122}{122}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00125\ \ \ \ \ std::cout<<\textcolor{stringliteral}{"{}Number\ of\ Cells\ are\ \(\backslash\)t"{}}<<grid-\/>GetNumberOfCells()<<std::endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ grid-\/>GetNumberOfCells();\ ++i)}
+\DoxyCodeLine{00127\ \ \ \ \ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(i,\ cellPoints);}
+\DoxyCodeLine{00130\ \ \ \ \ }
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ vtkIdType\ numPoints\ =\ cellPoints-\/>GetNumberOfIds();\ \textcolor{comment}{//\ Get\ number\ of\ points\ in\ this\ cell}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ \ \ \ \ std::cout\ <<\ "{}Cell\ "{}\ <<\ i\ <<\ "{}\ has\ "{}\ <<\ numPoints\ <<\ "{}\ points.\(\backslash\)t"{};}}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_cell}{Cell}}\ cell;}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_a9933eb6496b551e2c081b84ce076993b_a9933eb6496b551e2c081b84ce076993b}{id}}\ =\ i;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ pointId\ =\ cellPoints-\/>GetId(j);\ \ \ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_afb1220fd20b57e63b9df51b84a20aec9_afb1220fd20b57e63b9df51b84a20aec9}{points}}.push\_back(pointId);}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[3];}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetPoint(pointId,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}});}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//std::cout\ <<\ "{}("{}\ <<\ p[0]\ <<\ "{},\ "{}\ <<\ p[1]\ <<\ "{},\ "{}\ <<\ p[2]\ <<\ "{})\ "{};}}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Identify\ neighbors\ correctly\ (only\ for\ shared\ edges)}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ }
+\DoxyCodeLine{00147\ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ vtkIdType\ pointId1\ =\ cellPoints-\/>GetId(j);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ vtkIdType\ pointId2\ =\ cellPoints-\/>GetId((j\ +\ 1)\ \%\ cellPoints-\/>GetNumberOfIds());}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ pointCells1\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(pointId1,\ pointCells1);}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ pointCells2\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(pointId2,\ pointCells2);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ common\ neighboring\ cells\ that\ share\ both\ points}}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ k\ =\ 0;\ k\ <\ pointCells1-\/>GetNumberOfIds();\ ++k)\ }
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ neighborCandidate\ =\ pointCells1-\/>GetId(k);}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (neighborCandidate\ !=\ i\ \&\&\ std::find(cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}}.begin(),\ cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}}.end(),\ neighborCandidate)\ ==\ cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}}.end())\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ m\ =\ 0;\ m\ <\ pointCells2-\/>GetNumberOfIds();\ ++m)\ }
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pointCells2-\/>GetId(m)\ ==\ neighborCandidate)\ }
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}}.push\_back(neighborCandidate);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \}\ \ \ \ \ \ }
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ cells.push\_back(cell);}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ neighbors[i]\ =\ cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}};}
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_aad0387211ff6e5c3e9edf72b6ec9e69c_aad0387211ff6e5c3e9edf72b6ec9e69c_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_aee7032e1dcceccd82f398f0015a3d846_aee7032e1dcceccd82f398f0015a3d846}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!identifyLineCells@{identifyLineCells}}
+\index{identifyLineCells@{identifyLineCells}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{identifyLineCells()}{identifyLineCells()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_aee7032e1dcceccd82f398f0015a3d846_aee7032e1dcceccd82f398f0015a3d846} 
+void identify\+Line\+Cells (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{, }\item[{double \&}]{minX}{, }\item[{double \&}]{maxX}{, }\item[{double \&}]{minY}{, }\item[{double \&}]{maxY}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00059}{59}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00063\ \ \ \ \ minX\ =\ minY\ =\ std::numeric\_limits<double>::max();}
+\DoxyCodeLine{00064\ \ \ \ \ maxX\ =\ maxY\ =\ std::numeric\_limits<double>::lowest();}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ grid-\/>GetNumberOfCells();\ ++i)\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(i,\ cellPoints);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellPoints-\/>GetNumberOfIds()\ ==\ 2)\ \{\ \ \textcolor{comment}{//\ Line\ cell}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ lineCells.insert(i);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Compute\ bounding\ box}}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[3];}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetPoint(cellPoints-\/>GetId(j),\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}});}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minX\ =\ std::min(minX,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0]);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxX\ =\ std::max(maxX,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[0]);}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ minY\ =\ std::min(minY,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1]);}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ maxY\ =\ std::max(maxY,\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}[1]);}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_aee7032e1dcceccd82f398f0015a3d846_aee7032e1dcceccd82f398f0015a3d846_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!main@{main}}
+\index{main@{main}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00603}{603}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00603\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 3)\ \{}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Usage:\ "{}}\ <<\ argv[0]\ <<\ \textcolor{stringliteral}{"{}\ <input\_file.vtk>"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_FAILURE;}
+\DoxyCodeLine{00607\ \ \ \ \ \}}
+\DoxyCodeLine{00608\ }
+\DoxyCodeLine{00609\ \ \ \ \ std::string\ fileName\ =\ argv[1];}
+\DoxyCodeLine{00610\ \ \ \ \ std::string\ readFileName\ =\ argv[2];}
+\DoxyCodeLine{00611\ }
+\DoxyCodeLine{00612\ \ \ \ \ \textcolor{comment}{//\ Read\ the\ .vtk\ file}}
+\DoxyCodeLine{00613\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGridReader>\ reader\ =\ vtkSmartPointer<vtkUnstructuredGridReader>::New();}
+\DoxyCodeLine{00614\ \ \ \ \ reader-\/>SetFileName(fileName.c\_str());}
+\DoxyCodeLine{00615\ \ \ \ \ reader-\/>Update();}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \ \ \ \ vtkSmartPointer<vtkUnstructuredGrid>\ grid\ =\ reader-\/>GetOutput();}
+\DoxyCodeLine{00618\ }
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{comment}{//\ Process\ the\ grid}}
+\DoxyCodeLine{00620\ \ \ \ \ std::vector<Cell>\ cells;}
+\DoxyCodeLine{00621\ \ \ \ \ std::unordered\_map<vtkIdType,\ std::vector<vtkIdType>>\ neighbors;}
+\DoxyCodeLine{00622\ \ \ \ \ std::unordered\_set<vtkIdType>\ boundaryCells;}
+\DoxyCodeLine{00623\ \ \ \ \ std::unordered\_set<vtkIdType>\ lineCells;}
+\DoxyCodeLine{00624\ \ \ \ \ std::unordered\_map<vtkIdType,std::vector<std::tuple<double,\ double,\ double>>>\ cellVertices;\ }
+\DoxyCodeLine{00625\ }
+\DoxyCodeLine{00626\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_aad0387211ff6e5c3e9edf72b6ec9e69c_aad0387211ff6e5c3e9edf72b6ec9e69c}{identifyCellsAndNeighbors}}(grid,\ cells,\ neighbors);}
+\DoxyCodeLine{00627\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a748b03b2e15f60c903f1e8b93e99c782_a748b03b2e15f60c903f1e8b93e99c782}{identifyBoundaries}}(grid,\ boundaryCells);}
+\DoxyCodeLine{00628\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_ad0e486817fb9f181f61db2589262092a_ad0e486817fb9f181f61db2589262092a}{extractVertices}}(grid,\ cellVertices);}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00630\ \ \ \ \ \textcolor{keywordtype}{double}\ minX,\ maxX,\ minY,\ maxY;}
+\DoxyCodeLine{00631\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_aee7032e1dcceccd82f398f0015a3d846_aee7032e1dcceccd82f398f0015a3d846}{identifyLineCells}}(grid,\ lineCells,\ minX,\ maxX,\ minY,\ maxY);}
+\DoxyCodeLine{00632\ }
+\DoxyCodeLine{00633\ \ \ \ \ \mbox{\hyperlink{struct_boundary_info}{BoundaryInfo}}\ boundaries;}
+\DoxyCodeLine{00634\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a87422716451b60e1806b7f5fef3b81e4_a87422716451b60e1806b7f5fef3b81e4}{classifyBoundaries}}(grid,\ lineCells,\ boundaries,\ minX,\ maxX,\ minY,\ maxY);}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ std::unordered\_map<vtkIdType,\ vtkIdType>\ lineCellToParentQuad;}
+\DoxyCodeLine{00637\ }
+\DoxyCodeLine{00638\ \textcolor{comment}{//\ \ \ \ mapLineCellsToParentQuads(grid,lineCells,lineCellToParentQuad);}}
+\DoxyCodeLine{00639\ \ \ \ \ lineCellToParentQuad\ =\ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_a3c7ccf2f0fe7aafecd4bd4dd69d91e31}{mapLineCellsToParentQuads}}(grid,\ lineCells);}
+\DoxyCodeLine{00640\ \ \ \ \ }
+\DoxyCodeLine{00641\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_ab9b41079773545c3ad8f1d20d27fd192_ab9b41079773545c3ad8f1d20d27fd192}{writeOutput}}(cells,\ neighbors,\ boundaryCells,\ lineCells,\ cellVertices,\ boundaries,\ minX,\ maxX,\ minY,\ maxY,\ \textcolor{stringliteral}{"{}output\_mesh\_data.txt"{}},\ lineCellToParentQuad);}
+\DoxyCodeLine{00642\ \ \ \ \ }
+\DoxyCodeLine{00643\ \ \ \ \ cells.clear();}
+\DoxyCodeLine{00644\ \ \ \ \ boundaryCells.clear();}
+\DoxyCodeLine{00645\ \ \ \ \ std::cout<<cells.size()<<std::endl;}
+\DoxyCodeLine{00646\ \ \ \ \ std::cout<<boundaryCells.size()<<std::endl;}
+\DoxyCodeLine{00647\ \ \ \ \ \textcolor{comment}{//\ **Convert\ unordered\_set\ to\ vector<int>**\ ✅}}
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ std::vector<int>\ boundaryCellsVector(boundaryCells.begin(),\ boundaryCells.end());}
+\DoxyCodeLine{00649\ \ \ \ \ }
+\DoxyCodeLine{00650\ \ \ \ \ \textcolor{keywordtype}{int}\ totalCells=0,numQuads=0,numTriangles=0,numLines=0;}
+\DoxyCodeLine{00651\ \ \ \ \ }
+\DoxyCodeLine{00652\ \ \ \ \ \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_af6740e8247624b261d740830bcaa0c9d_af6740e8247624b261d740830bcaa0c9d}{Read\_OutputMeshData}}(readFileName,\ totalCells,\ numQuads,numTriangles,\ numLines,cells,boundaryCellsVector);}
+\DoxyCodeLine{00653\ \ \ \ \ std::cout<<cells.size()<<std::endl;}
+\DoxyCodeLine{00654\ \ \ \ \ std::cout<<boundaryCellsVector.size()<<std::endl;}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00656\ \ \ \ \ \textcolor{keywordflow}{return}\ EXIT\_SUCCESS;}
+\DoxyCodeLine{00657\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_a0ddf1224851353fc92bfbff6f499fa97_a0ddf1224851353fc92bfbff6f499fa97_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_acc98702cf524d404578f7632d7101f62_acc98702cf524d404578f7632d7101f62}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!mapLineCellsToParentQuads@{mapLineCellsToParentQuads}}
+\index{mapLineCellsToParentQuads@{mapLineCellsToParentQuads}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{mapLineCellsToParentQuads()}{mapLineCellsToParentQuads()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_acc98702cf524d404578f7632d7101f62_acc98702cf524d404578f7632d7101f62} 
+std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$ map\+Line\+Cells\+To\+Parent\+Quads (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00491}{491}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00493\ \ \ \ \ std::unordered\_map<vtkIdType,\ vtkIdType>\ lineCellToParentQuad;}
+\DoxyCodeLine{00494\ }
+\DoxyCodeLine{00495\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ lineCell\ :\ lineCells)\ \{}
+\DoxyCodeLine{00496\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(lineCell,\ cellPoints);}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellPoints-\/>GetNumberOfIds()\ !=\ 2)\ \textcolor{keywordflow}{continue};\ \textcolor{comment}{//\ Ensure\ it's\ a\ line\ cell}}
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ vtkIdType\ point1\ =\ cellPoints-\/>GetId(0);}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ vtkIdType\ point2\ =\ cellPoints-\/>GetId(1);}
+\DoxyCodeLine{00503\ }
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ point1Cells\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ point2Cells\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(point1,\ point1Cells);}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(point2,\ point2Cells);}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Find\ common\ cells\ containing\ both\ points}}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ i\ =\ 0;\ i\ <\ point1Cells-\/>GetNumberOfIds();\ ++i)\ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ candidateParent\ =\ point1Cells-\/>GetId(i);}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (candidateParent\ ==\ lineCell)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00513\ }
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ parentPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(candidateParent,\ parentPoints);}
+\DoxyCodeLine{00516\ }
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parentPoints-\/>GetNumberOfIds()\ ==\ 4)\ \{\ \textcolor{comment}{//\ It's\ a\ quad\ cell}}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ the\ quad\ cell\ contains\ both\ points\ of\ the\ line\ cell}}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ hasPoint1\ =\ \textcolor{keyword}{false},\ hasPoint2\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00520\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ parentPoints-\/>GetNumberOfIds();\ ++j)\ \{}
+\DoxyCodeLine{00521\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parentPoints-\/>GetId(j)\ ==\ point1)\ hasPoint1\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parentPoints-\/>GetId(j)\ ==\ point2)\ hasPoint2\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (hasPoint1\ \&\&\ hasPoint2)\ \{}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lineCellToParentQuad[lineCell]\ =\ candidateParent;}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};\ \textcolor{comment}{//\ Assign\ the\ first\ quad\ found}}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00529\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00530\ \ \ \ \ \}}
+\DoxyCodeLine{00531\ \ \ \ \ \textcolor{keywordflow}{return}\ lineCellToParentQuad;}
+\DoxyCodeLine{00532\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_a3c7ccf2f0fe7aafecd4bd4dd69d91e31}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!mapLineCellsToParentQuads@{mapLineCellsToParentQuads}}
+\index{mapLineCellsToParentQuads@{mapLineCellsToParentQuads}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{mapLineCellsToParentQuads()}{mapLineCellsToParentQuads()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_a3c7ccf2f0fe7aafecd4bd4dd69d91e31} 
+void map\+Line\+Cells\+To\+Parent\+Quads (\begin{DoxyParamCaption}\item[{vtk\+Smart\+Pointer$<$ vtk\+Unstructured\+Grid $>$}]{grid}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{, }\item[{std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$}]{line\+Cell\+To\+Parent\+Quad}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00462}{462}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00465\ \{}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ lineCell\ :\ lineCells)\ \{}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ cellPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(lineCell,\ cellPoints);}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ j\ =\ 0;\ j\ <\ cellPoints-\/>GetNumberOfIds();\ ++j)\ \{}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ pointId\ =\ cellPoints-\/>GetId(j);}
+\DoxyCodeLine{00472\ \ \ \ \ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ pointCells\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00473\ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetPointCells(pointId,\ pointCells);}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (vtkIdType\ k\ =\ 0;\ k\ <\ pointCells-\/>GetNumberOfIds();\ ++k)\ \{}
+\DoxyCodeLine{00476\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ candidateParent\ =\ pointCells-\/>GetId(k);}
+\DoxyCodeLine{00477\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ vtkSmartPointer<vtkIdList>\ parentPoints\ =\ vtkSmartPointer<vtkIdList>::New();}
+\DoxyCodeLine{00478\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ grid-\/>GetCellPoints(candidateParent,\ parentPoints);}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (parentPoints-\/>GetNumberOfIds()\ ==\ 4\ \&\&\ candidateParent\ !=\ lineCell)\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ lineCellToParentQuad[lineCell]\ =\ candidateParent;}
+\DoxyCodeLine{00482\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00483\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00484\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00486\ \ \ \ \ \}}
+\DoxyCodeLine{00487\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_a3c7ccf2f0fe7aafecd4bd4dd69d91e31_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_af6740e8247624b261d740830bcaa0c9d_af6740e8247624b261d740830bcaa0c9d}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!Read\_OutputMeshData@{Read\_OutputMeshData}}
+\index{Read\_OutputMeshData@{Read\_OutputMeshData}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{Read\_OutputMeshData()}{Read\_OutputMeshData()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_af6740e8247624b261d740830bcaa0c9d_af6740e8247624b261d740830bcaa0c9d} 
+void Read\+\_\+\+Output\+Mesh\+Data (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{filename}{, }\item[{int \&}]{total\+Cells}{, }\item[{int \&}]{num\+Quads}{, }\item[{int \&}]{num\+Triangles}{, }\item[{int \&}]{num\+Lines}{, }\item[{std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{std\+::vector$<$ int $>$ \&}]{boundary\+Cells}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00535}{535}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00538\ \ \ \ \ std::ifstream\ file(filename);}
+\DoxyCodeLine{00539\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00542\ \ \ \ \ \}}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Reading\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \ \ \ \ std::string\ line;}
+\DoxyCodeLine{00547\ \ \ \ \ std::string\ discard;\ \ \textcolor{comment}{//\ Fix\ for\ undeclared\ variable}}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \ \ \ \ \textcolor{keywordflow}{while}\ (std::getline(file,\ line))\ \{}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \ \ std::istringstream\ ss(line);}
+\DoxyCodeLine{00551\ \ \ \ \ \ \ \ \ std::string\ keyword;}
+\DoxyCodeLine{00552\ \ \ \ \ \ \ \ \ ss\ >>\ keyword;}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}Total"{}})\ \{}
+\DoxyCodeLine{00555\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ discard\ >>\ discard\ >>\ discard\ >>\ totalCells;}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}Number"{}})\ \{}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ std::string\ type;}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ type;}
+\DoxyCodeLine{00559\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Quads:"{}})\ ss\ >>\ numQuads;}
+\DoxyCodeLine{00560\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Triangles:"{}})\ ss\ >>\ numTriangles;}
+\DoxyCodeLine{00561\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (type\ ==\ \textcolor{stringliteral}{"{}Lines:"{}})\ ss\ >>\ numLines;}
+\DoxyCodeLine{00562\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}Bounding"{}})\ \{}
+\DoxyCodeLine{00563\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ MinX,\ MaxX}}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(file,\ line);\ \textcolor{comment}{//\ Skip\ MinY,\ MaxY}}
+\DoxyCodeLine{00565\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}Cell"{}})\ \{}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_cell}{Cell}}\ cell;}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ cellID;}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ ss\ >>\ discard\ >>\ cellID;}
+\DoxyCodeLine{00569\ }
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ j\ =\ 0;\ j\ <\ 4;\ ++j)\ \{}
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},\ z;}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ >>\ z;}
+\DoxyCodeLine{00573\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cell.vertices.push\_back(x);}}
+\DoxyCodeLine{00574\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cell.vertices.push\_back(y);}}
+\DoxyCodeLine{00575\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cell.vertices.push\_back(z);}}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_a5d9a765caa32cf95f46d7d3f9564e2f7_a5d9a765caa32cf95f46d7d3f9564e2f7}{vertices}}.push\_back(std::make\_tuple(\mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},\ z));\ \textcolor{comment}{//\ ✅\ Fixed}}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00579\ }
+\DoxyCodeLine{00580\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(file,\ line);}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ ss\_neighbors(line);}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ ss\_neighbors\ >>\ discard;\ \ \textcolor{comment}{//\ Fix\ for\ undeclared\ variable}}
+\DoxyCodeLine{00583\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ neighbor;}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (ss\_neighbors\ >>\ neighbor)\ \{}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cell.\mbox{\hyperlink{class_cell_a7d423edde0457be01d745612232fc17e_a7d423edde0457be01d745612232fc17e}{neighbors}}.push\_back(neighbor);}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ cells.push\_back(cell);}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (keyword\ ==\ \textcolor{stringliteral}{"{}Boundary"{}})\ \{}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ \ \ \ \ std::getline(file,\ line);}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ ss\_boundary(line);}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ boundaryCell;}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (ss\_boundary\ >>\ boundaryCell)\ \{}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ boundaryCells.push\_back(boundaryCell);}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00595\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00596\ \ \ \ \ \}}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00598\ \ \ \ \ file.close();}
+\DoxyCodeLine{00599\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Successfully\ read\ output\ mesh\ data."{}}\ <<\ std::endl;}
+\DoxyCodeLine{00600\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_af6740e8247624b261d740830bcaa0c9d_af6740e8247624b261d740830bcaa0c9d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_ac922745970a65ee035ade91aeadaf773_ac922745970a65ee035ade91aeadaf773}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!write\_Output@{write\_Output}}
+\index{write\_Output@{write\_Output}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{write\_Output()}{write\_Output()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_ac922745970a65ee035ade91aeadaf773_ac922745970a65ee035ade91aeadaf773} 
+void write\+\_\+\+Output (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&}]{neighbors}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{boundary\+Cells}{, }\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00241}{241}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00243\ \ \ \ \ std::ofstream\ file(filename);}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00248\ \ \ \ \ \}}
+\DoxyCodeLine{00249\ }
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{comment}{//\ Write\ header}}
+\DoxyCodeLine{00251\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ Data\ (Vertices,\ Cell\ ID,\ Neighbors)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{comment}{//\ Write\ cell\ and\ neighbor\ information}}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ cells)\ \{}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ cell\ vertices}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ point\ :\ cell.points)\ \{}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ point\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ cell\ ID}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}|\ Cell\ ID\ =\ "{}}\ <<\ cell.id;}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ neighbors}}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ |\ Neighbors\ =\ "{}};}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ neighbor\ :\ cell.neighbors)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ file\ <<\ std::endl;}
+\DoxyCodeLine{00268\ \ \ \ \ \}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{comment}{//\ Write\ boundary\ information}}
+\DoxyCodeLine{00271\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBoundary\ Information:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00272\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ boundaryCell\ :\ boundaryCells)\ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Boundary\ Cell\ "{}}\ <<\ boundaryCell\ <<\ \textcolor{stringliteral}{"{}:\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ face\ =\ 0;\ face\ <\ 4;\ ++face)\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ Face\ "{}}\ <<\ face\ <<\ \textcolor{stringliteral}{"{}\ |\ Ghost\ Cell\ ID\ =\ "{}}\ <<\ boundaryCell\ +\ 1000\ +\ face\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \}}
+\DoxyCodeLine{00278\ }
+\DoxyCodeLine{00279\ \ \ \ \ file.close();}
+\DoxyCodeLine{00280\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Output\ written\ to\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00281\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a93dc8494e006b127257e1d68bc6d933c_a93dc8494e006b127257e1d68bc6d933c}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!write\_Output@{write\_Output}}
+\index{write\_Output@{write\_Output}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{write\_Output()}{write\_Output()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a93dc8494e006b127257e1d68bc6d933c_a93dc8494e006b127257e1d68bc6d933c} 
+void write\+\_\+\+Output (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&}]{neighbors}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{boundary\+Cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$ \&}]{cell\+Vertices}{, }\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00285}{285}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00291\ \ \ \ \ std::ofstream\ file(filename);}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00296\ \ \ \ \ \}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{//\ Write\ header}}
+\DoxyCodeLine{00299\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ Data\ (Vertices,\ Cell\ ID,\ Neighbors)"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00300\ }
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{comment}{//\ Write\ cell,\ vertex,\ and\ neighbor\ information}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ cells)\ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ ID\ =\ "{}}\ <<\ cell.id\ <<\ \textcolor{stringliteral}{"{}\ |\ Vertices:\ "{}};}
+\DoxyCodeLine{00304\ }
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Check\ if\ cell\ ID\ exists\ in\ vertex\ map}}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellVertices.find(cell.id)\ !=\ cellVertices.end())\ \{}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ vertex\ :\ cellVertices.at(cell.id))\ \{}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}("{}}\ <<\ std::get<0>(vertex)\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ }
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::get<1>(vertex)\ <<\ \textcolor{stringliteral}{"{},\ "{}}\ }
+\DoxyCodeLine{00310\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::get<2>(vertex)\ <<\ \textcolor{stringliteral}{"{})\ "{}};}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}No\ vertex\ data\ "{}};}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00315\ }
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Write\ cell\ neighbors}}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ |\ Neighbors\ =\ "{}};}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ neighbor\ :\ cell.neighbors)\ \{}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00321\ }
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ file\ <<\ std::endl;}
+\DoxyCodeLine{00323\ \ \ \ \ \}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{comment}{//\ Write\ boundary\ information}}
+\DoxyCodeLine{00326\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBoundary\ Information:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00327\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ boundaryCell\ :\ boundaryCells)\ \{}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Boundary\ Cell\ "{}}\ <<\ boundaryCell\ <<\ \textcolor{stringliteral}{"{}:\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ face\ =\ 0;\ face\ <\ 6;\ ++face)\ \{\ \ \textcolor{comment}{//\ Adjusted\ for\ 3D\ (6\ faces\ instead\ of\ 4)}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ Face\ "{}}\ <<\ face\ <<\ \textcolor{stringliteral}{"{}\ |\ Ghost\ Cell\ ID\ =\ "{}}\ <<\ boundaryCell\ +\ 1000\ +\ face\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \}}
+\DoxyCodeLine{00333\ }
+\DoxyCodeLine{00334\ \ \ \ \ file.close();}
+\DoxyCodeLine{00335\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Output\ written\ to\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00336\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a771a5984142aa21f436a7c1f9be2e67b_a771a5984142aa21f436a7c1f9be2e67b}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!writeBoundaryOutput@{writeBoundaryOutput}}
+\index{writeBoundaryOutput@{writeBoundaryOutput}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{writeBoundaryOutput()}{writeBoundaryOutput()}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a771a5984142aa21f436a7c1f9be2e67b_a771a5984142aa21f436a7c1f9be2e67b} 
+void write\+Boundary\+Output (\begin{DoxyParamCaption}\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{, }\item[{const \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&}]{boundaries}{, }\item[{double}]{minX}{, }\item[{double}]{maxX}{, }\item[{double}]{minY}{, }\item[{double}]{maxY}{, }\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00340}{340}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00344\ \ \ \ \ std::ofstream\ file(filename,std::ios::app);}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00349\ \ \ \ \ \}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Bounding\ Box:\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00352\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}MinX\ =\ "{}}\ <<\ minX\ <<\ \textcolor{stringliteral}{"{},\ MaxX\ =\ "{}}\ <<\ maxX\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00353\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}MinY\ =\ "{}}\ <<\ minY\ <<\ \textcolor{stringliteral}{"{},\ MaxY\ =\ "{}}\ <<\ maxY\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Line\ Cells\ (2\ Vertices):\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00356\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ lineCells)\ \{}
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ "{}}\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00358\ \ \ \ \ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{comment}{//\ Print\ number\ of\ cells\ in\ each\ boundary\ before\ listing\ them}}
+\DoxyCodeLine{00361\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Left\ Boundary\ Cells\ ["{}}\ <<\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa1e4478d1680520f818ecf0fe7e4383b_aa1e4478d1680520f818ecf0fe7e4383b}{leftBoundary}}.size()\ <<\ \textcolor{stringliteral}{"{}]:\(\backslash\)n\ "{}};}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa1e4478d1680520f818ecf0fe7e4383b_aa1e4478d1680520f818ecf0fe7e4383b}{leftBoundary}})\ file\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00363\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nRight\ Boundary\ Cells\ ["{}}\ <<\ boundaries.\mbox{\hyperlink{struct_boundary_info_a458bb5eb422e35d3e88e6417f74f37eb_a458bb5eb422e35d3e88e6417f74f37eb}{rightBoundary}}.size()\ <<\ \textcolor{stringliteral}{"{}]:\(\backslash\)n\ "{}};}
+\DoxyCodeLine{00364\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundaries.\mbox{\hyperlink{struct_boundary_info_a458bb5eb422e35d3e88e6417f74f37eb_a458bb5eb422e35d3e88e6417f74f37eb}{rightBoundary}})\ file\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00365\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nTop\ Boundary\ Cells\ ["{}}\ <<\ boundaries.\mbox{\hyperlink{struct_boundary_info_a5c6bf91ad0fcce64f34c08e0b952d8a2_a5c6bf91ad0fcce64f34c08e0b952d8a2}{topBoundary}}.size()\ <<\ \textcolor{stringliteral}{"{}]:\ "{}};}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundaries.\mbox{\hyperlink{struct_boundary_info_a5c6bf91ad0fcce64f34c08e0b952d8a2_a5c6bf91ad0fcce64f34c08e0b952d8a2}{topBoundary}})\ file\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00367\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBottom\ Boundary\ Cells\ ["{}}\ <<\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa685883d37110a54d043cc4c0438eb48_aa685883d37110a54d043cc4c0438eb48}{bottomBoundary}}.size()\ <<\ \textcolor{stringliteral}{"{}]:\(\backslash\)n\ "{}};}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa685883d37110a54d043cc4c0438eb48_aa685883d37110a54d043cc4c0438eb48}{bottomBoundary}})\ file\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00369\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nCylinder\ Boundary\ Cells\ ["{}}\ <<\ boundaries.\mbox{\hyperlink{struct_boundary_info_abbf907fd1e5f618876068e2e6726efca_abbf907fd1e5f618876068e2e6726efca}{cylinderBoundary}}.size()\ <<\ \textcolor{stringliteral}{"{}]:\(\backslash\)n\ "{}};}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundaries.\mbox{\hyperlink{struct_boundary_info_abbf907fd1e5f618876068e2e6726efca_abbf907fd1e5f618876068e2e6726efca}{cylinderBoundary}})\ file\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00371\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00372\ \ \ \ \ }
+\DoxyCodeLine{00373\ \ \ \ \ file.close();}
+\DoxyCodeLine{00374\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Appended\ Boundary\ information\ to\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00375\ \}}
+
+\end{DoxyCode}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_ab9b41079773545c3ad8f1d20d27fd192_ab9b41079773545c3ad8f1d20d27fd192}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!writeOutput@{writeOutput}}
+\index{writeOutput@{writeOutput}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{writeOutput()}{writeOutput()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_ab9b41079773545c3ad8f1d20d27fd192_ab9b41079773545c3ad8f1d20d27fd192} 
+void write\+Output (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&}]{neighbors}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{boundary\+Cells}{, }\item[{const std\+::string \&}]{filename}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00203}{203}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ std::ofstream\ file(filename);}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00210\ \ \ \ \ \}}
+\DoxyCodeLine{00211\ }
+\DoxyCodeLine{00212\ \ \ \ \ \textcolor{comment}{//\ Write\ header}}
+\DoxyCodeLine{00213\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ Data"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00214\ }
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{comment}{//\ Write\ cell\ and\ neighbor\ information}}
+\DoxyCodeLine{00216\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ cells)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ "{}}\ <<\ cell.id\ <<\ \textcolor{stringliteral}{"{}:\ Vertices\ =\ "{}};}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ point\ :\ cell.points)\ \{}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ point\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}|\ Neighbors\ =\ "{}};}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ neighbor\ :\ cell.neighbors)\ \{}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\ "{}};}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ file\ <<\ std::endl;}
+\DoxyCodeLine{00226\ \ \ \ \ \}}
+\DoxyCodeLine{00227\ }
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{comment}{//\ Write\ boundary\ information}}
+\DoxyCodeLine{00229\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBoundary\ Information:"{}}\ <<\ std::endl;}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ boundaryCell\ :\ boundaryCells)\ \{}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Boundary\ Cell\ "{}}\ <<\ boundaryCell\ <<\ \textcolor{stringliteral}{"{}:\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ face\ =\ 0;\ face\ <\ 4;\ ++face)\ \{}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ Face\ "{}}\ <<\ face\ <<\ \textcolor{stringliteral}{"{}\ |\ Ghost\ Cell\ ID\ =\ "{}}\ <<\ boundaryCell\ +\ 1000\ +\ face\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \}}
+\DoxyCodeLine{00236\ }
+\DoxyCodeLine{00237\ \ \ \ \ file.close();}
+\DoxyCodeLine{00238\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Output\ written\ to\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00239\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=219pt]{d7/d4e/_identify_cells_and_neighbors_8cpp_ab9b41079773545c3ad8f1d20d27fd192_ab9b41079773545c3ad8f1d20d27fd192_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_identify_cells_and_neighbors_8cpp_a429b2625d3fada1602cc005152a9f882_a429b2625d3fada1602cc005152a9f882}\index{IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}!writeOutput@{writeOutput}}
+\index{writeOutput@{writeOutput}!IdentifyCellsAndNeighbors.cpp@{IdentifyCellsAndNeighbors.cpp}}
+\doxysubsubsection{\texorpdfstring{writeOutput()}{writeOutput()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{_identify_cells_and_neighbors_8cpp_a429b2625d3fada1602cc005152a9f882_a429b2625d3fada1602cc005152a9f882} 
+void write\+Output (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ \mbox{\hyperlink{class_cell}{Cell}} $>$ \&}]{cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ vtk\+Id\+Type $>$ $>$ \&}]{neighbors}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{boundary\+Cells}{, }\item[{const std\+::unordered\+\_\+set$<$ vtk\+Id\+Type $>$ \&}]{line\+Cells}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, std\+::vector$<$ std\+::tuple$<$ double, double, double $>$ $>$ $>$}]{cell\+Vertices}{, }\item[{const \mbox{\hyperlink{struct_boundary_info}{Boundary\+Info}} \&}]{boundaries}{, }\item[{double}]{minX}{, }\item[{double}]{maxX}{, }\item[{double}]{minY}{, }\item[{double}]{maxY}{, }\item[{const std\+::string \&}]{filename}{, }\item[{const std\+::unordered\+\_\+map$<$ vtk\+Id\+Type, vtk\+Id\+Type $>$ \&}]{line\+Cell\+To\+Parent\+Quad}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source_l00379}{379}} of file \mbox{\hyperlink{_identify_cells_and_neighbors_8cpp_source}{Identify\+Cells\+And\+Neighbors.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00388\ }
+\DoxyCodeLine{00389\ \ \ \ \ std::ofstream\ file(filename,\ std::ios::out\ |\ std::ios::trunc);}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordflow}{if}\ (!file.is\_open())\ \{}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ std::cerr\ <<\ \textcolor{stringliteral}{"{}Error:\ Could\ not\ open\ file\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00394\ \ \ \ \ \}}
+\DoxyCodeLine{00395\ }
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{comment}{//\ Compute\ total\ number\ of\ boundary\ cells}}
+\DoxyCodeLine{00397\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ totalBoundaryCells\ =\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa1e4478d1680520f818ecf0fe7e4383b_aa1e4478d1680520f818ecf0fe7e4383b}{leftBoundary}}.size()}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ boundaries.\mbox{\hyperlink{struct_boundary_info_a458bb5eb422e35d3e88e6417f74f37eb_a458bb5eb422e35d3e88e6417f74f37eb}{rightBoundary}}.size()}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ boundaries.\mbox{\hyperlink{struct_boundary_info_a5c6bf91ad0fcce64f34c08e0b952d8a2_a5c6bf91ad0fcce64f34c08e0b952d8a2}{topBoundary}}.size()}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ boundaries.\mbox{\hyperlink{struct_boundary_info_aa685883d37110a54d043cc4c0438eb48_aa685883d37110a54d043cc4c0438eb48}{bottomBoundary}}.size()}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ +\ boundaries.\mbox{\hyperlink{struct_boundary_info_abbf907fd1e5f618876068e2e6726efca_abbf907fd1e5f618876068e2e6726efca}{cylinderBoundary}}.size();}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{comment}{//\ Compute\ number\ of\ quads,\ triangles,\ and\ lines}}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordtype}{size\_t}\ numQuads\ =\ 0,\ numTriangles\ =\ 0,\ numLines\ =\ 0,\ totalCells\ =\ 0;}
+\DoxyCodeLine{00405\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ cells)\ \{}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cell.points.size()\ ==\ 4)\ numQuads++;}
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cell.points.size()\ ==\ 3)\ numTriangles++;}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (cell.points.size()\ ==\ 2)\ numLines++;}
+\DoxyCodeLine{00409\ \ \ \ \ \}}
+\DoxyCodeLine{00410\ \ \ \ \ totalCells\ =\ cells.size();}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00412\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Total\ Number\ of\ Cells:\ "{}}\ <<\ totalCells\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00413\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Total\ Number\ of\ Boundary\ Cells:\ "{}}\ <<\ totalBoundaryCells\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00414\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Lines:\ "{}}\ <<\ numLines\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00415\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Triangles:\ "{}}\ <<\ numTriangles\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00416\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Number\ of\ Quads:\ "{}}\ <<\ numQuads\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Bounding\ Box:\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00419\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}MinX\ =\ "{}}\ <<\ minX\ <<\ \textcolor{stringliteral}{"{},\ MaxX\ =\ "{}}\ <<\ maxX\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00420\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}MinY\ =\ "{}}\ <<\ minY\ <<\ \textcolor{stringliteral}{"{},\ MaxY\ =\ "{}}\ <<\ maxY\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}};}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}Cell\ Data:\(\backslash\)n"{}};}
+\DoxyCodeLine{00423\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ cells)\ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (cellVertices.find(cell.id)\ !=\ cellVertices.end())\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ vertex\ :\ cellVertices.at(cell.id))\ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ ("{}}\ <<\ std::get<0>(vertex)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::get<1>(vertex)\ <<\ \textcolor{stringliteral}{"{},\ "{}}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ <<\ std::get<2>(vertex)\ <<\ \textcolor{stringliteral}{"{})\(\backslash\)n"{}};}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ No\ vertex\ data\(\backslash\)n"{}};}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ file\ <<\ cell.id\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ neighbor\ :\ cell.neighbors)\ \{}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ "{}}\ <<\ neighbor\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}};}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00438\ \ \ \ \ \}}
+\DoxyCodeLine{00439\ }
+\DoxyCodeLine{00440\ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)nBoundary\ Classification:\(\backslash\)n"{}};}
+\DoxyCodeLine{00441\ \ \ \ \ \textcolor{keyword}{auto}\ writeBoundary\ =\ [\&](\textcolor{keyword}{const}\ std::unordered\_set<vtkIdType>\&\ boundarySet,\ \textcolor{keyword}{const}\ std::string\&\ name,\ \textcolor{keywordtype}{int}\ faceNumber)\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ file\ <<\ name\ <<\ \textcolor{stringliteral}{"{}\ ("{}}\ <<\ boundarySet.size()\ <<\ \textcolor{stringliteral}{"{}):\ \(\backslash\)n"{}};}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\&\ cell\ :\ boundarySet)\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ vtkIdType\ parentCellId\ =\ lineCellToParentQuad.count(cell)\ ?\ lineCellToParentQuad.at(cell)\ :\ cell;}
+\DoxyCodeLine{00445\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ "{}\ \ \ \ Parent\ Cell\ ID:\ "{}\ <<\ parentCellId\ <<\ "{}\ |\ Face\ Number:\ "{}\ <<\ faceNumber\ <<\ "{}\ |\ Neighbor:\ "{}\ <<\ (totalCells++)\ <<\ "{}\(\backslash\)n"{};}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ file\ <<\ \textcolor{stringliteral}{"{}\ \ \ \ Line\ Cell\ ID:\ "{}}\ <<\ cell\ <<\ \textcolor{stringliteral}{"{}\ |\ Parent\ Cell\ ID:\ "{}}\ <<\ parentCellId\ <<\ \textcolor{stringliteral}{"{}\ |\ Face\ Number:\ "{}}\ <<\ faceNumber\ <<\ \textcolor{stringliteral}{"{}\ |\ Neighbor:\ "{}}\ <<\ (totalCells++)\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00449\ \ \ \ \ \};}
+\DoxyCodeLine{00450\ }
+\DoxyCodeLine{00451\ \ \ \ \ writeBoundary(boundaries.\mbox{\hyperlink{struct_boundary_info_aa1e4478d1680520f818ecf0fe7e4383b_aa1e4478d1680520f818ecf0fe7e4383b}{leftBoundary}},\ \textcolor{stringliteral}{"{}Left\ Boundary\ Cells"{}},\ 0);}
+\DoxyCodeLine{00452\ \ \ \ \ writeBoundary(boundaries.\mbox{\hyperlink{struct_boundary_info_a458bb5eb422e35d3e88e6417f74f37eb_a458bb5eb422e35d3e88e6417f74f37eb}{rightBoundary}},\ \textcolor{stringliteral}{"{}Right\ Boundary\ Cells"{}},\ 2);}
+\DoxyCodeLine{00453\ \ \ \ \ writeBoundary(boundaries.\mbox{\hyperlink{struct_boundary_info_a5c6bf91ad0fcce64f34c08e0b952d8a2_a5c6bf91ad0fcce64f34c08e0b952d8a2}{topBoundary}},\ \textcolor{stringliteral}{"{}Top\ Boundary\ Cells"{}},\ 4);}
+\DoxyCodeLine{00454\ \ \ \ \ writeBoundary(boundaries.\mbox{\hyperlink{struct_boundary_info_aa685883d37110a54d043cc4c0438eb48_aa685883d37110a54d043cc4c0438eb48}{bottomBoundary}},\ \textcolor{stringliteral}{"{}Bottom\ Boundary\ Cells"{}},\ 1);}
+\DoxyCodeLine{00455\ \ \ \ \ writeBoundary(boundaries.\mbox{\hyperlink{struct_boundary_info_abbf907fd1e5f618876068e2e6726efca_abbf907fd1e5f618876068e2e6726efca}{cylinderBoundary}},\ \textcolor{stringliteral}{"{}Cylinder\ Boundary\ Cells"{}},\ 2);}
+\DoxyCodeLine{00456\ }
+\DoxyCodeLine{00457\ \ \ \ \ file.close();}
+\DoxyCodeLine{00458\ \ \ \ \ std::cout\ <<\ \textcolor{stringliteral}{"{}Written\ mesh\ and\ boundary\ information\ to\ "{}}\ <<\ filename\ <<\ std::endl;}
+\DoxyCodeLine{00459\ \}}
+
+\end{DoxyCode}

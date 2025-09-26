@@ -1,0 +1,147 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+sx.\+CSXGate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate}\index{qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+sx.\+CSXGate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.170543cm]{d9/d42/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a668b2132bce31f4ef0c59e23d7c5a5e8_a668b2132bce31f4ef0c59e23d7c5a5e8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, Optional\mbox{[}str\mbox{]} label=None, Optional\mbox{[}Union\mbox{[}str, int\mbox{]}\mbox{]} ctrl\+\_\+state=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{}, \+\_\+base\+\_\+label=None)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a553a7ecaf7fb901d1ae6e7f7d7fcdacb_a553a7ecaf7fb901d1ae6e7f7d7fcdacb}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a631dd2671b9d92ff48fec159d4ba3a57}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a631dd2671b9d92ff48fec159d4ba3a57} 
+{\bfseries definition} = qc
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a21b6beec911326ee99ad107adc85ca48}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a21b6beec911326ee99ad107adc85ca48} 
+{\bfseries ctrl\+\_\+state} = other.\+ctrl\+\_\+state
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a6dc2b581f0652164a9be47f4c1b251a7_a6dc2b581f0652164a9be47f4c1b251a7}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a87d0f6f3d7d805c08b307fede873c15a}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a87d0f6f3d7d805c08b307fede873c15a} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+CSXGate
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_aa0a86ed4bd093cdce866389d6504764e}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_aa0a86ed4bd093cdce866389d6504764e} 
+{\bfseries \+\_\+singleton\+\_\+lookup\+\_\+key} = stdlib\+\_\+singleton\+\_\+key(num\+\_\+ctrl\+\_\+qubits=1)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Controlled-√X gate.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.csx` method.
+
+**Circuit symbol:**
+
+.. code-block:: text
+
+    q_0: ──■──
+         ┌─┴──┐
+    q_1: ┤ √X ├
+         └────┘
+
+**Matrix representation:**
+
+.. math::
+
+    C\sqrt{X} \ q_0, q_1 =
+    I \otimes |0 \rangle\langle 0| + \sqrt{X} \otimes |1 \rangle\langle 1|  =
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & (1 + i) / 2 & 0 & (1 - i) / 2 \\
+            0 & 0 & 1 & 0 \\
+            0 & (1 - i) / 2 & 0 & (1 + i) / 2
+        \end{pmatrix}
+
+
+.. note::
+
+    In Qiskit's convention, higher qubit indices are more significant
+    (little endian convention). In many textbooks, controlled gates are
+    presented with the assumption of more significant qubits as control,
+    which in our case would be `q_1`. Thus a textbook matrix for this
+    gate will be:
+
+    .. code-block:: text
+
+             ┌────┐
+        q_0: ┤ √X ├
+             └─┬──┘
+        q_1: ──■──
+
+    .. math::
+
+        C\sqrt{X}\ q_1, q_0 =
+            |0 \rangle\langle 0| \otimes I + |1 \rangle\langle 1| \otimes \sqrt{X} =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & (1 + i) / 2 & (1 - i) / 2 \\
+                0 & 0 & (1 - i) / 2 & (1 + i) / 2
+            \end{pmatrix}\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a668b2132bce31f4ef0c59e23d7c5a5e8_a668b2132bce31f4ef0c59e23d7c5a5e8}\index{qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a668b2132bce31f4ef0c59e23d7c5a5e8_a668b2132bce31f4ef0c59e23d7c5a5e8} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+sx.\+CSXGate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Optional\mbox{[}str\mbox{]} }]{label}{ = {\ttfamily None}, }\item[{Optional\mbox{[}Union\mbox{[}str, int\mbox{]}\mbox{]} }]{ctrl\+\_\+state}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}, }\item[{}]{\+\_\+base\+\_\+label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new CSX gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_abac83bbb8775197e73afa85500dc6e69_abac83bbb8775197e73afa85500dc6e69}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a553a7ecaf7fb901d1ae6e7f7d7fcdacb_a553a7ecaf7fb901d1ae6e7f7d7fcdacb}\index{qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a553a7ecaf7fb901d1ae6e7f7d7fcdacb_a553a7ecaf7fb901d1ae6e7f7d7fcdacb} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+sx.\+CSXGate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlledgate_1_1_controlled_gate_ac22f037571891574fde5e2815d6dc0e0_ac22f037571891574fde5e2815d6dc0e0}{qiskit.\+circuit.\+controlledgate.\+Controlled\+Gate}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a6dc2b581f0652164a9be47f4c1b251a7_a6dc2b581f0652164a9be47f4c1b251a7}\index{qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.sx.CSXGate@{qiskit.circuit.library.standard\_gates.sx.CSXGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1sx_1_1_c_s_x_gate_a6dc2b581f0652164a9be47f4c1b251a7_a6dc2b581f0652164a9be47f4c1b251a7} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+sx.\+CSXGate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}gate csx a,b { h b; cu1(pi/2) a,b; h b; }
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/sx.\+py\end{DoxyCompactItemize}

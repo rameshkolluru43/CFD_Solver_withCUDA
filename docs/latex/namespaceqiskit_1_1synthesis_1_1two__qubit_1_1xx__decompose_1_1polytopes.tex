@@ -1,0 +1,90 @@
+\doxysection{qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+polytopes Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes}{}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes}\index{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_1_1_convex_polytope_data}{Convex\+Polytope\+Data}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_1_1_polytope_data}{Polytope\+Data}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_1_1_x_x_polytope}{XXPolytope}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a183e1e9b0efe6e8d0fac808c33f097a8}{polytope\+\_\+has\+\_\+element}} (polytope, point)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a554210c95d844b9dce24c6090cdfe7af}{manual\+\_\+get\+\_\+vertex}} (polytope, seed=42)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a25b27ba3466191ff86cd6369b0cd8f1e}{A}}
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a460751da71f226cb79b3ede39c143c0a}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a460751da71f226cb79b3ede39c143c0a} 
+{\bfseries A1} = A.\+reshape(-\/1, 1, 3)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a0766d4102deb23644d41f72cdd621471}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a0766d4102deb23644d41f72cdd621471} 
+{\bfseries A1inv} = np.\+linalg.\+pinv(A1)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_adecb8627f1eda017df681ca966f0f560}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_adecb8627f1eda017df681ca966f0f560} 
+{\bfseries A2} = np.\+array(\mbox{[}np.\+array(\mbox{[}x, y\mbox{]}, dtype=float) for (x, y) in combinations(A, 2)\mbox{]})
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_af9275ad0d11d48e564bef26a66d42708}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_af9275ad0d11d48e564bef26a66d42708} 
+{\bfseries A2inv} = np.\+linalg.\+pinv(A2)
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_abcc2e879c1aea7fe15b7ee23bb57817b}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_abcc2e879c1aea7fe15b7ee23bb57817b} 
+{\bfseries A3} = np.\+array(\mbox{[}np.\+array(\mbox{[}x, y, z\mbox{]}, dtype=float) for (x, y, z) in combinations(A, 3)\mbox{]})
+\item 
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_acc380a27bc346247ef5cdbad34af6ff9}\label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_acc380a27bc346247ef5cdbad34af6ff9} 
+{\bfseries A3inv} = np.\+linalg.\+pinv(A3)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Defines bare dataclasses which house polytope information, as well as a specialized data structure
+which describes those two-qubit programs accessible to a given sequence of XX-type interactions.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a554210c95d844b9dce24c6090cdfe7af}\index{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}!manual\_get\_vertex@{manual\_get\_vertex}}
+\index{manual\_get\_vertex@{manual\_get\_vertex}!qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}}
+\doxysubsubsection{\texorpdfstring{manual\_get\_vertex()}{manual\_get\_vertex()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a554210c95d844b9dce24c6090cdfe7af} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+polytopes.\+manual\+\_\+get\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{polytope}{, }\item[{}]{seed}{ = {\ttfamily 42}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Returns a single random vertex from `polytope`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a183e1e9b0efe6e8d0fac808c33f097a8}\index{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}!polytope\_has\_element@{polytope\_has\_element}}
+\index{polytope\_has\_element@{polytope\_has\_element}!qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}}
+\doxysubsubsection{\texorpdfstring{polytope\_has\_element()}{polytope\_has\_element()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a183e1e9b0efe6e8d0fac808c33f097a8} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+polytopes.\+polytope\+\_\+has\+\_\+element (\begin{DoxyParamCaption}\item[{}]{polytope}{, }\item[{}]{point}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Tests whether `polytope` contains `point.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a25b27ba3466191ff86cd6369b0cd8f1e}\index{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}!A@{A}}
+\index{A@{A}!qiskit.synthesis.two\_qubit.xx\_decompose.polytopes@{qiskit.synthesis.two\_qubit.xx\_decompose.polytopes}}
+\doxysubsubsection{\texorpdfstring{A}{A}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1two__qubit_1_1xx__decompose_1_1polytopes_a25b27ba3466191ff86cd6369b0cd8f1e} 
+qiskit.\+synthesis.\+two\+\_\+qubit.\+xx\+\_\+decompose.\+polytopes.\+A}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ np.array(}
+\DoxyCodeLine{00002\ \ \ \ \ [}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ [1,\ -\/1,\ 0],\ \ \textcolor{comment}{\#\ a\ ≥\ b}}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ [0,\ 1,\ -\/1],\ \ \textcolor{comment}{\#\ b\ ≥\ c}}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ [0,\ 0,\ 1],\ \ \textcolor{comment}{\#\ c\ ≥\ 0}}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ [-\/1,\ -\/1,\ 0],\ \ \textcolor{comment}{\#\ pi/2\ ≥\ a\ +\ b}}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ [-\/1,\ -\/1,\ -\/1],\ \ \textcolor{comment}{\#\ strength}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ [1,\ -\/1,\ -\/1],\ \ \textcolor{comment}{\#\ slant}}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ [0,\ 0,\ -\/1],\ \ \textcolor{comment}{\#\ frustrum}}
+\DoxyCodeLine{00010\ \ \ \ \ ]}
+\DoxyCodeLine{00011\ )}
+
+\end{DoxyCode}

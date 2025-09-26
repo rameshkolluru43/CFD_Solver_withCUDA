@@ -1,0 +1,132 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+basis.\+translate\+\_\+parameterized.\+Translate\+Parameterized\+Gates Class Reference}
+\hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates}{}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates}\index{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates@{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates}}
+Inheritance diagram for qiskit.\+transpiler.\+passes.\+basis.\+translate\+\_\+parameterized.\+Translate\+Parameterized\+Gates\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.721312cm]{d4/d39/classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a93d7e9d11f1135ebf07c43c7358b7043_a93d7e9d11f1135ebf07c43c7358b7043}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, list\mbox{[}str\mbox{]}\texorpdfstring{$\vert$}{|}None supported\+\_\+gates=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1equivalence_1_1_equivalence_library}{Equivalence\+Library}}\texorpdfstring{$\vert$}{|}None equivalence\+\_\+library=None, \mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}}\texorpdfstring{$\vert$}{|}None target=None)
+\item 
+DAGCircuit \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_adc8aa8bcb61e5572abf12a03bd2a585a_adc8aa8bcb61e5572abf12a03bd2a585a}{run}} (self, DAGCircuit dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a50dbe67d7db5910635dfdebfd479d5b8}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a50dbe67d7db5910635dfdebfd479d5b8} 
+{\bfseries \+\_\+supported\+\_\+gates} = supported\+\_\+gates
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_aba38c6c02f65519b2caa8746e8cd2062}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_aba38c6c02f65519b2caa8746e8cd2062} 
+{\bfseries \+\_\+target} = target
+\item 
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a8afbd56b842ec71dc799f94addb86e6c}\label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a8afbd56b842ec71dc799f94addb86e6c} 
+{\bfseries \+\_\+translator} = \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1basis__translator_1_1_basis_translator}{Basis\+Translator}}(equivalence\+\_\+library, supported\+\_\+gates, target=target)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Translate parameterized gates to a supported basis set.
+
+Once a parameterized instruction is found that is not in the ``supported_gates`` list,
+the instruction is decomposed one level and the parameterized sub-blocks are recursively
+decomposed. The recursion is stopped once all parameterized gates are in ``supported_gates``,
+or if a gate has no definition and a translation to the basis is attempted (this might happen
+e.g. for the ``UGate`` if it's not in the specified gate list).
+
+Example:
+
+    The following, multiply nested circuit::
+
+        from qiskit.circuit import QuantumCircuit, ParameterVector
+        from qiskit.transpiler.passes import TranslateParameterizedGates
+
+        x = ParameterVector("x", 4)
+        block1 = QuantumCircuit(1)
+        block1.rx(x[0], 0)
+
+        sub_block = QuantumCircuit(2)
+        sub_block.cx(0, 1)
+        sub_block.rz(x[2], 0)
+
+        block2 = QuantumCircuit(2)
+        block2.ry(x[1], 0)
+        block2.append(sub_block.to_gate(), [0, 1])
+
+        block3 = QuantumCircuit(3)
+        block3.ccx(0, 1, 2)
+
+        circuit = QuantumCircuit(3)
+        circuit.append(block1.to_gate(), [1])
+        circuit.append(block2.to_gate(), [0, 1])
+        circuit.append(block3.to_gate(), [0, 1, 2])
+        circuit.cry(x[3], 0, 2)
+
+        supported_gates = ["rx", "ry", "rz", "cp", "crx", "cry", "crz"]
+        unrolled = TranslateParameterizedGates(supported_gates)(circuit)
+
+    is decomposed to::
+
+             ┌──────────┐     ┌──────────┐┌─────────────┐
+        q_0: ┤ Ry(x[1]) ├──■──┤ Rz(x[2]) ├┤0            ├─────■──────
+             ├──────────┤┌─┴─┐└──────────┘│             │     │
+        q_1: ┤ Rx(x[0]) ├┤ X ├────────────┤1 circuit-92 ├─────┼──────
+             └──────────┘└───┘            │             │┌────┴─────┐
+        q_2: ─────────────────────────────┤2            ├┤ Ry(x[3]) ├
+                                          └─────────────┘└──────────┘\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a93d7e9d11f1135ebf07c43c7358b7043_a93d7e9d11f1135ebf07c43c7358b7043}\index{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates@{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates@{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_a93d7e9d11f1135ebf07c43c7358b7043_a93d7e9d11f1135ebf07c43c7358b7043} 
+ None qiskit.\+transpiler.\+passes.\+basis.\+translate\+\_\+parameterized.\+Translate\+Parameterized\+Gates.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list\mbox{[}str\mbox{]} \texorpdfstring{$\vert$}{|} None }]{supported\+\_\+gates}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1equivalence_1_1_equivalence_library}{Equivalence\+Library}} \texorpdfstring{$\vert$}{|} None }]{equivalence\+\_\+library}{ = {\ttfamily None}, }\item[{\mbox{\hyperlink{classqiskit_1_1transpiler_1_1target_1_1_target}{Target}} \texorpdfstring{$\vert$}{|} None }]{target}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    supported_gates: A list of suppported basis gates specified as string. If ``None``,
+        a ``target`` must be provided.
+    equivalence_library: The equivalence library to translate the gates. Defaults
+        to the equivalence library of all Qiskit standard gates.
+    target: A :class:`.Target` containing the supported operations. If ``None``,
+        ``supported_gates`` must be set. Note that this argument takes precedence over
+        ``supported_gates``, if both are set.
+
+Raises:
+    ValueError: If neither of ``supported_gates`` and ``target`` are passed.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_adc8aa8bcb61e5572abf12a03bd2a585a_adc8aa8bcb61e5572abf12a03bd2a585a}\index{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates@{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates}!run@{run}}
+\index{run@{run}!qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates@{qiskit.transpiler.passes.basis.translate\_parameterized.TranslateParameterizedGates}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1transpiler_1_1passes_1_1basis_1_1translate__parameterized_1_1_translate_parameterized_gates_adc8aa8bcb61e5572abf12a03bd2a585a_adc8aa8bcb61e5572abf12a03bd2a585a} 
+ DAGCircuit qiskit.\+transpiler.\+passes.\+basis.\+translate\+\_\+parameterized.\+Translate\+Parameterized\+Gates.\+run (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{DAGCircuit}]{dag}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Run the transpiler pass.
+
+Args:
+    dag: The DAG circuit in which the parameterized gates should be unrolled.
+
+Returns:
+    A DAG where the parameterized gates have been unrolled.
+
+Raises:
+    QiskitError: If the circuit cannot be unrolled.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1transpiler_1_1basepasses_1_1_base_pass_ab1b73a52118b5b3cc11846a5468caa61_ab1b73a52118b5b3cc11846a5468caa61}{qiskit.\+transpiler.\+basepasses.\+Base\+Pass}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/transpiler/passes/basis/translate\+\_\+parameterized.\+py\end{DoxyCompactItemize}

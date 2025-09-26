@@ -1,0 +1,63 @@
+\doxysection{qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+iae Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae}{}\label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae}\index{qiskit\_algorithms.amplitude\_estimators.iae@{qiskit\_algorithms.amplitude\_estimators.iae}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1iae_1_1_iterative_amplitude_estimation}{Iterative\+Amplitude\+Estimation}}
+\item 
+class \mbox{\hyperlink{classqiskit__algorithms_1_1amplitude__estimators_1_1iae_1_1_iterative_amplitude_estimation_result}{Iterative\+Amplitude\+Estimation\+Result}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+tuple\mbox{[}float, float\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a34bc9edc39a8a52b123847b1d4558d65_a34bc9edc39a8a52b123847b1d4558d65}{\+\_\+chernoff\+\_\+confint}} (float value, int shots, int max\+\_\+rounds, float alpha)
+\item 
+tuple\mbox{[}float, float\mbox{]} \mbox{\hyperlink{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a61cd803611a2fdae2dbdee03548b13cc_a61cd803611a2fdae2dbdee03548b13cc}{\+\_\+clopper\+\_\+pearson\+\_\+confint}} (int counts, int shots, float alpha)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The Iterative Quantum Amplitude Estimation Algorithm.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a34bc9edc39a8a52b123847b1d4558d65_a34bc9edc39a8a52b123847b1d4558d65}\index{qiskit\_algorithms.amplitude\_estimators.iae@{qiskit\_algorithms.amplitude\_estimators.iae}!\_chernoff\_confint@{\_chernoff\_confint}}
+\index{\_chernoff\_confint@{\_chernoff\_confint}!qiskit\_algorithms.amplitude\_estimators.iae@{qiskit\_algorithms.amplitude\_estimators.iae}}
+\doxysubsubsection{\texorpdfstring{\_chernoff\_confint()}{\_chernoff\_confint()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a34bc9edc39a8a52b123847b1d4558d65_a34bc9edc39a8a52b123847b1d4558d65} 
+ tuple\mbox{[}float, float\mbox{]} qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+iae.\+\_\+chernoff\+\_\+confint (\begin{DoxyParamCaption}\item[{float}]{value}{, }\item[{int}]{shots}{, }\item[{int}]{max\+\_\+rounds}{, }\item[{float }]{alpha}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the Chernoff confidence interval for `shots` i.i.d. Bernoulli trials.
+
+The confidence interval is
+
+    [value - eps, value + eps], where eps = sqrt(3 * log(2 * max_rounds/ alpha) / shots)
+
+but at most [0, 1].
+
+Args:
+    value: The current estimate.
+    shots: The number of shots.
+    max_rounds: The maximum number of rounds, used to compute epsilon_a.
+    alpha: The confidence level, used to compute epsilon_a.
+
+Returns:
+    The Chernoff confidence interval.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a61cd803611a2fdae2dbdee03548b13cc_a61cd803611a2fdae2dbdee03548b13cc}\index{qiskit\_algorithms.amplitude\_estimators.iae@{qiskit\_algorithms.amplitude\_estimators.iae}!\_clopper\_pearson\_confint@{\_clopper\_pearson\_confint}}
+\index{\_clopper\_pearson\_confint@{\_clopper\_pearson\_confint}!qiskit\_algorithms.amplitude\_estimators.iae@{qiskit\_algorithms.amplitude\_estimators.iae}}
+\doxysubsubsection{\texorpdfstring{\_clopper\_pearson\_confint()}{\_clopper\_pearson\_confint()}}
+{\footnotesize\ttfamily \label{namespaceqiskit__algorithms_1_1amplitude__estimators_1_1iae_a61cd803611a2fdae2dbdee03548b13cc_a61cd803611a2fdae2dbdee03548b13cc} 
+ tuple\mbox{[}float, float\mbox{]} qiskit\+\_\+algorithms.\+amplitude\+\_\+estimators.\+iae.\+\_\+clopper\+\_\+pearson\+\_\+confint (\begin{DoxyParamCaption}\item[{int}]{counts}{, }\item[{int}]{shots}{, }\item[{float}]{alpha}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Compute the Clopper-Pearson confidence interval for `shots` i.i.d. Bernoulli trials.
+
+Args:
+    counts: The number of positive counts.
+    shots: The number of shots.
+    alpha: The confidence level for the confidence interval.
+
+Returns:
+    The Clopper-Pearson confidence interval.
+\end{DoxyVerb}
+ 

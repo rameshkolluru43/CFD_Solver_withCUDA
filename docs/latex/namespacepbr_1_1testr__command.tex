@@ -1,0 +1,36 @@
+\doxysection{pbr.\+testr\+\_\+command Namespace Reference}
+\hypertarget{namespacepbr_1_1testr__command}{}\label{namespacepbr_1_1testr__command}\index{pbr.testr\_command@{pbr.testr\_command}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpbr_1_1testr__command_1_1_testr_fake}{Testr\+Fake}}
+\item 
+class \mbox{\hyperlink{classpbr_1_1testr__command_1_1_testr_real}{Testr\+Real}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacepbr_1_1testr__command_afce4d31b361b8ef9d3f899177aeb42af}\label{namespacepbr_1_1testr__command_afce4d31b361b8ef9d3f899177aeb42af} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+\Hypertarget{namespacepbr_1_1testr__command_af6a50f0281b8f10715827b13857d542e}\label{namespacepbr_1_1testr__command_af6a50f0281b8f10715827b13857d542e} 
+bool {\bfseries have\+\_\+testr} = False
+\item 
+\Hypertarget{namespacepbr_1_1testr__command_a3f0a84d387d3f6daf5b472ea6ae806e6}\label{namespacepbr_1_1testr__command_a3f0a84d387d3f6daf5b472ea6ae806e6} 
+{\bfseries Testr} = \mbox{\hyperlink{classpbr_1_1testr__command_1_1_testr_fake}{Testr\+Fake}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}setuptools/distutils command to run testr via setup.py
+
+PBR will hook in the Testr class to provide "setup.py test" when
+.testr.conf is present in the repository (see pbr/hooks/commands.py).
+
+If we are activated but testrepository is not installed, we provide a
+sensible error.
+
+You can pass --coverage which will also export PYTHON='coverage run
+--source <your package>' and automatically combine the coverage from
+each testr backend test runner after the run completes.\end{DoxyVerb}
+ 

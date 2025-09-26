@@ -1,0 +1,68 @@
+\doxysection{collections.\+Weighted\+Lookup Class Reference}
+\hypertarget{classcollections_1_1_weighted_lookup}{}\label{classcollections_1_1_weighted_lookup}\index{collections.WeightedLookup@{collections.WeightedLookup}}
+Inheritance diagram for collections.\+Weighted\+Lookup\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d3/dbd/classcollections_1_1_weighted_lookup}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de_a5ae6bef1eb82c2f47873c973be1194de}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \texorpdfstring{$\ast$}{*}args, \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}kwargs)
+\item 
+\Hypertarget{classcollections_1_1_weighted_lookup_a0020ea2b8b03622f9d4335af714e3e67}\label{classcollections_1_1_weighted_lookup_a0020ea2b8b03622f9d4335af714e3e67} 
+{\bfseries random} (self)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Given parameters suitable for a dict representing keys
+and a weighted proportion, return a RangeMap representing
+spans of values proportial to the weights:
+
+>>> even = WeightedLookup(a=1, b=1)
+
+[0, 1) -> a
+[1, 2) -> b
+
+>>> lk = WeightedLookup(a=1, b=2)
+
+[0, 1) -> a
+[1, 3) -> b
+
+>>> lk[.5]
+'a'
+>>> lk[1.5]
+'b'
+
+Adds ``.random()`` to select a random weighted value:
+
+>>> lk.random() in ['a', 'b']
+True
+
+>>> choices = [lk.random() for x in range(1000)]
+
+Statistically speaking, choices should be .5 a:b
+>>> ratio = choices.count('a') / choices.count('b')
+>>> .4 < ratio < .6
+True
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de_a5ae6bef1eb82c2f47873c973be1194de}\index{collections.WeightedLookup@{collections.WeightedLookup}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!collections.WeightedLookup@{collections.WeightedLookup}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classcollections_1_1_weighted_lookup_a5ae6bef1eb82c2f47873c973be1194de_a5ae6bef1eb82c2f47873c973be1194de} 
+collections.\+Weighted\+Lookup.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\texorpdfstring{$\ast$}{*}}]{args}{, }\item[{\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{kwargs}{}\end{DoxyParamCaption})}
+
+
+
+Reimplemented from \mbox{\hyperlink{classcollections_1_1_range_map}{collections.\+Range\+Map}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/collections/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

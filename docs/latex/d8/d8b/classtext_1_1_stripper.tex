@@ -1,0 +1,71 @@
+\doxysection{text.\+Stripper Class Reference}
+\hypertarget{classtext_1_1_stripper}{}\label{classtext_1_1_stripper}\index{text.Stripper@{text.Stripper}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtext_1_1_stripper_a273c4a04682cd54a784fa6302cd8fb31}\label{classtext_1_1_stripper_a273c4a04682cd54a784fa6302cd8fb31} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, prefix, lines)
+\item 
+\Hypertarget{classtext_1_1_stripper_a1274de2152792021dcdffd3f2a075da0}\label{classtext_1_1_stripper_a1274de2152792021dcdffd3f2a075da0} 
+{\bfseries strip\+\_\+prefix} (cls, lines)
+\item 
+\Hypertarget{classtext_1_1_stripper_a9fef305da3acb9d18f33b0d4c8569f90}\label{classtext_1_1_stripper_a9fef305da3acb9d18f33b0d4c8569f90} 
+{\bfseries \+\_\+\+\_\+call\+\_\+\+\_\+} (self, line)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classtext_1_1_stripper_a34fe0a386044bab319bc8062ca3de56e_a34fe0a386044bab319bc8062ca3de56e}{common\+\_\+prefix}} (s1, s2)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtext_1_1_stripper_aa902f2fdd4dc5855fe8d532028f2eb93}\label{classtext_1_1_stripper_aa902f2fdd4dc5855fe8d532028f2eb93} 
+{\bfseries prefix} = prefix
+\item 
+\Hypertarget{classtext_1_1_stripper_af4ef7a5e448e45cab639740a78c25d44}\label{classtext_1_1_stripper_af4ef7a5e448e45cab639740a78c25d44} 
+{\bfseries lines} = map(self, lines)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Given a series of lines, find the common prefix and strip it from them.
+
+>>> lines = [
+...     'abcdefg\n',
+...     'abc\n',
+...     'abcde\n',
+... ]
+>>> res = Stripper.strip_prefix(lines)
+>>> res.prefix
+'abc'
+>>> list(res.lines)
+['defg\n', '\n', 'de\n']
+
+If no prefix is common, nothing should be stripped.
+
+>>> lines = [
+...     'abcd\n',
+...     '1234\n',
+... ]
+>>> res = Stripper.strip_prefix(lines)
+>>> res.prefix = ''
+>>> list(res.lines)
+['abcd\n', '1234\n']
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classtext_1_1_stripper_a34fe0a386044bab319bc8062ca3de56e_a34fe0a386044bab319bc8062ca3de56e}\index{text.Stripper@{text.Stripper}!common\_prefix@{common\_prefix}}
+\index{common\_prefix@{common\_prefix}!text.Stripper@{text.Stripper}}
+\doxysubsubsection{\texorpdfstring{common\_prefix()}{common\_prefix()}}
+{\footnotesize\ttfamily \label{classtext_1_1_stripper_a34fe0a386044bab319bc8062ca3de56e_a34fe0a386044bab319bc8062ca3de56e} 
+text.\+Stripper.\+common\+\_\+prefix (\begin{DoxyParamCaption}\item[{}]{s1}{, }\item[{}]{s2}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+\begin{DoxyVerb}Return the common prefix of two lines.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/\+\_\+vendor/jaraco/text/\+\_\+\+\_\+init\+\_\+\+\_\+.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,221 @@
+\doxysection{src/\+Create\+\_\+\+Vtk\+\_\+\+File.cpp File Reference}
+\hypertarget{_create___vtk___file_8cpp}{}\label{_create___vtk___file_8cpp}\index{src/Create\_Vtk\_File.cpp@{src/Create\_Vtk\_File.cpp}}
+{\ttfamily \#include "{}definitions.\+h"{}}\newline
+{\ttfamily \#include "{}Globals.\+h"{}}\newline
+{\ttfamily \#include "{}IO\+\_\+\+Write.\+h"{}}\newline
+Include dependency graph for Create\+\_\+\+Vtk\+\_\+\+File.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/ddf/_create___vtk___file_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{_create___vtk___file_8cpp_a776e082e134ae9fedfaa1bf47149bdc5_a776e082e134ae9fedfaa1bf47149bdc5}{Read\+\_\+\+Write\+\_\+\+Grid}} (const string \&\mbox{\hyperlink{_globals_8h_a280972f50a7acabfa4c469610ecd1b0a_a280972f50a7acabfa4c469610ecd1b0a}{Grid\+\_\+\+File}}, const string \&Out\+\_\+\+Put\+\_\+\+File)
+\begin{DoxyCompactList}\small\item\em void Write\+\_\+\+Solution(const string \&); \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{_create___vtk___file_8cpp_a5f72d40235b74b1915174a52190c33c1_a5f72d40235b74b1915174a52190c33c1}{Append\+\_\+\+Solution}} (const string \&Sol\+\_\+\+File, const string \&Update\+\_\+\+Solution)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{_create___vtk___file_8cpp_a5f72d40235b74b1915174a52190c33c1_a5f72d40235b74b1915174a52190c33c1}\index{Create\_Vtk\_File.cpp@{Create\_Vtk\_File.cpp}!Append\_Solution@{Append\_Solution}}
+\index{Append\_Solution@{Append\_Solution}!Create\_Vtk\_File.cpp@{Create\_Vtk\_File.cpp}}
+\doxysubsubsection{\texorpdfstring{Append\_Solution()}{Append\_Solution()}}
+{\footnotesize\ttfamily \label{_create___vtk___file_8cpp_a5f72d40235b74b1915174a52190c33c1_a5f72d40235b74b1915174a52190c33c1} 
+void Append\+\_\+\+Solution (\begin{DoxyParamCaption}\item[{const string \&}]{Sol\+\_\+\+File}{, }\item[{const string \&}]{Update\+\_\+\+Solution}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_create___vtk___file_8cpp_source_l00055}{55}} of file \mbox{\hyperlink{_create___vtk___file_8cpp_source}{Create\+\_\+\+Vtk\+\_\+\+File.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00056\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}},\ T,\ Rho,\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}},\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}},\ \mbox{\hyperlink{_globals_8h_abb04f5f017f41f350a3d81fecdbfa762_abb04f5f017f41f350a3d81fecdbfa762}{M}},\ dt,\ Po;}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_globals_8h_ae077cf8e58c86ba6fe609e66de98ae24_ae077cf8e58c86ba6fe609e66de98ae24}{nx\_c}},\ \mbox{\hyperlink{_globals_8h_a1cf6361cf4b7a838c1930c1486716c1c_a1cf6361cf4b7a838c1930c1486716c1c}{ny\_c}},\ \mbox{\hyperlink{_globals_8h_a8bffc47966cb15fb376a062e141bc424_a8bffc47966cb15fb376a062e141bc424}{nz\_c}},\ Cells\_In\_Plane,\ No\_of\_Cells,\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}},\ Cindex;}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{string}\ text1;}
+\DoxyCodeLine{00060\ \ \ \ \ \mbox{\hyperlink{_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_ae73d8ca7e27dfe59448bcfcbe537f514}{V\_D}}\ Pressure,\ Temperature,\ Density,\ U\_Velocity,\ V\_Velocity,\ W\_Velocity,\ Mach\_No,\ Pt;}
+\DoxyCodeLine{00061\ \ \ \ \ \mbox{\hyperlink{_globals_8h_a925920957a8d8564d22f0b48a36609c9_a925920957a8d8564d22f0b48a36609c9}{V\_I}}\ Cartesian\_Cells;}
+\DoxyCodeLine{00062\ \ \ \ \ ifstream\ solution\_ipfile(Sol\_File.c\_str(),\ ios::in);}
+\DoxyCodeLine{00063\ \ \ \ \ ofstream\ Solution\_Update(Update\_Solution.c\_str(),\ ios::out\ |\ ios::app);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ \ cout<<Sol\_File<<endl;}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ \ cout<<Update\_Solution<<endl;}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (solution\_ipfile.is\_open())}
+\DoxyCodeLine{00069\ \ \ \ \ \{}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Solution\ File\ Opened\(\backslash\)t"{}<<Sol\_File<<endl;}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a6f44466414654ae32e5f4e0e62c8741a_a6f44466414654ae32e5f4e0e62c8741a}{Grid\_Type}}\ ==\ 0)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ \mbox{\hyperlink{_globals_8h_ae077cf8e58c86ba6fe609e66de98ae24_ae077cf8e58c86ba6fe609e66de98ae24}{nx\_c}}\ >>\ \mbox{\hyperlink{_globals_8h_a1cf6361cf4b7a838c1930c1486716c1c_a1cf6361cf4b7a838c1930c1486716c1c}{ny\_c}}\ >>\ \mbox{\hyperlink{_globals_8h_a8bffc47966cb15fb376a062e141bc424_a8bffc47966cb15fb376a062e141bc424}{nz\_c}};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{_globals_8h_a6f44466414654ae32e5f4e0e62c8741a_a6f44466414654ae32e5f4e0e62c8741a}{Grid\_Type}}\ ==\ 1)}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ \mbox{\hyperlink{_globals_8h_add29281e10d23811f76f759820003a6d_add29281e10d23811f76f759820003a6d}{nx\_1}}\ >>\ \mbox{\hyperlink{_globals_8h_a659cdd9e9bc48037d270e45065d28ff7_a659cdd9e9bc48037d270e45065d28ff7}{ny\_1}}\ >>\ \mbox{\hyperlink{_globals_8h_a67e2daedec2ab58dbdd07af90cb4c5e1_a67e2daedec2ab58dbdd07af90cb4c5e1}{nx\_2}}\ >>\ \mbox{\hyperlink{_globals_8h_adaa003f8151a34c9c19c2fcb5775b438_adaa003f8151a34c9c19c2fcb5775b438}{ny\_2}};}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ \mbox{\hyperlink{_globals_8h_ae077cf8e58c86ba6fe609e66de98ae24_ae077cf8e58c86ba6fe609e66de98ae24}{nx\_c}}\ >>\ \mbox{\hyperlink{_globals_8h_a1cf6361cf4b7a838c1930c1486716c1c_a1cf6361cf4b7a838c1930c1486716c1c}{ny\_c}}\ >>\ \mbox{\hyperlink{_globals_8h_a8bffc47966cb15fb376a062e141bc424_a8bffc47966cb15fb376a062e141bc424}{nz\_c}};}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ No\_of\_Cells;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<nx\_c<<"{}\(\backslash\)t"{}<<ny\_c<<"{}\(\backslash\)t"{}<<nz\_c<<endl;}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<No\_of\_Cells<<endl;}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ \mbox{\hyperlink{_globals_8h_a1d10e252e778731e59f0f71afd7e727e_a1d10e252e778731e59f0f71afd7e727e}{iterations}};}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Solution\ after\ number\ of\ iterations\(\backslash\)t"{}<<iterations<<endl;}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Cells;\ i++)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ solution\_ipfile\ >>\ Cindex\ >>\ dt\ >>\ Rho\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}}\ >>\ T\ >>\ \mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}}\ >>\ \mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}}\ >>\ \mbox{\hyperlink{_globals_8h_abb04f5f017f41f350a3d81fecdbfa762_abb04f5f017f41f350a3d81fecdbfa762}{M}}\ >>\ Po;}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<dt<<"{}\(\backslash\)t"{}<<Cindex<<endl;}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ Pressure.push\_back(\mbox{\hyperlink{2_d___grid___gen_8cpp_a5f2cf069c084344737a0094f64f4bf20_a5f2cf069c084344737a0094f64f4bf20}{P}});}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ Density.push\_back(Rho);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ Temperature.push\_back(T);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ U\_Velocity.push\_back(\mbox{\hyperlink{_globals_8h_aed08c8478a62910aab06ba708a0e5b5f_aed08c8478a62910aab06ba708a0e5b5f}{u}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ V\_Velocity.push\_back(\mbox{\hyperlink{_globals_8h_a3b90d5a73541ab9402511d87bed076ef_a3b90d5a73541ab9402511d87bed076ef}{v}});}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ Mach\_No.push\_back(\mbox{\hyperlink{_globals_8h_abb04f5f017f41f350a3d81fecdbfa762_abb04f5f017f41f350a3d81fecdbfa762}{M}});}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ Pt.push\_back(Po);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ Cells\_In\_Plane\ =\ (\mbox{\hyperlink{_globals_8h_ae077cf8e58c86ba6fe609e66de98ae24_ae077cf8e58c86ba6fe609e66de98ae24}{nx\_c}}\ -\/\ 1)\ *\ (\mbox{\hyperlink{_globals_8h_a1cf6361cf4b7a838c1930c1486716c1c_a1cf6361cf4b7a838c1930c1486716c1c}{ny\_c}}\ -\/\ 1);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<"{}Cells\ in\ Plane\(\backslash\)t"{}<<Cells\_In\_Plane<<endl;}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (Solution\_Update.is\_open())}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}updating\ solution\ file"{}<<endl;}}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}CELL\_DATA\(\backslash\)t"{}}\ <<\ No\_of\_Cells\ <<\ endl;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Pressure\(\backslash\)t\ double"{}}\ <<\ endl;}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Pressure.size();\ i++)}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ Pressure[i]\ <<\ endl;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Temperature\(\backslash\)t\ double\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Temperature.size();\ i++)}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ Temperature[i]\ <<\ endl;}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Density\(\backslash\)t\ double\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Density.size();\ i++)}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ Density[i]\ <<\ endl;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ U\_Velocity\(\backslash\)t\ double\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ U\_Velocity.size();\ i++)}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ U\_Velocity[i]\ <<\ endl;}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ V\_Velocity\(\backslash\)t\ double"{}}\ <<\ endl;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ V\_Velocity.size();\ i++)}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ V\_Velocity[i]\ <<\ endl;}
+\DoxyCodeLine{00129\ }
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Total\_Pressure\(\backslash\)t\ double"{}}\ <<\ endl;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Pt.size();\ i++)}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ Pt[i]\ <<\ endl;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Entropy\(\backslash\)t\ double"{}}\ <<\ endl;}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Pressure.size();\ i++)}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{log}}(Pressure[i]\ /\ pow(Density[i],\ 1.4))\ <<\ endl;}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}SCALARS\(\backslash\)t\ Mach\_Number\(\backslash\)t\ double\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}LOOKUP\_TABLE\ default"{}}\ <<\ endl;}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ Mach\_No.size();\ i++)}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ Mach\_No[i]\ <<\ endl;}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ \textcolor{stringliteral}{"{}Vectors\(\backslash\)t\ Velocity\(\backslash\)t\ double\ "{}}\ <<\ endl;}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Cells;\ i++)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Solution\_Update\ <<\ U\_Velocity[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ V\_Velocity[i]\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ 0.0\ <<\ endl;}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Could\ not\ Open\ Final\ Data\ file\ for\ Updating\ Solution\(\backslash\)n"{}};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00155\ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Could\ not\ Open\ Solution\ File\(\backslash\)n"{}};}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d2a/_create___vtk___file_8cpp_a5f72d40235b74b1915174a52190c33c1_a5f72d40235b74b1915174a52190c33c1_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{_create___vtk___file_8cpp_a776e082e134ae9fedfaa1bf47149bdc5_a776e082e134ae9fedfaa1bf47149bdc5}\index{Create\_Vtk\_File.cpp@{Create\_Vtk\_File.cpp}!Read\_Write\_Grid@{Read\_Write\_Grid}}
+\index{Read\_Write\_Grid@{Read\_Write\_Grid}!Create\_Vtk\_File.cpp@{Create\_Vtk\_File.cpp}}
+\doxysubsubsection{\texorpdfstring{Read\_Write\_Grid()}{Read\_Write\_Grid()}}
+{\footnotesize\ttfamily \label{_create___vtk___file_8cpp_a776e082e134ae9fedfaa1bf47149bdc5_a776e082e134ae9fedfaa1bf47149bdc5} 
+void Read\+\_\+\+Write\+\_\+\+Grid (\begin{DoxyParamCaption}\item[{const string \&}]{Grid\+\_\+\+File}{, }\item[{const string \&}]{Out\+\_\+\+Put\+\_\+\+File}{}\end{DoxyParamCaption})}
+
+
+
+void Write\+\_\+\+Solution(const string \&); 
+
+
+
+Definition at line \mbox{\hyperlink{_create___vtk___file_8cpp_source_l00005}{5}} of file \mbox{\hyperlink{_create___vtk___file_8cpp_source}{Create\+\_\+\+Vtk\+\_\+\+File.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{double}\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}},\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},\ z;}
+\DoxyCodeLine{00008\ \ \ \ \ \textcolor{keywordtype}{long}\ \textcolor{keywordtype}{int}\ a,\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},\ c,\ d,\ e;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{string}\ s1,\ s2;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ nop,\ No\_of\_Cells;}
+\DoxyCodeLine{00011\ \ \ \ \ ifstream\ Ip\_Grid\_File(\mbox{\hyperlink{_globals_8h_a280972f50a7acabfa4c469610ecd1b0a_a280972f50a7acabfa4c469610ecd1b0a}{Grid\_File}}.c\_str(),\ ios::in);}
+\DoxyCodeLine{00012\ \ \ \ \ ofstream\ Op\_Sol\_File(Out\_Put\_File.c\_str(),\ ios::out);}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Grid\_File<<endl;}}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ cout<<Out\_Put\_File<<endl;}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordflow}{if}\ (Ip\_Grid\_File.is\_open())}
+\DoxyCodeLine{00016\ \ \ \ \ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ getline(Ip\_Grid\_File,\ s1);}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ endl;}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ getline(Ip\_Grid\_File,\ s1);}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ endl;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ getline(Ip\_Grid\_File,\ s1);}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ endl;}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ getline(Ip\_Grid\_File,\ s1);}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ endl;}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ s1\ >>\ nop\ >>\ s2;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ nop\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ s2\ <<\ endl;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nop;\ i++)}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ >>\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ >>\ z;}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a86c89e73180870e16f9d984b8f8c5ec9_a86c89e73180870e16f9d984b8f8c5ec9}{x}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ z\ <<\ endl;}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ s1\ >>\ No\_of\_Cells\ >>\ nop;}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ No\_of\_Cells\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ nop\ <<\ endl;}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ No\_of\_Cells;\ i++)}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ a\ >>\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ >>\ c\ >>\ d\ >>\ e;}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ a\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ c\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ d\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ e\ <<\ endl;}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ s1\ >>\ nop;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ s1\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)t"{}}\ <<\ nop\ <<\ endl;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ nop;\ i++)}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ \ \ Ip\_Grid\_File\ >>\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \ \ \ \ Op\_Sol\_File\ <<\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ <<\ endl;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ cout<<"{}Sucessfully\ Created\ File\ with\ Grid\ Data"{}<<endl;}}
+\DoxyCodeLine{00048\ \ \ \ \ \}}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00050\ \ \ \ \ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ cout\ <<\ \textcolor{stringliteral}{"{}Could\ Not\ Open\ Input\ Grid\ File......Please\ Check\ the\ File\ Name\(\backslash\)n"{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \}}
+\DoxyCodeLine{00053\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{dd/d2a/_create___vtk___file_8cpp_a776e082e134ae9fedfaa1bf47149bdc5_a776e082e134ae9fedfaa1bf47149bdc5_icgraph}
+\end{center}
+\end{figure}

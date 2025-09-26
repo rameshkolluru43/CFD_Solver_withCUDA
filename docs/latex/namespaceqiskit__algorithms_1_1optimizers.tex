@@ -1,0 +1,159 @@
+\doxysection{qiskit\+\_\+algorithms.\+optimizers Namespace Reference}
+\hypertarget{namespaceqiskit__algorithms_1_1optimizers}{}\label{namespaceqiskit__algorithms_1_1optimizers}\index{qiskit\_algorithms.optimizers@{qiskit\_algorithms.optimizers}}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1adam__amsgrad}{adam\+\_\+amsgrad}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1aqgd}{aqgd}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1bobyqa}{bobyqa}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1cg}{cg}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1cobyla}{cobyla}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1gradient__descent}{gradient\+\_\+descent}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1gsls}{gsls}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1imfil}{imfil}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1l__bfgs__b}{l\+\_\+bfgs\+\_\+b}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1nelder__mead}{nelder\+\_\+mead}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1nft}{nft}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1nlopts}{nlopts}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1optimizer}{optimizer}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1optimizer__utils}{optimizer\+\_\+utils}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1p__bfgs}{p\+\_\+bfgs}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1powell}{powell}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1qnspsa}{qnspsa}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1scipy__optimizer}{scipy\+\_\+optimizer}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1slsqp}{slsqp}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1snobfit}{snobfit}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1spsa}{spsa}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1steppable__optimizer}{steppable\+\_\+optimizer}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1tnc}{tnc}}
+\item 
+namespace \mbox{\hyperlink{namespaceqiskit__algorithms_1_1optimizers_1_1umda}{umda}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Optimizers (:mod:`qiskit_algorithms.optimizers`)
+================================================
+Classical Optimizers.
+
+This package contains a variety of classical optimizers and were designed for use by
+qiskit_algorithm's quantum variational algorithms, such as :class:`~qiskit_algorithms.VQE`.
+Logically, these optimizers can be divided into two categories:
+
+`Local Optimizers`_
+  Given an optimization problem, a **local optimizer** is a function
+  that attempts to find an optimal value within the neighboring set of a candidate solution.
+
+`Global Optimizers`_
+  Given an optimization problem, a **global optimizer** is a function
+  that attempts to find an optimal value among all possible solutions.
+
+.. currentmodule:: qiskit_algorithms.optimizers
+
+Optimizer Base Classes
+----------------------
+
+.. autosummary::
+   :toctree: ../stubs/
+   :nosignatures:
+
+   OptimizerResult
+   Optimizer
+   Minimizer
+
+Steppable Optimization
+----------------------
+
+.. autosummary::
+   :toctree: ../stubs/
+
+   optimizer_utils
+
+.. autosummary::
+   :toctree: ../stubs/
+   :nosignatures:
+
+   SteppableOptimizer
+   AskData
+   TellData
+   OptimizerState
+
+
+Local Optimizers
+----------------
+
+.. autosummary::
+   :toctree: ../stubs/
+   :nosignatures:
+
+   ADAM
+   AQGD
+   CG
+   COBYLA
+   L_BFGS_B
+   GSLS
+   GradientDescent
+   GradientDescentState
+   NELDER_MEAD
+   NFT
+   P_BFGS
+   POWELL
+   SLSQP
+   SPSA
+   QNSPSA
+   TNC
+   SciPyOptimizer
+   UMDA
+
+Qiskit also provides the following optimizers, which are built-out using the optimizers from
+`scikit-quant <https://scikit-quant.readthedocs.io/en/latest/>`_. The ``scikit-quant`` package
+is not installed by default but must be explicitly installed, if desired, by the user. The
+optimizers therein are provided under various licenses, hence it has been made an optional install.
+To install the ``scikit-quant`` dependent package you can use ``pip install scikit-quant``.
+
+.. autosummary::
+   :toctree: ../stubs/
+   :nosignatures:
+
+   BOBYQA
+   IMFIL
+   SNOBFIT
+
+Global Optimizers
+-----------------
+The global optimizers here all use `NLOpt <https://nlopt.readthedocs.io/en/latest/>`_ for their
+core function and can only be used if the optional dependent ``NLOpt`` package is installed.
+To install the ``NLOpt`` dependent package you can use ``pip install nlopt``.
+
+.. autosummary::
+   :toctree: ../stubs/
+   :nosignatures:
+
+   CRS
+   DIRECT_L
+   DIRECT_L_RAND
+   ESCH
+   ISRES\end{DoxyVerb}
+ 

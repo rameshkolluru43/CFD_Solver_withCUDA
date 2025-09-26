@@ -1,0 +1,84 @@
+\doxysection{qiskit.\+primitives.\+containers.\+shape Namespace Reference}
+\hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1shape}{}\label{namespaceqiskit_1_1primitives_1_1containers_1_1shape}\index{qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped}{Shaped}}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped_mixin}{Shaped\+Mixin}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+NDArray\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped}{Shaped}} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a247c849d283ef7f426dd1b3687385edb}{array\+\_\+coerce}} (Array\+Like\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped}{Shaped}} arr)
+\item 
+Iterable\mbox{[}int\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1shape_ac30200425c3af625a99126b06c1dd1cf}{\+\_\+flatten\+\_\+to\+\_\+ints}} (Shape\+Input arg)
+\item 
+tuple\mbox{[}int,...\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a996412ea2c1dba23dc2b2e806c184983}{shape\+\_\+tuple}} (\texorpdfstring{$\ast$}{*}Shape\+Input shapes)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a3b92de9db6e3e561dabc389d17885949}\label{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a3b92de9db6e3e561dabc389d17885949} 
+{\bfseries Shape\+Input} = Union\mbox{[}int, "{}Iterable\mbox{[}Shape\+Input\mbox{]}"{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Array shape related classes and functions
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1shape_ac30200425c3af625a99126b06c1dd1cf}\index{qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}!\_flatten\_to\_ints@{\_flatten\_to\_ints}}
+\index{\_flatten\_to\_ints@{\_flatten\_to\_ints}!qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}}
+\doxysubsubsection{\texorpdfstring{\_flatten\_to\_ints()}{\_flatten\_to\_ints()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1shape_ac30200425c3af625a99126b06c1dd1cf} 
+ Iterable\mbox{[}int\mbox{]} qiskit.\+primitives.\+containers.\+shape.\+\_\+flatten\+\_\+to\+\_\+ints (\begin{DoxyParamCaption}\item[{Shape\+Input}]{arg}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Yield one integer at a time.
+
+Args:
+    arg: Integers or iterables of integers, possibly nested, to be yielded.
+
+Yields:
+    The provided integers in depth-first recursive order.
+
+Raises:
+    ValueError: If an input is not an iterable or an integer.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a247c849d283ef7f426dd1b3687385edb}\index{qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}!array\_coerce@{array\_coerce}}
+\index{array\_coerce@{array\_coerce}!qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}}
+\doxysubsubsection{\texorpdfstring{array\_coerce()}{array\_coerce()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a247c849d283ef7f426dd1b3687385edb} 
+ NDArray \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped}{Shaped}} qiskit.\+primitives.\+containers.\+shape.\+array\+\_\+coerce (\begin{DoxyParamCaption}\item[{Array\+Like \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1primitives_1_1containers_1_1shape_1_1_shaped}{Shaped}}}]{arr}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Coerce the input into an object with a shape attribute.
+
+Copies are avoided.
+
+Args:
+    arr: The object to coerce.
+
+Returns:
+    Something that is :class:`~Shaped`, and always ``numpy.ndarray`` if the input is not
+    already :class:`~Shaped`.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a996412ea2c1dba23dc2b2e806c184983}\index{qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}!shape\_tuple@{shape\_tuple}}
+\index{shape\_tuple@{shape\_tuple}!qiskit.primitives.containers.shape@{qiskit.primitives.containers.shape}}
+\doxysubsubsection{\texorpdfstring{shape\_tuple()}{shape\_tuple()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1primitives_1_1containers_1_1shape_a996412ea2c1dba23dc2b2e806c184983} 
+ tuple\mbox{[}int, ...\mbox{]} qiskit.\+primitives.\+containers.\+shape.\+shape\+\_\+tuple (\begin{DoxyParamCaption}\item[{\texorpdfstring{$\ast$}{*}Shape\+Input}]{shapes}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Flatten the input into a single tuple of integers, preserving order.
+
+Args:
+    shapes: Integers or iterables of integers, possibly nested.
+
+Returns:
+    A tuple of integers.
+
+Raises:
+    ValueError: If some member of ``shapes`` is not an integer or iterable.
+\end{DoxyVerb}
+ 

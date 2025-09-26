@@ -1,0 +1,194 @@
+\doxysection{qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder}{}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+Inheritance diagram for qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.307693cm]{d4/d96/classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a4cd73ad41f926468b143716fc18c50c5_a4cd73ad41f926468b143716fc18c50c5}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_classical_register}{Classical\+Register}}, int\mbox{]}\texorpdfstring{$\vert$}{|}tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}, int\mbox{]}\texorpdfstring{$\vert$}{|}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}{expr.\+Expr}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aca9bb6ba41d828cb05446ac79e5041c2_aca9bb6ba41d828cb05446ac79e5041c2}{condition}}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}} true\+\_\+block, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}}\texorpdfstring{$\vert$}{|}None false\+\_\+block=None, \texorpdfstring{$\ast$}{*}, Optional\mbox{[}str\mbox{]} label=None)
+\item 
+"{}If\+Else\+Placeholder"{} \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ad10c6b37a465f9103f5fcbf579801082_ad10c6b37a465f9103f5fcbf579801082}{with\+\_\+false\+\_\+block}} (self, \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}} false\+\_\+block)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aea38911af8ce0b37dd1e0d98faee7cda_aea38911af8ce0b37dd1e0d98faee7cda}{registers}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a178a0c662609b16435d1297aa0e7c4f9_a178a0c662609b16435d1297aa0e7c4f9}{placeholder\+\_\+resources}} (self)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a28cefe26691d9f2cb1d117977030078d_a28cefe26691d9f2cb1d117977030078d}{concrete\+\_\+instruction}} (self, qubits, clbits)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ac56f83d4ac75d9cdbe6255e34d18488d_ac56f83d4ac75d9cdbe6255e34d18488d}{c\+\_\+if}} (self, classical, val)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_instruction_resources}{Instruction\+Resources}} \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aac0386aeb7f318b05d0eef07d745b6b3_aac0386aeb7f318b05d0eef07d745b6b3}{\+\_\+calculate\+\_\+placeholder\+\_\+resources}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a3492f9fb289a19c468a6de88e89a1a1b}\label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a3492f9fb289a19c468a6de88e89a1a1b} 
+{\bfseries \+\_\+condition} = validate\+\_\+condition(\mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aca9bb6ba41d828cb05446ac79e5041c2_aca9bb6ba41d828cb05446ac79e5041c2}{condition}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A placeholder instruction to use in control-flow context managers, when calculating the
+number of resources this instruction should block is deferred until the construction of the
+outer loop.
+
+This generally should not be instantiated manually; only :obj:`.IfContext` and
+:obj:`.ElseContext` should do it when they need to defer creation of the concrete instruction.
+
+.. warning::
+
+    This is an internal interface and no part of it should be relied upon outside of Qiskit
+    Terra.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a4cd73ad41f926468b143716fc18c50c5_a4cd73ad41f926468b143716fc18c50c5}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a4cd73ad41f926468b143716fc18c50c5_a4cd73ad41f926468b143716fc18c50c5} 
+qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_classical_register}{Classical\+Register}}, int\mbox{]} \texorpdfstring{$\vert$}{|} tuple\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1classicalregister_1_1_clbit}{Clbit}}, int\mbox{]} \texorpdfstring{$\vert$}{|} \mbox{\hyperlink{classqiskit_1_1circuit_1_1classical_1_1expr_1_1expr_1_1_expr}{expr.\+Expr}}}]{condition}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}}}]{true\+\_\+block}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}} \texorpdfstring{$\vert$}{|} None }]{false\+\_\+block}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{Optional\mbox{[}str\mbox{]} }]{label}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Args:
+    condition: the condition to execute the true block on.  This has the same semantics as
+        the ``condition`` argument to :obj:`.IfElseOp`.
+    true_block: the unbuilt scope block that will become the "true" branch at creation time.
+    false_block: if given, the unbuilt scope block that will become the "false" branch at
+        creation time.
+    label: the label to give the operator when it is created.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_af8938ce34861d0f96339a0d828a8962a_af8938ce34861d0f96339a0d828a8962a}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aac0386aeb7f318b05d0eef07d745b6b3_aac0386aeb7f318b05d0eef07d745b6b3}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!\_calculate\_placeholder\_resources@{\_calculate\_placeholder\_resources}}
+\index{\_calculate\_placeholder\_resources@{\_calculate\_placeholder\_resources}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{\_calculate\_placeholder\_resources()}{\_calculate\_placeholder\_resources()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aac0386aeb7f318b05d0eef07d745b6b3_aac0386aeb7f318b05d0eef07d745b6b3} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_instruction_resources}{Instruction\+Resources}} qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+\_\+calculate\+\_\+placeholder\+\_\+resources (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the placeholder resources (see :meth:`.placeholder_resources`).
+
+This is a separate function because we use the resources during the initialization to
+determine how we should set our ``num_qubits`` and ``num_clbits``, so we implement the
+public version as a cache access for efficiency.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ac56f83d4ac75d9cdbe6255e34d18488d_ac56f83d4ac75d9cdbe6255e34d18488d}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!c\_if@{c\_if}}
+\index{c\_if@{c\_if}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{c\_if()}{c\_if()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ac56f83d4ac75d9cdbe6255e34d18488d_ac56f83d4ac75d9cdbe6255e34d18488d} 
+qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+c\+\_\+if (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{classical}{, }\item[{}]{val}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Set a classical equality condition on this instruction between the register or cbit
+``classical`` and value ``val``.
+
+.. note::
+
+    This is a setter method, not an additive one.  Calling this multiple times will silently
+    override any previously set condition; it does not stack.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a67bb58e6a8367af68425def9453421cc_a67bb58e6a8367af68425def9453421cc}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a28cefe26691d9f2cb1d117977030078d_a28cefe26691d9f2cb1d117977030078d}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!concrete\_instruction@{concrete\_instruction}}
+\index{concrete\_instruction@{concrete\_instruction}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{concrete\_instruction()}{concrete\_instruction()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a28cefe26691d9f2cb1d117977030078d_a28cefe26691d9f2cb1d117977030078d} 
+qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+concrete\+\_\+instruction (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{qubits}{, }\item[{}]{clbits}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get a concrete, complete instruction that is valid to act over all the given resources.
+
+The returned resources may not be the full width of the given resources, but will certainly
+be a subset of them; this can occur if (for example) a placeholder ``if`` statement is
+present, but does not itself contain any placeholder instructions.  For resource efficiency,
+the returned :class:`.ControlFlowOp` will not unnecessarily span all resources, but only the
+ones that it needs.
+
+.. note::
+
+    The caller of this function is responsible for ensuring that the inputs to this function
+    are non-strict supersets of the bits returned by :meth:`placeholder_resources`.
+
+Any condition added in by a call to :obj:`.Instruction.c_if` will be propagated through, but
+set properties like ``duration`` will not; it doesn't make sense for control-flow operations
+to have pulse scheduling on them.
+
+Args:
+    qubits: The qubits the created instruction should be defined across.
+    clbits: The clbits the created instruction should be defined across.
+
+Returns:
+    A full version of the relevant control-flow instruction, and the resources that it uses.
+    This is a "proper" instruction instance, as if it had been defined with the correct
+    number of qubits and clbits from the beginning.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_instruction_placeholder_a7568c132b178f01067660795b44adb16_a7568c132b178f01067660795b44adb16}{qiskit.\+circuit.\+controlflow.\+builder.\+Instruction\+Placeholder}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a178a0c662609b16435d1297aa0e7c4f9_a178a0c662609b16435d1297aa0e7c4f9}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!placeholder\_resources@{placeholder\_resources}}
+\index{placeholder\_resources@{placeholder\_resources}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{placeholder\_resources()}{placeholder\_resources()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_a178a0c662609b16435d1297aa0e7c4f9_a178a0c662609b16435d1297aa0e7c4f9} 
+qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+placeholder\+\_\+resources (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the qubit and clbit resources that this placeholder instruction should be considered
+as using before construction.
+
+This will likely not include *all* resources after the block has been built, but using the
+output of this method ensures that all resources will pass through a
+:meth:`.QuantumCircuit.append` call, even if they come from a placeholder, and consequently
+will be tracked by the scope managers.
+
+Returns:
+    A collection of the quantum and classical resources this placeholder instruction will
+    certainly use.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_instruction_placeholder_adf2792ddb27579715f574a1608413ae5_adf2792ddb27579715f574a1608413ae5}{qiskit.\+circuit.\+controlflow.\+builder.\+Instruction\+Placeholder}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aea38911af8ce0b37dd1e0d98faee7cda_aea38911af8ce0b37dd1e0d98faee7cda}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!registers@{registers}}
+\index{registers@{registers}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{registers()}{registers()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_aea38911af8ce0b37dd1e0d98faee7cda_aea38911af8ce0b37dd1e0d98faee7cda} 
+qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+registers (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Get the registers used by the interior blocks.\end{DoxyVerb}
+ \Hypertarget{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ad10c6b37a465f9103f5fcbf579801082_ad10c6b37a465f9103f5fcbf579801082}\index{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}!with\_false\_block@{with\_false\_block}}
+\index{with\_false\_block@{with\_false\_block}!qiskit.circuit.controlflow.if\_else.IfElsePlaceholder@{qiskit.circuit.controlflow.if\_else.IfElsePlaceholder}}
+\doxysubsubsection{\texorpdfstring{with\_false\_block()}{with\_false\_block()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1controlflow_1_1if__else_1_1_if_else_placeholder_ad10c6b37a465f9103f5fcbf579801082_ad10c6b37a465f9103f5fcbf579801082} 
+ "{}If\+Else\+Placeholder"{} qiskit.\+circuit.\+controlflow.\+if\+\_\+else.\+If\+Else\+Placeholder.\+with\+\_\+false\+\_\+block (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{\mbox{\hyperlink{classqiskit_1_1circuit_1_1controlflow_1_1builder_1_1_control_flow_builder_block}{Control\+Flow\+Builder\+Block}}}]{false\+\_\+block}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return a new placeholder instruction, with the false block set to the given value,
+updating the bits used by both it and the true body, if necessary.
+
+It is an error to try and set the false block on a placeholder that already has one.
+
+Args:
+    false_block: The (unbuilt) instruction scope to set the false body to.
+
+Returns:
+    A new placeholder, with ``false_block`` set to the given input, and both true and false
+    blocks expanded to account for all resources.
+
+Raises:
+    CircuitError: if the false block of this placeholder instruction is already set.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/controlflow/if\+\_\+else.\+py\end{DoxyCompactItemize}

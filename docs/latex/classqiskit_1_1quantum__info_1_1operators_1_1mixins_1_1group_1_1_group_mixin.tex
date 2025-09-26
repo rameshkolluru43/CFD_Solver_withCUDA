@@ -1,0 +1,200 @@
+\doxysection{qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin Class Reference}
+\hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin}{}\label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+Inheritance diagram for qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=0.858238cm]{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_af985e96430d2f8633df82e5fce96d24b}\label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_af985e96430d2f8633df82e5fce96d24b} 
+Self {\bfseries \+\_\+\+\_\+and\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_abfab689144f0b0822c235e401d315c27}\label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_abfab689144f0b0822c235e401d315c27} 
+Self {\bfseries \+\_\+\+\_\+pow\+\_\+\+\_\+} (self, n)
+\item 
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a785572d908e138d1fdb77d42e9c3baaf}\label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a785572d908e138d1fdb77d42e9c3baaf} 
+Self {\bfseries \+\_\+\+\_\+xor\+\_\+\+\_\+} (self, other)
+\item 
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a1becc8c742db96caf4876c95bf2f58ed}\label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a1becc8c742db96caf4876c95bf2f58ed} 
+Self {\bfseries \+\_\+\+\_\+matmul\+\_\+\+\_\+} (self, other)
+\item 
+Self \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ad527b3bb863a044d3f6078d7630f8c77}{tensor}} (self, other)
+\item 
+Self \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ab1f8bff3d59334e927b4586ca216c598}{expand}} (self, other)
+\item 
+Self \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a727bf976e009487d608faca0b8340b62}{compose}} (self, other, qargs=None, front=False)
+\item 
+Self \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ac253a86a5e119a10afe451ebe31c6a6f}{dot}} (self, other, qargs=None)
+\item 
+Self \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a4722e8fca2714bafc4cfad70f42cce6f}{power}} (self, n)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Abstract Mixin for operator group operations.
+
+This class defines the following methods
+
+    - :meth:`compose`
+    - :meth:`dot`
+    - :meth:`tensor`
+    - :meth:`expand`
+    - :meth:`power`
+
+And the following operator overloads:
+
+    - ``&``, ``__and__`` -> :meth:`compose`
+    - ``@``, ``__matmul__`` -> :meth:`dot`
+    - ``^``, ``__xor__`` -> `:meth:`tensor`
+    - ``**``, ``__pow__`` -> :meth:`power`
+
+The following abstract methods must be implemented by subclasses
+using this mixin
+
+    - ``compose(self, other, qargs=None, inplace=False)``
+    - ``tensor(self, other)``
+    - ``expand(self, other)``
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a727bf976e009487d608faca0b8340b62}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}!compose@{compose}}
+\index{compose@{compose}!qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+\doxysubsubsection{\texorpdfstring{compose()}{compose()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a727bf976e009487d608faca0b8340b62} 
+ Self qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin.\+compose (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{, }\item[{}]{qargs}{ = {\ttfamily None}, }\item[{}]{front}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the operator composition with another CLASS.
+
+Args:
+    other (CLASS): a CLASS object.
+    qargs (list or None): Optional, a list of subsystem positions to
+                          apply other on. If None apply on all
+                          subsystems (default: None).
+    front (bool): If True compose using right operator multiplication,
+                  instead of left multiplication [default: False].
+
+Returns:
+    CLASS: The composed CLASS.
+
+Raises:
+    QiskitError: if other cannot be converted to an operator, or has
+                 incompatible dimensions for specified subsystems.
+
+.. note::
+    Composition (``&``) by default is defined as `left` matrix multiplication for
+    matrix operators, while ``@`` (equivalent to :meth:`dot`) is defined as `right` matrix
+    multiplication. That is that ``A & B == A.compose(B)`` is equivalent to
+    ``B @ A == B.dot(A)`` when ``A`` and ``B`` are of the same type.
+
+    Setting the ``front=True`` kwarg changes this to `right` matrix
+    multiplication and is equivalent to the :meth:`dot` method
+    ``A.dot(B) == A.compose(B, front=True)``.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1chi_1_1_chi_a53e335c5f75548684b39f92ad9e38f74}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+chi.\+Chi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1choi_1_1_choi_ad051261c0c4b9e8a42173bdb3cf3ea6d}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+choi.\+Choi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1kraus_1_1_kraus_adac7a2e681e605139cbc3b10469f38e7}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+kraus.\+Kraus}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1ptm_1_1_p_t_m_a8393a51e2c28bf60eae7c84b76a122dc}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+ptm.\+PTM}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1stinespring_1_1_stinespring_a78d07b4b84f379efb9c207c6f2e02642}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+stinespring.\+Stinespring}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1superop_1_1_super_op_a3b0a3492f46a2d6bb9c5863b30c13e0e}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+superop.\+Super\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1dihedral_1_1dihedral_1_1_c_n_o_t_dihedral_a4ef93ea58a597f0cf0953b60d1b8cf5b}{qiskit.\+quantum\+\_\+info.\+operators.\+dihedral.\+dihedral.\+CNOTDihedral}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1operator_1_1_operator_a73b8f018331e3b17d9f7e3eba74bc279}{qiskit.\+quantum\+\_\+info.\+operators.\+operator.\+Operator}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1scalar__op_1_1_scalar_op_a61f2a560e9da54412f59a483ee277fcc}{qiskit.\+quantum\+\_\+info.\+operators.\+scalar\+\_\+op.\+Scalar\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1base__pauli_1_1_base_pauli_ae66a404126b7744e8898bb3f2644243a}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+base\+\_\+pauli.\+Base\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1clifford_1_1_clifford_a89c713f339492434fe3c3bdbbe530351}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+clifford.\+Clifford}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli_1_1_pauli_ad31a8968434300ea92b8aa4c5ec4f83f}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli.\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli__list_1_1_pauli_list_aa5cee999b2bec17be759d4eb246e8bcf}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli\+\_\+list.\+Pauli\+List}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1sparse__pauli__op_1_1_sparse_pauli_op_a8c4547bb1d9a844a3eb41a7bb7f5a32e}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+sparse\+\_\+pauli\+\_\+op.\+Sparse\+Pauli\+Op}}.
+
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ac253a86a5e119a10afe451ebe31c6a6f}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}!dot@{dot}}
+\index{dot@{dot}!qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+\doxysubsubsection{\texorpdfstring{dot()}{dot()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ac253a86a5e119a10afe451ebe31c6a6f} 
+ Self qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin.\+dot (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{, }\item[{}]{qargs}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the right multiplied operator self * other.
+
+Args:
+    other (CLASS): an operator object.
+    qargs (list or None): Optional, a list of subsystem positions to
+                          apply other on. If None apply on all
+                          subsystems (default: None).
+
+Returns:
+    CLASS: The right matrix multiplied CLASS.
+
+.. note::
+    The dot product can be obtained using the ``@`` binary operator.
+    Hence ``a.dot(b)`` is equivalent to ``a @ b``.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli_1_1_pauli_aa8c08b783358a1c3f73a0523307cfa06}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli.\+Pauli}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli__list_1_1_pauli_list_a32277102ab84c4ec452e1c92f541e97f}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli\+\_\+list.\+Pauli\+List}}.
+
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ab1f8bff3d59334e927b4586ca216c598}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}!expand@{expand}}
+\index{expand@{expand}!qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+\doxysubsubsection{\texorpdfstring{expand()}{expand()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ab1f8bff3d59334e927b4586ca216c598} 
+ Self qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin.\+expand (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the reverse-order tensor product with another CLASS.
+
+    Args:
+        other (CLASS): a CLASS object.
+
+    Returns:
+        CLASS: the tensor product :math:`b \otimes a`, where :math:`a`
+            is the current CLASS, and :math:`b` is the other CLASS.
+
+    .. note:
+        Expand is the opposite operator ordering to :meth:`tensor`.
+        For two operators of the same type ``a.expand(b) = b.tensor(a)``.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1chi_1_1_chi_ad5b54cf8cd77c61ad53a13859e78400a}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+chi.\+Chi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1choi_1_1_choi_a7e0bc39c55ec7358271b1898790f4c4b}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+choi.\+Choi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1kraus_1_1_kraus_a76073aa236ef3d8b0f893a5f713e9961}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+kraus.\+Kraus}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1ptm_1_1_p_t_m_a8e949a461616e294b324e11fa533ed50}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+ptm.\+PTM}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1stinespring_1_1_stinespring_a69c6b3ef6c0bff2eb4dea2b83bf6c242}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+stinespring.\+Stinespring}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1superop_1_1_super_op_a9d8a59f865c49aa8ce24c0d41ba699ed}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+superop.\+Super\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1dihedral_1_1dihedral_1_1_c_n_o_t_dihedral_a28b9bc6ad99d2a73919d1f32f07e4a4c}{qiskit.\+quantum\+\_\+info.\+operators.\+dihedral.\+dihedral.\+CNOTDihedral}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1operator_1_1_operator_a5e129d2f6bc3e01fac47896c434f0142}{qiskit.\+quantum\+\_\+info.\+operators.\+operator.\+Operator}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1scalar__op_1_1_scalar_op_ac91bb5b9fce228436e2131c52b4f90f5}{qiskit.\+quantum\+\_\+info.\+operators.\+scalar\+\_\+op.\+Scalar\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1base__pauli_1_1_base_pauli_aec2919b7c98948da57a19da87910c8c8}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+base\+\_\+pauli.\+Base\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1clifford_1_1_clifford_ae96f02450ba82d6f0bba162cf24aff46}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+clifford.\+Clifford}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli_1_1_pauli_a00e17c37c3b7bf5245c94dc772a74d8f}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli.\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli__list_1_1_pauli_list_a6513228a12b4964e4dccc7abb4612dff}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli\+\_\+list.\+Pauli\+List}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1sparse__pauli__op_1_1_sparse_pauli_op_a39d9ff5777b7dbf6271fe3f321f9244d}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+sparse\+\_\+pauli\+\_\+op.\+Sparse\+Pauli\+Op}}.
+
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a4722e8fca2714bafc4cfad70f42cce6f}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}!power@{power}}
+\index{power@{power}!qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+\doxysubsubsection{\texorpdfstring{power()}{power()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_a4722e8fca2714bafc4cfad70f42cce6f} 
+ Self qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin.\+power (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{n}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the compose of a operator with itself n times.
+
+Args:
+    n (int): the number of times to compose with self (n>0).
+
+Returns:
+    CLASS: the n-times composed operator.
+
+Raises:
+    QiskitError: if the input and output dimensions of the operator
+                 are not equal, or the power is not a positive integer.
+\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1quantum__channel_1_1_quantum_channel_ae0247fe3e6864f4b12259ef54619e778}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+quantum\+\_\+channel.\+Quantum\+Channel}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1operator_1_1_operator_aa5b9a17c3bf61e69f88a6fc6bbb34fc7}{qiskit.\+quantum\+\_\+info.\+operators.\+operator.\+Operator}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1scalar__op_1_1_scalar_op_a64e3a8899729c69185a015ade3c5e8fa}{qiskit.\+quantum\+\_\+info.\+operators.\+scalar\+\_\+op.\+Scalar\+Op}}.
+
+\Hypertarget{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ad527b3bb863a044d3f6078d7630f8c77}\index{qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}!tensor@{tensor}}
+\index{tensor@{tensor}!qiskit.quantum\_info.operators.mixins.group.GroupMixin@{qiskit.quantum\_info.operators.mixins.group.GroupMixin}}
+\doxysubsubsection{\texorpdfstring{tensor()}{tensor()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1quantum__info_1_1operators_1_1mixins_1_1group_1_1_group_mixin_ad527b3bb863a044d3f6078d7630f8c77} 
+ Self qiskit.\+quantum\+\_\+info.\+operators.\+mixins.\+group.\+Group\+Mixin.\+tensor (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return the tensor product with another CLASS.
+
+    Args:
+        other (CLASS): a CLASS object.
+
+    Returns:
+        CLASS: the tensor product :math:`a \otimes b`, where :math:`a`
+            is the current CLASS, and :math:`b` is the other CLASS.
+
+    .. note::
+        The tensor product can be obtained using the ``^`` binary operator.
+        Hence ``a.tensor(b)`` is equivalent to ``a ^ b``.
+
+    .. note:
+        Tensor uses reversed operator ordering to :meth:`expand`.
+        For two operators of the same type ``a.tensor(b) = b.expand(a)``.\end{DoxyVerb}
+ 
+
+Reimplemented in \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1chi_1_1_chi_a570af098293d7710cbc8c9743ecab808}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+chi.\+Chi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1choi_1_1_choi_abf8068b5e314a8b089b67498673e421b}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+choi.\+Choi}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1kraus_1_1_kraus_a66297c86d1bbe2497807077ae2c66b60}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+kraus.\+Kraus}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1ptm_1_1_p_t_m_aa1c94940fc36af52d38f576d1a99c1a3}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+ptm.\+PTM}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1stinespring_1_1_stinespring_adbcdb4d31fcef9996f0cd7fa462b7393}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+stinespring.\+Stinespring}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1channel_1_1superop_1_1_super_op_aef1bd38fae391c2784ed405565119ba9}{qiskit.\+quantum\+\_\+info.\+operators.\+channel.\+superop.\+Super\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1dihedral_1_1dihedral_1_1_c_n_o_t_dihedral_a1d8f243e18890acf81e4669627db8a01}{qiskit.\+quantum\+\_\+info.\+operators.\+dihedral.\+dihedral.\+CNOTDihedral}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1operator_1_1_operator_a2c76908a7e5f5d892a6c4094527f75af}{qiskit.\+quantum\+\_\+info.\+operators.\+operator.\+Operator}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1scalar__op_1_1_scalar_op_abeb1dee9757f7785c19b7ebda0792f7f}{qiskit.\+quantum\+\_\+info.\+operators.\+scalar\+\_\+op.\+Scalar\+Op}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1base__pauli_1_1_base_pauli_a020b8abec4a3ac848f1616432d95551d}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+base\+\_\+pauli.\+Base\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1clifford_1_1_clifford_abd12b668cdf974cc56895cc412cd5ef7}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+clifford.\+Clifford}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli_1_1_pauli_ae7ac4b2bc3b6b3835920be3ef1c0e4b6}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli.\+Pauli}}, \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1pauli__list_1_1_pauli_list_ab4952799d1bbf015c73e70f742fe58e9}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+pauli\+\_\+list.\+Pauli\+List}}, and \mbox{\hyperlink{classqiskit_1_1quantum__info_1_1operators_1_1symplectic_1_1sparse__pauli__op_1_1_sparse_pauli_op_a322b74c9336ad10302d30db7a999d640}{qiskit.\+quantum\+\_\+info.\+operators.\+symplectic.\+sparse\+\_\+pauli\+\_\+op.\+Sparse\+Pauli\+Op}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/quantum\+\_\+info/operators/mixins/group.\+py\end{DoxyCompactItemize}

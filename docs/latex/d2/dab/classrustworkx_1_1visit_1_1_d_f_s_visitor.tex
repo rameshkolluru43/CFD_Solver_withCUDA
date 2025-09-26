@@ -1,0 +1,90 @@
+\doxysection{rustworkx.\+visit.\+DFSVisitor Class Reference}
+\hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor}{}\label{classrustworkx_1_1visit_1_1_d_f_s_visitor}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+Inheritance diagram for rustworkx.\+visit.\+DFSVisitor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{d2/dab/classrustworkx_1_1visit_1_1_d_f_s_visitor}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_d_f_s_visitor_af45d26f5801a8ece2048746d60a5f296_af45d26f5801a8ece2048746d60a5f296}{discover\+\_\+vertex}} (self, v, t)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_d_f_s_visitor_aa560a8459d240a0319b63dc13dec1019_aa560a8459d240a0319b63dc13dec1019}{finish\+\_\+vertex}} (self, v, t)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_d_f_s_visitor_acb5612dc190cfab93769ebc99aa1fd67_acb5612dc190cfab93769ebc99aa1fd67}{tree\+\_\+edge}} (self, e)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_d_f_s_visitor_a07021203bb63738a212aaad5d240fa9c_a07021203bb63738a212aaad5d240fa9c}{back\+\_\+edge}} (self, e)
+\item 
+\mbox{\hyperlink{classrustworkx_1_1visit_1_1_d_f_s_visitor_a38cd05016f159d95e6924148ca6d7c5f_a38cd05016f159d95e6924148ca6d7c5f}{forward\+\_\+or\+\_\+cross\+\_\+edge}} (self, e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A visitor object that is invoked at the event-points inside the
+:func:`~rustworkx.dfs_search` algorithm. By default, it performs no
+action, and should be used as a base class in order to be useful.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor_a07021203bb63738a212aaad5d240fa9c_a07021203bb63738a212aaad5d240fa9c}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}!back\_edge@{back\_edge}}
+\index{back\_edge@{back\_edge}!rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+\doxysubsubsection{\texorpdfstring{back\_edge()}{back\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_d_f_s_visitor_a07021203bb63738a212aaad5d240fa9c_a07021203bb63738a212aaad5d240fa9c} 
+rustworkx.\+visit.\+DFSVisitor.\+back\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on the back edges in the graph.
+For an undirected graph there is some ambiguity between tree edges
+and back edges since the edge :math:`(u, v)` and :math:`(v, u)` are the
+same edge, but both the `tree_edge()` and `back_edge()` functions will be
+invoked. One way to resolve this ambiguity is to record the tree edges,
+and then disregard the back-edges that are already marked as tree edges.
+An easy way to record tree edges is to record predecessors at the
+`tree_edge` event point.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor_af45d26f5801a8ece2048746d60a5f296_af45d26f5801a8ece2048746d60a5f296}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}!discover\_vertex@{discover\_vertex}}
+\index{discover\_vertex@{discover\_vertex}!rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+\doxysubsubsection{\texorpdfstring{discover\_vertex()}{discover\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_d_f_s_visitor_af45d26f5801a8ece2048746d60a5f296_af45d26f5801a8ece2048746d60a5f296} 
+rustworkx.\+visit.\+DFSVisitor.\+discover\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{, }\item[{}]{t}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked when a vertex is encountered for the first time.
+Together we report the discover time of vertex `v`.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor_aa560a8459d240a0319b63dc13dec1019_aa560a8459d240a0319b63dc13dec1019}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}!finish\_vertex@{finish\_vertex}}
+\index{finish\_vertex@{finish\_vertex}!rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+\doxysubsubsection{\texorpdfstring{finish\_vertex()}{finish\_vertex()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_d_f_s_visitor_aa560a8459d240a0319b63dc13dec1019_aa560a8459d240a0319b63dc13dec1019} 
+rustworkx.\+visit.\+DFSVisitor.\+finish\+\_\+vertex (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{v}{, }\item[{}]{t}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on vertex `v` after `finish_vertex` has been called for all
+the vertices in the DFS-tree rooted at vertex `v`. If vertex `v` is a leaf in
+the DFS-tree, then the `finish_vertex` function is called on `v` after all
+the out-edges of `v` have been examined. Together we report the finish time
+of vertex `v`.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor_a38cd05016f159d95e6924148ca6d7c5f_a38cd05016f159d95e6924148ca6d7c5f}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}!forward\_or\_cross\_edge@{forward\_or\_cross\_edge}}
+\index{forward\_or\_cross\_edge@{forward\_or\_cross\_edge}!rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+\doxysubsubsection{\texorpdfstring{forward\_or\_cross\_edge()}{forward\_or\_cross\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_d_f_s_visitor_a38cd05016f159d95e6924148ca6d7c5f_a38cd05016f159d95e6924148ca6d7c5f} 
+rustworkx.\+visit.\+DFSVisitor.\+forward\+\_\+or\+\_\+cross\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on forward or cross edges in the graph.
+In an undirected graph this method is never called.
+\end{DoxyVerb}
+ \Hypertarget{classrustworkx_1_1visit_1_1_d_f_s_visitor_acb5612dc190cfab93769ebc99aa1fd67_acb5612dc190cfab93769ebc99aa1fd67}\index{rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}!tree\_edge@{tree\_edge}}
+\index{tree\_edge@{tree\_edge}!rustworkx.visit.DFSVisitor@{rustworkx.visit.DFSVisitor}}
+\doxysubsubsection{\texorpdfstring{tree\_edge()}{tree\_edge()}}
+{\footnotesize\ttfamily \label{classrustworkx_1_1visit_1_1_d_f_s_visitor_acb5612dc190cfab93769ebc99aa1fd67_acb5612dc190cfab93769ebc99aa1fd67} 
+rustworkx.\+visit.\+DFSVisitor.\+tree\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{e}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}This is invoked on each edge as it becomes a member of the edges
+that form the search tree.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/rustworkx/visit.\+py\end{DoxyCompactItemize}

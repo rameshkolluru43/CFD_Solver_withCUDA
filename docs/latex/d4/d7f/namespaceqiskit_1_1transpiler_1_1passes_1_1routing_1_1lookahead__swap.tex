@@ -1,0 +1,150 @@
+\doxysection{qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap Namespace Reference}
+\hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap}{}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_1_1_lookahead_swap}{Lookahead\+Swap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad1f37bca61607e82fe5a7471b6e2e160_ad1f37bca61607e82fe5a7471b6e2e160}{\+\_\+search\+\_\+forward\+\_\+n\+\_\+swaps}} (state, gates, depth, width)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a868b0b136154fe49aaa47efbd0e83cd2_a868b0b136154fe49aaa47efbd0e83cd2}{\+\_\+map\+\_\+free\+\_\+gates}} (state, gates)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a805991ce275486434687661048a62681_a805991ce275486434687661048a62681}{\+\_\+calc\+\_\+layout\+\_\+distance}} (gates, state, max\+\_\+gates=None)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_aeae32686734f0fef76248b93ed755114_aeae32686734f0fef76248b93ed755114}{\+\_\+score\+\_\+state\+\_\+with\+\_\+swap}} (swap, state, gates)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a2585318f087f508449381813a3100009_a2585318f087f508449381813a3100009}{\+\_\+score\+\_\+step}} (step)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a1cb628ed7ae8079117bc789f5c025738_a1cb628ed7ae8079117bc789f5c025738}{\+\_\+transform\+\_\+gate\+\_\+for\+\_\+system}} (gate, state)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad57f62681215f8ca29bbc0883ee2092c_ad57f62681215f8ca29bbc0883ee2092c}{\+\_\+swap\+\_\+ops\+\_\+from\+\_\+edge}} (edge, state)
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a5901831ce0217bd43cf60e8259936402_a5901831ce0217bd43cf60e8259936402}{\+\_\+first\+\_\+op\+\_\+node}} (dag)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ab72cc341ddd95518592f98aab9b09ef5}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ab72cc341ddd95518592f98aab9b09ef5} 
+{\bfseries logger} = logging.\+get\+Logger(\+\_\+\+\_\+name\+\_\+\+\_\+)
+\item 
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a407c886a462bd173c48ef56f582c088c}\label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a407c886a462bd173c48ef56f582c088c} 
+{\bfseries \+\_\+\+Step} = collections.\+namedtuple("{}\+\_\+\+Step"{}, ("{}state"{}, "{}swaps\+\_\+added"{}, "{}gates\+\_\+mapped"{}, "{}gates\+\_\+remaining"{}))
+\item 
+\mbox{\hyperlink{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a066dfd155d1bf471024fa54e25da5074_a066dfd155d1bf471024fa54e25da5074}{\+\_\+\+System\+State}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Map input circuit onto a backend topology via insertion of SWAPs.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a805991ce275486434687661048a62681_a805991ce275486434687661048a62681}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_calc\_layout\_distance@{\_calc\_layout\_distance}}
+\index{\_calc\_layout\_distance@{\_calc\_layout\_distance}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_calc\_layout\_distance()}{\_calc\_layout\_distance()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a805991ce275486434687661048a62681_a805991ce275486434687661048a62681} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+calc\+\_\+layout\+\_\+distance (\begin{DoxyParamCaption}\item[{}]{gates}{, }\item[{}]{state}{, }\item[{}]{max\+\_\+gates}{ = {\ttfamily None}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return the sum of the distances of two-qubit pairs in each CNOT in gates
+according to the layout and the coupling.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a5901831ce0217bd43cf60e8259936402_a5901831ce0217bd43cf60e8259936402}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_first\_op\_node@{\_first\_op\_node}}
+\index{\_first\_op\_node@{\_first\_op\_node}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_first\_op\_node()}{\_first\_op\_node()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a5901831ce0217bd43cf60e8259936402_a5901831ce0217bd43cf60e8259936402} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+first\+\_\+op\+\_\+node (\begin{DoxyParamCaption}\item[{}]{dag}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Get the first op node from a DAG.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a868b0b136154fe49aaa47efbd0e83cd2_a868b0b136154fe49aaa47efbd0e83cd2}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_map\_free\_gates@{\_map\_free\_gates}}
+\index{\_map\_free\_gates@{\_map\_free\_gates}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_map\_free\_gates()}{\_map\_free\_gates()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a868b0b136154fe49aaa47efbd0e83cd2_a868b0b136154fe49aaa47efbd0e83cd2} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+map\+\_\+free\+\_\+gates (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{gates}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Map all gates that can be executed with the current layout.
+
+Args:
+    state (_SystemState): The physical characteristics of the system, including its current
+        layout and the coupling map.
+    gates (list): Gates to be mapped.
+
+Returns:
+    tuple:
+        mapped_gates (list): ops for gates that can be executed, mapped onto layout.
+        remaining_gates (list): gates that cannot be executed on the layout.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_aeae32686734f0fef76248b93ed755114_aeae32686734f0fef76248b93ed755114}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_score\_state\_with\_swap@{\_score\_state\_with\_swap}}
+\index{\_score\_state\_with\_swap@{\_score\_state\_with\_swap}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_score\_state\_with\_swap()}{\_score\_state\_with\_swap()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_aeae32686734f0fef76248b93ed755114_aeae32686734f0fef76248b93ed755114} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+score\+\_\+state\+\_\+with\+\_\+swap (\begin{DoxyParamCaption}\item[{}]{swap}{, }\item[{}]{state}{, }\item[{}]{gates}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Calculate the relative score for a given SWAP.
+
+Returns:
+    float: the score of the given swap.
+    Tuple[int, int]: the input swap that should be performed.
+    _SystemState: an updated system state with the new layout contained.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a2585318f087f508449381813a3100009_a2585318f087f508449381813a3100009}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_score\_step@{\_score\_step}}
+\index{\_score\_step@{\_score\_step}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_score\_step()}{\_score\_step()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a2585318f087f508449381813a3100009_a2585318f087f508449381813a3100009} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+score\+\_\+step (\begin{DoxyParamCaption}\item[{}]{step}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Count the mapped two-qubit gates, less the number of added SWAPs.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad1f37bca61607e82fe5a7471b6e2e160_ad1f37bca61607e82fe5a7471b6e2e160}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_search\_forward\_n\_swaps@{\_search\_forward\_n\_swaps}}
+\index{\_search\_forward\_n\_swaps@{\_search\_forward\_n\_swaps}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_search\_forward\_n\_swaps()}{\_search\_forward\_n\_swaps()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad1f37bca61607e82fe5a7471b6e2e160_ad1f37bca61607e82fe5a7471b6e2e160} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+search\+\_\+forward\+\_\+n\+\_\+swaps (\begin{DoxyParamCaption}\item[{}]{state}{, }\item[{}]{gates}{, }\item[{}]{depth}{, }\item[{}]{width}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Search for SWAPs which allow for application of largest number of gates.
+
+Args:
+    state (_SystemState): The ``namedtuple`` collection containing the state of the physical
+        system.  This includes the current layout, the coupling map, the canonical register and
+        the possible swaps available.
+    gates (list): Gates to be mapped.
+    depth (int): Number of SWAP layers to search before choosing a result.
+    width (int): Number of SWAPs to consider at each layer.
+Returns:
+    Optional(_Step): Describes the solution step found.  If ``None``, no swaps leading to an
+    improvement were found.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad57f62681215f8ca29bbc0883ee2092c_ad57f62681215f8ca29bbc0883ee2092c}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_swap\_ops\_from\_edge@{\_swap\_ops\_from\_edge}}
+\index{\_swap\_ops\_from\_edge@{\_swap\_ops\_from\_edge}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_swap\_ops\_from\_edge()}{\_swap\_ops\_from\_edge()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_ad57f62681215f8ca29bbc0883ee2092c_ad57f62681215f8ca29bbc0883ee2092c} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+swap\+\_\+ops\+\_\+from\+\_\+edge (\begin{DoxyParamCaption}\item[{}]{edge}{, }\item[{}]{state}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Generate list of ops to implement a SWAP gate along a coupling edge.\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a1cb628ed7ae8079117bc789f5c025738_a1cb628ed7ae8079117bc789f5c025738}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_transform\_gate\_for\_system@{\_transform\_gate\_for\_system}}
+\index{\_transform\_gate\_for\_system@{\_transform\_gate\_for\_system}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_transform\_gate\_for\_system()}{\_transform\_gate\_for\_system()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a1cb628ed7ae8079117bc789f5c025738_a1cb628ed7ae8079117bc789f5c025738} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+transform\+\_\+gate\+\_\+for\+\_\+system (\begin{DoxyParamCaption}\item[{}]{gate}{, }\item[{}]{state}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Return op implementing a virtual gate on given layout.\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a066dfd155d1bf471024fa54e25da5074_a066dfd155d1bf471024fa54e25da5074}\index{qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}!\_SystemState@{\_SystemState}}
+\index{\_SystemState@{\_SystemState}!qiskit.transpiler.passes.routing.lookahead\_swap@{qiskit.transpiler.passes.routing.lookahead\_swap}}
+\doxysubsubsection{\texorpdfstring{\_SystemState}{\_SystemState}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1transpiler_1_1passes_1_1routing_1_1lookahead__swap_a066dfd155d1bf471024fa54e25da5074_a066dfd155d1bf471024fa54e25da5074} 
+qiskit.\+transpiler.\+passes.\+routing.\+lookahead\+\_\+swap.\+\_\+\+System\+State\hspace{0.3cm}{\ttfamily [protected]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ collections.namedtuple(}
+\DoxyCodeLine{00002\ \ \ \ \ \textcolor{stringliteral}{"{}\_SystemState"{}},}
+\DoxyCodeLine{00003\ \ \ \ \ (\textcolor{stringliteral}{"{}layout"{}},\ \textcolor{stringliteral}{"{}coupling\_map"{}},\ \textcolor{stringliteral}{"{}register"{}},\ \textcolor{stringliteral}{"{}swaps"{}}),}
+\DoxyCodeLine{00004\ \ \ \ \ \textcolor{comment}{\#\ The\ None\ default\ applies\ to\ the\ right-\/most\ element,\ i.e.\ \`{}swaps`.}}
+\DoxyCodeLine{00005\ \ \ \ \ defaults=(\textcolor{keywordtype}{None},),}
+\DoxyCodeLine{00006\ )}
+
+\end{DoxyCode}

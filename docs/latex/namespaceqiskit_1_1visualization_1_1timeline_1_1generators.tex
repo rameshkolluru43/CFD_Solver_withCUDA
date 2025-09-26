@@ -1,0 +1,264 @@
+\doxysection{qiskit.\+visualization.\+timeline.\+generators Namespace Reference}
+\hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators}{}\label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+List\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}, \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_box_data}{drawings.\+Box\+Data}}\mbox{]}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_aecee08491840516c32d0b5a0894d638b}{gen\+\_\+sched\+\_\+gate}} (types.\+Scheduled\+Gate gate, Dict\mbox{[}str, Any\mbox{]} formatter)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_adbb87f90528ecd508076db06d95786cf}{gen\+\_\+full\+\_\+gate\+\_\+name}} (types.\+Scheduled\+Gate gate, Dict\mbox{[}str, Any\mbox{]} formatter, Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} program=None)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a3d3b84591443e2d4df21e3abd942a131}{gen\+\_\+short\+\_\+gate\+\_\+name}} (types.\+Scheduled\+Gate gate, Dict\mbox{[}str, Any\mbox{]} formatter)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_box_data}{drawings.\+Box\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a7944ac7c141c7bdbfa3c813eb9fea9bb}{gen\+\_\+timeslot}} (types.\+Bits bit, Dict\mbox{[}str, Any\mbox{]} formatter)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_ae2035ffcacd3f33b930c252083d33910}{gen\+\_\+bit\+\_\+name}} (types.\+Bits bit, Dict\mbox{[}str, Any\mbox{]} formatter, Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} program=None)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_line_data}{drawings.\+Line\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_afdcd0ef7d2dccedcfca45ad8c7589710}{gen\+\_\+barrier}} (types.\+Barrier barrier, Dict\mbox{[}str, Any\mbox{]} formatter)
+\item 
+List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_gate_link_data}{drawings.\+Gate\+Link\+Data}}\mbox{]} \mbox{\hyperlink{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a160aca5bdbc6b677f6a5cb26b92d469b}{gen\+\_\+gate\+\_\+link}} (types.\+Gate\+Link link, Dict\mbox{[}str, Any\mbox{]} formatter)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_aae4c12bf632500d1568f02bb9e365523}\label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_aae4c12bf632500d1568f02bb9e365523} 
+{\bfseries accepts\+\_\+program}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}A collection of functions that generate drawings from formatted input data.
+See :py:mod:`~qiskit.visualization.timeline.types` for more info on the required data.
+
+An end-user can write arbitrary functions that generate custom drawings.
+Generators in this module are called with the `formatter` kwarg. This data provides
+the stylesheet configuration.
+
+
+There are 4 types of generators in this module.
+
+1. generator.gates
+
+In this stylesheet entry the input data is `types.ScheduledGate` and generates gate objects
+such as time buckets and gate name annotations.
+
+The function signature of the generator is restricted to:
+
+    ```python
+
+    def my_object_generator(
+            gate: types.ScheduledGate,
+            formatter: Dict[str, Any]) -> List[ElementaryData]:
+
+        # your code here: create and return drawings related to the gate object.
+    ```
+
+If a generator object has the attribute ``accepts_program`` set to ``True``, then the generator will
+be called with an additional keyword argument ``program: QuantumCircuit``.
+
+2. generator.bits
+
+In this stylesheet entry the input data is `types.Bits` and generates timeline objects
+such as zero line and name of bit associated with the timeline.
+
+The function signature of the generator is restricted to:
+
+    ```python
+
+    def my_object_generator(
+            bit: types.Bits,
+            formatter: Dict[str, Any]) -> List[ElementaryData]:
+
+        # your code here: create and return drawings related to the bit object.
+    ```
+
+If a generator object has the attribute ``accepts_program`` set to ``True``, then the generator will
+be called with an additional keyword argument ``program: QuantumCircuit``.
+
+3. generator.barriers
+
+In this stylesheet entry the input data is `types.Barrier` and generates barrier objects
+such as barrier lines.
+
+The function signature of the generator is restricted to:
+
+    ```python
+
+    def my_object_generator(
+            barrier: types.Barrier,
+            formatter: Dict[str, Any]) -> List[ElementaryData]:
+
+        # your code here: create and return drawings related to the barrier object.
+    ```
+
+If a generator object has the attribute ``accepts_program`` set to ``True``, then the generator will
+be called with an additional keyword argument ``program: QuantumCircuit``.
+
+4. generator.gate_links
+
+In this stylesheet entry the input data is `types.GateLink` and generates barrier objects
+such as barrier lines.
+
+The function signature of the generator is restricted to:
+
+    ```python
+
+    def my_object_generator(
+            link: types.GateLink,
+            formatter: Dict[str, Any]) -> List[ElementaryData]:
+
+        # your code here: create and return drawings related to the link object.
+    ```
+
+If a generator object has the attribute ``accepts_program`` set to ``True``, then the generator will
+be called with an additional keyword argument ``program: QuantumCircuit``.
+
+Arbitrary generator function satisfying the above format can be accepted.
+Returned `ElementaryData` can be arbitrary subclasses that are implemented in
+the plotter API.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_afdcd0ef7d2dccedcfca45ad8c7589710}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_barrier@{gen\_barrier}}
+\index{gen\_barrier@{gen\_barrier}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_barrier()}{gen\_barrier()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_afdcd0ef7d2dccedcfca45ad8c7589710} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_line_data}{drawings.\+Line\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+barrier (\begin{DoxyParamCaption}\item[{types.\+Barrier}]{barrier}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate barrier line.
+
+Stylesheet:
+    - `barrier` style is applied.
+
+Args:
+    barrier: Barrier instruction.
+    formatter: Dictionary of stylesheet settings.
+
+Returns:
+    List of `LineData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_ae2035ffcacd3f33b930c252083d33910}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_bit\_name@{gen\_bit\_name}}
+\index{gen\_bit\_name@{gen\_bit\_name}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_bit\_name()}{gen\_bit\_name()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_ae2035ffcacd3f33b930c252083d33910} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+bit\+\_\+name (\begin{DoxyParamCaption}\item[{types.\+Bits}]{bit}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} }]{program}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate bit label.
+
+Stylesheet:
+    - `bit_name` style is applied.
+
+Args:
+    bit: Bit object associated to this drawing.
+    formatter: Dictionary of stylesheet settings.
+    program: Optional program that the bits are a part of.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_adbb87f90528ecd508076db06d95786cf}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_full\_gate\_name@{gen\_full\_gate\_name}}
+\index{gen\_full\_gate\_name@{gen\_full\_gate\_name}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_full\_gate\_name()}{gen\_full\_gate\_name()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_adbb87f90528ecd508076db06d95786cf} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+full\+\_\+gate\+\_\+name (\begin{DoxyParamCaption}\item[{types.\+Scheduled\+Gate}]{gate}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{, }\item[{Optional\mbox{[}\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}}\mbox{]} }]{program}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate gate name.
+
+Parameters and associated bits are also shown.
+
+Stylesheet:
+    - `gate_name` style is applied.
+    - `gate_latex_repr` key is used to find the latex representation of the gate name.
+
+Args:
+    gate: Gate information source.
+    formatter: Dictionary of stylesheet settings.
+    program: Optional program that the bits are a part of.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a160aca5bdbc6b677f6a5cb26b92d469b}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_gate\_link@{gen\_gate\_link}}
+\index{gen\_gate\_link@{gen\_gate\_link}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_gate\_link()}{gen\_gate\_link()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a160aca5bdbc6b677f6a5cb26b92d469b} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_gate_link_data}{drawings.\+Gate\+Link\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+gate\+\_\+link (\begin{DoxyParamCaption}\item[{types.\+Gate\+Link}]{link}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate gate link line.
+
+Line color depends on the operand type.
+
+Stylesheet:
+    - `gate_link` style is applied.
+    - The `gate_face_color` style is applied for line color.
+
+Args:
+    link: Gate link object.
+    formatter: Dictionary of stylesheet settings.
+
+Returns:
+    List of `GateLinkData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_aecee08491840516c32d0b5a0894d638b}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_sched\_gate@{gen\_sched\_gate}}
+\index{gen\_sched\_gate@{gen\_sched\_gate}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_sched\_gate()}{gen\_sched\_gate()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_aecee08491840516c32d0b5a0894d638b} 
+ List\mbox{[}Union\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}, \mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_box_data}{drawings.\+Box\+Data}}\mbox{]}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+sched\+\_\+gate (\begin{DoxyParamCaption}\item[{types.\+Scheduled\+Gate}]{gate}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate time bucket or symbol of scheduled gate.
+
+If gate duration is zero or frame change a symbol is generated instead of time box.
+The face color of gates depends on the operand type.
+
+Stylesheet:
+    - The `gate` style is applied for finite duration gate.
+    - The `frame_change` style is applied for zero duration gate.
+    - The `gate_face_color` style is applied for face color.
+
+Args:
+    gate: Gate information source.
+    formatter: Dictionary of stylesheet settings.
+
+Returns:
+    List of `TextData` or `BoxData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a3d3b84591443e2d4df21e3abd942a131}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_short\_gate\_name@{gen\_short\_gate\_name}}
+\index{gen\_short\_gate\_name@{gen\_short\_gate\_name}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_short\_gate\_name()}{gen\_short\_gate\_name()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a3d3b84591443e2d4df21e3abd942a131} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_text_data}{drawings.\+Text\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+short\+\_\+gate\+\_\+name (\begin{DoxyParamCaption}\item[{types.\+Scheduled\+Gate}]{gate}{, }\item[{Dict\mbox{[}str, Any\mbox{]} }]{formatter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate gate name.
+
+Only operand name is shown.
+
+Stylesheet:
+    - `gate_name` style is applied.
+    - `gate_latex_repr` key is used to find the latex representation of the gate name.
+
+Args:
+    gate: Gate information source.
+    formatter: Dictionary of stylesheet settings.
+
+Returns:
+    List of `TextData` drawings.
+\end{DoxyVerb}
+ \Hypertarget{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a7944ac7c141c7bdbfa3c813eb9fea9bb}\index{qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}!gen\_timeslot@{gen\_timeslot}}
+\index{gen\_timeslot@{gen\_timeslot}!qiskit.visualization.timeline.generators@{qiskit.visualization.timeline.generators}}
+\doxysubsubsection{\texorpdfstring{gen\_timeslot()}{gen\_timeslot()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1visualization_1_1timeline_1_1generators_a7944ac7c141c7bdbfa3c813eb9fea9bb} 
+ List\mbox{[}\mbox{\hyperlink{classqiskit_1_1visualization_1_1timeline_1_1drawings_1_1_box_data}{drawings.\+Box\+Data}}\mbox{]} qiskit.\+visualization.\+timeline.\+generators.\+gen\+\_\+timeslot (\begin{DoxyParamCaption}\item[{types.\+Bits}]{bit}{, }\item[{Dict\mbox{[}str, Any\mbox{]}}]{formatter}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Generate time slot of associated bit.
+
+Stylesheet:
+    - `timeslot` style is applied.
+
+Args:
+    bit: Bit object associated to this drawing.
+    formatter: Dictionary of stylesheet settings.
+
+Returns:
+    List of `BoxData` drawings.
+\end{DoxyVerb}
+ 

@@ -1,0 +1,103 @@
+\doxysection{setuptools.\+\_\+distutils.\+tests.\+support Namespace Reference}
+\hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support}{}\label{namespacesetuptools_1_1__distutils_1_1tests_1_1support}\index{setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1tests_1_1support_1_1_dummy_command}{Dummy\+Command}}
+\item 
+class \mbox{\hyperlink{classsetuptools_1_1__distutils_1_1tests_1_1support_1_1_tempdir_manager}{Tempdir\+Manager}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8b91316ead16e1875bd9855b70064b1c_a8b91316ead16e1875bd9855b70064b1c}{copy\+\_\+xxmodule\+\_\+c}} (directory)
+\item 
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support_ac0f74be320dd537f83ae46947fcff390}\label{namespacesetuptools_1_1__distutils_1_1tests_1_1support_ac0f74be320dd537f83ae46947fcff390} 
+{\bfseries \+\_\+get\+\_\+xxmodule\+\_\+path} ()
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a49735c24df262af300b066036fdf83a5_a49735c24df262af300b066036fdf83a5}{fixup\+\_\+build\+\_\+ext}} (cmd)
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a6dd43fda4ed1bb69b8c248d938dcad46_a6dd43fda4ed1bb69b8c248d938dcad46}{combine\+\_\+markers}} (cls)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list \mbox{\hyperlink{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8580693b5bef3b9f82785c0ab8362ce7_a8580693b5bef3b9f82785c0ab8362ce7}{pytestmark}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Support code for distutils test cases.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a6dd43fda4ed1bb69b8c248d938dcad46_a6dd43fda4ed1bb69b8c248d938dcad46}\index{setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}!combine\_markers@{combine\_markers}}
+\index{combine\_markers@{combine\_markers}!setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}}
+\doxysubsubsection{\texorpdfstring{combine\_markers()}{combine\_markers()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a6dd43fda4ed1bb69b8c248d938dcad46_a6dd43fda4ed1bb69b8c248d938dcad46} 
+setuptools.\+\_\+distutils.\+tests.\+support.\+combine\+\_\+markers (\begin{DoxyParamCaption}\item[{}]{cls}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}pytest will honor markers as found on the class, but when
+markers are on multiple subclasses, only one appears. Use
+this decorator to combine those markers.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8b91316ead16e1875bd9855b70064b1c_a8b91316ead16e1875bd9855b70064b1c}\index{setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}!copy\_xxmodule\_c@{copy\_xxmodule\_c}}
+\index{copy\_xxmodule\_c@{copy\_xxmodule\_c}!setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}}
+\doxysubsubsection{\texorpdfstring{copy\_xxmodule\_c()}{copy\_xxmodule\_c()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8b91316ead16e1875bd9855b70064b1c_a8b91316ead16e1875bd9855b70064b1c} 
+setuptools.\+\_\+distutils.\+tests.\+support.\+copy\+\_\+xxmodule\+\_\+c (\begin{DoxyParamCaption}\item[{}]{directory}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Helper for tests that need the xxmodule.c source file.
+
+Example use:
+
+    def test_compile(self):
+        copy_xxmodule_c(self.tmpdir)
+        self.assertIn('xxmodule.c', os.listdir(self.tmpdir))
+
+If the source file can be found, it will be copied to *directory*.  If not,
+the test will be skipped.  Errors during copy are not caught.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a49735c24df262af300b066036fdf83a5_a49735c24df262af300b066036fdf83a5}\index{setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}!fixup\_build\_ext@{fixup\_build\_ext}}
+\index{fixup\_build\_ext@{fixup\_build\_ext}!setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}}
+\doxysubsubsection{\texorpdfstring{fixup\_build\_ext()}{fixup\_build\_ext()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a49735c24df262af300b066036fdf83a5_a49735c24df262af300b066036fdf83a5} 
+setuptools.\+\_\+distutils.\+tests.\+support.\+fixup\+\_\+build\+\_\+ext (\begin{DoxyParamCaption}\item[{}]{cmd}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Function needed to make build_ext tests pass.
+
+When Python was built with --enable-shared on Unix, -L. is not enough to
+find libpython<blah>.so, because regrtest runs in a tempdir, not in the
+source directory where the .so lives.
+
+When Python was built with in debug mode on Windows, build_ext commands
+need their debug attribute set, and it is not done automatically for
+some reason.
+
+This function handles both of these things.  Example use:
+
+    cmd = build_ext(dist)
+    support.fixup_build_ext(cmd)
+    cmd.ensure_finalized()
+
+Unlike most other Unix platforms, Mac OS X embeds absolute paths
+to shared libraries into executables, so the fixup is not needed there.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8580693b5bef3b9f82785c0ab8362ce7_a8580693b5bef3b9f82785c0ab8362ce7}\index{setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}!pytestmark@{pytestmark}}
+\index{pytestmark@{pytestmark}!setuptools.\_distutils.tests.support@{setuptools.\_distutils.tests.support}}
+\doxysubsubsection{\texorpdfstring{pytestmark}{pytestmark}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1__distutils_1_1tests_1_1support_a8580693b5bef3b9f82785c0ab8362ce7_a8580693b5bef3b9f82785c0ab8362ce7} 
+list setuptools.\+\_\+distutils.\+tests.\+support.\+pytestmark}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ =\ \ [}
+\DoxyCodeLine{00002\ \ \ \ \ \ \ \ \ mark}
+\DoxyCodeLine{00003\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ base\ \textcolor{keywordflow}{in}\ itertools.chain([cls],\ cls.\_\_bases\_\_)}
+\DoxyCodeLine{00004\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ mark\ \textcolor{keywordflow}{in}\ getattr(base,\ \textcolor{stringliteral}{'pytestmark'},\ [])}
+\DoxyCodeLine{00005\ \ \ \ \ ]}
+
+\end{DoxyCode}

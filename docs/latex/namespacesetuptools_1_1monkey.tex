@@ -1,0 +1,82 @@
+\doxysection{setuptools.\+monkey Namespace Reference}
+\hypertarget{namespacesetuptools_1_1monkey}{}\label{namespacesetuptools_1_1monkey}\index{setuptools.monkey@{setuptools.monkey}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1monkey_a82c9be7bc07224018b8fcbccfc7ac4fc}{\+\_\+get\+\_\+mro}} (cls)
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_ae6786b511c5ffb01ecd27f3d059d14a9}\label{namespacesetuptools_1_1monkey_ae6786b511c5ffb01ecd27f3d059d14a9} 
+\+\_\+\+UnpatchT {\bfseries get\+\_\+unpatched} (\+\_\+\+UnpatchT item)
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_ad8422e1dbee53c04d83128ce3d80b67c}\label{namespacesetuptools_1_1monkey_ad8422e1dbee53c04d83128ce3d80b67c} 
+None {\bfseries get\+\_\+unpatched} (object item)
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_a9c3527a13aa4916ff82dbd9105d7528f}\label{namespacesetuptools_1_1monkey_a9c3527a13aa4916ff82dbd9105d7528f} 
+type\texorpdfstring{$\vert$}{|}types.\+Function\+Type\texorpdfstring{$\vert$}{|}None {\bfseries get\+\_\+unpatched} (type\texorpdfstring{$\vert$}{|}types.\+Function\+Type\texorpdfstring{$\vert$}{|}object item)
+\item 
+type\mbox{[}\+\_\+T\mbox{]} \mbox{\hyperlink{namespacesetuptools_1_1monkey_a99488ede2dda5caeac81bcd04f68cfa7}{get\+\_\+unpatched\+\_\+class}} (type\mbox{[}\+\_\+T\mbox{]} cls)
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_af3ddd650b2d211ab486940c8ab78fd86}\label{namespacesetuptools_1_1monkey_af3ddd650b2d211ab486940c8ab78fd86} 
+{\bfseries patch\+\_\+all} ()
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_a7f426a7d48738b2499011d1226e705d4}\label{namespacesetuptools_1_1monkey_a7f426a7d48738b2499011d1226e705d4} 
+{\bfseries \+\_\+patch\+\_\+distribution\+\_\+metadata} ()
+\item 
+\mbox{\hyperlink{namespacesetuptools_1_1monkey_a2614737a9f042a53a1427c41917e05e5}{patch\+\_\+func}} (replacement, target\+\_\+mod, func\+\_\+name)
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_ace8febb6fe5e978211f8c7f20bdc769f}\label{namespacesetuptools_1_1monkey_ace8febb6fe5e978211f8c7f20bdc769f} 
+{\bfseries get\+\_\+unpatched\+\_\+function} (candidate)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_af71efd619753d54001f33409570ad55e}\label{namespacesetuptools_1_1monkey_af71efd619753d54001f33409570ad55e} 
+{\bfseries \+\_\+T} = Type\+Var("{}\+\_\+\+T"{})
+\item 
+\Hypertarget{namespacesetuptools_1_1monkey_aa95e0be91a71fe270e4d6566967deecf}\label{namespacesetuptools_1_1monkey_aa95e0be91a71fe270e4d6566967deecf} 
+{\bfseries \+\_\+\+UnpatchT} = Type\+Var("{}\+\_\+\+Unpatch\+T"{}, type, types.\+Function\+Type)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Monkey patching of distutils.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacesetuptools_1_1monkey_a82c9be7bc07224018b8fcbccfc7ac4fc}\index{setuptools.monkey@{setuptools.monkey}!\_get\_mro@{\_get\_mro}}
+\index{\_get\_mro@{\_get\_mro}!setuptools.monkey@{setuptools.monkey}}
+\doxysubsubsection{\texorpdfstring{\_get\_mro()}{\_get\_mro()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1monkey_a82c9be7bc07224018b8fcbccfc7ac4fc} 
+setuptools.\+monkey.\+\_\+get\+\_\+mro (\begin{DoxyParamCaption}\item[{}]{cls}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Returns the bases classes for cls sorted by the MRO.
+
+Works around an issue on Jython where inspect.getmro will not return all
+base classes if multiple classes share the same name. Instead, this
+function will return a tuple containing the class itself, and the contents
+of cls.__bases__. See https://github.com/pypa/setuptools/issues/1024.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1monkey_a99488ede2dda5caeac81bcd04f68cfa7}\index{setuptools.monkey@{setuptools.monkey}!get\_unpatched\_class@{get\_unpatched\_class}}
+\index{get\_unpatched\_class@{get\_unpatched\_class}!setuptools.monkey@{setuptools.monkey}}
+\doxysubsubsection{\texorpdfstring{get\_unpatched\_class()}{get\_unpatched\_class()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1monkey_a99488ede2dda5caeac81bcd04f68cfa7} 
+ type\mbox{[}\+\_\+T\mbox{]} setuptools.\+monkey.\+get\+\_\+unpatched\+\_\+class (\begin{DoxyParamCaption}\item[{type\mbox{[}\+\_\+T\mbox{]}}]{cls}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Protect against re-patching the distutils if reloaded
+
+Also ensures that no other distutils extension monkeypatched the distutils
+first.
+\end{DoxyVerb}
+ \Hypertarget{namespacesetuptools_1_1monkey_a2614737a9f042a53a1427c41917e05e5}\index{setuptools.monkey@{setuptools.monkey}!patch\_func@{patch\_func}}
+\index{patch\_func@{patch\_func}!setuptools.monkey@{setuptools.monkey}}
+\doxysubsubsection{\texorpdfstring{patch\_func()}{patch\_func()}}
+{\footnotesize\ttfamily \label{namespacesetuptools_1_1monkey_a2614737a9f042a53a1427c41917e05e5} 
+setuptools.\+monkey.\+patch\+\_\+func (\begin{DoxyParamCaption}\item[{}]{replacement}{, }\item[{}]{target\+\_\+mod}{, }\item[{}]{func\+\_\+name}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Patch func_name in target_mod with replacement
+
+Important - original must be resolved by name to avoid
+patching an already patched function.
+\end{DoxyVerb}
+ 

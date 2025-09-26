@@ -1,0 +1,277 @@
+\doxysection{qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD Class Reference}
+\hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d}{}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+Inheritance diagram for qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{d0/d37/classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+None \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9d963fc405f9b17353fda909e337d806_a9d963fc405f9b17353fda909e337d806}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, int\texorpdfstring{$\vert$}{|}list\mbox{[}int\mbox{]} maxiter=1000, float\texorpdfstring{$\vert$}{|}list\mbox{[}float\mbox{]} eta=1.\+0, float tol=1e-\/6, float\texorpdfstring{$\vert$}{|}list\mbox{[}float\mbox{]} momentum=0.\+25, float param\+\_\+tol=1e-\/6, int averaging=10, int max\+\_\+evals\+\_\+grouped=1)
+\item 
+dict\mbox{[}str, \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_support_level}{Optimizer\+Support\+Level}}\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a695127af28771c65e55ffe132ec89c8d_a695127af28771c65e55ffe132ec89c8d}{get\+\_\+support\+\_\+level}} (self)
+\item 
+dict\mbox{[}str, Any\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aae044f8ce6d7eb2742dae7f97e3573a0_aae044f8ce6d7eb2742dae7f97e3573a0}{settings}} (self)
+\item 
+\mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_result}{Optimizer\+Result}} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a18b5d81a123c9518fda4270fb9464d58_a18b5d81a123c9518fda4270fb9464d58}{minimize}} (self, Callable\mbox{[}\mbox{[}POINT\mbox{]}, float\mbox{]} fun, POINT x0, Callable\mbox{[}\mbox{[}POINT\mbox{]}, POINT\mbox{]}\texorpdfstring{$\vert$}{|}None jac=None, list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]}\texorpdfstring{$\vert$}{|}None bounds=None)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+tuple\mbox{[}float, np.\+ndarray\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a0be4757fea9131dcf72de6b5297271c9_a0be4757fea9131dcf72de6b5297271c9}{\+\_\+compute\+\_\+objective\+\_\+fn\+\_\+and\+\_\+gradient}} (self, np.\+ndarray\texorpdfstring{$\vert$}{|}list\mbox{[}float\mbox{]} params, Callable obj)
+\item 
+tuple\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]} \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9a0e687f4dd83153f289bd4df1ae3a62_a9a0e687f4dd83153f289bd4df1ae3a62}{\+\_\+update}} (self, np.\+ndarray params, np.\+ndarray gradient, np.\+ndarray mprev, float step\+\_\+size, float momentum\+\_\+coeff)
+\item 
+bool \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ac1074d7f79d3bbbe7627762617904866_ac1074d7f79d3bbbe7627762617904866}{\+\_\+converged\+\_\+objective}} (self, float objval, float tol, int window\+\_\+size)
+\item 
+bool \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a1b49630334069a7ecc948b0f008be2e2_a1b49630334069a7ecc948b0f008be2e2}{\+\_\+converged\+\_\+parameter}} (self, np.\+ndarray parameter, float tol)
+\item 
+bool \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aa748c0ea6a7679b7dbeca1986ff3d204_aa748c0ea6a7679b7dbeca1986ff3d204}{\+\_\+converged\+\_\+alt}} (self, list\mbox{[}float\mbox{]} gradient, float tol, int window\+\_\+size)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a0fb5ffe3c5091641b8e2b4f7018715c2}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a0fb5ffe3c5091641b8e2b4f7018715c2} 
+{\bfseries \+\_\+eta} = eta
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a46a3649a74eb0528a6afde44ff9eb2a5}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a46a3649a74eb0528a6afde44ff9eb2a5} 
+{\bfseries \+\_\+maxiter} = maxiter
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aa6de1f97c04673e380dfe97fa18dd4d3}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aa6de1f97c04673e380dfe97fa18dd4d3} 
+{\bfseries \+\_\+momenta\+\_\+coeff} = momentum
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a2c1363595d46a3f383e29f759dde38e2}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a2c1363595d46a3f383e29f759dde38e2} 
+{\bfseries \+\_\+param\+\_\+tol} = param\+\_\+tol
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ada0138619a6ef2e150a18edcddaf48d6}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ada0138619a6ef2e150a18edcddaf48d6} 
+{\bfseries \+\_\+tol} = tol
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a32de027921830bbc616294181e101738}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a32de027921830bbc616294181e101738} 
+{\bfseries \+\_\+averaging} = averaging
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a46b158c233ab6f595cd0eb64c7d500ae}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a46b158c233ab6f595cd0eb64c7d500ae} 
+float\texorpdfstring{$\vert$}{|}None {\bfseries \+\_\+avg\+\_\+objval} = None
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ab3bdd1f578f117c4b64c386d9dcf6ff0}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ab3bdd1f578f117c4b64c386d9dcf6ff0} 
+np.\+ndarray\texorpdfstring{$\vert$}{|}None {\bfseries \+\_\+prev\+\_\+param} = None
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a4cb42e604c642a0ef89326b441284cdd}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a4cb42e604c642a0ef89326b441284cdd} 
+int {\bfseries \+\_\+eval\+\_\+count} = 0
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aca44d8b2e7bbeb46b4c9a9628deed455}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aca44d8b2e7bbeb46b4c9a9628deed455} 
+list {\bfseries \+\_\+prev\+\_\+loss} = \mbox{[}$\,$\mbox{]}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a96744ec2e96bb1558f18ed3c98ac53f8}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a96744ec2e96bb1558f18ed3c98ac53f8} 
+list {\bfseries \+\_\+prev\+\_\+grad} = \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a3673fa3ac2f1ebb27f4e3e77bea864c5}\label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a3673fa3ac2f1ebb27f4e3e77bea864c5} 
+list {\bfseries \+\_\+\+OPTIONS} = \mbox{[}"{}maxiter"{}, "{}eta"{}, "{}tol"{}, "{}disp"{}, "{}momentum"{}, "{}param\+\_\+tol"{}, "{}averaging"{}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Analytic Quantum Gradient Descent (AQGD) with Epochs optimizer.
+Performs gradient descent optimization with a momentum term, analytic gradients,
+and customized step length schedule for parameterized quantum gates, i.e.
+Pauli Rotations. See, for example:
+
+* K. Mitarai, M. Negoro, M. Kitagawa, and K. Fujii. (2018).
+  Quantum circuit learning. Phys. Rev. A 98, 032309.
+  https://arxiv.org/abs/1803.00745
+
+* Maria Schuld, Ville Bergholm, Christian Gogolin, Josh Izaac, Nathan Killoran. (2019).
+  Evaluating analytic gradients on quantum hardware. Phys. Rev. A 99, 032331.
+  https://arxiv.org/abs/1811.11184
+
+for further details on analytic gradients of parameterized quantum gates.
+
+Gradients are computed "analytically" using the quantum circuit when evaluating
+the objective function.\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9d963fc405f9b17353fda909e337d806_a9d963fc405f9b17353fda909e337d806}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9d963fc405f9b17353fda909e337d806_a9d963fc405f9b17353fda909e337d806} 
+ None qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{int \texorpdfstring{$\vert$}{|} list\mbox{[}int\mbox{]} }]{maxiter}{ = {\ttfamily 1000}, }\item[{float \texorpdfstring{$\vert$}{|} list\mbox{[}float\mbox{]} }]{eta}{ = {\ttfamily 1.0}, }\item[{float }]{tol}{ = {\ttfamily 1e-\/6}, }\item[{float \texorpdfstring{$\vert$}{|} list\mbox{[}float\mbox{]} }]{momentum}{ = {\ttfamily 0.25}, }\item[{float }]{param\+\_\+tol}{ = {\ttfamily 1e-\/6}, }\item[{int }]{averaging}{ = {\ttfamily 10}, }\item[{int }]{max\+\_\+evals\+\_\+grouped}{ = {\ttfamily 1}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Performs Analytical Quantum Gradient Descent (AQGD) with Epochs.
+
+Args:
+    maxiter: Maximum number of iterations (full gradient steps)
+    eta: The coefficient of the gradient update. Increasing this value
+        results in larger step sizes: param = previous_param - eta * deriv
+    tol: Tolerance for change in windowed average of objective values.
+        Convergence occurs when either objective tolerance is met OR parameter
+        tolerance is met.
+    momentum: Bias towards the previous gradient momentum in current
+        update. Must be within the bounds: [0,1)
+    param_tol: Tolerance for change in norm of parameters.
+    averaging: Length of window over which to average objective values for objective
+        convergence criterion
+    max_evals_grouped: Max number of default gradient evaluations performed simultaneously.
+
+Raises:
+    AlgorithmError: If the length of ``maxiter``, `momentum``, and ``eta`` is not the same.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_a99d7024e47f640997902dcf0506d36e1_a99d7024e47f640997902dcf0506d36e1}{qiskit\+\_\+algorithms.\+optimizers.\+optimizer.\+Optimizer}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a0be4757fea9131dcf72de6b5297271c9_a0be4757fea9131dcf72de6b5297271c9}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_compute\_objective\_fn\_and\_gradient@{\_compute\_objective\_fn\_and\_gradient}}
+\index{\_compute\_objective\_fn\_and\_gradient@{\_compute\_objective\_fn\_and\_gradient}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_compute\_objective\_fn\_and\_gradient()}{\_compute\_objective\_fn\_and\_gradient()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a0be4757fea9131dcf72de6b5297271c9_a0be4757fea9131dcf72de6b5297271c9} 
+ tuple\mbox{[}float, np.\+ndarray\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+compute\+\_\+objective\+\_\+fn\+\_\+and\+\_\+gradient (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray \texorpdfstring{$\vert$}{|} list\mbox{[}float\mbox{]}}]{params}{, }\item[{Callable     }]{obj}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Obtains the objective function value for params and the analytical quantum derivatives of
+the objective function with respect to each parameter. Requires
+2*(number parameters) + 1 objective evaluations
+
+Args:
+    params: Current value of the parameters to evaluate the objective function
+    obj: Objective function of interest
+
+Returns:
+    Tuple containing the objective value and array of gradients for the given parameter set.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aa748c0ea6a7679b7dbeca1986ff3d204_aa748c0ea6a7679b7dbeca1986ff3d204}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_converged\_alt@{\_converged\_alt}}
+\index{\_converged\_alt@{\_converged\_alt}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_converged\_alt()}{\_converged\_alt()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aa748c0ea6a7679b7dbeca1986ff3d204_aa748c0ea6a7679b7dbeca1986ff3d204} 
+ bool qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+converged\+\_\+alt (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{list\mbox{[}float\mbox{]}}]{gradient}{, }\item[{float}]{tol}{, }\item[{int}]{window\+\_\+size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Tests convergence from norm of windowed average of gradients
+
+Args:
+    gradient: current gradient
+    tol: tolerance for average gradient norm
+    window_size: size of averaging window
+
+Returns:
+    Bool indicating whether or not the optimization has converged
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ac1074d7f79d3bbbe7627762617904866_ac1074d7f79d3bbbe7627762617904866}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_converged\_objective@{\_converged\_objective}}
+\index{\_converged\_objective@{\_converged\_objective}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_converged\_objective()}{\_converged\_objective()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_ac1074d7f79d3bbbe7627762617904866_ac1074d7f79d3bbbe7627762617904866} 
+ bool qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+converged\+\_\+objective (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{float}]{objval}{, }\item[{float}]{tol}{, }\item[{int}]{window\+\_\+size}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Tests convergence based on the change in a moving windowed average of past objective values
+
+Args:
+    objval: Current value of the objective function
+    tol: tolerance below which (average) objective function change must be
+    window_size: size of averaging window
+
+Returns:
+    Bool indicating whether or not the optimization has converged.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a1b49630334069a7ecc948b0f008be2e2_a1b49630334069a7ecc948b0f008be2e2}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_converged\_parameter@{\_converged\_parameter}}
+\index{\_converged\_parameter@{\_converged\_parameter}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_converged\_parameter()}{\_converged\_parameter()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a1b49630334069a7ecc948b0f008be2e2_a1b49630334069a7ecc948b0f008be2e2} 
+ bool qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+converged\+\_\+parameter (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{parameter}{, }\item[{float}]{tol}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Tests convergence based on change in parameter
+
+Args:
+    parameter: current parameter values
+    tol: tolerance for change in norm of parameters
+
+Returns:
+    Bool indicating whether or not the optimization has converged
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9a0e687f4dd83153f289bd4df1ae3a62_a9a0e687f4dd83153f289bd4df1ae3a62}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!\_update@{\_update}}
+\index{\_update@{\_update}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{\_update()}{\_update()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a9a0e687f4dd83153f289bd4df1ae3a62_a9a0e687f4dd83153f289bd4df1ae3a62} 
+ tuple\mbox{[}np.\+ndarray, np.\+ndarray\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+\_\+update (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{np.\+ndarray}]{params}{, }\item[{np.\+ndarray}]{gradient}{, }\item[{np.\+ndarray}]{mprev}{, }\item[{float}]{step\+\_\+size}{, }\item[{float}]{momentum\+\_\+coeff}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}Updates full parameter array based on a step that is a convex
+combination of the gradient and previous momentum
+
+Args:
+    params: Current value of the parameters to evaluate the objective function at
+    gradient: Gradient of objective wrt parameters
+    mprev: Momentum vector for each parameter
+    step_size: The scaling of step to take
+    momentum_coeff: Bias towards previous momentum vector when updating current
+        momentum/step vector
+
+Returns:
+    Tuple of the updated parameter and momentum vectors respectively.
+\end{DoxyVerb}
+ \Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a695127af28771c65e55ffe132ec89c8d_a695127af28771c65e55ffe132ec89c8d}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!get\_support\_level@{get\_support\_level}}
+\index{get\_support\_level@{get\_support\_level}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{get\_support\_level()}{get\_support\_level()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a695127af28771c65e55ffe132ec89c8d_a695127af28771c65e55ffe132ec89c8d} 
+ dict\mbox{[}str, \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_support_level}{Optimizer\+Support\+Level}}\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+get\+\_\+support\+\_\+level (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Support level dictionary
+
+Returns:
+    Dict[str, int]: gradient, bounds and initial point
+                    support information that is ignored/required.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_a97c39469affcc8269326943a23537bc4_a97c39469affcc8269326943a23537bc4}{qiskit\+\_\+algorithms.\+optimizers.\+optimizer.\+Optimizer}}.
+
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a18b5d81a123c9518fda4270fb9464d58_a18b5d81a123c9518fda4270fb9464d58}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!minimize@{minimize}}
+\index{minimize@{minimize}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{minimize()}{minimize()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_a18b5d81a123c9518fda4270fb9464d58_a18b5d81a123c9518fda4270fb9464d58} 
+ \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_result}{Optimizer\+Result}} qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+minimize (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{Callable\mbox{[}\mbox{[}POINT\mbox{]}, float\mbox{]}}]{fun}{, }\item[{POINT}]{x0}{, }\item[{Callable\mbox{[}\mbox{[}POINT\mbox{]}, POINT\mbox{]} \texorpdfstring{$\vert$}{|} None }]{jac}{ = {\ttfamily None}, }\item[{list\mbox{[}tuple\mbox{[}float, float\mbox{]}\mbox{]} \texorpdfstring{$\vert$}{|} None }]{bounds}{ = {\ttfamily None}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Minimize the scalar function.
+
+Args:
+    fun: The scalar function to minimize.
+    x0: The initial point for the minimization.
+    jac: The gradient of the scalar function ``fun``.
+    bounds: Bounds for the variables of ``fun``. This argument might be ignored if the
+        optimizer does not support bounds.
+
+Returns:
+    The result of the optimization, containing e.g. the result as attribute ``x``.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_a720f8d277e711e9c1523b9658b6aaec0_a720f8d277e711e9c1523b9658b6aaec0}{qiskit\+\_\+algorithms.\+optimizers.\+optimizer.\+Optimizer}}.
+
+\Hypertarget{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aae044f8ce6d7eb2742dae7f97e3573a0_aae044f8ce6d7eb2742dae7f97e3573a0}\index{qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}!settings@{settings}}
+\index{settings@{settings}!qiskit\_algorithms.optimizers.aqgd.AQGD@{qiskit\_algorithms.optimizers.aqgd.AQGD}}
+\doxysubsubsection{\texorpdfstring{settings()}{settings()}}
+{\footnotesize\ttfamily \label{classqiskit__algorithms_1_1optimizers_1_1aqgd_1_1_a_q_g_d_aae044f8ce6d7eb2742dae7f97e3573a0_aae044f8ce6d7eb2742dae7f97e3573a0} 
+ dict\mbox{[}str, Any\mbox{]} qiskit\+\_\+algorithms.\+optimizers.\+aqgd.\+AQGD.\+settings (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The optimizer settings in a dictionary format.
+
+The settings can for instance be used for JSON-serialization (if all settings are
+serializable, which e.g. doesn't hold per default for callables), such that the
+optimizer object can be reconstructed as
+
+.. code-block::
+
+    settings = optimizer.settings
+    # JSON serialize and send to another server
+    optimizer = OptimizerClass(**settings)\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit__algorithms_1_1optimizers_1_1optimizer_1_1_optimizer_a708d2432911e868fa62ecd9ca17c10a3_a708d2432911e868fa62ecd9ca17c10a3}{qiskit\+\_\+algorithms.\+optimizers.\+optimizer.\+Optimizer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit\+\_\+algorithms/optimizers/aqgd.\+py\end{DoxyCompactItemize}

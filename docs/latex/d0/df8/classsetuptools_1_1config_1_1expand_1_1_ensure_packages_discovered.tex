@@ -1,0 +1,69 @@
+\doxysection{setuptools.\+config.\+expand.\+Ensure\+Packages\+Discovered Class Reference}
+\hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered}{}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered}\index{setuptools.config.expand.EnsurePackagesDiscovered@{setuptools.config.expand.EnsurePackagesDiscovered}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a901583240f1d774b901ce09f6fbcb4ca}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a901583240f1d774b901ce09f6fbcb4ca} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, \mbox{\hyperlink{classsetuptools_1_1dist_1_1_distribution}{Distribution}} distribution)
+\item 
+\mbox{\hyperlink{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a30e994a9df1fa4b8db0a1c9c10008b3b_a30e994a9df1fa4b8db0a1c9c10008b3b}{\+\_\+\+\_\+call\+\_\+\+\_\+}} (self)
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a43e6fb5755b0bcd89fe528acb15250e9}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a43e6fb5755b0bcd89fe528acb15250e9} 
+Self {\bfseries \+\_\+\+\_\+enter\+\_\+\+\_\+} (self)
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a895af123eb46eff23cbcaadedbaa546f}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a895af123eb46eff23cbcaadedbaa546f} 
+{\bfseries \+\_\+\+\_\+exit\+\_\+\+\_\+} (self, type\mbox{[}Base\+Exception\mbox{]}\texorpdfstring{$\vert$}{|}None exc\+\_\+type, Base\+Exception\texorpdfstring{$\vert$}{|}None exc\+\_\+value, Traceback\+Type\texorpdfstring{$\vert$}{|}None traceback)
+\item 
+Mapping\mbox{[}str, str\mbox{]} \mbox{\hyperlink{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_aba4dfa91ab3b12c7bb7bc2b75820c1a0_aba4dfa91ab3b12c7bb7bc2b75820c1a0}{package\+\_\+dir}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a91f756077f4306d3a5fbccb94696efb8}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a91f756077f4306d3a5fbccb94696efb8} 
+Mapping\mbox{[}str, str\mbox{]} {\bfseries \+\_\+get\+\_\+package\+\_\+dir} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a53c9ffbfb4352396b86690f4dd8011e1}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a53c9ffbfb4352396b86690f4dd8011e1} 
+{\bfseries \+\_\+dist} = distribution
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a71b3550fca495d5e1ebaf4c37504afa2}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a71b3550fca495d5e1ebaf4c37504afa2} 
+bool {\bfseries \+\_\+called} = False
+\item 
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a0c3fc380d8a16ab29d99416d4953b374}\label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a0c3fc380d8a16ab29d99416d4953b374} 
+{\bfseries \+\_\+get\+\_\+package\+\_\+dir}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Some expand functions require all the packages to already be discovered before
+they run, e.g. :func:`read_attr`, :func:`resolve_class`, :func:`cmdclass`.
+
+Therefore in some cases we will need to run autodiscovery during the evaluation of
+the configuration. However, it is better to postpone calling package discovery as
+much as possible, because some parameters can influence it (e.g. ``package_dir``),
+and those might not have been processed yet.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a30e994a9df1fa4b8db0a1c9c10008b3b_a30e994a9df1fa4b8db0a1c9c10008b3b}\index{setuptools.config.expand.EnsurePackagesDiscovered@{setuptools.config.expand.EnsurePackagesDiscovered}!\_\_call\_\_@{\_\_call\_\_}}
+\index{\_\_call\_\_@{\_\_call\_\_}!setuptools.config.expand.EnsurePackagesDiscovered@{setuptools.config.expand.EnsurePackagesDiscovered}}
+\doxysubsubsection{\texorpdfstring{\_\_call\_\_()}{\_\_call\_\_()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_a30e994a9df1fa4b8db0a1c9c10008b3b_a30e994a9df1fa4b8db0a1c9c10008b3b} 
+setuptools.\+config.\+expand.\+Ensure\+Packages\+Discovered.\+\_\+\+\_\+call\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Trigger the automatic package discovery, if it is still necessary.\end{DoxyVerb}
+ \Hypertarget{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_aba4dfa91ab3b12c7bb7bc2b75820c1a0_aba4dfa91ab3b12c7bb7bc2b75820c1a0}\index{setuptools.config.expand.EnsurePackagesDiscovered@{setuptools.config.expand.EnsurePackagesDiscovered}!package\_dir@{package\_dir}}
+\index{package\_dir@{package\_dir}!setuptools.config.expand.EnsurePackagesDiscovered@{setuptools.config.expand.EnsurePackagesDiscovered}}
+\doxysubsubsection{\texorpdfstring{package\_dir()}{package\_dir()}}
+{\footnotesize\ttfamily \label{classsetuptools_1_1config_1_1expand_1_1_ensure_packages_discovered_aba4dfa91ab3b12c7bb7bc2b75820c1a0_aba4dfa91ab3b12c7bb7bc2b75820c1a0} 
+ Mapping\mbox{[}str, str\mbox{]} setuptools.\+config.\+expand.\+Ensure\+Packages\+Discovered.\+package\+\_\+dir (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Proxy to ``package_dir`` that may trigger auto-discovery when used.\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/setuptools/config/expand.\+py\end{DoxyCompactItemize}

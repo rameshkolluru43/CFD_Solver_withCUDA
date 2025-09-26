@@ -1,0 +1,172 @@
+\doxysection{qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate Class Reference}
+\hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate}{}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate}\index{qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}}
+Inheritance diagram for qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.054507cm]{de/d9b/classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a5ef300730a840573c993cbf16fe34ea8_a5ef300730a840573c993cbf16fe34ea8}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, label=None, \texorpdfstring{$\ast$}{*}, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a94d2128122f48dc04b1ead21adbd6a5e_a94d2128122f48dc04b1ead21adbd6a5e}{duration}}=None, \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_aebf144e18d21333520710612ac4131dd_aebf144e18d21333520710612ac4131dd}{unit}}="{}dt"{})
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a812554b81c7e923ab3a852312647e3fe_a812554b81c7e923ab3a852312647e3fe}{inverse}} (self, bool annotated=False)
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_acee5b1a20213223ae496d3b56515dd6a_acee5b1a20213223ae496d3b56515dd6a}{\+\_\+\+\_\+eq\+\_\+\+\_\+}} (self, other)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_aca5f9822adbf49832a07828918ab1056}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_aca5f9822adbf49832a07828918ab1056} 
+{\bfseries definition} = qc
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a35fe54db8562d30898f43a62428dcb9c_a35fe54db8562d30898f43a62428dcb9c}{\+\_\+define}} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_aa8f27eecef7f03512b1e8ac29a398b01}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_aa8f27eecef7f03512b1e8ac29a398b01} 
+{\bfseries \+\_\+standard\+\_\+gate} = Standard\+Gate.\+ECRGate
+\item 
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a2653980b400c22ffafedfc6f5ed04328}\label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a2653980b400c22ffafedfc6f5ed04328} 
+{\bfseries \+\_\+singleton\+\_\+lookup\+\_\+key} = stdlib\+\_\+singleton\+\_\+key()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}An echoed cross-resonance gate.
+
+This gate is maximally entangling and is equivalent to a CNOT up to
+single-qubit pre-rotations. The echoing procedure mitigates some
+unwanted terms (terms other than ZX) to cancel in an experiment.
+More specifically, this gate implements :math:`\frac{1}{\sqrt{2}}(IX-XY)`.
+
+Can be applied to a :class:`~qiskit.circuit.QuantumCircuit`
+with the :meth:`~qiskit.circuit.QuantumCircuit.ecr` method.
+
+**Circuit Symbol:**
+
+.. code-block:: text
+
+         ┌─────────┐            ┌────────────┐┌────────┐┌─────────────┐
+    q_0: ┤0        ├       q_0: ┤0           ├┤ RX(pi) ├┤0            ├
+         │   ECR   │   =        │  RZX(pi/4) │└────────┘│  RZX(-pi/4) │
+    q_1: ┤1        ├       q_1: ┤1           ├──────────┤1            ├
+         └─────────┘            └────────────┘          └─────────────┘
+
+**Matrix Representation:**
+
+.. math::
+
+    ECR\ q_0, q_1 = \frac{1}{\sqrt{2}}
+        \begin{pmatrix}
+            0   & 1   &  0  & i \\
+            1   & 0   &  -i & 0 \\
+            0   & i   &  0  & 1 \\
+            -i  & 0   &  1  & 0
+        \end{pmatrix}
+
+.. note::
+
+    In Qiskit's convention, higher qubit indices are more significant
+    (little endian convention). In the above example we apply the gate
+    on (q_0, q_1) which results in the :math:`X \otimes Z` tensor order.
+    Instead, if we apply it on (q_1, q_0), the matrix will
+    be :math:`Z \otimes X`:
+
+    .. code-block:: text
+
+             ┌─────────┐
+        q_0: ┤1        ├
+             │   ECR   │
+        q_1: ┤0        ├
+             └─────────┘
+
+    .. math::
+
+        ECR\ q_0, q_1 = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                0   & 0   &  1  & i \\
+                0   & 0   &  i  & 1 \\
+                1   & -i  &  0  & 0 \\
+                -i  & 1   &  0  & 0
+            \end{pmatrix}
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a5ef300730a840573c993cbf16fe34ea8_a5ef300730a840573c993cbf16fe34ea8}\index{qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a5ef300730a840573c993cbf16fe34ea8_a5ef300730a840573c993cbf16fe34ea8} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{label}{ = {\ttfamily None}, }\item[{\texorpdfstring{$\ast$}{*}}]{}{, }\item[{}]{duration}{ = {\ttfamily None}, }\item[{}]{unit}{ = {\ttfamily "{}dt"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Create new ECR gate.\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1gate_1_1_gate_a885e7ca13fb2d060cf29c5c96bb07f2b_a885e7ca13fb2d060cf29c5c96bb07f2b}{qiskit.\+circuit.\+gate.\+Gate}}.
+
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_acee5b1a20213223ae496d3b56515dd6a_acee5b1a20213223ae496d3b56515dd6a}\index{qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}!\_\_eq\_\_@{\_\_eq\_\_}}
+\index{\_\_eq\_\_@{\_\_eq\_\_}!qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}}
+\doxysubsubsection{\texorpdfstring{\_\_eq\_\_()}{\_\_eq\_\_()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_acee5b1a20213223ae496d3b56515dd6a_acee5b1a20213223ae496d3b56515dd6a} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate.\+\_\+\+\_\+eq\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{other}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Two instructions are the same if they have the same name,
+same dimensions, and same params.
+
+Args:
+    other (instruction): other instruction
+
+Returns:
+    bool: are self and other equal.
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a0e112e0ef484f91290da81e9657be8bb_a0e112e0ef484f91290da81e9657be8bb}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a35fe54db8562d30898f43a62428dcb9c_a35fe54db8562d30898f43a62428dcb9c}\index{qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}!\_define@{\_define}}
+\index{\_define@{\_define}!qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}}
+\doxysubsubsection{\texorpdfstring{\_define()}{\_define()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a35fe54db8562d30898f43a62428dcb9c_a35fe54db8562d30898f43a62428dcb9c} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate.\+\_\+define (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+\begin{DoxyVerb}gate ecr a, b { rzx(pi/4) a, b; x a; rzx(-pi/4) a, b;}
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_ac8cb00a08c64a5a3470cc9b66f7f13d5_ac8cb00a08c64a5a3470cc9b66f7f13d5}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+\Hypertarget{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a812554b81c7e923ab3a852312647e3fe_a812554b81c7e923ab3a852312647e3fe}\index{qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}!inverse@{inverse}}
+\index{inverse@{inverse}!qiskit.circuit.library.standard\_gates.ecr.ECRGate@{qiskit.circuit.library.standard\_gates.ecr.ECRGate}}
+\doxysubsubsection{\texorpdfstring{inverse()}{inverse()}}
+{\footnotesize\ttfamily \label{classqiskit_1_1circuit_1_1library_1_1standard__gates_1_1ecr_1_1_e_c_r_gate_a812554b81c7e923ab3a852312647e3fe_a812554b81c7e923ab3a852312647e3fe} 
+qiskit.\+circuit.\+library.\+standard\+\_\+gates.\+ecr.\+ECRGate.\+inverse (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{bool }]{annotated}{ = {\ttfamily False}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Return inverse ECR gate (itself).
+
+Args:
+    annotated: when set to ``True``, this is typically used to return an
+        :class:`.AnnotatedOperation` with an inverse modifier set instead of a concrete
+        :class:`.Gate`. However, for this class this argument is ignored as this gate
+        is self-inverse.
+
+Returns:
+    ECRGate: inverse gate (self-inverse).
+\end{DoxyVerb}
+ 
+
+Reimplemented from \mbox{\hyperlink{classqiskit_1_1circuit_1_1instruction_1_1_instruction_a55c4e876284d6660c2dd0deb0d2f7074_a55c4e876284d6660c2dd0deb0d2f7074}{qiskit.\+circuit.\+instruction.\+Instruction}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Python\+\_\+\+Wrapper/\+My\+Python\+Env311/lib/python3.\+11/site-\/packages/qiskit/circuit/library/standard\+\_\+gates/ecr.\+py\end{DoxyCompactItemize}

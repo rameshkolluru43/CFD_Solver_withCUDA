@@ -1,0 +1,73 @@
+\doxysection{qiskit.\+synthesis.\+arithmetic.\+adders.\+vbe\+\_\+ripple\+\_\+carry\+\_\+adder Namespace Reference}
+\hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder}{}\label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder}\index{qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder@{qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} \mbox{\hyperlink{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_a6a73bf5356b2e15147762a4b3e170041}{adder\+\_\+ripple\+\_\+v95}} (int num\+\_\+state\+\_\+qubits, str kind="{}half"{})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}Compute the sum of two qubit registers using Classical Addition.\end{DoxyVerb}
+ 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_a6a73bf5356b2e15147762a4b3e170041}\index{qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder@{qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder}!adder\_ripple\_v95@{adder\_ripple\_v95}}
+\index{adder\_ripple\_v95@{adder\_ripple\_v95}!qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder@{qiskit.synthesis.arithmetic.adders.vbe\_ripple\_carry\_adder}}
+\doxysubsubsection{\texorpdfstring{adder\_ripple\_v95()}{adder\_ripple\_v95()}}
+{\footnotesize\ttfamily \label{namespaceqiskit_1_1synthesis_1_1arithmetic_1_1adders_1_1vbe__ripple__carry__adder_a6a73bf5356b2e15147762a4b3e170041} 
+ \mbox{\hyperlink{classqiskit_1_1circuit_1_1quantumcircuit_1_1_quantum_circuit}{Quantum\+Circuit}} qiskit.\+synthesis.\+arithmetic.\+adders.\+vbe\+\_\+ripple\+\_\+carry\+\_\+adder.\+adder\+\_\+ripple\+\_\+v95 (\begin{DoxyParamCaption}\item[{int}]{num\+\_\+state\+\_\+qubits}{, }\item[{str }]{kind}{ = {\ttfamily "{}half"{}}}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}The VBE ripple carry adder [1].
+
+    This method uses :math:`4n + O(1)` CCX gates and :math:`4n + 1` CX gates at a depth
+    of :math:`6n - 2` [2].
+
+    This circuit performs inplace addition of two equally-sized quantum registers.
+    As an example, a classical adder circuit that performs full addition (i.e. including
+    a carry-in bit) on two 2-qubit sized registers is as follows:
+
+    .. parsed-literal::
+
+                  ┌────────┐                       ┌───────────┐┌──────┐
+           cin_0: ┤0       ├───────────────────────┤0          ├┤0     ├
+                  │        │                       │           ││      │
+             a_0: ┤1       ├───────────────────────┤1          ├┤1     ├
+                  │        │┌────────┐     ┌──────┐│           ││  Sum │
+             a_1: ┤        ├┤1       ├──■──┤1     ├┤           ├┤      ├
+                  │        ││        │  │  │      ││           ││      │
+             b_0: ┤2 Carry ├┤        ├──┼──┤      ├┤2 Carry_dg ├┤2     ├
+                  │        ││        │┌─┴─┐│      ││           │└──────┘
+             b_1: ┤        ├┤2 Carry ├┤ X ├┤2 Sum ├┤           ├────────
+                  │        ││        │└───┘│      ││           │
+          cout_0: ┤        ├┤3       ├─────┤      ├┤           ├────────
+                  │        ││        │     │      ││           │
+        helper_0: ┤3       ├┤0       ├─────┤0     ├┤3          ├────────
+                  └────────┘└────────┘     └──────┘└───────────┘
+
+
+    Here *Carry* and *Sum* gates correspond to the gates introduced in [1].
+    *Carry_dg* correspond to the inverse of the *Carry* gate. Note that
+    in this implementation the input register qubits are ordered as all qubits from
+    the first input register, followed by all qubits from the second input register.
+    This is different ordering as compared to Figure 2 in [1], which leads to a different
+    drawing of the circuit.
+
+    Args:
+        num_state_qubits: The size of the register.
+        kind: The kind of adder, can be ``"full"`` for a full adder, ``"half"`` for a half
+            adder, or ``"fixed"`` for a fixed-sized adder. A full adder includes both carry-in
+            and carry-out, a half only carry-out, and a fixed-sized adder neither carry-in
+            nor carry-out.
+
+    Raises:
+        ValueError: If ``num_state_qubits`` is lower than 1.
+
+    **References:**
+
+    [1] Vedral et al., Quantum Networks for Elementary Arithmetic Operations, 1995.
+    `arXiv:quant-ph/9511018 <https://arxiv.org/pdf/quant-ph/9511018.pdf>`_
+
+    [2] Cuccaro et al., A new quantum ripple-carry addition circuit, 2004.
+    `arXiv:quant-ph/0410184 <https://arxiv.org/pdf/quant-ph/0410184.pdf>`_\end{DoxyVerb}
+ 

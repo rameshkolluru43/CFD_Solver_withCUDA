@@ -1,0 +1,110 @@
+\doxysection{Roe\+\_\+\+Scheme.\+cpp}
+\hypertarget{_roe___scheme_8cpp_source}{}\label{_roe___scheme_8cpp_source}\index{Flux\_Types/Roe\_Scheme.cpp@{Flux\_Types/Roe\_Scheme.cpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}../Basic\_Files/definitions.h"{}}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keywordtype}{void}\ ROE(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ cout<<Cell\_No<<"{}\(\backslash\)t"{}<<N\_Cell\_No<<"{}\(\backslash\)t"{}<<Face\_No<<endl;}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ Variables\ required\ for\ Calculating\ Roe\ Averages}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ \ Variables\ for\ Eigenvalues}}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ Lambda1=0.0,Lambda2=0.0,Lambda3=0.0,Lambda4=0.0,Term1=0.0,Term2=0.0;}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ R11=0.0,R12=0.0,R13=0.0,R14=0.0,R21=0.0,R22=0.0,R23=0.0,R24=0.0,R31=0.0,R32=0.0,R33=0.0,R34=0.0,R41=0.0,R42=0.0,R43=0.0,R44=0.0,sqrt\_Rho\_L=0.0,sqrt\_Rho\_R=0.0;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{comment}{//\ \ Variables\ for\ Roe\ Averages}}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ Roe\_u=0.0,Roe\_v=0.0,Roe\_Rho=0.0,Roe\_H=0.0,Roe\_Vmag=0.0,Un=0.0,Ut=0.0,Roe\_a=0.0;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ }
+\DoxyCodeLine{00014\ \ \ \ \ \ \ Rho\_L=0.0,Rho\_R=0.0,u\_L=0.0,u\_R=0.0,v\_L=0.0,v\_R=0.0,P\_L=0.0,P\_R=0.0,H\_L=0.0,H\_R=0.0,Vmag\_L=0.0,Vmag\_R=0.0;}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ max\_eigen\_value\ =0.0,nx=0.0,ny=0.0,Vdotn\_L=0.0,Vdotn\_R=0.0,dl=0.0,C\_L=0.0,C\_R=0.0,mev\_L=0.0,mev\_R=0.0;}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ alpha\_1=0.0,alpha\_2=0.0,alpha\_3=0.0,alpha\_4=0.0,du=0.0,dv=0.0,dP=0.0,dRho=0.0,dUn=0.0,dUt=0.0;}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ }
+\DoxyCodeLine{00019\ \ \ \ \ \ \ }
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \ \ \ \ \ Initializing\ the\ Cell\ dissipation\ to\ be\ zero\ to\ avoid\ any\ type\ of\ over\ writing}}
+\DoxyCodeLine{00021\ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.0;}
+\DoxyCodeLine{00022\ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.0;}
+\DoxyCodeLine{00023\ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.0;}
+\DoxyCodeLine{00024\ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.0;\ \ \ \ \ \ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ Face\ Normals\ \ \ \ \ }}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ nx\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+0];}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ ny\ =\ Cell\_Face\_Normals[Cell\_No][Face\_No*2+1];}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ dl\ =\ Cell\_Face\_Areas[Cell\_No][Face\_No];}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ \ Right\ state\ Variables\ }}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ Rho\_R\ =\ Primitive\_Cells[N\_Cell\_No][0];}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ u\_R\ =\ Primitive\_Cells[N\_Cell\_No][1];}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ v\_R\ =\ Primitive\_Cells[N\_Cell\_No][2];}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ P\_R\ =\ Primitive\_Cells[N\_Cell\_No][4];}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ C\_R\ =\ Primitive\_Cells[N\_Cell\_No][5];}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ Vmag\_R\ =\ 0.5*(u\_R*u\_R\ +\ v\_R*v\_R);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ H\_R\ =\ ((C\_R*C\_R)/(gamma\ -\/\ 1.0))\ +\ Vmag\_R;}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ \ Left\ State\ Variables}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ Rho\_L\ =\ Primitive\_Cells[Cell\_No][0];}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ u\_L\ =\ Primitive\_Cells[Cell\_No][1];}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ v\_L\ =\ Primitive\_Cells[Cell\_No][2];}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ P\_L\ =\ Primitive\_Cells[Cell\_No][4];}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ Vmag\_L\ =\ 0.5*(u\_L*u\_L\ +\ v\_L*v\_L);}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ H\_L\ =\ ((C\_L*C\_L)/(gamma\ -\/\ 1.0))\ +\ Vmag\_L;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ sqrt\_Rho\_R\ =sqrt(Rho\_R);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ sqrt\_Rho\_L\ =sqrt(Rho\_L);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ Term1\ =\ 1.0/(sqrt\_Rho\_L\ +\ sqrt\_Rho\_R);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ \ \ \ \ \ Evaluating\ the\ Roe\ averages\ }}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ Roe\_Rho\ =\ sqrt(Rho\_L*Rho\_R);}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ Roe\_u\ =\ Term1\ *(u\_R*sqrt\_Rho\_R\ +\ u\_L*sqrt\_Rho\_L);}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ Roe\_v\ =\ Term1\ *(v\_R*sqrt\_Rho\_R\ +\ v\_L*sqrt\_Rho\_L);}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ Roe\_H\ =\ Term1\ *(H\_R*sqrt\_Rho\_R\ +\ H\_L*sqrt\_Rho\_L);}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ Roe\_Vmag\ =\ 0.5*(Roe\_u*Roe\_u\ +\ Roe\_v*Roe\_v);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ Un\ =\ nx*Roe\_u\ +\ ny*Roe\_v;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ Ut\ =\ -\/ny*Roe\_u\ +\ nx*Roe\_v;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ Roe\_a\ =\ sqrt((gamma\ -\/\ 1.0)*(Roe\_H\ -\/\ Roe\_Vmag));}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ du\ =\ (u\_R\ -\/\ u\_L);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dv\ =\ (v\_R\ -\/\ v\_L);}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dP\ =\ (P\_R\ -\/\ P\_L);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dRho\ =\ (Rho\_R\ -\/\ Rho\_L);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ dUn\ =\ nx*du\ +\ ny*dv;}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ dUt\ =\ -\/ny*du\ +\ nx*dv;}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \textcolor{comment}{//\ \ Eigen\ Vector\ Evaluation\ }}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ R11\ =\ 1.0;\ R12\ =\ Roe\_u\ -\/\ nx*Roe\_a;\ R13\ =\ Roe\_v\ -\/\ ny*Roe\_a;\ R14=\ Roe\_H\ -\/\ Roe\_a*Un;\ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u\ -\/a}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ R21\ =\ 1.0;\ R22\ =\ Roe\_u\ ;\ R23\ =\ Roe\_v\ ;\ R24=\ Roe\_Vmag;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u}}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ R31\ =\ 0.0;\ R32\ =\ -\/ny;\ R33\ =\ nx;\ R34\ =\ Ut;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ R41\ =\ 1.0;\ R42\ =\ Roe\_u\ +\ nx*Roe\_a;\ R43\ =\ Roe\_v\ +\ ny*Roe\_a;\ R44=\ Roe\_H\ +\ Roe\_a*Un;\ \ \textcolor{comment}{//\ Eigen\ Vector\ corresponding\ to\ u\ +\ a}}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//\ \ Evaluating\ Wave\ Strengths\ \ \ \ \ \ \ \ }}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ Term2\ =\ 1.0/(Roe\_a*Roe\_a);}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ alpha\_1\ =\ 0.5*Term2*(dP\ -\/\ Roe\_Rho*Roe\_a*dUn);}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ alpha\_2\ =\ dRho\ -\/\ Term2*dP;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ alpha\_3\ =\ Roe\_Rho*dUt;}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ alpha\_4\ =\ 0.5*Term2*(dP\ +\ Roe\_Rho*Roe\_a*dUn);}
+\DoxyCodeLine{00090\ \textcolor{comment}{//\ \ Evaluating\ Eigen\ Values\ }}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ Lambda1\ =\ fabs(Un\ -\/\ Roe\_a);}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ Lambda2\ =\ fabs(Un);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ Lambda3\ =\ fabs(Un);}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ Lambda4\ =\ fabs(Un\ +\ Roe\_a);\ \ \ \ }
+\DoxyCodeLine{00095\ \textcolor{comment}{//\ \ \ \ \ \ Evaluating\ the\ Eigen\ Values\ }}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ Dissipative\_Flux[0]\ =\ 0.5*(Lambda1*alpha\_1*R11\ +\ Lambda2*alpha\_2*R21\ +Lambda3*alpha\_3*R31\ +\ Lambda4*alpha\_4*R41)*dl;}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ Dissipative\_Flux[1]\ =\ 0.5*(Lambda1*alpha\_1*R12\ +\ Lambda2*alpha\_2*R22\ +Lambda3*alpha\_3*R32\ +\ Lambda4*alpha\_4*R42)*dl;}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ Dissipative\_Flux[2]\ =\ 0.5*(Lambda1*alpha\_1*R13\ +\ Lambda2*alpha\_2*R23\ +Lambda3*alpha\_3*R33\ +\ Lambda4*alpha\_4*R43)*dl;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ Dissipative\_Flux[3]\ =\ 0.5*(Lambda1*alpha\_1*R14\ +\ Lambda2*alpha\_2*R24\ +Lambda3*alpha\_3*R34\ +\ Lambda4*alpha\_4*R44)*dl;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \}}
+\DoxyCodeLine{00102\ \textcolor{keywordtype}{void}\ ROE\_2O(\textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Cell\_No,\textcolor{keywordtype}{int}\ \&\ N\_Cell\_No,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ \&\ Face\_No)}
+\DoxyCodeLine{00103\ \{}
+\DoxyCodeLine{00104\ \}}
+
+\end{DoxyCode}

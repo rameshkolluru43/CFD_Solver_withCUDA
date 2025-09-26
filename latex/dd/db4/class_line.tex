@@ -1,0 +1,478 @@
+\doxysection{Line Class Reference}
+\hypertarget{class_line}{}\label{class_line}\index{Line@{Line}}
+
+
+{\ttfamily \#include $<$Geometry\+\_\+\+Header.\+h$>$}
+
+
+
+Inheritance diagram for Line\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{d8/d0a/class_line__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Line\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=124pt]{da/d45/class_line__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_line_acc11b8a429d8cdd63ba6803dff5602b3_acc11b8a429d8cdd63ba6803dff5602b3}{Line}} ()
+\item 
+void \mbox{\hyperlink{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}{generate}} (\mbox{\hyperlink{class_point}{Point}} \&, \mbox{\hyperlink{class_point}{Point}} \&, int \&)
+\item 
+void \mbox{\hyperlink{class_line_a4a897127139cddef19d6a8ef4edc0c94_a4a897127139cddef19d6a8ef4edc0c94}{generate}} (\mbox{\hyperlink{class_point}{Point}} \&, \mbox{\hyperlink{class_point}{Point}} \&, int \&, bool \&)
+\item 
+void \mbox{\hyperlink{class_line_a633777c10334434af21f2e2cef9c2353_a633777c10334434af21f2e2cef9c2353}{Merge}} (\mbox{\hyperlink{class_line}{Line}} \&)
+\item 
+void \mbox{\hyperlink{class_line_ab2ac2e7634288b7e0d65d61796ef7e9a_ab2ac2e7634288b7e0d65d61796ef7e9a}{Merge}} (vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&)
+\item 
+void \mbox{\hyperlink{class_line_a6d2d9575fbe7f3e98e236d0778e7ab01_a6d2d9575fbe7f3e98e236d0778e7ab01}{write\+\_\+output}} ()
+\item 
+const \mbox{\hyperlink{class_point}{Point}} \& \mbox{\hyperlink{class_line_ab0f5f50b2b81a1b73f00497ff8c25a3d_ab0f5f50b2b81a1b73f00497ff8c25a3d}{get\+\_\+\+Point}} (int) const
+\item 
+const vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \& \mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\+\_\+\+Point\+\_\+list}} () const
+\item 
+void \mbox{\hyperlink{class_line_a5f815a42d6d889d86a2446b9c986c3ef_a5f815a42d6d889d86a2446b9c986c3ef}{Print}} ()
+\item 
+double \mbox{\hyperlink{class_line_a2b160f25dc962517990b81b7ab60da3d_a2b160f25dc962517990b81b7ab60da3d}{Size}} ()
+\item 
+void \mbox{\hyperlink{class_line_a5db4120e1154cb3e3146c214548d703e_a5db4120e1154cb3e3146c214548d703e}{Reverse\+\_\+\+Points}} ()
+\item 
+virtual void \mbox{\hyperlink{class_line_a3478cb36125adf23dbd5f69cfaf205a4_a3478cb36125adf23dbd5f69cfaf205a4}{generate}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line \mbox{\hyperlink{_geometry___header_8h_source_l00018}{18}} of file \mbox{\hyperlink{_geometry___header_8h_source}{Geometry\+\_\+\+Header.\+h}}.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_line_acc11b8a429d8cdd63ba6803dff5602b3_acc11b8a429d8cdd63ba6803dff5602b3}\index{Line@{Line}!Line@{Line}}
+\index{Line@{Line}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Line()}{Line()}}
+{\footnotesize\ttfamily \label{class_line_acc11b8a429d8cdd63ba6803dff5602b3_acc11b8a429d8cdd63ba6803dff5602b3} 
+Line\+::\+Line (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00003}{3}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00004\ \{}
+\DoxyCodeLine{00005\ \ \ \ \ \ \ \ \ Start\_Point(0.0,0.0,0.0);}
+\DoxyCodeLine{00006\ \ \ \ \ \ \ \ \ End\_Point(0.0,0.0,0.0);}
+\DoxyCodeLine{00007\ \ \ \ \ \ \ \ \ ds\_x=0.0;}
+\DoxyCodeLine{00008\ \ \ \ \ \ \ \ \ ds\_y=0.0;}
+\DoxyCodeLine{00009\ \ \ \ \ \ \ \ \ ds\_z=0.0;}
+\DoxyCodeLine{00010\ \ \ \ \ \ \ \ \ Length\ =\ 0.0;}
+\DoxyCodeLine{00011\ \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_line_a3478cb36125adf23dbd5f69cfaf205a4_a3478cb36125adf23dbd5f69cfaf205a4}\index{Line@{Line}!generate@{generate}}
+\index{generate@{generate}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{class_line_a3478cb36125adf23dbd5f69cfaf205a4_a3478cb36125adf23dbd5f69cfaf205a4} 
+virtual void Shape\+::generate (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_shape_a3478cb36125adf23dbd5f69cfaf205a4_a3478cb36125adf23dbd5f69cfaf205a4}{Shape}}.
+
+
+
+Definition at line \mbox{\hyperlink{_geometry___header_8h_source_l00011}{11}} of file \mbox{\hyperlink{_geometry___header_8h_source}{Geometry\+\_\+\+Header.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00011\ \{\};}
+
+\end{DoxyCode}
+\Hypertarget{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee}\index{Line@{Line}!generate@{generate}}
+\index{generate@{generate}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee} 
+void Line\+::generate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{sp}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{ep}{, }\item[{int \&}]{n}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00018}{18}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ Temp\_point;}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \ \ no\_of\_points\ =\ n;}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ sp.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ ep.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ ds\_x=(ep.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()-\/sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}());}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ ds\_y=(ep.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()-\/sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}());}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ ds\_z=(ep.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()-\/sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}());}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ Length\ =\ sqrt(ds\_x*ds\_x\ +\ ds\_y*ds\_y\ +\ ds\_z*ds\_z);}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ delx=(ep.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()-\/sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}())/(n-\/1);}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \ \ dely=(ep.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()-\/sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}())/(n-\/1);}
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \ \ delz=(ep.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()-\/sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}())/(n-\/1);}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=0;i<n;i++)}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+i*delx,sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+i*dely,sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+i*delz);}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(Temp\_point);}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Created\ Line\(\backslash\)t"{}}<<point\_list.size()<<endl;}
+\DoxyCodeLine{00041\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{dd/db4/class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{dd/db4/class_line_a11ee9e238e8e0d712b52ae99077355ee_a11ee9e238e8e0d712b52ae99077355ee_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_a4a897127139cddef19d6a8ef4edc0c94_a4a897127139cddef19d6a8ef4edc0c94}\index{Line@{Line}!generate@{generate}}
+\index{generate@{generate}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{class_line_a4a897127139cddef19d6a8ef4edc0c94_a4a897127139cddef19d6a8ef4edc0c94} 
+void Line\+::generate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{sp}{, }\item[{\mbox{\hyperlink{class_point}{Point}} \&}]{ep}{, }\item[{int \&}]{n}{, }\item[{bool \&}]{both\+\_\+sides}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00043}{43}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00044\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ beta=0.0,alpha=0.0,a=0.0,\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}=0.0,\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}=0.0,eta=0.0;}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ Temp\_point;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ no\_of\_points\ =\ n;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Starting\ Point\(\backslash\)t"{}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ sp.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Ending\ Point\(\backslash\)t"{}};}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ ep.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ ds\_x=(ep.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()-\/sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}());}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ ds\_y=(ep.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()-\/sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}());}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ ds\_z=(ep.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()-\/sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}());}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ Length\ =\ sqrt(ds\_x*ds\_x\ +\ ds\_y*ds\_y\ +\ ds\_z*ds\_z);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Length\ of\ the\ line\(\backslash\)t"{}}<<Length<<endl;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ delx=(ep.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()-\/sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}())/(n-\/1);}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ dely=(ep.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()-\/sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}())/(n-\/1);}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ delz=(ep.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()-\/sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}())/(n-\/1);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ del\_s=\ Length/(n-\/1);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ j=0;j<n;j++)}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ both\_sides\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(both\_sides)}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ beta\ =\ 1.01;}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha\ =\ 0.5;}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eta\ =\ j*del\_s/Length;}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ (eta\ -\/\ alpha)/(1.0\ -\/\ alpha);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ =\ (beta\ +\ 1.0)/(beta\ -\/\ 1.0);}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ =\ Length*((((2*alpha\ +\ beta)*pow(\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},a))\ +\ 2*alpha\ -\/\ beta)/((2*alpha\ +\ 1.0)*(pow(\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},a)+1.0)));}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ beta\ =\ 1.01;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ alpha\ =\ 0.01;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ eta\ =\ j*del\_s/Length;}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ a\ =\ (1.0-\/eta);}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}}\ =\ (beta\ +\ 1.0)/(beta\ -\/\ 1.0);}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ =\ Length*((beta\ +\ 1.0)\ -\/\ (beta\ -\/\ 1.0)*pow(\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},a))/(pow(\mbox{\hyperlink{_globals_8h_a3d57524b44f888354bc4d4f56e0e3f01_a3d57524b44f888354bc4d4f56e0e3f01}{b}},a)\ +\ 1.0);}
+\DoxyCodeLine{00089\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<"{}y=\(\backslash\)t"{}<<y<<endl;}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ds\_x\ ==\ 0.0\ and\ ds\_z\ ==\ 0.0)}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+j*ds\_x,sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}}\ ,sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+j*ds\_z);}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ds\_x\ ==\ 0.0\ and\ ds\_y\ ==\ 0.0)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+j*ds\_x,sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+j*ds\_y,sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}});}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ds\_z\ ==\ 0.0\ and\ ds\_y\ ==\ 0.0)}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+j*ds\_y\ ,sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+j*ds\_z);}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ds\_x\ !=0.0\ and\ ds\_y\ !=0.0\ and\ ds\_z\ ==0.0)}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+j*ds\_z);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ds\_x\ !=0.0\ and\ ds\_z\ !=0.0\ and\ ds\_y\ ==0.0)}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+j*ds\_y,sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}});}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(ds\_y\ !=0.0\ and\ ds\_z\ !=0.0\ and\ ds\_x\ ==0.0)}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()+j*ds\_x,sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}});}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point(sp.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()\ +\ \mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}},sp.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}()+\mbox{\hyperlink{2_d___grid___gen_8cpp_a38c7c5ba734856389c28405a41243317_a38c7c5ba734856389c28405a41243317}{y}});}
+\DoxyCodeLine{00105\ \ \ \ \ }
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Temp\_point.Print();}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(Temp\_point);}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{dd/db4/class_line_a4a897127139cddef19d6a8ef4edc0c94_a4a897127139cddef19d6a8ef4edc0c94_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_ab0f5f50b2b81a1b73f00497ff8c25a3d_ab0f5f50b2b81a1b73f00497ff8c25a3d}\index{Line@{Line}!get\_Point@{get\_Point}}
+\index{get\_Point@{get\_Point}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{get\_Point()}{get\_Point()}}
+{\footnotesize\ttfamily \label{class_line_ab0f5f50b2b81a1b73f00497ff8c25a3d_ab0f5f50b2b81a1b73f00497ff8c25a3d} 
+\mbox{\hyperlink{class_point}{Point}} Line\+::get\+\_\+\+Point (\begin{DoxyParamCaption}\item[{int}]{i}{}\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00013}{13}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ point\_list[i];}
+\DoxyCodeLine{00016\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{dd/db4/class_line_ab0f5f50b2b81a1b73f00497ff8c25a3d_ab0f5f50b2b81a1b73f00497ff8c25a3d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}\index{Line@{Line}!Get\_Point\_list@{Get\_Point\_list}}
+\index{Get\_Point\_list@{Get\_Point\_list}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Get\_Point\_list()}{Get\_Point\_list()}}
+{\footnotesize\ttfamily \label{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d} 
+vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ Line\+::\+Get\+\_\+\+Point\+\_\+list (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00180}{180}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00181\ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ point\_list;}
+\DoxyCodeLine{00183\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{dd/db4/class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_a633777c10334434af21f2e2cef9c2353_a633777c10334434af21f2e2cef9c2353}\index{Line@{Line}!Merge@{Merge}}
+\index{Merge@{Merge}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Merge()}{Merge()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{class_line_a633777c10334434af21f2e2cef9c2353_a633777c10334434af21f2e2cef9c2353} 
+void Line\+::\+Merge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_line}{Line}} \&}]{Line1}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00120}{120}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00121\ \{}
+\DoxyCodeLine{00122\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Merging\ Two\ lInes\(\backslash\)n"{}};}
+\DoxyCodeLine{00123\ \ \ \ \ vector<Point>\ Temp\_Point\_List;}
+\DoxyCodeLine{00124\ \ \ \ \ Temp\_Point\_List\ =\ Line1.\mbox{\hyperlink{class_line_a11d1062afe4e7ccc91002d5a2b9b8b7d_a11d1062afe4e7ccc91002d5a2b9b8b7d}{Get\_Point\_list}}();}
+\DoxyCodeLine{00125\ \ \ \ \ cout<<point\_list.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<Temp\_Point\_List.size()<<endl;}
+\DoxyCodeLine{00126\ \textcolor{comment}{//\ \ \ \ \ \ point\_list[no\_of\_points-\/1].Print();}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//\ \ \ \ \ \ Temp\_Point\_List[0].Print();}}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{if}(point\_list[no\_of\_points-\/1]==Temp\_Point\_List[0])}
+\DoxyCodeLine{00129\ \ \ \ \ \{}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=1;i<Temp\_Point\_List.size();i++)}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(Temp\_Point\_List[i]);}
+\DoxyCodeLine{00132\ \ \ \ \ \}}
+\DoxyCodeLine{00133\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00134\ \ \ \ \ \{}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<Temp\_Point\_List.size();i++)}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(Temp\_Point\_List[i]);}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=285pt]{dd/db4/class_line_a633777c10334434af21f2e2cef9c2353_a633777c10334434af21f2e2cef9c2353_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_ab2ac2e7634288b7e0d65d61796ef7e9a_ab2ac2e7634288b7e0d65d61796ef7e9a}\index{Line@{Line}!Merge@{Merge}}
+\index{Merge@{Merge}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Merge()}{Merge()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{class_line_ab2ac2e7634288b7e0d65d61796ef7e9a_ab2ac2e7634288b7e0d65d61796ef7e9a} 
+void Line\+::\+Merge (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{class_point}{Point}} $>$ \&}]{List1}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00140}{140}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00141\ \{}
+\DoxyCodeLine{00142\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}Merging\ List\ of\ Points\ to\ current\ Line\(\backslash\)n"{}};}
+\DoxyCodeLine{00143\ \ \ \ \ cout<<point\_list.size()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<List1.size()<<endl;}
+\DoxyCodeLine{00144\ \textcolor{comment}{//\ \ \ \ \ \ point\_list[no\_of\_points-\/1].Print();}}
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ \ \ \ \ \ Temp\_Point\_List[0].Print();}}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}(point\_list[no\_of\_points-\/1]==List1[0])}
+\DoxyCodeLine{00147\ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=1;i<List1.size();i++)}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(List1[i]);}
+\DoxyCodeLine{00150\ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00152\ \ \ \ \ \{}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<List1.size();i++)}
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \ \ \ \ \ \ point\_list.push\_back(List1[i]);}
+\DoxyCodeLine{00155\ \ \ \ \ \}}
+\DoxyCodeLine{00156\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_line_a5f815a42d6d889d86a2446b9c986c3ef_a5f815a42d6d889d86a2446b9c986c3ef}\index{Line@{Line}!Print@{Print}}
+\index{Print@{Print}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Print()}{Print()}}
+{\footnotesize\ttfamily \label{class_line_a5f815a42d6d889d86a2446b9c986c3ef_a5f815a42d6d889d86a2446b9c986c3ef} 
+void Line\+::\+Print (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00185}{185}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00186\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<point\_list.size();i++)}
+\DoxyCodeLine{00188\ \ \ \ \ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ point\_list[i].Print();}
+\DoxyCodeLine{00190\ \ \ \ \ \}}
+\DoxyCodeLine{00191\ \ \ \ \ cout<<\textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/\(\backslash\)n"{}};}
+\DoxyCodeLine{00192\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=213pt]{dd/db4/class_line_a5f815a42d6d889d86a2446b9c986c3ef_a5f815a42d6d889d86a2446b9c986c3ef_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{class_line_a5db4120e1154cb3e3146c214548d703e_a5db4120e1154cb3e3146c214548d703e}\index{Line@{Line}!Reverse\_Points@{Reverse\_Points}}
+\index{Reverse\_Points@{Reverse\_Points}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Reverse\_Points()}{Reverse\_Points()}}
+{\footnotesize\ttfamily \label{class_line_a5db4120e1154cb3e3146c214548d703e_a5db4120e1154cb3e3146c214548d703e} 
+void Line\+::\+Reverse\+\_\+\+Points (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00111}{111}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordtype}{int}\ size\ =\ point\_list.size();}
+\DoxyCodeLine{00114\ \ \ \ \ vector<Point>\ Reverselist;}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i\ =\ size-\/1;i>=0;i-\/-\/)}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ Reverselist.push\_back(point\_list[i]);}
+\DoxyCodeLine{00117\ \ \ \ \ point\_list\ =\ Reverselist;}
+\DoxyCodeLine{00118\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_line_a2b160f25dc962517990b81b7ab60da3d_a2b160f25dc962517990b81b7ab60da3d}\index{Line@{Line}!Size@{Size}}
+\index{Size@{Size}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{Size()}{Size()}}
+{\footnotesize\ttfamily \label{class_line_a2b160f25dc962517990b81b7ab60da3d_a2b160f25dc962517990b81b7ab60da3d} 
+double Line\+::\+Size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00194}{194}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00195\ \{}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{return}\ point\_list.size();}
+\DoxyCodeLine{00197\ \}}
+
+\end{DoxyCode}
+\Hypertarget{class_line_a6d2d9575fbe7f3e98e236d0778e7ab01_a6d2d9575fbe7f3e98e236d0778e7ab01}\index{Line@{Line}!write\_output@{write\_output}}
+\index{write\_output@{write\_output}!Line@{Line}}
+\doxysubsubsection{\texorpdfstring{write\_output()}{write\_output()}}
+{\footnotesize\ttfamily \label{class_line_a6d2d9575fbe7f3e98e236d0778e7ab01_a6d2d9575fbe7f3e98e236d0778e7ab01} 
+void Line\+::write\+\_\+output (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{class_shape_a13e062d9e2a1d1d886861c6fd48671af_a13e062d9e2a1d1d886861c6fd48671af}{Shape}}.
+
+
+
+Definition at line \mbox{\hyperlink{_line_8cpp_source_l00158}{158}} of file \mbox{\hyperlink{_line_8cpp_source}{Line.\+cpp}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00159\ \{}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{class_point}{Point}}\ temp\_Point;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ ofstream\ myfileout(\textcolor{stringliteral}{"{}line.txt"{}},ios::app|ios::binary);\ }
+\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(myfileout.is\_open())}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00164\ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ myfileout<<"{}POINTS\ "{}<<point\_list.size()<<endl;}}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;i<point\_list.size();i++)}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\_Point=\mbox{\hyperlink{class_line_ab0f5f50b2b81a1b73f00497ff8c25a3d_ab0f5f50b2b81a1b73f00497ff8c25a3d}{get\_Point}}(i);}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\_Point.\mbox{\hyperlink{class_point_a006470547553ab6cfaacfea891970f8a_a006470547553ab6cfaacfea891970f8a}{Print}}();}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ myfileout<<temp\_Point.\mbox{\hyperlink{class_point_abbb39fe4de098ab24cd45d251656f080_abbb39fe4de098ab24cd45d251656f080}{Get\_x}}()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<temp\_Point.\mbox{\hyperlink{class_point_aa0c14d8298c960cc61ebeb5fbe33653b_aa0c14d8298c960cc61ebeb5fbe33653b}{Get\_y}}()<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<temp\_Point.\mbox{\hyperlink{class_point_ac06dbc3b4797e5c498b58c81a70c02a9_ac06dbc3b4797e5c498b58c81a70c02a9}{Get\_z}}();}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ myfileout<<\textcolor{stringliteral}{"{}\(\backslash\)t"{}}<<0.0<<endl;}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cout<<\textcolor{stringliteral}{"{}\ unble\ to\ open\ output\ file\(\backslash\)n"{}};\ }
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \ \ myfileout.close();}
+\DoxyCodeLine{00178\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=291pt]{dd/db4/class_line_a6d2d9575fbe7f3e98e236d0778e7ab01_a6d2d9575fbe7f3e98e236d0778e7ab01_cgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{_geometry___header_8h}{Geometry\+\_\+\+Header.\+h}}\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{_line_8cpp}{Line.\+cpp}}\item 
+Basic\+\_\+\+Function\+\_\+\+Files/\mbox{\hyperlink{_shape___generate_8cpp}{Shape\+\_\+\+Generate.\+cpp}}\end{DoxyCompactItemize}

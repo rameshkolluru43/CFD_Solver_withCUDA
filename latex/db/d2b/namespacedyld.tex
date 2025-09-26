@@ -1,0 +1,2172 @@
+\doxysection{dyld Namespace Reference}
+\hypertarget{namespacedyld}{}\label{namespacedyld}\index{dyld@{dyld}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structdyld_1_1_dylib_override}{Dylib\+Override}}
+\item 
+struct \mbox{\hyperlink{structdyld_1_1_environment_variables}{Environment\+Variables}}
+\item 
+class \mbox{\hyperlink{classdyld_1_1_file_opener}{File\+Opener}}
+\item 
+struct \mbox{\hyperlink{structdyld_1_1_mapped_ranges}{Mapped\+Ranges}}
+\item 
+struct \mbox{\hyperlink{structdyld_1_1_registered_d_o_f}{Registered\+DOF}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef std\+::vector$<$ dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler $>$ \mbox{\hyperlink{namespacedyld_ae10af0c61e6d78d46c602cc4555aecd2_ae10af0c61e6d78d46c602cc4555aecd2}{State\+Handlers}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f}{Restricted\+Reason}} \{ \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fad9f3d364284dbb3bd0a5501a782a0f93}{restricted\+Not}}
+, \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fa745c0611744cf14ae34ae3241922ec9d}{restricted\+By\+Set\+GUid}}
+, \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fac1c07cc5e612580f4e60b7bfb34710d1}{restricted\+By\+Segment}}
+, \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6facd8bbc4cd890cb813850a4097df5de87}{restricted\+By\+Entitlements}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{namespacedyld_a92608fad50a860da4df9e02580198b61_a92608fad50a860da4df9e02580198b61}{add\+Mapped\+Range}} (Image\+Loader \texorpdfstring{$\ast$}{*}image, uintptr\+\_\+t start, uintptr\+\_\+t end)
+\item 
+void \mbox{\hyperlink{namespacedyld_a258d010acaeafd7a53a41962ade074c7_a258d010acaeafd7a53a41962ade074c7}{removed\+Mapped\+Ranges}} (Image\+Loader \texorpdfstring{$\ast$}{*}image)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded}{find\+Mapped\+Range}} (uintptr\+\_\+t target)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a4d93ebae9e49e173cc2d842133bdf354_a4d93ebae9e49e173cc2d842133bdf354}{mkstringf}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\item 
+void \mbox{\hyperlink{namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38}{throwf}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\item 
+void \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{log}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\item 
+void \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{warn}} (const char \texorpdfstring{$\ast$}{*}format,...)
+\item 
+void \mbox{\hyperlink{namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795}{sync\+All\+Images}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_a2270ae9df42e73fab62a4111a9414dae_a2270ae9df42e73fab62a4111a9414dae}{remove\+Image}} (Image\+Loader \texorpdfstring{$\ast$}{*}image)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_ad602ccf9ed11956bee5789484a8eb825_ad602ccf9ed11956bee5789484a8eb825}{get\+Executable\+Path}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca}{initialize\+Main\+Executable}} ()
+\item 
+bool \mbox{\hyperlink{namespacedyld_addc049e3d0fe7755bb288a5ae50d7a89_addc049e3d0fe7755bb288a5ae50d7a89}{main\+Executable\+Prebound}} ()
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_aed35923a7241934c0e1646b71193a200_aed35923a7241934c0e1646b71193a200}{main\+Executable}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_ac00504fe40c9a66182fbb0efe68b09a6_ac00504fe40c9a66182fbb0efe68b09a6}{run\+Terminators}} (void \texorpdfstring{$\ast$}{*}extra)
+\item 
+void \mbox{\hyperlink{namespacedyld_a0f1538cb98997ee998c61941a8eb5be3_a0f1538cb98997ee998c61941a8eb5be3}{process\+Dyld\+Environment\+Variable}} (const char \texorpdfstring{$\ast$}{*}key, const char \texorpdfstring{$\ast$}{*}value, const char \texorpdfstring{$\ast$}{*}main\+Executable\+Dir)
+\item 
+bool \mbox{\hyperlink{namespacedyld_a0ad926316fac1c2ea6d7e64252589626_a0ad926316fac1c2ea6d7e64252589626}{valid\+Image}} (const Image\+Loader \texorpdfstring{$\ast$}{*}possible\+Image)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{namespacedyld_a73f0c58809641045fede3213a892b165_a73f0c58809641045fede3213a892b165}{get\+Image\+Count}} ()
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a278aaaf7be089bd6a1137da1048ed939_a278aaaf7be089bd6a1137da1048ed939}{get\+Indexed\+Image}} (unsigned int index)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3}{find\+Image\+By\+Mach\+Header}} (const struct mach\+\_\+header \texorpdfstring{$\ast$}{*}target)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a}{find\+Image\+Containing\+Address}} (const void \texorpdfstring{$\ast$}{*}addr)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_af111b0491affdca949eda69a3202fc11_af111b0491affdca949eda69a3202fc11}{find\+Image\+Containing\+Symbol}} (const void \texorpdfstring{$\ast$}{*}symbol)
+\item 
+void \mbox{\hyperlink{namespacedyld_af4c1b327da6b96ed9b0f6a7dcfcce776_af4c1b327da6b96ed9b0f6a7dcfcce776}{for\+Each\+Image\+Do}} (void(\texorpdfstring{$\ast$}{*}callback)(Image\+Loader \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}user\+Data), void \texorpdfstring{$\ast$}{*}user\+Data)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a75f9066135fb3f182c1ac6300f7f5280_a75f9066135fb3f182c1ac6300f7f5280}{find\+Loaded\+Image}} (const struct stat \&stat\+\_\+buf)
+\item 
+bool \mbox{\hyperlink{namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8}{is\+Compatible\+MachO}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}first\+Page, const char \texorpdfstring{$\ast$}{*}path)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_ad593cc42409f602f6ecb865685b6b4bc_ad593cc42409f602f6ecb865685b6b4bc}{load}} (const char \texorpdfstring{$\ast$}{*}path, const Load\+Context \&context)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a3ae7b947750e2cea2529e45fffb41874_a3ae7b947750e2cea2529e45fffb41874}{clone\+Image}} (Image\+Loader \texorpdfstring{$\ast$}{*}image)
+\item 
+Image\+Loader \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a4a585a601fdc6c69e559ef5de92318e8_a4a585a601fdc6c69e559ef5de92318e8}{load\+From\+Memory}} (const uint8\+\_\+t \texorpdfstring{$\ast$}{*}mem, uint64\+\_\+t len, const char \texorpdfstring{$\ast$}{*}module\+Name)
+\item 
+void \mbox{\hyperlink{namespacedyld_af5dd3454dc760221920fda113f77249a_af5dd3454dc760221920fda113f77249a}{register\+Add\+Callback}} (Image\+Callback func)
+\item 
+void \mbox{\hyperlink{namespacedyld_ab39a358588bd94b192957d4f5780375a_ab39a358588bd94b192957d4f5780375a}{register\+Remove\+Callback}} (Image\+Callback func)
+\item 
+void \mbox{\hyperlink{namespacedyld_a96d317731ad683aa9d1d3c453b4c6346_a96d317731ad683aa9d1d3c453b4c6346}{clear\+Error\+Message}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_ab03b0942657235fbdf6ec129d8659be0_ab03b0942657235fbdf6ec129d8659be0}{set\+Error\+Message}} (const char \texorpdfstring{$\ast$}{*}message)
+\item 
+const char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a5d99c1ee4aaede6875356f97fdb90d4b_a5d99c1ee4aaede6875356f97fdb90d4b}{get\+Error\+Message}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}} (const char \texorpdfstring{$\ast$}{*}message)
+\item 
+uintptr\+\_\+t \mbox{\hyperlink{namespacedyld_af2cc8979f321d2738983b6466c820875_af2cc8979f321d2738983b6466c820875}{bind\+Lazy\+Symbol}} (const mach\+\_\+header \texorpdfstring{$\ast$}{*}mh, uintptr\+\_\+t \texorpdfstring{$\ast$}{*}lazy\+Pointer)
+\item 
+uintptr\+\_\+t \mbox{\hyperlink{namespacedyld_ae2dbd92c157017dd38a2c3d9938734d6_ae2dbd92c157017dd38a2c3d9938734d6}{fast\+Bind\+Lazy\+Symbol}} (Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}image\+Loader\+Cache, uintptr\+\_\+t lazy\+Binding\+Info\+Offset)
+\item 
+void \mbox{\hyperlink{namespacedyld_a8232f0cb38c0ef86bb8f3de70aa69a23_a8232f0cb38c0ef86bb8f3de70aa69a23}{register\+Undefined\+Handler}} (Undefined\+Handler handler)
+\item 
+bool \mbox{\hyperlink{namespacedyld_a3ed29173d1f3253a937835f2504425b7_a3ed29173d1f3253a937835f2504425b7}{flat\+Find\+Exported\+Symbol}} (const char \texorpdfstring{$\ast$}{*}name, const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sym, const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}image)
+\item 
+bool \mbox{\hyperlink{namespacedyld_ad976b846b74efcf9b9df4c860ecc8c8f_ad976b846b74efcf9b9df4c860ecc8c8f}{find\+Coalesced\+Exported\+Symbol}} (const char \texorpdfstring{$\ast$}{*}name, const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sym, const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}image)
+\item 
+bool \mbox{\hyperlink{namespacedyld_a46d72775e6ba25d8e36f7ddf1553de65_a46d72775e6ba25d8e36f7ddf1553de65}{flat\+Find\+Exported\+Symbol\+With\+Hint}} (const char \texorpdfstring{$\ast$}{*}name, const char \texorpdfstring{$\ast$}{*}library\+Substring, const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}sym, const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}image)
+\item 
+unsigned int \mbox{\hyperlink{namespacedyld_a0dcb611a876f459306ab2b26afdef48c_a0dcb611a876f459306ab2b26afdef48c}{get\+Coalesced\+Images}} (Image\+Loader \texorpdfstring{$\ast$}{*}images\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{namespacedyld_ac45e3acc455d5f6521742c0a3dab65aa_ac45e3acc455d5f6521742c0a3dab65aa}{register\+Image\+State\+Single\+Change\+Handler}} (dyld\+\_\+image\+\_\+states state, dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler handler)
+\item 
+void \mbox{\hyperlink{namespacedyld_aa80d3719605ad0025845f51e0b4dc38a_aa80d3719605ad0025845f51e0b4dc38a}{register\+Image\+State\+Batch\+Change\+Handler}} (dyld\+\_\+image\+\_\+states state, dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler handler)
+\item 
+void \mbox{\hyperlink{namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72}{link}} (Image\+Loader \texorpdfstring{$\ast$}{*}image, bool force\+Lazys\+Bound, const Image\+Loader\+::\+RPath\+Chain \&loader\+RPaths)
+\item 
+void \mbox{\hyperlink{namespacedyld_aeaf364bfe70831a67c151e60e25fb5af_aeaf364bfe70831a67c151e60e25fb5af}{run\+Initializers}} (Image\+Loader \texorpdfstring{$\ast$}{*}image)
+\item 
+void \mbox{\hyperlink{namespacedyld_aa60e038a9d913b248fff388b2167697b_aa60e038a9d913b248fff388b2167697b}{garbage\+Collect\+Images}} ()
+\item 
+void \mbox{\hyperlink{namespacedyld_a4ddf022a0b6076526e40b70913e3a50b_a4ddf022a0b6076526e40b70913e3a50b}{preflight}} (Image\+Loader \texorpdfstring{$\ast$}{*}image, const Image\+Loader\+::\+RPath\+Chain \&loader\+RPaths)
+\item 
+uintptr\+\_\+t \mbox{\hyperlink{namespacedyld_a2d754a57a39bd1febd871dbff9efe75d_a2d754a57a39bd1febd871dbff9efe75d}{\+\_\+main}} (const macho\+\_\+header \texorpdfstring{$\ast$}{*}main\+Executable\+MH, uintptr\+\_\+t main\+Executable\+Slide, int argc, const char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]}, const char \texorpdfstring{$\ast$}{*}envp\mbox{[}$\,$\mbox{]}, const char \texorpdfstring{$\ast$}{*}apple\mbox{[}$\,$\mbox{]}, uintptr\+\_\+t \texorpdfstring{$\ast$}{*}start\+Glue)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+Image\+Loader\+::\+Link\+Context \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{g\+Link\+Context}}
+\item 
+bool \mbox{\hyperlink{namespacedyld_af92b5adc1c8cbd648229c356e4d7e396_af92b5adc1c8cbd648229c356e4d7e396}{g\+Log\+APIs}} = false
+\item 
+const struct Lib\+System\+Helpers \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{g\+Lib\+System\+Helpers}} = NULL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{namespacedyld_ae10af0c61e6d78d46c602cc4555aecd2_ae10af0c61e6d78d46c602cc4555aecd2}\index{dyld@{dyld}!StateHandlers@{StateHandlers}}
+\index{StateHandlers@{StateHandlers}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{StateHandlers}{StateHandlers}}
+{\footnotesize\ttfamily \label{namespacedyld_ae10af0c61e6d78d46c602cc4555aecd2_ae10af0c61e6d78d46c602cc4555aecd2} 
+typedef std\+::vector$<$dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler$>$ \mbox{\hyperlink{namespacedyld_ae10af0c61e6d78d46c602cc4555aecd2_ae10af0c61e6d78d46c602cc4555aecd2}{dyld\+::\+State\+Handlers}}}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00185}{185}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f}\index{dyld@{dyld}!RestrictedReason@{RestrictedReason}}
+\index{RestrictedReason@{RestrictedReason}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{RestrictedReason}{RestrictedReason}}
+{\footnotesize\ttfamily \label{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f} 
+enum \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f}{dyld\+::\+Restricted\+Reason}}}
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{restrictedNot@{restrictedNot}!dyld@{dyld}}\index{dyld@{dyld}!restrictedNot@{restrictedNot}}}\Hypertarget{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fad9f3d364284dbb3bd0a5501a782a0f93}\label{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f} 
+restricted\+Not&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{restrictedBySetGUid@{restrictedBySetGUid}!dyld@{dyld}}\index{dyld@{dyld}!restrictedBySetGUid@{restrictedBySetGUid}}}\Hypertarget{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fa745c0611744cf14ae34ae3241922ec9d}\label{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f} 
+restricted\+By\+Set\+GUid&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{restrictedBySegment@{restrictedBySegment}!dyld@{dyld}}\index{dyld@{dyld}!restrictedBySegment@{restrictedBySegment}}}\Hypertarget{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fac1c07cc5e612580f4e60b7bfb34710d1}\label{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f} 
+restricted\+By\+Segment&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{restrictedByEntitlements@{restrictedByEntitlements}!dyld@{dyld}}\index{dyld@{dyld}!restrictedByEntitlements@{restrictedByEntitlements}}}\Hypertarget{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6facd8bbc4cd890cb813850a4097df5de87}\label{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6f} 
+restricted\+By\+Entitlements&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00189}{189}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00189\ \{\ \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fad9f3d364284dbb3bd0a5501a782a0f93}{restrictedNot}},\ \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fa745c0611744cf14ae34ae3241922ec9d}{restrictedBySetGUid}},\ \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6fac1c07cc5e612580f4e60b7bfb34710d1}{restrictedBySegment}},\ \mbox{\hyperlink{namespacedyld_afa559f65025fb5659b376ed981a17a6f_afa559f65025fb5659b376ed981a17a6facd8bbc4cd890cb813850a4097df5de87}{restrictedByEntitlements}}\ \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{namespacedyld_a2d754a57a39bd1febd871dbff9efe75d_a2d754a57a39bd1febd871dbff9efe75d}\index{dyld@{dyld}!\_main@{\_main}}
+\index{\_main@{\_main}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{\_main()}{\_main()}}
+{\footnotesize\ttfamily \label{namespacedyld_a2d754a57a39bd1febd871dbff9efe75d_a2d754a57a39bd1febd871dbff9efe75d} 
+uintptr\+\_\+t dyld\+::\+\_\+main (\begin{DoxyParamCaption}\item[{const macho\+\_\+header \texorpdfstring{$\ast$}{*}}]{main\+Executable\+MH}{, }\item[{uintptr\+\_\+t}]{main\+Executable\+Slide}{, }\item[{int}]{argc}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}, }\item[{const char \texorpdfstring{$\ast$}{*}}]{envp}{\mbox{[}$\,$\mbox{]}, }\item[{const char \texorpdfstring{$\ast$}{*}}]{apple}{\mbox{[}$\,$\mbox{]}, }\item[{uintptr\+\_\+t \texorpdfstring{$\ast$}{*}}]{start\+Glue}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03903}{3903}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03906\ \{\ \ \ }
+\DoxyCodeLine{03907\ \ \ \ \ uintptr\_t\ result\ =\ 0;}
+\DoxyCodeLine{03908\ \ \ \ \ CRSetCrashLogMessage(\textcolor{stringliteral}{"{}dyld:\ launch\ started"{}});}
+\DoxyCodeLine{03909\ \textcolor{preprocessor}{\#ifdef\ ALTERNATIVE\_LOGFILE}}
+\DoxyCodeLine{03910\ \ \ \ \ sLogfile\ =\ open(ALTERNATIVE\_LOGFILE,\ O\_WRONLY\ |\ O\_CREAT\ |\ O\_APPEND);}
+\DoxyCodeLine{03911\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sLogfile\ ==\ -\/1\ )\ \{}
+\DoxyCodeLine{03912\ \ \ \ \ \ \ \ \ sLogfile\ =\ STDERR\_FILENO;}
+\DoxyCodeLine{03913\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}error\ opening\ alternate\ log\ file\ \%s,\ errno\ =\ \%d\(\backslash\)n"{}},\ ALTERNATIVE\_LOGFILE,\ errno);}
+\DoxyCodeLine{03914\ \ \ \ \ \}}
+\DoxyCodeLine{03915\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03916\ }
+\DoxyCodeLine{03917\ \textcolor{preprocessor}{\#if\ LOG\_BINDINGS}}
+\DoxyCodeLine{03918\ \ \ \ \ \textcolor{keywordtype}{char}\ bindingsLogPath[256];}
+\DoxyCodeLine{03919\ \ \ \ \ }
+\DoxyCodeLine{03920\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ shortProgName\ =\ \textcolor{stringliteral}{"{}unknown"{}};}
+\DoxyCodeLine{03921\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ argc\ >\ 0\ )\ \{}
+\DoxyCodeLine{03922\ \ \ \ \ \ \ \ \ shortProgName\ =\ strrchr(argv[0],\ \textcolor{charliteral}{'/'});}
+\DoxyCodeLine{03923\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ shortProgName\ ==\ NULL\ )}
+\DoxyCodeLine{03924\ \ \ \ \ \ \ \ \ \ \ \ \ shortProgName\ =\ argv[0];}
+\DoxyCodeLine{03925\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{03926\ \ \ \ \ \ \ \ \ \ \ \ \ ++shortProgName;}
+\DoxyCodeLine{03927\ \ \ \ \ \}}
+\DoxyCodeLine{03928\ \ \ \ \ mysprintf(bindingsLogPath,\ \textcolor{stringliteral}{"{}/tmp/bindings/\%d-\/\%s"{}},\ getpid(),\ shortProgName);}
+\DoxyCodeLine{03929\ \ \ \ \ sBindingsLogfile\ =\ open(bindingsLogPath,\ O\_WRONLY\ |\ O\_CREAT,\ 0666);}
+\DoxyCodeLine{03930\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sBindingsLogfile\ ==\ -\/1\ )\ \{}
+\DoxyCodeLine{03931\ \ \ \ \ \ \ \ \ ::mkdir(\textcolor{stringliteral}{"{}/tmp/bindings"{}},\ 0777);}
+\DoxyCodeLine{03932\ \ \ \ \ \ \ \ \ sBindingsLogfile\ =\ open(bindingsLogPath,\ O\_WRONLY\ |\ O\_CREAT,\ 0666);}
+\DoxyCodeLine{03933\ \ \ \ \ \}}
+\DoxyCodeLine{03934\ \ \ \ \ \textcolor{comment}{//dyld::log("{}open(\%s)\ =>\ \%d,\ errno\ =\ \%d\(\backslash\)n"{},\ bindingsLogPath,\ sBindingsLogfile,\ errno);}}
+\DoxyCodeLine{03935\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{03936\ \ \ \ \ setContext(mainExecutableMH,\ argc,\ argv,\ envp,\ apple);}
+\DoxyCodeLine{03937\ }
+\DoxyCodeLine{03938\ \ \ \ \ \textcolor{comment}{//\ Pickup\ the\ pointer\ to\ the\ exec\ path.}}
+\DoxyCodeLine{03939\ \ \ \ \ sExecPath\ =\ apple[0];}
+\DoxyCodeLine{03940\ \ \ \ \ \textcolor{keywordtype}{bool}\ ignoreEnvironmentVariables\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03941\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sExecPath[0]\ !=\ \textcolor{charliteral}{'/'}\ )\ \{}
+\DoxyCodeLine{03942\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ have\ relative\ path,\ use\ cwd\ to\ make\ absolute}}
+\DoxyCodeLine{03943\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ cwdbuff[MAXPATHLEN];}
+\DoxyCodeLine{03944\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ getcwd(cwdbuff,\ MAXPATHLEN)\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{03945\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ maybe\ use\ static\ buffer\ to\ avoid\ calling\ malloc\ so\ early...}}
+\DoxyCodeLine{03946\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ s\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[strlen(cwdbuff)\ +\ strlen(sExecPath)\ +\ 2];}
+\DoxyCodeLine{03947\ \ \ \ \ \ \ \ \ \ \ \ \ strcpy(s,\ cwdbuff);}
+\DoxyCodeLine{03948\ \ \ \ \ \ \ \ \ \ \ \ \ strcat(s,\ \textcolor{stringliteral}{"{}/"{}});}
+\DoxyCodeLine{03949\ \ \ \ \ \ \ \ \ \ \ \ \ strcat(s,\ sExecPath);}
+\DoxyCodeLine{03950\ \ \ \ \ \ \ \ \ \ \ \ \ sExecPath\ =\ s;}
+\DoxyCodeLine{03951\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03952\ \ \ \ \ \}}
+\DoxyCodeLine{03953\ \ \ \ \ sMainExecutableMachHeader\ =\ mainExecutableMH;}
+\DoxyCodeLine{03954\ \ \ \ \ sProcessIsRestricted\ =\ processRestricted(mainExecutableMH);}
+\DoxyCodeLine{03955\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sProcessIsRestricted\ )\ \{}
+\DoxyCodeLine{03956\ \textcolor{preprocessor}{\#if\ SUPPORT\_LC\_DYLD\_ENVIRONMENT}}
+\DoxyCodeLine{03957\ \ \ \ \ \ \ \ \ checkLoadCommandEnvironmentVariables();}
+\DoxyCodeLine{03958\ \textcolor{preprocessor}{\#if\ SUPPORT\_VERSIONED\_PATHS}}
+\DoxyCodeLine{03959\ \ \ \ \ \ \ \ \ checkVersionedPaths();}
+\DoxyCodeLine{03960\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{03961\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{03962\ \ \ \ \ \ \ \ \ pruneEnvironmentVariables(envp,\ \&apple);}
+\DoxyCodeLine{03963\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ again\ because\ envp\ and\ apple\ may\ have\ changed\ or\ moved}}
+\DoxyCodeLine{03964\ \ \ \ \ \ \ \ \ setContext(mainExecutableMH,\ argc,\ argv,\ envp,\ apple);}
+\DoxyCodeLine{03965\ \ \ \ \ \}}
+\DoxyCodeLine{03966\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{03967\ \ \ \ \ \ \ \ \ checkEnvironmentVariables(envp,\ ignoreEnvironmentVariables);}
+\DoxyCodeLine{03968\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a20e9f84af68333fa00a5900344f45cee_a20e9f84af68333fa00a5900344f45cee}{DYLD\_PRINT\_OPTS}}\ )\ }
+\DoxyCodeLine{03969\ \ \ \ \ \ \ \ \ printOptions(argv);}
+\DoxyCodeLine{03970\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_abc29c174a64bccbf1bb7113942007641_abc29c174a64bccbf1bb7113942007641}{DYLD\_PRINT\_ENV}}\ )\ }
+\DoxyCodeLine{03971\ \ \ \ \ \ \ \ \ printEnvironmentVariables(envp);}
+\DoxyCodeLine{03972\ \ \ \ \ getHostInfo();}
+\DoxyCodeLine{03973\ \ \ \ \ \textcolor{comment}{//\ install\ gdb\ notifier}}
+\DoxyCodeLine{03974\ \ \ \ \ stateToHandlers(dyld\_image\_state\_dependents\_mapped,\ sBatchHandlers)-\/>push\_back(\mbox{\hyperlink{dyld_8h_a21a5be78a177c4b9006b563923a313a1_a21a5be78a177c4b9006b563923a313a1}{notifyGDB}});}
+\DoxyCodeLine{03975\ \ \ \ \ stateToHandlers(dyld\_image\_state\_mapped,\ sSingleHandlers)-\/>push\_back(updateAllImages);}
+\DoxyCodeLine{03976\ \ \ \ \ \textcolor{comment}{//\ make\ initial\ allocations\ large\ enough\ that\ it\ is\ unlikely\ to\ need\ to\ be\ re-\/alloced}}
+\DoxyCodeLine{03977\ \ \ \ \ sAllImages.reserve(INITIAL\_IMAGE\_COUNT);}
+\DoxyCodeLine{03978\ \ \ \ \ sImageRoots.reserve(16);}
+\DoxyCodeLine{03979\ \ \ \ \ sAddImageCallbacks.reserve(4);}
+\DoxyCodeLine{03980\ \ \ \ \ sRemoveImageCallbacks.reserve(4);}
+\DoxyCodeLine{03981\ \ \ \ \ sImageFilesNeedingTermination.reserve(16);}
+\DoxyCodeLine{03982\ \ \ \ \ sImageFilesNeedingDOFUnregistration.reserve(8);}
+\DoxyCodeLine{03983\ \ \ \ \ }
+\DoxyCodeLine{03984\ \textcolor{preprocessor}{\#ifdef\ WAIT\_FOR\_SYSTEM\_ORDER\_HANDSHAKE}}
+\DoxyCodeLine{03985\ \ \ \ \ \textcolor{comment}{//\ <rdar://problem/6849505>\ Add\ gating\ mechanism\ to\ dyld\ support\ system\ order\ file\ generation\ process}}
+\DoxyCodeLine{03986\ \ \ \ \ WAIT\_FOR\_SYSTEM\_ORDER\_HANDSHAKE(dyld\_all\_image\_infos.systemOrderFlag);}
+\DoxyCodeLine{03987\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03988\ \ \ \ \ }
+\DoxyCodeLine{03989\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03990\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ dyld\ itself\ to\ UUID\ list}}
+\DoxyCodeLine{03991\ \ \ \ \ \ \ \ \ addDyldImageToUUIDList();}
+\DoxyCodeLine{03992\ \ \ \ \ \ \ \ \ CRSetCrashLogMessage(\textcolor{stringliteral}{"{}dyld:\ launch,\ loading\ dependent\ libraries"{}});}
+\DoxyCodeLine{03993\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ instantiate\ ImageLoader\ for\ main\ executable}}
+\DoxyCodeLine{03994\ \ \ \ \ \ \ \ \ sMainExecutable\ =\ instantiateFromLoadedImage(mainExecutableMH,\ mainExecutableSlide,\ sExecPath);}
+\DoxyCodeLine{03995\ \ \ \ \ \ \ \ \ sMainExecutable-\/>setNeverUnload();}
+\DoxyCodeLine{03996\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.mainExecutable\ =\ sMainExecutable;}
+\DoxyCodeLine{03997\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.processIsRestricted\ =\ sProcessIsRestricted;}
+\DoxyCodeLine{03998\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ load\ shared\ cache}}
+\DoxyCodeLine{03999\ \ \ \ \ \ \ \ \ checkSharedRegionDisable();}
+\DoxyCodeLine{04000\ \textcolor{preprocessor}{\ \ \ \ \#if\ DYLD\_SHARED\_CACHE\_SUPPORT}}
+\DoxyCodeLine{04001\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.sharedRegionMode\ !=\ ImageLoader::kDontUseSharedRegion\ )}
+\DoxyCodeLine{04002\ \ \ \ \ \ \ \ \ \ \ \ \ mapSharedCache();}
+\DoxyCodeLine{04003\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{04004\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ load\ any\ inserted\ libraries}}
+\DoxyCodeLine{04005\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ \ (\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a468ce2bbd52084e5be4a03916b60ac3d_a468ce2bbd52084e5be4a03916b60ac3d}{DYLD\_INSERT\_LIBRARIES}}\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{04006\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keyword}{const}*\ lib\ =\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a468ce2bbd52084e5be4a03916b60ac3d_a468ce2bbd52084e5be4a03916b60ac3d}{DYLD\_INSERT\_LIBRARIES}};\ *lib\ !=\ NULL;\ ++lib)\ }
+\DoxyCodeLine{04007\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ loadInsertedDylib(*lib);}
+\DoxyCodeLine{04008\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04009\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ record\ count\ of\ inserted\ libraries\ so\ that\ a\ flat\ search\ will\ look\ at\ }}
+\DoxyCodeLine{04010\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ inserted\ libraries,\ then\ main,\ then\ others.}}
+\DoxyCodeLine{04011\ \ \ \ \ \ \ \ \ sInsertedDylibCount\ =\ sAllImages.size()-\/1;}
+\DoxyCodeLine{04012\ }
+\DoxyCodeLine{04013\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ link\ main\ executable}}
+\DoxyCodeLine{04014\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.linkingMainExecutable\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{04015\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72}{link}}(sMainExecutable,\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a19ec73e7ad4a2d88ff38190ba66972f4_a19ec73e7ad4a2d88ff38190ba66972f4}{DYLD\_BIND\_AT\_LAUNCH}},\ ImageLoader::RPathChain(NULL,\ NULL));}
+\DoxyCodeLine{04016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.linkingMainExecutable\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{04017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sMainExecutable-\/>forceFlat()\ )\ \{}
+\DoxyCodeLine{04018\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.bindFlat\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{04019\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.prebindUsage\ =\ ImageLoader::kUseNoPrebinding;}
+\DoxyCodeLine{04020\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04021\ }
+\DoxyCodeLine{04022\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ link\ any\ inserted\ libraries}}
+\DoxyCodeLine{04023\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ do\ this\ after\ linking\ main\ executable\ so\ that\ any\ dylibs\ pulled\ in\ by\ inserted\ }}
+\DoxyCodeLine{04024\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dylibs\ (e.g.\ libSystem)\ will\ not\ be\ in\ front\ of\ dylibs\ the\ program\ uses}}
+\DoxyCodeLine{04025\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sInsertedDylibCount\ >\ 0\ )\ \{}
+\DoxyCodeLine{04026\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ sInsertedDylibCount;\ ++i)\ \{}
+\DoxyCodeLine{04027\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ sAllImages[i+1];}
+\DoxyCodeLine{04028\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72}{link}}(image,\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a19ec73e7ad4a2d88ff38190ba66972f4_a19ec73e7ad4a2d88ff38190ba66972f4}{DYLD\_BIND\_AT\_LAUNCH}},\ ImageLoader::RPathChain(NULL,\ NULL));}
+\DoxyCodeLine{04029\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ INSERTED\ libraries\ can\ interpose}}
+\DoxyCodeLine{04030\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image-\/>registerInterposing();}
+\DoxyCodeLine{04031\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04032\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04033\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{04034\ \ \ \ \ \ \ \ \ CRSetCrashLogMessage(\textcolor{stringliteral}{"{}dyld:\ launch,\ running\ initializers"{}});}
+\DoxyCodeLine{04035\ \textcolor{preprocessor}{\ \ \ \ \#if\ SUPPORT\_OLD\_CRT\_INITIALIZATION}}
+\DoxyCodeLine{04036\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Old\ way\ is\ to\ run\ initializers\ via\ a\ callback\ from\ crt1.o}}
+\DoxyCodeLine{04037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !\ gRunInitializersOldWay\ )\ }
+\DoxyCodeLine{04038\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca}{initializeMainExecutable}}();\ }
+\DoxyCodeLine{04039\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{04040\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ run\ all\ initializers}}
+\DoxyCodeLine{04041\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca}{initializeMainExecutable}}();\ }
+\DoxyCodeLine{04042\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{04043\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ find\ entry\ point\ for\ main\ executable}}
+\DoxyCodeLine{04044\ \ \ \ \ \ \ \ \ result\ =\ (uintptr\_t)sMainExecutable-\/>getThreadPC();}
+\DoxyCodeLine{04045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ result\ !=\ 0\ )\ \{}
+\DoxyCodeLine{04046\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ main\ executable\ uses\ LC\_MAIN,\ needs\ to\ return\ to\ glue\ in\ libdyld.dylib}}
+\DoxyCodeLine{04047\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (gLibSystemHelpers\ !=\ NULL)\ \&\&\ (\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>version\ >=\ 9)\ )}
+\DoxyCodeLine{04048\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *startGlue\ =\ (uintptr\_t)\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>startGlueToCallExit;}
+\DoxyCodeLine{04049\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{04050\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}}(\textcolor{stringliteral}{"{}libdyld.dylib\ support\ not\ present\ for\ LC\_MAIN"{}});}
+\DoxyCodeLine{04051\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{04053\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ main\ executable\ uses\ LC\_UNIXTHREAD,\ dyld\ needs\ to\ let\ "{}start"{}\ in\ program\ set\ up\ for\ main()}}
+\DoxyCodeLine{04054\ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (uintptr\_t)sMainExecutable-\/>getMain();}
+\DoxyCodeLine{04055\ \ \ \ \ \ \ \ \ \ \ \ \ *startGlue\ =\ NULL;}
+\DoxyCodeLine{04056\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{04057\ \ \ \ \ \}}
+\DoxyCodeLine{04058\ \ \ \ \ \textcolor{keywordflow}{catch}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message)\ \{}
+\DoxyCodeLine{04059\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795}{syncAllImages}}();}
+\DoxyCodeLine{04060\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}}(message);}
+\DoxyCodeLine{04061\ \ \ \ \ \}}
+\DoxyCodeLine{04062\ \ \ \ \ \textcolor{keywordflow}{catch}(...)\ \{}
+\DoxyCodeLine{04063\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ launch\ failed\(\backslash\)n"{}});}
+\DoxyCodeLine{04064\ \ \ \ \ \}}
+\DoxyCodeLine{04065\ }
+\DoxyCodeLine{04066\ \textcolor{preprocessor}{\#ifdef\ ALTERNATIVE\_LOGFILE}}
+\DoxyCodeLine{04067\ \ \ \ \ \textcolor{comment}{//\ only\ use\ alternate\ log\ during\ launch,\ otherwise\ file\ is\ open\ forever}}
+\DoxyCodeLine{04068\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sLogfile\ !=\ STDERR\_FILENO\ )\ \{}
+\DoxyCodeLine{04069\ \ \ \ \ \ \ \ \ close(sLogfile);}
+\DoxyCodeLine{04070\ \ \ \ \ \ \ \ \ sLogfile\ =\ STDERR\_FILENO;}
+\DoxyCodeLine{04071\ \ \ \ \ \}}
+\DoxyCodeLine{04072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{04073\ \ \ \ \ CRSetCrashLogMessage(NULL);}
+\DoxyCodeLine{04074\ \ \ \ \ }
+\DoxyCodeLine{04075\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{04076\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a2d754a57a39bd1febd871dbff9efe75d_a2d754a57a39bd1febd871dbff9efe75d_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a92608fad50a860da4df9e02580198b61_a92608fad50a860da4df9e02580198b61}\index{dyld@{dyld}!addMappedRange@{addMappedRange}}
+\index{addMappedRange@{addMappedRange}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{addMappedRange()}{addMappedRange()}}
+{\footnotesize\ttfamily \label{namespacedyld_a92608fad50a860da4df9e02580198b61_a92608fad50a860da4df9e02580198b61} 
+void dyld\+::add\+Mapped\+Range (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{, }\item[{uintptr\+\_\+t}]{start}{, }\item[{uintptr\+\_\+t}]{end}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00258}{258}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00259\ \{}
+\DoxyCodeLine{00260\ \ \ \ \ \textcolor{comment}{//dyld::log("{}addMappedRange(0x\%lX-\/>0x\%lX)\ for\ \%s\(\backslash\)n"{},\ start,\ end,\ image-\/>getShortName());}}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{structdyld_1_1_mapped_ranges}{MappedRanges}}*\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \&sMappedRangesStart;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ !=\ NULL;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>\mbox{\hyperlink{structdyld_1_1_mapped_ranges_a4461b4c41c12ef3dc13a5e9c48736fcd_a4461b4c41c12ef3dc13a5e9c48736fcd}{next}})\ \{}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ MappedRanges::count;\ ++i)\ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image\ ==\ NULL\ )\ \{}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].start\ =\ start;}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].end\ =\ end;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ image\ field\ last\ with\ a\ barrier\ so\ that\ any\ reader\ will\ see\ consistent\ records}}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OSMemoryBarrier();}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image\ =\ image;}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00272\ \ \ \ \ \}}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{comment}{//\ table\ must\ be\ full,\ chain\ another}}
+\DoxyCodeLine{00274\ \ \ \ \ MappedRanges*\ newRanges\ =\ (MappedRanges*)malloc(\textcolor{keyword}{sizeof}(MappedRanges));}
+\DoxyCodeLine{00275\ \ \ \ \ bzero(newRanges,\ \textcolor{keyword}{sizeof}(MappedRanges));}
+\DoxyCodeLine{00276\ \ \ \ \ newRanges-\/>array[0].start\ =\ start;}
+\DoxyCodeLine{00277\ \ \ \ \ newRanges-\/>array[0].end\ =\ end;}
+\DoxyCodeLine{00278\ \ \ \ \ newRanges-\/>array[0].image\ =\ image;}
+\DoxyCodeLine{00279\ \ \ \ \ \textcolor{keywordflow}{for}\ (MappedRanges*\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \&sMappedRangesStart;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ !=\ NULL;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>next)\ \{}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>next\ ==\ NULL\ )\ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ OSMemoryBarrier();}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>next\ =\ newRanges;}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00285\ \ \ \ \ \}}
+\DoxyCodeLine{00286\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_af2cc8979f321d2738983b6466c820875_af2cc8979f321d2738983b6466c820875}\index{dyld@{dyld}!bindLazySymbol@{bindLazySymbol}}
+\index{bindLazySymbol@{bindLazySymbol}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{bindLazySymbol()}{bindLazySymbol()}}
+{\footnotesize\ttfamily \label{namespacedyld_af2cc8979f321d2738983b6466c820875_af2cc8979f321d2738983b6466c820875} 
+uintptr\+\_\+t dyld\+::bind\+Lazy\+Symbol (\begin{DoxyParamCaption}\item[{const mach\+\_\+header \texorpdfstring{$\ast$}{*}}]{mh}{, }\item[{uintptr\+\_\+t \texorpdfstring{$\ast$}{*}}]{lazy\+Pointer}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03303}{3303}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03304\ \{}
+\DoxyCodeLine{03305\ \ \ \ \ uintptr\_t\ result\ =\ 0;}
+\DoxyCodeLine{03306\ \ \ \ \ \textcolor{comment}{//\ acquire\ read-\/lock\ on\ dyld's\ data\ structures}}
+\DoxyCodeLine{03307\ \textcolor{preprocessor}{\#if\ 0\ }\textcolor{comment}{//\ rdar://problem/3811777\ turn\ off\ locking\ until\ deadlock\ is\ resolved}}
+\DoxyCodeLine{03308\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ gLibSystemHelpers\ !=\ NULL\ )\ }
+\DoxyCodeLine{03309\ \ \ \ \ \ \ \ \ (*\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>lockForReading)();}
+\DoxyCodeLine{03310\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03311\ \ \ \ \ \textcolor{comment}{//\ lookup\ and\ bind\ lazy\ pointer\ and\ get\ target\ address}}
+\DoxyCodeLine{03312\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03313\ \ \ \ \ \ \ \ \ ImageLoader*\ target;}
+\DoxyCodeLine{03314\ \textcolor{preprocessor}{\ \ \ \ \#if\ \_\_i386\_\_}}
+\DoxyCodeLine{03315\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ fast\ stubs\ pass\ NULL\ for\ mh\ and\ image\ is\ instead\ found\ via\ the\ location\ of\ stub\ (aka\ lazyPointer)}}
+\DoxyCodeLine{03316\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh\ ==\ NULL\ )}
+\DoxyCodeLine{03317\ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \mbox{\hyperlink{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a}{dyld::findImageContainingAddress}}(lazyPointer);}
+\DoxyCodeLine{03318\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{03319\ \ \ \ \ \ \ \ \ \ \ \ \ target\ =\ \mbox{\hyperlink{namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3}{dyld::findImageByMachHeader}}(mh);}
+\DoxyCodeLine{03320\ \textcolor{preprocessor}{\ \ \ \ \#else}}
+\DoxyCodeLine{03321\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ note,\ target\ should\ always\ be\ mach-\/o,\ because\ only\ mach-\/o\ lazy\ handler\ wired\ up\ to\ this}}
+\DoxyCodeLine{03322\ \ \ \ \ \ \ \ \ target\ =\ \mbox{\hyperlink{namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3}{dyld::findImageByMachHeader}}(mh);}
+\DoxyCodeLine{03323\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{03324\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ target\ ==\ NULL\ )}
+\DoxyCodeLine{03325\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38}{throwf}}(\textcolor{stringliteral}{"{}image\ not\ found\ for\ lazy\ pointer\ at\ \%p"{}},\ lazyPointer);}
+\DoxyCodeLine{03326\ \ \ \ \ \ \ \ \ result\ =\ target-\/>doBindLazySymbol(lazyPointer,\ gLinkContext);}
+\DoxyCodeLine{03327\ \ \ \ \ \}}
+\DoxyCodeLine{03328\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message)\ \{}
+\DoxyCodeLine{03329\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ lazy\ symbol\ binding\ failed:\ \%s\(\backslash\)n"{}},\ message);}
+\DoxyCodeLine{03330\ \ \ \ \ \ \ \ \ halt(message);}
+\DoxyCodeLine{03331\ \ \ \ \ \}}
+\DoxyCodeLine{03332\ \ \ \ \ \textcolor{comment}{//\ release\ read-\/lock\ on\ dyld's\ data\ structures}}
+\DoxyCodeLine{03333\ \textcolor{preprocessor}{\#if\ 0}}
+\DoxyCodeLine{03334\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ gLibSystemHelpers\ !=\ NULL\ )\ }
+\DoxyCodeLine{03335\ \ \ \ \ \ \ \ \ (*\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>unlockForReading)();}
+\DoxyCodeLine{03336\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{03337\ \ \ \ \ \textcolor{comment}{//\ return\ target\ address\ to\ glue\ which\ jumps\ to\ it\ with\ real\ parameters\ restored}}
+\DoxyCodeLine{03338\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{03339\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_af2cc8979f321d2738983b6466c820875_af2cc8979f321d2738983b6466c820875_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a96d317731ad683aa9d1d3c453b4c6346_a96d317731ad683aa9d1d3c453b4c6346}\index{dyld@{dyld}!clearErrorMessage@{clearErrorMessage}}
+\index{clearErrorMessage@{clearErrorMessage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{clearErrorMessage()}{clearErrorMessage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a96d317731ad683aa9d1d3c453b4c6346_a96d317731ad683aa9d1d3c453b4c6346} 
+void dyld\+::clear\+Error\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03265}{3265}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03266\ \{}
+\DoxyCodeLine{03267\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}}[0]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{03268\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a3ae7b947750e2cea2529e45fffb41874_a3ae7b947750e2cea2529e45fffb41874}\index{dyld@{dyld}!cloneImage@{cloneImage}}
+\index{cloneImage@{cloneImage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{cloneImage()}{cloneImage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a3ae7b947750e2cea2529e45fffb41874_a3ae7b947750e2cea2529e45fffb41874} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::clone\+Image (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03181}{3181}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03182\ \{}
+\DoxyCodeLine{03183\ \ \ \ \ \textcolor{comment}{//\ open\ file\ (automagically\ closed\ when\ this\ function\ exits)}}
+\DoxyCodeLine{03184\ \ \ \ \ \mbox{\hyperlink{classdyld_1_1_file_opener}{FileOpener}}\ file(image-\/>getPath());}
+\DoxyCodeLine{03185\ \ \ \ \ }
+\DoxyCodeLine{03186\ \ \ \ \ \textcolor{keyword}{struct\ }stat\ stat\_buf;}
+\DoxyCodeLine{03187\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ fstat(file.getFileDescriptor(),\ \&stat\_buf)\ ==\ -\/1)}
+\DoxyCodeLine{03188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}stat\ error"{}};}
+\DoxyCodeLine{03189\ \ \ \ \ }
+\DoxyCodeLine{03190\ \ \ \ \ dyld::LoadContext\ context;}
+\DoxyCodeLine{03191\ \ \ \ \ context.useSearchPaths\ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03192\ \ \ \ \ context.useFallbackPaths\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03193\ \ \ \ \ context.useLdLibraryPath\ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03194\ \ \ \ \ context.implicitRPath\ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03195\ \ \ \ \ context.matchByInstallName\ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03196\ \ \ \ \ context.dontLoad\ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03197\ \ \ \ \ context.mustBeBundle\ \ \ \ \ \ \ \ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{03198\ \ \ \ \ context.mustBeDylib\ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03199\ \ \ \ \ context.canBePIE\ \ \ \ \ \ \ \ \ \ \ \ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03200\ \ \ \ \ context.origin\ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{03201\ \ \ \ \ context.rpath\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ NULL;}
+\DoxyCodeLine{03202\ \ \ \ \ \textcolor{keywordflow}{return}\ loadPhase6(file.getFileDescriptor(),\ stat\_buf,\ image-\/>getPath(),\ context);}
+\DoxyCodeLine{03203\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{db/d2b/namespacedyld_a3ae7b947750e2cea2529e45fffb41874_a3ae7b947750e2cea2529e45fffb41874_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ae2dbd92c157017dd38a2c3d9938734d6_ae2dbd92c157017dd38a2c3d9938734d6}\index{dyld@{dyld}!fastBindLazySymbol@{fastBindLazySymbol}}
+\index{fastBindLazySymbol@{fastBindLazySymbol}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{fastBindLazySymbol()}{fastBindLazySymbol()}}
+{\footnotesize\ttfamily \label{namespacedyld_ae2dbd92c157017dd38a2c3d9938734d6_ae2dbd92c157017dd38a2c3d9938734d6} 
+uintptr\+\_\+t dyld\+::fast\+Bind\+Lazy\+Symbol (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{image\+Loader\+Cache}{, }\item[{uintptr\+\_\+t}]{lazy\+Binding\+Info\+Offset}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03342}{3342}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03343\ \{}
+\DoxyCodeLine{03344\ \ \ \ \ uintptr\_t\ result\ =\ 0;}
+\DoxyCodeLine{03345\ \ \ \ \ \textcolor{comment}{//\ get\ image\ }}
+\DoxyCodeLine{03346\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *imageLoaderCache\ ==\ NULL\ )\ \{}
+\DoxyCodeLine{03347\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ save\ in\ cache}}
+\DoxyCodeLine{03348\ \ \ \ \ \ \ \ \ *imageLoaderCache\ =\ \mbox{\hyperlink{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded}{dyld::findMappedRange}}((uintptr\_t)imageLoaderCache);}
+\DoxyCodeLine{03349\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *imageLoaderCache\ ==\ NULL\ )\ \{}
+\DoxyCodeLine{03350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message\ =\ \textcolor{stringliteral}{"{}fast\ lazy\ binding\ from\ unknown\ image"{}};}
+\DoxyCodeLine{03351\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ \%s\(\backslash\)n"{}},\ message);}
+\DoxyCodeLine{03352\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}}(message);}
+\DoxyCodeLine{03353\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03354\ \ \ \ \ \}}
+\DoxyCodeLine{03355\ \ \ \ \ }
+\DoxyCodeLine{03356\ \ \ \ \ \textcolor{comment}{//\ bind\ lazy\ pointer\ and\ return\ it}}
+\DoxyCodeLine{03357\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03358\ \ \ \ \ \ \ \ \ result\ =\ (*imageLoaderCache)-\/>doBindFastLazySymbol(lazyBindingInfoOffset,\ gLinkContext,\ }
+\DoxyCodeLine{03359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{dyld::gLibSystemHelpers}}\ !=\ NULL)\ ?\ \mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{dyld::gLibSystemHelpers}}-\/>acquireGlobalDyldLock\ :\ NULL,}
+\DoxyCodeLine{03360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{dyld::gLibSystemHelpers}}\ !=\ NULL)\ ?\ \mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{dyld::gLibSystemHelpers}}-\/>releaseGlobalDyldLock\ :\ NULL);}
+\DoxyCodeLine{03361\ \ \ \ \ \}}
+\DoxyCodeLine{03362\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ message)\ \{}
+\DoxyCodeLine{03363\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ lazy\ symbol\ binding\ failed:\ \%s\(\backslash\)n"{}},\ message);}
+\DoxyCodeLine{03364\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}}(message);}
+\DoxyCodeLine{03365\ \ \ \ \ \}}
+\DoxyCodeLine{03366\ }
+\DoxyCodeLine{03367\ \ \ \ \ \textcolor{comment}{//\ return\ target\ address\ to\ glue\ which\ jumps\ to\ it\ with\ real\ parameters\ restored}}
+\DoxyCodeLine{03368\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{03369\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ae2dbd92c157017dd38a2c3d9938734d6_ae2dbd92c157017dd38a2c3d9938734d6_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ad976b846b74efcf9b9df4c860ecc8c8f_ad976b846b74efcf9b9df4c860ecc8c8f}\index{dyld@{dyld}!findCoalescedExportedSymbol@{findCoalescedExportedSymbol}}
+\index{findCoalescedExportedSymbol@{findCoalescedExportedSymbol}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findCoalescedExportedSymbol()}{findCoalescedExportedSymbol()}}
+{\footnotesize\ttfamily \label{namespacedyld_ad976b846b74efcf9b9df4c860ecc8c8f_ad976b846b74efcf9b9df4c860ecc8c8f} 
+bool dyld\+::find\+Coalesced\+Exported\+Symbol (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sym}{, }\item[{const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03433}{3433}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03434\ \{}
+\DoxyCodeLine{03435\ \ \ \ \ \textcolor{keywordflow}{return}\ findExportedSymbol(name,\ \textcolor{keyword}{true},\ sym,\ image);}
+\DoxyCodeLine{03436\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3}\index{dyld@{dyld}!findImageByMachHeader@{findImageByMachHeader}}
+\index{findImageByMachHeader@{findImageByMachHeader}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findImageByMachHeader()}{findImageByMachHeader()}}
+{\footnotesize\ttfamily \label{namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::find\+Image\+By\+Mach\+Header (\begin{DoxyParamCaption}\item[{const struct mach\+\_\+header \texorpdfstring{$\ast$}{*}}]{target}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01660}{1660}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01661\ \{}
+\DoxyCodeLine{01662\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded}{findMappedRange}}((uintptr\_t)target);}
+\DoxyCodeLine{01663\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_afb4b5153555e15efd331cf5db73a9cc3_afb4b5153555e15efd331cf5db73a9cc3_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a}\index{dyld@{dyld}!findImageContainingAddress@{findImageContainingAddress}}
+\index{findImageContainingAddress@{findImageContainingAddress}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findImageContainingAddress()}{findImageContainingAddress()}}
+{\footnotesize\ttfamily \label{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::find\+Image\+Containing\+Address (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{addr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01666}{1666}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01667\ \{}
+\DoxyCodeLine{01668\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded}{findMappedRange}}((uintptr\_t)addr);}
+\DoxyCodeLine{01669\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_af111b0491affdca949eda69a3202fc11_af111b0491affdca949eda69a3202fc11}\index{dyld@{dyld}!findImageContainingSymbol@{findImageContainingSymbol}}
+\index{findImageContainingSymbol@{findImageContainingSymbol}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findImageContainingSymbol()}{findImageContainingSymbol()}}
+{\footnotesize\ttfamily \label{namespacedyld_af111b0491affdca949eda69a3202fc11_af111b0491affdca949eda69a3202fc11} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::find\+Image\+Containing\+Symbol (\begin{DoxyParamCaption}\item[{const void \texorpdfstring{$\ast$}{*}}]{symbol}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01672}{1672}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01673\ \{}
+\DoxyCodeLine{01674\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{01675\ \ \ \ \ \ \ \ \ ImageLoader*\ anImage\ =\ *it;}
+\DoxyCodeLine{01676\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ anImage-\/>containsSymbol(symbol)\ )}
+\DoxyCodeLine{01677\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ anImage;}
+\DoxyCodeLine{01678\ \ \ \ \ \}}
+\DoxyCodeLine{01679\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01680\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a75f9066135fb3f182c1ac6300f7f5280_a75f9066135fb3f182c1ac6300f7f5280}\index{dyld@{dyld}!findLoadedImage@{findLoadedImage}}
+\index{findLoadedImage@{findLoadedImage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findLoadedImage()}{findLoadedImage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a75f9066135fb3f182c1ac6300f7f5280_a75f9066135fb3f182c1ac6300f7f5280} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::find\+Loaded\+Image (\begin{DoxyParamCaption}\item[{const struct stat \&}]{stat\+\_\+buf}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01693}{1693}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01694\ \{}
+\DoxyCodeLine{01695\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageCount\ =\ sAllImages.size();}
+\DoxyCodeLine{01696\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ imageCount;\ ++i)\{}
+\DoxyCodeLine{01697\ \ \ \ \ \ \ \ \ ImageLoader*\ anImage\ =\ sAllImages[i];}
+\DoxyCodeLine{01698\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ anImage-\/>statMatch(stat\_buf)\ )}
+\DoxyCodeLine{01699\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ anImage;}
+\DoxyCodeLine{01700\ \ \ \ \ \}}
+\DoxyCodeLine{01701\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01702\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded}\index{dyld@{dyld}!findMappedRange@{findMappedRange}}
+\index{findMappedRange@{findMappedRange}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{findMappedRange()}{findMappedRange()}}
+{\footnotesize\ttfamily \label{namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::find\+Mapped\+Range (\begin{DoxyParamCaption}\item[{uintptr\+\_\+t}]{target}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00301}{301}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00302\ \{}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{structdyld_1_1_mapped_ranges}{MappedRanges}}*\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \&sMappedRangesStart;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ !=\ NULL;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>\mbox{\hyperlink{structdyld_1_1_mapped_ranges_a4461b4c41c12ef3dc13a5e9c48736fcd_a4461b4c41c12ef3dc13a5e9c48736fcd}{next}})\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ MappedRanges::count;\ ++i)\ \{}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].start\ <=\ target)\ \&\&\ (target\ <\ p-\/>array[i].end)\ )}
+\DoxyCodeLine{00307\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image;}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00309\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00310\ \ \ \ \ \}}
+\DoxyCodeLine{00311\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00312\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aedae0bb12d87f54d25ac06af5d8b7ded_aedae0bb12d87f54d25ac06af5d8b7ded_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a3ed29173d1f3253a937835f2504425b7_a3ed29173d1f3253a937835f2504425b7}\index{dyld@{dyld}!flatFindExportedSymbol@{flatFindExportedSymbol}}
+\index{flatFindExportedSymbol@{flatFindExportedSymbol}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{flatFindExportedSymbol()}{flatFindExportedSymbol()}}
+{\footnotesize\ttfamily \label{namespacedyld_a3ed29173d1f3253a937835f2504425b7_a3ed29173d1f3253a937835f2504425b7} 
+bool dyld\+::flat\+Find\+Exported\+Symbol (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sym}{, }\item[{const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03428}{3428}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03429\ \{}
+\DoxyCodeLine{03430\ \ \ \ \ \textcolor{keywordflow}{return}\ findExportedSymbol(name,\ \textcolor{keyword}{false},\ sym,\ image);}
+\DoxyCodeLine{03431\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a46d72775e6ba25d8e36f7ddf1553de65_a46d72775e6ba25d8e36f7ddf1553de65}\index{dyld@{dyld}!flatFindExportedSymbolWithHint@{flatFindExportedSymbolWithHint}}
+\index{flatFindExportedSymbolWithHint@{flatFindExportedSymbolWithHint}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{flatFindExportedSymbolWithHint()}{flatFindExportedSymbolWithHint()}}
+{\footnotesize\ttfamily \label{namespacedyld_a46d72775e6ba25d8e36f7ddf1553de65_a46d72775e6ba25d8e36f7ddf1553de65} 
+bool dyld\+::flat\+Find\+Exported\+Symbol\+With\+Hint (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{name}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{library\+Substring}{, }\item[{const Image\+Loader\+::\+Symbol \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{sym}{, }\item[{const Image\+Loader \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03439}{3439}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03440\ \{}
+\DoxyCodeLine{03441\ \ \ \ \ \textcolor{comment}{//\ search\ all\ images\ in\ order}}
+\DoxyCodeLine{03442\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageCount\ =\ sAllImages.size();}
+\DoxyCodeLine{03443\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ imageCount;\ ++i)\{}
+\DoxyCodeLine{03444\ \ \ \ \ \ \ \ \ ImageLoader*\ anImage\ =\ sAllImages[i];}
+\DoxyCodeLine{03445\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ only\ look\ at\ images\ whose\ paths\ contain\ the\ hint\ string\ (NULL\ hint\ string\ is\ wildcard)}}
+\DoxyCodeLine{03446\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !\ anImage-\/>isBundle()\ \&\&\ ((librarySubstring==NULL)\ ||\ (strstr(anImage-\/>getPath(),\ librarySubstring)\ !=\ NULL))\ )\ \{}
+\DoxyCodeLine{03447\ \ \ \ \ \ \ \ \ \ \ \ \ *sym\ =\ anImage-\/>findExportedSymbol(name,\ \textcolor{keyword}{false},\ image);}
+\DoxyCodeLine{03448\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *sym\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{03449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{03450\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03451\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03452\ \ \ \ \ \}}
+\DoxyCodeLine{03453\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03454\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_af4c1b327da6b96ed9b0f6a7dcfcce776_af4c1b327da6b96ed9b0f6a7dcfcce776}\index{dyld@{dyld}!forEachImageDo@{forEachImageDo}}
+\index{forEachImageDo@{forEachImageDo}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{forEachImageDo()}{forEachImageDo()}}
+{\footnotesize\ttfamily \label{namespacedyld_af4c1b327da6b96ed9b0f6a7dcfcce776_af4c1b327da6b96ed9b0f6a7dcfcce776} 
+void dyld\+::for\+Each\+Image\+Do (\begin{DoxyParamCaption}\item[{void(\texorpdfstring{$\ast$}{*}}]{callback~}{)(Image\+Loader \texorpdfstring{$\ast$}{*}, void \texorpdfstring{$\ast$}{*}user\+Data), }\item[{void \texorpdfstring{$\ast$}{*}}]{user\+Data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01684}{1684}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01685\ \{}
+\DoxyCodeLine{01686\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageCount\ =\ sAllImages.size();}
+\DoxyCodeLine{01687\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ imageCount;\ ++i)\ \{}
+\DoxyCodeLine{01688\ \ \ \ \ \ \ \ \ ImageLoader*\ anImage\ =\ sAllImages[i];}
+\DoxyCodeLine{01689\ \ \ \ \ \ \ \ \ (*callback)(anImage,\ userData);}
+\DoxyCodeLine{01690\ \ \ \ \ \}}
+\DoxyCodeLine{01691\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_aa60e038a9d913b248fff388b2167697b_aa60e038a9d913b248fff388b2167697b}\index{dyld@{dyld}!garbageCollectImages@{garbageCollectImages}}
+\index{garbageCollectImages@{garbageCollectImages}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{garbageCollectImages()}{garbageCollectImages()}}
+{\footnotesize\ttfamily \label{namespacedyld_aa60e038a9d913b248fff388b2167697b_aa60e038a9d913b248fff388b2167697b} 
+void dyld\+::garbage\+Collect\+Images (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03755}{3755}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03756\ \{}
+\DoxyCodeLine{03757\ \ \ \ \ \textcolor{comment}{//\ keep\ scanning\ list\ of\ images\ until\ entire\ list\ is\ scanned\ with\ no\ unreferenced\ images}}
+\DoxyCodeLine{03758\ \ \ \ \ \textcolor{keywordtype}{bool}\ mightBeUnreferencedImages\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{03759\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ mightBeUnreferencedImages\ )\ \{}
+\DoxyCodeLine{03760\ \ \ \ \ \ \ \ \ mightBeUnreferencedImages\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{03761\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{03762\ \ \ \ \ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ *it;}
+\DoxyCodeLine{03763\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (image-\/>referenceCount()\ ==\ 0)\ \&\&\ !image-\/>neverUnload()\ \&\&\ !image-\/>isBeingRemoved()\ )\ \{}
+\DoxyCodeLine{03764\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>isReferencedUpward()\ )\ \{}
+\DoxyCodeLine{03765\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ temp\ hack\ for\ rdar://problem/10973109}}
+\DoxyCodeLine{03766\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ an\ image\ is\ upwardly\ referenced,\ we\ really\ need\ to\ scan\ all\ images\ }}
+\DoxyCodeLine{03767\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ to\ see\ if\ any\ are\ still\ using\ it.}}
+\DoxyCodeLine{03768\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{03769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03770\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03771\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dyld::log("{}garbageCollectImages:\ deleting\ \%p\ \%s\(\backslash\)n"{},\ image,\ image-\/>getPath());}}
+\DoxyCodeLine{03772\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ image-\/>setBeingRemoved();}
+\DoxyCodeLine{03773\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ removeImage(image);}
+\DoxyCodeLine{03774\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ImageLoader::deleteImage(image);}
+\DoxyCodeLine{03775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03776\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msg)\ \{}
+\DoxyCodeLine{03777\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{dyld::warn}}(\textcolor{stringliteral}{"{}problem\ deleting\ image:\ \%s\(\backslash\)n"{}},\ msg);}
+\DoxyCodeLine{03778\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03779\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ mightBeUnreferencedImages\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{03780\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{03781\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03782\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03783\ \ \ \ \ \}}
+\DoxyCodeLine{03784\ \ \ \ \ \textcolor{comment}{//printAllImages();}}
+\DoxyCodeLine{03785\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aa60e038a9d913b248fff388b2167697b_aa60e038a9d913b248fff388b2167697b_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aa60e038a9d913b248fff388b2167697b_aa60e038a9d913b248fff388b2167697b_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a0dcb611a876f459306ab2b26afdef48c_a0dcb611a876f459306ab2b26afdef48c}\index{dyld@{dyld}!getCoalescedImages@{getCoalescedImages}}
+\index{getCoalescedImages@{getCoalescedImages}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{getCoalescedImages()}{getCoalescedImages()}}
+{\footnotesize\ttfamily \label{namespacedyld_a0dcb611a876f459306ab2b26afdef48c_a0dcb611a876f459306ab2b26afdef48c} 
+unsigned int dyld\+::get\+Coalesced\+Images (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{images}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03456}{3456}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03457\ \{}
+\DoxyCodeLine{03458\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ count\ =\ 0;}
+\DoxyCodeLine{03459\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{03460\ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ *it;}
+\DoxyCodeLine{03461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>participatesInCoalescing()\ )\ \{}
+\DoxyCodeLine{03462\ \ \ \ \ \ \ \ \ \ \ \ \ *images++\ =\ *it;}
+\DoxyCodeLine{03463\ \ \ \ \ \ \ \ \ \ \ \ \ ++count;}
+\DoxyCodeLine{03464\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03465\ \ \ \ \ \}}
+\DoxyCodeLine{03466\ \ \ \ \ \textcolor{keywordflow}{return}\ count;}
+\DoxyCodeLine{03467\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a5d99c1ee4aaede6875356f97fdb90d4b_a5d99c1ee4aaede6875356f97fdb90d4b}\index{dyld@{dyld}!getErrorMessage@{getErrorMessage}}
+\index{getErrorMessage@{getErrorMessage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{getErrorMessage()}{getErrorMessage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a5d99c1ee4aaede6875356f97fdb90d4b_a5d99c1ee4aaede6875356f97fdb90d4b} 
+const char \texorpdfstring{$\ast$}{*} dyld\+::get\+Error\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03276}{3276}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03277\ \{}
+\DoxyCodeLine{03278\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}};}
+\DoxyCodeLine{03279\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_ad602ccf9ed11956bee5789484a8eb825_ad602ccf9ed11956bee5789484a8eb825}\index{dyld@{dyld}!getExecutablePath@{getExecutablePath}}
+\index{getExecutablePath@{getExecutablePath}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{getExecutablePath()}{getExecutablePath()}}
+{\footnotesize\ttfamily \label{namespacedyld_ad602ccf9ed11956bee5789484a8eb825_ad602ccf9ed11956bee5789484a8eb825} 
+const char \texorpdfstring{$\ast$}{*} dyld\+::get\+Executable\+Path (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00912}{912}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00913\ \{}
+\DoxyCodeLine{00914\ \ \ \ \ \textcolor{keywordflow}{return}\ sExecPath;}
+\DoxyCodeLine{00915\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a73f0c58809641045fede3213a892b165_a73f0c58809641045fede3213a892b165}\index{dyld@{dyld}!getImageCount@{getImageCount}}
+\index{getImageCount@{getImageCount}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{getImageCount()}{getImageCount()}}
+{\footnotesize\ttfamily \label{namespacedyld_a73f0c58809641045fede3213a892b165_a73f0c58809641045fede3213a892b165} 
+uint32\+\_\+t dyld\+::get\+Image\+Count (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01648}{1648}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01649\ \{}
+\DoxyCodeLine{01650\ \ \ \ \ \textcolor{keywordflow}{return}\ sAllImages.size();}
+\DoxyCodeLine{01651\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a278aaaf7be089bd6a1137da1048ed939_a278aaaf7be089bd6a1137da1048ed939}\index{dyld@{dyld}!getIndexedImage@{getIndexedImage}}
+\index{getIndexedImage@{getIndexedImage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{getIndexedImage()}{getIndexedImage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a278aaaf7be089bd6a1137da1048ed939_a278aaaf7be089bd6a1137da1048ed939} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::get\+Indexed\+Image (\begin{DoxyParamCaption}\item[{unsigned int}]{index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01653}{1653}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01654\ \{}
+\DoxyCodeLine{01655\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ index\ <\ sAllImages.size()\ )}
+\DoxyCodeLine{01656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ sAllImages[index];}
+\DoxyCodeLine{01657\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{01658\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}\index{dyld@{dyld}!halt@{halt}}
+\index{halt@{halt}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{halt()}{halt()}}
+{\footnotesize\ttfamily \label{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7} 
+void dyld\+::halt (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03282}{3282}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03283\ \{}
+\DoxyCodeLine{03284\ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ \%s\(\backslash\)n"{}},\ message);}
+\DoxyCodeLine{03285\ \ \ \ \ \mbox{\hyperlink{namespacedyld_ab03b0942657235fbdf6ec129d8659be0_ab03b0942657235fbdf6ec129d8659be0}{setErrorMessage}}(message);}
+\DoxyCodeLine{03286\ \ \ \ \ uintptr\_t\ terminationFlags\ =\ 0;}
+\DoxyCodeLine{03287\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !\mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.startedInitializingMainExecutable\ )\ }
+\DoxyCodeLine{03288\ \ \ \ \ \ \ \ \ terminationFlags\ =\ 1;}
+\DoxyCodeLine{03289\ \ \ \ \ \mbox{\hyperlink{dyld_8h_aa1c0531f62f5349124e433c3e5e59801_aa1c0531f62f5349124e433c3e5e59801}{setAlImageInfosHalt}}(\mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}},\ terminationFlags);}
+\DoxyCodeLine{03290\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a86b57347a976db6a934f56b77aa0aed7_a86b57347a976db6a934f56b77aa0aed7}{dyld\_fatal\_error}}(\mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}});}
+\DoxyCodeLine{03291\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca}\index{dyld@{dyld}!initializeMainExecutable@{initializeMainExecutable}}
+\index{initializeMainExecutable@{initializeMainExecutable}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{initializeMainExecutable()}{initializeMainExecutable()}}
+{\footnotesize\ttfamily \label{namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca} 
+void dyld\+::initialize\+Main\+Executable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00918}{918}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00919\ \{}
+\DoxyCodeLine{00920\ \ \ \ \ \textcolor{comment}{//\ apply\ interposing\ to\ initial\ set\ of\ images}}
+\DoxyCodeLine{00921\ \ \ \ \ \textcolor{comment}{//\ do\ this\ before\ making\ the\ \_\_IMPORT\ segments\ in\ shared\ cache\ read-\/only}}
+\DoxyCodeLine{00922\ \ \ \ \ sMainExecutable-\/>applyInterposing(gLinkContext);}
+\DoxyCodeLine{00923\ }
+\DoxyCodeLine{00924\ \ \ \ \ \textcolor{comment}{//\ record\ that\ we've\ reached\ this\ step}}
+\DoxyCodeLine{00925\ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.startedInitializingMainExecutable\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \ \ \ \ \textcolor{comment}{//\ run\ initialzers\ for\ any\ inserted\ dylibs}}
+\DoxyCodeLine{00928\ \ \ \ \ ImageLoader::InitializerTimingList\ initializerTimes[sAllImages.size()];}
+\DoxyCodeLine{00929\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ rootCount\ =\ sImageRoots.size();}
+\DoxyCodeLine{00930\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ rootCount\ >\ 1\ )\ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int}\ i=1;\ i\ <\ rootCount;\ ++i)\ \{}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \ \ \ \ initializerTimes[0].count\ =\ 0;}
+\DoxyCodeLine{00933\ \ \ \ \ \ \ \ \ \ \ \ \ sImageRoots[i]-\/>runInitializers(gLinkContext,\ initializerTimes[0]);}
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00935\ \ \ \ \ \}}
+\DoxyCodeLine{00936\ \ \ \ \ }
+\DoxyCodeLine{00937\ \ \ \ \ \textcolor{comment}{//\ run\ initializers\ for\ main\ executable\ and\ everything\ it\ brings\ up\ }}
+\DoxyCodeLine{00938\ \ \ \ \ initializerTimes[0].count\ =\ 0;}
+\DoxyCodeLine{00939\ \ \ \ \ sMainExecutable-\/>runInitializers(gLinkContext,\ initializerTimes[0]);}
+\DoxyCodeLine{00940\ \ \ \ \ }
+\DoxyCodeLine{00941\ \ \ \ \ \textcolor{comment}{//\ register\ atexit()\ handler\ to\ run\ terminators\ in\ all\ loaded\ images\ when\ this\ process\ exits}}
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ gLibSystemHelpers\ !=\ NULL\ )\ }
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ (*\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>cxa\_atexit)(\&runTerminators,\ NULL,\ NULL);}
+\DoxyCodeLine{00944\ }
+\DoxyCodeLine{00945\ \ \ \ \ \textcolor{comment}{//\ dump\ info\ if\ requested}}
+\DoxyCodeLine{00946\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a9cea50e0b2e2d6f98191f4cb9cc9c205_a9cea50e0b2e2d6f98191f4cb9cc9c205}{DYLD\_PRINT\_STATISTICS}}\ )}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ ImageLoaderMachO::printStatistics(sAllImages.size(),\ initializerTimes[0]);}
+\DoxyCodeLine{00948\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=327pt]{db/d2b/namespacedyld_ae9db6b6be18f59732c4d994839fb92ca_ae9db6b6be18f59732c4d994839fb92ca_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8}\index{dyld@{dyld}!isCompatibleMachO@{isCompatibleMachO}}
+\index{isCompatibleMachO@{isCompatibleMachO}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{isCompatibleMachO()}{isCompatibleMachO()}}
+{\footnotesize\ttfamily \label{namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8} 
+bool dyld\+::is\+Compatible\+MachO (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{first\+Page}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01942}{1942}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01943\ \{}
+\DoxyCodeLine{01944\ \textcolor{preprocessor}{\#if\ CPU\_SUBTYPES\_SUPPORTED}}
+\DoxyCodeLine{01945\ \ \ \ \ \textcolor{comment}{//\ It\ is\ deemed\ compatible\ if\ any\ of\ the\ following\ are\ true:}}
+\DoxyCodeLine{01946\ \ \ \ \ \textcolor{comment}{//\ \ 1)\ mach\_header\ subtype\ is\ in\ list\ of\ compatible\ subtypes\ for\ running\ processor}}
+\DoxyCodeLine{01947\ \ \ \ \ \textcolor{comment}{//\ \ 2)\ mach\_header\ subtype\ is\ same\ as\ running\ processor\ subtype}}
+\DoxyCodeLine{01948\ \ \ \ \ \textcolor{comment}{//\ \ 3)\ mach\_header\ subtype\ runs\ on\ all\ processor\ variants}}
+\DoxyCodeLine{01949\ \ \ \ \ \textcolor{keyword}{const}\ mach\_header*\ mh\ =\ (mach\_header*)firstPage;}
+\DoxyCodeLine{01950\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh-\/>magic\ ==\ sMainExecutableMachHeader-\/>magic\ )\ \{}
+\DoxyCodeLine{01951\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh-\/>cputype\ ==\ sMainExecutableMachHeader-\/>cputype\ )\ \{}
+\DoxyCodeLine{01952\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (mh-\/>cputype\ \&\ \mbox{\hyperlink{dyld_8h_aac80ddeb46a644daae46345bff9d6a7d_aac80ddeb46a644daae46345bff9d6a7d}{CPU\_TYPE\_MASK}})\ ==\ sHostCPU\ )\ \{}
+\DoxyCodeLine{01953\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ get\ preference\ ordered\ list\ of\ subtypes\ that\ this\ machine\ can\ use}}
+\DoxyCodeLine{01954\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ cpu\_subtype\_t*\ subTypePreferenceList\ =\ findCPUSubtypeList(mh-\/>cputype,\ sHostCPUsubtype);}
+\DoxyCodeLine{01955\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ subTypePreferenceList\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{01956\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ image's\ subtype\ is\ in\ the\ list,\ it\ is\ compatible}}
+\DoxyCodeLine{01957\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ cpu\_subtype\_t*\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ subTypePreferenceList;\ *\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ !=\ CPU\_SUBTYPE\_END\_OF\_LIST;\ ++\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}})\ \{}
+\DoxyCodeLine{01958\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *\mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ ==\ mh-\/>cpusubtype\ )}
+\DoxyCodeLine{01959\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01960\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01961\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ have\ list\ and\ not\ in\ list,\ so\ not\ compatible}}
+\DoxyCodeLine{01962\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ throwf(\textcolor{stringliteral}{"{}incompatible\ cpu-\/subtype:\ 0x\%08X\ in\ \%s"{}},\ mh-\/>cpusubtype,\ path);}
+\DoxyCodeLine{01963\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01964\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ unknown\ cpu\ sub-\/type,\ but\ if\ exact\ match\ for\ current\ subtype\ then\ ok\ to\ use}}
+\DoxyCodeLine{01965\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh-\/>cpusubtype\ ==\ sHostCPUsubtype\ )\ }
+\DoxyCodeLine{01966\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01967\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01968\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{01969\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cpu\ type\ has\ no\ ordered\ list\ of\ subtypes}}
+\DoxyCodeLine{01970\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (mh-\/>cputype)\ \{}
+\DoxyCodeLine{01971\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CPU\_TYPE\_I386:}
+\DoxyCodeLine{01972\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ CPU\_TYPE\_X86\_64:}
+\DoxyCodeLine{01973\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ subtypes\ are\ not\ used\ or\ these\ architectures}}
+\DoxyCodeLine{01974\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01975\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01976\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01977\ \ \ \ \ \}}
+\DoxyCodeLine{01978\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01979\ \ \ \ \ \textcolor{comment}{//\ For\ architectures\ that\ don't\ support\ cpu-\/sub-\/types}}
+\DoxyCodeLine{01980\ \ \ \ \ \textcolor{comment}{//\ this\ just\ check\ the\ cpu\ type.}}
+\DoxyCodeLine{01981\ \ \ \ \ \textcolor{keyword}{const}\ mach\_header*\ mh\ =\ (mach\_header*)firstPage;}
+\DoxyCodeLine{01982\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh-\/>magic\ ==\ sMainExecutableMachHeader-\/>magic\ )\ \{}
+\DoxyCodeLine{01983\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ mh-\/>cputype\ ==\ sMainExecutableMachHeader-\/>cputype\ )\ \{}
+\DoxyCodeLine{01984\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01985\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01986\ \ \ \ \ \}}
+\DoxyCodeLine{01987\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01988\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01989\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72}\index{dyld@{dyld}!link@{link}}
+\index{link@{link}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{link()}{link()}}
+{\footnotesize\ttfamily \label{namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72} 
+void dyld\+::link (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{, }\item[{bool}]{force\+Lazys\+Bound}{, }\item[{const Image\+Loader\+::\+RPath\+Chain \&}]{loader\+RPaths}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03726}{3726}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03727\ \{}
+\DoxyCodeLine{03728\ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ of\ known\ images.\ \ This\ did\ not\ happen\ at\ creation\ time\ for\ bundles}}
+\DoxyCodeLine{03729\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>isBundle()\ \&\&\ !image-\/>isLinked()\ )}
+\DoxyCodeLine{03730\ \ \ \ \ \ \ \ \ addImage(image);}
+\DoxyCodeLine{03731\ }
+\DoxyCodeLine{03732\ \ \ \ \ \textcolor{comment}{//\ we\ detect\ root\ images\ as\ those\ not\ linked\ in\ yet\ }}
+\DoxyCodeLine{03733\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !image-\/>isLinked()\ )}
+\DoxyCodeLine{03734\ \ \ \ \ \ \ \ \ addRootImage(image);}
+\DoxyCodeLine{03735\ \ \ \ \ }
+\DoxyCodeLine{03736\ \ \ \ \ \textcolor{comment}{//\ process\ images}}
+\DoxyCodeLine{03737\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03738\ \ \ \ \ \ \ \ \ image-\/>link(gLinkContext,\ forceLazysBound,\ \textcolor{keyword}{false},\ loaderRPaths);}
+\DoxyCodeLine{03739\ \ \ \ \ \}}
+\DoxyCodeLine{03740\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msg)\ \{}
+\DoxyCodeLine{03741\ \ \ \ \ \ \ \ \ garbageCollectImages();}
+\DoxyCodeLine{03742\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{03743\ \ \ \ \ \}}
+\DoxyCodeLine{03744\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{db/d2b/namespacedyld_ae0c6e435c15c51dd9dc6908f0eb03f72_ae0c6e435c15c51dd9dc6908f0eb03f72_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ad593cc42409f602f6ecb865685b6b4bc_ad593cc42409f602f6ecb865685b6b4bc}\index{dyld@{dyld}!load@{load}}
+\index{load@{load}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily \label{namespacedyld_ad593cc42409f602f6ecb865685b6b4bc_ad593cc42409f602f6ecb865685b6b4bc} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::load (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{path}{, }\item[{const Load\+Context \&}]{context}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l02659}{2659}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{02660\ \{}
+\DoxyCodeLine{02661\ \ \ \ \ CRSetCrashLogMessage2(path);}
+\DoxyCodeLine{02662\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ orgPath\ =\ path;}
+\DoxyCodeLine{02663\ \ \ \ \ }
+\DoxyCodeLine{02664\ \ \ \ \ \textcolor{comment}{//dyld::log("{}\%s(\%s)\(\backslash\)n"{},\ \_\_func\_\_\ ,\ path);}}
+\DoxyCodeLine{02665\ \ \ \ \ \textcolor{keywordtype}{char}\ realPath[PATH\_MAX];}
+\DoxyCodeLine{02666\ \ \ \ \ \textcolor{comment}{//\ when\ DYLD\_IMAGE\_SUFFIX\ is\ in\ used,\ do\ a\ realpath(),\ otherwise\ a\ load\ of\ "{}Foo.framework/Foo"{}\ will\ not\ match}}
+\DoxyCodeLine{02667\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ context.useSearchPaths\ \&\&\ (\ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.imageSuffix\ !=\ NULL)\ )\ \{}
+\DoxyCodeLine{02668\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ realpath(path,\ realPath)\ !=\ NULL\ )}
+\DoxyCodeLine{02669\ \ \ \ \ \ \ \ \ \ \ \ \ path\ =\ realPath;}
+\DoxyCodeLine{02670\ \ \ \ \ \}}
+\DoxyCodeLine{02671\ \ \ \ \ }
+\DoxyCodeLine{02672\ \ \ \ \ \textcolor{comment}{//\ try\ all\ path\ permutations\ and\ check\ against\ existing\ loaded\ images}}
+\DoxyCodeLine{02673\ \ \ \ \ ImageLoader*\ image\ =\ loadPhase0(path,\ orgPath,\ context,\ NULL);}
+\DoxyCodeLine{02674\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{02675\ \ \ \ \ \ \ \ \ CRSetCrashLogMessage2(NULL);}
+\DoxyCodeLine{02676\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image;}
+\DoxyCodeLine{02677\ \ \ \ \ \}}
+\DoxyCodeLine{02678\ }
+\DoxyCodeLine{02679\ \ \ \ \ \textcolor{comment}{//\ try\ all\ path\ permutations\ and\ try\ open()\ until\ first\ success}}
+\DoxyCodeLine{02680\ \ \ \ \ std::vector<const\ char*>\ exceptions;}
+\DoxyCodeLine{02681\ \ \ \ \ image\ =\ loadPhase0(path,\ orgPath,\ context,\ \&exceptions);}
+\DoxyCodeLine{02682\ \ \ \ \ CRSetCrashLogMessage2(NULL);}
+\DoxyCodeLine{02683\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{02684\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ <rdar://problem/6916014>\ leak\ in\ dyld\ during\ dlopen\ when\ using\ DYLD\_\ variables}}
+\DoxyCodeLine{02685\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<const\ char*>::iterator\ it\ =\ exceptions.begin();\ it\ !=\ exceptions.end();\ ++it)\ \{}
+\DoxyCodeLine{02686\ \ \ \ \ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{void}*)(*it));}
+\DoxyCodeLine{02687\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02688\ \textcolor{preprocessor}{\#if\ \_\_IPHONE\_OS\_VERSION\_MIN\_REQUIRED}}
+\DoxyCodeLine{02689\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if\ loaded\ image\ is\ not\ from\ cache,\ but\ original\ path\ is\ in\ cache}}
+\DoxyCodeLine{02690\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ set\ gSharedCacheOverridden\ flag\ to\ disable\ some\ ObjC\ optimizations}}
+\DoxyCodeLine{02691\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !gSharedCacheOverridden\ )\ \{}
+\DoxyCodeLine{02692\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !image-\/>inSharedCache()\ \&\&\ inSharedCache(path)\ )\ \{}
+\DoxyCodeLine{02693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gSharedCacheOverridden\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{02694\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02695\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02696\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{02697\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image;}
+\DoxyCodeLine{02698\ \ \ \ \ \}}
+\DoxyCodeLine{02699\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ exceptions.size()\ ==\ 0\ )\ \{}
+\DoxyCodeLine{02700\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ context.dontLoad\ )\ \{}
+\DoxyCodeLine{02701\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{02702\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02703\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{02704\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}image\ not\ found"{}};}
+\DoxyCodeLine{02705\ \ \ \ \ \}}
+\DoxyCodeLine{02706\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{02707\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msgStart\ =\ \textcolor{stringliteral}{"{}no\ suitable\ image\ found.\ \ Did\ find:"{}};}
+\DoxyCodeLine{02708\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ delim\ =\ \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}};}
+\DoxyCodeLine{02709\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ allsizes\ =\ strlen(msgStart)+8;}
+\DoxyCodeLine{02710\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ exceptions.size();\ ++i)\ }
+\DoxyCodeLine{02711\ \ \ \ \ \ \ \ \ \ \ \ \ allsizes\ +=\ (strlen(exceptions[i])\ +\ strlen(delim));}
+\DoxyCodeLine{02712\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}*\ fullMsg\ =\ \textcolor{keyword}{new}\ \textcolor{keywordtype}{char}[allsizes];}
+\DoxyCodeLine{02713\ \ \ \ \ \ \ \ \ strcpy(fullMsg,\ msgStart);}
+\DoxyCodeLine{02714\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ exceptions.size();\ ++i)\ \{}
+\DoxyCodeLine{02715\ \ \ \ \ \ \ \ \ \ \ \ \ strcat(fullMsg,\ delim);}
+\DoxyCodeLine{02716\ \ \ \ \ \ \ \ \ \ \ \ \ strcat(fullMsg,\ exceptions[i]);}
+\DoxyCodeLine{02717\ \ \ \ \ \ \ \ \ \ \ \ \ free((\textcolor{keywordtype}{void}*)exceptions[i]);}
+\DoxyCodeLine{02718\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{02719\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*)fullMsg;}
+\DoxyCodeLine{02720\ \ \ \ \ \}}
+\DoxyCodeLine{02721\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a4a585a601fdc6c69e559ef5de92318e8_a4a585a601fdc6c69e559ef5de92318e8}\index{dyld@{dyld}!loadFromMemory@{loadFromMemory}}
+\index{loadFromMemory@{loadFromMemory}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{loadFromMemory()}{loadFromMemory()}}
+{\footnotesize\ttfamily \label{namespacedyld_a4a585a601fdc6c69e559ef5de92318e8_a4a585a601fdc6c69e559ef5de92318e8} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::load\+From\+Memory (\begin{DoxyParamCaption}\item[{const uint8\+\_\+t \texorpdfstring{$\ast$}{*}}]{mem}{, }\item[{uint64\+\_\+t}]{len}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{module\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03206}{3206}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03207\ \{}
+\DoxyCodeLine{03208\ \ \ \ \ \textcolor{comment}{//\ if\ fat\ wrapper,\ find\ usable\ sub-\/file}}
+\DoxyCodeLine{03209\ \ \ \ \ \textcolor{keyword}{const}\ fat\_header*\ memStartAsFat\ =\ (fat\_header*)mem;}
+\DoxyCodeLine{03210\ \ \ \ \ uint64\_t\ fileOffset\ =\ 0;}
+\DoxyCodeLine{03211\ \ \ \ \ uint64\_t\ fileLength\ =\ len;}
+\DoxyCodeLine{03212\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ memStartAsFat-\/>magic\ ==\ OSSwapBigToHostInt32(FAT\_MAGIC)\ )\ \{}
+\DoxyCodeLine{03213\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ fatFindBest(memStartAsFat,\ \&fileOffset,\ \&fileLength)\ )\ \{}
+\DoxyCodeLine{03214\ \ \ \ \ \ \ \ \ \ \ \ \ mem\ =\ \&mem[fileOffset];}
+\DoxyCodeLine{03215\ \ \ \ \ \ \ \ \ \ \ \ \ len\ =\ fileLength;}
+\DoxyCodeLine{03216\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03217\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{03218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}no\ matching\ architecture\ in\ universal\ wrapper"{}};}
+\DoxyCodeLine{03219\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03220\ \ \ \ \ \}}
+\DoxyCodeLine{03221\ }
+\DoxyCodeLine{03222\ \ \ \ \ \textcolor{comment}{//\ try\ each\ loader}}
+\DoxyCodeLine{03223\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{namespacedyld_ac04fc826d44a2479a7e44186af582fe8_ac04fc826d44a2479a7e44186af582fe8}{isCompatibleMachO}}(mem,\ moduleName)\ )\ \{}
+\DoxyCodeLine{03224\ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ ImageLoaderMachO::instantiateFromMemory(moduleName,\ (macho\_header*)mem,\ len,\ gLinkContext);}
+\DoxyCodeLine{03225\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ don't\ add\ bundles\ to\ global\ list,\ they\ can\ be\ loaded\ but\ not\ linked.\ \ When\ linked\ it\ will\ be\ added\ to\ list}}
+\DoxyCodeLine{03226\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !\ image-\/>isBundle()\ )\ }
+\DoxyCodeLine{03227\ \ \ \ \ \ \ \ \ \ \ \ \ addImage(image);}
+\DoxyCodeLine{03228\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ image;}
+\DoxyCodeLine{03229\ \ \ \ \ \}}
+\DoxyCodeLine{03230\ \ \ \ \ }
+\DoxyCodeLine{03231\ \ \ \ \ \textcolor{comment}{//\ try\ other\ file\ formats\ here...}}
+\DoxyCodeLine{03232\ \ \ \ \ }
+\DoxyCodeLine{03233\ \ \ \ \ \textcolor{comment}{//\ throw\ error\ about\ what\ was\ found}}
+\DoxyCodeLine{03234\ \ \ \ \ \textcolor{keywordflow}{switch}\ (*(uint32\_t*)mem)\ \{}
+\DoxyCodeLine{03235\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MH\_MAGIC:}
+\DoxyCodeLine{03236\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MH\_CIGAM:}
+\DoxyCodeLine{03237\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MH\_MAGIC\_64:}
+\DoxyCodeLine{03238\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MH\_CIGAM\_64:}
+\DoxyCodeLine{03239\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}mach-\/o,\ but\ wrong\ architecture"{}};}
+\DoxyCodeLine{03240\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{03241\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38}{throwf}}(\textcolor{stringliteral}{"{}unknown\ file\ type,\ first\ eight\ bytes:\ 0x\%02X\ 0x\%02X\ 0x\%02X\ 0x\%02X\ 0x\%02X\ 0x\%02X\ 0x\%02X\ 0x\%02X"{}},\ }
+\DoxyCodeLine{03242\ \ \ \ \ \ \ \ \ \ \ \ \ mem[0],\ mem[1],\ mem[2],\ mem[3],\ mem[4],\ mem[5],\ mem[6],mem[7]);}
+\DoxyCodeLine{03243\ \ \ \ \ \}}
+\DoxyCodeLine{03244\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a4a585a601fdc6c69e559ef5de92318e8_a4a585a601fdc6c69e559ef5de92318e8_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}\index{dyld@{dyld}!log@{log}}
+\index{log@{log}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{log()}{log()}}
+{\footnotesize\ttfamily \label{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a} 
+void dyld\+::log (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00383}{383}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00384\ \{}
+\DoxyCodeLine{00385\ \ \ \ \ va\_list\ list;}
+\DoxyCodeLine{00386\ \ \ \ \ va\_start(list,\ format);}
+\DoxyCodeLine{00387\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a91ddfa69e5977270b9bd3fc1042ad53a_a91ddfa69e5977270b9bd3fc1042ad53a}{\_simple\_vdprintf}}(sLogfile,\ format,\ list);}
+\DoxyCodeLine{00388\ \ \ \ \ va\_end(list);}
+\DoxyCodeLine{00389\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=256pt]{db/d2b/namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_aed35923a7241934c0e1646b71193a200_aed35923a7241934c0e1646b71193a200}\index{dyld@{dyld}!mainExecutable@{mainExecutable}}
+\index{mainExecutable@{mainExecutable}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{mainExecutable()}{mainExecutable()}}
+{\footnotesize\ttfamily \label{namespacedyld_aed35923a7241934c0e1646b71193a200_aed35923a7241934c0e1646b71193a200} 
+Image\+Loader \texorpdfstring{$\ast$}{*} dyld\+::main\+Executable (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00955}{955}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00956\ \{}
+\DoxyCodeLine{00957\ \ \ \ \ \textcolor{keywordflow}{return}\ sMainExecutable;}
+\DoxyCodeLine{00958\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_addc049e3d0fe7755bb288a5ae50d7a89_addc049e3d0fe7755bb288a5ae50d7a89}\index{dyld@{dyld}!mainExecutablePrebound@{mainExecutablePrebound}}
+\index{mainExecutablePrebound@{mainExecutablePrebound}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{mainExecutablePrebound()}{mainExecutablePrebound()}}
+{\footnotesize\ttfamily \label{namespacedyld_addc049e3d0fe7755bb288a5ae50d7a89_addc049e3d0fe7755bb288a5ae50d7a89} 
+bool dyld\+::main\+Executable\+Prebound (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00950}{950}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00951\ \{}
+\DoxyCodeLine{00952\ \ \ \ \ \textcolor{keywordflow}{return}\ sMainExecutable-\/>usablePrebinding(gLinkContext);}
+\DoxyCodeLine{00953\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a4d93ebae9e49e173cc2d842133bdf354_a4d93ebae9e49e173cc2d842133bdf354}\index{dyld@{dyld}!mkstringf@{mkstringf}}
+\index{mkstringf@{mkstringf}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{mkstringf()}{mkstringf()}}
+{\footnotesize\ttfamily \label{namespacedyld_a4d93ebae9e49e173cc2d842133bdf354_a4d93ebae9e49e173cc2d842133bdf354} 
+const char \texorpdfstring{$\ast$}{*} dyld\+::mkstringf (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00316}{316}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00317\ \{}
+\DoxyCodeLine{00318\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a04d4b3141b8d3fc4a955b294764e510c_a04d4b3141b8d3fc4a955b294764e510c}{\_SIMPLE\_STRING}}\ buf\ =\ \mbox{\hyperlink{dyld_8h_aa7949c4d4b5511591b7d2745b72ab2a8_aa7949c4d4b5511591b7d2745b72ab2a8}{\_simple\_salloc}}();}
+\DoxyCodeLine{00319\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ buf\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ va\_list\ list;}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ va\_start(list,\ format);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dyld_8h_a168167bd23f62558003c3a97922278aa_a168167bd23f62558003c3a97922278aa}{\_simple\_vsprintf}}(buf,\ format,\ list);}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ va\_end(list);}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ t\ =\ strdup(\mbox{\hyperlink{dyld_8h_a6360c25e0a2d0d90e0b30cd97e61dcda_a6360c25e0a2d0d90e0b30cd97e61dcda}{\_simple\_string}}(buf));}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dyld_8h_a51b8d5cb1ebb0f85e1b5e33cb0cb1530_a51b8d5cb1ebb0f85e1b5e33cb0cb1530}{\_simple\_sfree}}(buf);}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ t\ !=\ NULL\ )}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ t;}
+\DoxyCodeLine{00328\ \ \ \ \ \}}
+\DoxyCodeLine{00329\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}mkstringf,\ out\ of\ memory\ error"{}};}
+\DoxyCodeLine{00330\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{db/d2b/namespacedyld_a4d93ebae9e49e173cc2d842133bdf354_a4d93ebae9e49e173cc2d842133bdf354_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a4ddf022a0b6076526e40b70913e3a50b_a4ddf022a0b6076526e40b70913e3a50b}\index{dyld@{dyld}!preflight@{preflight}}
+\index{preflight@{preflight}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{preflight()}{preflight()}}
+{\footnotesize\ttfamily \label{namespacedyld_a4ddf022a0b6076526e40b70913e3a50b_a4ddf022a0b6076526e40b70913e3a50b} 
+void dyld\+::preflight (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{, }\item[{const Image\+Loader\+::\+RPath\+Chain \&}]{loader\+RPaths}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03799}{3799}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03800\ \{}
+\DoxyCodeLine{03801\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03802\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>isBundle()\ )\ }
+\DoxyCodeLine{03803\ \ \ \ \ \ \ \ \ \ \ \ \ sBundleBeingLoaded\ =\ image;\ \textcolor{comment}{//\ hack}}
+\DoxyCodeLine{03804\ \ \ \ \ \ \ \ \ image-\/>link(gLinkContext,\ \textcolor{keyword}{false},\ \textcolor{keyword}{true},\ loaderRPaths);}
+\DoxyCodeLine{03805\ \ \ \ \ \}}
+\DoxyCodeLine{03806\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msg)\ \{\ \ \ }
+\DoxyCodeLine{03807\ \ \ \ \ \ \ \ \ preflight\_finally(image);}
+\DoxyCodeLine{03808\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw};}
+\DoxyCodeLine{03809\ \ \ \ \ \}}
+\DoxyCodeLine{03810\ \ \ \ \ preflight\_finally(image);}
+\DoxyCodeLine{03811\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a0f1538cb98997ee998c61941a8eb5be3_a0f1538cb98997ee998c61941a8eb5be3}\index{dyld@{dyld}!processDyldEnvironmentVariable@{processDyldEnvironmentVariable}}
+\index{processDyldEnvironmentVariable@{processDyldEnvironmentVariable}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{processDyldEnvironmentVariable()}{processDyldEnvironmentVariable()}}
+{\footnotesize\ttfamily \label{namespacedyld_a0f1538cb98997ee998c61941a8eb5be3_a0f1538cb98997ee998c61941a8eb5be3} 
+void dyld\+::process\+Dyld\+Environment\+Variable (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{key}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{value}{, }\item[{const char \texorpdfstring{$\ast$}{*}}]{main\+Executable\+Dir}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01265}{1265}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01266\ \{}
+\DoxyCodeLine{01267\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_FRAMEWORK\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01268\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_ad39b178a481aeacc41e9c18de29613f6_ad39b178a481aeacc41e9c18de29613f6}{DYLD\_FRAMEWORK\_PATH}});}
+\DoxyCodeLine{01269\ \ \ \ \ \}}
+\DoxyCodeLine{01270\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_FALLBACK\_FRAMEWORK\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01271\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_aa14cfc780f5953013cdb65651daa5f5e_aa14cfc780f5953013cdb65651daa5f5e}{DYLD\_FALLBACK\_FRAMEWORK\_PATH}});}
+\DoxyCodeLine{01272\ \ \ \ \ \}}
+\DoxyCodeLine{01273\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_LIBRARY\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01274\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_ab11c19c1f5320651d8b343e8ada4ff2d_ab11c19c1f5320651d8b343e8ada4ff2d}{DYLD\_LIBRARY\_PATH}});}
+\DoxyCodeLine{01275\ \ \ \ \ \}}
+\DoxyCodeLine{01276\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_FALLBACK\_LIBRARY\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01277\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a97a946a776e0d8bf02c331a16b7d5370_a97a946a776e0d8bf02c331a16b7d5370}{DYLD\_FALLBACK\_LIBRARY\_PATH}});}
+\DoxyCodeLine{01278\ \ \ \ \ \}}
+\DoxyCodeLine{01279\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ (strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_ROOT\_PATH"{}})\ ==\ 0)\ ||\ (strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PATHS\_ROOT"{}})\ ==\ 0)\ )\ \{}
+\DoxyCodeLine{01280\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}/"{}})\ !=\ 0\ )\ \{}
+\DoxyCodeLine{01281\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.rootPaths\ =\ parseColonList(value,\ mainExecutableDir);}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.rootPaths[i]\ !=\ NULL;\ ++i)\ \{}
+\DoxyCodeLine{01283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.rootPaths[i][0]\ !=\ \textcolor{charliteral}{'/'}\ )\ \{}
+\DoxyCodeLine{01284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{dyld::warn}}(\textcolor{stringliteral}{"{}DYLD\_ROOT\_PATH\ not\ used\ because\ it\ contains\ a\ non-\/absolute\ path\(\backslash\)n"{}});}
+\DoxyCodeLine{01285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.rootPaths\ =\ NULL;}
+\DoxyCodeLine{01286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{01287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01288\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01289\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01290\ \ \ \ \ \}\ }
+\DoxyCodeLine{01291\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_IMAGE\_SUFFIX"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01292\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.imageSuffix\ =\ value;}
+\DoxyCodeLine{01293\ \ \ \ \ \}}
+\DoxyCodeLine{01294\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_INSERT\_LIBRARIES"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01295\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a468ce2bbd52084e5be4a03916b60ac3d_a468ce2bbd52084e5be4a03916b60ac3d}{DYLD\_INSERT\_LIBRARIES}}\ =\ parseColonList(value,\ NULL);}
+\DoxyCodeLine{01296\ \ \ \ \ \}}
+\DoxyCodeLine{01297\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_OPTS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01298\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a20e9f84af68333fa00a5900344f45cee_a20e9f84af68333fa00a5900344f45cee}{DYLD\_PRINT\_OPTS}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01299\ \ \ \ \ \}}
+\DoxyCodeLine{01300\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_ENV"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01301\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_abc29c174a64bccbf1bb7113942007641_abc29c174a64bccbf1bb7113942007641}{DYLD\_PRINT\_ENV}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01302\ \ \ \ \ \}}
+\DoxyCodeLine{01303\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_DISABLE\_DOFS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a17e04d8f29995f41e70652e74f9bb550_a17e04d8f29995f41e70652e74f9bb550}{DYLD\_DISABLE\_DOFS}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01305\ \ \ \ \ \}}
+\DoxyCodeLine{01306\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_DISABLE\_PREFETCH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.preFetchDisabled\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01308\ \ \ \ \ \}}
+\DoxyCodeLine{01309\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_LIBRARIES"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01310\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_acabb7ce337d7763e75be0d9294d8c623_acabb7ce337d7763e75be0d9294d8c623}{DYLD\_PRINT\_LIBRARIES}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01311\ \ \ \ \ \}}
+\DoxyCodeLine{01312\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_LIBRARIES\_POST\_LAUNCH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a73c012d574792ce2098cf1ef0e3c2a10_a73c012d574792ce2098cf1ef0e3c2a10}{DYLD\_PRINT\_LIBRARIES\_POST\_LAUNCH}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01314\ \ \ \ \ \}}
+\DoxyCodeLine{01315\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_BIND\_AT\_LAUNCH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a19ec73e7ad4a2d88ff38190ba66972f4_a19ec73e7ad4a2d88ff38190ba66972f4}{DYLD\_BIND\_AT\_LAUNCH}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01317\ \ \ \ \ \}}
+\DoxyCodeLine{01318\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_FORCE\_FLAT\_NAMESPACE"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01319\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.bindFlat\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01320\ \ \ \ \ \}}
+\DoxyCodeLine{01321\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_NEW\_LOCAL\_SHARED\_REGIONS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01322\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ignore,\ no\ longer\ relevant\ but\ some\ scripts\ still\ set\ it}}
+\DoxyCodeLine{01323\ \ \ \ \ \}}
+\DoxyCodeLine{01324\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_NO\_FIX\_PREBINDING"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01325\ \ \ \ \ \}}
+\DoxyCodeLine{01326\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PREBIND\_DEBUG"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01327\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verbosePrebinding\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01328\ \ \ \ \ \}}
+\DoxyCodeLine{01329\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_INITIALIZERS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01330\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseInit\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01331\ \ \ \ \ \}}
+\DoxyCodeLine{01332\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_DOFS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseDOF\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01334\ \ \ \ \ \}}
+\DoxyCodeLine{01335\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_STATISTICS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01336\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a9cea50e0b2e2d6f98191f4cb9cc9c205_a9cea50e0b2e2d6f98191f4cb9cc9c205}{DYLD\_PRINT\_STATISTICS}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01337\ \ \ \ \ \}}
+\DoxyCodeLine{01338\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_SEGMENTS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01339\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseMapping\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01340\ \ \ \ \ \}}
+\DoxyCodeLine{01341\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_BINDINGS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01342\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseBind\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01343\ \ \ \ \ \}}
+\DoxyCodeLine{01344\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_WEAK\_BINDINGS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01345\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseWeakBind\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01346\ \ \ \ \ \}}
+\DoxyCodeLine{01347\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_REBASINGS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01348\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseRebase\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01349\ \ \ \ \ \}}
+\DoxyCodeLine{01350\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_APIS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01351\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_af92b5adc1c8cbd648229c356e4d7e396_af92b5adc1c8cbd648229c356e4d7e396}{gLogAPIs}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01352\ \ \ \ \ \}}
+\DoxyCodeLine{01353\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_WARNINGS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01354\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseWarnings\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01355\ \ \ \ \ \}}
+\DoxyCodeLine{01356\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_RPATHS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseRPaths\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01358\ \ \ \ \ \}}
+\DoxyCodeLine{01359\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_CS\_NOTIFICATIONS"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01360\ \ \ \ \ \ \ \ \ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a99d34b855fa1226a91f0bc3472ce0dfc_a99d34b855fa1226a91f0bc3472ce0dfc}{DYLD\_PRINT\_CS\_NOTIFICATIONS}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01361\ \ \ \ \ \}}
+\DoxyCodeLine{01362\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_PRINT\_INTERPOSING"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.verboseInterposing\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01364\ \ \ \ \ \}}
+\DoxyCodeLine{01365\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_SHARED\_REGION"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}private"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01367\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.sharedRegionMode\ =\ ImageLoader::kUsePrivateSharedRegion;}
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}avoid"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.sharedRegionMode\ =\ ImageLoader::kDontUseSharedRegion;}
+\DoxyCodeLine{01371\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}use"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.sharedRegionMode\ =\ ImageLoader::kUseSharedRegion;}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01375\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ value[0]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'}\ )\ \{}
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.sharedRegionMode\ =\ ImageLoader::kUseSharedRegion;}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01379\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{dyld::warn}}(\textcolor{stringliteral}{"{}unknown\ option\ to\ DYLD\_SHARED\_REGION.\ \ Valid\ options\ are:\ use,\ private,\ avoid\(\backslash\)n"{}});}
+\DoxyCodeLine{01380\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01381\ \ \ \ \ \}}
+\DoxyCodeLine{01382\ \textcolor{preprocessor}{\#if\ DYLD\_SHARED\_CACHE\_SUPPORT}}
+\DoxyCodeLine{01383\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_SHARED\_CACHE\_DIR"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01384\ \ \ \ \ \ \ \ \ sSharedCacheDir\ =\ value;}
+\DoxyCodeLine{01385\ \ \ \ \ \}}
+\DoxyCodeLine{01386\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_SHARED\_CACHE\_DONT\_VALIDATE"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01387\ \ \ \ \ \ \ \ \ sSharedCacheIgnoreInodeAndTimeStamp\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01388\ \ \ \ \ \}}
+\DoxyCodeLine{01389\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01390\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_IGNORE\_PREBINDING"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01391\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}all"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01392\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.prebindUsage\ =\ ImageLoader::kUseNoPrebinding;}
+\DoxyCodeLine{01393\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01394\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}app"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.prebindUsage\ =\ ImageLoader::kUseAllButAppPredbinding;}
+\DoxyCodeLine{01396\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01397\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(value,\ \textcolor{stringliteral}{"{}nonsplit"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01398\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.prebindUsage\ =\ ImageLoader::kUseSplitSegPrebinding;}
+\DoxyCodeLine{01399\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01400\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ value[0]\ ==\ \textcolor{charliteral}{'\(\backslash\)0'}\ )\ \{}
+\DoxyCodeLine{01401\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}{gLinkContext}}.prebindUsage\ =\ ImageLoader::kUseSplitSegPrebinding;}
+\DoxyCodeLine{01402\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01403\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01404\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{dyld::warn}}(\textcolor{stringliteral}{"{}unknown\ option\ to\ DYLD\_IGNORE\_PREBINDING.\ \ Valid\ options\ are:\ all,\ app,\ nonsplit\(\backslash\)n"{}});}
+\DoxyCodeLine{01405\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01406\ \ \ \ \ \}}
+\DoxyCodeLine{01407\ \textcolor{preprocessor}{\#if\ SUPPORT\_VERSIONED\_PATHS}}
+\DoxyCodeLine{01408\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_VERSIONED\_LIBRARY\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01409\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a46735df383a50e63e6cf961021067bf9_a46735df383a50e63e6cf961021067bf9}{DYLD\_VERSIONED\_LIBRARY\_PATH}});}
+\DoxyCodeLine{01410\ \ \ \ \ \}}
+\DoxyCodeLine{01411\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\ strcmp(key,\ \textcolor{stringliteral}{"{}DYLD\_VERSIONED\_FRAMEWORK\_PATH"{}})\ ==\ 0\ )\ \{}
+\DoxyCodeLine{01412\ \ \ \ \ \ \ \ \ appendParsedColonList(value,\ mainExecutableDir,\ \&sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_ad64f8c34d88f5ce44f3c18155a605350_ad64f8c34d88f5ce44f3c18155a605350}{DYLD\_VERSIONED\_FRAMEWORK\_PATH}});}
+\DoxyCodeLine{01413\ \ \ \ \ \}}
+\DoxyCodeLine{01414\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01415\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{01416\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}{dyld::warn}}(\textcolor{stringliteral}{"{}unknown\ environment\ variable:\ \%s\(\backslash\)n"{}},\ key);}
+\DoxyCodeLine{01417\ \ \ \ \ \}}
+\DoxyCodeLine{01418\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a0f1538cb98997ee998c61941a8eb5be3_a0f1538cb98997ee998c61941a8eb5be3_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_af5dd3454dc760221920fda113f77249a_af5dd3454dc760221920fda113f77249a}\index{dyld@{dyld}!registerAddCallback@{registerAddCallback}}
+\index{registerAddCallback@{registerAddCallback}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{registerAddCallback()}{registerAddCallback()}}
+{\footnotesize\ttfamily \label{namespacedyld_af5dd3454dc760221920fda113f77249a_af5dd3454dc760221920fda113f77249a} 
+void dyld\+::register\+Add\+Callback (\begin{DoxyParamCaption}\item[{Image\+Callback}]{func}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03247}{3247}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03248\ \{}
+\DoxyCodeLine{03249\ \ \ \ \ \textcolor{comment}{//\ now\ add\ to\ list\ to\ get\ notified\ when\ any\ more\ images\ are\ added}}
+\DoxyCodeLine{03250\ \ \ \ \ sAddImageCallbacks.push\_back(func);}
+\DoxyCodeLine{03251\ \ \ \ \ }
+\DoxyCodeLine{03252\ \ \ \ \ \textcolor{comment}{//\ call\ callback\ with\ all\ existing\ images}}
+\DoxyCodeLine{03253\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{03254\ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ *it;}
+\DoxyCodeLine{03255\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>getState()\ >=\ dyld\_image\_state\_bound\ \&\&\ image-\/>getState()\ <\ dyld\_image\_state\_terminated\ )}
+\DoxyCodeLine{03256\ \ \ \ \ \ \ \ \ \ \ \ \ (*func)(image-\/>machHeader(),\ image-\/>getSlide());}
+\DoxyCodeLine{03257\ \ \ \ \ \}}
+\DoxyCodeLine{03258\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_aa80d3719605ad0025845f51e0b4dc38a_aa80d3719605ad0025845f51e0b4dc38a}\index{dyld@{dyld}!registerImageStateBatchChangeHandler@{registerImageStateBatchChangeHandler}}
+\index{registerImageStateBatchChangeHandler@{registerImageStateBatchChangeHandler}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{registerImageStateBatchChangeHandler()}{registerImageStateBatchChangeHandler()}}
+{\footnotesize\ttfamily \label{namespacedyld_aa80d3719605ad0025845f51e0b4dc38a_aa80d3719605ad0025845f51e0b4dc38a} 
+void dyld\+::register\+Image\+State\+Batch\+Change\+Handler (\begin{DoxyParamCaption}\item[{dyld\+\_\+image\+\_\+states}]{state}{, }\item[{dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler}]{handler}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03511}{3511}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03512\ \{}
+\DoxyCodeLine{03513\ \ \ \ \ \textcolor{comment}{//\ mark\ the\ image\ that\ the\ handler\ is\ in\ as\ never-\/unload\ because\ dyld\ has\ a\ reference\ into\ it}}
+\DoxyCodeLine{03514\ \ \ \ \ ImageLoader*\ handlerImage\ =\ \mbox{\hyperlink{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a}{findImageContainingAddress}}((\textcolor{keywordtype}{void}*)handler);}
+\DoxyCodeLine{03515\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ handlerImage\ !=\ NULL\ )}
+\DoxyCodeLine{03516\ \ \ \ \ \ \ \ \ handlerImage-\/>setNeverUnload();}
+\DoxyCodeLine{03517\ }
+\DoxyCodeLine{03518\ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ of\ handlers}}
+\DoxyCodeLine{03519\ \ \ \ \ std::vector<dyld\_image\_state\_change\_handler>*\ handlers\ =\ stateToHandlers(state,\ sBatchHandlers);}
+\DoxyCodeLine{03520\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ handlers\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{03521\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ insert\ at\ front,\ so\ that\ gdb\ handler\ is\ always\ last}}
+\DoxyCodeLine{03522\ \ \ \ \ \ \ \ \ handlers-\/>insert(handlers-\/>begin(),\ handler);}
+\DoxyCodeLine{03523\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{03524\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ call\ callback\ with\ all\ existing\ images}}
+\DoxyCodeLine{03525\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{03526\ \ \ \ \ \ \ \ \ \ \ \ \ notifyBatchPartial(state,\ \textcolor{keyword}{true},\ handler);}
+\DoxyCodeLine{03527\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03528\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msg)\ \{}
+\DoxyCodeLine{03529\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ignore\ request\ to\ abort\ during\ registration}}
+\DoxyCodeLine{03530\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03531\ \ \ \ \ \}}
+\DoxyCodeLine{03532\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_aa80d3719605ad0025845f51e0b4dc38a_aa80d3719605ad0025845f51e0b4dc38a_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ac45e3acc455d5f6521742c0a3dab65aa_ac45e3acc455d5f6521742c0a3dab65aa}\index{dyld@{dyld}!registerImageStateSingleChangeHandler@{registerImageStateSingleChangeHandler}}
+\index{registerImageStateSingleChangeHandler@{registerImageStateSingleChangeHandler}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{registerImageStateSingleChangeHandler()}{registerImageStateSingleChangeHandler()}}
+{\footnotesize\ttfamily \label{namespacedyld_ac45e3acc455d5f6521742c0a3dab65aa_ac45e3acc455d5f6521742c0a3dab65aa} 
+void dyld\+::register\+Image\+State\+Single\+Change\+Handler (\begin{DoxyParamCaption}\item[{dyld\+\_\+image\+\_\+states}]{state}{, }\item[{dyld\+\_\+image\+\_\+state\+\_\+change\+\_\+handler}]{handler}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03479}{3479}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03480\ \{}
+\DoxyCodeLine{03481\ \ \ \ \ \textcolor{comment}{//\ mark\ the\ image\ that\ the\ handler\ is\ in\ as\ never-\/unload\ because\ dyld\ has\ a\ reference\ into\ it}}
+\DoxyCodeLine{03482\ \ \ \ \ ImageLoader*\ handlerImage\ =\ \mbox{\hyperlink{namespacedyld_aba23eb4274d879c572e4393d56c4fa5a_aba23eb4274d879c572e4393d56c4fa5a}{findImageContainingAddress}}((\textcolor{keywordtype}{void}*)handler);}
+\DoxyCodeLine{03483\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ handlerImage\ !=\ NULL\ )}
+\DoxyCodeLine{03484\ \ \ \ \ \ \ \ \ handlerImage-\/>setNeverUnload();}
+\DoxyCodeLine{03485\ }
+\DoxyCodeLine{03486\ \ \ \ \ \textcolor{comment}{//\ add\ to\ list\ of\ handlers}}
+\DoxyCodeLine{03487\ \ \ \ \ std::vector<dyld\_image\_state\_change\_handler>*\ handlers\ =\ stateToHandlers(state,\ sSingleHandlers);}
+\DoxyCodeLine{03488\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ handlers\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{03489\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ <rdar://problem/10332417>\ need\ updateAllImages()\ to\ be\ last\ in\ dyld\_image\_state\_mapped\ list}}
+\DoxyCodeLine{03490\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ so\ that\ if\ ObjC\ adds\ a\ handler\ that\ prevents\ a\ load,\ it\ happens\ before\ the\ gdb\ list\ is\ updated}}
+\DoxyCodeLine{03491\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ state\ ==\ dyld\_image\_state\_mapped\ )}
+\DoxyCodeLine{03492\ \ \ \ \ \ \ \ \ \ \ \ \ handlers-\/>insert(handlers-\/>begin(),\ handler);}
+\DoxyCodeLine{03493\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{03494\ \ \ \ \ \ \ \ \ \ \ \ \ handlers-\/>push\_back(handler);}
+\DoxyCodeLine{03495\ }
+\DoxyCodeLine{03496\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ call\ callback\ with\ all\ existing\ images}}
+\DoxyCodeLine{03497\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{03498\ \ \ \ \ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ *it;}
+\DoxyCodeLine{03499\ \ \ \ \ \ \ \ \ \ \ \ \ dyld\_image\_info\ \ info;}
+\DoxyCodeLine{03500\ \ \ \ \ \ \ \ \ \ \ \ \ info.imageLoadAddress\ \ \ =\ image-\/>machHeader();}
+\DoxyCodeLine{03501\ \ \ \ \ \ \ \ \ \ \ \ \ info.imageFilePath\ \ \ \ \ \ =\ image-\/>getRealPath();}
+\DoxyCodeLine{03502\ \ \ \ \ \ \ \ \ \ \ \ \ info.imageFileModDate\ \ \ =\ image-\/>lastModified();}
+\DoxyCodeLine{03503\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ should\ only\ call\ handler\ if\ state\ ==\ image-\/>state}}
+\DoxyCodeLine{03504\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>getState()\ ==\ state\ )}
+\DoxyCodeLine{03505\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (*handler)(state,\ 1,\ \&info);}
+\DoxyCodeLine{03506\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ ignore\ returned\ string,\ too\ late\ to\ do\ anything}}
+\DoxyCodeLine{03507\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{03508\ \ \ \ \ \}}
+\DoxyCodeLine{03509\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ac45e3acc455d5f6521742c0a3dab65aa_ac45e3acc455d5f6521742c0a3dab65aa_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ab39a358588bd94b192957d4f5780375a_ab39a358588bd94b192957d4f5780375a}\index{dyld@{dyld}!registerRemoveCallback@{registerRemoveCallback}}
+\index{registerRemoveCallback@{registerRemoveCallback}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{registerRemoveCallback()}{registerRemoveCallback()}}
+{\footnotesize\ttfamily \label{namespacedyld_ab39a358588bd94b192957d4f5780375a_ab39a358588bd94b192957d4f5780375a} 
+void dyld\+::register\+Remove\+Callback (\begin{DoxyParamCaption}\item[{Image\+Callback}]{func}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03260}{3260}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03261\ \{}
+\DoxyCodeLine{03262\ \ \ \ \ sRemoveImageCallbacks.push\_back(func);}
+\DoxyCodeLine{03263\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a8232f0cb38c0ef86bb8f3de70aa69a23_a8232f0cb38c0ef86bb8f3de70aa69a23}\index{dyld@{dyld}!registerUndefinedHandler@{registerUndefinedHandler}}
+\index{registerUndefinedHandler@{registerUndefinedHandler}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{registerUndefinedHandler()}{registerUndefinedHandler()}}
+{\footnotesize\ttfamily \label{namespacedyld_a8232f0cb38c0ef86bb8f3de70aa69a23_a8232f0cb38c0ef86bb8f3de70aa69a23} 
+void dyld\+::register\+Undefined\+Handler (\begin{DoxyParamCaption}\item[{Undefined\+Handler}]{handler}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03373}{3373}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03374\ \{}
+\DoxyCodeLine{03375\ \ \ \ \ sUndefinedHandler\ =\ handler;}
+\DoxyCodeLine{03376\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a258d010acaeafd7a53a41962ade074c7_a258d010acaeafd7a53a41962ade074c7}\index{dyld@{dyld}!removedMappedRanges@{removedMappedRanges}}
+\index{removedMappedRanges@{removedMappedRanges}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{removedMappedRanges()}{removedMappedRanges()}}
+{\footnotesize\ttfamily \label{namespacedyld_a258d010acaeafd7a53a41962ade074c7_a258d010acaeafd7a53a41962ade074c7} 
+void dyld\+::removed\+Mapped\+Ranges (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00288}{288}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00289\ \{}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keywordflow}{for}\ (\mbox{\hyperlink{structdyld_1_1_mapped_ranges}{MappedRanges}}*\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \&sMappedRangesStart;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ !=\ NULL;\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}\ =\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>\mbox{\hyperlink{structdyld_1_1_mapped_ranges_a4461b4c41c12ef3dc13a5e9c48736fcd_a4461b4c41c12ef3dc13a5e9c48736fcd}{next}})\ \{}
+\DoxyCodeLine{00291\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ MappedRanges::count;\ ++i)\ \{}
+\DoxyCodeLine{00292\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image\ ==\ image\ )\ \{}
+\DoxyCodeLine{00293\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ clear\ with\ a\ barrier\ so\ that\ any\ reader\ will\ see\ consistent\ records}}
+\DoxyCodeLine{00294\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ OSMemoryBarrier();}
+\DoxyCodeLine{00295\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{_source_8cpp_aa7b45f27c7ed57ede6ad7fb410e5793c_aa7b45f27c7ed57ede6ad7fb410e5793c}{p}}-\/>array[i].image\ =\ NULL;}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00297\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00298\ \ \ \ \ \}}
+\DoxyCodeLine{00299\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a258d010acaeafd7a53a41962ade074c7_a258d010acaeafd7a53a41962ade074c7_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a2270ae9df42e73fab62a4111a9414dae_a2270ae9df42e73fab62a4111a9414dae}\index{dyld@{dyld}!removeImage@{removeImage}}
+\index{removeImage@{removeImage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{removeImage()}{removeImage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a2270ae9df42e73fab62a4111a9414dae_a2270ae9df42e73fab62a4111a9414dae} 
+void dyld\+::remove\+Image (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00834}{834}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00835\ \{}
+\DoxyCodeLine{00836\ \ \ \ \ \textcolor{comment}{//\ if\ in\ termination\ list,\ pull\ it\ out\ and\ run\ terminator}}
+\DoxyCodeLine{00837\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sImageFilesNeedingTermination.begin();\ it\ !=\ sImageFilesNeedingTermination.end();\ it++)\ \{}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *it\ ==\ image\ )\ \{}
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ \ \ \ \ sImageFilesNeedingTermination.erase(it);}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ image-\/>doTermination(gLinkContext);}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00843\ \ \ \ \ \}}
+\DoxyCodeLine{00844\ \ \ \ \ }
+\DoxyCodeLine{00845\ \ \ \ \ \textcolor{comment}{//\ if\ has\ dtrace\ DOF\ section,\ tell\ dtrace\ it\ is\ going\ away,\ then\ remove\ from\ sImageFilesNeedingDOFUnregistration}}
+\DoxyCodeLine{00846\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<RegisteredDOF>::iterator\ it=sImageFilesNeedingDOFUnregistration.begin();\ it\ !=\ sImageFilesNeedingDOFUnregistration.end();\ )\ \{}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ it-\/>mh\ ==\ image-\/>machHeader()\ )\ \{}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ unregisterDOF(it-\/>registrationID);}
+\DoxyCodeLine{00849\ \ \ \ \ \ \ \ \ \ \ \ \ sImageFilesNeedingDOFUnregistration.erase(it);}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ don't\ increment\ iterator,\ the\ erase\ caused\ next\ element\ to\ be\ copied\ to\ where\ this\ iterator\ points}}
+\DoxyCodeLine{00851\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ \ \ \ ++it;}
+\DoxyCodeLine{00854\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00855\ \ \ \ \ \}}
+\DoxyCodeLine{00856\ \ \ \ \ }
+\DoxyCodeLine{00857\ \ \ \ \ \textcolor{comment}{//\ tell\ all\ registered\ remove\ image\ handlers\ about\ this}}
+\DoxyCodeLine{00858\ \ \ \ \ \textcolor{comment}{//\ do\ this\ before\ removing\ image\ from\ internal\ data\ structures\ so\ that\ the\ callback\ can\ query\ dyld\ about\ the\ image}}
+\DoxyCodeLine{00859\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ image-\/>getState()\ >=\ dyld\_image\_state\_bound\ )\ \{}
+\DoxyCodeLine{00860\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageCallback>::iterator\ it=sRemoveImageCallbacks.begin();\ it\ !=\ sRemoveImageCallbacks.end();\ it++)\ \{}
+\DoxyCodeLine{00861\ \ \ \ \ \ \ \ \ \ \ \ \ (*it)(image-\/>machHeader(),\ image-\/>getSlide());}
+\DoxyCodeLine{00862\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00863\ \ \ \ \ \}}
+\DoxyCodeLine{00864\ \ \ \ \ }
+\DoxyCodeLine{00865\ \ \ \ \ \textcolor{comment}{//\ notify\ }}
+\DoxyCodeLine{00866\ \ \ \ \ notifySingle(dyld\_image\_state\_terminated,\ image);}
+\DoxyCodeLine{00867\ \ \ \ \ }
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{comment}{//\ <rdar://problem/7740779>\ dyld\ should\ directly\ call\ \_\_cxa\_finalize()}}
+\DoxyCodeLine{00869\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ (gLibSystemHelpers\ !=\ NULL)\ \&\&\ (\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>version\ >=\ 8)\ )}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ (*\mbox{\hyperlink{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}{gLibSystemHelpers}}-\/>cxa\_finalize)(image-\/>machHeader());}
+\DoxyCodeLine{00871\ \ \ \ \ }
+\DoxyCodeLine{00872\ \ \ \ \ \textcolor{comment}{//\ remove\ from\ mapped\ images\ table}}
+\DoxyCodeLine{00873\ \ \ \ \ \mbox{\hyperlink{namespacedyld_a258d010acaeafd7a53a41962ade074c7_a258d010acaeafd7a53a41962ade074c7}{removedMappedRanges}}(image);}
+\DoxyCodeLine{00874\ }
+\DoxyCodeLine{00875\ \ \ \ \ \textcolor{comment}{//\ remove\ from\ master\ list}}
+\DoxyCodeLine{00876\ \ \ \ \ allImagesLock();}
+\DoxyCodeLine{00877\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ it++)\ \{}
+\DoxyCodeLine{00878\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *it\ ==\ image\ )\ \{}
+\DoxyCodeLine{00879\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sAllImages.erase(it);}
+\DoxyCodeLine{00880\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00881\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00882\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00883\ \ \ \ \ allImagesUnlock();}
+\DoxyCodeLine{00884\ \ \ \ \ }
+\DoxyCodeLine{00885\ \ \ \ \ \textcolor{comment}{//\ flush\ find-\/by-\/address\ cache\ (do\ this\ after\ removed\ from\ master\ list,\ so\ there\ is\ no\ chance\ it\ can\ come\ back)}}
+\DoxyCodeLine{00886\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sLastImageByAddressCache\ ==\ image\ )}
+\DoxyCodeLine{00887\ \ \ \ \ \ \ \ \ sLastImageByAddressCache\ =\ NULL;}
+\DoxyCodeLine{00888\ }
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{comment}{//\ if\ in\ root\ list,\ pull\ it\ out\ }}
+\DoxyCodeLine{00890\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sImageRoots.begin();\ it\ !=\ sImageRoots.end();\ it++)\ \{}
+\DoxyCodeLine{00891\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ *it\ ==\ image\ )\ \{}
+\DoxyCodeLine{00892\ \ \ \ \ \ \ \ \ \ \ \ \ sImageRoots.erase(it);}
+\DoxyCodeLine{00893\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00894\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00895\ \ \ \ \ \}}
+\DoxyCodeLine{00896\ }
+\DoxyCodeLine{00897\ \ \ \ \ \textcolor{comment}{//\ log\ if\ requested}}
+\DoxyCodeLine{00898\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_acabb7ce337d7763e75be0d9294d8c623_acabb7ce337d7763e75be0d9294d8c623}{DYLD\_PRINT\_LIBRARIES}}\ ||\ (sEnv.\mbox{\hyperlink{structdyld_1_1_environment_variables_a73c012d574792ce2098cf1ef0e3c2a10_a73c012d574792ce2098cf1ef0e3c2a10}{DYLD\_PRINT\_LIBRARIES\_POST\_LAUNCH}}\ \&\&\ (sMainExecutable!=NULL)\ \&\&\ sMainExecutable-\/>isLinked())\ )\ \{}
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a72cc24ec115706df5218230fd85e620a_a72cc24ec115706df5218230fd85e620a}{dyld::log}}(\textcolor{stringliteral}{"{}dyld:\ unloaded:\ \%s\(\backslash\)n"{}},\ image-\/>getPath());}
+\DoxyCodeLine{00900\ \ \ \ \ \}}
+\DoxyCodeLine{00901\ }
+\DoxyCodeLine{00902\ \ \ \ \ \textcolor{comment}{//\ tell\ gdb,\ new\ way}}
+\DoxyCodeLine{00903\ \ \ \ \ \mbox{\hyperlink{dyld_8h_ae127d0d5c98d074e837f2dd5bf6195b3_ae127d0d5c98d074e837f2dd5bf6195b3}{removeImageFromAllImages}}(image-\/>machHeader());}
+\DoxyCodeLine{00904\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a2270ae9df42e73fab62a4111a9414dae_a2270ae9df42e73fab62a4111a9414dae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a2270ae9df42e73fab62a4111a9414dae_a2270ae9df42e73fab62a4111a9414dae_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_aeaf364bfe70831a67c151e60e25fb5af_aeaf364bfe70831a67c151e60e25fb5af}\index{dyld@{dyld}!runInitializers@{runInitializers}}
+\index{runInitializers@{runInitializers}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{runInitializers()}{runInitializers()}}
+{\footnotesize\ttfamily \label{namespacedyld_aeaf364bfe70831a67c151e60e25fb5af_aeaf364bfe70831a67c151e60e25fb5af} 
+void dyld\+::run\+Initializers (\begin{DoxyParamCaption}\item[{Image\+Loader \texorpdfstring{$\ast$}{*}}]{image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03747}{3747}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03748\ \{}
+\DoxyCodeLine{03749\ \ \ \ \ \textcolor{comment}{//\ do\ bottom\ up\ initialization}}
+\DoxyCodeLine{03750\ \ \ \ \ ImageLoader::InitializerTimingList\ initializerTimes[sAllImages.size()];}
+\DoxyCodeLine{03751\ \ \ \ \ initializerTimes[0].count\ =\ 0;}
+\DoxyCodeLine{03752\ \ \ \ \ image-\/>runInitializers(gLinkContext,\ initializerTimes[0]);}
+\DoxyCodeLine{03753\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_ac00504fe40c9a66182fbb0efe68b09a6_ac00504fe40c9a66182fbb0efe68b09a6}\index{dyld@{dyld}!runTerminators@{runTerminators}}
+\index{runTerminators@{runTerminators}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{runTerminators()}{runTerminators()}}
+{\footnotesize\ttfamily \label{namespacedyld_ac00504fe40c9a66182fbb0efe68b09a6_ac00504fe40c9a66182fbb0efe68b09a6} 
+void dyld\+::run\+Terminators (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{extra}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00961}{961}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00962\ \{}
+\DoxyCodeLine{00963\ \ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageCount\ =\ sImageFilesNeedingTermination.size();}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=imageCount;\ i\ >\ 0;\ -\/-\/i)\{}
+\DoxyCodeLine{00966\ \ \ \ \ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ sImageFilesNeedingTermination[i-\/1];}
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \ \ \ \ image-\/>doTermination(gLinkContext);}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00969\ \ \ \ \ \ \ \ \ sImageFilesNeedingTermination.clear();}
+\DoxyCodeLine{00970\ \ \ \ \ \ \ \ \ notifyBatch(dyld\_image\_state\_terminated);}
+\DoxyCodeLine{00971\ \ \ \ \ \}}
+\DoxyCodeLine{00972\ \ \ \ \ \textcolor{keywordflow}{catch}\ (\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ msg)\ \{}
+\DoxyCodeLine{00973\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacedyld_a9843a873de01c9993039f1e3bfc563b7_a9843a873de01c9993039f1e3bfc563b7}{halt}}(msg);}
+\DoxyCodeLine{00974\ \ \ \ \ \}}
+\DoxyCodeLine{00975\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ac00504fe40c9a66182fbb0efe68b09a6_ac00504fe40c9a66182fbb0efe68b09a6_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ac00504fe40c9a66182fbb0efe68b09a6_ac00504fe40c9a66182fbb0efe68b09a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_ab03b0942657235fbdf6ec129d8659be0_ab03b0942657235fbdf6ec129d8659be0}\index{dyld@{dyld}!setErrorMessage@{setErrorMessage}}
+\index{setErrorMessage@{setErrorMessage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{setErrorMessage()}{setErrorMessage()}}
+{\footnotesize\ttfamily \label{namespacedyld_ab03b0942657235fbdf6ec129d8659be0_ab03b0942657235fbdf6ec129d8659be0} 
+void dyld\+::set\+Error\+Message (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l03270}{3270}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{03271\ \{}
+\DoxyCodeLine{03272\ \ \ \ \ \textcolor{comment}{//\ save\ off\ error\ message\ in\ global\ buffer\ for\ CrashReporter\ to\ find}}
+\DoxyCodeLine{03273\ \ \ \ \ strlcpy(\mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}},\ message,\ \textcolor{keyword}{sizeof}(\mbox{\hyperlink{dyld_8h_a4992a9f352f840782c82f472008e0dbb_a4992a9f352f840782c82f472008e0dbb}{error\_string}}));}
+\DoxyCodeLine{03274\ \}}
+
+\end{DoxyCode}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_ab03b0942657235fbdf6ec129d8659be0_ab03b0942657235fbdf6ec129d8659be0_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795}\index{dyld@{dyld}!syncAllImages@{syncAllImages}}
+\index{syncAllImages@{syncAllImages}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{syncAllImages()}{syncAllImages()}}
+{\footnotesize\ttfamily \label{namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795} 
+void dyld\+::sync\+All\+Images (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00617}{617}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00618\ \{}
+\DoxyCodeLine{00619\ \ \ \ \ \textcolor{keywordflow}{for}\ (std::vector<ImageLoader*>::iterator\ it=sAllImages.begin();\ it\ !=\ sAllImages.end();\ ++it)\ \{}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ dyld\_image\_info\ info;}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ ImageLoader*\ image\ =\ *it;}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ info.imageLoadAddress\ =\ image-\/>machHeader();}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ info.imageFilePath\ =\ image-\/>getRealPath();}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ info.imageFileModDate\ =\ image-\/>lastModified();}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ add\ to\ all\_image\_infos\ if\ not\ already\ there}}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ found\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ existingCount\ =\ dyld\_all\_image\_infos.infoArrayCount;}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ dyld\_image\_info*\ existing\ =\ dyld\_all\_image\_infos.infoArray;}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ existing\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i=0;\ i\ <\ existingCount;\ ++i)\ \{}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ existing[i].imageLoadAddress\ ==\ info.imageLoadAddress\ )\ \{}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dyld::log("{}not\ adding\ \%s\(\backslash\)n"{},\ info.imageFilePath);}}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ found\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ !\ found\ )\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dyld::log("{}adding\ \%s\(\backslash\)n"{},\ info.imageFilePath);}}
+\DoxyCodeLine{00640\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dyld_8h_a36106eefbee22b5bb9ad1f1c1ba34f66_a36106eefbee22b5bb9ad1f1c1ba34f66}{addImagesToAllImages}}(1,\ \&info);}
+\DoxyCodeLine{00641\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00642\ \ \ \ \ \}}
+\DoxyCodeLine{00643\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=339pt]{db/d2b/namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{db/d2b/namespacedyld_acbccd2391ad7014edec9a0d00f142795_acbccd2391ad7014edec9a0d00f142795_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38}\index{dyld@{dyld}!throwf@{throwf}}
+\index{throwf@{throwf}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{throwf()}{throwf()}}
+{\footnotesize\ttfamily \label{namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38} 
+void dyld\+::throwf (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00333}{333}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00334\ \{}
+\DoxyCodeLine{00335\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a04d4b3141b8d3fc4a955b294764e510c_a04d4b3141b8d3fc4a955b294764e510c}{\_SIMPLE\_STRING}}\ buf\ =\ \mbox{\hyperlink{dyld_8h_aa7949c4d4b5511591b7d2745b72ab2a8_aa7949c4d4b5511591b7d2745b72ab2a8}{\_simple\_salloc}}();}
+\DoxyCodeLine{00336\ \ \ \ \ \textcolor{keywordflow}{if}\ (\ buf\ !=\ NULL\ )\ \{}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ va\_list\ list;}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ va\_start(list,\ format);}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dyld_8h_a168167bd23f62558003c3a97922278aa_a168167bd23f62558003c3a97922278aa}{\_simple\_vsprintf}}(buf,\ format,\ list);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ va\_end(list);}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ t\ =\ strdup(\mbox{\hyperlink{dyld_8h_a6360c25e0a2d0d90e0b30cd97e61dcda_a6360c25e0a2d0d90e0b30cd97e61dcda}{\_simple\_string}}(buf));}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{dyld_8h_a51b8d5cb1ebb0f85e1b5e33cb0cb1530_a51b8d5cb1ebb0f85e1b5e33cb0cb1530}{\_simple\_sfree}}(buf);}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ t\ !=\ NULL\ )}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{throw}\ t;}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \ \ \textcolor{keywordflow}{throw}\ \textcolor{stringliteral}{"{}throwf,\ out\ of\ memory\ error"{}};}
+\DoxyCodeLine{00347\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{db/d2b/namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a411fc4ccc8bc79a2e384ba95ff74fd38_a411fc4ccc8bc79a2e384ba95ff74fd38_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{namespacedyld_a0ad926316fac1c2ea6d7e64252589626_a0ad926316fac1c2ea6d7e64252589626}\index{dyld@{dyld}!validImage@{validImage}}
+\index{validImage@{validImage}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{validImage()}{validImage()}}
+{\footnotesize\ttfamily \label{namespacedyld_a0ad926316fac1c2ea6d7e64252589626_a0ad926316fac1c2ea6d7e64252589626} 
+bool dyld\+::valid\+Image (\begin{DoxyParamCaption}\item[{const Image\+Loader \texorpdfstring{$\ast$}{*}}]{possible\+Image}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l01637}{1637}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{01638\ \{}
+\DoxyCodeLine{01639\ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ imageCount\ =\ sAllImages.size();}
+\DoxyCodeLine{01640\ \ \ \ \ \textcolor{keywordflow}{for}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i=0;\ i\ <\ imageCount;\ ++i)\ \{}
+\DoxyCodeLine{01641\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\ possibleImage\ ==\ sAllImages[i]\ )\ \{}
+\DoxyCodeLine{01642\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{01643\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01644\ \ \ \ \ \}}
+\DoxyCodeLine{01645\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{01646\ \}}
+
+\end{DoxyCode}
+\Hypertarget{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9}\index{dyld@{dyld}!warn@{warn}}
+\index{warn@{warn}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{warn()}{warn()}}
+{\footnotesize\ttfamily \label{namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9} 
+void dyld\+::warn (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{format}{, }\item[{}]{...}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00391}{391}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00392\ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a14784b2e835996ee9a62e6ae70fb170a_a14784b2e835996ee9a62e6ae70fb170a}{\_simple\_dprintf}}(sLogfile,\ \textcolor{stringliteral}{"{}dyld:\ warning,\ "{}});}
+\DoxyCodeLine{00394\ \ \ \ \ va\_list\ list;}
+\DoxyCodeLine{00395\ \ \ \ \ va\_start(list,\ format);}
+\DoxyCodeLine{00396\ \ \ \ \ \mbox{\hyperlink{dyld_8h_a91ddfa69e5977270b9bd3fc1042ad53a_a91ddfa69e5977270b9bd3fc1042ad53a}{\_simple\_vdprintf}}(sLogfile,\ format,\ list);}
+\DoxyCodeLine{00397\ \ \ \ \ va\_end(list);}
+\DoxyCodeLine{00398\ \}}
+
+\end{DoxyCode}
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{db/d2b/namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{db/d2b/namespacedyld_a493684f6608096123f2849a0b47ce2b9_a493684f6608096123f2849a0b47ce2b9_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b}\index{dyld@{dyld}!gLibSystemHelpers@{gLibSystemHelpers}}
+\index{gLibSystemHelpers@{gLibSystemHelpers}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{gLibSystemHelpers}{gLibSystemHelpers}}
+{\footnotesize\ttfamily \label{namespacedyld_a88928db7e8f25e06975e7ee19785918b_a88928db7e8f25e06975e7ee19785918b} 
+const struct Lib\+System\+Helpers\texorpdfstring{$\ast$}{*} dyld\+::g\+Lib\+System\+Helpers = NULL}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00230}{230}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+\Hypertarget{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff}\index{dyld@{dyld}!gLinkContext@{gLinkContext}}
+\index{gLinkContext@{gLinkContext}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{gLinkContext}{gLinkContext}}
+{\footnotesize\ttfamily \label{namespacedyld_a0e2ee64da2f18d40af1610f7cda59dff_a0e2ee64da2f18d40af1610f7cda59dff} 
+Image\+Loader\+::\+Link\+Context dyld\+::g\+Link\+Context}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00228}{228}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
+\Hypertarget{namespacedyld_af92b5adc1c8cbd648229c356e4d7e396_af92b5adc1c8cbd648229c356e4d7e396}\index{dyld@{dyld}!gLogAPIs@{gLogAPIs}}
+\index{gLogAPIs@{gLogAPIs}!dyld@{dyld}}
+\doxysubsubsection{\texorpdfstring{gLogAPIs}{gLogAPIs}}
+{\footnotesize\ttfamily \label{namespacedyld_af92b5adc1c8cbd648229c356e4d7e396_af92b5adc1c8cbd648229c356e4d7e396} 
+bool dyld\+::g\+Log\+APIs = false}
+
+
+
+Definition at line \mbox{\hyperlink{dyld_8h_source_l00229}{229}} of file \mbox{\hyperlink{dyld_8h_source}{dyld.\+h}}.
+
