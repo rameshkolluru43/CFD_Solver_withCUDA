@@ -1,5 +1,10 @@
 # CFD Solver with CUDA
 
+[![Documentation](https://img.shields.io/badge/docs-doxygen-blue.svg)](https://rameshkolluru43.github.io/CFD_Solver_withCUDA/)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![CUDA](https://img.shields.io/badge/CUDA-11.0%2B-green.svg)](https://developer.nvidia.com/cuda-toolkit)
+[![C++](https://img.shields.io/badge/C%2B%2B-14-blue.svg)](https://isocpp.org/)
+
 A high-performance Computational Fluid Dynamics (CFD) solver leveraging NVIDIA CUDA technology for GPU acceleration. This project implements numerical methods for solving fluid flow equations with parallel computing capabilities.
 
 ## 🚀 Features
