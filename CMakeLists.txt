@@ -28,7 +28,13 @@ set(CUDA_SOURCES
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Linear_Algebra_Cuda_Kernels.cu
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Iterative_Solver_Cuda_Kernels.cu
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Optimizations_Cuda.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Kernels.cu
     # Add other dedicated CUDA translation units here when integrated
+)
+
+# Add Grid CUDA Host Wrappers (C++ source)
+set(CUDA_HOST_SOURCES
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
 )
 
 # Link Directories
@@ -43,6 +49,7 @@ target_compile_definitions(CFD_solver PRIVATE USE_VTK=1)
 # GPU executable (excludes regular main.cpp by replacing with Main_CUDA.cu if present)
 add_executable(CFD_solver_gpu
     ${CUDA_SOURCES}
+    ${CUDA_HOST_SOURCES}
     ${PROJECT_SOURCE_DIR}/src/Globals_Stub_GPU.cpp
 )
 
