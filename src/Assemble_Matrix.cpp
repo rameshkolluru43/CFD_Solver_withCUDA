@@ -1,10 +1,13 @@
 // File: Assemble_Matrix.cpp
 // Project: 2D Compressible Navier-Stokes Solver
 // Created on: 2025-04-13
+// Updated: 2025-09-27 - Fixed critical matrix assembly issues
 #include "definitions.h"
 #include "Globals.h"
 #include "Flux_Jacobian.h"
 #include "Assemble_Matrix.h"
+#include <iostream>
+#include <cmath>
 
 // Function to assemble the matrix A and vector b in terms of total number of cells
 
@@ -12,12 +15,32 @@
 
 vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
 {
+    // Input validation
+    if (dt <= 0.0)
+    {
+        std::cout << "Error: Invalid time step dt = " << dt << std::endl;
+        return A;
+    }
+    if (No_Physical_Cells <= 0)
+    {
+        std::cout << "Error: Invalid number of physical cells = " << No_Physical_Cells << std::endl;
+        return A;
+    }
+
     //	Ac.resize(4*No_Physical_Cells,V_D(4*No_Physical_Cells,0.0));
     // Loop over each cell by flattening the 2D index into a 1D index
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)
     {
-        //            int cell_index = (i - 1) * (ny - 1) + (j - 1); // Compute the 1D index for the current cell
+        //      int cell_index = (i - 1) * (ny - 1) + (j - 1); // Compute the 1D index for the current cell
         //	    cout<<"Assembling the matrix for Cell Number\t"<<Cell_No<<endl;
+
+        // Bounds checking for cell access
+        if (Cell_No < 0 || Cell_No >= (int)Cells.size())
+        {
+            std::cout << "Error: Cell index " << Cell_No << " out of bounds (size=" << Cells.size() << ")" << std::endl;
+            continue;
+        }
+
         // Get the state variables for the current cell
         double Omega = Cells[Cell_No].Area;
         int Face_No;
@@ -48,15 +71,17 @@ vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
         Face_No = 3;
         A_y_B = Compute_Flux_Jacobian(Cell_No, A_y_B, Face_No);
 
-        // Scale the Jacobians by the face lengths
+        // Scale the Jacobians by the correct face lengths
+        // X-direction fluxes should be scaled by x-direction face areas
+        // Y-direction fluxes should be scaled by y-direction face areas
         for (int row = 0; row < 4; ++row)
         {
             for (int col = 0; col < 4; ++col)
             {
-                A_x_L[row][col] *= dy_bottom; // Scale by face length in y-direction for x-fluxes
-                A_y_T[row][col] *= dx_right;  // Scale by face length in x-direction for y-fluxes
-                A_x_R[row][col] *= dy_top;    // Scale by face length in y-direction for x-fluxes
-                A_y_B[row][col] *= dx_left;   // Scale by face length in x-direction for y-fluxes
+                A_x_L[row][col] *= dx_left;   // Left x-flux scaled by left face area
+                A_x_R[row][col] *= dx_right;  // Right x-flux scaled by right face area
+                A_y_B[row][col] *= dy_bottom; // Bottom y-flux scaled by bottom face area
+                A_y_T[row][col] *= dy_top;    // Top y-flux scaled by top face area
             }
         }
 
@@ -70,61 +95,70 @@ vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
         {
             for (int col = 0; col < 4; ++col)
             {
-                // Self contribution (current cell)
+                // Self contribution (current cell) - Fixed scaling
+                // Note: Jacobians are already scaled by face areas above
                 A[4 * Cell_No + row][4 * Cell_No + col] +=
-                    (dt / (2.0 * (dx_left + dx_right))) * (A_x_L[row][col] + A_x_R[row][col]) + (dt / (2.0 * (dy_bottom + dy_top))) * (A_y_T[row][col] + A_y_B[row][col]);
+                    (dt / Omega) * (A_x_R[row][col] - A_x_L[row][col] + A_y_T[row][col] - A_y_B[row][col]);
             }
         }
 
-        // Right neighbor (i+1, j)
-        Face_No = 2;
-        A_x = ComputeGhostCell_Flux_Jacobian(Neighbour_3, Cell_No, A_x, Face_No);
-        for (int row = 0; row < 4; ++row)
+        // Right neighbor (i+1, j) - only if it's a physical cell
+        if (Neighbour_3 < No_Physical_Cells && Neighbour_3 >= 0)
         {
-            for (int col = 0; col < 4; ++col)
+            Face_No = 2;
+            A_x = ComputeGhostCell_Flux_Jacobian(Neighbour_3, Cell_No, A_x, Face_No);
+            for (int row = 0; row < 4; ++row)
             {
-                A_x[row][col] *= dx_right;
-                A[4 * Cell_No + row][4 * Neighbour_3 + col] +=
-                    (dt / (2.0 * dx_right)) * A_x[row][col];
+                for (int col = 0; col < 4; ++col)
+                {
+                    A[4 * Cell_No + row][4 * Neighbour_3 + col] +=
+                        (dt / Omega) * dx_right * A_x[row][col];
+                }
             }
         }
 
-        // Left neighbor (i-1, j)
-        Face_No = 0;
-        A_x = ComputeGhostCell_Flux_Jacobian(Neighbour_1, Cell_No, A_x, Face_No);
-        for (int row = 0; row < 4; ++row)
+        // Left neighbor (i-1, j) - only if it's a physical cell
+        if (Neighbour_1 < No_Physical_Cells && Neighbour_1 >= 0)
         {
-            for (int col = 0; col < 4; ++col)
+            Face_No = 0;
+            A_x = ComputeGhostCell_Flux_Jacobian(Neighbour_1, Cell_No, A_x, Face_No);
+            for (int row = 0; row < 4; ++row)
             {
-                A_x[row][col] *= dx_left;
-                A[4 * Cell_No + row][4 * Neighbour_1 + col] -=
-                    (dt / (2.0 * dx_left)) * A_x[row][col];
+                for (int col = 0; col < 4; ++col)
+                {
+                    A[4 * Cell_No + row][4 * Neighbour_1 + col] -=
+                        (dt / Omega) * dx_left * A_x[row][col];
+                }
             }
         }
 
-        Face_No = 3;
-        A_y = ComputeGhostCell_Flux_Jacobian(Neighbour_4, Cell_No, A_y, Face_No);
-        for (int row = 0; row < 4; ++row)
+        // Top neighbor (i, j+1) - only if it's a physical cell
+        if (Neighbour_4 < No_Physical_Cells && Neighbour_4 >= 0)
         {
-            for (int col = 0; col < 4; ++col)
+            Face_No = 3;
+            A_y = ComputeGhostCell_Flux_Jacobian(Neighbour_4, Cell_No, A_y, Face_No);
+            for (int row = 0; row < 4; ++row)
             {
-                // Upper neighbor (i, j+1)
-                A_y[row][col] *= dy_top;
-                A[4 * Cell_No + row][4 * Neighbour_4 + col] +=
-                    (dt / (2.0 * dy_top)) * A_y[row][col];
+                for (int col = 0; col < 4; ++col)
+                {
+                    A[4 * Cell_No + row][4 * Neighbour_4 + col] +=
+                        (dt / Omega) * dy_top * A_y[row][col];
+                }
             }
         }
 
-        // Lower neighbor (i, j-1)
-        Face_No = 1;
-        A_y = ComputeGhostCell_Flux_Jacobian(Neighbour_2, Cell_No, A_y, Face_No);
-        for (int row = 0; row < 4; ++row)
+        // Bottom neighbor (i, j-1) - only if it's a physical cell
+        if (Neighbour_2 < No_Physical_Cells && Neighbour_2 >= 0)
         {
-            for (int col = 0; col < 4; ++col)
+            Face_No = 1;
+            A_y = ComputeGhostCell_Flux_Jacobian(Neighbour_2, Cell_No, A_y, Face_No);
+            for (int row = 0; row < 4; ++row)
             {
-                A_y[row][col] *= dy_bottom;
-                A[4 * Cell_No + row][4 * Neighbour_2 + col] -=
-                    (dt / (2.0 * dy_bottom)) * A_y[row][col];
+                for (int col = 0; col < 4; ++col)
+                {
+                    A[4 * Cell_No + row][4 * Neighbour_2 + col] -=
+                        (dt / Omega) * dy_bottom * A_y[row][col];
+                }
             }
         }
     }
@@ -136,6 +170,13 @@ vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
 
 V_D Assemble_b(V_D &b)
 {
+    // Input validation
+    if (No_Physical_Cells <= 0)
+    {
+        std::cout << "Error: Invalid number of physical cells = " << No_Physical_Cells << std::endl;
+        return b;
+    }
+
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)
     {
         for (int d = 0; d < 4; ++d)
@@ -148,12 +189,31 @@ V_D Assemble_b(V_D &b)
 
 void Assemble_A1(double &dt)
 {
+    // Input validation
+    if (dt <= 0.0)
+    {
+        std::cout << "Error: Invalid time step dt = " << dt << std::endl;
+        return;
+    }
+    if (No_Physical_Cells <= 0)
+    {
+        std::cout << "Error: Invalid number of physical cells = " << No_Physical_Cells << std::endl;
+        return;
+    }
+
     row_indices.clear();
     col_indices.clear();
     values.clear();
     int Face_No = 0;
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)
     {
+        // Bounds checking for cell access
+        if (Cell_No < 0 || Cell_No >= (int)Cells.size())
+        {
+            std::cout << "Error: Cell index " << Cell_No << " out of bounds (size=" << Cells.size() << ")" << std::endl;
+            continue;
+        }
+
         double Omega = Cells[Cell_No].Area;
         int Neighbour_1 = Cells[Cell_No].Neighbours[0]; // Left neighbor (i-1, j)
         int Neighbour_2 = Cells[Cell_No].Neighbours[1]; // Bottom neighbor (i, j-1)
@@ -185,9 +245,9 @@ void Assemble_A1(double &dt)
                 row_indices.push_back(4 * Cell_No + row);
                 col_indices.push_back(4 * Cell_No + col);
 
-                // Calculate the flux contributions
-                double flux_contrib = (dt / (2.0 * (dy_bottom + dy_top))) * (A_x_L[row][col] + A_x_R[row][col]) +
-                                      (dt / (2.0 * (dx_left + dx_right))) * (A_y_T[row][col] + A_y_B[row][col]);
+                // Calculate the flux contributions - Fixed to match corrected logic
+                // Note: Jacobians should be pre-scaled by face areas in consistent manner
+                double flux_contrib = (dt / Omega) * (A_x_R[row][col] - A_x_L[row][col] + A_y_T[row][col] - A_y_B[row][col]);
 
                 // Add time derivative term to diagonal elements
                 if (row == col)
@@ -201,8 +261,8 @@ void Assemble_A1(double &dt)
             }
         }
 
-        // Right neighbor (i+1, j)
-        if (Neighbour_3 >= No_Physical_Cells)
+        // Right neighbor (i+1, j) - Only process physical cells for matrix assembly
+        if (Neighbour_3 < No_Physical_Cells && Neighbour_3 >= 0)
         {
             // cout<<Neighbour_3<<"\t"<<Cell_No<<endl;
             Face_No = 2;
@@ -213,13 +273,13 @@ void Assemble_A1(double &dt)
                 {
                     row_indices.push_back(4 * Cell_No + row);
                     col_indices.push_back(4 * Neighbour_3 + col);
-                    values.push_back((dt / (2.0 * dx_right)) * A_x[row][col]);
+                    values.push_back((dt / Omega) * dx_right * A_x[row][col]);
                 }
             }
         }
 
-        // Left neighbor (i-1, j)
-        if (Neighbour_1 >= No_Physical_Cells)
+        // Left neighbor (i-1, j) - Only process physical cells for matrix assembly
+        if (Neighbour_1 < No_Physical_Cells && Neighbour_1 >= 0)
         {
             // cout<<Neighbour_1<<"\t"<<Cell_No<<endl;
             Face_No = 0;
@@ -230,13 +290,13 @@ void Assemble_A1(double &dt)
                 {
                     row_indices.push_back(4 * Cell_No + row);
                     col_indices.push_back(4 * Neighbour_1 + col);
-                    values.push_back(-(dt / (2.0 * dx_left)) * A_x[row][col]);
+                    values.push_back(-(dt / Omega) * dx_left * A_x[row][col]);
                 }
             }
         }
 
-        // Top neighbor (i, j+1)
-        if (Neighbour_4 >= No_Physical_Cells)
+        // Top neighbor (i, j+1) - Only process physical cells for matrix assembly
+        if (Neighbour_4 < No_Physical_Cells && Neighbour_4 >= 0)
         {
             // cout<<Neighbour_4<<"\t"<<Cell_No<<endl;
             Face_No = 3;
@@ -247,13 +307,13 @@ void Assemble_A1(double &dt)
                 {
                     row_indices.push_back(4 * Cell_No + row);
                     col_indices.push_back(4 * Neighbour_4 + col);
-                    values.push_back((dt / (2.0 * dy_top)) * A_y[row][col]);
+                    values.push_back((dt / Omega) * dy_top * A_y[row][col]);
                 }
             }
         }
 
-        // Bottom neighbor (i, j-1)
-        if (Neighbour_2 >= No_Physical_Cells)
+        // Bottom neighbor (i, j-1) - Only process physical cells for matrix assembly
+        if (Neighbour_2 < No_Physical_Cells && Neighbour_2 >= 0)
         {
             // cout<<Neighbour_2<<"\t"<<Cell_No<<endl;
             Face_No = 1;
@@ -264,7 +324,7 @@ void Assemble_A1(double &dt)
                 {
                     row_indices.push_back(4 * Cell_No + row);
                     col_indices.push_back(4 * Neighbour_2 + col);
-                    values.push_back(-(dt / (2.0 * dy_bottom)) * A_y[row][col]);
+                    values.push_back(-(dt / Omega) * dy_bottom * A_y[row][col]);
                 }
             }
         }

@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['geometry_5fcuda_5fkernels_2ecu_0',['Geometry_Cuda_Kernels.cu',['../d7/ddb/_geometry___cuda___kernels_8cu.html',1,'']]],
+  ['geometry_5fheader_2eh_1',['Geometry_Header.h',['../da/d2e/_geometry___header_8h.html',1,'']]],
+  ['global_5ffunctions_2ecpp_2',['Global_Functions.cpp',['../db/df6/_global___functions_8cpp.html',1,'']]],
+  ['globals_2eh_3',['Globals.h',['../d8/d4d/_globals_8h.html',1,'']]],
+  ['globals_5fstub_5fgpu_2ecpp_4',['Globals_Stub_GPU.cpp',['../d6/d99/_globals___stub___g_p_u_8cpp.html',1,'']]],
+  ['gnuplot_5fi_2ecpp_5',['gnuplot_i.cpp',['../d8/db3/gnuplot__i_8cpp.html',1,'']]],
+  ['gnuplot_5fi_2ehpp_6',['gnuplot_i.hpp',['../d1/dd8/gnuplot__i_8hpp.html',1,'']]],
+  ['gradient_5fcalculation_5fcuda_5fkernels_2ecu_7',['Gradient_Calculation_Cuda_Kernels.cu',['../d7/da6/_gradient___calculation___cuda___kernels_8cu.html',1,'']]],
+  ['gradients_2eh_8',['Gradients.h',['../dd/df9/_gradients_8h.html',1,'']]],
+  ['grid_2eh_9',['Grid.h',['../d8/dea/_grid_8h.html',1,'']]],
+  ['grid_5fcomputations_2ecpp_10',['Grid_Computations.cpp',['../d8/d40/_grid___computations_8cpp.html',1,'']]],
+  ['grid_5fcomputations_5foptimized_2ecpp_11',['Grid_Computations_Optimized.cpp',['../d8/d24/_grid___computations___optimized_8cpp.html',1,'']]],
+  ['grid_5fcomputations_5foptimized_2eh_12',['Grid_Computations_Optimized.h',['../df/dd4/_grid___computations___optimized_8h.html',1,'']]],
+  ['grid_5fcuda_5fhost_5fwrappers_2ecpp_13',['Grid_Cuda_Host_Wrappers.cpp',['../db/d6b/_grid___cuda___host___wrappers_8cpp.html',1,'']]],
+  ['grid_5fcuda_5fintegration_5fexample_2ecpp_14',['Grid_CUDA_Integration_Example.cpp',['../d3/d11/_grid___c_u_d_a___integration___example_8cpp.html',1,'']]],
+  ['grid_5fcuda_5fkernels_2ecu_15',['Grid_Cuda_Kernels.cu',['../d8/d50/_grid___cuda___kernels_8cu.html',1,'']]],
+  ['grid_5fcuda_5fkernels_2eh_16',['Grid_Cuda_Kernels.h',['../d9/d04/_grid___cuda___kernels_8h.html',1,'']]],
+  ['grid_5fgen_5ffunctions_2ecpp_17',['Grid_Gen_Functions.cpp',['../de/d5c/_grid___gen___functions_8cpp.html',1,'']]],
+  ['grid_5foptimization_5fintegration_5fguide_2ecpp_18',['Grid_Optimization_Integration_Guide.cpp',['../dc/de7/_grid___optimization___integration___guide_8cpp.html',1,'']]],
+  ['grid_5fperformance_5fbenchmark_2ecpp_19',['Grid_Performance_Benchmark.cpp',['../d1/db0/_grid___performance___benchmark_8cpp.html',1,'']]],
+  ['grid_5frefine_5ffunctions_2ecpp_20',['Grid_Refine_Functions.cpp',['../d4/d5d/_grid___refine___functions_8cpp.html',1,'']]],
+  ['gridgen_5felliptic_5ftfi_2ecpp_21',['gridgen_Elliptic_TFI.cpp',['../da/d84/gridgen___elliptic___t_f_i_8cpp.html',1,'']]]
+];

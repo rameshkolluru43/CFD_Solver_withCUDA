@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['c_5f1_0',['C_1',['../d6/dc2/definitions_8h_a6a1247f50df9b4c773a116a7cfd7b0cb.html#a6a1247f50df9b4c773a116a7cfd7b0cb',1,'definitions.h']]],
+  ['calculate_5fdistances_1',['CALCULATE_DISTANCES',['../df/dd4/_grid___computations___optimized_8h_a0dc284244f68dc79f81c97e2d50e6d88.html#a0dc284244f68dc79f81c97e2d50e6d88',1,'Grid_Computations_Optimized.h']]],
+  ['compute_5fcentroid_2',['COMPUTE_CENTROID',['../df/dd4/_grid___computations___optimized_8h_ad59a3a2105ec1dcf01414f21f04d8eb2.html#ad59a3a2105ec1dcf01414f21f04d8eb2',1,'Grid_Computations_Optimized.h']]],
+  ['conserved_5fvars_3',['CONSERVED_VARS',['../d4/d5c/_matrix___assembly___cuda___kernels_8cu_a0fe943d2cd874d791709e1b61f41a7a2.html#a0fe943d2cd874d791709e1b61f41a7a2',1,'Matrix_Assembly_Cuda_Kernels.cu']]],
+  ['construct_5fcell_4',['CONSTRUCT_CELL',['../df/dd4/_grid___computations___optimized_8h_a5f78390babbcc7534237d6a9804413c5.html#a5f78390babbcc7534237d6a9804413c5',1,'Grid_Computations_Optimized.h']]],
+  ['cp_5',['cp',['../d6/dc2/definitions_8h_a8e0fbe20f00d120156ea1d9a3d978d30.html#a8e0fbe20f00d120156ea1d9a3d978d30',1,'cp:&#160;definitions.h'],['../dc/d30/headers_8hpp_a8e0fbe20f00d120156ea1d9a3d978d30.html#a8e0fbe20f00d120156ea1d9a3d978d30',1,'cp:&#160;headers.hpp']]],
+  ['cpu_5fsubtype_5farm_5fv5tej_6',['CPU_SUBTYPE_ARM_V5TEJ',['../dd/def/dyld_8h_a84a92bae8ecb861b34e7e97eae07fadf.html#a84a92bae8ecb861b34e7e97eae07fadf',1,'dyld.h']]],
+  ['cpu_5fsubtype_5farm_5fv7_7',['CPU_SUBTYPE_ARM_V7',['../dd/def/dyld_8h_a8ad9716d0303e4dc5819af71e4bae471.html#a8ad9716d0303e4dc5819af71e4bae471',1,'dyld.h']]],
+  ['cpu_5fsubtype_5farm_5fv7f_8',['CPU_SUBTYPE_ARM_V7F',['../dd/def/dyld_8h_aa9c20a59c29bc038f0cc763e476074e6.html#aa9c20a59c29bc038f0cc763e476074e6',1,'dyld.h']]],
+  ['cpu_5fsubtype_5farm_5fv7k_9',['CPU_SUBTYPE_ARM_V7K',['../dd/def/dyld_8h_a420ebff63944877a8a9d4dad979f240d.html#a420ebff63944877a8a9d4dad979f240d',1,'dyld.h']]],
+  ['cpu_5fsubtype_5farm_5fv7s_10',['CPU_SUBTYPE_ARM_V7S',['../dd/def/dyld_8h_a4762b8c24b58d4fe7dab2486a703393f.html#a4762b8c24b58d4fe7dab2486a703393f',1,'dyld.h']]],
+  ['cpu_5fsubtype_5farm_5fxscale_11',['CPU_SUBTYPE_ARM_XSCALE',['../dd/def/dyld_8h_ad8b29933741f12e7adee3c766d8277d9.html#ad8b29933741f12e7adee3c766d8277d9',1,'dyld.h']]],
+  ['cpu_5fsubtypes_5fsupported_12',['CPU_SUBTYPES_SUPPORTED',['../dd/def/dyld_8h_a47534a22c863c834c7025e87a4da0ee1.html#a47534a22c863c834c7025e87a4da0ee1',1,'dyld.h']]],
+  ['cpu_5ftype_5fmask_13',['CPU_TYPE_MASK',['../dd/def/dyld_8h_aac80ddeb46a644daae46345bff9d6a7d.html#aac80ddeb46a644daae46345bff9d6a7d',1,'dyld.h']]],
+  ['cuda_5fcheck_14',['CUDA_CHECK',['../d0/df8/_cuda___kernel___utilities_8h_aeaf2b8792be9f99ad11147059ef5079d.html#aeaf2b8792be9f99ad11147059ef5079d',1,'CUDA_CHECK:&#160;Cuda_Kernel_Utilities.h'],['../d8/d45/_matrix___assembly___cuda___host___wrappers_8cpp_aeaf2b8792be9f99ad11147059ef5079d.html#aeaf2b8792be9f99ad11147059ef5079d',1,'CUDA_CHECK:&#160;Matrix_Assembly_Cuda_Host_Wrappers.cpp'],['../d4/d5c/_matrix___assembly___cuda___kernels_8cu_aeaf2b8792be9f99ad11147059ef5079d.html#aeaf2b8792be9f99ad11147059ef5079d',1,'CUDA_CHECK:&#160;Matrix_Assembly_Cuda_Kernels.cu']]],
+  ['cuda_5fcheck_5fdebug_15',['CUDA_CHECK_DEBUG',['../db/d98/_matrix___assembly___cuda___kernels_8h_ada99dc90fa17c947746ea134cd5c15be.html#ada99dc90fa17c947746ea134cd5c15be',1,'Matrix_Assembly_Cuda_Kernels.h']]],
+  ['cuda_5fcheck_5fkernel_16',['CUDA_CHECK_KERNEL',['../d0/df8/_cuda___kernel___utilities_8h_a6cdf7b9e128fbd9a6036c39e0f4f88cb.html#a6cdf7b9e128fbd9a6036c39e0f4f88cb',1,'Cuda_Kernel_Utilities.h']]],
+  ['cuda_5fdrv_5fcheck_17',['CUDA_DRV_CHECK',['../d5/d25/_main___c_u_d_a_8cu_afefb847379bb801109e7953f93d75165.html#afefb847379bb801109e7953f93d75165',1,'Main_CUDA.cu']]],
+  ['cv_18',['cv',['../d6/dc2/definitions_8h_afda53ce1b6e1c5ca8994382c92e4aaee.html#afda53ce1b6e1c5ca8994382c92e4aaee',1,'cv:&#160;definitions.h'],['../dc/d30/headers_8hpp_afda53ce1b6e1c5ca8994382c92e4aaee.html#afda53ce1b6e1c5ca8994382c92e4aaee',1,'cv:&#160;headers.hpp']]]
+];
