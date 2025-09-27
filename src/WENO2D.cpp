@@ -4,8 +4,17 @@
 #include "Primitive_Computational.h"
 #include "Utilities.h"
 #include "Timestep.h"
+#include <cmath>	// For std::isfinite and other math functions
+#include <iostream> // For error messages
 void WENO_Reconstruction(double &a, double &b, double &c, double &d, double &e, int &shift, double &U)
 {
+	// Check for NaN or infinite values in input
+	if (!std::isfinite(a) || !std::isfinite(b) || !std::isfinite(c) || !std::isfinite(d) || !std::isfinite(e))
+	{
+		std::cout << "Warning: Non-finite values in WENO reconstruction input" << std::endl;
+		U = c; // Fall back to central value
+		return;
+	}
 
 	double d0 = 0.0, d1 = 0.0, d2 = 0.0, b0 = 0.0, b1 = 0.0, b2 = 0.0, a0 = 0.0, a1 = 0.0, a2 = 0.0;
 	double v0 = 0.0, v1 = 0.0, v2 = 0.0, w0 = 0.0, w1 = 0.0, w2 = 0.0, sum = 0.0, epsilon = 1e-6;
@@ -46,11 +55,27 @@ void WENO_Reconstruction(double &a, double &b, double &c, double &d, double &e, 
 	a2 = d2 / pow((epsilon + b2), p);
 
 	sum = a0 + a1 + a2;
-	w0 = a0 / sum;
-	w1 = a1 / sum;
-	w2 = a2 / sum;
 
-	U = w0 * v0 + w1 * v1 + w2 * v2;
+	// Check for degenerate case where sum is too small
+	if (sum < epsilon)
+	{
+		// Fall back to simple average of the three candidate values
+		U = (v0 + v1 + v2) / 3.0;
+	}
+	else
+	{
+		w0 = a0 / sum;
+		w1 = a1 / sum;
+		w2 = a2 / sum;
+		U = w0 * v0 + w1 * v1 + w2 * v2;
+	}
+
+	// Final validation
+	if (!std::isfinite(U))
+	{
+		std::cout << "Warning: Non-finite result in WENO reconstruction, using central value" << std::endl;
+		U = c;
+	}
 }
 
 void Get_LR(int &CellNo, int &Neighbour, const int &Face_No, V_D &L, V_D &IL)
@@ -70,14 +95,28 @@ void Get_LR(int &CellNo, int &Neighbour, const int &Face_No, V_D &L, V_D &IL)
 	vL = Primitive_Cells[CellNo][2];
 	aL = Primitive_Cells[CellNo][5];
 
-	dR = 0.0 * Primitive_Cells[Neighbour][0];
-	uR = 0.0 * Primitive_Cells[Neighbour][1];
-	vR = 0.0 * Primitive_Cells[Neighbour][2];
-	aR = 0.0 * Primitive_Cells[Neighbour][5];
+	dR = Primitive_Cells[Neighbour][0];
+	uR = Primitive_Cells[Neighbour][1];
+	vR = Primitive_Cells[Neighbour][2];
+	aR = Primitive_Cells[Neighbour][5];
 
-	u_RL = (uL * sqrt(dL) + uR * sqrt(dR)) / (sqrt(dL) + sqrt(dR));
-	v_RL = (vL * sqrt(dL) + vR * sqrt(dR)) / (sqrt(dL) + sqrt(dR));
-	a_RL = (aL * sqrt(dL) + aR * sqrt(dR)) / (sqrt(dL) + sqrt(dR));
+	double sqrt_dL = sqrt(fmax(dL, 1e-14));
+	double sqrt_dR = sqrt(fmax(dR, 1e-14));
+	double denom = sqrt_dL + sqrt_dR;
+
+	if (denom < 1e-14)
+	{
+		// Handle degenerate case - use simple average
+		u_RL = 0.5 * (uL + uR);
+		v_RL = 0.5 * (vL + vR);
+		a_RL = 0.5 * (aL + aR);
+	}
+	else
+	{
+		u_RL = (uL * sqrt_dL + uR * sqrt_dR) / denom;
+		v_RL = (vL * sqrt_dL + vR * sqrt_dR) / denom;
+		a_RL = (aL * sqrt_dL + aR * sqrt_dR) / denom;
+	}
 
 	nx = Cells[CellNo].Face_Normals[index + 0]; //----------------- nx = dy/dl
 	ny = Cells[CellNo].Face_Normals[index + 1]; //----------------- ny = -dx/dl
@@ -88,7 +127,14 @@ void Get_LR(int &CellNo, int &Neighbour, const int &Face_No, V_D &L, V_D &IL)
 	ek = 0.5 * (u_RL * u_RL + v_RL * v_RL);
 	h = (a_RL * a_RL / gamma_M_1) + ek;
 
-	t1 = 0.5 / a_RL * a_RL;
+	// Add safety check for speed of sound
+	if (a_RL < 1e-14)
+	{
+		std::cout << "Warning: Very small speed of sound in WENO, a_RL = " << a_RL << std::endl;
+		a_RL = 1e-14;
+	}
+
+	t1 = 0.5 / (a_RL * a_RL); // Fixed: added parentheses for correct division
 	t2 = gamma_M_1 * t1;
 
 	// Matrix to Conserved to Characteristic
@@ -236,20 +282,22 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 
 	if (im1 >= No_Physical_Cells)
 	{
-		// left most boundary im1 is ghost cell then im2  and im3 = im1
+		// left most boundary im1 is ghost cell then im2 and im3 = im1
 		im2 = im1;
 		im3 = im1;
 	}
 	else
 	{
 		im2 = Cells[im1].Neighbours[0];
-		if (im2 >= No_Physical_Cells)
+		if (im2 >= No_Physical_Cells || im2 < 0)
 		{
 			im3 = im2;
 		}
 		else
 		{
 			im3 = Cells[im2].Neighbours[0];
+			if (im3 < 0)
+				im3 = im2; // Additional safety check
 		}
 	}
 
@@ -261,15 +309,17 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 	}
 	else
 	{
-		ip2 = Cells[ip1].Neighbours[2];
+		ip2 = Cells[ip1].Neighbours[1]; // Fixed: should be Neighbours[1] for i+2 direction
 		//		cout<<"value of ip2\t"<<ip2<<endl;
-		if (ip2 >= No_Physical_Cells)
+		if (ip2 >= No_Physical_Cells || ip2 < 0)
 		{
 			ip3 = ip2;
 		}
 		else
 		{
-			ip3 = Cells[ip2].Neighbours[2];
+			ip3 = Cells[ip2].Neighbours[1]; // Fixed: should be Neighbours[1] for i+3 direction
+			if (ip3 < 0)
+				ip3 = ip2; // Additional safety check
 		}
 		//		cout<<"value of ip3\t"<<ip3<<endl;
 	}
@@ -283,14 +333,14 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 	}
 	else
 	{
-		jm2 = Cells[jm1].Neighbours[1];
+		jm2 = Cells[jm1].Neighbours[2]; // Fixed: should be Neighbours[2] for j-2 direction
 		if (jm2 >= No_Physical_Cells)
 		{
 			jm3 = jm2;
 		}
 		else
 		{
-			jm3 = Cells[jm2].Neighbours[1];
+			jm3 = Cells[jm2].Neighbours[2]; // Fixed: should be Neighbours[2] for j-3 direction
 		}
 	}
 
@@ -465,6 +515,18 @@ void Calculate_Face_WENO_Flux(int &Cell_No, int &N_Cell_No, const int &Face_No, 
 	Flux_R[3] = (gamma1 * P_R + Rho_R * Vmag_R) * Vdotn_R * dl;
 
 	//              Wave Speed evaluation
+	// Add safety checks for speed of sound
+	if (C_L < 1e-14)
+	{
+		std::cout << "Warning: Very small speed of sound C_L = " << C_L << std::endl;
+		C_L = 1e-14;
+	}
+	if (C_R < 1e-14)
+	{
+		std::cout << "Warning: Very small speed of sound C_R = " << C_R << std::endl;
+		C_R = 1e-14;
+	}
+
 	S[0] = (fabs(Vdotn_L) - C_L) * dl;
 	S[1] = (fabs(Vdotn_L) + C_L) * dl;
 	S[2] = fabs(Vdotn_L) * dl;
