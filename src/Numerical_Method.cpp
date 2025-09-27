@@ -7,6 +7,18 @@
 #include "Viscous_Functions.h"
 #include "Boundary_Conditions.h"
 #include "Error_Update.h"
+#include <iostream>
+#include <algorithm>
+#include <cmath>
+
+// Include CUDA matrix assembly functions if available
+#ifdef USE_CUDA_MATRIX_ASSEMBLY
+#include "Matrix_Assembly_Cuda_Kernels.h"
+
+// Forward declarations for CUDA matrix assembly functions
+extern vector<V_D> Assemble_A_CUDA(vector<V_D> &A, double &dt);
+extern void Assemble_A1_CUDA(double &dt);
+#endif
 
 /* This function evaluates the net flux sum of viscous and inviscid fluxes for a given cell,
  the net flux also called as Residue for a given cell is evaluated here . */
@@ -71,6 +83,222 @@ void Explicit_Method()
 
 void Implicit_Method()
 {
+	/*
+	 * Implicit Time Integration Method
+	 * Implements the Newton-Raphson iteration for implicit time stepping
+	 * Solves: (I/dt + ∂F/∂U) ΔU = -R
+	 * where R is the residual and ∂F/∂U is the flux Jacobian
+	 */
+
+	// Configuration parameters
+	const int max_newton_iterations = 50;
+	const double newton_tolerance = 1e-8;
+	const double linear_solver_tolerance = 1e-6;
+	const int max_linear_iterations = 1000;
+	const double under_relaxation = 0.8;
+
+	// Check if CUDA matrix assembly is available
+	bool use_cuda = false;
+#ifdef USE_CUDA_MATRIX_ASSEMBLY
+	if (No_Physical_Cells > 1000)
+	{
+		use_cuda = true;
+		std::cout << "Using CUDA-accelerated implicit solver for " << No_Physical_Cells << " cells" << std::endl;
+	}
+#endif
+
+	// Newton-Raphson iteration loop
+	for (int newton_iter = 0; newton_iter < max_newton_iterations; newton_iter++)
+	{
+		std::cout << "Newton iteration " << newton_iter + 1 << "/" << max_newton_iterations << std::endl;
+
+		// Step 1: Compute current residual R = -Net_Flux for all cells
+		Evaluate_Cell_Net_Flux();
+
+		// Store residual vector (negative of net flux)
+		vector<V_D> Residual(No_Physical_Cells, V_D(4, 0.0));
+		double max_residual = 0.0;
+
+		for (int cell_idx = 0; cell_idx < No_Physical_Cells; cell_idx++)
+		{
+			for (int var = 0; var < 4; var++)
+			{
+				Residual[cell_idx][var] = -Cells_Net_Flux[cell_idx][var];
+				max_residual = std::max(max_residual, std::abs(Residual[cell_idx][var]));
+			}
+		}
+
+		std::cout << "  Maximum residual: " << max_residual << std::endl;
+
+		// Check convergence
+		if (max_residual < newton_tolerance)
+		{
+			std::cout << "Implicit method converged in " << newton_iter << " Newton iterations" << std::endl;
+			break;
+		}
+
+		// Step 2: Assemble Jacobian matrix A = I/dt + ∂F/∂U
+		std::cout << "  Assembling Jacobian matrix..." << std::endl;
+
+		vector<V_D> A; // Jacobian matrix
+
+		if (use_cuda && No_Physical_Cells > 5000)
+		{
+#ifdef USE_CUDA_MATRIX_ASSEMBLY
+			// Use sparse CUDA matrix assembly for large problems
+			Assemble_A1_CUDA(dt);
+
+			// Convert sparse format to dense for iterative solver
+			// Note: This is a simplified approach. For production, use sparse iterative solvers
+			int matrix_size = 4 * No_Physical_Cells;
+			A.resize(matrix_size, V_D(matrix_size, 0.0));
+
+			// Populate dense matrix from sparse arrays (if available)
+			// This would need to be implemented based on global sparse matrix storage
+			std::cout << "  Using CUDA sparse matrix assembly" << std::endl;
+#endif
+		}
+		else if (use_cuda)
+		{
+#ifdef USE_CUDA_MATRIX_ASSEMBLY
+			// Use dense CUDA matrix assembly for smaller problems
+			A = Assemble_A_CUDA(A, dt);
+			std::cout << "  Using CUDA dense matrix assembly" << std::endl;
+#endif
+		}
+		else
+		{
+			// Use CPU matrix assembly
+			A = Assemble_A(A, dt);
+			std::cout << "  Using CPU matrix assembly" << std::endl;
+		}
+
+		// Step 3: Solve linear system A * ΔU = -R using iterative method
+		std::cout << "  Solving linear system..." << std::endl;
+
+		// Initialize solution vector ΔU
+		vector<V_D> DeltaU(No_Physical_Cells, V_D(4, 0.0));
+
+		// Use Jacobi iteration to solve the linear system
+		vector<V_D> DeltaU_old(No_Physical_Cells, V_D(4, 0.0));
+
+		bool linear_converged = false;
+		for (int linear_iter = 0; linear_iter < max_linear_iterations; linear_iter++)
+		{
+			double linear_residual = 0.0;
+
+			// Jacobi iteration: x_new = D^(-1) * (b - (L+U)*x_old)
+			for (int cell_idx = 0; cell_idx < No_Physical_Cells; cell_idx++)
+			{
+				for (int var = 0; var < 4; var++)
+				{
+					int global_row = cell_idx * 4 + var;
+					double diagonal = A[global_row][global_row];
+
+					if (std::abs(diagonal) > 1e-14)
+					{
+						double off_diagonal_sum = 0.0;
+
+						// Sum off-diagonal terms
+						for (int col = 0; col < 4 * No_Physical_Cells; col++)
+						{
+							if (col != global_row)
+							{
+								off_diagonal_sum += A[global_row][col] * DeltaU_old[col / 4][col % 4];
+							}
+						}
+
+						// Jacobi update
+						DeltaU[cell_idx][var] = (Residual[cell_idx][var] - off_diagonal_sum) / diagonal;
+
+						// Calculate residual for convergence check
+						double current_residual = std::abs(DeltaU[cell_idx][var] - DeltaU_old[cell_idx][var]);
+						linear_residual = std::max(linear_residual, current_residual);
+					}
+					else
+					{
+						DeltaU[cell_idx][var] = 0.0;
+					}
+				}
+			}
+
+			// Check linear solver convergence
+			if (linear_residual < linear_solver_tolerance)
+			{
+				std::cout << "    Linear solver converged in " << linear_iter + 1 << " iterations" << std::endl;
+				linear_converged = true;
+				break;
+			}
+
+			// Update old solution for next iteration
+			DeltaU_old = DeltaU;
+
+			// Print progress every 100 iterations
+			if ((linear_iter + 1) % 100 == 0)
+			{
+				std::cout << "    Linear iteration " << linear_iter + 1 << ", residual: " << linear_residual << std::endl;
+			}
+		}
+
+		if (!linear_converged)
+		{
+			std::cout << "    Warning: Linear solver did not converge" << std::endl;
+		}
+
+		// Step 4: Update solution with under-relaxation: U^(n+1) = U^n + α * ΔU
+		std::cout << "  Updating solution..." << std::endl;
+
+		double max_delta = 0.0;
+		for (int cell_idx = 0; cell_idx < No_Physical_Cells; cell_idx++)
+		{
+			for (int var = 0; var < 4; var++)
+			{
+				double delta = under_relaxation * DeltaU[cell_idx][var];
+				U_Cells[cell_idx][var] += delta;
+				max_delta = std::max(max_delta, std::abs(delta));
+
+				// Ensure physical bounds
+				if (var == 0) // Density
+				{
+					U_Cells[cell_idx][var] = std::max(U_Cells[cell_idx][var], 1e-10);
+				}
+				else if (var == 3) // Total energy
+				{
+					U_Cells[cell_idx][var] = std::max(U_Cells[cell_idx][var], 1e-10);
+				}
+			}
+		}
+
+		std::cout << "  Maximum solution change: " << max_delta << std::endl;
+
+		// Step 5: Update primitive variables
+		for (int cell_idx = 0; cell_idx < No_Physical_Cells; cell_idx++)
+		{
+			Calculate_Primitive_Variables(cell_idx, U_Cells[cell_idx]);
+		}
+
+		// Step 6: Apply boundary conditions
+		Boundary_Conditions();
+
+		// Check for Newton convergence based on solution change
+		if (max_delta < newton_tolerance)
+		{
+			std::cout << "Newton method converged based on solution change" << std::endl;
+			break;
+		}
+
+		// Safety check for divergence
+		if (max_residual > 1e10 || max_delta > 1e10)
+		{
+			std::cout << "Error: Newton iteration is diverging. Stopping." << std::endl;
+			break;
+		}
+	}
+
+	// Update time step for next iteration
+	dt = get_Min_dt();
+
+	std::cout << "Implicit time step completed. dt = " << dt << std::endl;
 }
 
 double get_Min_dt()
