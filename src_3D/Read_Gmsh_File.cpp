@@ -59,9 +59,9 @@ enum GMSH_Element_Types
  */
 struct GMSH_Node
 {
-    int id;                             // Node ID
-    double x, y, z;                     // Coordinates
-    
+    int id;         // Node ID
+    double x, y, z; // Coordinates
+
     GMSH_Node() : id(0), x(0.0), y(0.0), z(0.0) {}
     GMSH_Node(int _id, double _x, double _y, double _z) : id(_id), x(_x), y(_y), z(_z) {}
 };
@@ -73,12 +73,12 @@ struct GMSH_Node
  */
 struct GMSH_Element
 {
-    int id;                             // Element ID
-    int type;                           // Element type
-    int num_tags;                       // Number of tags
-    std::vector<int> tags;              // Element tags (physical, elementary)
-    std::vector<int> nodes;             // Node connectivity
-    
+    int id;                 // Element ID
+    int type;               // Element type
+    int num_tags;           // Number of tags
+    std::vector<int> tags;  // Element tags (physical, elementary)
+    std::vector<int> nodes; // Node connectivity
+
     GMSH_Element() : id(0), type(0), num_tags(0) {}
 };
 
@@ -89,12 +89,12 @@ struct GMSH_Element
  */
 struct GMSH_Physical_Group
 {
-    int id;                             // Physical group ID
-    int dimension;                      // Dimension (0=point, 1=line, 2=surface, 3=volume)
-    std::string name;                   // Physical group name
-    
+    int id;           // Physical group ID
+    int dimension;    // Dimension (0=point, 1=line, 2=surface, 3=volume)
+    std::string name; // Physical group name
+
     GMSH_Physical_Group() : id(0), dimension(0), name("") {}
-    GMSH_Physical_Group(int _id, int _dim, const std::string &_name) 
+    GMSH_Physical_Group(int _id, int _dim, const std::string &_name)
         : id(_id), dimension(_dim), name(_name) {}
 };
 
@@ -105,16 +105,16 @@ struct GMSH_Physical_Group
  */
 struct GMSH_Mesh_Data
 {
-    std::vector<GMSH_Node> nodes;                   // All nodes
-    std::vector<GMSH_Element> elements;             // All elements
+    std::vector<GMSH_Node> nodes;                     // All nodes
+    std::vector<GMSH_Element> elements;               // All elements
     std::vector<GMSH_Physical_Group> physical_groups; // Physical groups
-    std::map<int, int> node_id_to_index;            // Node ID to index mapping
-    
+    std::map<int, int> node_id_to_index;              // Node ID to index mapping
+
     // Mesh statistics
-    int num_hexahedra;                              // Number of hexahedral elements
-    int num_boundary_faces;                         // Number of boundary faces
-    double min_coords[3], max_coords[3];            // Bounding box
-    
+    int num_hexahedra;                   // Number of hexahedral elements
+    int num_boundary_faces;              // Number of boundary faces
+    double min_coords[3], max_coords[3]; // Bounding box
+
     GMSH_Mesh_Data()
     {
         num_hexahedra = 0;
@@ -125,13 +125,13 @@ struct GMSH_Mesh_Data
             max_coords[i] = -1e30;
         }
     }
-    
+
     void UpdateBoundingBox(double x, double y, double z)
     {
         min_coords[0] = std::min(min_coords[0], x);
         min_coords[1] = std::min(min_coords[1], y);
         min_coords[2] = std::min(min_coords[2], z);
-        
+
         max_coords[0] = std::max(max_coords[0], x);
         max_coords[1] = std::max(max_coords[1], y);
         max_coords[2] = std::max(max_coords[2], z);
@@ -153,51 +153,51 @@ struct GMSH_Mesh_Data
 bool Parse_GMSH_Header(std::ifstream &file, double &version, int &file_type, int &data_size)
 {
     std::string line;
-    
+
     // Read format line
     if (!std::getline(file, line))
     {
         std::cerr << "Error: Cannot read GMSH format line" << std::endl;
         return false;
     }
-    
+
     // Check format identifier
     if (line.find("$MeshFormat") == std::string::npos)
     {
         std::cerr << "Error: Invalid GMSH file format (missing $MeshFormat)" << std::endl;
         return false;
     }
-    
+
     // Read version info
     if (!std::getline(file, line))
     {
         std::cerr << "Error: Cannot read GMSH version information" << std::endl;
         return false;
     }
-    
+
     std::istringstream iss(line);
     if (!(iss >> version >> file_type >> data_size))
     {
         std::cerr << "Error: Invalid GMSH version line format" << std::endl;
         return false;
     }
-    
+
     // Validate version
     if (version < 2.0 || version > 4.2)
     {
         std::cerr << "Warning: GMSH version " << version << " may not be fully supported" << std::endl;
     }
-    
+
     // Read end format line
     if (!std::getline(file, line) || line.find("$EndMeshFormat") == std::string::npos)
     {
         std::cerr << "Error: Missing $EndMeshFormat" << std::endl;
         return false;
     }
-    
-    std::cout << "GMSH file format detected: version " << version 
+
+    std::cout << "GMSH file format detected: version " << version
               << ", type " << (file_type ? "binary" : "ASCII") << std::endl;
-    
+
     return true;
 }
 
@@ -215,16 +215,16 @@ bool Parse_GMSH_Physical_Groups(std::ifstream &file, GMSH_Mesh_Data &mesh_data)
 {
     std::string line;
     int num_physical_groups;
-    
+
     if (!std::getline(file, line))
     {
         std::cerr << "Error: Cannot read number of physical groups" << std::endl;
         return false;
     }
-    
+
     num_physical_groups = std::stoi(line);
     std::cout << "Reading " << num_physical_groups << " physical groups" << std::endl;
-    
+
     for (int i = 0; i < num_physical_groups; i++)
     {
         if (!std::getline(file, line))
@@ -232,22 +232,22 @@ bool Parse_GMSH_Physical_Groups(std::ifstream &file, GMSH_Mesh_Data &mesh_data)
             std::cerr << "Error: Cannot read physical group " << i << std::endl;
             return false;
         }
-        
+
         std::istringstream iss(line);
         GMSH_Physical_Group group;
-        
+
         if (!(iss >> group.dimension >> group.id))
         {
             std::cerr << "Error: Invalid physical group format" << std::endl;
             return false;
         }
-        
+
         // Read name (quoted string)
         std::string remaining;
         std::getline(iss, remaining);
         size_t first_quote = remaining.find('"');
         size_t last_quote = remaining.find_last_of('"');
-        
+
         if (first_quote != std::string::npos && last_quote != std::string::npos && first_quote < last_quote)
         {
             group.name = remaining.substr(first_quote + 1, last_quote - first_quote - 1);
@@ -256,20 +256,20 @@ bool Parse_GMSH_Physical_Groups(std::ifstream &file, GMSH_Mesh_Data &mesh_data)
         {
             group.name = "Group_" + std::to_string(group.id);
         }
-        
+
         mesh_data.physical_groups.push_back(group);
-        
-        std::cout << "Physical group: " << group.name << " (ID=" << group.id 
+
+        std::cout << "Physical group: " << group.name << " (ID=" << group.id
                   << ", dim=" << group.dimension << ")" << std::endl;
     }
-    
+
     // Read end physical groups line
     if (!std::getline(file, line) || line.find("$EndPhysicalNames") == std::string::npos)
     {
         std::cerr << "Error: Missing $EndPhysicalNames" << std::endl;
         return false;
     }
-    
+
     return true;
 }
 
@@ -293,18 +293,18 @@ bool Parse_GMSH_Nodes(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double ver
 {
     std::string line;
     int num_nodes;
-    
+
     if (!std::getline(file, line))
     {
         std::cerr << "Error: Cannot read number of nodes" << std::endl;
         return false;
     }
-    
+
     num_nodes = std::stoi(line);
     std::cout << "Reading " << num_nodes << " nodes" << std::endl;
-    
+
     mesh_data.nodes.reserve(num_nodes);
-    
+
     for (int i = 0; i < num_nodes; i++)
     {
         if (!std::getline(file, line))
@@ -312,10 +312,10 @@ bool Parse_GMSH_Nodes(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double ver
             std::cerr << "Error: Cannot read node " << i << std::endl;
             return false;
         }
-        
+
         std::istringstream iss(line);
         GMSH_Node node;
-        
+
         if (version >= 4.0)
         {
             // Format 4.1: node_id x y z
@@ -334,27 +334,27 @@ bool Parse_GMSH_Nodes(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double ver
                 return false;
             }
         }
-        
+
         // Update bounding box
         mesh_data.UpdateBoundingBox(node.x, node.y, node.z);
-        
+
         // Store node and create mapping
         mesh_data.node_id_to_index[node.id] = i;
         mesh_data.nodes.push_back(node);
     }
-    
+
     // Read end nodes line
     if (!std::getline(file, line) || line.find("$EndNodes") == std::string::npos)
     {
         std::cerr << "Error: Missing $EndNodes" << std::endl;
         return false;
     }
-    
+
     std::cout << "Nodes parsed successfully. Bounding box:" << std::endl;
     std::cout << "X: [" << mesh_data.min_coords[0] << ", " << mesh_data.max_coords[0] << "]" << std::endl;
     std::cout << "Y: [" << mesh_data.min_coords[1] << ", " << mesh_data.max_coords[1] << "]" << std::endl;
     std::cout << "Z: [" << mesh_data.min_coords[2] << ", " << mesh_data.max_coords[2] << "]" << std::endl;
-    
+
     return true;
 }
 
@@ -379,18 +379,18 @@ bool Parse_GMSH_Elements(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double 
 {
     std::string line;
     int num_elements;
-    
+
     if (!std::getline(file, line))
     {
         std::cerr << "Error: Cannot read number of elements" << std::endl;
         return false;
     }
-    
+
     num_elements = std::stoi(line);
     std::cout << "Reading " << num_elements << " elements" << std::endl;
-    
+
     mesh_data.elements.reserve(num_elements);
-    
+
     for (int i = 0; i < num_elements; i++)
     {
         if (!std::getline(file, line))
@@ -398,16 +398,16 @@ bool Parse_GMSH_Elements(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double 
             std::cerr << "Error: Cannot read element " << i << std::endl;
             return false;
         }
-        
+
         std::istringstream iss(line);
         GMSH_Element element;
-        
+
         if (!(iss >> element.id >> element.type >> element.num_tags))
         {
             std::cerr << "Error: Invalid element header format" << std::endl;
             return false;
         }
-        
+
         // Read tags
         element.tags.resize(element.num_tags);
         for (int j = 0; j < element.num_tags; j++)
@@ -418,24 +418,40 @@ bool Parse_GMSH_Elements(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double 
                 return false;
             }
         }
-        
+
         // Determine number of nodes based on element type
         int num_nodes;
         switch (element.type)
         {
-            case GMSH_POINT: num_nodes = 1; break;
-            case GMSH_LINE: num_nodes = 2; break;
-            case GMSH_TRIANGLE: num_nodes = 3; break;
-            case GMSH_QUADRANGLE: num_nodes = 4; break;
-            case GMSH_TETRAHEDRON: num_nodes = 4; break;
-            case GMSH_HEXAHEDRON: num_nodes = 8; break;
-            case GMSH_PRISM: num_nodes = 6; break;
-            case GMSH_PYRAMID: num_nodes = 5; break;
-            default:
-                std::cerr << "Warning: Unknown element type " << element.type << std::endl;
-                continue;
+        case GMSH_POINT:
+            num_nodes = 1;
+            break;
+        case GMSH_LINE:
+            num_nodes = 2;
+            break;
+        case GMSH_TRIANGLE:
+            num_nodes = 3;
+            break;
+        case GMSH_QUADRANGLE:
+            num_nodes = 4;
+            break;
+        case GMSH_TETRAHEDRON:
+            num_nodes = 4;
+            break;
+        case GMSH_HEXAHEDRON:
+            num_nodes = 8;
+            break;
+        case GMSH_PRISM:
+            num_nodes = 6;
+            break;
+        case GMSH_PYRAMID:
+            num_nodes = 5;
+            break;
+        default:
+            std::cerr << "Warning: Unknown element type " << element.type << std::endl;
+            continue;
         }
-        
+
         // Read node connectivity
         element.nodes.resize(num_nodes);
         for (int j = 0; j < num_nodes; j++)
@@ -446,7 +462,7 @@ bool Parse_GMSH_Elements(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double 
                 return false;
             }
         }
-        
+
         // Count different element types
         if (element.type == GMSH_HEXAHEDRON)
         {
@@ -456,21 +472,21 @@ bool Parse_GMSH_Elements(std::ifstream &file, GMSH_Mesh_Data &mesh_data, double 
         {
             mesh_data.num_boundary_faces++;
         }
-        
+
         mesh_data.elements.push_back(element);
     }
-    
+
     // Read end elements line
     if (!std::getline(file, line) || line.find("$EndElements") == std::string::npos)
     {
         std::cerr << "Error: Missing $EndElements" << std::endl;
         return false;
     }
-    
+
     std::cout << "Elements parsed successfully:" << std::endl;
     std::cout << "Hexahedral elements: " << mesh_data.num_hexahedra << std::endl;
     std::cout << "Boundary faces: " << mesh_data.num_boundary_faces << std::endl;
-    
+
     return true;
 }
 
@@ -496,16 +512,16 @@ bool Convert_GMSH_To_Solver_Grid_3D(const GMSH_Mesh_Data &mesh_data)
         std::cerr << "Error: No hexahedral elements found in mesh" << std::endl;
         return false;
     }
-    
+
     std::cout << "Converting GMSH mesh to solver grid format" << std::endl;
-    
+
     // Set grid dimensions based on hexahedral elements
     Total_Cells_3D = mesh_data.num_hexahedra;
     Total_Points_3D = mesh_data.nodes.size();
-    
+
     // Allocate grid points
     Grid_Points_3D = new Point[Total_Points_3D];
-    
+
     // Copy node coordinates
     for (size_t i = 0; i < mesh_data.nodes.size(); i++)
     {
@@ -513,18 +529,18 @@ bool Convert_GMSH_To_Solver_Grid_3D(const GMSH_Mesh_Data &mesh_data)
         Grid_Points_3D[i].y = mesh_data.nodes[i].y;
         Grid_Points_3D[i].z = mesh_data.nodes[i].z;
     }
-    
+
     // Process hexahedral elements
     std::vector<std::vector<int>> cell_connectivity;
     cell_connectivity.reserve(Total_Cells_3D);
-    
+
     int cell_count = 0;
     for (const auto &element : mesh_data.elements)
     {
         if (element.type == GMSH_HEXAHEDRON)
         {
             std::vector<int> nodes(8);
-            
+
             // Convert GMSH node IDs to solver indices
             for (int i = 0; i < 8; i++)
             {
@@ -536,22 +552,22 @@ bool Convert_GMSH_To_Solver_Grid_3D(const GMSH_Mesh_Data &mesh_data)
                 }
                 nodes[i] = it->second;
             }
-            
+
             cell_connectivity.push_back(nodes);
             cell_count++;
         }
     }
-    
+
     // Set domain bounds
     Length_x = mesh_data.max_coords[0] - mesh_data.min_coords[0];
     Length_y = mesh_data.max_coords[1] - mesh_data.min_coords[1];
     Length_z = mesh_data.max_coords[2] - mesh_data.min_coords[2];
-    
+
     std::cout << "Grid conversion completed:" << std::endl;
     std::cout << "Total cells: " << Total_Cells_3D << std::endl;
     std::cout << "Total points: " << Total_Points_3D << std::endl;
     std::cout << "Domain size: " << Length_x << " x " << Length_y << " x " << Length_z << std::endl;
-    
+
     return true;
 }
 
@@ -574,9 +590,9 @@ bool Validate_Mesh_Quality_3D(const GMSH_Mesh_Data &mesh_data)
 {
     bool is_valid = true;
     int invalid_elements = 0;
-    
+
     std::cout << "Validating mesh quality..." << std::endl;
-    
+
     // Check hexahedral elements
     for (const auto &element : mesh_data.elements)
     {
@@ -587,13 +603,13 @@ bool Validate_Mesh_Quality_3D(const GMSH_Mesh_Data &mesh_data)
             {
                 if (mesh_data.node_id_to_index.find(node_id) == mesh_data.node_id_to_index.end())
                 {
-                    std::cerr << "Error: Element " << element.id 
+                    std::cerr << "Error: Element " << element.id
                               << " references non-existent node " << node_id << std::endl;
                     invalid_elements++;
                     is_valid = false;
                 }
             }
-            
+
             // Check for duplicate nodes in element
             std::set<int> unique_nodes(element.nodes.begin(), element.nodes.end());
             if (unique_nodes.size() != element.nodes.size())
@@ -604,7 +620,7 @@ bool Validate_Mesh_Quality_3D(const GMSH_Mesh_Data &mesh_data)
             }
         }
     }
-    
+
     if (!is_valid)
     {
         std::cerr << "Mesh validation failed: " << invalid_elements << " invalid elements" << std::endl;
@@ -613,7 +629,7 @@ bool Validate_Mesh_Quality_3D(const GMSH_Mesh_Data &mesh_data)
     {
         std::cout << "Mesh validation passed successfully" << std::endl;
     }
-    
+
     return is_valid;
 }
 
@@ -634,20 +650,20 @@ bool Read_GMSH_File_3D(const std::string &filename)
         std::cerr << "Error: Cannot open GMSH file: " << filename << std::endl;
         return false;
     }
-    
+
     std::cout << "Reading GMSH mesh file: " << filename << std::endl;
-    
+
     GMSH_Mesh_Data mesh_data;
     double version;
     int file_type, data_size;
-    
+
     // Parse file header
     if (!Parse_GMSH_Header(file, version, file_type, data_size))
     {
         file.close();
         return false;
     }
-    
+
     std::string line;
     while (std::getline(file, line))
     {
@@ -676,23 +692,23 @@ bool Read_GMSH_File_3D(const std::string &filename)
             }
         }
     }
-    
+
     file.close();
-    
+
     // Validate mesh quality
     if (!Validate_Mesh_Quality_3D(mesh_data))
     {
         std::cerr << "Mesh quality validation failed" << std::endl;
         return false;
     }
-    
+
     // Convert to solver format
     if (!Convert_GMSH_To_Solver_Grid_3D(mesh_data))
     {
         std::cerr << "Grid conversion failed" << std::endl;
         return false;
     }
-    
+
     std::cout << "GMSH mesh loaded successfully" << std::endl;
     std::cout << "Mesh statistics:" << std::endl;
     std::cout << "- Nodes: " << mesh_data.nodes.size() << std::endl;
@@ -700,6 +716,6 @@ bool Read_GMSH_File_3D(const std::string &filename)
     std::cout << "- Hexahedra: " << mesh_data.num_hexahedra << std::endl;
     std::cout << "- Boundary faces: " << mesh_data.num_boundary_faces << std::endl;
     std::cout << "- Physical groups: " << mesh_data.physical_groups.size() << std::endl;
-    
+
     return true;
 }
