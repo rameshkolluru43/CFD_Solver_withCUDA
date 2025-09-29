@@ -1,0 +1,45 @@
+{
+  "solver_parameters": {
+    "time_step": 0.0001,
+    "max_time": 10.0,
+    "max_iterations": 2000,
+    "steady_state": true,
+    "velocity_tolerance": 1e-06,
+    "pressure_tolerance": 1e-06,
+    "continuity_tolerance": 1e-08,
+    "alpha_u": 0.7,
+    "alpha_v": 0.7,
+    "alpha_w": 0.7,
+    "alpha_p": 0.3,
+    "max_linear_iterations": 1000,
+    "linear_tolerance": 1e-09,
+    "output_frequency": 100,
+    "output_format": "VTK"
+  },
+  "fluid_properties": {
+    "density": 1000.0,
+    "viscosity": 0.001,
+    "description": "Water at room temperature"
+  },
+  "boundary_conditions": [
+    {
+      "type": "wall",
+      "u_value": 0.0,
+      "v_value": 0.0,
+      "w_value": 0.0,
+      "description": "No-slip wall boundary"
+    },
+    {
+      "type": "inlet_velocity",
+      "u_value": 1.0,
+      "v_value": 0.0,
+      "w_value": 0.0,
+      "description": "Uniform velocity inlet"
+    },
+    {
+      "type": "outlet_pressure",
+      "p_value": 0.0,
+      "description": "Zero gauge pressure outlet"
+    }
+  ]
+}
