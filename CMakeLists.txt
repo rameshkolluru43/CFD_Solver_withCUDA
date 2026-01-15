@@ -29,7 +29,12 @@ set(CUDA_SOURCES
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Iterative_Solver_Cuda_Kernels.cu
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Optimizations_Cuda.cu
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Kernels.cu
-    # Add other dedicated CUDA translation units here when integrated
+    # New Priority 1 & 2 CUDA kernels (Added 2026-01-15)
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Roe_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/HLLC_LLF_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/MUSCL_WENO_Reconstruction_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Flux_Schemes_Cuda_Wrappers.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Reconstruction_Schemes_Cuda_Wrappers.cu
 )
 
 # Add Grid CUDA Host Wrappers (C++ source)
