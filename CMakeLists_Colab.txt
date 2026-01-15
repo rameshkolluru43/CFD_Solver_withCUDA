@@ -1,0 +1,127 @@
+cmake_minimum_required(VERSION 3.16)
+
+project(CFD_solver LANGUAGES CXX CUDA)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Detect if running on Colab/Linux vs macOS
+if(APPLE)
+    # macOS Homebrew paths
+    set(INCLUDE_DIRS
+        ${PROJECT_SOURCE_DIR}/include
+        /opt/homebrew/include
+        /opt/homebrew/include/vtk-9.4
+        /opt/homebrew/Cellar/jsoncpp/1.9.6/include
+        /opt/homebrew/include/json
+    )
+    set(LINK_DIRS /opt/homebrew/lib)
+    set(VTK_VERSION "9.4")
+else()
+    # Linux/Colab paths (system-wide installation)
+    find_package(VTK REQUIRED)
+    include(${VTK_USE_FILE})
+    
+    set(INCLUDE_DIRS
+        ${PROJECT_SOURCE_DIR}/include
+        /usr/include
+        /usr/include/jsoncpp
+        ${VTK_INCLUDE_DIRS}
+    )
+    set(LINK_DIRS /usr/lib /usr/lib/x86_64-linux-gnu)
+    set(VTK_VERSION "9")
+endif()
+
+# Include Paths
+include_directories(${INCLUDE_DIRS})
+
+# Source Files (All .cpp from src/)
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
+
+# Separate CUDA sources
+set(CUDA_SOURCES
+    ${PROJECT_SOURCE_DIR}/src/Main_CUDA.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Time_Integration_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Flux_Calculations_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Gradient_Calculation_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Viscous_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Geometry_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Linear_Algebra_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Iterative_Solver_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Optimizations_Cuda.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Roe_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/HLLC_LLF_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/MUSCL_WENO_Reconstruction_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Flux_Schemes_Cuda_Wrappers.cu
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Reconstruction_Schemes_Cuda_Wrappers.cu
+)
+
+# Add Grid CUDA Host Wrappers (C++ source)
+set(CUDA_HOST_SOURCES
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
+)
+
+# Link Directories
+link_directories(${LINK_DIRS})
+
+# CPU Executable
+add_executable(CFD_solver ${SOURCES})
+target_compile_definitions(CFD_solver PRIVATE USE_VTK=1)
+
+# GPU executable
+add_executable(CFD_solver_gpu
+    ${CUDA_SOURCES}
+    ${CUDA_HOST_SOURCES}
+    ${PROJECT_SOURCE_DIR}/src/Globals_Stub_GPU.cpp
+)
+
+# CUDA architecture detection - Colab typically has compute capability 7.5 (T4)
+# or 8.0 (A100), adjust as needed
+if(APPLE)
+    set_target_properties(CFD_solver_gpu PROPERTIES
+        CUDA_SEPARABLE_COMPILATION ON
+        CUDA_ARCHITECTURES "60;70;75;80;86;90"
+    )
+else()
+    # For Colab, limit to compatible architectures (T4 = 75, A100 = 80)
+    set_target_properties(CFD_solver_gpu PROPERTIES
+        CUDA_SEPARABLE_COMPILATION ON
+        CUDA_ARCHITECTURES "75;80"
+    )
+endif()
+
+target_compile_definitions(CFD_solver_gpu PRIVATE USE_CUDA_DRIVER_MAIN=1)
+target_include_directories(CFD_solver_gpu PRIVATE
+    ${INCLUDE_DIRS}
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+)
+
+# Link Libraries - CPU version
+if(APPLE)
+    target_link_libraries(CFD_solver
+        jsoncpp
+        vtkCommonCore-9.4
+        vtkCommonDataModel-9.4
+        vtkCommonExecutionModel-9.4
+        vtkFiltersCore-9.4
+        vtkFiltersGeometry-9.4
+        vtkIOXML-9.4
+        vtkRenderingCore-9.4
+        vtkIOCore-9.4
+        vtkIOImage-9.4
+        vtkInteractionStyle-9.4
+        vtkRenderingOpenGL2-9.4
+        vtksys-9.4
+    )
+else()
+    target_link_libraries(CFD_solver
+        jsoncpp
+        ${VTK_LIBRARIES}
+    )
+endif()
+
+# Link Libraries - GPU version
+target_link_libraries(CFD_solver_gpu
+    cuda cudart
+)
