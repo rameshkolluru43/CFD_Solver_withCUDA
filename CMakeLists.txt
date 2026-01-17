@@ -37,9 +37,16 @@ set(CUDA_SOURCES
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Reconstruction_Schemes_Cuda_Wrappers.cu
 )
 
-# Add Grid CUDA Host Wrappers (C++ source)
+# Add Grid CUDA Host Wrappers (C++ source that needs CUDA compiler)
 set(CUDA_HOST_SOURCES
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
+    ${PROJECT_SOURCE_DIR}/src/Globals_Stub_GPU.cpp
+)
+
+# Mark CUDA host sources to be compiled with nvcc
+set_source_files_properties(
+    ${CUDA_HOST_SOURCES}
+    PROPERTIES LANGUAGE CUDA
 )
 
 # Link Directories
@@ -55,7 +62,6 @@ target_compile_definitions(CFD_solver PRIVATE USE_VTK=1)
 add_executable(CFD_solver_gpu
     ${CUDA_SOURCES}
     ${CUDA_HOST_SOURCES}
-    ${PROJECT_SOURCE_DIR}/src/Globals_Stub_GPU.cpp
 )
 
 set_target_properties(CFD_solver_gpu PROPERTIES
@@ -92,4 +98,17 @@ target_link_libraries(CFD_solver
 
 target_link_libraries(CFD_solver_gpu
     cuda cudart
+    jsoncpp
+    vtkCommonCore-9.4
+    vtkCommonDataModel-9.4
+    vtkCommonExecutionModel-9.4
+    vtkFiltersCore-9.4
+    vtkFiltersGeometry-9.4
+    vtkIOXML-9.4
+    vtkRenderingCore-9.4
+    vtkIOCore-9.4
+    vtkIOImage-9.4
+    vtkInteractionStyle-9.4
+    vtkRenderingOpenGL2-9.4
+    vtksys-9.4
 )

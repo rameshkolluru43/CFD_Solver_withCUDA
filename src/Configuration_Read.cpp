@@ -7,19 +7,6 @@
 /// @param jsonFileName  The JSON file name
 /// @return void     No return value
 /// @details This function reads the JSON file and sets the parameters for the solver and all other parameters
-double Limiter_Zeta, Limiter_Zeta1;
-string Flow_Type, Test_Case_JSON_File, Test_Case_Config_File, Solver_Name, Description, Author, GeometryType;
-bool Is_Conservative, Is_Viscous;
-int Solver_Type;
-InletCondition inletCond;
-ExitCondition exitCond;
-InitialCondition initCond;
-WallCondition wallCond;
-GeometryParams geomParams;
-MeshParams meshParams;
-vector<string> gridFiles;
-string gridDir, Test_Case_Name = "Default_Test_Case", GridVTKFile;
-
 void readJSON(const std::string &jsonFileName)
 {
     std::ifstream fileStream(jsonFileName);

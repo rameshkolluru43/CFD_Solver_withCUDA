@@ -393,6 +393,9 @@ extern double mev_L, mev_R, max_eigen_value;
 extern InletCondition inletCond;
 extern ExitCondition exitCond;
 extern InitialCondition initCond;
+extern WallCondition wallCond;
+extern GeometryParams geomParams;
+extern MeshParams meshParams;
 
 //	Variables for Roe Averages
 extern double Roe_u, Roe_v, Roe_Rho, Roe_P, Roe_e, Roe_Vmag, U_avg, Roe_a, Roe_H, Un, Ut;

@@ -113,6 +113,36 @@ void optimize_memory_allocation(int num_physical_cells, int num_ghost_cells)
     GridPerformance::end_timer("Memory Pre-allocation");
 }
 
+// Optimized face construction
+void Construct_Face_Optimized(Cell &Grid_Cell)
+{
+    const auto &vertices = Grid_Cell.Cell_Vertices;
+
+    // Extract points efficiently
+    const double *p0 = &vertices[0]; // [x0, y0, z0]
+    const double *p1 = &vertices[3]; // [x1, y1, z1]
+    const double *p2 = &vertices[6]; // [x2, y2, z2]
+    const double *p3 = &vertices[9]; // [x3, y3, z3]
+
+    // Construct faces with SIMD operations where available
+    auto construct_face_segment = [&](const double *a, const double *b)
+    {
+        double dx = b[0] - a[0];
+        double dy = b[1] - a[1];
+        double length = std::sqrt(dx * dx + dy * dy);
+
+        Grid_Cell.Face_Areas.push_back(length);
+        Grid_Cell.Face_Normals.push_back(dy / length);  // nx = dy/dl
+        Grid_Cell.Face_Normals.push_back(-dx / length); // ny = -dx/dl
+    };
+
+    // Face segments: (p3,p0), (p0,p1), (p1,p2), (p2,p3)
+    construct_face_segment(p3, p0);
+    construct_face_segment(p0, p1);
+    construct_face_segment(p1, p2);
+    construct_face_segment(p2, p3);
+}
+
 // Optimized cell construction with move semantics
 void Construct_Cell_Optimized(Cell &&Grid_Cell)
 {
@@ -155,36 +185,6 @@ void Construct_Cell_Optimized(Cell &&Grid_Cell)
     }
 
     Grid_Cell.Inv_Area = 1.0 / Grid_Cell.Area;
-}
-
-// Optimized face construction
-void Construct_Face_Optimized(Cell &Grid_Cell)
-{
-    const auto &vertices = Grid_Cell.Cell_Vertices;
-
-    // Extract points efficiently
-    const double *p0 = &vertices[0]; // [x0, y0, z0]
-    const double *p1 = &vertices[3]; // [x1, y1, z1]
-    const double *p2 = &vertices[6]; // [x2, y2, z2]
-    const double *p3 = &vertices[9]; // [x3, y3, z3]
-
-    // Construct faces with SIMD operations where available
-    auto construct_face_segment = [&](const double *a, const double *b)
-    {
-        double dx = b[0] - a[0];
-        double dy = b[1] - a[1];
-        double length = std::sqrt(dx * dx + dy * dy);
-
-        Grid_Cell.Face_Areas.push_back(length);
-        Grid_Cell.Face_Normals.push_back(dy / length);  // nx = dy/dl
-        Grid_Cell.Face_Normals.push_back(-dx / length); // ny = -dx/dl
-    };
-
-    // Face segments: (p3,p0), (p0,p1), (p1,p2), (p2,p3)
-    construct_face_segment(p3, p0);
-    construct_face_segment(p0, p1);
-    construct_face_segment(p1, p2);
-    construct_face_segment(p2, p3);
 }
 
 // Parallel cell center distance calculation using std::execution

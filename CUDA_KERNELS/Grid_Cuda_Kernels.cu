@@ -96,10 +96,10 @@ __global__ void identify_neighbors_kernel(
     if (cell_idx >= num_cells) return;
 
     int neighbor_count = 0;
-    int num_faces = num_faces_per_cell[cell_idx];
+    int cell_num_faces = num_faces_per_cell[cell_idx];  // Renamed to avoid shadowing parameter
 
     // Check all faces of this cell
-    for (int f = 0; f < num_faces && f < max_faces_per_cell; f++) {
+    for (int f = 0; f < cell_num_faces && f < max_faces_per_cell; f++) {
         int face_id = cell_face_connectivity[cell_idx * max_faces_per_cell + f];
         if (face_id >= 0 && face_id < num_faces) {
             // Get cells connected to this face
