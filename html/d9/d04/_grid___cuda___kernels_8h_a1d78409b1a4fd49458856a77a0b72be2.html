@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -148,16 +148,23 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  409</span>    <span class="keywordtype">int</span> point_idx = blockIdx.x * blockDim.x + threadIdx.x;</div>
 <div class="line"><span class="lineno">  410</span>    <span class="keywordflow">if</span> (point_idx &gt;= num_points) <span class="keywordflow">return</span>;</div>
 <div class="line"><span class="lineno">  411</span> </div>
-<div class="line"><span class="lineno">  412</span>    <span class="keywordtype">double</span> x = point_coords[point_idx * 3 + 0];</div>
-<div class="line"><span class="lineno">  413</span>    <span class="keywordtype">double</span> y = point_coords[point_idx * 3 + 1];</div>
+<div class="line"><span class="lineno">  412</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> = point_coords[point_idx * 3 + 0];</div>
+<div class="line"><span class="lineno">  413</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> = point_coords[point_idx * 3 + 1];</div>
 <div class="line"><span class="lineno">  414</span>    <span class="keywordtype">double</span> z = point_coords[point_idx * 3 + 2];</div>
 <div class="line"><span class="lineno">  415</span> </div>
 <div class="line"><span class="lineno">  416</span>    <span class="comment">// Matrix multiplication: new_coords = rotation_matrix * old_coords</span></div>
-<div class="line"><span class="lineno">  417</span>    point_coords[point_idx * 3 + 0] = rotation_matrix[0] * x + rotation_matrix[1] * y + rotation_matrix[2] * z;</div>
-<div class="line"><span class="lineno">  418</span>    point_coords[point_idx * 3 + 1] = rotation_matrix[3] * x + rotation_matrix[4] * y + rotation_matrix[5] * z;</div>
-<div class="line"><span class="lineno">  419</span>    point_coords[point_idx * 3 + 2] = rotation_matrix[6] * x + rotation_matrix[7] * y + rotation_matrix[8] * z;</div>
+<div class="line"><span class="lineno">  417</span>    point_coords[point_idx * 3 + 0] = rotation_matrix[0] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> + rotation_matrix[1] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> + rotation_matrix[2] * z;</div>
+<div class="line"><span class="lineno">  418</span>    point_coords[point_idx * 3 + 1] = rotation_matrix[3] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> + rotation_matrix[4] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> + rotation_matrix[5] * z;</div>
+<div class="line"><span class="lineno">  419</span>    point_coords[point_idx * 3 + 2] = rotation_matrix[6] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> + rotation_matrix[7] * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> + rotation_matrix[8] * z;</div>
 <div class="line"><span class="lineno">  420</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 </div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d04/_grid___cuda___kernels_8h_a1d78409b1a4fd49458856a77a0b72be2_a1d78409b1a4fd49458856a77a0b72be2_cgraph.svg" width="222" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../d9/d04/_grid___cuda___kernels_8h_a1d78409b1a4fd49458856a77a0b72be2_a1d78409b1a4fd49458856a77a0b72be2_icgraph.svg" width="843" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>

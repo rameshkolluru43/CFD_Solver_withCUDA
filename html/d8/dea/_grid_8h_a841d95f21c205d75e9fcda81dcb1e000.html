@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -168,7 +168,7 @@ $(function(){ initResizable(false); });
 <div class="fragment"><div class="line"><span class="lineno">  686</span>{</div>
 <div class="line"><span class="lineno">  687</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.size(); i++)</div>
 <div class="line"><span class="lineno">  688</span>    {</div>
-<div class="line"><span class="lineno">  689</span>        <a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;cell = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>[i];</div>
+<div class="line"><span class="lineno">  689</span>        <a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;cell = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>[i];</div>
 <div class="line"><span class="lineno">  690</span>        <span class="comment">// Assume that the number of faces is stored in cell.numFaces</span></div>
 <div class="line"><span class="lineno">  691</span>        <span class="comment">// (or, equivalently, cell.nodeIndices.size() for many cell types).</span></div>
 <div class="line"><span class="lineno">  692</span>        <span class="keywordtype">int</span> nFaces = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_abee7307065f9a6e48c16aaa8ec4b0312.html#abee7307065f9a6e48c16aaa8ec4b0312">numFaces</a>;</div>
@@ -179,8 +179,8 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  697</span>        {</div>
 <div class="line"><span class="lineno">  698</span>            <span class="comment">// Get the face normal. We assume that Face_Normals[f]</span></div>
 <div class="line"><span class="lineno">  699</span>            <span class="comment">// is a vector&lt;double&gt; of at least 2 values: [nx, ny].</span></div>
-<div class="line"><span class="lineno">  700</span>            <span class="keywordtype">double</span> <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a> = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a752ae4d146364fd407698e1ac94fed5d.html#a752ae4d146364fd407698e1ac94fed5d">Face_Normals</a>[f * 2 + 0];</div>
-<div class="line"><span class="lineno">  701</span>            <span class="keywordtype">double</span> <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a> = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a752ae4d146364fd407698e1ac94fed5d.html#a752ae4d146364fd407698e1ac94fed5d">Face_Normals</a>[f * 2 + 1];</div>
+<div class="line"><span class="lineno">  700</span>            <span class="keywordtype">double</span> <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a> = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a64144592141596ed2b01054c8992684b.html#a64144592141596ed2b01054c8992684b">Face_Normals</a>[f * 2 + 0];</div>
+<div class="line"><span class="lineno">  701</span>            <span class="keywordtype">double</span> <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a> = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a64144592141596ed2b01054c8992684b.html#a64144592141596ed2b01054c8992684b">Face_Normals</a>[f * 2 + 1];</div>
 <div class="line"><span class="lineno">  702</span>            <span class="keywordtype">int</span> priority = <a class="code hl_function" href="../../d0/ded/_read___gmsh___file_8cpp_a7cad5b6a9eb2a5101ab6bbbc89a45667.html#a7cad5b6a9eb2a5101ab6bbbc89a45667">compute_face_priority</a>(<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a>, <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a>);</div>
 <div class="line"><span class="lineno">  703</span>            facePriority.push_back(make_pair(f, priority));</div>
 <div class="line"><span class="lineno">  704</span>        }</div>
@@ -198,11 +198,11 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  716</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> idx = 0; idx &lt; facePriority.size(); idx++)</div>
 <div class="line"><span class="lineno">  717</span>        {</div>
 <div class="line"><span class="lineno">  718</span>            <span class="keywordtype">int</span> origFaceIndex = facePriority[idx].first;</div>
-<div class="line"><span class="lineno">  719</span>            sortedNeighbours[idx] = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a5b0e3afecd22c421e3de82b0646ff849.html#a5b0e3afecd22c421e3de82b0646ff849">Neighbours</a>[origFaceIndex];</div>
+<div class="line"><span class="lineno">  719</span>            sortedNeighbours[idx] = cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a3fd29e220f25607759c635426ab0fb61.html#a3fd29e220f25607759c635426ab0fb61">Neighbours</a>[origFaceIndex];</div>
 <div class="line"><span class="lineno">  720</span>        }</div>
 <div class="line"><span class="lineno">  721</span> </div>
 <div class="line"><span class="lineno">  722</span>        <span class="comment">// Update the cell&#39;s neighbour vector.</span></div>
-<div class="line"><span class="lineno">  723</span>        cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a5b0e3afecd22c421e3de82b0646ff849.html#a5b0e3afecd22c421e3de82b0646ff849">Neighbours</a> = sortedNeighbours;</div>
+<div class="line"><span class="lineno">  723</span>        cell.<a class="code hl_variable" href="../../dc/d9f/struct_cell_a3fd29e220f25607759c635426ab0fb61.html#a3fd29e220f25607759c635426ab0fb61">Neighbours</a> = sortedNeighbours;</div>
 <div class="line"><span class="lineno">  724</span>    }</div>
 <div class="line"><span class="lineno">  725</span>}</div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa_html_a2e4e1bc33360d8b941e1f06c74ba1dfa"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a></div><div class="ttdeci">vector&lt; Cell &gt; Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00007">Globals_Stub_GPU.cpp:7</a></div></div>
@@ -210,10 +210,10 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="a_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba_html_a147a8b14bbd79c0f1a3457805e2065ba"><div class="ttname"><a href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a></div><div class="ttdeci">double ny</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d6d/_initialize_8cpp_source.html#l00022">Initialize.cpp:22</a></div></div>
 <div class="ttc" id="a_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a_html_a74d07ed95c86939416c6a88f1daf8e1a"><div class="ttname"><a href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a></div><div class="ttdeci">double nx</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d6d/_initialize_8cpp_source.html#l00022">Initialize.cpp:22</a></div></div>
 <div class="ttc" id="a_read___gmsh___file_8cpp_a7cad5b6a9eb2a5101ab6bbbc89a45667_html_a7cad5b6a9eb2a5101ab6bbbc89a45667"><div class="ttname"><a href="../../d0/ded/_read___gmsh___file_8cpp_a7cad5b6a9eb2a5101ab6bbbc89a45667.html#a7cad5b6a9eb2a5101ab6bbbc89a45667">compute_face_priority</a></div><div class="ttdeci">int compute_face_priority(double nx, double ny)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/ded/_read___gmsh___file_8cpp_source.html#l00646">Read_Gmsh_File.cpp:646</a></div></div>
-<div class="ttc" id="astruct_cell_a5b0e3afecd22c421e3de82b0646ff849_html_a5b0e3afecd22c421e3de82b0646ff849"><div class="ttname"><a href="../../dc/d9f/struct_cell_a5b0e3afecd22c421e3de82b0646ff849.html#a5b0e3afecd22c421e3de82b0646ff849">Cell::Neighbours</a></div><div class="ttdeci">vector&lt; int &gt; Neighbours</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00311">Globals.h:311</a></div></div>
-<div class="ttc" id="astruct_cell_a752ae4d146364fd407698e1ac94fed5d_html_a752ae4d146364fd407698e1ac94fed5d"><div class="ttname"><a href="../../dc/d9f/struct_cell_a752ae4d146364fd407698e1ac94fed5d.html#a752ae4d146364fd407698e1ac94fed5d">Cell::Face_Normals</a></div><div class="ttdeci">V_D Face_Normals</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00315">Globals.h:315</a></div></div>
+<div class="ttc" id="astruct_cell_a3fd29e220f25607759c635426ab0fb61_html_a3fd29e220f25607759c635426ab0fb61"><div class="ttname"><a href="../../dc/d9f/struct_cell_a3fd29e220f25607759c635426ab0fb61.html#a3fd29e220f25607759c635426ab0fb61">Cell::Neighbours</a></div><div class="ttdeci">vector&lt; int &gt; Neighbours</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00311">Globals.h:311</a></div></div>
+<div class="ttc" id="astruct_cell_a64144592141596ed2b01054c8992684b_html_a64144592141596ed2b01054c8992684b"><div class="ttname"><a href="../../dc/d9f/struct_cell_a64144592141596ed2b01054c8992684b.html#a64144592141596ed2b01054c8992684b">Cell::Face_Normals</a></div><div class="ttdeci">V_D Face_Normals</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00315">Globals.h:315</a></div></div>
 <div class="ttc" id="astruct_cell_abee7307065f9a6e48c16aaa8ec4b0312_html_abee7307065f9a6e48c16aaa8ec4b0312"><div class="ttname"><a href="../../dc/d9f/struct_cell_abee7307065f9a6e48c16aaa8ec4b0312.html#abee7307065f9a6e48c16aaa8ec4b0312">Cell::numFaces</a></div><div class="ttdeci">int numFaces</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00310">Globals.h:310</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

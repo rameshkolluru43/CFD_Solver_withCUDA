@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -101,23 +101,24 @@ $(function(){ initResizable(false); });
 <div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="../../d5/dc2/test__stretching_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4.html#ae66f6b31b5ad750f1fe042a706a4e3d4">    7</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="../../d5/dc2/test__stretching_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>()</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>vector&lt;double&gt; x,x1;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>,x1;</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keywordtype">int</span> n=21;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">double</span> eta,zi,beta =-2.0;</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>eta=(1.0/(n-1));</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>zi=(1.0/(n-1));</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>x.resize(n,0.0);</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.resize(n,0.0);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>x1.resize(n,0.0);</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0;i&lt;n;i++)</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    x[i]=9.5*zi*i;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    cout&lt;&lt;i&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;x[i]&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    x[i]=9.5*((exp(beta*zi*i)-1)/(exp(beta)-1));</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    cout&lt;&lt;x[i]&lt;&lt;endl;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[i]=9.5*zi*i;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    cout&lt;&lt;i&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[i]&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[i]=9.5*((exp(beta*zi*i)-1)/(exp(beta)-1));</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    cout&lt;&lt;<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[i]&lt;&lt;endl;</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keywordflow">return</span> 0;</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
 </div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="atest__stretching_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="../../d5/dc2/test__stretching_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> <a href="#l00007">test_stretching.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

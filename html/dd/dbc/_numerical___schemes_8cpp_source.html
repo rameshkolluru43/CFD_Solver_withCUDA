@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -102,8 +102,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordflow">if</span>(i==3)</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    {</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>        eps1 = 0.25*lambda; eps2 =1.0/256.0;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_variable" href="../../dc/d9f/struct_cell_a518fc619a42b3bc24bfa1fc59919a962.html#a518fc619a42b3bc24bfa1fc59919a962">Diagonal_Vector</a>.Print();</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        dx = <a class="code hl_variable" href="../../dc/d9f/struct_cell_a518fc619a42b3bc24bfa1fc59919a962.html#a518fc619a42b3bc24bfa1fc59919a962">Diagonal_Vector</a>(1); dy = <a class="code hl_variable" href="../../dc/d9f/struct_cell_a518fc619a42b3bc24bfa1fc59919a962.html#a518fc619a42b3bc24bfa1fc59919a962">Diagonal_Vector</a>(2); dz = <a class="code hl_variable" href="../../dc/d9f/struct_cell_a518fc619a42b3bc24bfa1fc59919a962.html#a518fc619a42b3bc24bfa1fc59919a962">Diagonal_Vector</a>(3);</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        <a class="code hl_variable" href="../../dc/d9f/struct_cell_aad534dd606936bc138dedc87e1defcbe.html#aad534dd606936bc138dedc87e1defcbe">Diagonal_Vector</a>.Print();</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        dx = <a class="code hl_variable" href="../../dc/d9f/struct_cell_aad534dd606936bc138dedc87e1defcbe.html#aad534dd606936bc138dedc87e1defcbe">Diagonal_Vector</a>(1); dy = <a class="code hl_variable" href="../../dc/d9f/struct_cell_aad534dd606936bc138dedc87e1defcbe.html#aad534dd606936bc138dedc87e1defcbe">Diagonal_Vector</a>(2); dz = <a class="code hl_variable" href="../../dc/d9f/struct_cell_aad534dd606936bc138dedc87e1defcbe.html#aad534dd606936bc138dedc87e1defcbe">Diagonal_Vector</a>(3);</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>        dx = dy=dz = Cell_Avg_Length;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>        cout&lt;&lt;self_index&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;lambda&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;dx&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;dy&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;dz&lt;&lt;<span class="stringliteral">&quot;\t&quot;</span>&lt;&lt;time_step&lt;&lt;endl;</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        D[0]        =   time_step*(eps1*(dx*dx*Del2_Q_1[0] + dy*dy*Del2_Q_2[0]+dz*dz*Del2_Q_3[0])   -</div>
@@ -221,7 +221,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aheaders_8hpp_html"><div class="ttname"><a href="../../dc/d30/headers_8hpp.html">headers.hpp</a></div></div>
 <div class="ttc" id="astruct_cell_a49a1db077f0252924d12b23e4ead11fe_html_a49a1db077f0252924d12b23e4ead11fe"><div class="ttname"><a href="../../dc/d9f/struct_cell_a49a1db077f0252924d12b23e4ead11fe.html#a49a1db077f0252924d12b23e4ead11fe">Cell::UpdateQ</a></div><div class="ttdeci">void UpdateQ()</div><div class="ttdef"><b>Definition</b> <a href="../../dd/ddd/_cell_8cpp_source.html#l00149">Cell.cpp:149</a></div></div>
 <div class="ttc" id="astruct_cell_a4a591da0b84980196864d92dea915c67_html_a4a591da0b84980196864d92dea915c67"><div class="ttname"><a href="../../dc/d9f/struct_cell_a4a591da0b84980196864d92dea915c67.html#a4a591da0b84980196864d92dea915c67">Cell::Evaluate_FluxonFaces</a></div><div class="ttdeci">void Evaluate_FluxonFaces(const int &amp;)</div><div class="ttdef"><b>Definition</b> <a href="../../dd/ddd/_cell_8cpp_source.html#l00068">Cell.cpp:68</a></div></div>
-<div class="ttc" id="astruct_cell_a518fc619a42b3bc24bfa1fc59919a962_html_a518fc619a42b3bc24bfa1fc59919a962"><div class="ttname"><a href="../../dc/d9f/struct_cell_a518fc619a42b3bc24bfa1fc59919a962.html#a518fc619a42b3bc24bfa1fc59919a962">Cell::Diagonal_Vector</a></div><div class="ttdeci">V_D Diagonal_Vector</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00312">Globals.h:312</a></div></div>
+<div class="ttc" id="astruct_cell_aad534dd606936bc138dedc87e1defcbe_html_aad534dd606936bc138dedc87e1defcbe"><div class="ttname"><a href="../../dc/d9f/struct_cell_aad534dd606936bc138dedc87e1defcbe.html#aad534dd606936bc138dedc87e1defcbe">Cell::Diagonal_Vector</a></div><div class="ttdeci">V_D Diagonal_Vector</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00312">Globals.h:312</a></div></div>
 <div class="ttc" id="astruct_cell_aaf94e79f1a6eaba16660a81b86b5d4c1_html_aaf94e79f1a6eaba16660a81b86b5d4c1"><div class="ttname"><a href="../../dc/d9f/struct_cell_aaf94e79f1a6eaba16660a81b86b5d4c1.html#aaf94e79f1a6eaba16660a81b86b5d4c1">Cell::Rk4</a></div><div class="ttdeci">vector&lt; double &gt; &amp; Rk4(const double &amp;, const int &amp;)</div><div class="ttdef"><b>Definition</b> <a href="#l00003">Numerical_Schemes.cpp:3</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

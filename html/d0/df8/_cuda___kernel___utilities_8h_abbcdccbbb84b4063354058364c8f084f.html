@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -178,16 +178,16 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  114</span>    <span class="keywordtype">int</span> idx = blockIdx.x * blockDim.x + threadIdx.x;</div>
 <div class="line"><span class="lineno">  115</span>    <span class="keywordflow">if</span> (idx &gt;= num_vectors) <span class="keywordflow">return</span>;</div>
 <div class="line"><span class="lineno">  116</span>    </div>
-<div class="line"><span class="lineno">  117</span>    <span class="keywordtype">double</span> x = vectors[idx * 3 + 0];</div>
-<div class="line"><span class="lineno">  118</span>    <span class="keywordtype">double</span> y = vectors[idx * 3 + 1];</div>
+<div class="line"><span class="lineno">  117</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> = vectors[idx * 3 + 0];</div>
+<div class="line"><span class="lineno">  118</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> = vectors[idx * 3 + 1];</div>
 <div class="line"><span class="lineno">  119</span>    <span class="keywordtype">double</span> z = vectors[idx * 3 + 2];</div>
 <div class="line"><span class="lineno">  120</span>    </div>
-<div class="line"><span class="lineno">  121</span>    <span class="keywordtype">double</span> magnitude = sqrt(x*x + y*y + z*z);</div>
+<div class="line"><span class="lineno">  121</span>    <span class="keywordtype">double</span> magnitude = sqrt(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>*<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> + <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>*<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> + z*z);</div>
 <div class="line"><span class="lineno">  122</span>    </div>
 <div class="line"><span class="lineno">  123</span>    <span class="keywordflow">if</span> (magnitude &gt; 1e-12) {</div>
 <div class="line"><span class="lineno">  124</span>        <span class="keywordtype">double</span> inv_mag = 1.0 / magnitude;</div>
-<div class="line"><span class="lineno">  125</span>        unit_vectors[idx * 3 + 0] = x * inv_mag;</div>
-<div class="line"><span class="lineno">  126</span>        unit_vectors[idx * 3 + 1] = y * inv_mag;</div>
+<div class="line"><span class="lineno">  125</span>        unit_vectors[idx * 3 + 0] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> * inv_mag;</div>
+<div class="line"><span class="lineno">  126</span>        unit_vectors[idx * 3 + 1] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> * inv_mag;</div>
 <div class="line"><span class="lineno">  127</span>        unit_vectors[idx * 3 + 2] = z * inv_mag;</div>
 <div class="line"><span class="lineno">  128</span>    } <span class="keywordflow">else</span> {</div>
 <div class="line"><span class="lineno">  129</span>        unit_vectors[idx * 3 + 0] = 0.0;</div>
@@ -195,7 +195,14 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  131</span>        unit_vectors[idx * 3 + 2] = 0.0;</div>
 <div class="line"><span class="lineno">  132</span>    }</div>
 <div class="line"><span class="lineno">  133</span>}</div>
-</div><!-- fragment -->
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d0/df8/_cuda___kernel___utilities_8h_abbcdccbbb84b4063354058364c8f084f_abbcdccbbb84b4063354058364c8f084f_cgraph.svg" width="260" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
     </td>

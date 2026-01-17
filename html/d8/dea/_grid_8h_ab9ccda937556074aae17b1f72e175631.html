@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -197,10 +197,10 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">   41</span>                cout &lt;&lt; <span class="stringliteral">&quot;Number of Points: &quot;</span> &lt;&lt; No_of_Points &lt;&lt; endl;</div>
 <div class="line"><span class="lineno">   42</span> </div>
 <div class="line"><span class="lineno">   43</span>                Points.reserve(3 * No_of_Points);</div>
-<div class="line"><span class="lineno">   44</span>                <span class="keywordtype">double</span> x, y, z;</div>
+<div class="line"><span class="lineno">   44</span>                <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>, <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>, z;</div>
 <div class="line"><span class="lineno">   45</span>                <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; No_of_Points; i++)</div>
 <div class="line"><span class="lineno">   46</span>                {</div>
-<div class="line"><span class="lineno">   47</span>                    file &gt;&gt; x &gt;&gt; y &gt;&gt; z;</div>
+<div class="line"><span class="lineno">   47</span>                    file &gt;&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> &gt;&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> &gt;&gt; z;</div>
 <div class="line"><span class="lineno">   48</span>                    Points.insert(Points.end(), {x, y, z});</div>
 <div class="line"><span class="lineno">   49</span>                }</div>
 <div class="line"><span class="lineno">   50</span>            }</div>
@@ -222,12 +222,12 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">   66</span> </div>
 <div class="line"><span class="lineno">   67</span>                    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a> == 2)</div>
 <div class="line"><span class="lineno">   68</span>                    {</div>
-<div class="line"><span class="lineno">   69</span>                        <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1.html#a168b899e6f2be0f9d433faca2d755fa1">Boundary_Cells</a>.push_back(<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a>(<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a>, i, nodeIndices));</div>
+<div class="line"><span class="lineno">   69</span>                        <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1.html#a168b899e6f2be0f9d433faca2d755fa1">Boundary_Cells</a>.push_back(<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a>(<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a>, i, nodeIndices));</div>
 <div class="line"><span class="lineno">   70</span>                    }</div>
 <div class="line"><span class="lineno">   71</span>                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a> == 3 || <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a> == 4)</div>
 <div class="line"><span class="lineno">   72</span>                    {</div>
 <div class="line"><span class="lineno">   73</span>                        <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_ac4895cd9edd008eeb23ba97f59e07fb6.html#ac4895cd9edd008eeb23ba97f59e07fb6">Is_2D_Flow</a> = <span class="keyword">true</span>;</div>
-<div class="line"><span class="lineno">   74</span>                        <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.push_back(<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a>(<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a>, i - <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1.html#a168b899e6f2be0f9d433faca2d755fa1">Boundary_Cells</a>.size(), nodeIndices));</div>
+<div class="line"><span class="lineno">   74</span>                        <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.push_back(<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a>(<a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_aa253071e8bc5ba6c124e70c2aa373017.html#aa253071e8bc5ba6c124e70c2aa373017">numNodes</a>, i - <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1.html#a168b899e6f2be0f9d433faca2d755fa1">Boundary_Cells</a>.size(), nodeIndices));</div>
 <div class="line"><span class="lineno">   75</span>                    }</div>
 <div class="line"><span class="lineno">   76</span>                }</div>
 <div class="line"><span class="lineno">   77</span>            }</div>
@@ -298,6 +298,8 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  142</span>        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><span class="lineno">  143</span>    }</div>
 <div class="line"><span class="lineno">  144</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1_html_a168b899e6f2be0f9d433faca2d755fa1"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a168b899e6f2be0f9d433faca2d755fa1.html#a168b899e6f2be0f9d433faca2d755fa1">Boundary_Cells</a></div><div class="ttdeci">vector&lt; Cell &gt; Boundary_Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00007">Globals_Stub_GPU.cpp:7</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa_html_a2e4e1bc33360d8b941e1f06c74ba1dfa"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a></div><div class="ttdeci">vector&lt; Cell &gt; Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00007">Globals_Stub_GPU.cpp:7</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a456d887e919a97b19dbd9414a61001c7_html_a456d887e919a97b19dbd9414a61001c7"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a456d887e919a97b19dbd9414a61001c7.html#a456d887e919a97b19dbd9414a61001c7">No_Physical_Cells</a></div><div class="ttdeci">int No_Physical_Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00016">Globals_Stub_GPU.cpp:16</a></div></div>
@@ -313,11 +315,11 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="a_read___gmsh___file_8cpp_ab9ea50ddf9e2981b178f5999ddfcb7b3_html_ab9ea50ddf9e2981b178f5999ddfcb7b3"><div class="ttname"><a href="../../d0/ded/_read___gmsh___file_8cpp_ab9ea50ddf9e2981b178f5999ddfcb7b3.html#ab9ea50ddf9e2981b178f5999ddfcb7b3">Classify_Domain_Boundaries</a></div><div class="ttdeci">void Classify_Domain_Boundaries(std::vector&lt; Cell &gt; &amp;Cells, double &amp;minX, double &amp;maxX, double &amp;minY, double &amp;maxY)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/ded/_read___gmsh___file_8cpp_source.html#l00515">Read_Gmsh_File.cpp:515</a></div></div>
 <div class="ttc" id="a_read___gmsh___file_8cpp_ae9fe416efcf214282b13d235773a6bf6_html_ae9fe416efcf214282b13d235773a6bf6"><div class="ttname"><a href="../../d0/ded/_read___gmsh___file_8cpp_ae9fe416efcf214282b13d235773a6bf6.html#ae9fe416efcf214282b13d235773a6bf6">BoundingBox</a></div><div class="ttdeci">void BoundingBox(V_D &amp;Points, double &amp;Xmin, double &amp;Xmax, double &amp;Ymin, double &amp;Ymax, double &amp;Zmin, double &amp;Zmax)</div><div class="ttdef"><b>Definition</b> <a href="../../d0/ded/_read___gmsh___file_8cpp_source.html#l00443">Read_Gmsh_File.cpp:443</a></div></div>
 <div class="ttc" id="asrc_2_utility___files_8cpp_abf34e0b480f7580b0cd4237a76aed670_html_abf34e0b480f7580b0cd4237a76aed670"><div class="ttname"><a href="../../dc/d3a/src_2_utility___files_8cpp_abf34e0b480f7580b0cd4237a76aed670.html#abf34e0b480f7580b0cd4237a76aed670">Print</a></div><div class="ttdeci">void Print(V_I &amp;vect)</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d3a/src_2_utility___files_8cpp_source.html#l00041">Utility_Files.cpp:41</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dea/_grid_8h_ab9ccda937556074aae17b1f72e175631_ab9ccda937556074aae17b1f72e175631_cgraph.svg" width="872" height="299"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dea/_grid_8h_ab9ccda937556074aae17b1f72e175631_ab9ccda937556074aae17b1f72e175631_cgraph.svg" width="959" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>

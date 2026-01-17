@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -119,7 +119,7 @@ $(function(){ initResizable(false); });
 <div class="fragment"><div class="line"><span class="lineno">   12</span>{</div>
 <div class="line"><span class="lineno">   13</span>    <span class="keywordtype">string</span> gridfilename,solutionfilename,final_vtkfile,final_structured_vtk;</div>
 <div class="line"><span class="lineno">   14</span>    <span class="keywordtype">string</span> s1,s2;</div>
-<div class="line"><span class="lineno">   15</span>    <span class="keywordtype">double</span> x,y,z,v1,v2,v3,P,T,rho;</div>
+<div class="line"><span class="lineno">   15</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>,<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>,z,v1,v2,v3,<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a>,T,rho;</div>
 <div class="line"><span class="lineno">   16</span>    <span class="keywordtype">long</span> <span class="keywordtype">int</span> nop,a,<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a>,c,d,e,f,g,h,j,timestep,No_of_Cells;</div>
 <div class="line"><span class="lineno">   17</span>    <span class="keywordtype">int</span> <a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a>,<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a>,nz;</div>
 <div class="line"><span class="lineno">   18</span>    vector&lt;double&gt; pressure,temparature,density,vel1,vel2,vel3;</div>
@@ -141,9 +141,9 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">   34</span>        No_of_Cells = (<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a74d07ed95c86939416c6a88f1daf8e1a.html#a74d07ed95c86939416c6a88f1daf8e1a">nx</a>-1)*(<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a>-1)*(nz-1);</div>
 <div class="line"><span class="lineno">   35</span>        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=0;i&lt;No_of_Cells;i++)</div>
 <div class="line"><span class="lineno">   36</span>        {</div>
-<div class="line"><span class="lineno">   37</span>                solfile&gt;&gt;a&gt;&gt;P&gt;&gt;T&gt;&gt;rho&gt;&gt;v1&gt;&gt;v2&gt;&gt;v3;</div>
+<div class="line"><span class="lineno">   37</span>                solfile&gt;&gt;a&gt;&gt;<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a>&gt;&gt;T&gt;&gt;rho&gt;&gt;v1&gt;&gt;v2&gt;&gt;v3;</div>
 <div class="line"><span class="lineno">   38</span><span class="comment">//              cout&lt;&lt;P&lt;&lt;&quot;\t&quot;&lt;&lt;T&lt;&lt;&quot;\t&quot;&lt;&lt;v1&lt;&lt;&quot;\t&quot;&lt;&lt;v2&lt;&lt;&quot;\t&quot;&lt;&lt;v3&lt;&lt;endl;</span></div>
-<div class="line"><span class="lineno">   39</span>                pressure.push_back(P);</div>
+<div class="line"><span class="lineno">   39</span>                pressure.push_back(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a>);</div>
 <div class="line"><span class="lineno">   40</span>                temparature.push_back(T);</div>
 <div class="line"><span class="lineno">   41</span>                density.push_back(rho);</div>
 <div class="line"><span class="lineno">   42</span>                vel1.push_back(v1);</div>
@@ -204,6 +204,9 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">   97</span>    }</div>
 <div class="line"><span class="lineno">   98</span><span class="keywordflow">return</span> 0;</div>
 <div class="line"><span class="lineno">   99</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_html_a6122be421b972a00ce8e6e636589966d"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a></div><div class="ttdeci">double P(int i, int j)</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00019">CType_Elliptic_Grid.cpp:19</a></div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="a_data___analyze_8cpp_a6b5b9ad1b1399c06cd49d462e0afcb9a_html_a6b5b9ad1b1399c06cd49d462e0afcb9a"><div class="ttname"><a href="../../d5/dee/_data___analyze_8cpp_a6b5b9ad1b1399c06cd49d462e0afcb9a.html#a6b5b9ad1b1399c06cd49d462e0afcb9a">sleep_length</a></div><div class="ttdeci">#define sleep_length</div><div class="ttdef"><b>Definition</b> <a href="../../d5/dee/_data___analyze_8cpp_source.html#l00008">Data_Analyze.cpp:8</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01_html_a3d57524b44f888354bc4d4f56e0e3f01"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a></div><div class="ttdeci">V_D b</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00009">Globals_Stub_GPU.cpp:9</a></div></div>
 <div class="ttc" id="a_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba_html_a147a8b14bbd79c0f1a3457805e2065ba"><div class="ttname"><a href="../../d7/d6d/_initialize_8cpp_a147a8b14bbd79c0f1a3457805e2065ba.html#a147a8b14bbd79c0f1a3457805e2065ba">ny</a></div><div class="ttdeci">double ny</div><div class="ttdef"><b>Definition</b> <a href="../../d7/d6d/_initialize_8cpp_source.html#l00022">Initialize.cpp:22</a></div></div>
@@ -214,7 +217,7 @@ $(function(){ initResizable(false); });
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/dee/_data___analyze_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.svg" width="372" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/dee/_data___analyze_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4_ae66f6b31b5ad750f1fe042a706a4e3d4_cgraph.svg" width="372" height="223"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

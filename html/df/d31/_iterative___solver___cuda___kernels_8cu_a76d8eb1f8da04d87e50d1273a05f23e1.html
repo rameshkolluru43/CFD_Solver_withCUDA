@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -165,20 +165,29 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  224</span> </div>
 <div class="line"><span class="lineno">  225</span>    <span class="keywordflow">switch</span> (operation) {</div>
 <div class="line"><span class="lineno">  226</span>        <span class="keywordflow">case</span> 0: <span class="comment">// result = alpha*x + beta*y</span></div>
-<div class="line"><span class="lineno">  227</span>            result[idx] = alpha * x[idx] + beta * y[idx];</div>
+<div class="line"><span class="lineno">  227</span>            result[idx] = <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">alpha</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[idx] + <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_a63c947571cf283887d60cbc55a21302e.html#a63c947571cf283887d60cbc55a21302e">beta</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>[idx];</div>
 <div class="line"><span class="lineno">  228</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  229</span>        <span class="keywordflow">case</span> 1: <span class="comment">// result = x + alpha*y</span></div>
-<div class="line"><span class="lineno">  230</span>            result[idx] = x[idx] + alpha * y[idx];</div>
+<div class="line"><span class="lineno">  230</span>            result[idx] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[idx] + <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">alpha</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>[idx];</div>
 <div class="line"><span class="lineno">  231</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  232</span>        <span class="keywordflow">case</span> 2: <span class="comment">// result = x - alpha*y</span></div>
-<div class="line"><span class="lineno">  233</span>            result[idx] = x[idx] - alpha * y[idx];</div>
+<div class="line"><span class="lineno">  233</span>            result[idx] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[idx] - <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">alpha</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>[idx];</div>
 <div class="line"><span class="lineno">  234</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  235</span>        <span class="keywordflow">case</span> 3: <span class="comment">// result = alpha*x + beta*y + z</span></div>
-<div class="line"><span class="lineno">  236</span>            result[idx] = alpha * x[idx] + beta * y[idx] + z[idx];</div>
+<div class="line"><span class="lineno">  236</span>            result[idx] = <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">alpha</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[idx] + <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_a63c947571cf283887d60cbc55a21302e.html#a63c947571cf283887d60cbc55a21302e">beta</a> * <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>[idx] + z[idx];</div>
 <div class="line"><span class="lineno">  237</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  238</span>    }</div>
 <div class="line"><span class="lineno">  239</span>}</div>
-</div><!-- fragment -->
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="anamespace_k_omega_a63c947571cf283887d60cbc55a21302e_html_a63c947571cf283887d60cbc55a21302e"><div class="ttname"><a href="../../d0/d05/namespace_k_omega_a63c947571cf283887d60cbc55a21302e.html#a63c947571cf283887d60cbc55a21302e">KOmega::beta</a></div><div class="ttdeci">const double beta</div><div class="ttdef"><b>Definition</b> <a href="../../de/d84/_turbulence___models_8h_source.html#l00041">Turbulence_Models.h:41</a></div></div>
+<div class="ttc" id="anamespace_k_omega_af05dfd8243ec3f7427962868a45c66e8_html_af05dfd8243ec3f7427962868a45c66e8"><div class="ttname"><a href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">KOmega::alpha</a></div><div class="ttdeci">const double alpha</div><div class="ttdef"><b>Definition</b> <a href="../../de/d84/_turbulence___models_8h_source.html#l00044">Turbulence_Models.h:44</a></div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d31/_iterative___solver___cuda___kernels_8cu_a76d8eb1f8da04d87e50d1273a05f23e1_a76d8eb1f8da04d87e50d1273a05f23e1_cgraph.svg" width="278" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
     </td>

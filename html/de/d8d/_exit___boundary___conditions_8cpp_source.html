@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -104,7 +104,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordtype">int</span> Cell_Index = 0, Ghost_Cell_Index = 0, index, Face_No;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordtype">double</span> v1 = 0.0, v2 = 0.0, Rho = 0.0, n1 = 0.0, n2 = 0.0;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">double</span> rho_f = 0.0, u_f = 0.0, v_f = 0.0, v_mag_f = 0.0, P_f = 0.0, P = 0.0, temp = 0.0, rho_Et;</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">double</span> rho_f = 0.0, u_f = 0.0, v_f = 0.0, v_mag_f = 0.0, P_f = 0.0, <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> = 0.0, temp = 0.0, rho_Et;</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">double</span> Rho_o = 1.0, C_o = 1.0; <span class="comment">// Representing Free Stream Conditions</span></div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_typedef" href="../../d8/d4d/_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514.html#ae73d8ca7e27dfe59448bcfcbe537f514">V_D</a> U_Face(5, 0.0);</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">// values from the interior cell</span></div>
@@ -116,7 +116,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    Rho = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][0];</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    v1 = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][1];</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    v2 = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][2];</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    P = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][4];</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][4];</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    rho_Et = <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_aab611f0d14685e34d3574266b61a99ac.html#aab611f0d14685e34d3574266b61a99ac">Primitive_Cells</a>[Cell_Index][6];</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">//      cout&lt;&lt;&quot;\nRho v1 v2 P C rho_Et at exit\n&quot;&lt;&lt;Rho&lt;&lt;&quot;\t&quot;&lt;&lt;v1&lt;&lt;&quot;\t&quot;&lt;&lt;v2&lt;&lt;&quot;\t&quot;&lt;&lt;P&lt;&lt;&quot;\t&quot;&lt;&lt;C&lt;&lt;&quot;\t&quot;&lt;&lt;rho_Et&lt;&lt;endl;</span></div>
@@ -135,7 +135,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    P_f = 0.9 / 1.4; <span class="comment">// Pressure_Static_Exit;</span></div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="comment">//      cout&lt;&lt;Pressure_Static_Exit&lt;&lt;endl;</span></div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">//      cout&lt;&lt;Rho_o&lt;&lt;&quot;\t&quot;&lt;&lt;C_o&lt;&lt;endl;</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    temp = (P - P_f) / (Rho_o * C_o * C_o);</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    temp = (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> - P_f) / (Rho_o * C_o * C_o);</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    rho_f = Rho - temp * Rho_o;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    u_f = v1 + n1 * temp * C_o;</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    v_f = v2 + n2 * temp * C_o;</div>
@@ -196,6 +196,7 @@ $(function(){ initResizable(false); });
 </div>
 <div class="ttc" id="a_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63_html_a1c199e756f8458978961b4d9ab4cbe63"><div class="ttname"><a href="../../df/d43/_basic___functions_8cpp_a1c199e756f8458978961b4d9ab4cbe63.html#a1c199e756f8458978961b4d9ab4cbe63">Calculate_Primitive_Variables</a></div><div class="ttdeci">void Calculate_Primitive_Variables(const int &amp;Cell_No, V_D &amp;U_Vect)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d43/_basic___functions_8cpp_source.html#l00023">Basic_Functions.cpp:23</a></div></div>
 <div class="ttc" id="a_boundary___conditions_8h_html"><div class="ttname"><a href="../../d7/da5/_boundary___conditions_8h.html">Boundary_Conditions.h</a></div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_html_a6122be421b972a00ce8e6e636589966d"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a></div><div class="ttdeci">double P(int i, int j)</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00019">CType_Elliptic_Grid.cpp:19</a></div></div>
 <div class="ttc" id="a_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d_html_aa67b96b68d20618e2bb703387e98700d"><div class="ttname"><a href="../../d0/de9/_configuration___read_8cpp_aa67b96b68d20618e2bb703387e98700d.html#aa67b96b68d20618e2bb703387e98700d">exitCond</a></div><div class="ttdeci">ExitCondition exitCond</div><div class="ttdef"><b>Definition</b> <a href="../../d0/de9/_configuration___read_8cpp_source.html#l00015">Configuration_Read.cpp:15</a></div></div>
 <div class="ttc" id="a_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67_html_a29091ef8150c158cbcea854d72488a67"><div class="ttname"><a href="../../de/d8d/_exit___boundary___conditions_8cpp_a29091ef8150c158cbcea854d72488a67.html#a29091ef8150c158cbcea854d72488a67">Subsonic_Exit_Condition</a></div><div class="ttdeci">void Subsonic_Exit_Condition(ExitCondition &amp;exitCond, V_I &amp;Exit_Cells_List)</div><div class="ttdef"><b>Definition</b> <a href="#l00083">Exit_Boundary_Conditions.cpp:83</a></div></div>
 <div class="ttc" id="a_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c_html_a59fe8a866adf086e11dc4391cf24254c"><div class="ttname"><a href="../../de/d8d/_exit___boundary___conditions_8cpp_a59fe8a866adf086e11dc4391cf24254c.html#a59fe8a866adf086e11dc4391cf24254c">Subsonic_Exit_Boundary_Condition</a></div><div class="ttdeci">void Subsonic_Exit_Boundary_Condition(unsigned int &amp;i)</div><div class="ttdef"><b>Definition</b> <a href="#l00008">Exit_Boundary_Conditions.cpp:8</a></div></div>

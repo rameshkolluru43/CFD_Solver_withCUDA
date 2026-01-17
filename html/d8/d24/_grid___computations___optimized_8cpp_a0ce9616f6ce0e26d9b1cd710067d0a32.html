@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -139,8 +139,8 @@ $(function(){ initResizable(false); });
 <p class="definition">Definition at line <a class="el" href="../../d8/d24/_grid___computations___optimized_8cpp_source.html#l00259">259</a> of file <a class="el" href="../../d8/d24/_grid___computations___optimized_8cpp_source.html">Grid_Computations_Optimized.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  260</span>{</div>
 <div class="line"><span class="lineno">  261</span>    <span class="comment">// Fast atan2 approximation using polynomial approximation</span></div>
-<div class="line"><span class="lineno">  262</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> abs_y = std::abs(y);</div>
-<div class="line"><span class="lineno">  263</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> abs_x = std::abs(x);</div>
+<div class="line"><span class="lineno">  262</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> abs_y = std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>);</div>
+<div class="line"><span class="lineno">  263</span>    <span class="keyword">const</span> <span class="keywordtype">double</span> abs_x = std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>);</div>
 <div class="line"><span class="lineno">  264</span> </div>
 <div class="line"><span class="lineno">  265</span>    <span class="keywordflow">if</span> (abs_x &lt; 1e-10 &amp;&amp; abs_y &lt; 1e-10)</div>
 <div class="line"><span class="lineno">  266</span>        <span class="keywordflow">return</span> 0.0;</div>
@@ -151,14 +151,21 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  271</span> </div>
 <div class="line"><span class="lineno">  272</span>    <span class="keywordflow">if</span> (abs_y &gt; abs_x)</div>
 <div class="line"><span class="lineno">  273</span>        r = 1.57079637 - r;</div>
-<div class="line"><span class="lineno">  274</span>    <span class="keywordflow">if</span> (x &lt; 0)</div>
+<div class="line"><span class="lineno">  274</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> &lt; 0)</div>
 <div class="line"><span class="lineno">  275</span>        r = 3.14159274 - r;</div>
-<div class="line"><span class="lineno">  276</span>    <span class="keywordflow">if</span> (y &lt; 0)</div>
+<div class="line"><span class="lineno">  276</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> &lt; 0)</div>
 <div class="line"><span class="lineno">  277</span>        r = -r;</div>
 <div class="line"><span class="lineno">  278</span> </div>
 <div class="line"><span class="lineno">  279</span>    <span class="keywordflow">return</span> r;</div>
 <div class="line"><span class="lineno">  280</span>}</div>
-</div><!-- fragment -->
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/d24/_grid___computations___optimized_8cpp_a0ce9616f6ce0e26d9b1cd710067d0a32_a0ce9616f6ce0e26d9b1cd710067d0a32_cgraph.svg" width="180" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
     </td>

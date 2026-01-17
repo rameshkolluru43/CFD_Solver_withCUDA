@@ -1,22 +1,23 @@
 /**
- * @mainpage CFD Solver with Enhanced Flux Schemes - Technical Documentation
+ * @mainpage CFD Solver Suite - Advanced Compressible/Incompressible Flow Solver with Turbulence Models
  *
  * @section intro_sec Introduction
  *
- * Welcome to the comprehensive technical documentation for the **CFD Solver with CUDA Acceleration**.
+ * Welcome to the comprehensive technical documentation for the **Advanced CFD Solver Suite with CUDA Acceleration**.
  * This is a high-performance computational fluid dynamics solver featuring **production-ready implementations**
- * of advanced flux computation schemes with GPU acceleration capabilities.
+ * of advanced flux computation schemes, incompressible flow solver with SIMPLE algorithm, RANS turbulence models,
+ * and GPU acceleration capabilities for both compressible and incompressible flows.
  *
  * @section version_info Version Information
  *
- * - **Version**: v2.1 - Enhanced Flux Schemes
+ * - **Version**: v3.0 - Incompressible Solver & Turbulence Models
  * - **Release Date**: September 2025
  * - **Language**: C++ with CUDA support
  * - **License**: GNU General Public License v3.0
  *
  * @section key_features Key Features
  *
- * ### 🚀 Advanced Flux Computation Schemes
+ * ### 🚀 Compressible Flow: Advanced Flux Computation Schemes
  *
  * #### **Van Leer Flux Vector Splitting**
  * - Complete implementation with Mach number-based splitting
@@ -38,12 +39,54 @@
  * - Robust pressure and acoustic wave treatment
  * - **Implementation**: AUSM() function in src/Ausm_Flux.cpp
  *
+ * ### 🌊 Incompressible Flow: SIMPLE Algorithm (NEW v3.0)
+ *
+ * #### **Cell-Centered Staggered Grid Finite Volume Method**
+ * - **SIMPLE Algorithm**: Semi-Implicit Method for Pressure-Linked Equations
+ * - **Pressure-Velocity Coupling**: Rhie-Chow interpolation for stability
+ * - **Iterative Solvers**: BiCGSTAB and GMRES with preconditioning
+ * - **Boundary Conditions**: Inlet velocity, outlet pressure, wall, symmetry
+ * - **Convergence Control**: Adaptive relaxation and residual monitoring
+ * - **Implementation**: IncompressibleSolver class in Incompressible_Solver/
+ *
+ * #### **Key Incompressible Features**
+ * - Momentum equation discretization with central differencing
+ * - Pressure correction equation with proper boundary conditions
+ * - Under-relaxation for pressure and velocity fields
+ * - Comprehensive boundary condition implementation
+ * - Standalone and integrated operation modes
+ *
+ * ### 🌪️ RANS Turbulence Models (NEW v3.0)
+ *
+ * #### **K-epsilon Turbulence Model**
+ * - **Standard Model**: Launder-Spalding formulation
+ * - **Turbulent Viscosity**: Proper calculation with realizability constraints
+ * - **Wall Functions**: Enhanced wall treatment for coarse grids
+ * - **Source Terms**: Production and dissipation with proper limiting
+ * - **Implementation**: K_Epsilon_Model class in src/K_Epsilon_Model.cpp
+ *
+ * #### **K-omega Turbulence Models**
+ * - **Wilcox K-omega**: Original formulation with low-Re corrections
+ * - **SST K-omega**: Menter's Shear Stress Transport model
+ * - **Automatic Wall Distance**: Efficient wall distance calculation
+ * - **Blending Functions**: Smooth transition between inner/outer regions
+ * - **Cross-diffusion Terms**: Proper SST model implementation
+ * - **Implementation**: K_Omega_Model class in src/K_Omega_Model.cpp
+ *
+ * #### **Turbulence Integration Features**
+ * - Seamless integration with both compressible and incompressible solvers
+ * - RK4 time integration for turbulence transport equations
+ * - Proper source term linearization for stability
+ * - Comprehensive boundary condition treatment
+ * - Production limiting for numerical stability
+ *
  * ### 🔧 Computational Framework
  *
- * - **Flow Physics**: Full Euler and Navier-Stokes equations
- * - **Time Integration**: Explicit Runge-Kutta (RK4), TVD-RK3
- * - **Spatial Discretization**: High-order MUSCL reconstruction
+ * - **Flow Physics**: Full Euler/Navier-Stokes (compressible) and SIMPLE (incompressible)
+ * - **Time Integration**: Explicit Runge-Kutta (RK4), TVD-RK3, implicit schemes
+ * - **Spatial Discretization**: High-order MUSCL reconstruction, central differencing
  * - **Slope Limiters**: Van Leer, Minmod, Superbee with TVD properties
+ * - **Matrix Solvers**: BiCGSTAB, GMRES, direct solvers for incompressible systems
  * - **GPU Acceleration**: CUDA kernels for all major computations
  * - **Error Handling**: Comprehensive validation and graceful recovery
  *
@@ -53,11 +96,14 @@
  *
  * | Component | Description | Key Files |
  * |-----------|-------------|-----------|
- * | **Flux Computation** | Advanced Riemann solvers | src/Van_Leer.cpp, src/Roe_Scheme.cpp, src/Ausm_Flux.cpp |
- * | **Time Integration** | RK4 and TVD-RK3 schemes | src/Time_Integration.cpp |
+ * | **Compressible Flux Computation** | Advanced Riemann solvers | src/Van_Leer.cpp, src/Roe_Scheme.cpp, src/Ausm_Flux.cpp |
+ * | **Incompressible Solver** | SIMPLE algorithm implementation | Incompressible_Solver/Incompressible_Solver.cpp |
+ * | **Turbulence Models** | RANS turbulence modeling | src/K_Epsilon_Model.cpp, src/K_Omega_Model.cpp |
+ * | **Time Integration** | RK4, TVD-RK3, implicit schemes | src/Time_Integration.cpp, src/Turbulence_Integration.cpp |
  * | **Boundary Conditions** | Wall, inlet, outlet, far-field | src/Boundary_Conditions.cpp |
  * | **CUDA Kernels** | GPU-accelerated computations | CUDA_KERNELS/*.cu |
- * | **Grid Processing** | Unstructured mesh handling | src/Grid_Functions.cpp |
+ * | **Grid Processing** | Structured/unstructured mesh handling | src/Grid_Functions.cpp |
+ * | **Matrix Solvers** | Iterative linear system solvers | src/Matrix_Solvers.cpp |
  * | **I/O System** | VTK output and JSON configuration | src/IO_Functions.cpp |
  *
  * @section mathematical_framework Mathematical Framework
@@ -101,11 +147,25 @@
  * @section validation_framework Validation Framework
  *
  * ### Standard Test Cases
+ *
+ * #### Compressible Flow Validation
  * - **Sod Shock Tube**: 1D Riemann problem validation
  * - **Lax Problem**: Strong shock and rarefaction interaction
  * - **Woodward-Colella**: Complex shock-shock interactions
  * - **Flow Over Cylinder**: 2D viscous boundary layer flows
  * - **Double Mach Reflection**: Shock-boundary interactions
+ *
+ * #### Incompressible Flow Validation
+ * - **Lid-Driven Cavity**: Classical benchmark at various Reynolds numbers
+ * - **Channel Flow**: Fully developed turbulent channel flow
+ * - **Backward-Facing Step**: Separated flow with reattachment
+ * - **Flow Over Cylinder**: Low-speed viscous flow validation
+ *
+ * #### Turbulence Model Validation
+ * - **Flat Plate Boundary Layer**: Zero pressure gradient validation
+ * - **Channel Flow**: Turbulent channel with wall functions
+ * - **Backward-Facing Step**: Separated flow with turbulence
+ * - **Mixing Layer**: Free shear layer turbulence
  *
  * ### Validation Metrics
  * - **L₁, L₂, L∞ Error Norms**: Quantitative accuracy assessment
@@ -115,7 +175,7 @@
  *
  * @section usage_examples Usage Examples
  *
- * ### Basic Simulation Setup
+ * ### Compressible Flow Setup
  * @code{.cpp}
  * // Initialize solver with Van Leer flux scheme
  * Dissipation_Type = 1;  // Van Leer
@@ -123,22 +183,58 @@
  * // Configure for second-order accuracy
  * Is_Second_Order = true;
  *
+ * // Enable turbulence modeling
+ * Enable_Turbulence = true;
+ * Turbulence_Model = 1;  // K-epsilon model
+ *
  * // Run simulation
  * for (int iter = 0; iter < Max_Iterations; iter++) {
  *     Evaluate_Cell_Net_Flux_2O();  // High-resolution flux evaluation
- *     UpdateConservativeVariables_RK4(dt);  // Time integration
+ *     UpdateTurbulenceVariables_RK4(dt);  // Turbulence time integration
+ *     UpdateConservativeVariables_RK4(dt);  // Flow field time integration
  *
  *     if (Check_Convergence()) break;
  * }
  * @endcode
  *
+ * ### Incompressible Flow Setup
+ * @code{.cpp}
+ * // Initialize SIMPLE solver
+ * IncompressibleSolver solver;
+ * solver.LoadConfiguration("incompressible_config.json");
+ *
+ * // Set boundary conditions
+ * solver.SetInletVelocity(inlet_faces, velocity_profile);
+ * solver.SetOutletPressure(outlet_faces, reference_pressure);
+ * solver.SetWallBoundary(wall_faces);
+ *
+ * // Run SIMPLE iterations
+ * for (int iter = 0; iter < max_iterations; iter++) {
+ *     solver.SolveMomentumEquations();
+ *     solver.SolvePressureCorrection();
+ *     solver.UpdateVelocityField();
+ *     solver.UpdatePressureField();
+ *
+ *     if (solver.CheckConvergence()) break;
+ * }
+ * @endcode
+ *
  * ### Flux Scheme Selection
  * @code{.cpp}
- * // Available flux schemes
+ * // Available compressible flux schemes
  * Dissipation_Type = 1;  // Van Leer flux vector splitting
  * Dissipation_Type = 2;  // LLF (Local Lax-Friedrichs)
  * Dissipation_Type = 3;  // Enhanced Roe scheme (1st/2nd order)
  * Dissipation_Type = 4;  // AUSM flux scheme
+ * @endcode
+ *
+ * ### Turbulence Model Selection
+ * @code{.cpp}
+ * // Available turbulence models
+ * Turbulence_Model = 0;  // No turbulence (laminar)
+ * Turbulence_Model = 1;  // K-epsilon model
+ * Turbulence_Model = 2;  // K-omega (Wilcox)
+ * Turbulence_Model = 3;  // SST K-omega
  * @endcode
  *
  * @section documentation_structure Documentation Structure

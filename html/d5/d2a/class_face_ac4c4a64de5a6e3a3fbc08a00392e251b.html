@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -164,19 +164,19 @@ $(function(){ initResizable(false); });
 <p class="definition">Definition at line <a class="el" href="../../d9/d60/_face_8cpp_source.html#l00146">146</a> of file <a class="el" href="../../d9/d60/_face_8cpp_source.html">Face.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  147</span>{</div>
 <div class="line"><span class="lineno">  148</span>    <span class="keywordtype">double</span> vnds=0.0;</div>
-<div class="line"><span class="lineno">  149</span>    vector&lt;double&gt; Q(5,0.0);</div>
+<div class="line"><span class="lineno">  149</span>    vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>(5,0.0);</div>
 <div class="line"><span class="lineno">  150</span>    Flux[0]=0.0;Flux[1]=0.0;Flux[2]=0.0;Flux[3]=0.0;Flux[4]=0.0;</div>
 <div class="line"><span class="lineno">  151</span><span class="comment">/*  cout&lt;&lt;Q1[0]&lt;&lt;&quot;\t&quot;&lt;&lt;Q1[1]&lt;&lt;&quot;\t&quot;&lt;&lt;Q1[2]&lt;&lt;&quot;\t&quot;&lt;&lt;Q1[3]&lt;&lt;&quot;\t&quot;&lt;&lt;Q1[4]&lt;&lt;&quot;\n&quot;;</span></div>
 <div class="line"><span class="lineno">  152</span><span class="comment">    cout&lt;&lt;Q2[0]&lt;&lt;&quot;\t&quot;&lt;&lt;Q2[1]&lt;&lt;&quot;\t&quot;&lt;&lt;Q2[2]&lt;&lt;&quot;\t&quot;&lt;&lt;Q2[3]&lt;&lt;&quot;\t&quot;&lt;&lt;Q2[4]&lt;&lt;&quot;\n&quot;;*/</span></div>
 <div class="line"><span class="lineno">  153</span><span class="comment">// averge of Q1 and Q2 , current and Neighbouring cells</span></div>
-<div class="line"><span class="lineno">  154</span>    Q[0]=(Q1[0] + Q2[0])*0.5;</div>
-<div class="line"><span class="lineno">  155</span>    Q[1]=(Q1[1] + Q2[1])*0.5;</div>
-<div class="line"><span class="lineno">  156</span>    Q[2]=(Q1[2] + Q2[2])*0.5;</div>
-<div class="line"><span class="lineno">  157</span>    Q[3]=(Q1[3] + Q2[3])*0.5;</div>
-<div class="line"><span class="lineno">  158</span>    Q[4]=(Q1[4] + Q2[4])*0.5;</div>
+<div class="line"><span class="lineno">  154</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>[0]=(Q1[0] + Q2[0])*0.5;</div>
+<div class="line"><span class="lineno">  155</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>[1]=(Q1[1] + Q2[1])*0.5;</div>
+<div class="line"><span class="lineno">  156</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>[2]=(Q1[2] + Q2[2])*0.5;</div>
+<div class="line"><span class="lineno">  157</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>[3]=(Q1[3] + Q2[3])*0.5;</div>
+<div class="line"><span class="lineno">  158</span>    <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>[4]=(Q1[4] + Q2[4])*0.5;</div>
 <div class="line"><span class="lineno">  159</span><span class="comment">/*  cout&lt;&lt;Q[0]&lt;&lt;&quot;\t&quot;&lt;&lt;Q[1]&lt;&lt;&quot;\t&quot;&lt;&lt;Q[2]&lt;&lt;&quot;\t&quot;&lt;&lt;Q[3]&lt;&lt;&quot;\t&quot;&lt;&lt;Q[4]&lt;&lt;&quot;\n&quot;;</span></div>
 <div class="line"><span class="lineno">  160</span><span class="comment">    cout&lt;&lt;&quot;Area Vector\t&quot;;Area_Vector.Print();*/</span></div>
-<div class="line"><span class="lineno">  161</span>    <a class="code hl_function" href="../../d5/d2a/class_face_a28f4009e42e1ac60082a6952566a31aa.html#a28f4009e42e1ac60082a6952566a31aa">Cal_Primitive</a>(Q);</div>
+<div class="line"><span class="lineno">  161</span>    <a class="code hl_function" href="../../d5/d2a/class_face_a28f4009e42e1ac60082a6952566a31aa.html#a28f4009e42e1ac60082a6952566a31aa">Cal_Primitive</a>(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a>);</div>
 <div class="line"><span class="lineno">  162</span>    vnds=v1*Area_Comp1 + v2*Area_Comp2 + v3*Area_Comp3 ;<span class="comment">//Face_Velocity*Area_Vector;</span></div>
 <div class="line"><span class="lineno">  163</span><span class="comment">//  Flux Determines the Convective Fluxes on the face</span></div>
 <div class="line"><span class="lineno">  164</span>    Flux[0]=Face_Rho*vnds ;</div>
@@ -188,11 +188,12 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  170</span><span class="comment">//   cout&lt;&lt;&quot;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n&quot;;</span></div>
 <div class="line"><span class="lineno">  171</span>    <span class="keywordflow">return</span> Flux;</div>
 <div class="line"><span class="lineno">  172</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f_html_ab180cb902cf4be5a8d26b78172e9491f"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_ab180cb902cf4be5a8d26b78172e9491f.html#ab180cb902cf4be5a8d26b78172e9491f">Q</a></div><div class="ttdeci">double Q(int i, int j)</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00034">CType_Elliptic_Grid.cpp:34</a></div></div>
 <div class="ttc" id="aclass_face_a28f4009e42e1ac60082a6952566a31aa_html_a28f4009e42e1ac60082a6952566a31aa"><div class="ttname"><a href="../../d5/d2a/class_face_a28f4009e42e1ac60082a6952566a31aa.html#a28f4009e42e1ac60082a6952566a31aa">Face::Cal_Primitive</a></div><div class="ttdeci">void Cal_Primitive(const vector&lt; double &gt; &amp;)</div><div class="ttdef"><b>Definition</b> <a href="../../d9/d60/_face_8cpp_source.html#l00127">Face.cpp:127</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/d2a/class_face_ac4c4a64de5a6e3a3fbc08a00392e251b_ac4c4a64de5a6e3a3fbc08a00392e251b_cgraph.svg" width="352" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d5/d2a/class_face_ac4c4a64de5a6e3a3fbc08a00392e251b_ac4c4a64de5a6e3a3fbc08a00392e251b_cgraph.svg" width="352" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>

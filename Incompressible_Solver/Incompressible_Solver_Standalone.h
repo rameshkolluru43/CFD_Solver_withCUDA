@@ -1,3 +1,31 @@
+/**
+ * @file Incompressible_Solver_Standalone.h
+ * @brief Standalone incompressible flow solver with SIMPLE algorithm
+ * @author Ramesh Kolluru
+ * @date September 2025
+ * @version 3.0
+ *
+ * This header file contains the complete standalone implementation of an incompressible
+ * Navier-Stokes solver using the SIMPLE (Semi-Implicit Method for Pressure-Linked Equations)
+ * algorithm with cell-centered staggered grid finite volume method.
+ *
+ * @section Features Key Features
+ * - SIMPLE algorithm for pressure-velocity coupling
+ * - Cell-centered staggered grid approach
+ * - Comprehensive boundary condition support
+ * - Iterative linear system solvers (BiCGSTAB, GMRES)
+ * - Under-relaxation for numerical stability
+ * - Rhie-Chow interpolation for pressure-velocity coupling
+ *
+ * @section Usage Usage Example
+ * @code{.cpp}
+ * IncompressibleSolver solver;
+ * solver.LoadConfiguration("config.json");
+ * solver.InitializeSolver();
+ * solver.SolveIncompressibleNS();
+ * @endcode
+ */
+
 #ifndef INCOMPRESSIBLE_SOLVER_STANDALONE_H
 #define INCOMPRESSIBLE_SOLVER_STANDALONE_H
 
@@ -10,7 +38,13 @@
 #include <algorithm>
 #include <cassert>
 
-// Cell structure definition - standalone version
+/**
+ * @brief Cell structure for incompressible finite volume method
+ *
+ * This structure contains all geometric and topological information for a
+ * computational cell in the finite volume discretization, including connectivity,
+ * geometric properties, and boundary condition flags.
+ */
 struct Cell
 {
     int cellType, cellID, Dimension, ParentCellID, NoBoundaryFaces, numFaces, numNodes;
@@ -27,16 +61,26 @@ struct Cell
              numFaces(0), numNodes(0), Area(0.0), Inv_Area(0.0), del_t(0.0), Vol(0.0) {}
 };
 
-// Boundary condition types
+/**
+ * @brief Boundary condition types for incompressible flow
+ *
+ * Enumeration defining the various boundary condition types supported
+ * by the incompressible solver.
+ */
 enum BoundaryType
 {
-    BC_WALL = 1,
-    BC_INLET = 2,
-    BC_OUTLET = 3,
-    BC_SYMMETRY = 4
+    BC_WALL = 1,    ///< No-slip wall boundary condition
+    BC_INLET = 2,   ///< Inlet boundary with specified velocity
+    BC_OUTLET = 3,  ///< Outlet boundary with specified pressure
+    BC_SYMMETRY = 4 ///< Symmetry boundary condition
 };
 
-// Velocity field structure
+/**
+ * @brief Velocity field storage and management
+ *
+ * Structure to store velocity components and their previous time step values
+ * for the incompressible flow solver. Supports both 2D and 3D configurations.
+ */
 struct VelocityField
 {
     std::vector<double> u, v, w;             // Velocity components at cell centers

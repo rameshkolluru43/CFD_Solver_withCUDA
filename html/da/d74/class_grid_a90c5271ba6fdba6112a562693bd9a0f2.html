@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -147,7 +147,7 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  119</span>            gamma1 = (xzi * xzi + yzi * yzi);    <span class="comment">//(g11)i,j gamma</span></div>
 <div class="line"><span class="lineno">  120</span>            beta = (xzi * xeta + yzi * yeta);    <span class="comment">//(g12)i,j beta</span></div>
 <div class="line"><span class="lineno">  121</span> </div>
-<div class="line"><span class="lineno">  122</span>            B = alpha * inv_zi * inv_zi;</div>
+<div class="line"><span class="lineno">  122</span>            B = <a class="code hl_variable" href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">alpha</a> * inv_zi * inv_zi;</div>
 <div class="line"><span class="lineno">  123</span>            D = gamma1 * inv_eta * inv_eta;</div>
 <div class="line"><span class="lineno">  124</span>            C = -0.5 * beta * inv_eta * inv_zi;</div>
 <div class="line"><span class="lineno">  125</span>            A = B + D;</div>
@@ -160,6 +160,7 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  132</span>    <span class="comment">//              timer = clock();</span></div>
 <div class="line"><span class="lineno">  133</span>    <span class="comment">//              cout&lt;&lt;timer&lt;&lt;endl;</span></div>
 <div class="line"><span class="lineno">  134</span>}</div>
+<div class="ttc" id="anamespace_k_omega_af05dfd8243ec3f7427962868a45c66e8_html_af05dfd8243ec3f7427962868a45c66e8"><div class="ttname"><a href="../../d0/d05/namespace_k_omega_af05dfd8243ec3f7427962868a45c66e8.html#af05dfd8243ec3f7427962868a45c66e8">KOmega::alpha</a></div><div class="ttdeci">const double alpha</div><div class="ttdef"><b>Definition</b> <a href="../../de/d84/_turbulence___models_8h_source.html#l00044">Turbulence_Models.h:44</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">

@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -145,7 +145,7 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  380</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; 4 * <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a456d887e919a97b19dbd9414a61001c7.html#a456d887e919a97b19dbd9414a61001c7">No_Physical_Cells</a>; j++)</div>
 <div class="line"><span class="lineno">  381</span>        {</div>
 <div class="line"><span class="lineno">  382</span>            <span class="keywordtype">double</span> diff = std::abs(A_cpu[i][j] - A_cuda[i][j]);</div>
-<div class="line"><span class="lineno">  383</span>            <span class="keywordflow">if</span> (diff &gt; tolerance)</div>
+<div class="line"><span class="lineno">  383</span>            <span class="keywordflow">if</span> (diff &gt; <a class="code hl_variable" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d.html#a628d801d093e5d9b41ecaa82592ee92d">tolerance</a>)</div>
 <div class="line"><span class="lineno">  384</span>            {</div>
 <div class="line"><span class="lineno">  385</span>                diff_count++;</div>
 <div class="line"><span class="lineno">  386</span>                max_diff = std::max(max_diff, diff);</div>
@@ -155,9 +155,9 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  390</span> </div>
 <div class="line"><span class="lineno">  391</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Dense Matrix Comparison:&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"><span class="lineno">  392</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;  Max Difference: &quot;</span> &lt;&lt; max_diff &lt;&lt; std::endl;</div>
-<div class="line"><span class="lineno">  393</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;  Entries with diff &gt; &quot;</span> &lt;&lt; tolerance &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; diff_count &lt;&lt; std::endl;</div>
+<div class="line"><span class="lineno">  393</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;  Entries with diff &gt; &quot;</span> &lt;&lt; <a class="code hl_variable" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d.html#a628d801d093e5d9b41ecaa82592ee92d">tolerance</a> &lt;&lt; <span class="stringliteral">&quot;: &quot;</span> &lt;&lt; diff_count &lt;&lt; std::endl;</div>
 <div class="line"><span class="lineno">  394</span> </div>
-<div class="line"><span class="lineno">  395</span>    <span class="keywordtype">bool</span> dense_consistent = (max_diff &lt; tolerance * 10); <span class="comment">// Allow some numerical error</span></div>
+<div class="line"><span class="lineno">  395</span>    <span class="keywordtype">bool</span> dense_consistent = (max_diff &lt; <a class="code hl_variable" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d.html#a628d801d093e5d9b41ecaa82592ee92d">tolerance</a> * 10); <span class="comment">// Allow some numerical error</span></div>
 <div class="line"><span class="lineno">  396</span> </div>
 <div class="line"><span class="lineno">  397</span>    <span class="comment">// Test Vector b Assembly</span></div>
 <div class="line"><span class="lineno">  398</span>    <a class="code hl_typedef" href="../../d8/d4d/_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514.html#ae73d8ca7e27dfe59448bcfcbe537f514">V_D</a> b_cpu, b_cuda;</div>
@@ -174,7 +174,7 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  409</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Vector b Comparison:&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line"><span class="lineno">  410</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;  Max Difference: &quot;</span> &lt;&lt; max_b_diff &lt;&lt; std::endl;</div>
 <div class="line"><span class="lineno">  411</span> </div>
-<div class="line"><span class="lineno">  412</span>    <span class="keywordtype">bool</span> vector_consistent = (max_b_diff &lt; tolerance * 10);</div>
+<div class="line"><span class="lineno">  412</span>    <span class="keywordtype">bool</span> vector_consistent = (max_b_diff &lt; <a class="code hl_variable" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d.html#a628d801d093e5d9b41ecaa82592ee92d">tolerance</a> * 10);</div>
 <div class="line"><span class="lineno">  413</span> </div>
 <div class="line"><span class="lineno">  414</span>    <span class="keywordtype">bool</span> overall_consistent = dense_consistent &amp;&amp; vector_consistent;</div>
 <div class="line"><span class="lineno">  415</span> </div>
@@ -195,6 +195,7 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  430</span>}</div>
 <div class="ttc" id="a_assemble___matrix_8cpp_a19cccc9540fb68aa18547238ebc80951_html_a19cccc9540fb68aa18547238ebc80951"><div class="ttname"><a href="../../db/dbe/_assemble___matrix_8cpp_a19cccc9540fb68aa18547238ebc80951.html#a19cccc9540fb68aa18547238ebc80951">Assemble_b</a></div><div class="ttdeci">V_D Assemble_b(V_D &amp;b)</div><div class="ttdef"><b>Definition</b> <a href="../../db/dbe/_assemble___matrix_8cpp_source.html#l00171">Assemble_Matrix.cpp:171</a></div></div>
 <div class="ttc" id="a_assemble___matrix_8cpp_ad90382595c8b02e815e463639d84baa7_html_ad90382595c8b02e815e463639d84baa7"><div class="ttname"><a href="../../db/dbe/_assemble___matrix_8cpp_ad90382595c8b02e815e463639d84baa7.html#ad90382595c8b02e815e463639d84baa7">Assemble_A</a></div><div class="ttdeci">vector&lt; V_D &gt; Assemble_A(vector&lt; V_D &gt; &amp;A, double &amp;dt)</div><div class="ttdef"><b>Definition</b> <a href="../../db/dbe/_assemble___matrix_8cpp_source.html#l00016">Assemble_Matrix.cpp:16</a></div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d_html_a628d801d093e5d9b41ecaa82592ee92d"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a628d801d093e5d9b41ecaa82592ee92d.html#a628d801d093e5d9b41ecaa82592ee92d">tolerance</a></div><div class="ttdeci">const double tolerance</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00011">CType_Elliptic_Grid.cpp:11</a></div></div>
 <div class="ttc" id="a_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514_html_ae73d8ca7e27dfe59448bcfcbe537f514"><div class="ttname"><a href="../../d8/d4d/_globals_8h_ae73d8ca7e27dfe59448bcfcbe537f514.html#ae73d8ca7e27dfe59448bcfcbe537f514">V_D</a></div><div class="ttdeci">vector&lt; double &gt; V_D</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00219">Globals.h:219</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a456d887e919a97b19dbd9414a61001c7_html_a456d887e919a97b19dbd9414a61001c7"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a456d887e919a97b19dbd9414a61001c7.html#a456d887e919a97b19dbd9414a61001c7">No_Physical_Cells</a></div><div class="ttdeci">int No_Physical_Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00016">Globals_Stub_GPU.cpp:16</a></div></div>
 <div class="ttc" id="a_matrix___assembly___c_u_d_a___integration___example_8cpp_a34bf8e95732246ba8ece5c8405115be9_html_a34bf8e95732246ba8ece5c8405115be9"><div class="ttname"><a href="../../d5/d81/_matrix___assembly___c_u_d_a___integration___example_8cpp_a34bf8e95732246ba8ece5c8405115be9.html#a34bf8e95732246ba8ece5c8405115be9">Assemble_A_CUDA</a></div><div class="ttdeci">vector&lt; V_D &gt; Assemble_A_CUDA(vector&lt; V_D &gt; &amp;A, double &amp;dt)</div><div class="ttdef"><b>Definition</b> <a href="../../d5/d81/_matrix___assembly___c_u_d_a___integration___example_8cpp_source.html#l00023">Matrix_Assembly_CUDA_Integration_Example.cpp:23</a></div></div>

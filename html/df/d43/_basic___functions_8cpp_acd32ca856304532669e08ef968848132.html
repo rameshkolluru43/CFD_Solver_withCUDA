@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -135,7 +135,7 @@ $(function(){ initResizable(false); });
 
 <p class="definition">Definition at line <a class="el" href="../../df/d43/_basic___functions_8cpp_source.html#l00172">172</a> of file <a class="el" href="../../df/d43/_basic___functions_8cpp_source.html">Basic_Functions.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">  173</span>{</div>
-<div class="line"><span class="lineno">  174</span>    <span class="keywordtype">double</span> temp_rho = 0.0, vmag = 0.0, v1 = 0.0, v2 = 0.0, T = 0.0, P = 0.0;</div>
+<div class="line"><span class="lineno">  174</span>    <span class="keywordtype">double</span> temp_rho = 0.0, vmag = 0.0, v1 = 0.0, v2 = 0.0, T = 0.0, <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> = 0.0;</div>
 <div class="line"><span class="lineno">  175</span> </div>
 <div class="line"><span class="lineno">  176</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[0] = 0.0;</div>
 <div class="line"><span class="lineno">  177</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[1] = 0.0;</div>
@@ -149,13 +149,13 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  185</span>        temp_rho = var / (<a class="code hl_define" href="../../d6/dc2/definitions_8h_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399">R_GC</a> * T); <span class="comment">// If Pressure and Temperature are given</span></div>
 <div class="line"><span class="lineno">  186</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  187</span>    <span class="keywordflow">case</span> 2:</div>
-<div class="line"><span class="lineno">  188</span>        P = var;</div>
+<div class="line"><span class="lineno">  188</span>        <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> = var;</div>
 <div class="line"><span class="lineno">  189</span>        temp_rho = var1; <span class="comment">// If Pressure and Density are given</span></div>
 <div class="line"><span class="lineno">  190</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  191</span>    <span class="keywordflow">default</span>:</div>
 <div class="line"><span class="lineno">  192</span>        temp_rho = var;</div>
 <div class="line"><span class="lineno">  193</span>        T = var1;</div>
-<div class="line"><span class="lineno">  194</span>        P = temp_rho * <a class="code hl_define" href="../../d6/dc2/definitions_8h_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399">R_GC</a> * T; <span class="comment">// If Density and Temperature are given</span></div>
+<div class="line"><span class="lineno">  194</span>        <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> = temp_rho * <a class="code hl_define" href="../../d6/dc2/definitions_8h_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399">R_GC</a> * T; <span class="comment">// If Density and Temperature are given</span></div>
 <div class="line"><span class="lineno">  195</span>        <span class="keywordflow">break</span>;</div>
 <div class="line"><span class="lineno">  196</span>    }</div>
 <div class="line"><span class="lineno">  197</span> </div>
@@ -166,12 +166,18 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  202</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[0] = temp_rho;</div>
 <div class="line"><span class="lineno">  203</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[1] = temp_rho * v1;</div>
 <div class="line"><span class="lineno">  204</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[2] = temp_rho * v2;</div>
-<div class="line"><span class="lineno">  205</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[3] = ((P / <a class="code hl_define" href="../../d6/dc2/definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff.html#a634ae110df2d4f2ee54ed70486bcc4ff">gamma_M_1</a>) + temp_rho * vmag);</div>
+<div class="line"><span class="lineno">  205</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a>[3] = ((<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> / <a class="code hl_define" href="../../d6/dc2/definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff.html#a634ae110df2d4f2ee54ed70486bcc4ff">gamma_M_1</a>) + temp_rho * vmag);</div>
 <div class="line"><span class="lineno">  206</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_html_a6122be421b972a00ce8e6e636589966d"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a></div><div class="ttdeci">double P(int i, int j)</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00019">CType_Elliptic_Grid.cpp:19</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c_html_a81aa306643e0c9fbb5313733a12cfd3c"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a81aa306643e0c9fbb5313733a12cfd3c.html#a81aa306643e0c9fbb5313733a12cfd3c">Global_U</a></div><div class="ttdeci">V_D Global_U</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00009">Globals_Stub_GPU.cpp:9</a></div></div>
 <div class="ttc" id="adefinitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff_html_a634ae110df2d4f2ee54ed70486bcc4ff"><div class="ttname"><a href="../../d6/dc2/definitions_8h_a634ae110df2d4f2ee54ed70486bcc4ff.html#a634ae110df2d4f2ee54ed70486bcc4ff">gamma_M_1</a></div><div class="ttdeci">#define gamma_M_1</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dc2/definitions_8h_source.html#l00057">definitions.h:57</a></div></div>
 <div class="ttc" id="adefinitions_8h_a90f943126d79031ff729db29ea695399_html_a90f943126d79031ff729db29ea695399"><div class="ttname"><a href="../../d6/dc2/definitions_8h_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399">R_GC</a></div><div class="ttdeci">#define R_GC</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dc2/definitions_8h_source.html#l00059">definitions.h:59</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../df/d43/_basic___functions_8cpp_acd32ca856304532669e08ef968848132_acd32ca856304532669e08ef968848132_cgraph.svg" width="264" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
     </td>

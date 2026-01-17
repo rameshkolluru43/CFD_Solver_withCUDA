@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['restrictedreason_0',['RestrictedReason',['../db/d2b/namespacedyld_afa559f65025fb5659b376ed981a17a6f.html#afa559f65025fb5659b376ed981a17a6f',1,'dyld']]]
+  ['gridoptimizationerror_0',['GridOptimizationError',['../df/dd4/_grid___computations___optimized_8h_aa58cab95e4a0342551a260f3fd60f363.html#aa58cab95e4a0342551a260f3fd60f363',1,'Grid_Computations_Optimized.h']]]
 ];

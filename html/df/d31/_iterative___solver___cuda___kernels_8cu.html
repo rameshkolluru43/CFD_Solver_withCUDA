@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -116,7 +116,7 @@ Functions</h2></td></tr>
 <tr class="separator:a651dbf7816376b1f1e7076a34e01be3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f757dcc100a38ab12d21e6a3c8187d9" id="r_a4f757dcc100a38ab12d21e6a3c8187d9"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d31/_iterative___solver___cuda___kernels_8cu_a4f757dcc100a38ab12d21e6a3c8187d9.html#a4f757dcc100a38ab12d21e6a3c8187d9">calculate_residual_kernel</a> (const double *phi, const double *source_term, const int *neighbors, const int *num_neighbors, const double *face_areas, const double *distances, const double *cell_volumes, double *residual, int num_cells, int max_neighbors)</td></tr>
 <tr class="separator:a4f757dcc100a38ab12d21e6a3c8187d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76d8eb1f8da04d87e50d1273a05f23e1" id="r_a76d8eb1f8da04d87e50d1273a05f23e1"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d31/_iterative___solver___cuda___kernels_8cu_a76d8eb1f8da04d87e50d1273a05f23e1.html#a76d8eb1f8da04d87e50d1273a05f23e1">bicgstab_vector_operations_kernel</a> (const double *x, const double *y, const double *z, double *result, double alpha, double beta, int operation, int num_cells)</td></tr>
+<tr class="memitem:a76d8eb1f8da04d87e50d1273a05f23e1" id="r_a76d8eb1f8da04d87e50d1273a05f23e1"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d31/_iterative___solver___cuda___kernels_8cu_a76d8eb1f8da04d87e50d1273a05f23e1.html#a76d8eb1f8da04d87e50d1273a05f23e1">bicgstab_vector_operations_kernel</a> (const double *<a class="el" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>, const double *<a class="el" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>, const double *z, double *result, double alpha, double beta, int operation, int num_cells)</td></tr>
 <tr class="separator:a76d8eb1f8da04d87e50d1273a05f23e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec54c1620d38669ee7b37d81504bb6cb" id="r_aec54c1620d38669ee7b37d81504bb6cb"><td class="memItemLeft" align="right" valign="top">__global__ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d31/_iterative___solver___cuda___kernels_8cu_aec54c1620d38669ee7b37d81504bb6cb.html#aec54c1620d38669ee7b37d81504bb6cb">momentum_solver_kernel</a> (const double *u_old, const double *pressure_grad, const double *viscous_term, const double *source_term, const double *density, double *u_new, double dt, double under_relaxation, int num_cells)</td></tr>
 <tr class="separator:aec54c1620d38669ee7b37d81504bb6cb"><td class="memSeparator" colspan="2">&#160;</td></tr>

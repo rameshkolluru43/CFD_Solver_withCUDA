@@ -26,8 +26,12 @@ vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
         std::cout << "Error: Invalid number of physical cells = " << No_Physical_Cells << std::endl;
         return A;
     }
-
-    //	Ac.resize(4*No_Physical_Cells,V_D(4*No_Physical_Cells,0.0));
+    // Check if A has correct dimensions or A is empty
+    if (A.size() != 4 * No_Physical_Cells || A[0].size() != 4 * No_Physical_Cells || A.empty())
+    {
+        std::cout << "Error: Matrix A has incorrect dimensions: " << A.size() << "x" << (A.empty() ? 0 : A[0].size()) << ", expected " << 4 * No_Physical_Cells << "x" << 4 * No_Physical_Cells << std::endl;
+        return A;
+    }
     // Loop over each cell by flattening the 2D index into a 1D index
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)
     {
@@ -176,7 +180,14 @@ V_D Assemble_b(V_D &b)
         std::cout << "Error: Invalid number of physical cells = " << No_Physical_Cells << std::endl;
         return b;
     }
-
+    // Check if b has correct size or is empty
+    if (b.size() != 4 * No_Physical_Cells || b.empty())
+    {
+        std::cout << "Error: Vector b has incorrect size: " << b.size()
+                  << ", expected " << 4 * No_Physical_Cells << std::endl;
+        std::exit(0);
+    }
+    // Fill the vector b with the negative of the net fluxes for each cell
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)
     {
         for (int d = 0; d < 4; ++d)

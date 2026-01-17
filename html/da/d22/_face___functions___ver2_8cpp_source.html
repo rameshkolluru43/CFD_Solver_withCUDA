@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -96,7 +96,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//Gets the first gradient and calculates Del2_Q_1,Del2_Q_2,Del2_Q_3</span></div>
 <div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_afda30f7a29cec730b930ee11fb673e36.html#afda30f7a29cec730b930ee11fb673e36">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d2a/class_face_afda30f7a29cec730b930ee11fb673e36.html#afda30f7a29cec730b930ee11fb673e36">Face::Cal_Del2Q</a>(<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> * Current_Cell,<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a>* Neighbour_Cell)</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_afda30f7a29cec730b930ee11fb673e36.html#afda30f7a29cec730b930ee11fb673e36">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d2a/class_face_afda30f7a29cec730b930ee11fb673e36.html#afda30f7a29cec730b930ee11fb673e36">Face::Cal_Del2Q</a>(<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> * Current_Cell,<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a>* Neighbour_Cell)</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    Del_Q_1[0]=0.0;Del_Q_1[1]=0.0;Del_Q_1[2]=0.0;Del_Q_1[3]=0.0;Del_Q_1[4]=0.0;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    Del_Q_2[0]=0.0;Del_Q_2[1]=0.0;Del_Q_2[2]=0.0;Del_Q_2[3]=0.0;Del_Q_2[4]=0.0;</div>
@@ -144,7 +144,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span><span class="comment">// this function returns a  stl vector which calculates the nth gradient with ith component</span></div>
 <div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_aba5d690547d2449fd7cbcc0e7845edb9.html#aba5d690547d2449fd7cbcc0e7845edb9">   50</a></span><span class="keyword">const</span> vector&lt;double&gt;&amp; <a class="code hl_function" href="../../d5/d2a/class_face_aba5d690547d2449fd7cbcc0e7845edb9.html#aba5d690547d2449fd7cbcc0e7845edb9">Face::Calculate_Grad_n_Q</a>(<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> * <span class="keyword">const</span> CC, <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> * <span class="keyword">const</span> NC, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;n, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp; i)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_aba5d690547d2449fd7cbcc0e7845edb9.html#aba5d690547d2449fd7cbcc0e7845edb9">   50</a></span><span class="keyword">const</span> vector&lt;double&gt;&amp; <a class="code hl_function" href="../../d5/d2a/class_face_aba5d690547d2449fd7cbcc0e7845edb9.html#aba5d690547d2449fd7cbcc0e7845edb9">Face::Calculate_Grad_n_Q</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> * <span class="keyword">const</span> CC, <span class="keyword">const</span> <a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> * <span class="keyword">const</span> NC, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp;n, <span class="keyword">const</span> <span class="keywordtype">int</span> &amp; i)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>{</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    Del_Q_1[0]=0.0;Del_Q_1[1]=0.0;Del_Q_1[2]=0.0;Del_Q_1[3]=0.0;Del_Q_1[4]=0.0;</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    Del_Q_2[0]=0.0;Del_Q_2[1]=0.0;Del_Q_2[2]=0.0;Del_Q_2[3]=0.0;Del_Q_2[4]=0.0;</div>
@@ -528,7 +528,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="astruct_cell_aeeb0ec8147e583b4dfa16ccb47b72dd1_html_aeeb0ec8147e583b4dfa16ccb47b72dd1"><div class="ttname"><a href="../../dc/d9f/struct_cell_aeeb0ec8147e583b4dfa16ccb47b72dd1.html#aeeb0ec8147e583b4dfa16ccb47b72dd1">Cell::Right_Face</a></div><div class="ttdeci">bool Right_Face</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00316">Globals.h:316</a></div></div>
 <div class="ttc" id="astruct_cell_afada172118de033e799c1c90ef136e74_html_afada172118de033e799c1c90ef136e74"><div class="ttname"><a href="../../dc/d9f/struct_cell_afada172118de033e799c1c90ef136e74.html#afada172118de033e799c1c90ef136e74">Cell::Cal_Del2_Q</a></div><div class="ttdeci">void Cal_Del2_Q()</div><div class="ttdef"><b>Definition</b> <a href="#l00172">Face_Functions_Ver2.cpp:172</a></div></div>
 <div class="ttc" id="astruct_cell_afd6d4c68c48b2848f978842b7d13f09f_html_afd6d4c68c48b2848f978842b7d13f09f"><div class="ttname"><a href="../../dc/d9f/struct_cell_afd6d4c68c48b2848f978842b7d13f09f.html#afd6d4c68c48b2848f978842b7d13f09f">Cell::Cal_Del3_Q</a></div><div class="ttdeci">void Cal_Del3_Q()</div><div class="ttdef"><b>Definition</b> <a href="#l00224">Face_Functions_Ver2.cpp:224</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

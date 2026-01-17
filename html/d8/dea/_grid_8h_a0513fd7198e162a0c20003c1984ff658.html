@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -190,11 +190,18 @@ $(function(){ initResizable(false); });
 
 <p class="definition">Definition at line <a class="el" href="../../d8/d40/_grid___computations_8cpp_source.html#l01287">1287</a> of file <a class="el" href="../../d8/d40/_grid___computations_8cpp_source.html">Grid_Computations.cpp</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno"> 1288</span>{</div>
-<div class="line"><span class="lineno"> 1289</span>    <span class="keywordflow">return</span> std::abs(x - minX) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> || std::abs(x - maxX) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> ||</div>
-<div class="line"><span class="lineno"> 1290</span>           std::abs(y - minY) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> || std::abs(y - maxY) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a>;</div>
+<div class="line"><span class="lineno"> 1289</span>    <span class="keywordflow">return</span> std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> - minX) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> || std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> - maxX) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> ||</div>
+<div class="line"><span class="lineno"> 1290</span>           std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> - minY) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a> || std::abs(<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> - maxY) &lt; <a class="code hl_define" href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a>;</div>
 <div class="line"><span class="lineno"> 1291</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="adefinitions_8h_a002b2f4894492820fe708b1b7e7c5e70_html_a002b2f4894492820fe708b1b7e7c5e70"><div class="ttname"><a href="../../d6/dc2/definitions_8h_a002b2f4894492820fe708b1b7e7c5e70.html#a002b2f4894492820fe708b1b7e7c5e70">EPSILON</a></div><div class="ttdeci">#define EPSILON</div><div class="ttdef"><b>Definition</b> <a href="../../d6/dc2/definitions_8h_source.html#l00063">definitions.h:63</a></div></div>
-</div><!-- fragment -->
+</div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dea/_grid_8h_a0513fd7198e162a0c20003c1984ff658_a0513fd7198e162a0c20003c1984ff658_cgraph.svg" width="216" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
     </td>

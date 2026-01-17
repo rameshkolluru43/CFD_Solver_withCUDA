@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -175,25 +175,32 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno"> 1075</span>        Centroid.resize(3, 0.0);</div>
 <div class="line"><span class="lineno"> 1076</span>    }</div>
 <div class="line"><span class="lineno"> 1077</span> </div>
-<div class="line"><span class="lineno"> 1078</span>    <span class="keywordtype">double</span> x = 0.0, y = 0.0, z = 0.0;</div>
+<div class="line"><span class="lineno"> 1078</span>    <span class="keywordtype">double</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> = 0.0, <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> = 0.0, z = 0.0;</div>
 <div class="line"><span class="lineno"> 1079</span>    <span class="keywordtype">int</span> num_points = <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>.size() / 3; <span class="comment">// Assuming 3D points</span></div>
 <div class="line"><span class="lineno"> 1080</span> </div>
 <div class="line"><span class="lineno"> 1081</span>    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>.size(); i += 3)</div>
 <div class="line"><span class="lineno"> 1082</span>    {</div>
-<div class="line"><span class="lineno"> 1083</span>        x += <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>[i];</div>
-<div class="line"><span class="lineno"> 1084</span>        y += <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>[i + 1];</div>
+<div class="line"><span class="lineno"> 1083</span>        <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> += <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>[i];</div>
+<div class="line"><span class="lineno"> 1084</span>        <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> += <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>[i + 1];</div>
 <div class="line"><span class="lineno"> 1085</span>        z += <a class="code hl_variable" href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a>[i + 2];</div>
 <div class="line"><span class="lineno"> 1086</span>    }</div>
 <div class="line"><span class="lineno"> 1087</span> </div>
 <div class="line"><span class="lineno"> 1088</span>    <span class="keywordflow">if</span> (num_points &gt; 0) <span class="comment">// Prevent division by zero</span></div>
 <div class="line"><span class="lineno"> 1089</span>    {</div>
-<div class="line"><span class="lineno"> 1090</span>        Centroid[0] = x / num_points;</div>
-<div class="line"><span class="lineno"> 1091</span>        Centroid[1] = y / num_points;</div>
+<div class="line"><span class="lineno"> 1090</span>        Centroid[0] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a> / num_points;</div>
+<div class="line"><span class="lineno"> 1091</span>        Centroid[1] = <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a> / num_points;</div>
 <div class="line"><span class="lineno"> 1092</span>        Centroid[2] = z / num_points;</div>
 <div class="line"><span class="lineno"> 1093</span>    }</div>
 <div class="line"><span class="lineno"> 1094</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="a_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4_html_a899010546273b675ac2731a6ac1ffec4"><div class="ttname"><a href="../../d8/d40/_grid___computations_8cpp_a899010546273b675ac2731a6ac1ffec4.html#a899010546273b675ac2731a6ac1ffec4">Vertices</a></div><div class="ttdeci">V_D Vertices</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d40/_grid___computations_8cpp_source.html#l00009">Grid_Computations.cpp:9</a></div></div>
 </div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dea/_grid_8h_a5506bfc438b07c711ab2f5c60e1b013f_a5506bfc438b07c711ab2f5c60e1b013f_cgraph.svg" width="228" height="86"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../d8/dea/_grid_8h_a5506bfc438b07c711ab2f5c60e1b013f_a5506bfc438b07c711ab2f5c60e1b013f_icgraph.svg" width="1796" height="402"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>

@@ -13,8 +13,9 @@ SRC_DIRS=(
     "Python_Wrapper"
 )
 
-echo "=== CFD Solver with CUDA Documentation Update ==="
-echo "Updating documentation with CUDA matrix assembly kernels..."
+echo "=== CFD Solver with Enhanced Flux Schemes Documentation Update ==="
+echo "Updating documentation with production-ready flux schemes and CUDA kernels..."
+echo "Enhanced Features: Van Leer, Roe (1st/2nd order), AUSM flux schemes"
 echo "Source directories: ${SRC_DIRS[*]}"
 
 # Ensure Doxygen processes the correct files with CUDA support
@@ -48,12 +49,15 @@ if [ -d "html" ]; then
     fi
     
     echo ""
-    echo "=== Documentation Features ==="
-    echo "• Complete CFD solver API documentation"
-    echo "• CUDA matrix assembly kernels documentation"
-    echo "• Performance optimization guides"
-    echo "• Integration examples and tutorials"
-    echo "• Mathematical formulations and algorithms"
+    echo "=== Enhanced Documentation Features ==="
+    echo "• 🚀 Production-ready flux schemes (Van Leer, Roe, AUSM)"
+    echo "• 🔧 Complete CFD solver API documentation"
+    echo "• 💻 CUDA GPU acceleration kernels"
+    echo "• 📊 Performance benchmarks and optimization guides"
+    echo "• 🧮 Mathematical formulations and algorithms"
+    echo "• ✅ Error handling and validation frameworks"
+    echo "• 📚 Comprehensive technical implementation guides"
+    echo "• 🎯 Integration examples and usage tutorials"
     echo ""
     echo "🌐 Open html/index.html in your web browser to view the documentation"
     

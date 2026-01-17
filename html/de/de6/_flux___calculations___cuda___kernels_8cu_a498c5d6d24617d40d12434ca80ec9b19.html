@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -129,12 +129,18 @@ $(function(){ initResizable(false); });
 
 <p class="definition">Definition at line <a class="el" href="../../de/de6/_flux___calculations___cuda___kernels_8cu_source.html#l00024">24</a> of file <a class="el" href="../../de/de6/_flux___calculations___cuda___kernels_8cu_source.html">Flux_Calculations_Cuda_Kernels.cu</a>.</p>
 <div class="fragment"><div class="line"><span class="lineno">   24</span>                                                             {</div>
-<div class="line"><span class="lineno">   25</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &gt;= 1.0) <span class="keywordflow">return</span> P;</div>
-<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &gt; -1.0 &amp;&amp; <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &lt; 1.0) <span class="keywordflow">return</span> (P * 0.25) * (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> + 1.0) * (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> + 1.0) * (2.0 - <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a>);</div>
+<div class="line"><span class="lineno">   25</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &gt;= 1.0) <span class="keywordflow">return</span> <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a>;</div>
+<div class="line"><span class="lineno">   26</span>    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &gt; -1.0 &amp;&amp; <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> &lt; 1.0) <span class="keywordflow">return</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a> * 0.25) * (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> + 1.0) * (<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a> + 1.0) * (2.0 - <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a>);</div>
 <div class="line"><span class="lineno">   27</span>    <span class="keywordflow">else</span> <span class="keywordflow">return</span> 0.0;</div>
 <div class="line"><span class="lineno">   28</span>}</div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d_html_a6122be421b972a00ce8e6e636589966d"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a6122be421b972a00ce8e6e636589966d.html#a6122be421b972a00ce8e6e636589966d">P</a></div><div class="ttdeci">double P(int i, int j)</div><div class="ttdef"><b>Definition</b> <a href="../../d3/d82/_c_type___elliptic___grid_8cpp_source.html#l00019">CType_Elliptic_Grid.cpp:19</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762_html_abb04f5f017f41f350a3d81fecdbfa762"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_abb04f5f017f41f350a3d81fecdbfa762.html#abb04f5f017f41f350a3d81fecdbfa762">M</a></div><div class="ttdeci">double M</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00020">Globals_Stub_GPU.cpp:20</a></div></div>
 </div><!-- fragment --><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="../../de/de6/_flux___calculations___cuda___kernels_8cu_a498c5d6d24617d40d12434ca80ec9b19_a498c5d6d24617d40d12434ca80ec9b19_cgraph.svg" width="256" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="../../de/de6/_flux___calculations___cuda___kernels_8cu_a498c5d6d24617d40d12434ca80ec9b19_a498c5d6d24617d40d12434ca80ec9b19_icgraph.svg" width="340" height="36"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>

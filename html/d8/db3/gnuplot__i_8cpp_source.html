@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -214,7 +214,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;title,</div>
 <div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;style,</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;labelx,  <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;labely,</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>         vector&lt;double&gt; x, vector&lt;double&gt; y)</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>         vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>, vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>)</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">if</span> (getenv(<span class="stringliteral">&quot;DISPLAY&quot;</span>) == NULL)</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>      {</div>
@@ -238,7 +238,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>    this-&gt;valid = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
 <div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> (x.size() == 0 || y.size() == 0)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.size() == 0 || <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>.size() == 0)</div>
 <div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="../../d1/dd4/class_gnuplot_exception.html">GnuplotException</a>(<span class="stringliteral">&quot;vectors too small&quot;</span>);</div>
 <div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
 <div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>    <span class="keywordflow">if</span> (style == <span class="stringliteral">&quot;&quot;</span>)</div>
@@ -255,7 +255,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">else</span></div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        this-&gt;<a class="code hl_function" href="../../d3/d27/class_gnuplot_af85dd1d368699914112460285ead0fde.html#af85dd1d368699914112460285ead0fde">set_ylabel</a>(labely);</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    </div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    this-&gt;<a class="code hl_function" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">plot_xy</a>(x,y,title);</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    this-&gt;<a class="code hl_function" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">plot_xy</a>(x,<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>,title);</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span> </div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    cout &lt;&lt; <span class="stringliteral">&quot;Press enter to continue&quot;</span> &lt;&lt; endl;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">while</span> (getchar() != <span class="charliteral">&#39;\n&#39;</span>){}</div>
@@ -267,7 +267,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;title,</div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;style,</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>         <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;labelx,  <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;labely,</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>         vector&lt;double&gt; x)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>         vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>)</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>{</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    <span class="keywordflow">if</span> (getenv(<span class="stringliteral">&quot;DISPLAY&quot;</span>) == NULL)</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>      {</div>
@@ -294,7 +294,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    this-&gt;valid = <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span> </div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">if</span> (x.size() == 0)</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.size() == 0)</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="../../d1/dd4/class_gnuplot_exception.html">GnuplotException</a>(<span class="stringliteral">&quot;vector too small&quot;</span>);</div>
 <div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordflow">if</span> (!this-&gt;gnucmd)</div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="../../d1/dd4/class_gnuplot_exception.html">GnuplotException</a>(<span class="stringliteral">&quot;Could&#39;nt open connection to gnuplot&quot;</span>);</div>
@@ -556,14 +556,14 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00436" name="l00436"></a><span class="lineno">  436</span>    </div>
 <div class="foldopen" id="foldopen00437" data-start="{" data-end="}">
-<div class="line"><a id="l00437" name="l00437"></a><span class="lineno"><a class="line" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">  437</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">Gnuplot::plot_xy</a>(vector&lt;double&gt; x, vector&lt;double&gt; y, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;title)</div>
+<div class="line"><a id="l00437" name="l00437"></a><span class="lineno"><a class="line" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">  437</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">Gnuplot::plot_xy</a>(vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>, vector&lt;double&gt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>, <span class="keyword">const</span> <span class="keywordtype">string</span> &amp;title)</div>
 <div class="line"><a id="l00438" name="l00438"></a><span class="lineno">  438</span>{</div>
 <div class="line"><a id="l00439" name="l00439"></a><span class="lineno">  439</span>    ofstream tmp;</div>
 <div class="line"><a id="l00440" name="l00440"></a><span class="lineno">  440</span>    ostringstream cmdstr;</div>
 <div class="line"><a id="l00441" name="l00441"></a><span class="lineno">  441</span>    <span class="keywordtype">char</span> name[] = <span class="stringliteral">&quot;/tmp/gnuplotiXXXXXX&quot;</span>;</div>
 <div class="line"><a id="l00442" name="l00442"></a><span class="lineno">  442</span>    </div>
 <div class="line"><a id="l00443" name="l00443"></a><span class="lineno">  443</span>    <span class="comment">// should raise an exception</span></div>
-<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    <span class="keywordflow">if</span> (x.size() != x.size())</div>
+<div class="line"><a id="l00444" name="l00444"></a><span class="lineno">  444</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.size() != <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.size())</div>
 <div class="line"><a id="l00445" name="l00445"></a><span class="lineno">  445</span>        <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00446" name="l00446"></a><span class="lineno">  446</span> </div>
 <div class="line"><a id="l00447" name="l00447"></a><span class="lineno">  447</span>    <span class="keywordflow">if</span> ((this-&gt;to_delete).size() == <a class="code hl_define" href="../../d1/dd8/gnuplot__i_8hpp_a0b92738856c4bda43003d1c847483dd2.html#a0b92738856c4bda43003d1c847483dd2">GP_MAX_TMP_FILES</a> - 1)</div>
@@ -595,8 +595,8 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00473" name="l00473"></a><span class="lineno">  473</span>    <span class="comment">//</span></div>
 <div class="line"><a id="l00474" name="l00474"></a><span class="lineno">  474</span>    <span class="comment">// write the data to file</span></div>
 <div class="line"><a id="l00475" name="l00475"></a><span class="lineno">  475</span>    <span class="comment">//</span></div>
-<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; x.size(); i++)</div>
-<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>        tmp &lt;&lt; x[i] &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; y[i] &lt;&lt; endl;</div>
+<div class="line"><a id="l00476" name="l00476"></a><span class="lineno">  476</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>.size(); i++)</div>
+<div class="line"><a id="l00477" name="l00477"></a><span class="lineno">  477</span>        tmp &lt;&lt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a>[i] &lt;&lt; <span class="stringliteral">&quot; &quot;</span> &lt;&lt; <a class="code hl_function" href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a>[i] &lt;&lt; endl;</div>
 <div class="line"><a id="l00478" name="l00478"></a><span class="lineno">  478</span>    tmp.flush();    </div>
 <div class="line"><a id="l00479" name="l00479"></a><span class="lineno">  479</span>    tmp.close();</div>
 <div class="line"><a id="l00480" name="l00480"></a><span class="lineno">  480</span> </div>
@@ -622,6 +622,8 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span> </div>
 <div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span> </div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79_html_a9d9acf133a5b966f0cbd16a2c57a7d79"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79">x</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; x(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
+<div class="ttc" id="a_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12_html_aae4b761a64c952b4c008655d1dc59a12"><div class="ttname"><a href="../../d3/d82/_c_type___elliptic___grid_8cpp_aae4b761a64c952b4c008655d1dc59a12.html#aae4b761a64c952b4c008655d1dc59a12">y</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; double &gt; &gt; y(NX, std::vector&lt; double &gt;(NY, 0.0))</div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01_html_a3d57524b44f888354bc4d4f56e0e3f01"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a></div><div class="ttdeci">V_D b</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00009">Globals_Stub_GPU.cpp:9</a></div></div>
 <div class="ttc" id="aclass_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd_html_a0daaf54cd8e41dbbd574722f3a831cfd"><div class="ttname"><a href="../../d3/d27/class_gnuplot_a0daaf54cd8e41dbbd574722f3a831cfd.html#a0daaf54cd8e41dbbd574722f3a831cfd">Gnuplot::is_valid</a></div><div class="ttdeci">bool is_valid(void)</div><div class="ttdef"><b>Definition</b> <a href="#l00238">gnuplot_i.cpp:238</a></div></div>
 <div class="ttc" id="aclass_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a_html_a1e817a58ef3e40ceaeb128c7e6437e8a"><div class="ttname"><a href="../../d3/d27/class_gnuplot_a1e817a58ef3e40ceaeb128c7e6437e8a.html#a1e817a58ef3e40ceaeb128c7e6437e8a">Gnuplot::plot_xy</a></div><div class="ttdeci">void plot_xy(vector&lt; double &gt;, vector&lt; double &gt;, const string &amp;)</div><div class="ttdef"><b>Definition</b> <a href="#l00437">gnuplot_i.cpp:437</a></div></div>

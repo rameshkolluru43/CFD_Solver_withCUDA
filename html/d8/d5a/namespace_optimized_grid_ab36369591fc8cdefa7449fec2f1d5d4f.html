@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -127,14 +127,14 @@ $(function(){ initResizable(false); });
 <div class="line"><span class="lineno">  562</span>        Calculate_Distances_GPU();</div>
 <div class="line"><span class="lineno">  563</span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="lineno">  564</span>        std::for_each(std::execution::par_unseq, <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.begin(), <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.end(),</div>
-<div class="line"><span class="lineno">  565</span>                      [](<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;cell)</div>
+<div class="line"><span class="lineno">  565</span>                      [](<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;cell)</div>
 <div class="line"><span class="lineno">  566</span>                      { Construct_Cell_Optimized(std::move(cell)); });</div>
 <div class="line"><span class="lineno">  567</span>        <a class="code hl_function" href="../../d8/d24/_grid___computations___optimized_8cpp_a232a6cc799531f31fb5128af047a41d8.html#a232a6cc799531f31fb5128af047a41d8">Calculate_Cell_Center_Distances_Optimized</a>();</div>
 <div class="line"><span class="lineno">  568</span><span class="preprocessor">#endif</span></div>
 <div class="line"><span class="lineno">  569</span>    }</div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa_html_a2e4e1bc33360d8b941e1f06c74ba1dfa"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a></div><div class="ttdeci">vector&lt; Cell &gt; Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00007">Globals_Stub_GPU.cpp:7</a></div></div>
 <div class="ttc" id="a_grid___computations___optimized_8cpp_a232a6cc799531f31fb5128af047a41d8_html_a232a6cc799531f31fb5128af047a41d8"><div class="ttname"><a href="../../d8/d24/_grid___computations___optimized_8cpp_a232a6cc799531f31fb5128af047a41d8.html#a232a6cc799531f31fb5128af047a41d8">Calculate_Cell_Center_Distances_Optimized</a></div><div class="ttdeci">void Calculate_Cell_Center_Distances_Optimized()</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d24/_grid___computations___optimized_8cpp_source.html#l00191">Grid_Computations_Optimized.cpp:191</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment --><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['performance_5fdegradation_0',['PERFORMANCE_DEGRADATION',['../df/dd4/_grid___computations___optimized_8h_aa58cab95e4a0342551a260f3fd60f363.html#aa58cab95e4a0342551a260f3fd60f363a22d162dbc62130aef6af82fd8db448eb',1,'Grid_Computations_Optimized.h']]]
+  ['k_5fepsilon_0',['K_EPSILON',['../de/d84/_turbulence___models_8h_ac351ecfcff92a440bc6c0c285dc16bd3.html#ac351ecfcff92a440bc6c0c285dc16bd3a1b50cb47558eaa790b44f5aef085cbca',1,'Turbulence_Models.h']]],
+  ['k_5fomega_5fsst_1',['K_OMEGA_SST',['../de/d84/_turbulence___models_8h_ac351ecfcff92a440bc6c0c285dc16bd3.html#ac351ecfcff92a440bc6c0c285dc16bd3ad3a79c1a3758b5958767699b29a1fe5c',1,'Turbulence_Models.h']]],
+  ['k_5fomega_5fwilcox_2',['K_OMEGA_WILCOX',['../de/d84/_turbulence___models_8h_ac351ecfcff92a440bc6c0c285dc16bd3.html#ac351ecfcff92a440bc6c0c285dc16bd3ab8c532942292c554b82313fcc16e67bd',1,'Turbulence_Models.h']]]
 ];

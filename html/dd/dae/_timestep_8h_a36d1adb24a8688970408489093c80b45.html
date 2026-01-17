@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -120,19 +120,19 @@ $(function(){ initResizable(false); });
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d0/d64/_numerical___method_8cpp_source.html#l00086">86</a> of file <a class="el" href="../../d0/d64/_numerical___method_8cpp_source.html">Numerical_Method.cpp</a>.</p>
-<div class="fragment"><div class="line"><span class="lineno">   87</span>{</div>
-<div class="line"><span class="lineno">   88</span>    <span class="comment">// Use std::min_element to find the minimum time step in the Cells vector</span></div>
-<div class="line"><span class="lineno">   89</span>    <span class="keyword">auto</span> max_it = std::max_element(<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.begin(), <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.end(), [](<span class="keyword">const</span> <a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;a, <span class="keyword">const</span> <a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a>)</div>
-<div class="line"><span class="lineno">   90</span>                                   { return a.del_t &lt; b.del_t; });</div>
-<div class="line"><span class="lineno">   91</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20.html#a48915b84549d2be86b06d28710d10b20">Max_dt</a> = max_it-&gt;del_t;</div>
-<div class="line"><span class="lineno">   92</span> </div>
-<div class="line"><span class="lineno">   93</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20.html#a48915b84549d2be86b06d28710d10b20">Max_dt</a>;</div>
-<div class="line"><span class="lineno">   94</span>}</div>
+<p class="definition">Definition at line <a class="el" href="../../d0/d64/_numerical___method_8cpp_source.html#l00314">314</a> of file <a class="el" href="../../d0/d64/_numerical___method_8cpp_source.html">Numerical_Method.cpp</a>.</p>
+<div class="fragment"><div class="line"><span class="lineno">  315</span>{</div>
+<div class="line"><span class="lineno">  316</span>    <span class="comment">// Use std::min_element to find the minimum time step in the Cells vector</span></div>
+<div class="line"><span class="lineno">  317</span>    <span class="keyword">auto</span> max_it = std::max_element(<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.begin(), <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a>.end(), [](<span class="keyword">const</span> <a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;a, <span class="keyword">const</span> <a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> &amp;<a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a>)</div>
+<div class="line"><span class="lineno">  318</span>                                   { return a.del_t &lt; b.del_t; });</div>
+<div class="line"><span class="lineno">  319</span>    <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20.html#a48915b84549d2be86b06d28710d10b20">Max_dt</a> = max_it-&gt;del_t;</div>
+<div class="line"><span class="lineno">  320</span> </div>
+<div class="line"><span class="lineno">  321</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="../../d6/d99/_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20.html#a48915b84549d2be86b06d28710d10b20">Max_dt</a>;</div>
+<div class="line"><span class="lineno">  322</span>}</div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa_html_a2e4e1bc33360d8b941e1f06c74ba1dfa"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a2e4e1bc33360d8b941e1f06c74ba1dfa.html#a2e4e1bc33360d8b941e1f06c74ba1dfa">Cells</a></div><div class="ttdeci">vector&lt; Cell &gt; Cells</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00007">Globals_Stub_GPU.cpp:7</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01_html_a3d57524b44f888354bc4d4f56e0e3f01"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a3d57524b44f888354bc4d4f56e0e3f01.html#a3d57524b44f888354bc4d4f56e0e3f01">b</a></div><div class="ttdeci">V_D b</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00009">Globals_Stub_GPU.cpp:9</a></div></div>
 <div class="ttc" id="a_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20_html_a48915b84549d2be86b06d28710d10b20"><div class="ttname"><a href="../../d6/d99/_globals___stub___g_p_u_8cpp_a48915b84549d2be86b06d28710d10b20.html#a48915b84549d2be86b06d28710d10b20">Max_dt</a></div><div class="ttdeci">double Max_dt</div><div class="ttdef"><b>Definition</b> <a href="../../d6/d99/_globals___stub___g_p_u_8cpp_source.html#l00020">Globals_Stub_GPU.cpp:20</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment -->
 </div>
 </div>

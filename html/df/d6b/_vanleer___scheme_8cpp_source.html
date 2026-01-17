@@ -25,9 +25,9 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v2.0</span>
+   <div id="projectname">CFD Solver with CUDA Acceleration<span id="projectnumber">&#160;v3.0 - Incompressible Solver &amp; Turbulence Models</span>
    </div>
-   <div id="projectbrief">2D Compressible Navier-Stokes CFD Solver with GPU-Accelerated Matrix Assembly and Advanced Numerical Schemes</div>
+   <div id="projectbrief">Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration</div>
   </td>
  </tr>
  </tbody>
@@ -96,7 +96,7 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//VanLeer Flux Splitting Scheme</span></div>
 <div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_a3560cd5db824a402bf5c380f8ada5bb2.html#a3560cd5db824a402bf5c380f8ada5bb2">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d2a/class_face_a3560cd5db824a402bf5c380f8ada5bb2.html#a3560cd5db824a402bf5c380f8ada5bb2">Face::Flux_From_Face_VL</a>(<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a>* CC,<a class="code hl_class" href="../../dc/d9f/struct_cell.html">Cell</a> * NC)</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="../../d5/d2a/class_face_a3560cd5db824a402bf5c380f8ada5bb2.html#a3560cd5db824a402bf5c380f8ada5bb2">    4</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="../../d5/d2a/class_face_a3560cd5db824a402bf5c380f8ada5bb2.html#a3560cd5db824a402bf5c380f8ada5bb2">Face::Flux_From_Face_VL</a>(<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a>* CC,<a class="code hl_struct" href="../../dc/d9f/struct_cell.html">Cell</a> * NC)</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    vector&lt;double&gt; Q1(5,0.0),Q2(5,0.0),Q_Avg(5,0.0),Flux_Plus(5,0.0),Flux_Minus(5,0.0);</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    <span class="keywordtype">double</span> M_L_Plus,M_R_minus,Rho_Plus,Rho_Minus=0.0,<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a921fa12a4e54b4382d22e16f42a6648c.html#a921fa12a4e54b4382d22e16f42a6648c">M_L</a>=0.0,<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_afe4359d0e946bcf78c5dde736df70963.html#afe4359d0e946bcf78c5dde736df70963">M_R</a>=0.0,<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a1e4ab202bb14a24802a9891ac580667b.html#a1e4ab202bb14a24802a9891ac580667b">C_L</a>=0.0,<a class="code hl_variable" href="../../d7/d6d/_initialize_8cpp_a0d017554ad3a338a400635ed0934ceb3.html#a0d017554ad3a338a400635ed0934ceb3">C_R</a>=0.0,V_L=0.0,V_R=0.0,Temp=0.0;</div>
@@ -195,7 +195,7 @@ $(function(){ initResizable(false); });
 <div class="ttc" id="aheaders_8hpp_a5c71a5e59a53413cd6c270266d63b031_html_a5c71a5e59a53413cd6c270266d63b031"><div class="ttname"><a href="../../dc/d30/headers_8hpp_a5c71a5e59a53413cd6c270266d63b031.html#a5c71a5e59a53413cd6c270266d63b031">R</a></div><div class="ttdeci">#define R</div><div class="ttdef"><b>Definition</b> <a href="../../dc/d30/headers_8hpp_source.html#l00016">headers.hpp:16</a></div></div>
 <div class="ttc" id="aheaders_8hpp_html"><div class="ttname"><a href="../../dc/d30/headers_8hpp.html">headers.hpp</a></div></div>
 <div class="ttc" id="astruct_cell_af37bc52fb84ad9749bddb65f09d837b5_html_af37bc52fb84ad9749bddb65f09d837b5"><div class="ttname"><a href="../../dc/d9f/struct_cell_af37bc52fb84ad9749bddb65f09d837b5.html#af37bc52fb84ad9749bddb65f09d837b5">Cell::Get_QatCellCenter</a></div><div class="ttdeci">vector&lt; double &gt; &amp; Get_QatCellCenter()</div><div class="ttdef"><b>Definition</b> <a href="../../dd/ddd/_cell_8cpp_source.html#l00118">Cell.cpp:118</a></div></div>
-<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
+<div class="ttc" id="astruct_cell_html"><div class="ttname"><a href="../../dc/d9f/struct_cell.html">Cell</a></div><div class="ttdoc">Cell structure for incompressible finite volume method.</div><div class="ttdef"><b>Definition</b> <a href="../../d8/d4d/_globals_8h_source.html#l00308">Globals.h:309</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
