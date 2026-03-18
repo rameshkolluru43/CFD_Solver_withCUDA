@@ -1,5 +1,7 @@
 #include "headers.hpp"
 
+Vector Vector::Vect;
+
 Vector::Vector()
 {
 	no_of_components = 3;

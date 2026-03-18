@@ -83,21 +83,17 @@ void Explicit_Method()
 
 void Implicit_Method()
 {
-	/*
-	 * Implicit Time Integration Method
-	 * Implements the Newton-Raphson iteration for implicit time stepping
-	 * Solves: (I/dt + ∂F/∂U) ΔU = -R
-	 * where R is the residual and ∂F/∂U is the flux Jacobian
-	 */
+	std::cerr << "Implicit_Method: not yet fully implemented. "
+	          << "Use explicit or Runge-Kutta time stepping." << std::endl;
+	return;
 
-	// Configuration parameters
+#if 0
 	const int max_newton_iterations = 50;
 	const double newton_tolerance = 1e-8;
 	const double linear_solver_tolerance = 1e-6;
 	const int max_linear_iterations = 1000;
 	const double under_relaxation = 0.8;
 
-	// Check if CUDA matrix assembly is available
 	bool use_cuda = false;
 #ifdef USE_CUDA_MATRIX_ASSEMBLY
 	if (No_Physical_Cells > 1000)
@@ -299,6 +295,7 @@ void Implicit_Method()
 	dt = get_Min_dt();
 
 	std::cout << "Implicit time step completed. dt = " << dt << std::endl;
+#endif
 }
 
 double get_Min_dt()

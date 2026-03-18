@@ -6,8 +6,16 @@
 #include "Grid.h"
 #include "Globals.h"
 #include "Utilities.h"
+#include "Grid_Computations_Optimized.h"
 #include <algorithm>
+#ifdef __has_include
+#if __has_include(<execution>)
 #include <execution>
+#define HAS_PARALLEL_EXECUTION 1
+#endif
+#endif
+
+void Construct_Face_Optimized(Cell &Grid_Cell);
 #include <numeric>
 #include <immintrin.h> // For SIMD operations
 #include <chrono>
@@ -196,38 +204,38 @@ void Calculate_Cell_Center_Distances_Optimized()
     std::vector<int> cell_indices(No_Physical_Cells);
     std::iota(cell_indices.begin(), cell_indices.end(), 0);
 
-    // Parallel computation of cell center distances
-    std::for_each(std::execution::par_unseq, cell_indices.begin(), cell_indices.end(),
-                  [](int cell_idx)
-                  {
-                      auto &cell = Cells[cell_idx];
-                      const auto &center = cell.Cell_Center;
+    auto compute_distances = [](int cell_idx)
+    {
+        auto &cell = Cells[cell_idx];
+        const auto &center = cell.Cell_Center;
 
-                      // Pre-allocate distances and vectors
-                      const size_t num_neighbors = cell.Neighbours.size();
-                      cell.Cell_Center_Distances.resize(num_neighbors);
-                      cell.Cell_Center_Vector.resize(3 * num_neighbors);
+        const size_t num_neighbors = cell.Neighbours.size();
+        cell.Cell_Center_Distances.resize(num_neighbors);
+        cell.Cell_Center_Vector.resize(3 * num_neighbors);
 
-                      // Calculate distances to all neighbors
-                      for (size_t i = 0; i < num_neighbors; ++i)
-                      {
-                          const int neighbor_id = cell.Neighbours[i];
-                          const auto &neighbor_center = Cells[neighbor_id].Cell_Center;
+        for (size_t i = 0; i < num_neighbors; ++i)
+        {
+            const int neighbor_id = cell.Neighbours[i];
+            const auto &neighbor_center = Cells[neighbor_id].Cell_Center;
 
-                          // Calculate distance vector
-                          double dx = neighbor_center[0] - center[0];
-                          double dy = neighbor_center[1] - center[1];
-                          double dz = neighbor_center[2] - center[2];
+            double dx = neighbor_center[0] - center[0];
+            double dy = neighbor_center[1] - center[1];
+            double dz = neighbor_center[2] - center[2];
 
-                          // Store distance and vector
-                          cell.Cell_Center_Distances[i] = std::sqrt(dx * dx + dy * dy + dz * dz);
+            cell.Cell_Center_Distances[i] = std::sqrt(dx * dx + dy * dy + dz * dz);
 
-                          size_t vec_idx = i * 3;
-                          cell.Cell_Center_Vector[vec_idx] = dx;
-                          cell.Cell_Center_Vector[vec_idx + 1] = dy;
-                          cell.Cell_Center_Vector[vec_idx + 2] = dz;
-                      }
-                  });
+            size_t vec_idx = i * 3;
+            cell.Cell_Center_Vector[vec_idx] = dx;
+            cell.Cell_Center_Vector[vec_idx + 1] = dy;
+            cell.Cell_Center_Vector[vec_idx + 2] = dz;
+        }
+    };
+
+#ifdef HAS_PARALLEL_EXECUTION
+    std::for_each(std::execution::par_unseq, cell_indices.begin(), cell_indices.end(), compute_distances);
+#else
+    std::for_each(cell_indices.begin(), cell_indices.end(), compute_distances);
+#endif
 
     GridPerformance::end_timer("Parallel Cell Center Distances");
 }
@@ -329,7 +337,7 @@ void Sort_Points_AntiClockWise_Optimized(V_D &points, V_I &indices)
 
 #ifdef USE_CUDA
 // Hybrid CPU/GPU grid construction
-bool Construct_Cells_Hybrid(bool use_gpu = true)
+bool Construct_Cells_Hybrid(bool use_gpu)
 {
     GridPerformance::start_timer();
 
@@ -397,11 +405,16 @@ bool Construct_Cells_Hybrid(bool use_gpu = true)
     std::vector<int> cell_indices(No_Physical_Cells);
     std::iota(cell_indices.begin(), cell_indices.end(), 0);
 
-    std::for_each(std::execution::par_unseq, cell_indices.begin(), cell_indices.end(),
-                  [](int i)
-                  {
-                      Construct_Cell_Optimized(std::move(Cells[i]));
-                  });
+    auto construct_cell = [](int i)
+    {
+        Construct_Cell_Optimized(std::move(Cells[i]));
+    };
+
+#ifdef HAS_PARALLEL_EXECUTION
+    std::for_each(std::execution::par_unseq, cell_indices.begin(), cell_indices.end(), construct_cell);
+#else
+    std::for_each(cell_indices.begin(), cell_indices.end(), construct_cell);
+#endif
 
     GridPerformance::end_timer("Optimized CPU Cell Construction");
     return true;
@@ -546,9 +559,10 @@ void benchmark_grid_functions()
 
 // ===== INTEGRATION FUNCTIONS =====
 
-// Drop-in replacement for existing grid functions
 namespace OptimizedGrid
 {
+
+    Config config;
 
     void Initialize()
     {
@@ -561,9 +575,15 @@ namespace OptimizedGrid
         Construct_Cells_Hybrid(true);
         Calculate_Distances_GPU();
 #else
+#ifdef HAS_PARALLEL_EXECUTION
         std::for_each(std::execution::par_unseq, Cells.begin(), Cells.end(),
                       [](Cell &cell)
                       { Construct_Cell_Optimized(std::move(cell)); });
+#else
+        std::for_each(Cells.begin(), Cells.end(),
+                      [](Cell &cell)
+                      { Construct_Cell_Optimized(std::move(cell)); });
+#endif
         Calculate_Cell_Center_Distances_Optimized();
 #endif
     }
@@ -573,4 +593,25 @@ namespace OptimizedGrid
         analyze_grid_performance();
         GridPerformance::print_performance_summary();
     }
+}
+
+namespace GridOptimization
+{
+    OptimizationReport analyze_optimization_potential()
+    {
+        OptimizationReport report;
+        report.recommend_gpu = (No_Physical_Cells > 1000);
+        report.recommend_memory_reallocation = false;
+        report.recommend_data_structure_changes = false;
+        report.estimated_speedup = report.recommend_gpu ? 5.0 : 1.0;
+        report.memory_savings_bytes = 0;
+        if (report.recommend_gpu)
+            report.recommendations.push_back("Use CUDA for grid computations (>1000 cells)");
+        return report;
+    }
+
+    void apply_recommended_optimizations(const OptimizationReport &) {}
+    void optimize_cell_connectivity() {}
+    void optimize_memory_layout() {}
+    void optimize_computation_order() {}
 }

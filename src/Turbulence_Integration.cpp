@@ -13,9 +13,56 @@
 #include "Solver.h"
 #include "Boundary_Conditions.h"
 #include "IO_Write.h"
-#include "Configuration_Read.h"
+#include "Directory_Files.h"
+#include "Error_Update.h"
+#include "Timestep.h"
+#include "Viscous_Functions.h"
 #include <iostream>
 #include <string>
+
+//=============================================================================
+// STUBS AND FORWARD DECLARATIONS FOR INTEGRATION
+//=============================================================================
+
+static int Output_Frequency = 100;
+static int Max_Iterations = 10000;
+
+// Forward declarations for functions defined later in this file
+void Runge_Kutta_Method_With_Turbulence();
+void Explicit_Method_With_Turbulence();
+void Implicit_Method_With_Turbulence();
+void Calculate_Turbulence_Residuals();
+void Calculate_Turbulence_Cell_Residual(int cell_index);
+void Update_Turbulence_Variables_RK4(const vector<TurbulenceVariables> &turb_initial,
+                                     double alpha, double beta);
+double Get_RK4_Coefficient(int stage);
+double Get_RK4_Beta_Coefficient(int stage);
+
+// TODO: Implement these integration helpers when coupling is complete
+static void Calculate_Flow_Residuals() {}
+static void Update_Flow_Variables_RK4(const vector<vector<double>> &, double, double) {}
+static void Solve_Flow_Implicit() { Implicit_Method(); }
+static void Solve_Turbulence_Semi_Implicit() { /* TODO: semi-implicit turbulence solve */ }
+static bool Check_Flow_Convergence() { return false; }
+
+static void Error_Estimate_Update() { Estimate_Error(); }
+
+static void Calculate_Time_Step()
+{
+    for (int i = 0; i < Total_No_Cells; i++)
+    {
+        if (Cells[i].cellType != -1)
+        {
+            int idx = i;
+            Evaluate_Time_Step(idx);
+        }
+    }
+}
+
+static void Write_Solution_Data(const string &filename, int type)
+{
+    Write_Solution(filename, type);
+}
 
 //=============================================================================
 // TURBULENCE MODEL INTEGRATION WITH MAIN SOLVER
@@ -96,10 +143,10 @@ bool Viscous_Solver_With_Turbulence(string &Error_Filename, string &Sol_Filename
             // Output iteration information
             cout << setw(10) << iterations
                  << setw(15) << Min_dt
-                 << setw(15) << rho_error
-                 << setw(15) << rho_u_error
-                 << setw(15) << rho_v_error
-                 << setw(15) << rho_Et_error
+                 << setw(15) << (Error.size() > 0 ? Error[0] : 0.0)
+                 << setw(15) << (Error.size() > 1 ? Error[1] : 0.0)
+                 << setw(15) << (Error.size() > 2 ? Error[2] : 0.0)
+                 << setw(15) << (Error.size() > 3 ? Error[3] : 0.0)
                  << setw(15) << k_error
                  << setw(15) << eps_omega_error
                  << setw(20) << wall_clock_time
@@ -161,14 +208,14 @@ bool Viscous_Solver_With_Turbulence(string &Error_Filename, string &Sol_Filename
 void Runge_Kutta_Method_With_Turbulence()
 {
     // Store initial state
-    vector<vector<double>> U_initial(Total_Cells, vector<double>(5));
-    vector<TurbulenceVariables> turb_initial(Total_Cells);
+    vector<vector<double>> U_initial(Total_No_Cells, vector<double>(5));
+    vector<TurbulenceVariables> turb_initial(Total_No_Cells);
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
-            U_initial[i] = Cells[i].Conservative_Variables;
+            U_initial[i] = U_Cells[i];
             turb_initial[i] = turbulence_vars[i];
         }
     }
@@ -207,7 +254,7 @@ void Explicit_Method_With_Turbulence()
     Calculate_Time_Step();
 
     // Update flow variables
-    Explict_Method(); // Use existing implementation
+    Explicit_Method();
 
     // Update turbulence variables
     Update_Turbulence_Variables(Min_dt);
@@ -247,9 +294,9 @@ void Calculate_Turbulence_Residuals()
         return;
 
     // Calculate production terms for all cells
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             switch (current_turbulence_model)
             {
@@ -267,9 +314,9 @@ void Calculate_Turbulence_Residuals()
     }
 
     // Calculate diffusion and source terms
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             Calculate_Turbulence_Cell_Residual(i);
         }
@@ -282,10 +329,10 @@ void Calculate_Turbulence_Residuals()
  */
 void Calculate_Turbulence_Cell_Residual(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double k = turbulence_vars[cell_index].k;
     double Pk = turbulence_vars[cell_index].Pk;
 
@@ -301,12 +348,12 @@ void Calculate_Turbulence_Cell_Residual(int cell_index)
 
         // Epsilon-equation residual
         double depsilon_diff = Calculate_KEpsilon_Epsilon_Diffusion(cell_index);
-        double Repsilon = depsilon_diff + KEpsilon::C_1 * (epsilon / k) * Pk -
+        double Repsilon = depsilon_diff + KEpsilon::C1_eps * (epsilon / k) * Pk -
                           KEpsilon::C_2 * rho * (epsilon * epsilon / k);
 
         // Store residuals (these would be used in implicit solver)
-        Cells[cell_index].k_residual = Rk;
-        Cells[cell_index].epsilon_residual = Repsilon;
+        turbulence_vars[cell_index].k_residual = Rk;
+        turbulence_vars[cell_index].epsilon_residual = Repsilon;
         break;
     }
 
@@ -325,8 +372,8 @@ void Calculate_Turbulence_Cell_Residual(int cell_index)
                         KOmega::beta * rho * omega * omega;
 
         // Store residuals
-        Cells[cell_index].k_residual = Rk;
-        Cells[cell_index].omega_residual = Romega;
+        turbulence_vars[cell_index].k_residual = Rk;
+        turbulence_vars[cell_index].omega_residual = Romega;
         break;
     }
 
@@ -351,16 +398,16 @@ void Update_Turbulence_Variables_RK4(const vector<TurbulenceVariables> &turb_ini
     if (current_turbulence_model == TurbulenceModel::LAMINAR)
         return;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
-            double rho = Cells[i].Conservative_Variables[0];
+            double rho = U_Cells[i][0];
             double dt = Min_dt;
 
             // Update k
             double k_old = turb_initial[i].k;
-            double k_residual = Cells[i].k_residual;
+            double k_residual = turbulence_vars[i].k_residual;
             double k_new = k_old + alpha * dt * k_residual / rho;
             turbulence_vars[i].k = max(k_new, 1e-10);
 
@@ -368,7 +415,7 @@ void Update_Turbulence_Variables_RK4(const vector<TurbulenceVariables> &turb_ini
             if (current_turbulence_model == TurbulenceModel::K_EPSILON)
             {
                 double eps_old = turb_initial[i].epsilon;
-                double eps_residual = Cells[i].epsilon_residual;
+                double eps_residual = turbulence_vars[i].epsilon_residual;
                 double eps_new = eps_old + alpha * dt * eps_residual / rho;
                 turbulence_vars[i].epsilon = max(eps_new, 1e-10);
 
@@ -377,7 +424,7 @@ void Update_Turbulence_Variables_RK4(const vector<TurbulenceVariables> &turb_ini
             else
             {
                 double omega_old = turb_initial[i].omega;
-                double omega_residual = Cells[i].omega_residual;
+                double omega_residual = turbulence_vars[i].omega_residual;
                 double omega_new = omega_old + alpha * dt * omega_residual / rho;
                 turbulence_vars[i].omega = max(omega_new, 1e-6);
 
@@ -404,25 +451,25 @@ double Calculate_Turbulence_Error(const string &variable)
     double error_sum = 0.0;
     int count = 0;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             double error = 0.0;
 
             if (variable == "k")
             {
-                error = abs(Cells[i].k_residual);
+                error = abs(turbulence_vars[i].k_residual);
             }
             else if (variable == "eps_omega")
             {
                 if (current_turbulence_model == TurbulenceModel::K_EPSILON)
                 {
-                    error = abs(Cells[i].epsilon_residual);
+                    error = abs(turbulence_vars[i].epsilon_residual);
                 }
                 else
                 {
-                    error = abs(Cells[i].omega_residual);
+                    error = abs(turbulence_vars[i].omega_residual);
                 }
             }
 
@@ -463,9 +510,9 @@ void Apply_Turbulence_Limiters_All_Cells()
     if (current_turbulence_model == TurbulenceModel::LAMINAR)
         return;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             Apply_Turbulence_Limiters(i);
         }
@@ -478,7 +525,7 @@ void Apply_Turbulence_Limiters_All_Cells()
  */
 void Apply_Turbulence_Limiters(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     // Apply positivity constraints
@@ -504,7 +551,7 @@ void Apply_Turbulence_Limiters(int cell_index)
     {
         turbulence_vars[cell_index].mut = max_turbulent_viscosity;
         turbulence_vars[cell_index].nut = turbulence_vars[cell_index].mut /
-                                          Cells[cell_index].Conservative_Variables[0];
+                                          U_Cells[cell_index][0];
     }
 }
 
@@ -595,4 +642,15 @@ double Get_RK4_Beta_Coefficient(int stage)
     default:
         return 0.0;
     }
+}
+
+void Apply_Realizability_Constraints(int cell_index)
+{
+    if (cell_index < 0 || cell_index >= (int)turbulence_vars.size()) return;
+    if (turbulence_vars[cell_index].k < 1e-12)
+        turbulence_vars[cell_index].k = 1e-12;
+    if (turbulence_vars[cell_index].epsilon < 1e-12)
+        turbulence_vars[cell_index].epsilon = 1e-12;
+    if (turbulence_vars[cell_index].omega < 1e-12)
+        turbulence_vars[cell_index].omega = 1e-12;
 }

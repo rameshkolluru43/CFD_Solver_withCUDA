@@ -7,6 +7,7 @@
 
 //------------Functions for creating Test case directories and reading JSON files----------------
 void CreateTestCaseDirectories(int &);
+void createOutputDirectories();
 void readJSON(const string &);
 void searchGridFiles();
 void findGridFiles(string &, int &, int &, vector<string> &);

@@ -1,6 +1,7 @@
 #include "Globals.h"
 
-BoundaryInfo gBoundaryInfo; // minimal default
+BoundaryInfo gBoundaryInfo;
+MeshParams meshParams;
 
 // Define global containers required by GPU main stub
 vector<V_D> Cells_DelU, U_Cells, Primitive_Cells, Cells_Net_Flux, R_Cell, Cells_Viscous_Flux;

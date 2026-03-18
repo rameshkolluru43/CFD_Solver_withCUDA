@@ -10,19 +10,20 @@
 #include <iomanip>
 #include <cstdio>
 #include <cstdlib>
+#include <cfloat>
+#include <stdexcept>
+#include <sstream>
+#include <tuple>
+
+#ifndef __CUDACC__
 #include <algorithm>
 #include <chrono>
-#include <cfloat>
 #include <filesystem>
-#include <map>
-#include <stdexcept>
-#include <fstream>
-#include <sstream>
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
-#include <tuple>
 #include <set>
+#endif
 
 #ifdef USE_VTK
 #include <vtkSmartPointer.h>
@@ -35,7 +36,13 @@
 #include <vtkXMLPolyDataWriter.h>
 #include <vtkPolyData.h>
 #endif
-#include <boost/regex.hpp>
+#ifndef __CUDACC__
+#if __has_include(<boost/regex.hpp>)
+  #include <boost/regex.hpp>
+#elif __has_include(<regex>)
+  #include <regex>
+#endif
+#endif
 
 #if __has_include(<json/json.h>)
   #include <json/json.h>

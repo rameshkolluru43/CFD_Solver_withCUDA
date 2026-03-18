@@ -23,6 +23,14 @@ class Line : public Shape
 		using Shape::write_output;
 		void generate(Point &,Point &,int &);
 		void generate(Point &,Point &,int &,bool &);
+		void generate_stretched(Point &sp, Point &ep, int &n,
+								double beta_param, double alpha_param,
+								bool both_sides);
+		void generate_boundary_layer(Point &sp, Point &ep, int &n,
+									 double first_cell_height,
+									 double growth_rate);
+		void generate_tanh(Point &sp, Point &ep, int &n,
+						   double stretching_factor);
 		void Merge(Line &);
 		void Merge(vector<Point> &);
 		void write_output();
@@ -31,11 +39,14 @@ class Line : public Shape
 		void Print();
 		double Size();
 		void Reverse_Points();
+		void Clear();
+		double GetLength() const { return Length; }
 	private:
 		vector<Point> point_list;
 		int no_of_points;
 		double delx,dely,delz,Length,ds_x,ds_y,ds_z,del_s;
 		Point Start_Point,End_Point;
+		void distribute_points(Point &sp, const vector<double> &s_distribution);
 };
 
 class Circle : public Shape
@@ -89,6 +100,30 @@ class Object : public Shape
 		vector<Point> object_point_list,cplist1,cplist2,lplist1,lplist2;
 };
 
+struct BoundaryLayerParams
+{
+	double first_cell_height;
+	double growth_rate;
+	int    num_layers;
+	double max_stretching;
+	bool   enabled;
+	BoundaryLayerParams() : first_cell_height(1e-4), growth_rate(1.2),
+		num_layers(20), max_stretching(1.5), enabled(false) {}
+};
+
+struct SourceTermParams
+{
+	bool   enabled;
+	double amplitude;
+	double decay_rate;
+	bool   use_thomas_middlecoff;
+	bool   use_boundary_attraction;
+	double attraction_strength;
+	SourceTermParams() : enabled(false), amplitude(1.0), decay_rate(1.0),
+		use_thomas_middlecoff(true), use_boundary_attraction(false),
+		attraction_strength(5.0) {}
+};
+
 class Grid
 {
 	public:
@@ -99,18 +134,43 @@ class Grid
 		void Generate_Grid_List();
 		void Generate_Grid(bool &);
 		void Generate_Grid(bool & ,bool & ,int &);
+		void Generate_Grid(bool &periodic, bool &enableElliptic, int &iterations,
+						   double omega, double convergence_tol);
 		void TFI();
 		void Elliptic();
+		void Elliptic_Poisson();
 		void Boundary_Condition();
 		vector<Point>& Get_Grid_List();
 		void Stack_Grid(double & ,int &,vector<Point> &);
+		void Stack_Grid(double &length, int &nop, vector<Point> &out,
+						double growth_ratio);
 		void Estimate_Error_and_Update();
+		void Estimate_Error_and_Update_SOR(double omega);
 		void Periodic_Boundary_Condition();
+
+		void SetSourceTermParams(const SourceTermParams &params);
+		void SetBoundaryLayerParams(int boundary_id, const BoundaryLayerParams &params);
+		void ComputeThomasMiddlecoffSources();
+		void ComputeBoundaryAttractionSources();
+
+		int    Get_nx() const { return nx; }
+		int    Get_ny() const { return ny; }
+		double Get_x(int i, int j) const { return x[i][j]; }
+		double Get_y(int i, int j) const { return y[i][j]; }
+		double Get_Convergence() const { return ertot; }
+		int    Get_Iterations() const { return noit; }
+		void   ComputeGridQuality(double &min_jac, double &max_ar,
+								  double &max_skew, double &min_orth) const;
+
 	private:
 		vector< vector <double>  > x,y,xtemp,ytemp,erx,ery;
+		vector< vector <double>  > P_source, Q_source;
 		int nx,ny,nloops,noit,np1,np2,np3,np4;
 		double eta,zi,t,s,xzi,xeta,yzi,yeta,alpha,beta,gamma1,A,B,C,D,inv_eta,inv_zi,ertot,ermax;
 		vector<Point> Grid_List;
+
+		SourceTermParams source_params;
+		BoundaryLayerParams bl_south, bl_north, bl_east, bl_west;
 };
 
 class Cylinder:public Shape

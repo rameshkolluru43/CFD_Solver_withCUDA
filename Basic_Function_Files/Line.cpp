@@ -2,196 +2,383 @@
 
 Line::Line()
 {
-        Start_Point(0.0,0.0,0.0);
-        End_Point(0.0,0.0,0.0);
-		ds_x=0.0;
-		ds_y=0.0;
-		ds_z=0.0;
-		Length = 0.0;
+	Start_Point(0.0, 0.0, 0.0);
+	End_Point(0.0, 0.0, 0.0);
+	ds_x = 0.0;
+	ds_y = 0.0;
+	ds_z = 0.0;
+	Length = 0.0;
+	no_of_points = 0;
 }
 
-const Point & Line::get_Point(int i) const
+const Point &Line::get_Point(int i) const
 {
-        return point_list[i];
+	return point_list[i];
 }
 
-void Line::generate(Point & sp,Point & ep,int & n)
+/* ======================================================================
+   Uniform point distribution along a line.
+   ====================================================================== */
+void Line::generate(Point &sp, Point &ep, int &n)
 {
-        Point Temp_point;
-		no_of_points = n;
-        sp.Print();
-        ep.Print();
-        
-		ds_x=(ep.Get_x()-sp.Get_x());
-        ds_y=(ep.Get_y()-sp.Get_y());
-		ds_z=(ep.Get_z()-sp.Get_z());
-		
-		Length = sqrt(ds_x*ds_x + ds_y*ds_y + ds_z*ds_z);
-		
-        delx=(ep.Get_x()-sp.Get_x())/(n-1);
-        dely=(ep.Get_y()-sp.Get_y())/(n-1);
-		delz=(ep.Get_z()-sp.Get_z())/(n-1);
-		
-        for(int i=0;i<n;i++)
-        {
-                Temp_point(sp.Get_x()+i*delx,sp.Get_y()+i*dely,sp.Get_z()+i*delz);
-                point_list.push_back(Temp_point);
-        }
-        cout<<"Created Line\t"<<point_list.size()<<endl;
+	Point Temp_point;
+	no_of_points = n;
+	point_list.clear();
+	point_list.reserve(n);
+
+	ds_x = ep.Get_x() - sp.Get_x();
+	ds_y = ep.Get_y() - sp.Get_y();
+	ds_z = ep.Get_z() - sp.Get_z();
+	Length = sqrt(ds_x * ds_x + ds_y * ds_y + ds_z * ds_z);
+
+	delx = ds_x / (n - 1);
+	dely = ds_y / (n - 1);
+	delz = ds_z / (n - 1);
+
+	for (int i = 0; i < n; i++)
+	{
+		Temp_point(sp.Get_x() + i * delx,
+				   sp.Get_y() + i * dely,
+				   sp.Get_z() + i * delz);
+		point_list.push_back(Temp_point);
+	}
+	cout << "Created Line (uniform): " << point_list.size() << " points, L=" << Length << endl;
 }
 
-void Line::generate(Point & sp,Point & ep,int & n,bool & both_sides)
+/* ======================================================================
+   Vinokur stretching (backward compatible, hardcoded beta=1.01).
+   ====================================================================== */
+void Line::generate(Point &sp, Point &ep, int &n, bool &both_sides)
 {
-		double beta=0.0,alpha=0.0,a=0.0,b=0.0,y=0.0,eta=0.0;
-        Point Temp_point;
-		no_of_points = n;
-		cout<<"Starting Point\t";
-        sp.Print();
-		cout<<"Ending Point\t";
-        ep.Print();
-		
-		ds_x=(ep.Get_x()-sp.Get_x());
-        ds_y=(ep.Get_y()-sp.Get_y());
-		ds_z=(ep.Get_z()-sp.Get_z());
-		
-		Length = sqrt(ds_x*ds_x + ds_y*ds_y + ds_z*ds_z);
-		
-		cout<<"Length of the line\t"<<Length<<endl;
-        delx=(ep.Get_x()-sp.Get_x())/(n-1);
-        dely=(ep.Get_y()-sp.Get_y())/(n-1);
-		delz=(ep.Get_z()-sp.Get_z())/(n-1);
-		
-		
-		del_s= Length/(n-1);
-		
-		for(int j=0;j<n;j++)
-		{	
-			both_sides = true;
-			
-			if(both_sides)
-			{
-				beta = 1.01;
-				alpha = 0.5;
-				eta = j*del_s/Length;
-				a = (eta - alpha)/(1.0 - alpha);
-				b = (beta + 1.0)/(beta - 1.0);
-				y = Length*((((2*alpha + beta)*pow(b,a)) + 2*alpha - beta)/((2*alpha + 1.0)*(pow(b,a)+1.0)));
-			}
-			else
-			{
+	double beta_v = 1.01, alpha_v, a, b, y_val, eta_v;
+	no_of_points = n;
+	point_list.clear();
+	point_list.reserve(n);
 
-				beta = 1.01;
-				alpha = 0.01;
-				eta = j*del_s/Length;
-				a = (1.0-eta);
-				b = (beta + 1.0)/(beta - 1.0);
-				y = Length*((beta + 1.0) - (beta - 1.0)*pow(b,a))/(pow(b,a) + 1.0);
-//				cout<<"y=\t"<<y<<endl;
-			}
-			if(ds_x == 0.0 and ds_z == 0.0)
-				Temp_point(sp.Get_x()+j*ds_x,sp.Get_y()+y ,sp.Get_z()+j*ds_z);
-			else if(ds_x == 0.0 and ds_y == 0.0)
-				Temp_point(sp.Get_x()+j*ds_x,sp.Get_y()+j*ds_y,sp.Get_z()+y);
-			else if(ds_z == 0.0 and ds_y == 0.0)
-				Temp_point(sp.Get_x()+y,sp.Get_y()+j*ds_y ,sp.Get_z()+j*ds_z);
-			else if(ds_x !=0.0 and ds_y !=0.0 and ds_z ==0.0)
-				Temp_point(sp.Get_x() + y,sp.Get_y() + y,sp.Get_z()+j*ds_z);
-			else if(ds_x !=0.0 and ds_z !=0.0 and ds_y ==0.0)
-				Temp_point(sp.Get_x()+y,sp.Get_y()+j*ds_y,sp.Get_z()+y);
-			else if(ds_y !=0.0 and ds_z !=0.0 and ds_x ==0.0)
-				Temp_point(sp.Get_x()+j*ds_x,sp.Get_y()+y,sp.Get_z()+y);
-			else 
-				Temp_point(sp.Get_x() + y,sp.Get_y()+y,sp.Get_z()+y);
-	
-//				Temp_point.Print();
-                point_list.push_back(Temp_point);
+	ds_x = ep.Get_x() - sp.Get_x();
+	ds_y = ep.Get_y() - sp.Get_y();
+	ds_z = ep.Get_z() - sp.Get_z();
+	Length = sqrt(ds_x * ds_x + ds_y * ds_y + ds_z * ds_z);
+
+	del_s = Length / (n - 1);
+	vector<double> s_dist(n, 0.0);
+
+	for (int j = 0; j < n; j++)
+	{
+		eta_v = static_cast<double>(j) / (n - 1);
+
+		if (both_sides)
+		{
+			alpha_v = 0.5;
+			a = (eta_v - alpha_v) / (1.0 - alpha_v);
+			b = (beta_v + 1.0) / (beta_v - 1.0);
+			y_val = Length * (((2 * alpha_v + beta_v) * pow(b, a) + 2 * alpha_v - beta_v)
+					/ ((2 * alpha_v + 1.0) * (pow(b, a) + 1.0)));
 		}
+		else
+		{
+			alpha_v = 0.01;
+			a = 1.0 - eta_v;
+			b = (beta_v + 1.0) / (beta_v - 1.0);
+			y_val = Length * ((beta_v + 1.0) - (beta_v - 1.0) * pow(b, a))
+					/ (pow(b, a) + 1.0);
+		}
+		s_dist[j] = y_val;
+	}
+
+	distribute_points(sp, s_dist);
+	cout << "Created Line (Vinokur): " << point_list.size() << " points, L=" << Length << endl;
+}
+
+/* ======================================================================
+   Parameterized Vinokur stretching.
+   beta_param: stretching intensity (>1.0, closer to 1 = more stretching)
+   alpha_param: clustering location (0.5 = both ends, 0.0 = start only)
+   both_sides: true = cluster at both ends, false = cluster at start
+   ====================================================================== */
+void Line::generate_stretched(Point &sp, Point &ep, int &n,
+							  double beta_param, double alpha_param,
+							  bool both_sides)
+{
+	Point Temp_point;
+	no_of_points = n;
+	point_list.clear();
+	point_list.reserve(n);
+
+	ds_x = ep.Get_x() - sp.Get_x();
+	ds_y = ep.Get_y() - sp.Get_y();
+	ds_z = ep.Get_z() - sp.Get_z();
+	Length = sqrt(ds_x * ds_x + ds_y * ds_y + ds_z * ds_z);
+
+	del_s = Length / (n - 1);
+
+	vector<double> s_dist(n, 0.0);
+	for (int j = 0; j < n; j++)
+	{
+		double eta_v = static_cast<double>(j) / (n - 1);
+		double y_val;
+
+		if (both_sides)
+		{
+			double a = (eta_v - alpha_param) / (1.0 - alpha_param);
+			double b = (beta_param + 1.0) / (beta_param - 1.0);
+			y_val = Length * (((2.0 * alpha_param + beta_param) * pow(b, a)
+					+ 2.0 * alpha_param - beta_param)
+					/ ((2.0 * alpha_param + 1.0) * (pow(b, a) + 1.0)));
+		}
+		else
+		{
+			double a = 1.0 - eta_v;
+			double b = (beta_param + 1.0) / (beta_param - 1.0);
+			y_val = Length * ((beta_param + 1.0) - (beta_param - 1.0) * pow(b, a))
+					/ (pow(b, a) + 1.0);
+		}
+		s_dist[j] = y_val;
+	}
+
+	distribute_points(sp, s_dist);
+
+	cout << "Created Line (stretched): " << point_list.size() << " points\n"
+		 << "  beta=" << beta_param << " alpha=" << alpha_param
+		 << " both_sides=" << both_sides << "\n"
+		 << "  First spacing: " << s_dist[1] << "\n"
+		 << "  Last spacing:  " << s_dist[n - 1] - s_dist[n - 2] << endl;
+}
+
+/* ======================================================================
+   Boundary layer distribution using geometric growth.
+   first_cell_height: physical height of the first cell
+   growth_rate: ratio of successive cell heights (typically 1.1 - 1.3)
+
+   The distribution grows geometrically from the start point up to the
+   point where the total length is reached. If the geometric series
+   doesn't reach the full length, the remaining points are uniformly
+   distributed.
+   ====================================================================== */
+void Line::generate_boundary_layer(Point &sp, Point &ep, int &n,
+								   double first_cell_height,
+								   double growth_rate)
+{
+	Point Temp_point;
+	no_of_points = n;
+	point_list.clear();
+	point_list.reserve(n);
+
+	ds_x = ep.Get_x() - sp.Get_x();
+	ds_y = ep.Get_y() - sp.Get_y();
+	ds_z = ep.Get_z() - sp.Get_z();
+	Length = sqrt(ds_x * ds_x + ds_y * ds_y + ds_z * ds_z);
+
+	vector<double> s_dist(n, 0.0);
+	s_dist[0] = 0.0;
+
+	if (fabs(growth_rate - 1.0) < 1e-10)
+	{
+		double ds = Length / (n - 1);
+		for (int i = 1; i < n; i++)
+			s_dist[i] = i * ds;
+	}
+	else
+	{
+		double dh = first_cell_height;
+		double total_geometric = first_cell_height * (pow(growth_rate, n - 1) - 1.0)
+								/ (growth_rate - 1.0);
+
+		if (total_geometric <= Length)
+		{
+			double scale = Length / total_geometric;
+			dh = first_cell_height * scale;
+			s_dist[1] = dh;
+			for (int i = 2; i < n; i++)
+			{
+				dh *= growth_rate;
+				s_dist[i] = s_dist[i - 1] + dh;
+			}
+		}
+		else
+		{
+			dh = first_cell_height;
+			for (int i = 1; i < n; i++)
+			{
+				s_dist[i] = s_dist[i - 1] + dh;
+				if (s_dist[i] >= Length)
+				{
+					double uniform_ds = (Length - s_dist[i - 1]) / (n - i);
+					for (int k = i; k < n; k++)
+						s_dist[k] = s_dist[i - 1] + (k - i + 1) * uniform_ds;
+					break;
+				}
+				dh *= growth_rate;
+			}
+			double scale = Length / s_dist[n - 1];
+			for (int i = 1; i < n; i++)
+				s_dist[i] *= scale;
+		}
+	}
+
+	distribute_points(sp, s_dist);
+
+	cout << "Created Line (boundary layer): " << point_list.size() << " points\n"
+		 << "  First cell height: " << first_cell_height << "\n"
+		 << "  Growth rate: " << growth_rate << "\n"
+		 << "  Actual first dh: " << s_dist[1] << "\n"
+		 << "  Actual last dh:  " << s_dist[n - 1] - s_dist[n - 2] << endl;
+}
+
+/* ======================================================================
+   Hyperbolic tangent stretching.
+   stretching_factor: controls clustering intensity.
+     delta > 0: cluster at both ends
+     Larger delta = more uniform; smaller delta = more clustering.
+   Based on: s(eta) = 1 + tanh(delta*(eta - 0.5)) / tanh(delta/2)
+   ====================================================================== */
+void Line::generate_tanh(Point &sp, Point &ep, int &n,
+						 double stretching_factor)
+{
+	Point Temp_point;
+	no_of_points = n;
+	point_list.clear();
+	point_list.reserve(n);
+
+	ds_x = ep.Get_x() - sp.Get_x();
+	ds_y = ep.Get_y() - sp.Get_y();
+	ds_z = ep.Get_z() - sp.Get_z();
+	Length = sqrt(ds_x * ds_x + ds_y * ds_y + ds_z * ds_z);
+
+	vector<double> s_dist(n, 0.0);
+	double delta = stretching_factor;
+	double tanh_half = tanh(delta * 0.5);
+
+	for (int j = 0; j < n; j++)
+	{
+		double eta = static_cast<double>(j) / (n - 1);
+		double s_norm = 0.5 * (1.0 + tanh(delta * (eta - 0.5)) / tanh_half);
+		s_dist[j] = s_norm * Length;
+	}
+
+	distribute_points(sp, s_dist);
+
+	cout << "Created Line (tanh): " << point_list.size() << " points\n"
+		 << "  Stretching factor: " << delta << "\n"
+		 << "  First spacing: " << s_dist[1] << "\n"
+		 << "  Mid spacing:   " << s_dist[n / 2 + 1] - s_dist[n / 2] << "\n"
+		 << "  Last spacing:  " << s_dist[n - 1] - s_dist[n - 2] << endl;
+}
+
+/* ======================================================================
+   Helper: distribute points along the line direction given an
+   arc-length distribution vector s_dist[0..n-1] where s_dist[0]=0
+   and s_dist[n-1]=Length.
+   ====================================================================== */
+void Line::distribute_points(Point &sp, const vector<double> &s_distribution)
+{
+	Point Temp_point;
+	int n = s_distribution.size();
+	double ux = ds_x / Length;
+	double uy = ds_y / Length;
+	double uz = ds_z / Length;
+
+	for (int j = 0; j < n; j++)
+	{
+		double s = s_distribution[j];
+		Temp_point(sp.Get_x() + s * ux,
+				   sp.Get_y() + s * uy,
+				   sp.Get_z() + s * uz);
+		point_list.push_back(Temp_point);
+	}
 }
 
 void Line::Reverse_Points()
 {
 	int size = point_list.size();
 	vector<Point> Reverselist;
-	for(int i = size-1;i>=0;i--)
+	Reverselist.reserve(size);
+	for (int i = size - 1; i >= 0; i--)
 		Reverselist.push_back(point_list[i]);
 	point_list = Reverselist;
 }
 
-void Line::Merge(Line & Line1)
+void Line::Clear()
 {
-	cout<<"Merging Two lInes\n";
-	vector<Point> Temp_Point_List;
-	Temp_Point_List = Line1.Get_Point_list();
- 	cout<<point_list.size()<<"\t"<<Temp_Point_List.size()<<endl;
-//  	point_list[no_of_points-1].Print();
-//  	Temp_Point_List[0].Print();
-	if(point_list[no_of_points-1]==Temp_Point_List[0])
-	{
-		for(unsigned int i=1;i<Temp_Point_List.size();i++)
-			point_list.push_back(Temp_Point_List[i]);
-	}
-	else
-	{
-		for(unsigned int i=0;i<Temp_Point_List.size();i++)
-			point_list.push_back(Temp_Point_List[i]);
-	}
+	point_list.clear();
+	no_of_points = 0;
+	Length = 0.0;
+	ds_x = ds_y = ds_z = 0.0;
 }
 
-void Line::Merge(vector<Point> & List1)
+void Line::Merge(Line &Line1)
 {
-	cout<<"Merging List of Points to current Line\n";
- 	cout<<point_list.size()<<"\t"<<List1.size()<<endl;
-//  	point_list[no_of_points-1].Print();
-//  	Temp_Point_List[0].Print();
-	if(point_list[no_of_points-1]==List1[0])
+	cout << "Merging two lines\n";
+	vector<Point> Temp_Point_List;
+	Temp_Point_List = Line1.Get_Point_list();
+	cout << point_list.size() << "\t" << Temp_Point_List.size() << endl;
+
+	if (no_of_points > 0 && point_list[no_of_points - 1] == Temp_Point_List[0])
 	{
-		for(unsigned int i=1;i<List1.size();i++)
+		for (unsigned int i = 1; i < Temp_Point_List.size(); i++)
+			point_list.push_back(Temp_Point_List[i]);
+	}
+	else
+	{
+		for (unsigned int i = 0; i < Temp_Point_List.size(); i++)
+			point_list.push_back(Temp_Point_List[i]);
+	}
+	no_of_points = point_list.size();
+}
+
+void Line::Merge(vector<Point> &List1)
+{
+	cout << "Merging list of points to current line\n";
+	cout << point_list.size() << "\t" << List1.size() << endl;
+
+	if (no_of_points > 0 && point_list[no_of_points - 1] == List1[0])
+	{
+		for (unsigned int i = 1; i < List1.size(); i++)
 			point_list.push_back(List1[i]);
 	}
 	else
 	{
-		for(unsigned int i=0;i<List1.size();i++)
+		for (unsigned int i = 0; i < List1.size(); i++)
 			point_list.push_back(List1[i]);
 	}
+	no_of_points = point_list.size();
 }
 
 void Line::write_output()
 {
-        Point temp_Point;
-        ofstream myfileout("line.txt",ios::app|ios::binary); 
-        if(myfileout.is_open())
-        {
-  //              myfileout<<"POINTS "<<point_list.size()<<endl;
-                for(unsigned int i=0;i<point_list.size();i++)
-                {
-                        temp_Point=get_Point(i);
-                        temp_Point.Print();
-			myfileout<<temp_Point.Get_x()<<"\t"<<temp_Point.Get_y()<<"\t"<<temp_Point.Get_z();
-                        myfileout<<"\t"<<0.0<<endl;
-                }
-        }
-        else
-        {
-                cout<<" unble to open output file\n"; 
-        }
-        myfileout.close();
+	Point temp_Point;
+	ofstream myfileout("line.txt", ios::app | ios::binary);
+	if (myfileout.is_open())
+	{
+		for (unsigned int i = 0; i < point_list.size(); i++)
+		{
+			temp_Point = get_Point(i);
+			myfileout << temp_Point.Get_x() << "\t"
+					  << temp_Point.Get_y() << "\t"
+					  << temp_Point.Get_z() << "\t"
+					  << 0.0 << endl;
+		}
+	}
+	else
+	{
+		cerr << "Unable to open output file line.txt\n";
+	}
+	myfileout.close();
 }
 
-const vector<Point> & Line::Get_Point_list() const
+const vector<Point> &Line::Get_Point_list() const
 {
-        return point_list;
+	return point_list;
 }
 
 void Line::Print()
 {
-	for(unsigned int i=0;i<point_list.size();i++)
-	{
+	for (unsigned int i = 0; i < point_list.size(); i++)
 		point_list[i].Print();
-	}
-	cout<<"---------------------------------\n";
+	cout << "---------------------------------\n";
 }
 
-double  Line::Size()
+double Line::Size()
 {
 	return point_list.size();
 }

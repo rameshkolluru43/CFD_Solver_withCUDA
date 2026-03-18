@@ -33,15 +33,11 @@
  * @see Matrix_Assembly_Cuda_Host_Wrappers.cpp
  */
 
-#include "Matrix_Assembly_Cuda_Kernels.h"
 #include <cuda_runtime.h>
-#include <curand_kernel.h>
-#include <cub/cub.cuh>
-#include <thrust/device_vector.h>
-#include <thrust/transform.h>
-#include <thrust/reduce.h>
-#include <thrust/scan.h>
-#include <thrust/execution_policy.h>
+#include <cfloat>
+#include <cstdio>
+#include <cstdlib>
+#include <cmath>
 
 // CUDA error checking macro
 #define CUDA_CHECK(call) \

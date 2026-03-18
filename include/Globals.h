@@ -225,6 +225,7 @@ typedef vector<int> V_I;
 using vtkIdType = long long;
 #endif
 
+#ifndef __CUDACC__
 struct BoundaryInfo
 {
     std::unordered_set<vtkIdType> leftBoundary;
@@ -234,6 +235,9 @@ struct BoundaryInfo
     std::unordered_set<vtkIdType> cylinderBoundary;
 };
 extern BoundaryInfo gBoundaryInfo;
+#else
+struct BoundaryInfo {};
+#endif
 
 // Structures to hold boundary conditions
 struct InletCondition
@@ -298,6 +302,7 @@ struct MeshParams
     int gridSize, nx, ny;
     std::string meshType;
 };
+extern MeshParams meshParams;
 struct GeneralParams
 {
     double L_ref, M_ref, mu_ref, P_ref, Rho_ref, cp_ref, R_ref;
