@@ -37,7 +37,8 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 
 #### **Computational Framework** 🔧
 - **Boundary Conditions**: Far-field, wall, inlet, outlet, symmetry with robust treatment
-- **Grid Support**: Unstructured grids via GMSH format with automatic boundary detection
+- **Grid Support**: Unstructured grids via **VTK/GMSH**; **mixed triangle and quadrilateral** 2D meshes with per-face connectivity
+- **Dynamic Meshing**: **Gradient-based adaptive mesh refinement (AMR)** — tag cells by density/pressure gradients; configurable threshold and period
 - **Test Cases**: Comprehensive validation suite including shock tubes, cylinder flows, and complex geometries
 - **Output Formats**: VTK for ParaView visualization with field variable export
 - **Error Handling**: Production-ready error checking and graceful failure recovery
@@ -77,11 +78,15 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 ├── Gmsh_Grids/                   # GMSH format grids
 ├── build/                        # Build directory
 └── docs/                         # Documentation
-    ├── Van_Leer_Flux_Implementation.md       # Van Leer flux technical documentation
-    ├── ROE_2O_Implementation.md               # Second-order Roe scheme documentation  
-    ├── Enhanced_ROE_First_Order.md           # Enhanced first-order Roe documentation
-    ├── AUSM_Flux_Implementation.md           # AUSM flux scheme documentation
-    └── *_Completion_Summary.md                # Implementation completion summaries
+    ├── MESH_AND_GRID.md                      # Mesh formats, tri/quad support
+    ├── ADAPTIVE_MESH_REFINEMENT.md           # Gradient-based AMR
+    ├── CONFIGURATION.md                      # JSON configuration reference
+    ├── BUILD_AND_RUN.md                      # Build and run guide
+    ├── RELEASE_NOTES.md                      # Changelog and recent updates
+    ├── Van_Leer_Flux_Implementation.md      # Van Leer flux technical documentation
+    ├── ROE_2O_Implementation.md             # Second-order Roe scheme documentation
+    ├── AUSM_Flux_Implementation.md          # AUSM flux scheme documentation
+    └── *_Completion_Summary.md              # Implementation completion summaries
 ```
 
 ## 🛠️ Dependencies
@@ -137,12 +142,16 @@ make -j$(nproc)
 #### CPU Version
 ```bash
 ./CFD_solver ../json_Files/Solver_Config.json
+# Or with AMR enabled:
+./CFD_solver ../json_Files/Test_Config_AMR.json
 ```
 
 #### GPU Version
 ```bash
 ./CFD_solver_gpu ../json_Files/Solver_Config.json
 ```
+
+See [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md) for detailed build and run instructions.
 
 ### Configuration
 
@@ -271,6 +280,14 @@ The CUDA implementation provides significant speedup over CPU execution:
 - Hopper (9.0)
 
 ## 📖 Documentation
+
+| Document | Description |
+|----------|-------------|
+| [docs/MESH_AND_GRID.md](docs/MESH_AND_GRID.md) | Mesh formats (VTK, CSV, TXT), mixed tri/quad support, face-ordered connectivity |
+| [docs/ADAPTIVE_MESH_REFINEMENT.md](docs/ADAPTIVE_MESH_REFINEMENT.md) | Gradient-based AMR: indicator, tagging, configuration |
+| [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | JSON configuration reference (solver, simulation, AMR) |
+| [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md) | Build requirements, CMake options, running CPU/GPU |
+| [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | Changelog and recent feature summary |
 
 ### Generate Documentation
 ```bash

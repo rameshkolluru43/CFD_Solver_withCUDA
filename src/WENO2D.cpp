@@ -398,6 +398,18 @@ void Evaluate_Cell_Net_Flux_WENO()
 
 	for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
 	{
+		// WENO2D implementation is structured-quad specific (4 faces with directional stencils).
+		// For mixed/triangular cells, do not attempt WENO here.
+		if (Cells[Current_Cell_No].numFaces != 4)
+		{
+			// Leave net flux as zero; caller should use 1O/2O paths for unstructured.
+			for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
+			{
+				Cells_Net_Flux[Current_Cell_No][i] = 0.0;
+			}
+			Evaluate_Time_Step(Current_Cell_No);
+			continue;
+		}
 
 		N_1 = Cells[Current_Cell_No].Neighbours[0]; //(i-1,j,k)
 		N_2 = Cells[Current_Cell_No].Neighbours[1]; //(i,j-1,k)
@@ -405,7 +417,7 @@ void Evaluate_Cell_Net_Flux_WENO()
 		N_4 = Cells[Current_Cell_No].Neighbours[3]; //(i,j+1,k)
 
 		//		cout<<"here \t"<<Current_Cell_No<<endl;
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
 		{
 			Cells_Net_Flux[Current_Cell_No][i] = 0.0;
 		}

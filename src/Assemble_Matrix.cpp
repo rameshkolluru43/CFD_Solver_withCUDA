@@ -41,14 +41,15 @@ vector<V_D> Assemble_A(vector<V_D> &A, double &dt)
             continue;
         }
 
-        // Get the state variables for the current cell
         double Omega = Cells[Cell_No].Area;
         int Face_No;
+        if (Cells[Cell_No].numFaces != 4)
+            continue;
 
-        Neighbour_1 = Cells[Cell_No].Neighbours[0]; //(i-1,j,k)
-        Neighbour_2 = Cells[Cell_No].Neighbours[1]; //(i,j-1,k)
-        Neighbour_3 = Cells[Cell_No].Neighbours[2]; //(i+1,j,k)
-        Neighbour_4 = Cells[Cell_No].Neighbours[3]; //(i,j+1,k)
+        Neighbour_1 = Cells[Cell_No].Neighbours[0];
+        Neighbour_2 = Cells[Cell_No].Neighbours[1];
+        Neighbour_3 = Cells[Cell_No].Neighbours[2];
+        Neighbour_4 = Cells[Cell_No].Neighbours[3];
 
         // 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
 
@@ -215,10 +216,12 @@ void Assemble_A1(double &dt)
         }
 
         double Omega = Cells[Cell_No].Area;
-        int Neighbour_1 = Cells[Cell_No].Neighbours[0]; // Left neighbor (i-1, j)
-        int Neighbour_2 = Cells[Cell_No].Neighbours[1]; // Bottom neighbor (i, j-1)
-        int Neighbour_3 = Cells[Cell_No].Neighbours[2]; // Right neighbor (i+1, j)
-        int Neighbour_4 = Cells[Cell_No].Neighbours[3]; // Top neighbor (i, j+1)
+        if (Cells[Cell_No].numFaces != 4)
+            continue;
+        int Neighbour_1 = Cells[Cell_No].Neighbours[0];
+        int Neighbour_2 = Cells[Cell_No].Neighbours[1];
+        int Neighbour_3 = Cells[Cell_No].Neighbours[2];
+        int Neighbour_4 = Cells[Cell_No].Neighbours[3];
 
         double dx_right = Cells[Cell_No].Face_Areas[2];  // Right face length in x-direction
         double dx_left = Cells[Cell_No].Face_Areas[0];   // Left face length in x-direction

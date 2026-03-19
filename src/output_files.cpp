@@ -752,16 +752,13 @@ void Write_Cell_Info(const string &opfile)
 
 void Write_Cell_Info(const int &Cell_No)
 {
-	double A1 = 0.0, A2 = 0.0, n1 = 0.0, n2 = 0.0;
+	int nFaces = (Cells[Cell_No].numFaces > 0) ? Cells[Cell_No].numFaces : static_cast<int>(Cells[Cell_No].Face_Areas.size());
 	cout << Cell_No << endl;
-	for (int Face_No = 0; Face_No < 4; Face_No++)
+	for (int Face_No = 0; Face_No < nFaces; Face_No++)
 	{
-		cout << Face_No << endl;
-		A1 = Cells[Cell_No].Face_Areas[Face_No * 2 + 0];
-		A2 = Cells[Cell_No].Face_Areas[Face_No * 2 + 1];
-		cout << A1 << "\t" << A2 << endl;
-		n1 = Cells[Cell_No].Face_Normals[Face_No * 2 + 0];
-		n2 = Cells[Cell_No].Face_Normals[Face_No * 2 + 1];
-		cout << n1 << "\t" << n2 << endl;
+		double area = (Face_No < static_cast<int>(Cells[Cell_No].Face_Areas.size())) ? Cells[Cell_No].Face_Areas[Face_No] : 0.0;
+		double n1 = (Face_No * 2 + 0 < static_cast<int>(Cells[Cell_No].Face_Normals.size())) ? Cells[Cell_No].Face_Normals[Face_No * 2 + 0] : 0.0;
+		double n2 = (Face_No * 2 + 1 < static_cast<int>(Cells[Cell_No].Face_Normals.size())) ? Cells[Cell_No].Face_Normals[Face_No * 2 + 1] : 0.0;
+		cout << Face_No << "\t area=" << area << "\t n=" << n1 << "\t" << n2 << endl;
 	}
 }

@@ -71,6 +71,14 @@ void readJSON(const std::string &jsonFileName)
     Dissipation_Type = solverData["Dissipation_Type"].asInt();
     Is_MOVERS_1 = solverData["Is_MOVERS_1"].asBool();
     Enable_Entropy_Fix = solverData["Enable_Entropy_Fix"].asBool();
+    if (solverData.isMember("Enable_AMR"))
+        Enable_AMR = solverData["Enable_AMR"].asBool();
+    if (solverData.isMember("AMR_Period"))
+        AMR_Period = solverData["AMR_Period"].asInt();
+    if (solverData.isMember("AMR_Gradient_Threshold"))
+        AMR_Gradient_Threshold = solverData["AMR_Gradient_Threshold"].asDouble();
+    if (solverData.isMember("AMR_Max_Fraction"))
+        AMR_Max_Fraction = solverData["AMR_Max_Fraction"].asDouble();
 
     // Limiter coefficients
     Limiter_Zeta = limiterData["Limiter_Zeta"].asDouble();

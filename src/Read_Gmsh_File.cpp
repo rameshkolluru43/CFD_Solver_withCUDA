@@ -4,9 +4,9 @@
 #include "Grid.h"
 
 // The function reads the grid file and stores the points, cells and boundary cells in the respective vectors
-// The function is incomplete and not generic to read all kind of cells
 // Function to read the Gmsh grid file
-// The function reads the grid file and stores the points, cells and boundary cells in the respective vectors
+
+void fillFaceOrderedNeighbours(vector<Cell> &cells, const map<pair<int, int>, set<int>> &faceToCells, const int No_Physical_Cells, int &GhostCellIndex);
 
 bool Read_VTK_Grid(const string &GridFileName)
 {
@@ -240,33 +240,22 @@ void Identify_Cells(V_D &Points, vector<Cell> &Cells, bool Is_2D_Flow, int &No_P
 
 void Identify_Neighbours(V_D &Points, vector<Cell> &Cells, vector<Cell> &BLineCells)
 {
-    std::map<std::pair<int, int>, int> faceToCell;
     std::map<std::pair<int, int>, std::set<int>> faceToCells;
-    std::unordered_map<std::pair<int, int>, bool, hash_pair> boundaryFaceMap;
 
-    int tracker = 0;
-
-    cout << "Identifying Neighbours" << endl;
+    cout << "Identifying Neighbours (face-ordered for tri/quad)" << endl;
     cout << "Cells Size is \t" << Cells.size() << endl;
-    int GhostCellIndex = Cells.size();
+    const int No_Physical = static_cast<int>(Cells.size());
+    int GhostCellIndex = No_Physical;
 
-    // Maps to store the face to cell mapping
     mapFacesToCells(Cells, faceToCells);
-
-    // Check if all the cells have neighbours equal to the number of nodes otherwise insert ghost cell
     for (size_t i = 0; i < Cells.size(); i++)
-    {
-        if (Cells[i].Neighbours.size() < Cells[i].nodeIndices.size())
-        {
-            Cells[i].NoBoundaryFaces = Cells[i].nodeIndices.size() - Cells[i].Neighbours.size();
-            do
-            {
-                Cells[i].Neighbours.push_back(GhostCellIndex);
-                Cells[i].hasBoundaryface = true;
-                GhostCellIndex++;
-            } while (Cells[i].Neighbours.size() < Cells[i].nodeIndices.size());
-        }
-    }
+        Cells[i].NoBoundaryFaces = 0;
+    fillFaceOrderedNeighbours(Cells, faceToCells, No_Physical, GhostCellIndex);
+
+    No_Ghost_Cells = GhostCellIndex - No_Physical_Cells;
+    Total_No_Cells = GhostCellIndex;
+    Cells.resize(Total_No_Cells);
+    cout << "Ghost cells: " << No_Ghost_Cells << "  Total cells: " << Total_No_Cells << endl;
 }
 
 void Identify_ParentCell(vector<Cell> &BCells, vector<Cell> &triQuadCells)
@@ -325,80 +314,89 @@ void Identify_ParentCell(vector<Cell> &BCells, vector<Cell> &triQuadCells)
     //    }
 }
 // Function to generate face-to-cell mapping and detect neighbors
+// Boundary kind constants for Face_Boundary_Kind (per-face)
+static const int FACE_KIND_INTERNAL = 0;
+static const int FACE_KIND_LEFT = 1;
+static const int FACE_KIND_RIGHT = 2;
+static const int FACE_KIND_TOP = 3;
+static const int FACE_KIND_BOTTOM = 4;
+static const int FACE_KIND_WALL = 5;
+
 void mapFacesToCells(vector<Cell> &cells, map<pair<int, int>, set<int>> &faceToCells)
 {
-    bool restartNeeded = false;
-    set<pair<int, int>> nonManifoldFaces; // Store faces that are shared by more than two cells
+    set<pair<int, int>> nonManifoldFaces;
 
     for (size_t cellID = 0; cellID < cells.size(); ++cellID)
     {
         const auto &cellNodes = cells[cellID].nodeIndices;
-        // cout << "Cell ID: " << cellID << "\t";
-        //  For each cell go through its nodes and create a faces
         for (size_t i = 0; i < cellNodes.size(); ++i)
         {
             int node1 = cellNodes[i];
             int node2 = cellNodes[(i + 1) % cellNodes.size()];
-
-            // Ensure consistent ordering of face
             if (node1 > node2)
                 swap(node1, node2);
             pair<int, int> face = {node1, node2};
 
-            // Print face nodes
-            // cout << "Face Nodes: " << node1 << "\t" << node2 << "\t";
-            // search face in the list of faces
             auto it = faceToCells.find(face);
             if (it != faceToCells.end())
             {
-                // The face is already stored, meaning it's shared
                 set<int> &sharedCells = it->second;
-                sharedCells.insert(cellID);
-
-                if (sharedCells.size() == 2)
-                {
-                    // The face is now shared between exactly two cells (valid)
-                    auto it = sharedCells.begin();
-                    int firstCell = *it++;
-                    int secondCell = *it;
-
-                    // ✅ Use push_back() instead of overwriting Neighbours[i]
-                    if (find(cells[firstCell].Neighbours.begin(), cells[firstCell].Neighbours.end(), secondCell) == cells[firstCell].Neighbours.end())
-                    {
-                        cells[firstCell].Neighbours.push_back(secondCell);
-                    }
-                    if (find(cells[secondCell].Neighbours.begin(), cells[secondCell].Neighbours.end(), firstCell) == cells[secondCell].Neighbours.end())
-                    {
-                        cells[secondCell].Neighbours.push_back(firstCell);
-                    }
-                    // cout << "First Cell: " << firstCell << "\tSecond Cell: " << secondCell << endl;
-                }
-                else if (sharedCells.size() > 2)
-                {
-                    // 🚨 Face is shared by more than two cells (Non-Manifold case)
-                    cout << "Face is shared by more than two cells: ";
-                    for (int c : sharedCells)
-                        cout << c << " ";
-                    cout << endl;
+                sharedCells.insert(static_cast<int>(cellID));
+                if (sharedCells.size() > 2)
                     nonManifoldFaces.insert(face);
-                }
             }
             else
-            {
-                // If the face is new, add it to the map
                 faceToCells[face] = {static_cast<int>(cellID)};
-                // cout << "New Face: " << cellID << endl;
-            }
         }
     }
 
-    // 🚨 Log non-manifold faces instead of causing infinite loop
     if (!nonManifoldFaces.empty())
     {
-        cout << "Warning: Non-manifold faces detected! These faces are shared by more than two cells:\n";
-        for (auto &face : nonManifoldFaces)
+        cout << "Warning: Non-manifold faces detected (shared by >2 cells).\n";
+    }
+}
+
+// Fill Neighbours in face order: Neighbours[f] = cell across face f, or ghost index for boundary.
+void fillFaceOrderedNeighbours(vector<Cell> &cells, const map<pair<int, int>, set<int>> &faceToCells, const int No_Physical_Cells, int &GhostCellIndex)
+{
+    const int nCells = static_cast<int>(cells.size());
+    for (int cellID = 0; cellID < nCells; cellID++)
+    {
+        const auto &cellNodes = cells[cellID].nodeIndices;
+        const int nF = static_cast<int>(cellNodes.size());
+        cells[cellID].Neighbours.assign(nF, -1);
+
+        for (int f = 0; f < nF; f++)
         {
-            cout << "Face (" << face.first << ", " << face.second << ") shared by multiple cells.\n";
+            int node1 = cellNodes[f];
+            int node2 = cellNodes[(f + 1) % nF];
+            if (node1 > node2)
+                swap(node1, node2);
+            pair<int, int> edge = {node1, node2};
+
+            auto it = faceToCells.find(edge);
+            if (it != faceToCells.end() && it->second.size() == 2)
+            {
+                for (int other : it->second)
+                {
+                    if (other != cellID)
+                    {
+                        cells[cellID].Neighbours[f] = other;
+                        break;
+                    }
+                }
+            }
+            // else: boundary face, leave -1; will assign ghost below
+        }
+
+        for (int f = 0; f < nF; f++)
+        {
+            if (cells[cellID].Neighbours[f] < 0)
+            {
+                cells[cellID].Neighbours[f] = GhostCellIndex++;
+                cells[cellID].hasBoundaryface = true;
+                cells[cellID].NoBoundaryFaces++;
+            }
         }
     }
 }
@@ -518,125 +516,108 @@ void Classify_Domain_Boundaries(std::vector<Cell> &Cells, double &minX, double &
 
     for (size_t i = 0; i < Cells.size(); i++)
     {
-        if (!Cells[i].hasBoundaryface)
-            continue;
-
-        // cout << "Cell ID: " << Cells[i].cellID << "\t";
-        // cout << "Has boundary face : " << Cells[i].hasBoundaryface << "\t";
-        // cout << "No of Boundary Faces : " << Cells[i].NoBoundaryFaces << "\t";
-        //  Reset all face flags
         Cells[i].Left_Face = false;
         Cells[i].Right_Face = false;
         Cells[i].Top_Face = false;
         Cells[i].Bottom_Face = false;
         Cells[i].Interior_Face = false;
 
-        Neighbour_1 = Cells[i].Neighbours[0];
-        Neighbour_2 = Cells[i].Neighbours[1];
-        Neighbour_3 = Cells[i].Neighbours[2];
-        Neighbour_4 = Cells[i].Neighbours[3];
-
-        // Which Neighhour index is greater than the Number_Physical_Cells or Cells.size()
-        // cout << Neighbour_1 << "\t" << Neighbour_2 << "\t" << Neighbour_3 << "\t" << Neighbour_4 << "\t";
         size_t numNodes = Cells[i].nodeIndices.size();
         size_t numEdges = numNodes;
+        Cells[i].Face_Boundary_Kind.resize(numEdges, FACE_KIND_INTERNAL);
 
         bool isDomainBoundary = false;
-
         for (size_t e = 0; e < numEdges; e++)
         {
             size_t idx1 = (e % numNodes) * 3;
             size_t idx2 = ((e + 1) % numNodes) * 3;
 
-            // Extract p1
             p1[0] = Cells[i].Cell_Vertices[idx1 + 0];
             p1[1] = Cells[i].Cell_Vertices[idx1 + 1];
             p1[2] = Cells[i].Cell_Vertices[idx1 + 2];
-
-            // Extract p2
             p2[0] = Cells[i].Cell_Vertices[idx2 + 0];
             p2[1] = Cells[i].Cell_Vertices[idx2 + 1];
             p2[2] = Cells[i].Cell_Vertices[idx2 + 2];
 
-            // Get the boundary type of the face
             std::string btype = Get_Boundary_Type(p1, p2, minX, maxX, minY, maxY, Cells[i].hasBoundaryface);
 
             if (btype == "LEFT")
             {
+                Cells[i].Face_Boundary_Kind[e] = FACE_KIND_LEFT;
                 Cells[i].Left_Face = true;
                 isDomainBoundary = true;
             }
             else if (btype == "RIGHT")
             {
+                Cells[i].Face_Boundary_Kind[e] = FACE_KIND_RIGHT;
                 Cells[i].Right_Face = true;
                 isDomainBoundary = true;
             }
             else if (btype == "TOP")
             {
+                Cells[i].Face_Boundary_Kind[e] = FACE_KIND_TOP;
                 Cells[i].Top_Face = true;
                 isDomainBoundary = true;
             }
             else if (btype == "BOTTOM")
             {
+                Cells[i].Face_Boundary_Kind[e] = FACE_KIND_BOTTOM;
                 Cells[i].Bottom_Face = true;
                 isDomainBoundary = true;
             }
+            else if (btype == "WALL")
+            {
+                Cells[i].Face_Boundary_Kind[e] = FACE_KIND_WALL;
+                isDomainBoundary = true;
+            }
         }
-        // If it's a boundary cell but no face lies on the domain boundary, it's an internal boundary (like an obstacle)
-        if (!isDomainBoundary)
-        {
+        if (!isDomainBoundary && Cells[i].hasBoundaryface)
             Cells[i].Interior_Face = true;
-        }
-        // cout << Cells[i].Left_Face << "\t" << Cells[i].Bottom_Face << "\t" << Cells[i].Right_Face << "\t" << Cells[i].Top_Face << endl;
     }
 }
 
 void Create_Boundary_Cells_Lists(vector<Cell> &Cells, vector<int> &Inlet_Cells_List, vector<int> &Exit_Cells_List, vector<int> &Wall_Cells_List)
 {
-    // Mapping Cells with faces Left - face no 0 bottom - face no 1
-    // right - face no 2 top - face no 3
-    // Ghost cells are numberd after No_Physical_Cells
+    // Per-face boundary lists: (cell, face_index, ghost_cell_index) for each boundary face.
     cout << "Creating Boundary Cells Lists" << endl;
     cout << "Size of Cells is : " << Cells.size() << endl;
+    const int nPhys = No_Physical_Cells;
+
     for (size_t i = 0; i < Cells.size(); i++)
     {
-        /* cout << "Cell ID: " << Cells[i].cellID << "\t";
-         cout << "Has boundary face : " << Cells[i].hasBoundaryface << "\t";
-         cout << "No of Boundary Faces : " << Cells[i].NoBoundaryFaces << "\t";
-         cout << Cells[i].Left_Face << endl;
-         cout << Cells[i].Right_Face << endl;
-         cout << Cells[i].Top_Face << endl;
-         cout << Cells[i].Bottom_Face << endl;*/
+        if (static_cast<int>(i) >= nPhys)
+            break;
+        const int nF = static_cast<int>(Cells[i].Face_Boundary_Kind.size());
+        for (int f = 0; f < nF; f++)
+        {
+            int neigh = Cells[i].Neighbours[f];
+            if (neigh < nPhys)
+                continue;
+            int kind = Cells[i].Face_Boundary_Kind[f];
 
-        if (Cells[i].Left_Face)
-        {
-            Inlet_Cells_List.push_back(i);
-            Inlet_Cells_List.push_back(0);
-        }
-        if (Cells[i].Right_Face)
-        {
-            Exit_Cells_List.push_back(i);
-            Exit_Cells_List.push_back(2);
-        }
-        if (Cells[i].Top_Face)
-        {
-            Wall_Cells_List.push_back(i);
-            Wall_Cells_List.push_back(3);
-        }
-        if (Cells[i].Bottom_Face)
-        {
-            Wall_Cells_List.push_back(i);
-            Wall_Cells_List.push_back(1);
-        }
-        if (Cells[i].Interior_Face)
-        {
-            Wall_Cells_List.push_back(i);
-            Wall_Cells_List.push_back(1);
+            if (kind == FACE_KIND_LEFT)
+            {
+                Inlet_Cells_List.push_back(static_cast<int>(i));
+                Inlet_Cells_List.push_back(f);
+                Inlet_Cells_List.push_back(neigh);
+            }
+            else if (kind == FACE_KIND_RIGHT)
+            {
+                Exit_Cells_List.push_back(static_cast<int>(i));
+                Exit_Cells_List.push_back(f);
+                Exit_Cells_List.push_back(neigh);
+            }
+            else if (kind == FACE_KIND_TOP || kind == FACE_KIND_BOTTOM || kind == FACE_KIND_WALL)
+            {
+                Wall_Cells_List.push_back(static_cast<int>(i));
+                Wall_Cells_List.push_back(f);
+                Wall_Cells_List.push_back(neigh);
+            }
         }
     }
-    cout << "Inlet Boundary Cells: " << Inlet_Cells_List.size() << endl;
-    cout << "Exit Boundary Cells: " << Exit_Cells_List.size() << endl;
-    cout << "Wall Boundary Cells: " << Wall_Cells_List.size() << endl;
+    cout << "Inlet Boundary Cells: " << Inlet_Cells_List.size() / 3 << endl;
+    cout << "Exit Boundary Cells: " << Exit_Cells_List.size() / 3 << endl;
+    cout << "Wall Boundary Cells: " << Wall_Cells_List.size() / 3 << endl;
 }
 
 // Helper: Given a face's normal (nx, ny), returns a priority integer:

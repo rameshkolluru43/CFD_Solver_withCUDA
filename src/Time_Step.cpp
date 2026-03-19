@@ -25,10 +25,10 @@ void Viscous_Time_Step_1(int &Cell_No)
     //			(i+1,j)												(i,j+1)
     //		Neighbour_3 = Cell_Neighbours[Cell_No][3];	Neighbour_4 = Cell_Neighbours[Cell_No][4];
 
-    Neighbour_1 = Cells[Cell_No].Neighbours[1];
-    Neighbour_2 = Cells[Cell_No].Neighbours[2];
-    Neighbour_3 = Cells[Cell_No].Neighbours[3];
-    Neighbour_4 = Cells[Cell_No].Neighbours[4];
+    Neighbour_1 = Cells[Cell_No].Neighbours[0];
+    Neighbour_2 = Cells[Cell_No].Neighbours[1];
+    Neighbour_3 = Cells[Cell_No].Neighbours[2];
+    Neighbour_4 = Cells[Cell_No].Neighbours[3];
     //		cout<<Neighbour_1<<"\t"<<Neighbour_2<<"\t"<<Neighbour_3<<"\t"<<Neighbour_4<<endl;
 
     Face_No = 0;
@@ -133,14 +133,10 @@ void Viscous_Time_Step_2(int &Cell_No)
     // Obtaining The neighbours for a given cell
     //			(i-1,j)												(i,j-1)
     // Neighbour_1 = Cell_Neighbours[Cell_No][1];
-    Neighbour_1 = Cells[Cell_No].Neighbours[1];
-    // Neighbour_2 = Cell_Neighbours[Cell_No][2];
-    Neighbour_2 = Cells[Cell_No].Neighbours[2];
-    //			(i+1,j)												(i,j+1)
-    // Neighbour_3 = Cell_Neighbours[Cell_No][3];
-    Neighbour_3 = Cells[Cell_No].Neighbours[3];
-    // Neighbour_4 = Cell_Neighbours[Cell_No][4];
-    Neighbour_4 = Cells[Cell_No].Neighbours[4];
+    Neighbour_1 = Cells[Cell_No].Neighbours[0];
+    Neighbour_2 = Cells[Cell_No].Neighbours[1];
+    Neighbour_3 = Cells[Cell_No].Neighbours[2];
+    Neighbour_4 = Cells[Cell_No].Neighbours[3];
     //		cout<<Neighbour_1<<"\t"<<Neighbour_2<<"\t"<<Neighbour_3<<"\t"<<Neighbour_4<<endl;
 
     Face_No = 0;
@@ -228,10 +224,10 @@ void Viscous_Time_Step_3(int &Cell_No)
     //			(i+1,j)												(i,j+1)
     Neighbour_3 = Cell_Neighbours[Cell_No][3];
     Neighbour_4 = Cell_Neighbours[Cell_No][4];*/
-    Neighbour_1 = Cells[Cell_No].Neighbours[1];
-    Neighbour_2 = Cells[Cell_No].Neighbours[2];
-    Neighbour_3 = Cells[Cell_No].Neighbours[3];
-    Neighbour_4 = Cells[Cell_No].Neighbours[4];
+    Neighbour_1 = Cells[Cell_No].Neighbours[0];
+    Neighbour_2 = Cells[Cell_No].Neighbours[1];
+    Neighbour_3 = Cells[Cell_No].Neighbours[2];
+    Neighbour_4 = Cells[Cell_No].Neighbours[3];
     //		cout<<Neighbour_1<<"\t"<<Neighbour_2<<"\t"<<Neighbour_3<<"\t"<<Neighbour_4<<endl;
 
     Face_No = 0;
@@ -296,87 +292,53 @@ void Viscous_Time_Step_3(int &Cell_No)
 
 void Inviscid_Time_Step(int &Cell_No)
 {
-    double nx_0 = 0.0, ny_0 = 0.0, dl_0 = 0.0, nx_1 = 0.0, ny_1 = 0.0, dl_1 = 0.0, nx_2 = 0.0, ny_2 = 0.0, dl_2 = 0.0, nx_3 = 0.0, ny_3 = 0.0, dl_3 = 0.0;
-    double u0 = 0.0, v0 = 0.0, C0 = 0.0, Avg_nx_i = 0.0, Avg_ny_i = 0.0, Avg_nx_j = 0.0, Avg_ny_j = 0.0, Lambda_x = 0.0, Lambda_y = 0.0, Avg_dl_j = 0.0, Avg_dl_i = 0.0;
-    double Inv_Area = 0.0;
-    int Face_No, index;
-    Neighbour_1 = 0, Neighbour_2 = 0, Neighbour_3 = 0, Neighbour_4 = 0;
-
-    // Following Neighbouring information is required for gradient computation
-    /*
-      (i-1,j+1)				(i,j+1)				(i+1,j+1)
-      (i-1,j)				(i,j)				(i+1,j)
-      (i-1,j-1)				(i,j-1)				(i+1,j-1)
-    */
-    // Obtaining The neighbours for a given cell
-    //			(i-1,j)												(i,j-1)
-    Neighbour_1 = Cells[Cell_No].Neighbours[0];
-    Neighbour_2 = Cells[Cell_No].Neighbours[1];
-    //			(i+1,j)												(i,j+1)
-    Neighbour_3 = Cells[Cell_No].Neighbours[2];
-    Neighbour_4 = Cells[Cell_No].Neighbours[3];
-    //			cout<<Cell_No<<"\t"<<Neighbour_1<<"\t"<<Neighbour_2<<"\t"<<Neighbour_3<<"\t"<<Neighbour_4<<endl;
-    Face_No = 0;
-    index = Face_No * 2;
-    //      nx and ny are normals to the face and dl - face length
-    nx_0 = Cells[Cell_No].Face_Normals[index + 0];
-    ny_0 = Cells[Cell_No].Face_Normals[index + 1];
-    dl_0 = Cells[Cell_No].Face_Areas[Face_No];
-    Face_No = 1;
-    index = Face_No * 2;
-    //      nx and ny are normals to the face and dl - face length
-    nx_1 = Cells[Cell_No].Face_Normals[index + 0];
-    ny_1 = Cells[Cell_No].Face_Normals[index + 1];
-    dl_1 = Cells[Cell_No].Face_Areas[Face_No];
-    Face_No = 2;
-    index = Face_No * 2;
-    //      nx and ny are normals to the face and dl - face length
-    nx_2 = Cells[Cell_No].Face_Normals[index + 0];
-    ny_2 = Cells[Cell_No].Face_Normals[index + 1];
-    dl_2 = Cells[Cell_No].Face_Areas[Face_No];
-    Face_No = 3;
-    index = Face_No * 2;
-    //      nx and ny are normals to the face and dl - face length
-    nx_3 = Cells[Cell_No].Face_Normals[index + 0];
-    ny_3 = Cells[Cell_No].Face_Normals[index + 1];
-    dl_3 = Cells[Cell_No].Face_Areas[Face_No];
-
-    Avg_nx_i = 0.5 * (nx_2 - nx_0);
-    Avg_ny_i = 0.5 * (ny_2 - ny_0);
-    Avg_dl_i = 0.5 * (dl_0 + dl_2);
-
-    Avg_nx_j = 0.5 * (nx_3 - nx_1);
-    Avg_ny_j = 0.5 * (ny_3 - ny_1);
-    Avg_dl_j = 0.5 * (dl_3 + dl_1);
-
-    // Velocity and Acoustic Components of the Cell
-    u0 = Primitive_Cells[Cell_No][1];
-    v0 = Primitive_Cells[Cell_No][2];
-    C0 = Primitive_Cells[Cell_No][5];
-
-    Inv_Area = Cells[Cell_No].Inv_Area;
-
-    // Maximum Eigen Value in x and y directions respectively as per BLAZEK 6.14 Formula
-    Lambda_x = ((fabs(u0 * Avg_nx_i + v0 * Avg_ny_i) + C0) * Avg_dl_i);
-    Lambda_y = ((fabs(u0 * Avg_nx_j + v0 * Avg_ny_j) + C0) * Avg_dl_j);
-
-    Cells[Cell_No].del_t = CFL * Cells[Cell_No].Area / (Lambda_x + Lambda_y);
-
-    if (isnan(Cells[Cell_No].del_t))
+    // Generic inviscid time step for arbitrary 2D polygon cells:
+    // dt = CFL * Area / sum_faces( (|V·n| + a) * dl )
+    const int nFaces = (Cells[Cell_No].numFaces > 0)
+                           ? Cells[Cell_No].numFaces
+                           : static_cast<int>(Cells[Cell_No].Face_Areas.size());
+    if (nFaces <= 0)
     {
-        cout << "in time step" << endl;
-        cout << Cell_No << "\t" << Cells[Cell_No].del_t << endl;
-        cout << u0 << "\t" << v0 << "\t" << C0 << endl;
-        cout << Lambda_x << "\t" << Lambda_y << "\t" << Cells[Cell_No].del_t << endl;
-        Print(Primitive_Cells[Cell_No]);
-        exit(0);
+        Cells[Cell_No].del_t = 0.0;
+        return;
     }
+
+    const double u0 = Primitive_Cells[Cell_No][1];
+    const double v0 = Primitive_Cells[Cell_No][2];
+    const double a0 = Primitive_Cells[Cell_No][5];
+
+    double denom = 0.0;
+    for (int face = 0; face < nFaces; face++)
+    {
+        const int idx = face * 2;
+        const double nx_f = Cells[Cell_No].Face_Normals[idx + 0];
+        const double ny_f = Cells[Cell_No].Face_Normals[idx + 1];
+        const double dl_f = Cells[Cell_No].Face_Areas[face];
+
+        const double vn = u0 * nx_f + v0 * ny_f;
+        denom += (fabs(vn) + a0) * dl_f;
+    }
+
+    if (denom <= 0.0 || !std::isfinite(denom))
+    {
+        Cells[Cell_No].del_t = 0.0;
+        return;
+    }
+
+    Cells[Cell_No].del_t = CFL * Cells[Cell_No].Area / denom;
 }
 
 void Evaluate_Time_Step(int &Cell_No)
 {
     if (Is_Viscous_Wall)
     {
+        // The existing viscous time-step formulations assume structured-like 4-face topology.
+        // For non-quad cells, fall back to generic inviscid estimate to remain stable.
+        if (Cells[Cell_No].numFaces != 4)
+        {
+            Inviscid_Time_Step(Cell_No);
+            return;
+        }
         switch (Viscous_Time_Case)
         {
         case 1:

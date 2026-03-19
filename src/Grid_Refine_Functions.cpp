@@ -3,22 +3,62 @@
 #include "Viscous_Functions.h"
 #include "Utilities.h"
 
-//
-void TagRefinableCells(vector<Cell> &cells, double &threshold)
+// Compute per-cell gradient-based refinement indicator (density + pressure), scale-invariant.
+// indicator = |grad(rho)|*sqrt(Area) + (|grad(P)|/max(P,eps))*sqrt(Area). Stored in Gradient_Refinement_Indicator.
+void Compute_Gradient_Refinement_Indicator()
 {
-    int Grad_Type = 0;
-    V_D gradient(2, 0.0);
+    if (Gradient_Refinement_Indicator.size() != static_cast<size_t>(No_Physical_Cells))
+        Gradient_Refinement_Indicator.resize(No_Physical_Cells, 0.0);
+
+    int Grad_Type_Rho = 0, Grad_Type_P = 4;
+    V_D grad(2, 0.0);
+    const double eps = 1e-14;
+
     for (int i = 0; i < No_Physical_Cells; i++)
     {
-        // Evaluate the density gradient at the cell center
-        Calculate_Gradient_At_Cell_Center(i, Grad_Type, gradient);
+        double ind = 0.0;
+        const double h = sqrt(Cells[i].Area);
 
-        double gradMag = sqrt(gradient[0] * gradient[0] + gradient[1] * gradient[1]);
+        Calculate_Gradient_At_Cell_Center(i, Grad_Type_Rho, grad);
+        ind += sqrt(grad[0] * grad[0] + grad[1] * grad[1]) * h;
 
-        if (gradMag > threshold)
-        {
-            cells[i].Is_Splittable = true;
-        }
+        Calculate_Gradient_At_Cell_Center(i, Grad_Type_P, grad);
+        double P = Primitive_Cells[i][4];
+        if (P > eps)
+            ind += (sqrt(grad[0] * grad[0] + grad[1] * grad[1]) / P) * h;
+
+        Gradient_Refinement_Indicator[i] = ind;
+    }
+}
+
+// Tag cells for refinement: indicator > threshold, optionally cap by fraction (refine top N% by indicator).
+void TagRefinableCells(vector<Cell> &cells, double &threshold)
+{
+    Compute_Gradient_Refinement_Indicator();
+
+    for (int i = 0; i < No_Physical_Cells; i++)
+        cells[i].Is_Splittable = false;
+
+    if (AMR_Max_Fraction > 0.0 && AMR_Max_Fraction < 1.0)
+    {
+        // Refine top AMR_Max_Fraction of cells by indicator value
+        vector<pair<double, int>> order(No_Physical_Cells);
+        for (int i = 0; i < No_Physical_Cells; i++)
+            order[i] = {Gradient_Refinement_Indicator[i], i};
+        sort(order.begin(), order.end(), [](const pair<double, int> &a, const pair<double, int> &b)
+             { return a.first > b.first; });
+        int nRefine = static_cast<int>(AMR_Max_Fraction * No_Physical_Cells);
+        if (nRefine < 1)
+            nRefine = 1;
+        for (int k = 0; k < nRefine && k < No_Physical_Cells; k++)
+            if (order[k].first >= threshold)
+                cells[order[k].second].Is_Splittable = true;
+    }
+    else
+    {
+        for (int i = 0; i < No_Physical_Cells; i++)
+            if (Gradient_Refinement_Indicator[i] > threshold)
+                cells[i].Is_Splittable = true;
     }
 }
 
@@ -35,8 +75,7 @@ double Calculate_Vertex_Average(const V_D &weights, const V_D &cell_averages)
     return weighted_sum / weight_sum;
 }
 
-// Helper function to calculate gradients
-// std::array<double, 2> Calculate_Gradient(const std::array<double, 4> &av, const std::array<double, 4> &nx, const std::array<double, 4> &ny, const std::array<double, 4> &dl, double inv_area)
+// Green-Gauss gradient: grad = (1/Area) * sum_f (phi_face * n_f * dl_f). Works for any polygon.
 void Calculate_Gradient(V_D &av, V_D &nx, V_D &ny, V_D &dl, double &inv_area, V_D &grad)
 {
     if (grad.empty())
@@ -46,8 +85,8 @@ void Calculate_Gradient(V_D &av, V_D &nx, V_D &ny, V_D &dl, double &inv_area, V_
         grad[0] = 0.0;
         grad[1] = 0.0;
     }
-
-    for (int i = 0; i < 4; ++i)
+    const int n = static_cast<int>(av.size());
+    for (int i = 0; i < n; ++i)
     {
         grad[0] += av[i] * nx[i] * dl[i];
         grad[1] += av[i] * ny[i] * dl[i];
@@ -177,30 +216,33 @@ void Calculate_Gradients_At_Cell_Centers()
     }
 }
 
-// Calculate gradient at cell center
+// Green-Gauss gradient at cell center: phi_face = 0.5*(phi_c + phi_neighbor), grad = (1/Area)*sum_f (phi_face * n_f * dl_f).
+// Works for any polygon (tri/quad); uses this cell's Face_Normals and Face_Areas.
 void Calculate_Gradient_At_Cell_Center(int &Current_Cell_Index, int &Grad_Type, V_D &grad)
 {
-    // Ensure gradient vector is initialized to zero
     grad.assign(2, 0.0);
+    const Cell &cell = Cells[Current_Cell_Index];
+    const int nF = (cell.numFaces > 0) ? cell.numFaces : static_cast<int>(cell.Face_Areas.size());
+    if (nF <= 0 || cell.Area <= 0.0)
+        return;
 
-    // Fetch neighbors and their properties
-    auto &neighbors = Cells[Current_Cell_Index].Neighbours;
-    auto &cell = Cells[Current_Cell_Index];
-
-    // Prepare arrays for normals, areas, and averages
-    V_D nx(4), ny(4), dl(4), av(4);
-
-    for (int i = 0; i < 4; ++i)
+    const double phi_c = Primitive_Cells[Current_Cell_Index][Grad_Type];
+    for (int f = 0; f < nF; f++)
     {
-        int neighborIndex = (i == 0) ? Current_Cell_Index : neighbors[i - 1];
-        nx[i] = Cells[neighborIndex].Face_Normals[0];
-        ny[i] = Cells[neighborIndex].Face_Normals[1];
-        dl[i] = Cells[neighborIndex].Face_Areas[0];
-        av[i] = Primitive_Cells[neighborIndex][Grad_Type];
+        const int idx = f * 2;
+        const double nx_f = cell.Face_Normals[idx + 0];
+        const double ny_f = cell.Face_Normals[idx + 1];
+        const double dl_f = cell.Face_Areas[f];
+        int neigh = (f < static_cast<int>(cell.Neighbours.size())) ? cell.Neighbours[f] : -1;
+        double phi_n = phi_c;
+        if (neigh >= 0 && neigh < No_Physical_Cells)
+            phi_n = Primitive_Cells[neigh][Grad_Type];
+        const double phi_face = 0.5 * (phi_c + phi_n);
+        grad[0] += phi_face * nx_f * dl_f;
+        grad[1] += phi_face * ny_f * dl_f;
     }
-
-    // Calculate gradient using helper function
-    Calculate_Gradient(av, nx, ny, dl, cell.Inv_Area, grad);
+    grad[0] *= cell.Inv_Area;
+    grad[1] *= cell.Inv_Area;
 }
 
 void Calculate_Vertex_Average(const V_D &weights, const V_D &cell_averages, V_D &av)
@@ -455,4 +497,17 @@ void Evaluate_Viscous_Fluxes()
         Viscous_Flux_on_Face(Current_Cell_Index, Face_3);
     }
     //	 	cout<<"Evaluating Viscous Fluxes Done"<<endl;
+}
+
+// Apply gradient-based adaptive refinement: compute indicator, tag cells. Returns true if mesh was changed (future: actual refinement).
+bool Apply_Adaptive_Refinement()
+{
+    TagRefinableCells(Cells, AMR_Gradient_Threshold);
+    int nTagged = 0;
+    for (int i = 0; i < No_Physical_Cells; i++)
+        if (Cells[i].Is_Splittable)
+            nTagged++;
+    if (nTagged > 0)
+        cout << "AMR: " << nTagged << " cells tagged for refinement (gradient threshold=" << AMR_Gradient_Threshold << ")" << endl;
+    return false; // no mesh change in this implementation (tagging only)
 }

@@ -17,6 +17,10 @@ double Pressure_Static_Inlet, Rho_Static_Inlet, Temperature_Static_Inlet, Inlet_
 int nx_1, nx_2, ny_1, ny_2;
 int Dissipation_Type, Flux_Type, Test_Case, Initialize_Type, iterations, Grid_Size, Area_Weighted_Average, Total_Iterations, Limiter_Case;
 bool Is_Second_Order, Is_MOVERS_1, Enable_Entropy_Fix, Is_Time_Dependent, Time_Accurate, Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Implicit_Method;
+bool Enable_AMR = false;
+int AMR_Period = 100;
+double AMR_Gradient_Threshold = 0.1, AMR_Max_Fraction = 0.3;
+vector<double> Gradient_Refinement_Indicator;
 string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File;
 // variables to read the face normals and face lenghts and face area
 double nx, ny, dl, dA;
@@ -83,7 +87,10 @@ void Initialize(const int &Test_Case)
 	{
 		Cells_Net_Flux.push_back(Average_Convective_Flux);
 		Cells_DelU.push_back(Global_U);
-		Cells_Face_Boundary_Type.push_back(v_bool);
+		int nf = 4;
+		if (index < No_Physical_Cells && Cells[index].numFaces > 0)
+			nf = Cells[index].numFaces;
+		Cells_Face_Boundary_Type.push_back(vector<bool>(nf, false));
 		U_Cells.push_back(Global_U);
 		U_Cells_RK_1.push_back(Global_U);
 		U_Cells_RK_2.push_back(Global_U);
@@ -176,11 +183,30 @@ void Identify_Wall_Boundary_Faces(const int &Grid_Type)
 	cout << "Identify_Boundary_Types \t" << Grid_Type << endl;
 	for (unsigned int i = 0; i < Wall_Cells_List.size(); i += 3)
 	{
-		// Cells_Face_Boundary_Type[Wall_Cells_List[i]][Wall_Cells_List[i + 1]] = true;
-		// Cells[Wall_Cells_List[i]].Face_Boundary_Type[Wall_Cells_List[i + 1]] = true;
+		int cell = Wall_Cells_List[i];
+		int face = Wall_Cells_List[i + 1];
+		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
+			Cells_Face_Boundary_Type[cell][face] = true;
+	}
+	for (unsigned int i = 0; i < Inlet_Cells_List.size(); i += 3)
+	{
+		int cell = Inlet_Cells_List[i];
+		int face = Inlet_Cells_List[i + 1];
+		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
+			Cells_Face_Boundary_Type[cell][face] = true;
+	}
+	for (unsigned int i = 0; i < Exit_Cells_List.size(); i += 3)
+	{
+		int cell = Exit_Cells_List[i];
+		int face = Exit_Cells_List[i + 1];
+		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
+			Cells_Face_Boundary_Type[cell][face] = true;
 	}
 	for (unsigned int i = 0; i < Symmetry_Cells_List.size(); i += 3)
 	{
-		// Cells_Face_Boundary_Type[Symmetry_Cells_List[i]][Symmetry_Cells_List[i + 1]] = true;
+		int cell = Symmetry_Cells_List[i];
+		int face = Symmetry_Cells_List[i + 1];
+		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
+			Cells_Face_Boundary_Type[cell][face] = true;
 	}
 }

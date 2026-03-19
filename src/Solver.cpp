@@ -58,6 +58,7 @@
 #include "Utilities.h"
 #include "Error_Update.h"
 #include "Flux.h"
+#include "Grid.h"
 
 // Core logic for solving Euler equations based on Test Case
 
@@ -115,9 +116,14 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 
 			iterations++;
 			Estimate_Error();
-			// cout << "Error Estimated" << endl;
 			Update();
-			// cout << "Updated Conservative Variables" << endl;
+
+			// Gradient-based dynamic meshing: tag cells for refinement every AMR_Period
+			if (Enable_AMR && iterations > 0 && iterations % AMR_Period == 0)
+			{
+				Apply_Adaptive_Refinement();
+			}
+
 			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
 			{
 				// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;

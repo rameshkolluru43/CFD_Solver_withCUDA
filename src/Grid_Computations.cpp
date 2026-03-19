@@ -350,11 +350,8 @@ bool Form_Cells(const string &ipfile)
 		cout << "Boundary cells - Inlet: " << Inlet_Cells_List.size() << "\tWall: " << Wall_Cells_List.size()
 			 << "\tExit: " << Exit_Cells_List.size() << "\tSymmetry: " << Symmetry_Cells_List.size() << endl;
 
-		/*for (int i = 0; i < No_Ghost_Cells; i++)
-		{
-			Cell Temp;
-			Cells.push_back(Temp);
-		}*/
+		if (Cells.size() < static_cast<size_t>(Total_No_Cells))
+			Cells.resize(Total_No_Cells);
 		cout << "Total cells after loading: " << Cells.size() << endl;
 
 		Construct_Ghost_Cells();
@@ -525,27 +522,46 @@ void Construct_Cell(V_D &o, V_D &a, V_D &b, V_D &c)
 
 void Construct_Cell(Cell &Grid_Cell)
 {
-	V_D Temp(3, 0.0);
-	V_D Diagonal_Vector1(2, 0.0);
-	V_D Diagonal_Vector2(2, 0.0);
-	double Area = 0.0;
+	// Ensure basic sizes
+	Grid_Cell.Dimension = 2;
+	Grid_Cell.numNodes = static_cast<int>(Grid_Cell.nodeIndices.size());
+	Grid_Cell.numFaces = Grid_Cell.numNodes; // 2D polygon: faces = edges = nodes
 
-	// Created the cell center and assign it to the cell center vector
-	Grid_Cell.Cell_Center.resize(Temp.size(), 0);
+	if (Grid_Cell.Cell_Center.empty())
+		Grid_Cell.Cell_Center.resize(3, 0.0);
 
-	Grid_Cell.Cell_Center = Temp;
 	Compute_Centroid(Grid_Cell);
-	// Constructing Face Area and Face Normal
+
+	// Constructing Face Area and Face Normal (works for tri/quad)
+	Grid_Cell.Face_Areas.clear();
+	Grid_Cell.Face_Normals.clear();
 	Construct_Face(Grid_Cell);
-	// Constructing Cell Area and Inverse Area
-	Diagonal_Vector1[0] = Grid_Cell.Cell_Vertices[6] - Grid_Cell.Cell_Vertices[0];
-	Diagonal_Vector1[1] = Grid_Cell.Cell_Vertices[7] - Grid_Cell.Cell_Vertices[1];
-	Diagonal_Vector2[0] = Grid_Cell.Cell_Vertices[9] - Grid_Cell.Cell_Vertices[3];
-	Diagonal_Vector2[1] = Grid_Cell.Cell_Vertices[10] - Grid_Cell.Cell_Vertices[4];
-	Evaluate_Cross_Product(Diagonal_Vector1, Diagonal_Vector2, Area);
-	Grid_Cell.Area = Area;
-	Grid_Cell.Inv_Area = 1.0 / Area;
-	// cout<<"Construction of Cell done"<<endl;
+
+	// Polygon area (shoelace) in XY plane
+	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
+	if (n < 3)
+	{
+		cout << "Cell has fewer than 3 vertices\n";
+		exit(0);
+	}
+	double twice_area = 0.0;
+	for (int i = 0; i < n; i++)
+	{
+		const int j = (i + 1) % n;
+		const double xi = Grid_Cell.Cell_Vertices[3 * i + 0];
+		const double yi = Grid_Cell.Cell_Vertices[3 * i + 1];
+		const double xj = Grid_Cell.Cell_Vertices[3 * j + 0];
+		const double yj = Grid_Cell.Cell_Vertices[3 * j + 1];
+		twice_area += (xi * yj - xj * yi);
+	}
+	Grid_Cell.Area = 0.5 * fabs(twice_area);
+	if (!std::isfinite(Grid_Cell.Area) || Grid_Cell.Area <= 0.0)
+	{
+		cout << "Invalid cell area: " << Grid_Cell.Area << "\n";
+		Print(Grid_Cell.Cell_Vertices);
+		exit(0);
+	}
+	Grid_Cell.Inv_Area = 1.0 / Grid_Cell.Area;
 }
 
 void Construct_Cell()
@@ -572,120 +588,44 @@ void Construct_Cell()
 // This Function creates a Ghost cell
 void Construct_Cell(const int &Current_Cell_No, const int &Face_No, const int &Ghost_Cell_No)
 {
-	cout << "In Function Creating Ghost cell \t" << Current_Cell_No << "\t" << Face_No << "\t" << Ghost_Cell_No << endl;
-	// check if the memory for ghost cell is created
-	if (Cells.size() <= Ghost_Cell_No)
+	// Generic ghost cell center construction for 2D polygons:
+	// reflect cell center across the face midpoint.
+	if (Cells.size() <= static_cast<size_t>(Ghost_Cell_No))
 	{
 		cout << "Memory for Ghost Cell is not created \n";
-		//	exit(0);
+		return;
 	}
-	//	cout<<"Current Cell Number\t"<<Current_Cell_No<<"\tFace Number\t"<<Face_No<<endl;
-	V_D o(3, 0.0), a(3, 0.0), b(3, 0.0), c(3, 0.0), MP1(3, 0.0), MP2(3, 0.0), MP3(3, 0.0), MP4(3, 0.0), MP5(3, 0.0), Diagonal_Vector1(2, 0.0), Diagonal_Vector2(2, 0.0);
-	V_D Vertex_Mid_Point(3, 0.0);
-	V_D Co_Area(4, 0.0);
 
-	double Mid_Point_Distance = 0.0;
-	// cout << "Size of Cells \t" << Cells.size() << endl;
-	// cout << "Number of Verticies for cell number \t" << Current_Cell_No << "\t" << Cells[Current_Cell_No].Cell_Vertices.size() << endl;
-	// cout << Cells[Current_Cell_No].Cell_Vertices.size() << endl;
-
-	o[0] = Cells[Current_Cell_No].Cell_Vertices[0];
-	o[1] = Cells[Current_Cell_No].Cell_Vertices[1];
-	o[2] = Cells[Current_Cell_No].Cell_Vertices[2];
-	a[0] = Cells[Current_Cell_No].Cell_Vertices[3];
-	a[1] = Cells[Current_Cell_No].Cell_Vertices[4];
-	a[2] = Cells[Current_Cell_No].Cell_Vertices[5];
-	b[0] = Cells[Current_Cell_No].Cell_Vertices[6];
-	b[1] = Cells[Current_Cell_No].Cell_Vertices[7];
-	b[2] = Cells[Current_Cell_No].Cell_Vertices[8];
-	c[0] = Cells[Current_Cell_No].Cell_Vertices[9];
-	c[1] = Cells[Current_Cell_No].Cell_Vertices[10];
-	c[2] = Cells[Current_Cell_No].Cell_Vertices[11];
-	//	cout<<"Current Cell Number\t"<<Current_Cell_No<<"\tFace Number\t"<<Face_No<<endl;
-
-	MP1 = Cells[Current_Cell_No].Cell_Center;
-
-	switch (Face_No)
+	Cell &C = Cells[Current_Cell_No];
+	const int nFaces = (C.numFaces > 0) ? C.numFaces : static_cast<int>(C.nodeIndices.size());
+	if (Face_No < 0 || Face_No >= nFaces)
 	{
-	case 0:
-		// if(Ghost_Cell_No >= No_Physical_Cells)
-		//{
-		Vertex_Mid_Point[0] = 0.5 * (o[0] + c[0]);
-		Vertex_Mid_Point[1] = 0.5 * (o[1] + c[1]);
-		Vertex_Mid_Point[2] = 0.5 * (o[2] + c[2]);
-		Distance_Between_Points(MP1, Vertex_Mid_Point, Mid_Point_Distance);
-		MP2[0] = MP1[0] - 2.0 * Mid_Point_Distance;
-		MP2[1] = MP1[1];
-		MP2[2] = MP1[2];
-		if (Cells[Ghost_Cell_No].Cell_Center.empty())
-		{
-			cout << "Ghost Cell Center is empty\n";
-			Cells[Ghost_Cell_No].Cell_Center.resize(MP2.size(), 0.0);
-		}
-		Cells[Ghost_Cell_No].Cell_Center = MP2;
-		//}
-		break;
-	case 1:
-		//		cout<<Neighbour_2<<"\t"<<No_Physical_Cells<<endl;
-		// if(Ghost_Cell_No >= No_Physical_Cells)
-		//{
-		Vertex_Mid_Point[0] = 0.5 * (o[0] + a[0]);
-		Vertex_Mid_Point[1] = 0.5 * (o[1] + a[1]);
-		Vertex_Mid_Point[2] = 0.5 * (o[2] + a[2]);
-		Distance_Between_Points(MP1, Vertex_Mid_Point, Mid_Point_Distance);
-		MP3[0] = MP1[0];
-		MP3[1] = MP1[1] - 2.0 * Mid_Point_Distance;
-		MP3[2] = MP1[2];
-		//							cout<<Neighbour_2<<"\t"<<No_Physical_Cells<<endl;
-		//							Print(MP1);
-		//							Print(MP3);
-		if (Cells[Ghost_Cell_No].Cell_Center.empty())
-		{
-			// cout << "Ghost Cell Center is empty\n";
-			Cells[Ghost_Cell_No].Cell_Center.resize(MP3.size(), 0.0);
-		}
-		Cells[Ghost_Cell_No].Cell_Center = MP3;
-		//}
-		break;
-	case 2:
-		//	if(Ghost_Cell_No >= No_Physical_Cells)
-		//	{
-		Vertex_Mid_Point[0] = 0.5 * (b[0] + a[0]);
-		Vertex_Mid_Point[1] = 0.5 * (b[1] + a[1]);
-		Vertex_Mid_Point[2] = 0.5 * (b[2] + a[2]);
-		Distance_Between_Points(MP1, Vertex_Mid_Point, Mid_Point_Distance);
-		MP4[0] = MP1[0] + 2.0 * Mid_Point_Distance;
-		MP4[1] = MP1[1];
-		MP4[2] = MP1[2];
-		if (Cells[Ghost_Cell_No].Cell_Center.empty())
-		{
-			// cout << "Ghost Cell Center is empty\n";
-			Cells[Ghost_Cell_No].Cell_Center.resize(MP4.size(), 0.0);
-		}
-		Cells[Ghost_Cell_No].Cell_Center = MP4;
-		break;
-	case 3:
-		//	if(Ghost_Cell_No >= No_Physical_Cells)
-		//	{
-		Vertex_Mid_Point[0] = 0.5 * (b[0] + c[0]);
-		Vertex_Mid_Point[1] = 0.5 * (b[1] + c[1]);
-		Vertex_Mid_Point[2] = 0.5 * (b[2] + c[2]);
-		Distance_Between_Points(MP1, Vertex_Mid_Point, Mid_Point_Distance);
-		MP5[0] = MP1[0];
-		MP5[1] = MP1[1] + 2.0 * Mid_Point_Distance;
-		MP5[2] = MP1[2];
-		if (Cells[Ghost_Cell_No].Cell_Center.empty())
-		{
-			// cout << "Ghost Cell Center is empty\n";
-			Cells[Ghost_Cell_No].Cell_Center.resize(MP5.size(), 0.0);
-		}
-		Cells[Ghost_Cell_No].Cell_Center = MP5;
-		//	}
-
-		break;
+		cout << "Invalid Face_No for ghost construction: " << Face_No << " (nFaces=" << nFaces << ")\n";
+		exit(0);
 	}
-	Cells[Ghost_Cell_No].Area = Cells[Current_Cell_No].Area;
-	Cells[Ghost_Cell_No].Inv_Area = Cells[Current_Cell_No].Inv_Area;
+
+	// Face endpoints from cyclic vertices list (Cell_Vertices is already in anti-clockwise order)
+	const int nVerts = static_cast<int>(C.Cell_Vertices.size() / 3);
+	const int i0 = Face_No % nVerts;
+	const int i1 = (Face_No + 1) % nVerts;
+
+	V_D mid(3, 0.0);
+	mid[0] = 0.5 * (C.Cell_Vertices[3 * i0 + 0] + C.Cell_Vertices[3 * i1 + 0]);
+	mid[1] = 0.5 * (C.Cell_Vertices[3 * i0 + 1] + C.Cell_Vertices[3 * i1 + 1]);
+	mid[2] = 0.5 * (C.Cell_Vertices[3 * i0 + 2] + C.Cell_Vertices[3 * i1 + 2]);
+
+	V_D gc(3, 0.0);
+	gc[0] = C.Cell_Center[0] + 2.0 * (mid[0] - C.Cell_Center[0]);
+	gc[1] = C.Cell_Center[1] + 2.0 * (mid[1] - C.Cell_Center[1]);
+	gc[2] = C.Cell_Center[2] + 2.0 * (mid[2] - C.Cell_Center[2]);
+
+	Cell &G = Cells[Ghost_Cell_No];
+	G.Dimension = 2;
+	if (G.Cell_Center.empty())
+		G.Cell_Center.resize(3, 0.0);
+	G.Cell_Center = gc;
+	G.Area = C.Area;
+	G.Inv_Area = C.Inv_Area;
 }
 
 // This function constructs the cell based on the vertices being passed to the function.
@@ -724,7 +664,7 @@ void Construct_Cell(V_D &Vertices)
 	}
 	else
 	{
-		cout << "Vertices are not 12 in number\n";
+		cout << "Vertices are not 12 (quad) or 9 (tri) in number\n";
 		exit(0);
 	}
 }
@@ -732,12 +672,11 @@ void Construct_Cell(V_D &Vertices)
 // This function constructs a triangular cell based on the vertices being passed to the function
 void Construct_Cell(V_D &o, V_D &a, V_D &b)
 {
-	// Area of the cell is calculated as the area of the triangle formed by the three points
+	// Triangle centroid (and area is computed elsewhere for Cell-based construction)
 	V_D Temp(3, 0.0);
-	double Area = 0.0;
-	Temp[0] = 0.25 * (o[0] + a[0] + b[0]);
-	Temp[1] = 0.25 * (o[1] + a[1] + b[1]);
-	Temp[2] = 0.25 * (o[2] + a[2] + b[2]);
+	Temp[0] = (o[0] + a[0] + b[0]) / 3.0;
+	Temp[1] = (o[1] + a[1] + b[1]) / 3.0;
+	Temp[2] = (o[2] + a[2] + b[2]) / 3.0;
 	// Cells_Cell_Center.push_back(Temp);
 	// Cell_Face_Areas.push_back(Face_Area_Components);
 	// Cell_Face_Normals.push_back(Face_Normal_Components);
@@ -751,51 +690,39 @@ void Construct_Cell(V_D &o, V_D &a, V_D &b)
 //	This function constructs faces and stores face area vectors and face normals for gride cell structure for a 2D cell
 void Construct_Face(Cell &Grid_Cell)
 {
-	//	cout<<"In construct face function"<<endl;
+	// Generic face construction for a 2D polygon (tri/quad).
+	// Faces follow the cyclic vertex order: i -> i+1.
+	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
+	if (n < 3)
+	{
+		cout << "Cell has fewer than 3 vertices\n";
+		exit(0);
+	}
 
-	double L = 0, nx = 0, ny = 0;
-	V_D o(3, 0.0), a(3, 0.0), b(3, 0.0), c(3, 0.0);
-	o[0] = Grid_Cell.Cell_Vertices[0];
-	o[1] = Grid_Cell.Cell_Vertices[1];
-	o[2] = Grid_Cell.Cell_Vertices[2];
-	a[0] = Grid_Cell.Cell_Vertices[3];
-	a[1] = Grid_Cell.Cell_Vertices[4];
-	a[2] = Grid_Cell.Cell_Vertices[5];
-	b[0] = Grid_Cell.Cell_Vertices[6];
-	b[1] = Grid_Cell.Cell_Vertices[7];
-	b[2] = Grid_Cell.Cell_Vertices[8];
-	c[0] = Grid_Cell.Cell_Vertices[9];
-	c[1] = Grid_Cell.Cell_Vertices[10];
-	c[2] = Grid_Cell.Cell_Vertices[11];
-	// cout<<o[0]<<"\t"<<o[1]<<"\t"<<a[0]<<"\t"<<a[1]<<"\t"<<b[0]<<"\t"<<b[1]<<"\t"<<c[0]<<"\t"<<c[1]<<endl;
-	/*Print(o);
-	Print(a);
-	Print(b);
-	Print(c);*/
+	Grid_Cell.Face_Areas.clear();
+	Grid_Cell.Face_Normals.clear();
+	Grid_Cell.Face_Areas.reserve(n);
+	Grid_Cell.Face_Normals.reserve(2 * n);
 
-	Compute_Centroid(Grid_Cell);
-	// cout << "Centroid\t" << Grid_Cell.Cell_Center[0] << "\t" << Grid_Cell.Cell_Center[1] << endl;
-	Construct_Face(c, o, L, nx, ny); // Face 0  vector (co)
-	Grid_Cell.Face_Areas.push_back(L);
-	Grid_Cell.Face_Normals.push_back(nx);
-	Grid_Cell.Face_Normals.push_back(ny);
+	double L = 0.0, nx = 0.0, ny = 0.0;
+	V_D a(3, 0.0), b(3, 0.0);
+	for (int f = 0; f < n; f++)
+	{
+		const int i0 = f;
+		const int i1 = (f + 1) % n;
+		a[0] = Grid_Cell.Cell_Vertices[3 * i0 + 0];
+		a[1] = Grid_Cell.Cell_Vertices[3 * i0 + 1];
+		a[2] = Grid_Cell.Cell_Vertices[3 * i0 + 2];
+		b[0] = Grid_Cell.Cell_Vertices[3 * i1 + 0];
+		b[1] = Grid_Cell.Cell_Vertices[3 * i1 + 1];
+		b[2] = Grid_Cell.Cell_Vertices[3 * i1 + 2];
+		Construct_Face(a, b, L, nx, ny);
+		Grid_Cell.Face_Areas.push_back(L);
+		Grid_Cell.Face_Normals.push_back(nx);
+		Grid_Cell.Face_Normals.push_back(ny);
+	}
 
-	Construct_Face(o, a, L, nx, ny); // Face 1  vector (oa)
-	Grid_Cell.Face_Areas.push_back(L);
-	Grid_Cell.Face_Normals.push_back(nx);
-	Grid_Cell.Face_Normals.push_back(ny);
-
-	Construct_Face(a, b, L, nx, ny); // Face 2  vector (ab)
-	Grid_Cell.Face_Areas.push_back(L);
-	Grid_Cell.Face_Normals.push_back(nx);
-	Grid_Cell.Face_Normals.push_back(ny);
-
-	Construct_Face(b, c, L, nx, ny); // Face 3  vector (bc)
-	Grid_Cell.Face_Areas.push_back(L);
-	Grid_Cell.Face_Normals.push_back(nx);
-	Grid_Cell.Face_Normals.push_back(ny);
-	// cout<<Grid_Cell.Face_Area_Components.size()<<endl;
-	// cout<<Grid_Cell.Face_Normal_Components.size()<<endl;
+	Grid_Cell.numFaces = n;
 }
 
 // This function takes two verticies at at time and constructs the face and normals of the face and length of the face for a 2D cell
@@ -874,68 +801,27 @@ void Construct_Face(V_D &o, V_D &a, V_D &b, V_D &c)
 // This function evaluates the distance between the current cell and its neighbours
 void Calculate_Cell_Center_Distances()
 {
-	V_D Cell_Center(3, 0.0), N1_Cell_Center(3, 0.0), N2_Cell_Center(3, 0.0), N3_Cell_Center(3, 0.0), N4_Cell_Center(3, 0.0);
-	double D1 = 0.0, D2 = 0.0, D3 = 0.0, D4 = 0.0;
-	int N1, N2, N3, N4;
-	//	cout<<"Calculating Cell Center distances"<<endl;
+	V_D Cell_Center(3, 0.0), N_Cell_Center(3, 0.0);
+	double D = 0.0;
 	for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
 	{
-		// cout << " am here with cell index\t" << Cell_Index << endl;
-		//  Checking if the Cell Center distances is allocated or not
-		//  if not allocated then allocate w.r.t the number of neighbours
-		if (Cells[Cell_Index].Cell_Center_Distances.empty())
-		{
-			Cells[Cell_Index].Cell_Center_Distances.resize(Cells[Cell_Index].Neighbours.size(), 0.0);
-		}
-		if (Cells[Cell_Index].Cell_Center_Vector.empty())
-		{
-			Cells[Cell_Index].Cell_Center_Vector.resize(3 * Cells[Cell_Index].Neighbours.size(), 0.0);
-		}
-		// Fetching Cell Center
+		const size_t nn = Cells[Cell_Index].Neighbours.size();
+		if (Cells[Cell_Index].Cell_Center_Distances.size() != nn)
+			Cells[Cell_Index].Cell_Center_Distances.assign(nn, 0.0);
+		if (Cells[Cell_Index].Cell_Center_Vector.size() != 3 * nn)
+			Cells[Cell_Index].Cell_Center_Vector.assign(3 * nn, 0.0);
+
 		Cell_Center = Cells[Cell_Index].Cell_Center;
-		//  Fetching Neighbour Indicies
-		N1 = Cells[Cell_Index].Neighbours[0];
-		N2 = Cells[Cell_Index].Neighbours[1];
-		N3 = Cells[Cell_Index].Neighbours[2];
-		// Fetching the Neigbhours Cell Centers
-		N1_Cell_Center = Cells[N1].Cell_Center;
-		N2_Cell_Center = Cells[N2].Cell_Center;
-		N3_Cell_Center = Cells[N3].Cell_Center;
-
-		Distance_Between_Points(Cell_Center, N1_Cell_Center, D1);
-		Distance_Between_Points(Cell_Center, N2_Cell_Center, D2);
-		Distance_Between_Points(Cell_Center, N3_Cell_Center, D3);
-
-		Cells[Cell_Index].Cell_Center_Distances[0] = D1;
-		Cells[Cell_Index].Cell_Center_Distances[1] = D2;
-		Cells[Cell_Index].Cell_Center_Distances[2] = D3;
-
-		Cells[Cell_Index].Cell_Center_Vector[0] = N1_Cell_Center[0] - Cell_Center[0];
-		Cells[Cell_Index].Cell_Center_Vector[1] = N1_Cell_Center[1] - Cell_Center[1];
-		Cells[Cell_Index].Cell_Center_Vector[2] = N1_Cell_Center[2] - Cell_Center[2];
-		Cells[Cell_Index].Cell_Center_Vector[3] = N2_Cell_Center[0] - Cell_Center[0];
-		Cells[Cell_Index].Cell_Center_Vector[4] = N2_Cell_Center[1] - Cell_Center[1];
-		Cells[Cell_Index].Cell_Center_Vector[5] = N2_Cell_Center[2] - Cell_Center[2];
-		Cells[Cell_Index].Cell_Center_Vector[6] = N3_Cell_Center[0] - Cell_Center[0];
-		Cells[Cell_Index].Cell_Center_Vector[7] = N3_Cell_Center[1] - Cell_Center[1];
-		Cells[Cell_Index].Cell_Center_Vector[8] = N3_Cell_Center[2] - Cell_Center[2];
-
-		if (Cells[Cell_Index].Neighbours.size() == 4)
+		for (size_t k = 0; k < nn; k++)
 		{
-			N4 = Cells[Cell_Index].Neighbours[3];
-			N4_Cell_Center = Cells[N4].Cell_Center;
-			Cells[Cell_Index].Cell_Center_Vector[9] = N4_Cell_Center[0] - Cell_Center[0];
-			Cells[Cell_Index].Cell_Center_Vector[10] = N4_Cell_Center[1] - Cell_Center[1];
-			Cells[Cell_Index].Cell_Center_Vector[11] = N4_Cell_Center[2] - Cell_Center[2];
-			Distance_Between_Points(Cell_Center, N4_Cell_Center, D4);
-			Cells[Cell_Index].Cell_Center_Distances[3] = D4;
+			const int N = Cells[Cell_Index].Neighbours[k];
+			N_Cell_Center = Cells[N].Cell_Center;
+			Distance_Between_Points(Cell_Center, N_Cell_Center, D);
+			Cells[Cell_Index].Cell_Center_Distances[k] = D;
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 0] = N_Cell_Center[0] - Cell_Center[0];
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 1] = N_Cell_Center[1] - Cell_Center[1];
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 2] = N_Cell_Center[2] - Cell_Center[2];
 		}
-		else
-		{
-			cout << "Neighbours are not 4 or 3 in number\n";
-			exit(0);
-		}
-		// cout << "Cell Center Distances\t" << D1 << "\t" << D2 << "\t" << D3 << "\t" << D4 << endl;
 	}
 	cout << "Calculating Distance between Cell Centers Done" << endl;
 }
@@ -1042,14 +928,15 @@ void Check_Cells()
 	double N1 = 0.0, N2 = 0.0;
 	cout << "Checking Summation of areas to be zero for a given cell" << endl;
 	cout << "no of physical cells\t" << No_Physical_Cells << endl;
-	cout << "Cells in structured form\t" << Cells.size() << endl;
-	if (No_Physical_Cells == Cells.size())
+	cout << "Total cells (incl. ghost)\t" << Cells.size() << endl;
+	if (Cells.size() >= static_cast<size_t>(No_Physical_Cells))
 	{
-		cout << "No of physical cells and cells in structured form are same\n";
-		for (int Cell_Index = 0; Cell_Index < Cells.size(); Cell_Index++)
+		cout << "Cell count OK (physical + optional ghost)\n";
+		for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
 		{
 			N1 = 0.0, N2 = 0.0;
-			for (int Face_No = 0; Face_No < 4; Face_No++)
+			const int nFaces = (Cells[Cell_Index].numFaces > 0) ? Cells[Cell_Index].numFaces : static_cast<int>(Cells[Cell_Index].Face_Areas.size());
+			for (int Face_No = 0; Face_No < nFaces; Face_No++)
 			{
 				N1 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 0] * Cells[Cell_Index].Face_Areas[Face_No];
 				N2 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 1] * Cells[Cell_Index].Face_Areas[Face_No];
@@ -1061,8 +948,7 @@ void Check_Cells()
 	}
 	else
 	{
-		cout << "No of physical cells and cells in structured form are not same\n";
-		cout << "Check Read grid function\n";
+		cout << "Cells.size() < No_Physical_Cells. Check Read grid function.\n";
 		exit(0);
 	}
 }
@@ -1115,37 +1001,8 @@ void Compute_Centroid(Cell &Grid_Cell)
 {
 	// cout<<"In Compute Centroid\n";
 	if (Grid_Cell.Cell_Center.empty())
-	{
 		Grid_Cell.Cell_Center.resize(3, 0.0);
-	}
-	else
-	{
-		V_D Point1(3, 0.0), Point2(3, 0.0), Point3(3, 0.0);
-		Point1[0] = Grid_Cell.Cell_Vertices[0];
-		Point1[1] = Grid_Cell.Cell_Vertices[1];
-		Point1[2] = Grid_Cell.Cell_Vertices[2];
-		Point2[0] = Grid_Cell.Cell_Vertices[3];
-		Point2[1] = Grid_Cell.Cell_Vertices[4];
-		Point2[2] = Grid_Cell.Cell_Vertices[5];
-		Point3[0] = Grid_Cell.Cell_Vertices[6];
-		Point3[1] = Grid_Cell.Cell_Vertices[7];
-		Point3[2] = Grid_Cell.Cell_Vertices[8];
-		if (Grid_Cell.Cell_Vertices.size() == 12)
-		{
-			V_D Point4(3, 0.0);
-			Point4[0] = Grid_Cell.Cell_Vertices[9];
-			Point4[1] = Grid_Cell.Cell_Vertices[10];
-			Point4[2] = Grid_Cell.Cell_Vertices[11];
-			Compute_Centroid(Point1, Point2, Point3, Point4, Grid_Cell.Cell_Center);
-		}
-		else if (Grid_Cell.Cell_Vertices.size() == 9)
-			Compute_Centroid(Point1, Point2, Point3, Grid_Cell.Cell_Center);
-		else
-		{
-			cout << "Points are not 12 or 9 in number\n";
-			exit(0);
-		}
-	}
+	Compute_Centroid(Grid_Cell.Cell_Vertices, Grid_Cell.Cell_Center);
 }
 
 // Computes the centroid of a triangle

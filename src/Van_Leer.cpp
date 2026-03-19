@@ -22,39 +22,13 @@ void Van_Leer_Flux(const int &Cell_No)
      * - No carbuncle phenomena in low Mach number flows
      */
 
-    // Initialize net flux for this cell to zero
-    for (int i = 0; i < 4; i++)
-    {
+    int nFaces = (Cells[Cell_No].numFaces > 0) ? Cells[Cell_No].numFaces : static_cast<int>(Cells[Cell_No].Face_Areas.size());
+    for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
         Cells_Net_Flux[Cell_No][i] = 0.0;
-    }
 
-    // Get neighbor cell indices for all four faces
-    int Neighbour_1 = Cells[Cell_No].Neighbours[0]; // Face 0 (left)
-    int Neighbour_2 = Cells[Cell_No].Neighbours[1]; // Face 1 (bottom)
-    int Neighbour_3 = Cells[Cell_No].Neighbours[2]; // Face 2 (right)
-    int Neighbour_4 = Cells[Cell_No].Neighbours[3]; // Face 3 (top)
-
-    // Process each face of the current cell
-    for (int face_id = 0; face_id < 4; face_id++)
+    for (int face_id = 0; face_id < nFaces; face_id++)
     {
-        int neighbor_cell = -1;
-
-        // Get the neighbor cell for this face
-        switch (face_id)
-        {
-        case 0:
-            neighbor_cell = Neighbour_1;
-            break;
-        case 1:
-            neighbor_cell = Neighbour_2;
-            break;
-        case 2:
-            neighbor_cell = Neighbour_3;
-            break;
-        case 3:
-            neighbor_cell = Neighbour_4;
-            break;
-        }
+        int neighbor_cell = (face_id < static_cast<int>(Cells[Cell_No].Neighbours.size())) ? Cells[Cell_No].Neighbours[face_id] : -1;
 
         // Get face geometry
         double nx = Cells[Cell_No].Face_Normals[face_id * 2 + 0];

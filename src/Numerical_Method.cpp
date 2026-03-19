@@ -30,7 +30,28 @@ void Explicit_Method()
 	//  Precompute fluxes based on the method selected (WENO, 2nd Order, or 1st Order)
 	if (Is_WENO)
 	{
-		Evaluate_Cell_Net_Flux_WENO();
+		// WENO2D is currently implemented for structured quad cells only.
+		// If the mesh contains any non-quad cells, fall back to MUSCL/1O paths.
+		bool has_non_quad = false;
+		for (int c = 0; c < No_Physical_Cells; c++)
+		{
+			if (Cells[c].numFaces != 4)
+			{
+				has_non_quad = true;
+				break;
+			}
+		}
+		if (has_non_quad)
+		{
+			if (Is_Second_Order)
+				Evaluate_Cell_Net_Flux_2O();
+			else
+				Evaluate_Cell_Net_Flux_1O();
+		}
+		else
+		{
+			Evaluate_Cell_Net_Flux_WENO();
+		}
 	}
 	else
 	{
