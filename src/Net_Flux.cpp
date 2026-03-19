@@ -6,42 +6,41 @@
 // Cell Net Flux evaluates both the average flux and Dissipative flux of a given cell
 void Calculate_Flux_For_All_Faces(int &Current_Cell_No, void (*Dissipation_Function)(const int &, int &, const int &))
 {
-    int Neighbour_1 = 0, Neighbour_2 = 0, Neighbour_3 = 0, Neighbour_4 = 0; // Indicates the numbers to neighbours of the cell
 #ifdef DEBUG
-    std::cerr << "Entered 2nd Order Flux Calculation" << std::endl;
+    std::cerr << "Entered Flux Calculation (generic faces)" << std::endl;
 #endif
-    Neighbour_1 = Cells[Current_Cell_No].Neighbours[0]; //(i-1,j,k)
-    Neighbour_2 = Cells[Current_Cell_No].Neighbours[1]; //(i,j-1,k)
-    Neighbour_3 = Cells[Current_Cell_No].Neighbours[2]; //(i+1,j,k)
-    Neighbour_4 = Cells[Current_Cell_No].Neighbours[3]; //(i,j+1,k)
 
-    Calculate_Face_Average_Flux(Current_Cell_No, Neighbour_1, Face_0, Cells_Face_Boundary_Type[Current_Cell_No][Face_0]);
-    Dissipation_Function(Current_Cell_No, Neighbour_1, Face_0);
-    Cells_Net_Flux[Current_Cell_No][0] += Average_Convective_Flux[0] - Dissipative_Flux[0];
-    Cells_Net_Flux[Current_Cell_No][1] += Average_Convective_Flux[1] - Dissipative_Flux[1];
-    Cells_Net_Flux[Current_Cell_No][2] += Average_Convective_Flux[2] - Dissipative_Flux[2];
-    Cells_Net_Flux[Current_Cell_No][3] += Average_Convective_Flux[3] - Dissipative_Flux[3];
+    const int nFaces = (Cells[Current_Cell_No].numFaces > 0)
+                           ? Cells[Current_Cell_No].numFaces
+                           : static_cast<int>(Cells[Current_Cell_No].Face_Areas.size());
+    const int nNeigh = static_cast<int>(Cells[Current_Cell_No].Neighbours.size());
 
-    Calculate_Face_Average_Flux(Current_Cell_No, Neighbour_2, Face_1, Cells_Face_Boundary_Type[Current_Cell_No][Face_1]);
-    Dissipation_Function(Current_Cell_No, Neighbour_2, Face_1);
-    Cells_Net_Flux[Current_Cell_No][0] += Average_Convective_Flux[0] - Dissipative_Flux[0];
-    Cells_Net_Flux[Current_Cell_No][1] += Average_Convective_Flux[1] - Dissipative_Flux[1];
-    Cells_Net_Flux[Current_Cell_No][2] += Average_Convective_Flux[2] - Dissipative_Flux[2];
-    Cells_Net_Flux[Current_Cell_No][3] += Average_Convective_Flux[3] - Dissipative_Flux[3];
+    for (int face = 0; face < nFaces; face++)
+    {
+        if (face >= nNeigh)
+        {
+            // No neighbor recorded for this face; skip
+            continue;
+        }
 
-    Calculate_Face_Average_Flux(Current_Cell_No, Neighbour_3, Face_2, Cells_Face_Boundary_Type[Current_Cell_No][Face_2]);
-    Dissipation_Function(Current_Cell_No, Neighbour_3, Face_2);
-    Cells_Net_Flux[Current_Cell_No][0] += Average_Convective_Flux[0] - Dissipative_Flux[0];
-    Cells_Net_Flux[Current_Cell_No][1] += Average_Convective_Flux[1] - Dissipative_Flux[1];
-    Cells_Net_Flux[Current_Cell_No][2] += Average_Convective_Flux[2] - Dissipative_Flux[2];
-    Cells_Net_Flux[Current_Cell_No][3] += Average_Convective_Flux[3] - Dissipative_Flux[3];
+        int neighbour = Cells[Current_Cell_No].Neighbours[face];
+        if (neighbour < 0)
+            continue;
 
-    Calculate_Face_Average_Flux(Current_Cell_No, Neighbour_4, Face_3, Cells_Face_Boundary_Type[Current_Cell_No][Face_3]);
-    Dissipation_Function(Current_Cell_No, Neighbour_4, Face_3);
-    Cells_Net_Flux[Current_Cell_No][0] += Average_Convective_Flux[0] - Dissipative_Flux[0];
-    Cells_Net_Flux[Current_Cell_No][1] += Average_Convective_Flux[1] - Dissipative_Flux[1];
-    Cells_Net_Flux[Current_Cell_No][2] += Average_Convective_Flux[2] - Dissipative_Flux[2];
-    Cells_Net_Flux[Current_Cell_No][3] += Average_Convective_Flux[3] - Dissipative_Flux[3];
+        bool isBoundaryFace = false;
+        if (Current_Cell_No < static_cast<int>(Cells_Face_Boundary_Type.size()) &&
+            face < static_cast<int>(Cells_Face_Boundary_Type[Current_Cell_No].size()))
+        {
+            isBoundaryFace = Cells_Face_Boundary_Type[Current_Cell_No][face];
+        }
+
+        Calculate_Face_Average_Flux(Current_Cell_No, neighbour, face, isBoundaryFace);
+        Dissipation_Function(Current_Cell_No, neighbour, face);
+        for (int v = 0; v < NUM_FLUX_COMPONENTS; v++)
+        {
+            Cells_Net_Flux[Current_Cell_No][v] += Average_Convective_Flux[v] - Dissipative_Flux[v];
+        }
+    }
 }
 
 void Evaluate_Cell_Net_Flux_1O()
@@ -67,8 +66,7 @@ void Evaluate_Cell_Net_Flux_1O()
     // flux calculation method.
     for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
     {
-
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
         {
             Cells_Net_Flux[Current_Cell_No][i] = 0.0;
         }
@@ -103,7 +101,7 @@ void Evaluate_Cell_Net_Flux_2O()
 #endif
     for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
     {
-        for (int k = 0; k < 4; k++)
+        for (int k = 0; k < NUM_FLUX_COMPONENTS; k++)
         {
             Cells_Net_Flux[Current_Cell_No][k] = 0.0;
         }

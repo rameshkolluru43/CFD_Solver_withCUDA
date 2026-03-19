@@ -4,7 +4,8 @@
 
 void Construct_Co_Volumes(int &Current_Cell_No)
 {
-	//	cout<<"Constructing Co volume for cell No\t"<<Current_Cell_No<<endl;
+	if (Cells[Current_Cell_No].numFaces != 4)
+		return;
 	Cell Grid_Cells = {};
 	Grid_Cells.cellID = Current_Cell_No;
 	Grid_Cells.Dimension = 2;
@@ -17,7 +18,7 @@ void Construct_Co_Volumes(int &Current_Cell_No)
 	Neighbour_1 = 0;
 	Neighbour_2 = 0;
 	Neighbour_3 = 0;
-	Neighbour_4 = 0; // Indicates the numbers to neighbours of the cell
+	Neighbour_4 = 0;
 	double Area = 0.0, Mid_Point_Distance = 0.0;
 
 	Neighbour_1 = Cells[Current_Cell_No].Neighbours[0];

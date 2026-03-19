@@ -1,5 +1,8 @@
 #include "Globals.h"
 
+BoundaryInfo gBoundaryInfo;
+MeshParams meshParams;
+
 // Define global containers required by GPU main stub
 vector<V_D> Cells_DelU, U_Cells, Primitive_Cells, Cells_Net_Flux, R_Cell, Cells_Viscous_Flux;
 vector<Cell> Cells, Boundary_Cells, Co_Volume_Cells;
@@ -61,16 +64,12 @@ vector<double> values;
 // Grid reader variables
 int numNodes = 0, nodeIndex = 0, PointCellType = 0, LineCellType = 0, TriangleCellType = 0, QuadrilateralCellType = 0, HexahedronCellType = 0, TetrahedronCellType = 0, WedgeCellType = 0;
 
-// Boundary info structure
-BoundaryInfo gBoundaryInfo;
-
 // Boundary and geometry condition structures
 InletCondition inletCond;
 ExitCondition exitCond;
 InitialCondition initCond;
 WallCondition wallCond;
 GeometryParams geomParams;
-MeshParams meshParams;
 
 // Simple stubs to satisfy linker for GPU-only prototype build
 void readJSON(const std::string &) {}

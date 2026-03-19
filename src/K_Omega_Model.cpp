@@ -37,16 +37,16 @@ void Initialize_KOmega_Variables()
     cout << "Initializing K-omega turbulence model..." << endl;
 
     // Resize turbulence variables vector
-    turbulence_vars.resize(Total_Cells);
+    turbulence_vars.resize(Total_No_Cells);
 
     // Set initial values based on inlet conditions
-    double k_init = 0.001 * pow(Inlet_Condition.u, 2); // 0.1% turbulence intensity
-    double L_turb = 0.1 * characteristic_length;       // Turbulent length scale
+    double k_init = 0.001 * pow(inletCond.u, 2); // 0.1% turbulence intensity
+    double L_turb = 0.1 * Cell_Minimum_Length;       // Turbulent length scale
     double omega_init = k_init / (sqrt(KOmega::beta_star) * L_turb);
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             turbulence_vars[i].k = max(k_init, 1e-10);
             turbulence_vars[i].omega = max(omega_init, 1e-6);
@@ -73,12 +73,12 @@ void Initialize_KOmega_Variables()
  */
 void Calculate_KOmega_Turbulent_Viscosity(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     double k = turbulence_vars[cell_index].k;
     double omega = turbulence_vars[cell_index].omega;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
 
     // Ensure positive values
     k = max(k, 1e-10);
@@ -125,7 +125,7 @@ void Calculate_KOmega_Turbulent_Viscosity(int cell_index)
  */
 void Calculate_KOmega_Production_Terms(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     // Calculate strain rate tensor
@@ -150,7 +150,7 @@ void Calculate_KOmega_Production_Terms(int cell_index)
     // Limit production to prevent excessive values
     double k = turbulence_vars[cell_index].k;
     double omega = turbulence_vars[cell_index].omega;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
 
     if (current_turbulence_model == TurbulenceModel::K_OMEGA_SST)
     {
@@ -177,10 +177,10 @@ void Calculate_KOmega_Production_Terms(int cell_index)
  */
 void Solve_KOmega_Transport_Equations(int cell_index, double dt)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double k = turbulence_vars[cell_index].k;
     double omega = turbulence_vars[cell_index].omega;
     double Pk = turbulence_vars[cell_index].Pk;
@@ -225,10 +225,10 @@ void Solve_KOmega_Transport_Equations(int cell_index, double dt)
  */
 void Solve_SST_Transport_Equations(int cell_index, double dt)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double k = turbulence_vars[cell_index].k;
     double omega = turbulence_vars[cell_index].omega;
     double Pk = turbulence_vars[cell_index].Pk;
@@ -277,7 +277,7 @@ void Calculate_SST_Blending_Functions(int cell_index, double &F1, double &F2)
 {
     double k = turbulence_vars[cell_index].k;
     double omega = turbulence_vars[cell_index].omega;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double mu = Calculate_Laminar_Viscosity(cell_index);
 
     double y_wall = turbulence_vars[cell_index].y_wall;
@@ -338,7 +338,7 @@ double Calculate_SST_Cross_Diffusion(int cell_index)
  */
 double Calculate_KOmega_K_Diffusion(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return 0.0;
 
     double diffusion = 0.0;
@@ -347,10 +347,10 @@ double Calculate_KOmega_K_Diffusion(int cell_index)
     double mu_eff = mu_laminar + KOmega::sigma_star * mut;
 
     // Face-based diffusion calculation
-    for (int face = 0; face < Cells[cell_index].No_of_Faces; face++)
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
     {
         int neighbor = Cells[cell_index].Neighbours[face];
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             double k_neighbor = turbulence_vars[neighbor].k;
             double k_cell = turbulence_vars[cell_index].k;
@@ -372,7 +372,7 @@ double Calculate_KOmega_K_Diffusion(int cell_index)
  */
 double Calculate_KOmega_Omega_Diffusion(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return 0.0;
 
     double diffusion = 0.0;
@@ -381,10 +381,10 @@ double Calculate_KOmega_Omega_Diffusion(int cell_index)
     double mu_eff = mu_laminar + KOmega::sigma * mut;
 
     // Face-based diffusion calculation
-    for (int face = 0; face < Cells[cell_index].No_of_Faces; face++)
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
     {
         int neighbor = Cells[cell_index].Neighbours[face];
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             double omega_neighbor = turbulence_vars[neighbor].omega;
             double omega_cell = turbulence_vars[cell_index].omega;
@@ -420,7 +420,7 @@ void Apply_KOmega_Wall_Functions(int cell_index)
     double y_plus = turbulence_vars[cell_index].y_plus;
     double u_tau = turbulence_vars[cell_index].u_tau;
     double y_wall = turbulence_vars[cell_index].y_wall;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double mu = Calculate_Laminar_Viscosity(cell_index);
 
     if (y_plus > 30.0)
@@ -458,10 +458,10 @@ void Apply_KOmega_Wall_Functions(int cell_index)
  */
 void Apply_KOmega_Inlet_BC(int cell_index)
 {
-    double U_inlet = sqrt(Inlet_Condition.u * Inlet_Condition.u +
-                          Inlet_Condition.v * Inlet_Condition.v);
+    double U_inlet = sqrt(inletCond.u * inletCond.u +
+                          inletCond.v * inletCond.v);
     double Tu = 0.05;                       // 5% turbulence intensity
-    double L = 0.1 * characteristic_length; // Turbulent length scale
+    double L = 0.1 * Cell_Minimum_Length; // Turbulent length scale
 
     double k_inlet = 1.5 * pow(Tu * U_inlet, 2);
     double omega_inlet = k_inlet / (sqrt(KOmega::beta_star) * L);
@@ -553,12 +553,12 @@ void Calculate_Scalar_Gradient(int cell_index, const string &variable, double gr
     }
 
     // Green-Gauss gradient calculation
-    for (int face = 0; face < Cells[cell_index].No_of_Faces; face++)
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
     {
         int neighbor = Cells[cell_index].Neighbours[face];
         double value_neighbor;
 
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             if (variable == "k")
             {
@@ -577,19 +577,73 @@ void Calculate_Scalar_Gradient(int cell_index, const string &variable, double gr
         double face_value = 0.5 * (value_center + value_neighbor);
         double face_area = Cells[cell_index].Face_Areas[face];
 
-        // Face normal components (assuming they are stored)
-        double nx = Cells[cell_index].Face_Normals[face][0];
-        double ny = Cells[cell_index].Face_Normals[face][1];
-        double nz = Cells[cell_index].Face_Normals[face][2];
+        // Face normal components (flat 1D array: [nx0,ny0,nx1,ny1,...])
+        double nx = Cells[cell_index].Face_Normals[face*2+0];
+        double ny = Cells[cell_index].Face_Normals[face*2+1];
 
         grad[0] += face_value * nx * face_area;
         grad[1] += face_value * ny * face_area;
-        grad[2] += face_value * nz * face_area;
     }
 
-    // Divide by cell volume
-    double cell_volume = Cells[cell_index].Volume;
-    grad[0] /= cell_volume;
-    grad[1] /= cell_volume;
-    grad[2] /= cell_volume;
+    // Divide by cell area (2D solver)
+    double cell_area = Cells[cell_index].Area;
+    if (cell_area > 0.0)
+    {
+        grad[0] /= cell_area;
+        grad[1] /= cell_area;
+    }
+}
+
+//=============================================================================
+// SST DIFFUSION STUBS
+//=============================================================================
+
+double Calculate_SST_K_Diffusion(int cell_index, double sigma_k)
+{
+    if (Cells[cell_index].cellType == -1)
+        return 0.0;
+
+    double diffusion = 0.0;
+    double mu_laminar = Calculate_Laminar_Viscosity(cell_index);
+    double mut = turbulence_vars[cell_index].mut;
+    double mu_eff = mu_laminar + sigma_k * mut;
+
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
+    {
+        int neighbor = Cells[cell_index].Neighbours[face];
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
+        {
+            double k_neighbor = turbulence_vars[neighbor].k;
+            double k_cell = turbulence_vars[cell_index].k;
+            double face_area = Cells[cell_index].Face_Areas[face];
+            double distance = Calculate_Cell_Distance(cell_index, neighbor);
+            diffusion += mu_eff * (k_neighbor - k_cell) * face_area / distance;
+        }
+    }
+    return diffusion;
+}
+
+double Calculate_SST_Omega_Diffusion(int cell_index, double sigma_omega)
+{
+    if (Cells[cell_index].cellType == -1)
+        return 0.0;
+
+    double diffusion = 0.0;
+    double mu_laminar = Calculate_Laminar_Viscosity(cell_index);
+    double mut = turbulence_vars[cell_index].mut;
+    double mu_eff = mu_laminar + sigma_omega * mut;
+
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
+    {
+        int neighbor = Cells[cell_index].Neighbours[face];
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
+        {
+            double omega_neighbor = turbulence_vars[neighbor].omega;
+            double omega_cell = turbulence_vars[cell_index].omega;
+            double face_area = Cells[cell_index].Face_Areas[face];
+            double distance = Calculate_Cell_Distance(cell_index, neighbor);
+            diffusion += mu_eff * (omega_neighbor - omega_cell) * face_area / distance;
+        }
+    }
+    return diffusion;
 }

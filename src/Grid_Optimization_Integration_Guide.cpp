@@ -3,10 +3,12 @@
 // Shows step-by-step migration from original to optimized implementations
 
 #include "Grid_Computations_Optimized.h"
-#include "Grid_Performance_Benchmark.cpp" // Include benchmark for testing
 #include "Grid.h"
 #include "Globals.h"
 #include <iostream>
+
+void run_grid_performance_benchmark();
+void quick_performance_test(int grid_size = 1000);
 
 // ===== STEP 1: DROP-IN REPLACEMENTS =====
 
@@ -310,7 +312,7 @@ void Construct_Ghost_Cells_Optimized()
         // Process in parallel if beneficial
         if (indices.size() > 10)
         {
-            std::for_each(std::execution::par_unseq, indices.begin(), indices.end(),
+            std::for_each(indices.begin(), indices.end(),
                           [&boundary_list](size_t i)
                           {
                               int cell_index = boundary_list[i];

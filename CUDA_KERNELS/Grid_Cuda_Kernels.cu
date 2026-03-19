@@ -5,7 +5,22 @@
 #include <cuda_runtime.h>
 #include <math.h>
 #include "Cuda_Kernel_Utilities.h"
-#include "../include/definitions.h"
+
+#ifndef VTK_QUAD
+#define VTK_QUAD 9
+#endif
+#ifndef VTK_TRIANGLE
+#define VTK_TRIANGLE 5
+#endif
+
+#define BOUNDARY_NONE  0
+#define BOUNDARY_XMIN  1
+#define BOUNDARY_XMAX  2
+#define BOUNDARY_YMIN  3
+#define BOUNDARY_YMAX  4
+#define BOUNDARY_ZMIN  5
+#define BOUNDARY_ZMAX  6
+#define BOUNDARY_WALL  7
 
 // ===== GRID CONSTRUCTION KERNELS =====
 
@@ -96,7 +111,7 @@ __global__ void identify_neighbors_kernel(
     if (cell_idx >= num_cells) return;
 
     int neighbor_count = 0;
-    int cell_num_faces = num_faces_per_cell[cell_idx];  // Renamed to avoid shadowing parameter
+    int cell_num_faces = num_faces_per_cell[cell_idx];
 
     // Check all faces of this cell
     for (int f = 0; f < cell_num_faces && f < max_faces_per_cell; f++) {

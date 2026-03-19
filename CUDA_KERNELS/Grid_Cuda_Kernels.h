@@ -6,7 +6,6 @@
 #define GRID_CUDA_KERNELS_H
 
 #include <cuda_runtime.h>
-#include "../include/definitions.h"
 
 // ===== GRID CONSTRUCTION KERNEL DECLARATIONS =====
 

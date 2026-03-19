@@ -26,7 +26,7 @@ TurbulenceModel current_turbulence_model = TurbulenceModel::LAMINAR;
 vector<TurbulenceVariables> turbulence_vars;
 bool use_wall_functions = true;
 double y_plus_target = 30.0;
-double characteristic_length = 1.0;
+// characteristic_length replaced by global Cell_Minimum_Length from Globals.h
 
 //=============================================================================
 // MAIN TURBULENCE MODEL INTERFACE
@@ -89,9 +89,9 @@ void Update_Turbulence_Variables(double dt)
         return;
 
     // First, calculate production terms for all cells
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             switch (current_turbulence_model)
             {
@@ -111,9 +111,9 @@ void Update_Turbulence_Variables(double dt)
     }
 
     // Then solve transport equations
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             switch (current_turbulence_model)
             {
@@ -150,22 +150,22 @@ void Update_Effective_Viscosity()
     if (current_turbulence_model == TurbulenceModel::LAMINAR)
         return;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             double mu_laminar = Calculate_Laminar_Viscosity(i);
             double mu_turbulent = turbulence_vars[i].mut;
 
             // Store effective viscosity (to be used in viscous flux calculations)
-            Cells[i].mu_effective = mu_laminar + mu_turbulent;
+            turbulence_vars[i].mu_effective = mu_laminar + mu_turbulent;
 
             // Update thermal conductivity if needed
             double Pr_laminar = 0.72;  // Prandtl number for air
             double Pr_turbulent = 0.9; // Turbulent Prandtl number
 
-            Cells[i].k_effective = mu_laminar * cp / Pr_laminar +
-                                   mu_turbulent * cp / Pr_turbulent;
+            turbulence_vars[i].k_effective = mu_laminar * cp / Pr_laminar +
+                                             mu_turbulent * cp / Pr_turbulent;
         }
     }
 }
@@ -190,22 +190,12 @@ void Calculate_Strain_Rate_Tensor(int cell_index, double S[3][3])
         }
     }
 
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    // Get velocity gradients from cell
-    Vector u_grad = Cells[cell_index].Get_Grad_UatCenter();
-    Vector v_grad = Cells[cell_index].Get_Grad_VatCenter();
-    Vector w_grad = Cells[cell_index].Get_Grad_WatCenter();
-
-    // Calculate strain rate tensor: Sij = 0.5 * (∂ui/∂xj + ∂uj/∂xi)
-    S[0][0] = u_grad.Get_Component(1); // ∂u/∂x
-    S[1][1] = v_grad.Get_Component(2); // ∂v/∂y
-    S[2][2] = w_grad.Get_Component(3); // ∂w/∂z
-
-    S[0][1] = S[1][0] = 0.5 * (u_grad.Get_Component(2) + v_grad.Get_Component(1)); // 0.5*(∂u/∂y + ∂v/∂x)
-    S[0][2] = S[2][0] = 0.5 * (u_grad.Get_Component(3) + w_grad.Get_Component(1)); // 0.5*(∂u/∂z + ∂w/∂x)
-    S[1][2] = S[2][1] = 0.5 * (v_grad.Get_Component(3) + w_grad.Get_Component(2)); // 0.5*(∂v/∂z + ∂w/∂y)
+    // TODO: Implement velocity gradient computation using Green-Gauss or
+    // least-squares method when gradient infrastructure is available.
+    // For now, returns zero tensor.
 }
 
 /**
@@ -224,23 +214,11 @@ void Calculate_Vorticity_Tensor(int cell_index, double Omega[3][3])
         }
     }
 
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    // Get velocity gradients from cell
-    Vector u_grad = Cells[cell_index].Get_Grad_UatCenter();
-    Vector v_grad = Cells[cell_index].Get_Grad_VatCenter();
-    Vector w_grad = Cells[cell_index].Get_Grad_WatCenter();
-
-    // Calculate vorticity tensor: Ωij = 0.5 * (∂ui/∂xj - ∂uj/∂xi)
-    Omega[0][1] = 0.5 * (u_grad.Get_Component(2) - v_grad.Get_Component(1)); // 0.5*(∂u/∂y - ∂v/∂x)
-    Omega[1][0] = -Omega[0][1];
-
-    Omega[0][2] = 0.5 * (u_grad.Get_Component(3) - w_grad.Get_Component(1)); // 0.5*(∂u/∂z - ∂w/∂x)
-    Omega[2][0] = -Omega[0][2];
-
-    Omega[1][2] = 0.5 * (v_grad.Get_Component(3) - w_grad.Get_Component(2)); // 0.5*(∂v/∂z - ∂w/∂y)
-    Omega[2][1] = -Omega[1][2];
+    // TODO: Implement vorticity tensor computation when gradient
+    // infrastructure is available. For now, returns zero tensor.
 }
 
 /**
@@ -250,9 +228,9 @@ void Calculate_Wall_Distances_All_Cells()
 {
     cout << "Calculating wall distances for all cells..." << endl;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             Calculate_Wall_Distance(i);
         }
@@ -267,15 +245,15 @@ void Calculate_Wall_Distances_All_Cells()
  */
 void Calculate_Wall_Distance(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     double min_distance = 1e10;
 
     // Find minimum distance to wall boundaries
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType == WALL_CELL || Cells[i].hasBoundaryface)
+        if (Cells[i].has_Wall_Face || Cells[i].hasBoundaryface)
         {
             // Check if this is actually a wall boundary
             bool is_wall = false;
@@ -290,8 +268,7 @@ void Calculate_Wall_Distance(int cell_index)
             {
                 double dx = Cells[cell_index].Cell_Center[0] - Cells[i].Cell_Center[0];
                 double dy = Cells[cell_index].Cell_Center[1] - Cells[i].Cell_Center[1];
-                double dz = Cells[cell_index].Cell_Center[2] - Cells[i].Cell_Center[2];
-                double distance = sqrt(dx * dx + dy * dy + dz * dz);
+                double distance = sqrt(dx * dx + dy * dy);
 
                 min_distance = min(min_distance, distance);
             }
@@ -307,15 +284,14 @@ void Calculate_Wall_Distance(int cell_index)
  */
 void Calculate_Wall_Shear_Stress(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL || !Cells[cell_index].hasBoundaryface)
+    if (Cells[cell_index].cellType == -1 || !Cells[cell_index].hasBoundaryface)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
-    double u = Cells[cell_index].Conservative_Variables[1] / rho;
-    double v = Cells[cell_index].Conservative_Variables[2] / rho;
-    double w = Cells[cell_index].Conservative_Variables[3] / rho;
+    double rho = U_Cells[cell_index][0];
+    double u_vel = U_Cells[cell_index][1] / rho;
+    double v_vel = U_Cells[cell_index][2] / rho;
 
-    double U_magnitude = sqrt(u * u + v * v + w * w);
+    double U_magnitude = sqrt(u_vel * u_vel + v_vel * v_vel);
     double mu = Calculate_Laminar_Viscosity(cell_index);
     double y_wall = turbulence_vars[cell_index].y_wall;
 
@@ -336,10 +312,10 @@ void Calculate_Wall_Shear_Stress(int cell_index)
  */
 void Calculate_Y_Plus(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double tau_wall = turbulence_vars[cell_index].tau_wall;
     double mu = Calculate_Laminar_Viscosity(cell_index);
     double y_wall = turbulence_vars[cell_index].y_wall;
@@ -368,9 +344,9 @@ void Apply_All_Turbulence_Boundary_Conditions()
     if (current_turbulence_model == TurbulenceModel::LAMINAR)
         return;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL && Cells[i].hasBoundaryface)
+        if (Cells[i].cellType != -1 && Cells[i].hasBoundaryface)
         {
             // Determine boundary type and apply appropriate conditions
             // This should be extended based on your boundary condition system
@@ -522,16 +498,15 @@ void Write_Turbulence_Variables(const string &filename)
     }
 
     outfile << "# Turbulence Variables Output" << endl;
-    outfile << "# Cell_Index X Y Z k epsilon omega mut y_plus" << endl;
+    outfile << "# Cell_Index X Y k epsilon omega mut y_plus" << endl;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             outfile << i << " ";
             outfile << Cells[i].Cell_Center[0] << " ";
             outfile << Cells[i].Cell_Center[1] << " ";
-            outfile << Cells[i].Cell_Center[2] << " ";
             outfile << turbulence_vars[i].k << " ";
             outfile << turbulence_vars[i].epsilon << " ";
             outfile << turbulence_vars[i].omega << " ";
@@ -557,9 +532,9 @@ void Calculate_Turbulence_Statistics()
     double y_plus_max = 0.0, y_plus_min = 1e10, y_plus_avg = 0.0;
     int count = 0;
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             k_max = max(k_max, turbulence_vars[i].k);
             k_min = min(k_min, turbulence_vars[i].k);
@@ -616,9 +591,7 @@ void Calculate_Turbulence_Statistics()
  */
 bool Is_Inlet_Cell(int cell_index)
 {
-    // Implement based on your boundary condition system
-    // This is a placeholder implementation
-    return (Cells[cell_index].Cell_Center[0] < -1.0 && Cells[cell_index].hasBoundaryface);
+    return Cells[cell_index].has_Inlet_Face;
 }
 
 /**
@@ -628,9 +601,7 @@ bool Is_Inlet_Cell(int cell_index)
  */
 bool Is_Outlet_Cell(int cell_index)
 {
-    // Implement based on your boundary condition system
-    // This is a placeholder implementation
-    return (Cells[cell_index].Cell_Center[0] > 1.0 && Cells[cell_index].hasBoundaryface);
+    return Cells[cell_index].has_Exit_Face;
 }
 
 /**
@@ -640,12 +611,7 @@ bool Is_Outlet_Cell(int cell_index)
  */
 bool Is_Wall_Cell(int cell_index)
 {
-    // Implement based on your boundary condition system
-    // This is a placeholder implementation
-    return (Cells[cell_index].hasBoundaryface &&
-            !Is_Inlet_Cell(cell_index) &&
-            !Is_Outlet_Cell(cell_index) &&
-            !Is_Symmetry_Cell(cell_index));
+    return Cells[cell_index].has_Wall_Face;
 }
 
 /**
@@ -655,9 +621,7 @@ bool Is_Wall_Cell(int cell_index)
  */
 bool Is_Symmetry_Cell(int cell_index)
 {
-    // Implement based on your boundary condition system
-    // This is a placeholder implementation
-    return false; // Modify based on your implementation
+    return Cells[cell_index].has_Symmetry_Face;
 }
 
 /**
@@ -667,10 +631,10 @@ bool Is_Symmetry_Cell(int cell_index)
  */
 int Find_Interior_Neighbor(int cell_index)
 {
-    for (int i = 0; i < Cells[cell_index].No_of_Faces; i++)
+    for (int i = 0; i < Cells[cell_index].numFaces; i++)
     {
         int neighbor = Cells[cell_index].Neighbours[i];
-        if (neighbor >= 0 && neighbor < Total_Cells && !Cells[neighbor].hasBoundaryface)
+        if (neighbor >= 0 && neighbor < Total_No_Cells && !Cells[neighbor].hasBoundaryface)
         {
             return neighbor;
         }
@@ -689,7 +653,7 @@ void Apply_Low_Re_Wall_Treatment(int cell_index)
 
     if (current_turbulence_model == TurbulenceModel::K_EPSILON)
     {
-        double rho = Cells[cell_index].Conservative_Variables[0];
+        double rho = U_Cells[cell_index][0];
         double mu = Calculate_Laminar_Viscosity(cell_index);
         double y_wall = turbulence_vars[cell_index].y_wall;
 
@@ -699,7 +663,7 @@ void Apply_Low_Re_Wall_Treatment(int cell_index)
     }
     else
     {
-        double rho = Cells[cell_index].Conservative_Variables[0];
+        double rho = U_Cells[cell_index][0];
         double mu = Calculate_Laminar_Viscosity(cell_index);
         double y_wall = turbulence_vars[cell_index].y_wall;
 

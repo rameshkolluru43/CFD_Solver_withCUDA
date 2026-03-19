@@ -35,15 +35,15 @@ void Initialize_KEpsilon_Variables()
     cout << "Initializing K-epsilon turbulence model..." << endl;
 
     // Resize turbulence variables vector
-    turbulence_vars.resize(Total_Cells);
+    turbulence_vars.resize(Total_No_Cells);
 
     // Set initial values based on inlet conditions or default values
-    double k_init = 0.001 * pow(Inlet_Condition.u, 2); // 0.1% turbulence intensity
-    double epsilon_init = pow(k_init, 1.5) / (0.1 * characteristic_length);
+    double k_init = 0.001 * pow(inletCond.u, 2); // 0.1% turbulence intensity
+    double epsilon_init = pow(k_init, 1.5) / (0.1 * Cell_Minimum_Length);
 
-    for (int i = 0; i < Total_Cells; i++)
+    for (int i = 0; i < Total_No_Cells; i++)
     {
-        if (Cells[i].cellType != GHOST_CELL)
+        if (Cells[i].cellType != -1)
         {
             turbulence_vars[i].k = max(k_init, 1e-10);
             turbulence_vars[i].epsilon = max(epsilon_init, 1e-10);
@@ -70,12 +70,12 @@ void Initialize_KEpsilon_Variables()
  */
 void Calculate_KEpsilon_Turbulent_Viscosity(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     double k = turbulence_vars[cell_index].k;
     double epsilon = turbulence_vars[cell_index].epsilon;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
 
     // Ensure positive values
     k = max(k, 1e-10);
@@ -109,7 +109,7 @@ void Calculate_KEpsilon_Turbulent_Viscosity(int cell_index)
  */
 void Calculate_KEpsilon_Production_Terms(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
     // Calculate strain rate tensor components
@@ -134,7 +134,7 @@ void Calculate_KEpsilon_Production_Terms(int cell_index)
     // Limit production to prevent excessive values
     double k = turbulence_vars[cell_index].k;
     double epsilon = turbulence_vars[cell_index].epsilon;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
 
     // Apply Kato-Launder correction if needed
     double max_production = 10.0 * rho * epsilon;
@@ -152,10 +152,10 @@ void Calculate_KEpsilon_Production_Terms(int cell_index)
  */
 void Solve_KEpsilon_Transport_Equations(int cell_index, double dt)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return;
 
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
     double k = turbulence_vars[cell_index].k;
     double epsilon = turbulence_vars[cell_index].epsilon;
     double Pk = turbulence_vars[cell_index].Pk;
@@ -168,7 +168,7 @@ void Solve_KEpsilon_Transport_Equations(int cell_index, double dt)
     double Sk = Pk - rho * epsilon;
 
     // Epsilon-equation source terms
-    double Sepsilon = KEpsilon::C_1 * (epsilon / k) * Pk - KEpsilon::C_2 * rho * (epsilon * epsilon / k);
+    double Sepsilon = KEpsilon::C1_eps * (epsilon / k) * Pk - KEpsilon::C_2 * rho * (epsilon * epsilon / k);
 
     // Time integration (explicit Euler)
     double k_new = k + dt * (dk_diff + Sk) / rho;
@@ -193,7 +193,7 @@ void Solve_KEpsilon_Transport_Equations(int cell_index, double dt)
  */
 double Calculate_KEpsilon_K_Diffusion(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return 0.0;
 
     double diffusion = 0.0;
@@ -202,10 +202,10 @@ double Calculate_KEpsilon_K_Diffusion(int cell_index)
     double mu_eff = mu_laminar + mut / KEpsilon::sigma_k;
 
     // Calculate diffusion using face-based approach
-    for (int face = 0; face < Cells[cell_index].No_of_Faces; face++)
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
     {
         int neighbor = Cells[cell_index].Neighbours[face];
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             double k_neighbor = turbulence_vars[neighbor].k;
             double k_cell = turbulence_vars[cell_index].k;
@@ -227,7 +227,7 @@ double Calculate_KEpsilon_K_Diffusion(int cell_index)
  */
 double Calculate_KEpsilon_Epsilon_Diffusion(int cell_index)
 {
-    if (Cells[cell_index].cellType == GHOST_CELL)
+    if (Cells[cell_index].cellType == -1)
         return 0.0;
 
     double diffusion = 0.0;
@@ -236,10 +236,10 @@ double Calculate_KEpsilon_Epsilon_Diffusion(int cell_index)
     double mu_eff = mu_laminar + mut / KEpsilon::sigma_e;
 
     // Calculate diffusion using face-based approach
-    for (int face = 0; face < Cells[cell_index].No_of_Faces; face++)
+    for (int face = 0; face < Cells[cell_index].numFaces; face++)
     {
         int neighbor = Cells[cell_index].Neighbours[face];
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             double epsilon_neighbor = turbulence_vars[neighbor].epsilon;
             double epsilon_cell = turbulence_vars[cell_index].epsilon;
@@ -274,7 +274,7 @@ void Apply_KEpsilon_Wall_Functions(int cell_index)
 
     double y_plus = turbulence_vars[cell_index].y_plus;
     double u_tau = turbulence_vars[cell_index].u_tau;
-    double rho = Cells[cell_index].Conservative_Variables[0];
+    double rho = U_Cells[cell_index][0];
 
     if (y_plus > 30.0)
     { // Use log-law region
@@ -312,10 +312,10 @@ void Apply_KEpsilon_Wall_Functions(int cell_index)
 void Apply_KEpsilon_Inlet_BC(int cell_index)
 {
     // Set inlet turbulence values based on turbulence intensity and length scale
-    double U_inlet = sqrt(Inlet_Condition.u * Inlet_Condition.u +
-                          Inlet_Condition.v * Inlet_Condition.v);
+    double U_inlet = sqrt(inletCond.u * inletCond.u +
+                          inletCond.v * inletCond.v);
     double Tu = 0.05;                       // 5% turbulence intensity (should be input parameter)
-    double L = 0.1 * characteristic_length; // Turbulent length scale
+    double L = 0.1 * Cell_Minimum_Length; // Turbulent length scale
 
     double k_inlet = 1.5 * pow(Tu * U_inlet, 2);
     double epsilon_inlet = KEpsilon::C_mu * pow(k_inlet, 1.5) / L;
@@ -376,17 +376,8 @@ double Calculate_Strain_Rate_Magnitude(int cell_index)
  */
 double Calculate_Laminar_Viscosity(int cell_index)
 {
-    double rho = Cells[cell_index].Conservative_Variables[0];
-    double E = Cells[cell_index].Conservative_Variables[4];
-    double u = Cells[cell_index].Conservative_Variables[1] / rho;
-    double v = Cells[cell_index].Conservative_Variables[2] / rho;
-    double w = Cells[cell_index].Conservative_Variables[3] / rho;
-
-    double kinetic_energy = 0.5 * (u * u + v * v + w * w);
-    double internal_energy = E / rho - kinetic_energy;
-    double T = internal_energy / cv;
-
-    // Sutherland's law
+    double T = Primitive_Cells[cell_index][4];
+    // Sutherland's law: C_1 macro = 1.458e-6, T_S_Mu = 110.4
     return C_1 * pow(T, 1.5) / (T + T_S_Mu);
 }
 
@@ -400,9 +391,8 @@ double Calculate_Cell_Distance(int cell1, int cell2)
 {
     double dx = Cells[cell1].Cell_Center[0] - Cells[cell2].Cell_Center[0];
     double dy = Cells[cell1].Cell_Center[1] - Cells[cell2].Cell_Center[1];
-    double dz = Cells[cell1].Cell_Center[2] - Cells[cell2].Cell_Center[2];
 
-    return sqrt(dx * dx + dy * dy + dz * dz);
+    return sqrt(dx * dx + dy * dy);
 }
 
 /**
@@ -417,10 +407,10 @@ int Find_Upstream_Neighbor(int cell_index)
     int upstream = -1;
     double min_x = 1e10;
 
-    for (int i = 0; i < Cells[cell_index].No_of_Faces; i++)
+    for (int i = 0; i < Cells[cell_index].numFaces; i++)
     {
         int neighbor = Cells[cell_index].Neighbours[i];
-        if (neighbor >= 0 && neighbor < Total_Cells)
+        if (neighbor >= 0 && neighbor < Total_No_Cells)
         {
             if (Cells[neighbor].Cell_Center[0] < min_x)
             {

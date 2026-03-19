@@ -225,6 +225,7 @@ typedef vector<int> V_I;
 using vtkIdType = long long;
 #endif
 
+#ifndef __CUDACC__
 struct BoundaryInfo
 {
     std::unordered_set<vtkIdType> leftBoundary;
@@ -234,6 +235,9 @@ struct BoundaryInfo
     std::unordered_set<vtkIdType> cylinderBoundary;
 };
 extern BoundaryInfo gBoundaryInfo;
+#else
+struct BoundaryInfo {};
+#endif
 
 // Structures to hold boundary conditions
 struct InletCondition
@@ -298,6 +302,7 @@ struct MeshParams
     int gridSize, nx, ny;
     std::string meshType;
 };
+extern MeshParams meshParams;
 struct GeneralParams
 {
     double L_ref, M_ref, mu_ref, P_ref, Rho_ref, cp_ref, R_ref;
@@ -314,6 +319,8 @@ struct Cell
     double Area, Inv_Area, del_t;
     V_D Face_Areas, Face_Normals, Cell_Center, Cell_Center_Distances, Cell_Vertices, Cell_Face_Distances, Cell_Areas, Cell_Center_Vector;
     bool Left_Face = false, Right_Face = false, Top_Face = false, Bottom_Face = false, Interior_Face = false;
+    /** Per-face boundary kind for mixed tri/quad: 0=INTERNAL, 1=LEFT, 2=RIGHT, 3=TOP, 4=BOTTOM, 5=WALL. Size = numFaces. */
+    vector<int> Face_Boundary_Kind;
     // Constructor to initialize Cell
     Cell() {}
     Cell(int nNodes, int id, const vector<int> &indices)
@@ -385,6 +392,10 @@ extern string Solver_Name, Description, Author, GeometryType;
 // boolean variables for tagging various conditions
 extern bool Is_Viscous_Wall, Is_2D_Flow, Is_Inlet_SubSonic, Is_Exit_SubSonic, Enable_Far_Field, Is_Second_Order;
 extern bool Is_Implicit_Method, Is_MOVERS_1, Enable_Entropy_Fix, Is_Time_Dependent, has_Symmetry_BC, Time_Accurate;
+extern bool Enable_AMR;
+extern int AMR_Period;
+extern double AMR_Gradient_Threshold, AMR_Max_Fraction;
+extern vector<double> Gradient_Refinement_Indicator;
 extern bool Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Conservative, Is_Viscous;
 
 extern string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, BCFileName, InitCondFileName;

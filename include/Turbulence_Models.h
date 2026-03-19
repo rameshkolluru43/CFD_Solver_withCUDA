@@ -26,7 +26,7 @@
 namespace KEpsilon
 {
     const double C_mu = 0.09;
-    const double C_1 = 1.44;
+    const double C1_eps = 1.44;
     const double C_2 = 1.92;
     const double sigma_k = 1.0;
     const double sigma_e = 1.3;
@@ -92,6 +92,7 @@ struct TurbulenceVariables
     double mut;      // Turbulent viscosity
     double nut;      // Turbulent kinematic viscosity
     double y_plus;   // Dimensionless wall distance
+    double y_wall;   // Wall distance
     double tau_wall; // Wall shear stress
     double u_tau;    // Friction velocity
 
@@ -100,10 +101,21 @@ struct TurbulenceVariables
     double Pepsilon; // Production of epsilon
     double Pomega;   // Production of omega
 
+    // Residual storage for implicit/RK4 solvers
+    double k_residual;
+    double epsilon_residual;
+    double omega_residual;
+
+    // Effective transport properties
+    double mu_effective;
+    double k_effective;
+
     // Constructor
     TurbulenceVariables() : k(0.0), epsilon(0.0), omega(0.0), mut(0.0),
-                            nut(0.0), y_plus(0.0), tau_wall(0.0), u_tau(0.0),
-                            Pk(0.0), Pepsilon(0.0), Pomega(0.0) {}
+                            nut(0.0), y_plus(0.0), y_wall(0.0), tau_wall(0.0), u_tau(0.0),
+                            Pk(0.0), Pepsilon(0.0), Pomega(0.0),
+                            k_residual(0.0), epsilon_residual(0.0), omega_residual(0.0),
+                            mu_effective(0.0), k_effective(0.0) {}
 };
 
 //=============================================================================
@@ -148,8 +160,50 @@ void Calculate_Strain_Rate_Tensor(int cell_index, double S[3][3]);
 void Calculate_Vorticity_Tensor(int cell_index, double Omega[3][3]);
 void Calculate_Turbulent_Production(int cell_index, const double S[3][3]);
 void Calculate_Wall_Distance(int cell_index);
+void Calculate_Wall_Distances_All_Cells();
 void Calculate_Wall_Shear_Stress(int cell_index);
 void Calculate_Y_Plus(int cell_index);
+double Calculate_Laminar_Viscosity(int cell_index);
+double Calculate_Strain_Rate_Magnitude(int cell_index);
+double Calculate_Cell_Distance(int cell1, int cell2);
+int Find_Upstream_Neighbor(int cell_index);
+double Calculate_Vorticity_Magnitude(int cell_index);
+double Calculate_SST_F2_Function(int cell_index);
+
+// Diffusion term functions
+double Calculate_KEpsilon_K_Diffusion(int cell_index);
+double Calculate_KEpsilon_Epsilon_Diffusion(int cell_index);
+double Calculate_KOmega_K_Diffusion(int cell_index);
+double Calculate_KOmega_Omega_Diffusion(int cell_index);
+double Calculate_SST_K_Diffusion(int cell_index, double sigma_k);
+double Calculate_SST_Omega_Diffusion(int cell_index, double sigma_omega);
+double Calculate_SST_Cross_Diffusion(int cell_index);
+void Calculate_Scalar_Gradient(int cell_index, const string &variable, double grad[3]);
+
+// Initialization functions (model-specific)
+void Initialize_KEpsilon_Variables();
+void Initialize_KOmega_Variables();
+
+// Model-specific boundary conditions
+void Apply_KEpsilon_Inlet_BC(int cell_index);
+void Apply_KEpsilon_Outlet_BC(int cell_index);
+void Apply_KOmega_Inlet_BC(int cell_index);
+void Apply_KOmega_Outlet_BC(int cell_index);
+
+// Helper functions
+void Apply_All_Turbulence_Boundary_Conditions();
+bool Is_Inlet_Cell(int cell_index);
+bool Is_Outlet_Cell(int cell_index);
+bool Is_Wall_Cell(int cell_index);
+bool Is_Symmetry_Cell(int cell_index);
+int Find_Interior_Neighbor(int cell_index);
+void Apply_Low_Re_Wall_Treatment(int cell_index);
+
+// Integration functions
+bool Viscous_Solver_With_Turbulence(string &Error_Filename, string &Sol_Filename);
+void Setup_Turbulence_From_Config(const string &config_file);
+double Calculate_Turbulence_Error(const string &variable);
+void Apply_Turbulence_Limiters_All_Cells();
 
 // Boundary condition functions
 void Apply_Turbulence_Inlet_BC(int cell_index);
@@ -175,7 +229,7 @@ void Update_Turbulent_Thermal_Conductivity();
 // Output and diagnostics
 void Write_Turbulence_Variables(const string &filename);
 void Calculate_Turbulence_Statistics();
-void Check_Turbulence_Convergence();
+bool Check_Turbulence_Convergence();
 
 // Validation and verification
 void Validate_Turbulence_Implementation();

@@ -36,6 +36,8 @@ void Construct_Cell(V_D &, V_D &, V_D &, V_D &, V_D &, V_D &, V_D &, V_D &);
 void Construct_Cell(const int &, const int &, const int &);
 void Construct_Cell();
 void TagRefinableCells(vector<Cell> &, double &);
+void Compute_Gradient_Refinement_Indicator();
+bool Apply_Adaptive_Refinement();
 
 void Construct_Co_Volumes(int &);
 // Function for Finding Cross Product of two vectors used in evaluating Face areas.

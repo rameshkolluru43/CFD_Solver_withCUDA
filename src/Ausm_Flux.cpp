@@ -19,40 +19,13 @@ void Ausm_Flux(const int &Cell_No)
      * and accumulates the net flux contribution.
      */
 
-    // Initialize net flux for this cell to zero
-    for (int i = 0; i < 4; i++)
-    {
+    int nFaces = (Cells[Cell_No].numFaces > 0) ? Cells[Cell_No].numFaces : static_cast<int>(Cells[Cell_No].Face_Areas.size());
+    for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
         Cells_Net_Flux[Cell_No][i] = 0.0;
-    }
 
-    // Get neighbor cell indices for all four faces
-    int Neighbour_1 = Cells[Cell_No].Neighbours[0]; // Face 0 (left)
-    int Neighbour_2 = Cells[Cell_No].Neighbours[1]; // Face 1 (bottom)
-    int Neighbour_3 = Cells[Cell_No].Neighbours[2]; // Face 2 (right)
-    int Neighbour_4 = Cells[Cell_No].Neighbours[3]; // Face 3 (top)
-
-    // Process each face of the cell
-    for (int face = 0; face < 4; face++)
+    for (int face = 0; face < nFaces; face++)
     {
-        int neighbor_idx;
-        switch (face)
-        {
-        case 0:
-            neighbor_idx = Neighbour_1;
-            break;
-        case 1:
-            neighbor_idx = Neighbour_2;
-            break;
-        case 2:
-            neighbor_idx = Neighbour_3;
-            break;
-        case 3:
-            neighbor_idx = Neighbour_4;
-            break;
-        default:
-            neighbor_idx = -1;
-            break;
-        }
+        int neighbor_idx = (face < static_cast<int>(Cells[Cell_No].Neighbours.size())) ? Cells[Cell_No].Neighbours[face] : -1;
 
         // Skip if this is a boundary face (no valid neighbor)
         if (neighbor_idx < 0 || neighbor_idx >= No_Physical_Cells)
@@ -195,22 +168,20 @@ void Ausm_Flux(const int &Cell_No)
         Cells_Net_Flux[Cell_No][3] += face_flux[3];
     }
 
-    // Apply boundary conditions if needed
-    // Handle wall boundaries, inlet/outlet conditions, etc.
-    for (int face = 0; face < 4; face++)
+    int nFacesB = static_cast<int>(Cells_Face_Boundary_Type[Cell_No].size());
+    for (int face = 0; face < nFacesB; face++)
     {
-        if (Cells_Face_Boundary_Type[Cell_No][face] != 0) // Non-internal face
-        {
-            // Apply appropriate boundary flux modification
-            // This is a simplified approach - more sophisticated boundary
-            // treatments would be implemented based on boundary type
+        if (face >= static_cast<int>(Cells[Cell_No].Face_Areas.size()))
+            break;
+        if (!Cells_Face_Boundary_Type[Cell_No][face])
+            continue;
 
-            double face_area = Cells[Cell_No].Face_Areas[face];
-            double nx = Cells[Cell_No].Face_Normals[face * 2 + 0];
-            double ny = Cells[Cell_No].Face_Normals[face * 2 + 1];
+        double face_area = Cells[Cell_No].Face_Areas[face];
+        double nx = Cells[Cell_No].Face_Normals[face * 2 + 0];
+        double ny = Cells[Cell_No].Face_Normals[face * 2 + 1];
 
-            // For wall boundaries, ensure no mass flux
-            if (Cells_Face_Boundary_Type[Cell_No][face] == 2) // Wall boundary
+        // Wall boundary: zero mass flux, pressure contribution only
+        if (Cells_Face_Boundary_Type[Cell_No][face])
             {
                 double rho = U_Cells[Cell_No][0];
                 double u = U_Cells[Cell_No][1] / rho;
@@ -230,6 +201,5 @@ void Ausm_Flux(const int &Cell_No)
                 Cells_Net_Flux[Cell_No][2] -= wall_flux[2];
                 Cells_Net_Flux[Cell_No][3] -= wall_flux[3];
             }
-        }
     }
 }

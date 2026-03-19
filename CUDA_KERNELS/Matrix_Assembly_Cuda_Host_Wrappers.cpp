@@ -5,16 +5,9 @@
 // Author: AI Assistant
 
 #include "Matrix_Assembly_Cuda_Kernels.h"
-#include "definitions.h"
-#include "Globals.h"
 #include <cuda_runtime.h>
-#include <chrono>
 #include <iostream>
-#include <algorithm>
-#include <memory>
-#include <thrust/scan.h>
-#include <thrust/device_vector.h>
-#include <thrust/host_vector.h>
+#include <vector>
 
 //=============================================================================
 // CUDA ERROR CHECKING AND UTILITIES
@@ -109,19 +102,18 @@ std::pair<int, int> get_optimal_launch_params(int No_Physical_Cells, int kernel_
 
     switch (kernel_type)
     {
-    case 0: // Dense matrix assembly
-        block_size = std::min(256, prop.maxThreadsPerBlock);
+    case 0:
+        block_size = (256 < prop.maxThreadsPerBlock) ? 256 : prop.maxThreadsPerBlock;
         grid_size = (No_Physical_Cells + block_size - 1) / block_size;
         break;
 
-    case 1: // Sparse matrix assembly
-        block_size = std::min(128, prop.maxThreadsPerBlock);
+    case 1:
+        block_size = (128 < prop.maxThreadsPerBlock) ? 128 : prop.maxThreadsPerBlock;
         grid_size = (No_Physical_Cells + block_size - 1) / block_size;
         break;
 
-    case 2: // Coalesced sparse matrix assembly
-        block_size = std::min(256, prop.maxThreadsPerBlock);
-        // Ensure block_size is multiple of warp size
+    case 2:
+        block_size = (256 < prop.maxThreadsPerBlock) ? 256 : prop.maxThreadsPerBlock;
         block_size = (block_size / prop.warpSize) * prop.warpSize;
         grid_size = (No_Physical_Cells * prop.warpSize + block_size - 1) / block_size;
         break;
@@ -131,8 +123,7 @@ std::pair<int, int> get_optimal_launch_params(int No_Physical_Cells, int kernel_
         grid_size = (No_Physical_Cells + block_size - 1) / block_size;
     }
 
-    // Limit grid size to device maximum
-    grid_size = std::min(grid_size, prop.maxGridSize[0]);
+    if (grid_size > prop.maxGridSize[0]) grid_size = prop.maxGridSize[0];
 
     return std::make_pair(grid_size, block_size);
 }
@@ -154,13 +145,14 @@ double assemble_dense_matrix_cuda(
     int No_Physical_Cells)
 {
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    cudaEvent_t ev_start, ev_end, ev_k_start, ev_k_end;
+    cudaEventCreate(&ev_start); cudaEventCreate(&ev_end);
+    cudaEventCreate(&ev_k_start); cudaEventCreate(&ev_k_end);
+    cudaEventRecord(ev_start);
 
-    // Calculate matrix size
     int matrix_size = 4 * No_Physical_Cells;
     matrix.resize(matrix_size * matrix_size, 0.0);
 
-    // Allocate device memory
     double *d_cell_areas, *d_face_areas, *d_conservative_vars, *d_matrix;
     int *d_neighbors;
 
@@ -170,21 +162,18 @@ double assemble_dense_matrix_cuda(
     CUDA_CHECK(cudaMalloc(&d_conservative_vars, No_Physical_Cells * 4 * sizeof(double)));
     CUDA_CHECK(cudaMalloc(&d_matrix, matrix_size * matrix_size * sizeof(double)));
 
-    // Copy data to device
     CUDA_CHECK(cudaMemcpy(d_cell_areas, cell_areas.data(), No_Physical_Cells * sizeof(double), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_face_areas, face_areas.data(), No_Physical_Cells * 4 * sizeof(double), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_neighbors, neighbors.data(), No_Physical_Cells * 4 * sizeof(int), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_conservative_vars, conservative_vars.data(), No_Physical_Cells * 4 * sizeof(double), cudaMemcpyHostToDevice));
 
-    // Initialize matrix to zero
     auto launch_params = get_optimal_launch_params(matrix_size * matrix_size, 0);
     initialize_matrix_kernel<<<launch_params.first, launch_params.second>>>(d_matrix, matrix_size * matrix_size);
     CUDA_CHECK(cudaGetLastError());
 
-    // Launch matrix assembly kernel
     launch_params = get_optimal_launch_params(No_Physical_Cells, 0);
 
-    auto kernel_start = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_start);
 
     assemble_dense_matrix_kernel<<<launch_params.first, launch_params.second>>>(
         d_cell_areas, d_face_areas, d_neighbors, d_conservative_vars,
@@ -193,22 +182,27 @@ double assemble_dense_matrix_cuda(
     CUDA_CHECK(cudaDeviceSynchronize());
     CUDA_CHECK(cudaGetLastError());
 
-    auto kernel_end = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_end);
 
-    // Copy result back to host
     CUDA_CHECK(cudaMemcpy(matrix.data(), d_matrix, matrix_size * matrix_size * sizeof(double), cudaMemcpyDeviceToHost));
 
-    // Cleanup device memory
     CUDA_CHECK(cudaFree(d_cell_areas));
     CUDA_CHECK(cudaFree(d_face_areas));
     CUDA_CHECK(cudaFree(d_neighbors));
     CUDA_CHECK(cudaFree(d_conservative_vars));
     CUDA_CHECK(cudaFree(d_matrix));
 
-    auto end_time = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_end);
+    cudaEventSynchronize(ev_end);
 
-    double total_time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-    double kernel_time = std::chrono::duration<double, std::milli>(kernel_end - kernel_start).count();
+    float total_time_f = 0.0f, kernel_time_f = 0.0f;
+    cudaEventElapsedTime(&total_time_f, ev_start, ev_end);
+    cudaEventElapsedTime(&kernel_time_f, ev_k_start, ev_k_end);
+    double total_time = total_time_f;
+    double kernel_time = kernel_time_f;
+
+    cudaEventDestroy(ev_start); cudaEventDestroy(ev_end);
+    cudaEventDestroy(ev_k_start); cudaEventDestroy(ev_k_end);
 
     std::cout << "Dense Matrix Assembly CUDA Performance:" << std::endl;
     std::cout << "  Total Time: " << total_time << " ms" << std::endl;
@@ -235,9 +229,11 @@ double assemble_sparse_matrix_cuda(
     int No_Physical_Cells)
 {
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    cudaEvent_t ev_start, ev_end, ev_k_start, ev_k_end;
+    cudaEventCreate(&ev_start); cudaEventCreate(&ev_end);
+    cudaEventCreate(&ev_k_start); cudaEventCreate(&ev_k_end);
+    cudaEventRecord(ev_start);
 
-    // Allocate device memory for inputs
     double *d_cell_areas, *d_face_areas, *d_conservative_vars;
     int *d_neighbors;
 
@@ -246,13 +242,11 @@ double assemble_sparse_matrix_cuda(
     CUDA_CHECK(cudaMalloc(&d_neighbors, No_Physical_Cells * 4 * sizeof(int)));
     CUDA_CHECK(cudaMalloc(&d_conservative_vars, No_Physical_Cells * 4 * sizeof(double)));
 
-    // Copy input data to device
     CUDA_CHECK(cudaMemcpy(d_cell_areas, cell_areas.data(), No_Physical_Cells * sizeof(double), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_face_areas, face_areas.data(), No_Physical_Cells * 4 * sizeof(double), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_neighbors, neighbors.data(), No_Physical_Cells * 4 * sizeof(int), cudaMemcpyHostToDevice));
     CUDA_CHECK(cudaMemcpy(d_conservative_vars, conservative_vars.data(), No_Physical_Cells * 4 * sizeof(double), cudaMemcpyHostToDevice));
 
-    // Step 1: Count non-zeros per cell
     int *d_nnz_per_cell;
     CUDA_CHECK(cudaMalloc(&d_nnz_per_cell, No_Physical_Cells * sizeof(int)));
 
@@ -261,18 +255,21 @@ double assemble_sparse_matrix_cuda(
         d_neighbors, d_nnz_per_cell, No_Physical_Cells);
     CUDA_CHECK(cudaGetLastError());
 
-    // Step 2: Compute cumulative sum to get offsets
-    thrust::device_vector<int> d_nnz_offsets(No_Physical_Cells + 1);
-    d_nnz_offsets[0] = 0;
+    // Host-side prefix sum (avoids Thrust dependency)
+    std::vector<int> h_nnz_per_cell(No_Physical_Cells);
+    CUDA_CHECK(cudaMemcpy(h_nnz_per_cell.data(), d_nnz_per_cell, No_Physical_Cells * sizeof(int), cudaMemcpyDeviceToHost));
 
-    thrust::device_ptr<int> nnz_ptr(d_nnz_per_cell);
-    thrust::inclusive_scan(nnz_ptr, nnz_ptr + No_Physical_Cells, d_nnz_offsets.begin() + 1);
+    std::vector<int> h_nnz_offsets(No_Physical_Cells + 1);
+    h_nnz_offsets[0] = 0;
+    for (int i = 0; i < No_Physical_Cells; i++) {
+        h_nnz_offsets[i + 1] = h_nnz_offsets[i] + h_nnz_per_cell[i];
+    }
+    int total_nnz = h_nnz_offsets[No_Physical_Cells];
 
-    // Get total number of non-zeros
-    int total_nnz;
-    CUDA_CHECK(cudaMemcpy(&total_nnz, thrust::raw_pointer_cast(d_nnz_offsets.data()) + No_Physical_Cells, sizeof(int), cudaMemcpyDeviceToHost));
+    int *d_nnz_offsets;
+    CUDA_CHECK(cudaMalloc(&d_nnz_offsets, (No_Physical_Cells + 1) * sizeof(int)));
+    CUDA_CHECK(cudaMemcpy(d_nnz_offsets, h_nnz_offsets.data(), (No_Physical_Cells + 1) * sizeof(int), cudaMemcpyHostToDevice));
 
-    // Allocate output arrays
     row_indices.resize(total_nnz);
     col_indices.resize(total_nnz);
     values.resize(total_nnz);
@@ -284,39 +281,44 @@ double assemble_sparse_matrix_cuda(
     CUDA_CHECK(cudaMalloc(&d_col_indices, total_nnz * sizeof(int)));
     CUDA_CHECK(cudaMalloc(&d_values, total_nnz * sizeof(double)));
 
-    // Step 3: Assemble sparse matrix
-    auto kernel_start = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_start);
 
     assemble_sparse_matrix_kernel<<<launch_params.first, launch_params.second>>>(
         d_cell_areas, d_face_areas, d_neighbors, d_conservative_vars,
-        thrust::raw_pointer_cast(d_nnz_offsets.data()),
+        d_nnz_offsets,
         d_row_indices, d_col_indices, d_values,
         dt, No_Physical_Cells);
 
     CUDA_CHECK(cudaDeviceSynchronize());
     CUDA_CHECK(cudaGetLastError());
 
-    auto kernel_end = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_end);
 
-    // Copy results back to host
     CUDA_CHECK(cudaMemcpy(row_indices.data(), d_row_indices, total_nnz * sizeof(int), cudaMemcpyDeviceToHost));
     CUDA_CHECK(cudaMemcpy(col_indices.data(), d_col_indices, total_nnz * sizeof(int), cudaMemcpyDeviceToHost));
     CUDA_CHECK(cudaMemcpy(values.data(), d_values, total_nnz * sizeof(double), cudaMemcpyDeviceToHost));
 
-    // Cleanup device memory
     CUDA_CHECK(cudaFree(d_cell_areas));
     CUDA_CHECK(cudaFree(d_face_areas));
     CUDA_CHECK(cudaFree(d_neighbors));
     CUDA_CHECK(cudaFree(d_conservative_vars));
     CUDA_CHECK(cudaFree(d_nnz_per_cell));
+    CUDA_CHECK(cudaFree(d_nnz_offsets));
     CUDA_CHECK(cudaFree(d_row_indices));
     CUDA_CHECK(cudaFree(d_col_indices));
     CUDA_CHECK(cudaFree(d_values));
 
-    auto end_time = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_end);
+    cudaEventSynchronize(ev_end);
 
-    double total_time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-    double kernel_time = std::chrono::duration<double, std::milli>(kernel_end - kernel_start).count();
+    float total_time_f = 0.0f, kernel_time_f = 0.0f;
+    cudaEventElapsedTime(&total_time_f, ev_start, ev_end);
+    cudaEventElapsedTime(&kernel_time_f, ev_k_start, ev_k_end);
+    double total_time = total_time_f;
+    double kernel_time = kernel_time_f;
+
+    cudaEventDestroy(ev_start); cudaEventDestroy(ev_end);
+    cudaEventDestroy(ev_k_start); cudaEventDestroy(ev_k_end);
 
     std::cout << "Sparse Matrix Assembly CUDA Performance:" << std::endl;
     std::cout << "  Total Time: " << total_time << " ms" << std::endl;
@@ -338,24 +340,22 @@ double assemble_vector_b_cuda(
     int No_Physical_Cells)
 {
 
-    auto start_time = std::chrono::high_resolution_clock::now();
+    cudaEvent_t ev_start, ev_end, ev_k_start, ev_k_end;
+    cudaEventCreate(&ev_start); cudaEventCreate(&ev_end);
+    cudaEventCreate(&ev_k_start); cudaEventCreate(&ev_k_end);
+    cudaEventRecord(ev_start);
 
     int vector_size = No_Physical_Cells * 4;
     vector_b.resize(vector_size);
 
-    // Allocate device memory
     double *d_net_flux, *d_vector_b;
-
     CUDA_CHECK(cudaMalloc(&d_net_flux, vector_size * sizeof(double)));
     CUDA_CHECK(cudaMalloc(&d_vector_b, vector_size * sizeof(double)));
-
-    // Copy data to device
     CUDA_CHECK(cudaMemcpy(d_net_flux, net_flux.data(), vector_size * sizeof(double), cudaMemcpyHostToDevice));
 
-    // Launch kernel
     auto launch_params = get_optimal_launch_params(vector_size, 0);
 
-    auto kernel_start = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_start);
 
     assemble_vector_b_kernel<<<launch_params.first, launch_params.second>>>(
         d_net_flux, d_vector_b, No_Physical_Cells);
@@ -363,26 +363,29 @@ double assemble_vector_b_cuda(
     CUDA_CHECK(cudaDeviceSynchronize());
     CUDA_CHECK(cudaGetLastError());
 
-    auto kernel_end = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_k_end);
 
-    // Copy result back to host
     CUDA_CHECK(cudaMemcpy(vector_b.data(), d_vector_b, vector_size * sizeof(double), cudaMemcpyDeviceToHost));
 
-    // Cleanup
     CUDA_CHECK(cudaFree(d_net_flux));
     CUDA_CHECK(cudaFree(d_vector_b));
 
-    auto end_time = std::chrono::high_resolution_clock::now();
+    cudaEventRecord(ev_end);
+    cudaEventSynchronize(ev_end);
 
-    double total_time = std::chrono::duration<double, std::milli>(end_time - start_time).count();
-    double kernel_time = std::chrono::duration<double, std::milli>(kernel_end - kernel_start).count();
+    float total_time_f = 0.0f, kernel_time_f = 0.0f;
+    cudaEventElapsedTime(&total_time_f, ev_start, ev_end);
+    cudaEventElapsedTime(&kernel_time_f, ev_k_start, ev_k_end);
+
+    cudaEventDestroy(ev_start); cudaEventDestroy(ev_end);
+    cudaEventDestroy(ev_k_start); cudaEventDestroy(ev_k_end);
 
     std::cout << "Vector b Assembly CUDA Performance:" << std::endl;
-    std::cout << "  Total Time: " << total_time << " ms" << std::endl;
-    std::cout << "  Kernel Time: " << kernel_time << " ms" << std::endl;
+    std::cout << "  Total Time: " << total_time_f << " ms" << std::endl;
+    std::cout << "  Kernel Time: " << kernel_time_f << " ms" << std::endl;
     std::cout << "  Vector Size: " << vector_size << std::endl;
 
-    return total_time;
+    return total_time_f;
 }
 
 /**
@@ -470,7 +473,8 @@ std::vector<MatrixAssemblyPerformanceMetrics> benchmark_matrix_assembly_cuda(
 
         MatrixAssemblyPerformanceMetrics metric;
         metric.kernel_variant = "Dense Matrix Assembly";
-        metric.total_time_ms = *std::min_element(times.begin(), times.end());
+        double min_t = times[0]; for (size_t k=1;k<times.size();k++) if(times[k]<min_t) min_t=times[k];
+        metric.total_time_ms = min_t;
         metric.memory_usage_bytes = estimate_matrix_assembly_memory_usage(No_Physical_Cells, false);
         metric.throughput_cells_per_sec = No_Physical_Cells / (metric.total_time_ms / 1000.0);
 
@@ -499,7 +503,8 @@ std::vector<MatrixAssemblyPerformanceMetrics> benchmark_matrix_assembly_cuda(
 
         MatrixAssemblyPerformanceMetrics metric;
         metric.kernel_variant = "Sparse Matrix Assembly";
-        metric.total_time_ms = *std::min_element(times.begin(), times.end());
+        double min_t = times[0]; for (size_t k=1;k<times.size();k++) if(times[k]<min_t) min_t=times[k];
+        metric.total_time_ms = min_t;
         metric.memory_usage_bytes = estimate_matrix_assembly_memory_usage(No_Physical_Cells, true);
         metric.throughput_cells_per_sec = No_Physical_Cells / (metric.total_time_ms / 1000.0);
 
@@ -526,7 +531,8 @@ std::vector<MatrixAssemblyPerformanceMetrics> benchmark_matrix_assembly_cuda(
 
         MatrixAssemblyPerformanceMetrics metric;
         metric.kernel_variant = "Vector b Assembly";
-        metric.total_time_ms = *std::min_element(times.begin(), times.end());
+        double min_t = times[0]; for (size_t k=1;k<times.size();k++) if(times[k]<min_t) min_t=times[k];
+        metric.total_time_ms = min_t;
         metric.memory_usage_bytes = No_Physical_Cells * 4 * 2 * sizeof(double); // Input + output
         metric.throughput_cells_per_sec = No_Physical_Cells / (metric.total_time_ms / 1000.0);
 

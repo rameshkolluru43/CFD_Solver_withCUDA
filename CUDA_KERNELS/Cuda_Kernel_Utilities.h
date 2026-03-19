@@ -4,6 +4,7 @@
 #define CUDA_KERNEL_UTILITIES_H
 
 #include <cuda_runtime.h>
+#include <cstdio>
 
 // ===== TIME INTEGRATION KERNELS =====
 __global__ void rk4_complete_kernel(double *U_cells, double *U_cells_temp, double *Net_Flux,

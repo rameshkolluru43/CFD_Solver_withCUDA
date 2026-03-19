@@ -8,7 +8,11 @@
 #define MATRIX_ASSEMBLY_CUDA_KERNELS_H
 
 #include <cuda_runtime.h>
+#include <cstdio>
+#include <cstdlib>
 #include <vector>
+#include <string>
+#include <utility>
 
 //=============================================================================
 // CUDA KERNEL DECLARATIONS

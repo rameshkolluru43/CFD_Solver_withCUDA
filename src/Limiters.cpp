@@ -133,6 +133,22 @@ void Second_Order_Limiter(const int &Cell_Index, const int &Face_No, vector<doub
 		d_U[k] = d_Var_R[k] - d_Var_L[k];
 	};
 
+	const int nF = Cells[Cell_Index].numFaces;
+	if (nF != 4)
+	{
+		// Triangles or other polygons: use only neighbor across this face
+		if (Face_No < static_cast<int>(Cells[Cell_Index].Neighbours.size()))
+			Neighbour_1 = Cells[Cell_Index].Neighbours[Face_No];
+		if (Face_No < static_cast<int>(Cells[Cell_Index].Cell_Center_Distances.size()))
+			d1 = Cells[Cell_Index].Cell_Center_Distances[Face_No];
+		if (d1 <= 0.0)
+			d1 = 1.0;
+		Neighbour_2 = Neighbour_1;
+		d2 = d1;
+		Neighbour_3 = Neighbour_1;
+		d3 = d1;
+	}
+	else
 	switch (Face_No)
 	{
 	case 0: // i-1/2, j interface
@@ -169,6 +185,8 @@ void Second_Order_Limiter(const int &Cell_Index, const int &Face_No, vector<doub
 		d2 = Cells[Cell_Index].Cell_Center_Distances[1];
 		Neighbour_3 = (Neighbour_1 >= No_Physical_Cells) ? Neighbour_1 : Cells[Neighbour_1].Neighbours[3];
 		d3 = (Neighbour_1 >= No_Physical_Cells) ? d1 : Cells[Neighbour_1].Cell_Center_Distances[3];
+		break;
+	default:
 		break;
 	}
 
