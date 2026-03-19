@@ -60,11 +60,11 @@ void LLF(const int &Cell_No, int &N_Cell_No, const int &Face_No)
   Vdotn_R = (u_R * nx + v_R * ny);
 
   //              Wave Speed evaluation
-  S[0] = (fabs(Vdotn_L) - C_L) * dl;
-  S[1] = (fabs(Vdotn_L) + C_L) * dl;
+  S[0] = fabs(Vdotn_L - C_L) * dl;
+  S[1] = fabs(Vdotn_L + C_L) * dl;
   S[2] = fabs(Vdotn_L) * dl;
-  S[3] = (fabs(Vdotn_R) - C_R) * dl;
-  S[4] = (fabs(Vdotn_R) + C_R) * dl;
+  S[3] = fabs(Vdotn_R - C_R) * dl;
+  S[4] = fabs(Vdotn_R + C_R) * dl;
   S[5] = fabs(Vdotn_R) * dl;
 
   //              Finding Minimum and Maximum Wave speeds from neighbouring cells
@@ -116,11 +116,11 @@ void LLF_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
   Vdotn_R = (u_R * nx + v_R * ny);
 
   //              Wave Speed evaluation
-  S[0] = (fabs(Vdotn_L) - C_L) * dl;
-  S[1] = (fabs(Vdotn_L) + C_L) * dl;
+  S[0] = fabs(Vdotn_L - C_L) * dl;
+  S[1] = fabs(Vdotn_L + C_L) * dl;
   S[2] = fabs(Vdotn_L) * dl;
-  S[3] = (fabs(Vdotn_R) - C_R) * dl;
-  S[4] = (fabs(Vdotn_R) + C_R) * dl;
+  S[3] = fabs(Vdotn_R - C_R) * dl;
+  S[4] = fabs(Vdotn_R + C_R) * dl;
   S[5] = fabs(Vdotn_R) * dl;
 
   //              Finding Minimum and Maximum Wave speeds from neighbouring cells

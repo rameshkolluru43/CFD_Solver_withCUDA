@@ -527,11 +527,11 @@ void Calculate_Face_WENO_Flux(int &Cell_No, int &N_Cell_No, const int &Face_No, 
 		C_R = 1e-14;
 	}
 
-	S[0] = (fabs(Vdotn_L) - C_L) * dl;
-	S[1] = (fabs(Vdotn_L) + C_L) * dl;
+	S[0] = fabs(Vdotn_L - C_L) * dl;
+	S[1] = fabs(Vdotn_L + C_L) * dl;
 	S[2] = fabs(Vdotn_L) * dl;
-	S[3] = (fabs(Vdotn_R) - C_R) * dl;
-	S[4] = (fabs(Vdotn_R) + C_R) * dl;
+	S[3] = fabs(Vdotn_R - C_R) * dl;
+	S[4] = fabs(Vdotn_R + C_R) * dl;
 	S[5] = fabs(Vdotn_R) * dl;
 
 	//              Finding Minimum and Maximum Wave speeds from neighbouring cells
