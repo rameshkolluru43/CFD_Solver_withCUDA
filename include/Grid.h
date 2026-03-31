@@ -38,6 +38,8 @@ void Construct_Cell();
 void TagRefinableCells(vector<Cell> &, double &);
 void Compute_Gradient_Refinement_Indicator();
 bool Apply_Adaptive_Refinement();
+bool Is_Leaf_Cell(const int &cellIndex);
+void Build_Leaf_Cell_List(V_I &leafCells);
 
 void Construct_Co_Volumes(int &);
 // Function for Finding Cross Product of two vectors used in evaluating Face areas.

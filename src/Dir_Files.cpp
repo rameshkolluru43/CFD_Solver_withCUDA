@@ -2,6 +2,46 @@
 #include "Globals.h"
 #include "IO_Write.h"
 
+static string getDissipationName(int type)
+{
+    switch (type)
+    {
+    case 1:
+        return "LLF";
+    case 2:
+        return "MOVERS";
+    case 3:
+        return "ROE";
+    case 4:
+        return "RICCA";
+    case 5:
+        return "MOVERS_NWSC";
+    default:
+        return "UNKNOWN";
+    }
+}
+
+static string getLimiterName(int limiterCase)
+{
+    switch (limiterCase)
+    {
+    case 0:
+        return "MinMod";
+    case 1:
+        return "Superbee";
+    case 2:
+        return "MCD";
+    case 3:
+        return "VanLeer";
+    case 4:
+        return "VanAlbada";
+    case 5:
+        return "Venkat";
+    default:
+        return "Limiter" + to_string(limiterCase);
+    }
+}
+
 void createOutputDirectories()
 {
     // Base directory for results
@@ -86,13 +126,23 @@ void createOutputDirectories()
         gridDir = wenoDir;
     }
 
-    // Create output files in the final directory
+    // Create output files in the final directory with descriptive names
+    string runTag;
+    if (Is_WENO)
+    {
+        runTag = "WENO_Grid_Size_" + to_string(Grid_Size);
+    }
+    else
+    {
+        const string orderName = Is_Second_Order ? "2O" : "1O";
+        runTag = getDissipationName(Dissipation_Type) + "_" + orderName + "_" + getLimiterName(Limiter_Case);
+    }
 
-    string outputFilePath = gridDir + "/results.txt";
-    Solution_File = gridDir + "/Solution" + to_string(Flux_Type) + to_string(Grid_Size) + ".txt";
-    Error_File = gridDir + "/Error.txt";
-    Initial_Solution_File = gridDir + "/Initial_Solution.txt";
-    Final_Solution_File = gridDir + "/Final_Solution.vtk";
+    string outputFilePath = gridDir + "/results_" + runTag + ".txt";
+    Solution_File = gridDir + "/Solution_" + runTag + ".txt";
+    Error_File = gridDir + "/Error_" + runTag + ".txt";
+    Initial_Solution_File = gridDir + "/Initial_Solution_" + runTag + ".txt";
+    Final_Solution_File = gridDir + "/Final_Solution_" + runTag + ".vtk";
 
     cout << Solution_File << endl;
     cout << Error_File << endl;
@@ -103,7 +153,9 @@ void createOutputDirectories()
     if (outputFile.is_open())
     {
         outputFile << "Simulation Results for Test Case: " << Test_Case << "\n";
-        outputFile << "Flux Type: " << Flux_Type << "\n";
+        outputFile << "Output folder Flux_Type (label only): " << Flux_Type << "\n";
+        outputFile << "Dissipation_Type (actual face flux / dissipation): " << Dissipation_Type
+                   << "  (1=LLF 2=MOVERS 3=Roe 4=RICCA 5=MOVERS_NWSC)\n";
         outputFile << "Numerical Method: " << (Is_Implicit_Method ? "Implicit" : "Explicit") << "\n";
         outputFile << "Grid Size: " << Grid_Size << "\n";
         outputFile << "WENO Enabled: " << (Is_WENO ? "Yes" : "No") << "\n";

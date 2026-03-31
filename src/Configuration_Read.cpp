@@ -3,6 +3,8 @@
 #include "Directory_Files.h"
 #include "Test_Cases.h"
 
+#include <cctype>
+
 /// @brief
 /// @param jsonFileName  The JSON file name
 /// @return void     No return value
@@ -57,19 +59,68 @@ void readJSON(const std::string &jsonFileName)
     Is_WENO = solverData["Is_WENO"].asBool();
     Dissipation_Type = solverData["Dissipation_Type"].asInt();
     Is_MOVERS_1 = solverData["Is_MOVERS_1"].asBool();
+    if (Flux_Type != Dissipation_Type)
+    {
+        std::cerr << "Note: Flux_Type (" << Flux_Type
+                  << ") is only used for output directory names; Dissipation_Type (" << Dissipation_Type
+                  << ") selects the numerical flux (see Net_Flux.cpp). Align them in JSON to avoid confusion.\n";
+    }
     Enable_Entropy_Fix = solverData["Enable_Entropy_Fix"].asBool();
     if (solverData.isMember("Enable_AMR"))
         Enable_AMR = solverData["Enable_AMR"].asBool();
     if (solverData.isMember("AMR_Period"))
         AMR_Period = solverData["AMR_Period"].asInt();
+    if (solverData.isMember("AMR_Start_Iteration"))
+        AMR_Start_Iteration = solverData["AMR_Start_Iteration"].asInt();
     if (solverData.isMember("AMR_Gradient_Threshold"))
         AMR_Gradient_Threshold = solverData["AMR_Gradient_Threshold"].asDouble();
     if (solverData.isMember("AMR_Max_Fraction"))
         AMR_Max_Fraction = solverData["AMR_Max_Fraction"].asDouble();
+    AMR_Coarsen_Threshold = 0.4 * AMR_Gradient_Threshold;
+    if (solverData.isMember("AMR_Coarsen_Threshold"))
+        AMR_Coarsen_Threshold = solverData["AMR_Coarsen_Threshold"].asDouble();
+    // Current WENO reconstruction assumes structured uniform stencils.
+    // AMR introduces hanging/coarse-fine interfaces and breaks that assumption.
+    if (Is_WENO && Enable_AMR)
+    {
+        std::cerr << "Warning: WENO + AMR is not stencil-compatible in current implementation; "
+                     "auto-disabling AMR to preserve shock structure.\n";
+        Enable_AMR = false;
+    }
 
     // Limiter coefficients
     Limiter_Zeta = limiterData["Limiter_Zeta"].asDouble();
     Limiter_Zeta1 = limiterData["Limiter_Zeta1"].asDouble();
+    /* Optional MUSCL damping (1 = no extra scaling). Lower toward 0 for stiffer problems at fixed CFL. */
+    Second_Order_Limiter_Scale = 1.0;
+    if (limiterData.isMember("Second_Order_Limiter_Scale"))
+        Second_Order_Limiter_Scale = limiterData["Second_Order_Limiter_Scale"].asDouble();
+    if (Second_Order_Limiter_Scale < 0.0)
+        Second_Order_Limiter_Scale = 0.0;
+    if (Second_Order_Limiter_Scale > 1.0)
+        Second_Order_Limiter_Scale = 1.0;
+
+    Second_Order_Phi_Blend = 1.0;
+    if (limiterData.isMember("Second_Order_Phi_Blend"))
+        Second_Order_Phi_Blend = limiterData["Second_Order_Phi_Blend"].asDouble();
+    if (Second_Order_Phi_Blend < 0.0)
+        Second_Order_Phi_Blend = 0.0;
+    if (Second_Order_Phi_Blend > 1.0)
+        Second_Order_Phi_Blend = 1.0;
+
+    Second_Order_Dissipation_Blend = 1.0;
+    if (limiterData.isMember("Second_Order_Dissipation_Blend"))
+        Second_Order_Dissipation_Blend = limiterData["Second_Order_Dissipation_Blend"].asDouble();
+    if (Second_Order_Dissipation_Blend < 0.0)
+        Second_Order_Dissipation_Blend = 0.0;
+    if (Second_Order_Dissipation_Blend > 1.0)
+        Second_Order_Dissipation_Blend = 1.0;
+
+    Venkat_K = 5.0;
+    if (limiterData.isMember("Venkat_K"))
+        Venkat_K = limiterData["Venkat_K"].asDouble();
+    if (Venkat_K < 1e-6)
+        Venkat_K = 1e-6;
     // Epsilon = limiterData["Epsilon"].asDouble(); // new
 }
 
@@ -144,6 +195,7 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     meshParams.nx = mesh["Nx"].asInt();
     meshParams.ny = mesh["Ny"].asInt();
     meshParams.meshType = mesh["mesh_type"].asString();
+    Grid_Size = meshParams.gridSize;
 
     // Flow Conditions
     const auto &flow = root["Flow_Conditions"];
@@ -176,6 +228,18 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     initCond.M = init["Inlet_Mach_No"].asDouble();
     initCond.u = init["u"].asDouble();
     initCond.v = init["v"].asDouble();
+
+    /* Route inlet/exit BC to supersonic vs subsonic implementations (Globals_Stub defaults are subsonic). */
+    auto bcTypeIsSupersonic = [](const std::string &t) {
+        std::string s = t;
+        for (char &c : s)
+            c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
+        return s == "supersonic";
+    };
+    Is_Inlet_SubSonic = !bcTypeIsSupersonic(inletCond.type);
+    Is_Exit_SubSonic = !bcTypeIsSupersonic(exitCond.type);
+    /* Driver JSON Is_Viscous selects NS vs Euler; keep wall BC flag aligned. */
+    Is_Viscous_Wall = Is_Viscous;
 }
 
 // Reads boundary conditions from a JSON file and populates the inlet and exit structures

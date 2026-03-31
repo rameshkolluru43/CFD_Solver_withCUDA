@@ -59,6 +59,7 @@
 #include "Error_Update.h"
 #include "Flux.h"
 #include "Grid.h"
+#include "AMR.hpp"
 
 // Core logic for solving Euler equations based on Test Case
 
@@ -118,10 +119,10 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 			Estimate_Error();
 			Update();
 
-			// Gradient-based dynamic meshing: tag cells for refinement every AMR_Period
-			if (Enable_AMR && iterations > 0 && iterations % AMR_Period == 0)
+			// Gradient-based AMR (cell splitting): tag leaf cells and split every AMR_Period
+			if (Enable_AMR && iterations >= AMR_Start_Iteration && iterations > 0 && iterations % AMR_Period == 0)
 			{
-				Apply_Adaptive_Refinement();
+				AMR_Adaptive_Step();
 			}
 
 			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))

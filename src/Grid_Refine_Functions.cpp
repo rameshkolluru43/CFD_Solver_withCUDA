@@ -1,7 +1,34 @@
 #include "definitions.h"
 #include "Globals.h"
+#include "Grid.h"
+#include "Initialize.h"
+#include "Primitive_Computational.h"
 #include "Viscous_Functions.h"
 #include "Utilities.h"
+#include <filesystem>
+#include <limits>
+#include <regex>
+
+bool Is_Leaf_Cell(const int &cellIndex)
+{
+    if (cellIndex < 0 || cellIndex >= static_cast<int>(Cells.size()))
+        return false;
+    if (cellIndex >= static_cast<int>(U_Cells.size()))
+        return false;
+    return Cells[cellIndex].AMR_IsLeaf;
+}
+
+void Build_Leaf_Cell_List(V_I &leafCells)
+{
+    leafCells.clear();
+    leafCells.reserve(U_Cells.size());
+    const int n = static_cast<int>(std::min(Cells.size(), U_Cells.size()));
+    for (int i = 0; i < n; ++i)
+    {
+        if (Is_Leaf_Cell(i))
+            leafCells.push_back(i);
+    }
+}
 
 // Compute per-cell gradient-based refinement indicator (density + pressure), scale-invariant.
 // indicator = |grad(rho)|*sqrt(Area) + (|grad(P)|/max(P,eps))*sqrt(Area). Stored in Gradient_Refinement_Indicator.
@@ -507,7 +534,112 @@ bool Apply_Adaptive_Refinement()
     for (int i = 0; i < No_Physical_Cells; i++)
         if (Cells[i].Is_Splittable)
             nTagged++;
-    if (nTagged > 0)
-        cout << "AMR: " << nTagged << " cells tagged for refinement (gradient threshold=" << AMR_Gradient_Threshold << ")" << endl;
-    return false; // no mesh change in this implementation (tagging only)
+    if (nTagged <= 0)
+        return false;
+
+    cout << "AMR: " << nTagged << " cells tagged for refinement (gradient threshold=" << AMR_Gradient_Threshold << ")" << endl;
+
+    // Refine by switching to the next available structured grid level (Nx,Ny)->(2Nx-1,2Ny-1)
+    // and transferring U by nearest-cell interpolation.
+    static int amr_refinements_done = 0;
+    const int AMR_MAX_REFINEMENTS = 2;
+    if (amr_refinements_done >= AMR_MAX_REFINEMENTS)
+    {
+        cout << "AMR: max refinement levels reached (" << AMR_MAX_REFINEMENTS << ")." << endl;
+        return false;
+    }
+
+    const int old_nx = meshParams.nx;
+    const int old_ny = meshParams.ny;
+    const int new_nx = 2 * old_nx - 1;
+    const int new_ny = 2 * old_ny - 1;
+
+    std::regex re("_(\\d+)_(\\d+)\\.(txt|vtk)$");
+    std::smatch m;
+    std::string candidate = Grid_File;
+    if (std::regex_search(Grid_File, m, re))
+    {
+        candidate = std::regex_replace(Grid_File, re, "_" + std::to_string(new_nx) + "_" + std::to_string(new_ny) + "." + m[3].str());
+    }
+    else
+    {
+        cout << "AMR: unable to infer next grid filename from " << Grid_File << endl;
+        return false;
+    }
+
+    if (!std::filesystem::exists(candidate))
+    {
+        cout << "AMR: no finer grid file found: " << candidate << endl;
+        return false;
+    }
+
+    // Backup old solution on physical cells.
+    const int old_n_phys = No_Physical_Cells;
+    vector<V_D> old_centers(old_n_phys, V_D(2, 0.0));
+    vector<V_D> old_u(old_n_phys, V_D(4, 0.0));
+    for (int i = 0; i < old_n_phys; ++i)
+    {
+        old_centers[i] = Cells[i].Cell_Center;
+        old_u[i] = U_Cells[i];
+    }
+
+    cout << "AMR: refining grid " << old_nx << "x" << old_ny << " -> " << new_nx << "x" << new_ny << endl;
+
+    // Rebuild mesh on finer grid.
+    Grid_File = candidate;
+    meshParams.nx = new_nx;
+    meshParams.ny = new_ny;
+    Cells.clear();
+    Boundary_Cells.clear();
+    Co_Volume_Cells.clear();
+    Total_No_Cells = 0;
+    No_Physical_Cells = 0;
+    No_Ghost_Cells = 0;
+    Inlet_Cells_List.clear();
+    Exit_Cells_List.clear();
+    Wall_Cells_List.clear();
+    Symmetry_Cells_List.clear();
+    if (!Form_Cells(Grid_File))
+    {
+        cout << "AMR: Form_Cells failed on refined grid, keeping current grid." << endl;
+        return false;
+    }
+
+    // Reinitialize solver storage for new grid.
+    Cells_Net_Flux.clear();
+    Cells_DelU.clear();
+    Cells_Face_Boundary_Type.clear();
+    U_Cells.clear();
+    U_Cells_RK_1.clear();
+    U_Cells_RK_2.clear();
+    Primitive_Cells.clear();
+    Cells_Viscous_Flux.clear();
+    CF.clear();
+    Initialize(Test_Case);
+
+    // Nearest-cell interpolation of conservative variables onto refined physical cells.
+    for (int i = 0; i < No_Physical_Cells; ++i)
+    {
+        const double cx = Cells[i].Cell_Center[0];
+        const double cy = Cells[i].Cell_Center[1];
+        int best = 0;
+        double best_d2 = std::numeric_limits<double>::max();
+        for (int j = 0; j < old_n_phys; ++j)
+        {
+            const double dx = cx - old_centers[j][0];
+            const double dy = cy - old_centers[j][1];
+            const double d2 = dx * dx + dy * dy;
+            if (d2 < best_d2)
+            {
+                best_d2 = d2;
+                best = j;
+            }
+        }
+        U_Cells[i] = old_u[best];
+        Calculate_Primitive_Variables(i, U_Cells[i], Primitive_Cells[i]);
+    }
+
+    amr_refinements_done++;
+    cout << "AMR: refinement applied using grid file " << Grid_File << endl;
+    return true;
 }

@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Flux.h"
 #include "Limiter.h"
+#include "Primitive_Computational.h"
 #include "Utilities.h"
 
 // This Function evaluates the amount of dissipation that is to be added on to the flux at a givne face, the face which is common to the current cell and the neighbour cell .
@@ -89,8 +90,6 @@ void LLF_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 
   V_D S(6, 0.0);
   double Max1 = 0.0, Max2 = 0.0;
-  int index = Face_No * 2;
-  vector<double> d_U(4, 0.0);
 
   //      Initializing the Cell dissipation to be zero to avoid any type of over writing
   Dissipative_Flux[0] = 0.0;
@@ -98,11 +97,16 @@ void LLF_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
   Dissipative_Flux[2] = 0.0;
   Dissipative_Flux[3] = 0.0;
 
-  C_L = sqrt(gamma * P_L / Rho_L);
-  C_R = sqrt(gamma * P_R / Rho_R);
-
-  Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
-  Vmag_R = 0.5 * (u_R * u_R + v_R * v_R);
+  /* Use MUSCL face primitives for consistency with MUSCL convective flux and MUSCL_d_U. */
+  V_D Prim_L_face(11, 0.0), Prim_R_face(11, 0.0);
+  Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L_face);
+  Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R_face);
+  u_L = Prim_L_face[1];
+  v_L = Prim_L_face[2];
+  C_L = Prim_L_face[5];
+  u_R = Prim_R_face[1];
+  v_R = Prim_R_face[2];
+  C_R = Prim_R_face[5];
 
   /*  nx = Cell_Face_Normals[Cell_No][Face_No*2+0];
     ny = Cell_Face_Normals[Cell_No][Face_No*2+1];
@@ -129,14 +133,14 @@ void LLF_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 
   Maximum(Max1, Max2, max_eigen_value); // Maximum of Left state and Right state Eigen values
 
-  Second_Order_Limiter(Cell_No, Face_No, d_U);
+  /* MUSCL_d_U from Second_Order_Limiter (called in Calculate_Flux_For_All_Faces before LLF_2O). */
 
   //              cout<<Max1<<"\t"<<Max2<<"\t"<<max_eigen_value<<endl;
 
   // Evaluation of Dissipation on Face
 
-  Dissipative_Flux[0] = 0.5 * max_eigen_value * d_U[0];
-  Dissipative_Flux[1] = 0.5 * max_eigen_value * d_U[1];
-  Dissipative_Flux[2] = 0.5 * max_eigen_value * d_U[2];
-  Dissipative_Flux[3] = 0.5 * max_eigen_value * d_U[3];
+  Dissipative_Flux[0] = 0.5 * max_eigen_value * MUSCL_d_U[0];
+  Dissipative_Flux[1] = 0.5 * max_eigen_value * MUSCL_d_U[1];
+  Dissipative_Flux[2] = 0.5 * max_eigen_value * MUSCL_d_U[2];
+  Dissipative_Flux[3] = 0.5 * max_eigen_value * MUSCL_d_U[3];
 }

@@ -2,6 +2,50 @@
 #include "Globals.h"
 #include "Timestep.h"
 #include "Flux.h"
+#include "Limiter.h"
+#include "Grid.h"
+
+namespace
+{
+bool Is_AMR_Transition_Face(const int owner, const int neigh)
+{
+    if (!Enable_AMR)
+        return false;
+    if (owner < 0 || neigh < 0 || owner >= static_cast<int>(Cells.size()) || neigh >= static_cast<int>(Cells.size()))
+        return false;
+
+    if (Cells[owner].AMR_Level != Cells[neigh].AMR_Level)
+        return true;
+    if (Cells[owner].AMR_Parent == neigh || Cells[neigh].AMR_Parent == owner)
+        return true;
+    return false;
+}
+
+void Dissipation_Fallback_1O(const int &Current_Cell_No, int &neighbour, const int &face)
+{
+    switch (Dissipation_Type)
+    {
+    case 1:
+        LLF(Current_Cell_No, neighbour, face);
+        break;
+    case 2:
+        MOVERS(Current_Cell_No, neighbour, face);
+        break;
+    case 3:
+        ROE(Current_Cell_No, neighbour, face);
+        break;
+    case 4:
+        RICCA(Current_Cell_No, neighbour, face);
+        break;
+    case 5:
+        MOVERS_NWSC(Current_Cell_No, neighbour, face);
+        break;
+    default:
+        LLF(Current_Cell_No, neighbour, face);
+        break;
+    }
+}
+} // namespace
 
 // Cell Net Flux evaluates both the average flux and Dissipative flux of a given cell
 void Calculate_Flux_For_All_Faces(int &Current_Cell_No, void (*Dissipation_Function)(const int &, int &, const int &))
@@ -34,8 +78,22 @@ void Calculate_Flux_For_All_Faces(int &Current_Cell_No, void (*Dissipation_Funct
             isBoundaryFace = Cells_Face_Boundary_Type[Current_Cell_No][face];
         }
 
-        Calculate_Face_Average_Flux(Current_Cell_No, neighbour, face, isBoundaryFace);
-        Dissipation_Function(Current_Cell_No, neighbour, face);
+        const bool amr_transition_face = Is_AMR_Transition_Face(Current_Cell_No, neighbour);
+        if (Is_Second_Order && !amr_transition_face)
+        {
+            V_D muscl_dU_scratch(4, 0.0);
+            Second_Order_Limiter(Current_Cell_No, face, muscl_dU_scratch);
+            Calculate_Face_Average_Flux_MUSCL(Current_Cell_No, neighbour, face, isBoundaryFace);
+            Dissipation_Function(Current_Cell_No, neighbour, face);
+        }
+        else
+        {
+            Calculate_Face_Average_Flux(Current_Cell_No, neighbour, face, isBoundaryFace);
+            if (Is_Second_Order && amr_transition_face)
+                Dissipation_Fallback_1O(Current_Cell_No, neighbour, face);
+            else
+                Dissipation_Function(Current_Cell_No, neighbour, face);
+        }
         for (int v = 0; v < NUM_FLUX_COMPONENTS; v++)
         {
             Cells_Net_Flux[Current_Cell_No][v] += Average_Convective_Flux[v] - Dissipative_Flux[v];
@@ -64,8 +122,11 @@ void Evaluate_Cell_Net_Flux_1O()
     // The function also evaluates the time step for each cell after computing the flux.
     // The function supports multiple dissipation types, each corresponding to a specific
     // flux calculation method.
-    for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
+    V_I leafCells;
+    Build_Leaf_Cell_List(leafCells);
+    for (int idx = 0; idx < static_cast<int>(leafCells.size()); idx++)
     {
+        int Current_Cell_No = leafCells[idx];
         for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
         {
             Cells_Net_Flux[Current_Cell_No][i] = 0.0;
@@ -99,8 +160,11 @@ void Evaluate_Cell_Net_Flux_2O()
 #ifdef DEBUG
     std::cerr << "Entered 2nd Order Flux Calculation" << std::endl;
 #endif
-    for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
+    V_I leafCells;
+    Build_Leaf_Cell_List(leafCells);
+    for (int idx = 0; idx < static_cast<int>(leafCells.size()); idx++)
     {
+        int Current_Cell_No = leafCells[idx];
         for (int k = 0; k < NUM_FLUX_COMPONENTS; k++)
         {
             Cells_Net_Flux[Current_Cell_No][k] = 0.0;

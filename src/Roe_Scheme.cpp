@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Flux.h"
 #include "Limiter.h"
+#include "Primitive_Computational.h"
 
 void ROE(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 {
@@ -298,9 +299,6 @@ void ROE_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	double alpha_1 = 0.0, alpha_2 = 0.0, alpha_3 = 0.0, alpha_4 = 0.0;
 	double du = 0.0, dv = 0.0, dP = 0.0, dRho = 0.0, dUn = 0.0, dUt = 0.0;
 
-	// Second-order reconstruction variables
-	vector<double> d_U(4, 0.0); // Limited difference vector for 2nd order accuracy
-
 	// Initialize dissipative flux to zero
 	Dissipative_Flux[0] = 0.0;
 	Dissipative_Flux[1] = 0.0;
@@ -312,22 +310,23 @@ void ROE_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	ny = Cells[Cell_No].Face_Normals[Face_No * 2 + 1];
 	dl = Cells[Cell_No].Face_Areas[Face_No];
 
-	// Extract primitive variables for left and right states
-	// Left State Variables (current cell)
-	Rho_L = Primitive_Cells[Cell_No][0];
-	u_L = Primitive_Cells[Cell_No][1];
-	v_L = Primitive_Cells[Cell_No][2];
-	P_L = Primitive_Cells[Cell_No][4];
-	C_L = Primitive_Cells[Cell_No][5];
+	/* MUSCL face states (Second_Order_Limiter already run in Net_Flux). */
+	V_D Prim_L_face(11, 0.0), Prim_R_face(11, 0.0);
+	Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L_face);
+	Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R_face);
+	Rho_L = Prim_L_face[0];
+	u_L = Prim_L_face[1];
+	v_L = Prim_L_face[2];
+	P_L = Prim_L_face[4];
+	C_L = Prim_L_face[5];
 	Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
 	H_L = ((C_L * C_L) / (gamma - 1.0)) + Vmag_L;
 
-	// Right state Variables (neighbor cell)
-	Rho_R = Primitive_Cells[N_Cell_No][0];
-	u_R = Primitive_Cells[N_Cell_No][1];
-	v_R = Primitive_Cells[N_Cell_No][2];
-	P_R = Primitive_Cells[N_Cell_No][4];
-	C_R = Primitive_Cells[N_Cell_No][5];
+	Rho_R = Prim_R_face[0];
+	u_R = Prim_R_face[1];
+	v_R = Prim_R_face[2];
+	P_R = Prim_R_face[4];
+	C_R = Prim_R_face[5];
 	Vmag_R = 0.5 * (u_R * u_R + v_R * v_R);
 	H_R = ((C_R * C_R) / (gamma - 1.0)) + Vmag_R;
 
@@ -348,19 +347,13 @@ void ROE_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	Ut = -ny * Roe_u + nx * Roe_v;					  // Tangential velocity
 	Roe_a = sqrt((gamma - 1.0) * (Roe_H - Roe_Vmag)); // Roe-averaged sound speed
 
-	// Apply second-order reconstruction with slope limiting
-	// This computes the limited differences d_U for higher-order accuracy
-	Second_Order_Limiter(Cell_No, Face_No, d_U);
+	// Calculate differences for wave strength computation (limited conservative jump at face)
+	du = MUSCL_d_U[1] / Roe_Rho - MUSCL_d_U[0] * Roe_u / (Roe_Rho * Roe_Rho);
+	dv = MUSCL_d_U[2] / Roe_Rho - MUSCL_d_U[0] * Roe_v / (Roe_Rho * Roe_Rho);
 
-	// Calculate differences for wave strength computation
-	// These are based on the limited reconstructed states
-	du = d_U[1] / Roe_Rho - d_U[0] * Roe_u / (Roe_Rho * Roe_Rho);
-	dv = d_U[2] / Roe_Rho - d_U[0] * Roe_v / (Roe_Rho * Roe_Rho);
-
-	// Calculate pressure difference using limited energy difference
-	double dE = d_U[3] - 0.5 * Roe_Rho * (2.0 * (Roe_u * du + Roe_v * dv) + du * du + dv * dv) - 0.5 * d_U[0] * Roe_Vmag;
+	double dE = MUSCL_d_U[3] - 0.5 * Roe_Rho * (2.0 * (Roe_u * du + Roe_v * dv) + du * du + dv * dv) - 0.5 * MUSCL_d_U[0] * Roe_Vmag;
 	dP = (gamma - 1.0) * dE;
-	dRho = d_U[0];
+	dRho = MUSCL_d_U[0];
 
 	// Normal and tangential velocity differences
 	dUn = nx * du + ny * dv;

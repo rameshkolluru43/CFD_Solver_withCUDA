@@ -3,6 +3,8 @@
 #include "Viscous_Functions.h"
 #include "Primitive_Computational.h"
 
+void Identify_Wall_Boundary_Faces(const int &Grid_Type);
+
 // string pwd = std::filesystem::current_path();
 // pwd = pwd  + "/QPDE_FVM_CFD_Solver";
 
@@ -18,8 +20,9 @@ int nx_1, nx_2, ny_1, ny_2;
 int Dissipation_Type, Flux_Type, Test_Case, Initialize_Type, iterations, Grid_Size, Area_Weighted_Average, Total_Iterations, Limiter_Case;
 bool Is_Second_Order, Is_MOVERS_1, Enable_Entropy_Fix, Is_Time_Dependent, Time_Accurate, Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Implicit_Method;
 bool Enable_AMR = false;
-int AMR_Period = 100;
+int AMR_Period = 100, AMR_Start_Iteration = 200;
 double AMR_Gradient_Threshold = 0.1, AMR_Max_Fraction = 0.3;
+double AMR_Coarsen_Threshold = 0.04;
 vector<double> Gradient_Refinement_Indicator;
 string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File;
 // variables to read the face normals and face lenghts and face area
@@ -43,6 +46,7 @@ double mev_L, mev_R, max_eigen_value, Terminating_Time, Total_Time;
 double Roe_u, Roe_v, Roe_Rho, Roe_P, Roe_e, Roe_Vmag, U_avg, Roe_a, Roe_H, Un, Ut, cs;
 double P_inf, Rho_inf, R_inf, M_inf, u_inf, T_inf, q_inf; // Free Stream Varialbles
 V_D d_U(4, 0.0), d_F(4, 0.0), Mod_Alpha(4, 0.0);
+V_D MUSCL_Face_U_L(4, 0.0), MUSCL_Face_U_R(4, 0.0), MUSCL_d_U(4, 0.0);
 V_D Global_Primitive, Global_U, Average_Convective_Flux, Dissipative_Flux;
 // Global_Primitive represents global Vector for storing Primitive Variables
 V_D Cells_DelT;
@@ -85,6 +89,8 @@ void Initialize(const int &Test_Case)
 		Cells_DelT.push_back(0.0);
 	for (int index = 0; index < Total_No_Cells; index++)
 	{
+		if (index < static_cast<int>(Cells.size()))
+			Cells[index].AMR_IsLeaf = (index < No_Physical_Cells);
 		Cells_Net_Flux.push_back(Average_Convective_Flux);
 		Cells_DelU.push_back(Global_U);
 		int nf = 4;
@@ -97,7 +103,7 @@ void Initialize(const int &Test_Case)
 		Primitive_Cells.push_back(Global_Primitive);
 		Cells_Viscous_Flux.push_back(Viscous_Flux);
 	}
-	// Identify_Wall_Boundary_Faces(Grid_Type);
+	Identify_Wall_Boundary_Faces(Grid_Type);
 	//		cout<<"am here"<<endl;
 	if (Is_Viscous_Wall)
 	{
@@ -181,24 +187,12 @@ void Initialize(const string &file_name)
 void Identify_Wall_Boundary_Faces(const int &Grid_Type)
 {
 	cout << "Identify_Boundary_Types \t" << Grid_Type << endl;
+	// Mark only solid-wall and symmetry faces. Inlet/outlet must stay false so flux routines do not
+	// apply P_R = P_L there (ghost states follow inlet/exit BCs). WENO/RICCA use this for wall pressure.
 	for (unsigned int i = 0; i < Wall_Cells_List.size(); i += 3)
 	{
 		int cell = Wall_Cells_List[i];
 		int face = Wall_Cells_List[i + 1];
-		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
-			Cells_Face_Boundary_Type[cell][face] = true;
-	}
-	for (unsigned int i = 0; i < Inlet_Cells_List.size(); i += 3)
-	{
-		int cell = Inlet_Cells_List[i];
-		int face = Inlet_Cells_List[i + 1];
-		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
-			Cells_Face_Boundary_Type[cell][face] = true;
-	}
-	for (unsigned int i = 0; i < Exit_Cells_List.size(); i += 3)
-	{
-		int cell = Exit_Cells_List[i];
-		int face = Exit_Cells_List[i + 1];
 		if (cell < static_cast<int>(Cells_Face_Boundary_Type.size()) && face < static_cast<int>(Cells_Face_Boundary_Type[cell].size()))
 			Cells_Face_Boundary_Type[cell][face] = true;
 	}

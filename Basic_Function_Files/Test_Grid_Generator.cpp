@@ -1,5 +1,7 @@
 #include "Geometry_Header.h"
 #include <cassert>
+#include <algorithm>
+#include <cmath>
 
 void write_grid_vtk(const string &filename, Grid &G, int nx, int ny)
 {
@@ -7,10 +9,9 @@ void write_grid_vtk(const string &filename, Grid &G, int nx, int ny)
 	if (!out.is_open()) { cerr << "Cannot open " << filename << endl; return; }
 
 	int npoints = nx * ny;
-	int ncells  = (nx - 1) * (ny - 1);
 
 	out << "# vtk DataFile Version 3.0\n"
-		<< "Grid Generator Test\n"
+		<< "Grid Generator Test - boundary layer along full wall\n"
 		<< "ASCII\n"
 		<< "DATASET STRUCTURED_GRID\n"
 		<< "DIMENSIONS " << nx << " " << ny << " 1\n"
@@ -20,8 +21,22 @@ void write_grid_vtk(const string &filename, Grid &G, int nx, int ny)
 		for (int i = 0; i < nx; i++)
 			out << G.Get_x(i, j) << " " << G.Get_y(i, j) << " 0.0\n";
 
+	// Point data: y (height) and j_index so ParaView can color by distance from wall
+	out << "POINT_DATA " << npoints << "\n"
+		<< "SCALARS y_wall_normal double 1\n"
+		<< "LOOKUP_TABLE default\n";
+	for (int j = 0; j < ny; j++)
+		for (int i = 0; i < nx; i++)
+			out << G.Get_y(i, j) << "\n";
+
+	out << "SCALARS j_index int 1\n"
+		<< "LOOKUP_TABLE default\n";
+	for (int j = 0; j < ny; j++)
+		for (int i = 0; i < nx; i++)
+			out << j << "\n";
+
 	out.close();
-	cout << "VTK written: " << filename << " (" << npoints << " points)\n";
+	cout << "VTK written: " << filename << " (" << npoints << " points, POINT_DATA: y_wall_normal, j_index)\n";
 }
 
 void write_line_dat(const string &filename, const vector<Point> &pts)
@@ -135,9 +150,14 @@ void test_curved_channel_poisson()
 }
 
 /* ======================================================================
-   Test 3: Boundary layer grid with wall clustering
-   Uses boundary layer line generation + Poisson source terms
-   with boundary attraction for wall-normal clustering.
+   Test 3: Boundary layer grid (prescribed wall-normal clustering).
+
+   For a rectangle with horizontal south/north and matching east/west point
+   distributions, TFI gives y(i,j) = Y[j] for all i — the interior inherits the
+   wall-normal spacing from the side boundaries. The elliptic Poisson step would
+   move interior points and destroy that spacing, so this test uses TFI only.
+
+   Reference spacing is taken from the east boundary line (same as west at each j).
    ====================================================================== */
 void test_boundary_layer_grid()
 {
@@ -147,67 +167,71 @@ void test_boundary_layer_grid()
 	Point p1, p2;
 	Line south, east, north, west;
 
-	// Flat plate (south wall)
 	p1(0.0, 0.0, 0.0); p2(2.0, 0.0, 0.0);
 	south.generate(p1, p2, nx);
 
-	// East side: BL clustering toward the wall (j=0)
-	p1(2.0, 0.0, 0.0); p2(2.0, 0.5, 0.0);
 	double first_height = 0.001;
 	double growth = 1.15;
+	p1(2.0, 0.0, 0.0); p2(2.0, 0.5, 0.0);
 	east.generate_boundary_layer(p1, p2, ny, first_height, growth);
-
-	// Top (freestream)
-	p1(2.0, 0.5, 0.0); p2(0.0, 0.5, 0.0);
-	north.generate(p1, p2, nx);
-
-	// West side: BL clustering toward the wall
 	p1(0.0, 0.5, 0.0); p2(0.0, 0.0, 0.0);
 	Line west_bl;
 	west_bl.generate_boundary_layer(p2, p1, ny, first_height, growth);
 	west_bl.Reverse_Points();
-	vector<Point> w_pts = west_bl.Get_Point_list();
+	west = west_bl;
+
+	p1(2.0, 0.5, 0.0); p2(0.0, 0.5, 0.0);
+	north.generate(p1, p2, nx);
 
 	vector<Point> s_pts = south.Get_Point_list();
 	vector<Point> e_pts = east.Get_Point_list();
 	vector<Point> n_pts = north.Get_Point_list();
+	vector<Point> w_pts = west.Get_Point_list();
+
+	double dy0_ref = e_pts[1].Get_y() - e_pts[0].Get_y();
+	double dy1_ref = e_pts[2].Get_y() - e_pts[1].Get_y();
+	double growth_ref = (dy0_ref > 1e-30) ? (dy1_ref / dy0_ref) : 0.0;
+
+	cout << "  Reference (east line): first dy=" << dy0_ref << ", second dy=" << dy1_ref
+		 << ", growth=" << growth_ref << "\n";
+	cout << "  Mode: TFI only (elliptic OFF — Poisson would violate prescribed BL spacing).\n";
 
 	Grid G;
 	G(s_pts, e_pts, n_pts, w_pts);
 
-	SourceTermParams src;
-	src.enabled = true;
-	src.use_thomas_middlecoff = true;
-	src.use_boundary_attraction = true;
-	src.decay_rate = 0.3;
-	src.attraction_strength = 3.0;
-	G.SetSourceTermParams(src);
-
-	BoundaryLayerParams bl;
-	bl.enabled = true;
-	bl.first_cell_height = first_height;
-	bl.growth_rate = growth;
-	bl.num_layers = 20;
-	G.SetBoundaryLayerParams(0, bl); // south wall
-
-	bool periodic = false, elliptic = true;
-	int iters = 15000;
+	bool periodic = false, elliptic = false;
+	int iters = 0;
 	G.Generate_Grid(periodic, elliptic, iters, 1.5, 1e-10);
 
 	write_grid_vtk("test3_boundary_layer.vtk", G, nx, ny);
 
-	// Verify first cell height near wall
-	double dy0 = G.Get_y(nx / 2, 1) - G.Get_y(nx / 2, 0);
-	double dy1 = G.Get_y(nx / 2, 2) - G.Get_y(nx / 2, 1);
-	cout << "  First cell dy at mid-plate: " << dy0 << "\n"
-		 << "  Second cell dy:             " << dy1 << "\n"
-		 << "  Growth ratio:               " << dy1 / dy0 << "\n";
+	int i_left = nx / 4, i_mid = nx / 2, i_right = (3 * nx) / 4;
+	double dy0_left  = G.Get_y(i_left, 1) - G.Get_y(i_left, 0);
+	double dy0_mid   = G.Get_y(i_mid, 1) - G.Get_y(i_mid, 0);
+	double dy0_right = G.Get_y(i_right, 1) - G.Get_y(i_right, 0);
+	double dy1_mid   = G.Get_y(i_mid, 2) - G.Get_y(i_mid, 1);
+	cout << "  First cell dy at left (i=" << i_left << "):  " << dy0_left << "\n"
+		 << "  First cell dy at mid   (i=" << i_mid << "):  " << dy0_mid << "\n"
+		 << "  First cell dy at right (i=" << i_right << "): " << dy0_right << "\n"
+		 << "  Second cell dy at mid: " << dy1_mid << "\n"
+		 << "  Growth ratio at mid:   " << dy1_mid / dy0_mid << "\n";
 
 	double min_jac, max_ar, max_skew, min_orth;
 	G.ComputeGridQuality(min_jac, max_ar, max_skew, min_orth);
 	assert(min_jac > 0 && "Negative Jacobian in BL grid!");
-	cout << "TEST 3 PASSED: min_jac=" << min_jac
-		 << " first_dy=" << dy0 << "\n";
+
+	const double tol = 1e-9;
+	auto near_ref = [&](double a, double b) {
+		return fabs(a - b) <= tol * (1.0 + fabs(b));
+	};
+	assert(near_ref(dy0_left, dy0_ref) && near_ref(dy0_mid, dy0_ref) && near_ref(dy0_right, dy0_ref)
+		   && "TFI interior first cell must match east-boundary BL spacing");
+	assert(near_ref(dy1_mid, dy1_ref) && "TFI interior second cell must match east boundary");
+	double gr_mid = dy1_mid / dy0_mid;
+	assert(near_ref(gr_mid, growth_ref) && "Growth ratio should match line-generated boundary");
+
+	cout << "TEST 3 PASSED: min_jac=" << min_jac << " first_dy=" << dy0_mid
+		 << " (matches boundary line)\n";
 }
 
 /* ======================================================================

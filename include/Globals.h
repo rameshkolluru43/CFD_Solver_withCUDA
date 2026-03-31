@@ -314,6 +314,13 @@ struct Cell
 {
     int cellType, cellID, Dimension, ParentCellID, NoBoundaryFaces, numFaces, numNodes;
     vector<int> nodeIndices, Neighbours, faceID, Secondary_Neighbours;
+    /* AMR hierarchy metadata (Phase-1 scaffolding). */
+    int AMR_Level = 0;
+    int AMR_Parent = -1;
+    vector<int> AMR_Children;
+    bool AMR_IsLeaf = true;
+    /* Future nonconforming face connectivity: one face can map to multiple neighbor cells. */
+    vector<vector<int>> Face_Neighbour_List;
     V_D Diagonal_Vector;
     bool hasBoundaryface = false, Is_Splittable = false, has_Wall_Face = false, has_Inlet_Face = false, has_Exit_Face = false, has_Symmetry_Face = false;
     double Area, Inv_Area, del_t;
@@ -337,8 +344,18 @@ extern vector<V_D> U_Cells_RK_1, U_Cells_RK_2, A_x, A_y, A, A_x_L, A_x_R, A_y_T,
 
 extern V_D Error, b, Global_Primitive, Global_U, Average_Convective_Flux, Dissipative_Flux, Vertices;
 extern V_D d_U, d_F, Mod_Alpha;
+/* Last face: MUSCL reconstructed conservative states (4) and limited ΔU for 2O dissipation — filled by Second_Order_Limiter. */
+extern V_D MUSCL_Face_U_L, MUSCL_Face_U_R, MUSCL_d_U;
 extern vector<vector<bool>> Cells_Face_Boundary_Type;
 extern double Limiter_Zeta, Limiter_Zeta1;
+/* Applied only in Second_Order_Limiter: scales both MUSCL slope inputs (zeta, zeta1) toward first order when < 1. */
+extern double Second_Order_Limiter_Scale;
+/* Applied after MinMod on the limited slope phi (additional TVD-style damp toward cell-centered face values). */
+extern double Second_Order_Phi_Blend;
+/* 1 = fully reconstructed MUSCL jump in dissipation; 0 = first-order conservative jump only (most robust with 1O face flux). */
+extern double Second_Order_Dissipation_Blend;
+/* Venkatakrishnan K in Delta_sq = K^3 * Area^2 for Limiter_Case 5 (same structure as src_3D/Limiters.cpp). */
+extern double Venkat_K;
 extern int nx_1, nx_2, ny_1, ny_2;
 extern vector<string> gridFiles;
 extern string gridDir, Test_Case_Name, GridVTKFile, Flow_Type, Test_Case_JSON_File, Test_Case_Config_File;
@@ -393,8 +410,9 @@ extern string Solver_Name, Description, Author, GeometryType;
 extern bool Is_Viscous_Wall, Is_2D_Flow, Is_Inlet_SubSonic, Is_Exit_SubSonic, Enable_Far_Field, Is_Second_Order;
 extern bool Is_Implicit_Method, Is_MOVERS_1, Enable_Entropy_Fix, Is_Time_Dependent, has_Symmetry_BC, Time_Accurate;
 extern bool Enable_AMR;
-extern int AMR_Period;
+extern int AMR_Period, AMR_Start_Iteration;
 extern double AMR_Gradient_Threshold, AMR_Max_Fraction;
+extern double AMR_Coarsen_Threshold;
 extern vector<double> Gradient_Refinement_Indicator;
 extern bool Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Conservative, Is_Viscous;
 

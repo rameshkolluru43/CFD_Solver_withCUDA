@@ -1,39 +1,61 @@
 #include "definitions.h"
 #include "Globals.h"
 #include "Error_Update.h"
+#include "Grid.h"
 #include "Utilities.h"
 #include "Primitive_Computational.h"
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 V_D Error(4, 0.0);
 
 // This Function estimates the error from the iteratons
 void Estimate_Error()
 {
-	V_D temp(4, 0.0);
-	Vector_Reset(Error);
-	for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	double e0 = 0.0, e1 = 0.0, e2 = 0.0, e3 = 0.0;
+	V_I leafCells;
+	Build_Leaf_Cell_List(leafCells);
+#ifdef _OPENMP
+#pragma omp parallel for schedule(static) reduction(+ : e0, e1, e2, e3) if (leafCells.size() > 1024)
+#endif
+	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
 	{
+		int Cell_Index = leafCells[li];
 		for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
 		{
-			Vector_Reset(temp);
+			double t;
 			if (Cells_DelU[Cell_Index][i] < 1e-9)
-				temp[i] = fabs(Cells_DelU[Cell_Index][i]);
+				t = fabs(Cells_DelU[Cell_Index][i]);
 			else
-				temp[i] = (fabs(Cells_DelU[Cell_Index][i]) / U_Cells[Cell_Index][i]);
-			Error[i] += temp[i] * temp[i];
+				t = (fabs(Cells_DelU[Cell_Index][i]) / U_Cells[Cell_Index][i]);
+			const double ts = t * t;
+			if (i == 0)
+				e0 += ts;
+			else if (i == 1)
+				e1 += ts;
+			else if (i == 2)
+				e2 += ts;
+			else
+				e3 += ts;
 		}
 	}
-	for (int i = 0; i < 4; i++)
-		Error[i] = sqrt(Error[i]);
+	Error[0] = sqrt(e0);
+	Error[1] = sqrt(e1);
+	Error[2] = sqrt(e2);
+	Error[3] = sqrt(e3);
 }
 
 // This function updates all the cells values after finding the error.
 void Update()
 {
 	int Cell_Index;
+	V_I leafCells;
+	Build_Leaf_Cell_List(leafCells);
 	//   cout<<"Updating the Function"<<endl;
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
 	{
+		Cell_Index = leafCells[li];
 		U_Cells[Cell_Index][0] += Cells_DelU[Cell_Index][0];
 		U_Cells[Cell_Index][1] += Cells_DelU[Cell_Index][1];
 		U_Cells[Cell_Index][2] += Cells_DelU[Cell_Index][2];

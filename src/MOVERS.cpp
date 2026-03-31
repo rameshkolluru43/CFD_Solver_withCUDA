@@ -3,6 +3,7 @@
 #include "Flux.h"
 #include "Limiter.h"
 #include "Utilities.h"
+#include "Primitive_Computational.h"
 
 void Entropy_Fix(double &Alpha, double &L_Max)
 {
@@ -174,8 +175,7 @@ void MOVERS_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 
     Mod_Alpha0 = 0.0, Mod_Alpha1 = 0.0, Mod_Alpha2 = 0.0, Mod_Alpha3 = 0.0, d_F_0 = 0.0, d_F_1 = 0.0, d_F_2 = 0.0, d_F_3 = 0.0, d_U_0 = 0.0, d_U_1 = 0.0, d_U_2 = 0.0, d_U_3 = 0.0;
     Lambda_Max = 0.0, Lambda_Min = 0.0, Max1 = 0.0, Max2 = 0.0, Min1 = 0.0, Min2 = 0.0;
-    double d_Var_L = 0.0, d_Var_R = 0.0;
-    int index = Face_No * 2, Which_Var = 0;
+    int index = Face_No * 2;
 
     mev_L = 0.0, mev_R = 0.0, max_eigen_value = 0.0;
 
@@ -186,25 +186,25 @@ void MOVERS_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
     Dissipative_Flux[2] = 0.0;
     Dissipative_Flux[3] = 0.0;
 
-    // 	cout<<Cell_No<<"\t"<<N_Cell_No<<"\t";
+    V_D Prim_L_face(11, 0.0), Prim_R_face(11, 0.0);
+    Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L_face);
+    Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R_face);
+    Rho_L = Prim_L_face[0];
+    P_L = Prim_L_face[4];
+    u_L = Prim_L_face[1];
+    v_L = Prim_L_face[2];
+    C_L = Prim_L_face[5];
 
-    //      Left state Variables, Density, Pressure, u, v, speed of cound C
+    Rho_R = Prim_R_face[0];
+    P_R = Prim_R_face[4];
+    u_R = Prim_R_face[1];
+    v_R = Prim_R_face[2];
+    C_R = Prim_R_face[5];
 
-    Rho_L = Primitive_Cells[Cell_No][0];
-    P_L = Primitive_Cells[Cell_No][4];
-    u_L = Primitive_Cells[Cell_No][1];
-    v_L = Primitive_Cells[Cell_No][2];
-
-    //      Right state Variables, Density, Pressure, u, v, speed of cound C
-    Rho_R = Primitive_Cells[N_Cell_No][0];
-    P_R = Primitive_Cells[N_Cell_No][4];
-    u_R = Primitive_Cells[N_Cell_No][1];
-    v_R = Primitive_Cells[N_Cell_No][2];
-
-    d_U_0 = Rho_R - Rho_L;
-    d_U_1 = Rho_R * u_R - Rho_L * u_L;
-    d_U_2 = Rho_R * v_R - Rho_L * v_L;
-    d_U_3 = ((P_R / (gamma - 1.0)) + 0.5 * Rho_R * (u_R * u_R + v_R * v_R)) - ((P_L / (gamma - 1.0)) + 0.5 * Rho_L * (u_L * u_L + v_L * v_L));
+    d_U_0 = MUSCL_d_U[0];
+    d_U_1 = MUSCL_d_U[1];
+    d_U_2 = MUSCL_d_U[2];
+    d_U_3 = MUSCL_d_U[3];
 
     //      nx and ny are normals to the face and dl - face length
     /*nx = Cell_Face_Normals[Cell_No][index + 0];

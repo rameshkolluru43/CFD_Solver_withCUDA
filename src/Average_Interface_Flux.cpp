@@ -2,6 +2,7 @@
 #include "Flux.h"
 #include "definitions.h"
 #include "Globals.h"
+#include "Primitive_Computational.h"
 
 // Function to calculate the average flux at the interface between two cells in 2D
 /**
@@ -79,4 +80,55 @@ void Calculate_Face_Average_Flux(const int &Cell_No, const int &N_Cell_No, const
 	{
 		Average_Convective_Flux[i] = 0.5 * (Flux_L[i] + Flux_R[i]);
 	}
+}
+
+/**
+ * Same as Calculate_Face_Average_Flux but uses MUSCL-reconstructed conservative states at the face
+ * (MUSCL_Face_U_L / MUSCL_Face_U_R), filled by Second_Order_Limiter before this call.
+ */
+void Calculate_Face_Average_Flux_MUSCL(const int &Cell_No, const int &N_Cell_No, const int &Face_No, bool Is_Wall_Face)
+{
+	V_D Prim_L(11, 0.0), Prim_R(11, 0.0);
+	Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L);
+	Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R);
+
+	double Rho_L = Prim_L[0];
+	double u_L = Prim_L[1];
+	double v_L = Prim_L[2];
+	double P_L = Prim_L[4];
+
+	double Rho_R = Prim_R[0];
+	double u_R = Prim_R[1];
+	double v_R = Prim_R[2];
+	double P_R = Prim_R[4];
+
+	const auto &Cell = Cells[Cell_No];
+	double nx = Cell.Face_Normals[Face_No * 2];
+	double ny = Cell.Face_Normals[Face_No * 2 + 1];
+	double dl = Cell.Face_Areas[Face_No];
+
+	double Vdotn_L = (u_L * nx + v_L * ny);
+	double Vdotn_R = (u_R * nx + v_R * ny);
+
+	double Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
+	double Vmag_R = 0.5 * (u_R * u_R + v_R * v_R);
+
+	if (Is_Wall_Face)
+		P_R = P_L;
+
+	double Vdotn_L_dl = Vdotn_L * dl;
+	double Vdotn_R_dl = Vdotn_R * dl;
+
+	Flux_L[0] = Rho_L * Vdotn_L_dl;
+	Flux_L[1] = Rho_L * u_L * Vdotn_L_dl + P_L * nx * dl;
+	Flux_L[2] = Rho_L * v_L * Vdotn_L_dl + P_L * ny * dl;
+	Flux_L[3] = (gamma1 * P_L + Rho_L * Vmag_L) * Vdotn_L_dl;
+
+	Flux_R[0] = Rho_R * Vdotn_R_dl;
+	Flux_R[1] = Rho_R * u_R * Vdotn_R_dl + P_R * nx * dl;
+	Flux_R[2] = Rho_R * v_R * Vdotn_R_dl + P_R * ny * dl;
+	Flux_R[3] = (gamma1 * P_R + Rho_R * Vmag_R) * Vdotn_R_dl;
+
+	for (int i = 0; i < NUM_FLUX_COMPONENTS; ++i)
+		Average_Convective_Flux[i] = 0.5 * (Flux_L[i] + Flux_R[i]);
 }

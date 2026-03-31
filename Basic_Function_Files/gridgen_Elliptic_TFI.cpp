@@ -1,6 +1,7 @@
 #include "Geometry_Header.h"
 #include <algorithm>
 #include <numeric>
+#include <cmath>
 
 Grid::Grid()
 {
@@ -71,6 +72,8 @@ void Grid::TFI()
 	cout << "Corner (nx-1,ny-1): (" << x[nx - 1][ny - 1] << ", " << y[nx - 1][ny - 1] << ")\n";
 	cout << "Corner (0,ny-1):    (" << x[0][ny - 1]      << ", " << y[0][ny - 1]      << ")\n";
 
+	/* Step 2: TFI — interior from boundaries only; boundaries are NOT modified here. */
+
 	for (int j = 1; j < ny - 1; j++)
 	{
 		double eta_j = static_cast<double>(j) / (ny - 1);
@@ -99,7 +102,7 @@ void Grid::TFI()
 
 	xtemp = x;
 	ytemp = y;
-	cout << "TFI complete. Ready for elliptic smoothing.\n";
+	cout << "TFI complete. Ready for elliptic smoothing (Step 3; boundaries remain fixed).\n";
 }
 
 /* ======================================================================
@@ -174,6 +177,7 @@ void Grid::Elliptic_Poisson()
 	double dxi2 = dxi * dxi;
 	double deta2 = deta * deta;
 
+	/* Step 3: Elliptic — update interior only; boundaries x[i][0], x[i][ny-1], x[0][j], x[nx-1][j] are never written. */
 	for (int j = 1; j < ny - 1; j++)
 	{
 		for (int i = 1; i < nx - 1; i++)
@@ -317,29 +321,43 @@ void Grid::ComputeThomasMiddlecoffSources()
 
 /* ======================================================================
    Boundary attraction source terms.
-   Adds additional source terms that attract grid lines toward wall
-   boundaries, enforcing near-orthogonality and clustering near walls.
-   Uses the boundary layer parameters (first_cell_height, growth_rate)
-   to determine attraction strength.
+   Attract grid lines toward walls so boundary layer clustering occurs
+   along the FULL extent of each boundary (every i for south/north,
+   every j for east/west), not at a single point.
+   When south or north BL is enabled, we set Q_source from wall attraction
+   only (zero T-M eta contribution first) so clustering is uniform in xi
+   along the wall instead of only near corners.
    ====================================================================== */
 void Grid::ComputeBoundaryAttractionSources()
 {
 	double amp = source_params.attraction_strength;
 
-	// South boundary (j=0): attract in eta direction -> Q source
+	// Zero eta (Q) source so south/north attraction alone sets it — uniform in i along wall
+	if (bl_south.enabled || bl_north.enabled)
+		for (int i = 1; i < nx - 1; i++)
+			for (int j = 1; j < ny - 1; j++)
+				Q_source[i][j] = 0.0;
+
+	// South (j=0): Q source — same strength at every i so BL along full wall
 	if (bl_south.enabled)
 	{
 		double wall_decay = -log(0.01) / bl_south.num_layers;
+		double y_range = fabs(y[nx/2][ny-1] - y[nx/2][0]);
+		if (y_range < 1e-14) y_range = 1.0;
+		double typical_dy = y_range / (ny - 1);
+		// Scale attraction so interior tends toward first_cell_height (cap for stability)
+		double scale = typical_dy / (bl_south.first_cell_height + 1e-30);
+		if (scale > 5.0) scale = 5.0;  // cap for stability
+		if (scale < 1.0) scale = 1.0;
 		for (int j = 1; j < ny - 1; j++)
 		{
 			double dist = static_cast<double>(j);
-			double attraction = amp * exp(-wall_decay * dist);
+			double attraction = amp * scale * exp(-wall_decay * dist);
 			for (int i = 1; i < nx - 1; i++)
 				Q_source[i][j] -= attraction;
 		}
 	}
 
-	// North boundary (j=ny-1): attract in eta direction
 	if (bl_north.enabled)
 	{
 		double wall_decay = -log(0.01) / bl_north.num_layers;
@@ -352,7 +370,12 @@ void Grid::ComputeBoundaryAttractionSources()
 		}
 	}
 
-	// West boundary (i=0): attract in xi direction -> P source
+	// Zero xi (P) source so east/west attraction alone sets it — uniform in j
+	if (bl_west.enabled || bl_east.enabled)
+		for (int i = 1; i < nx - 1; i++)
+			for (int j = 1; j < ny - 1; j++)
+				P_source[i][j] = 0.0;
+
 	if (bl_west.enabled)
 	{
 		double wall_decay = -log(0.01) / bl_west.num_layers;
@@ -365,7 +388,6 @@ void Grid::ComputeBoundaryAttractionSources()
 		}
 	}
 
-	// East boundary (i=nx-1): attract in xi direction
 	if (bl_east.enabled)
 	{
 		double wall_decay = -log(0.01) / bl_east.num_layers;
@@ -560,6 +582,7 @@ void Grid::Generate_Grid(bool &periodic, bool &enableElliptic, int &iterations,
 						 double omega, double convergence_tol)
 {
 	noit = 0;
+	// Order: (1) boundaries already set by operator(); (2) TFI; (3) elliptic (boundaries fixed).
 	TFI();
 
 	cout << "Enhanced elliptic generator:\n"

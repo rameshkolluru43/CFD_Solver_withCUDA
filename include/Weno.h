@@ -7,7 +7,7 @@
 #include "Globals.h"
 /*------------------------------------------------------------------------------------*/
 // Weno Functions
-void Calculate_Face_WENO_Flux(int &, int &, const int &, bool);
+void Calculate_Face_WENO_Flux(int, int, const int &, bool, V_D &, V_D &);
 void WENO_Reconstruction_X(int &, const int &, V_D &, V_D &);
 void Evaluate_Cell_Net_Flux_WENO();
 void WENO_Reconstruction(double &, double &, double &, double &, double &, int &, double &);

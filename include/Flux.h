@@ -11,6 +11,7 @@
 void Evaluate_Cell_Net_Flux_1O();
 void Evaluate_Cell_Net_Flux_2O();
 void Calculate_Face_Average_Flux(const int &, const int &, const int &, bool);
+void Calculate_Face_Average_Flux_MUSCL(const int &, const int &, const int &, bool);
 void Calculate_Flux_For_All_Faces(int &, void (*Dissipation_Function)(const int &, int &, const int &));
 
 // --------------- Functions which evaluate the individual Dissipative Fluxes -------------------------

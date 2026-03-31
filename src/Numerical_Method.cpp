@@ -7,9 +7,14 @@
 #include "Viscous_Functions.h"
 #include "Boundary_Conditions.h"
 #include "Error_Update.h"
+#include "Grid.h"
 #include <iostream>
 #include <algorithm>
 #include <cmath>
+#include <limits>
+#ifdef _OPENMP
+#include <omp.h>
+#endif
 
 // Include CUDA matrix assembly functions if available
 #ifdef USE_CUDA_MATRIX_ASSEMBLY
@@ -33,8 +38,11 @@ void Explicit_Method()
 		// WENO2D is currently implemented for structured quad cells only.
 		// If the mesh contains any non-quad cells, fall back to MUSCL/1O paths.
 		bool has_non_quad = false;
-		for (int c = 0; c < No_Physical_Cells; c++)
+		V_I leafCells;
+		Build_Leaf_Cell_List(leafCells);
+		for (int ic = 0; ic < static_cast<int>(leafCells.size()); ic++)
 		{
+			const int c = leafCells[ic];
 			if (Cells[c].numFaces != 4)
 			{
 				has_non_quad = true;
@@ -74,10 +82,15 @@ void Explicit_Method()
 		exit(EXIT_FAILURE);
 	}
 
-	// Loop over all physical cells and apply preconditioning to the fluxes
-	// #pragma omp parallel for private(Cell_Index, inv_Area)  // Enable OpenMP for CPU parallelization
-	for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	// Loop over all leaf cells and apply preconditioning to the fluxes
+	V_I leafCells;
+	Build_Leaf_Cell_List(leafCells);
+#ifdef _OPENMP
+#pragma omp parallel for schedule(static) if (leafCells.size() > 1024) private(inv_Area)
+#endif
+	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
 	{
+		const int Cell_Index = leafCells[li];
 		// Precondition the fluxes (both inviscid and viscous) for each cell
 		//        applyPreconditioner(Cell_Index, Is_Viscous_Wall);  // Preconditioning as discussed previously
 
@@ -321,20 +334,41 @@ void Implicit_Method()
 
 double get_Min_dt()
 {
-	// Use std::min_element to find the minimum time step in the Cells vector
-	auto min_it = std::min_element(Cells.begin(), Cells.end(), [](const Cell &a, const Cell &b)
-								   { return a.del_t < b.del_t; });
-	Min_dt = min_it->del_t;
-	//	cout << "Minimum Time Step\t" << Min_dt << endl;
+	V_I leafCells;
+	Build_Leaf_Cell_List(leafCells);
+	if (leafCells.empty())
+	{
+		Min_dt = 0.0;
+		return Min_dt;
+	}
+	double m = std::numeric_limits<double>::infinity();
+	for (int i = 0; i < static_cast<int>(leafCells.size()); ++i)
+	{
+		const double dt = Cells[leafCells[i]].del_t;
+		if (dt < m)
+			m = dt;
+	}
+	Min_dt = m;
 	return Min_dt;
 }
 
 double get_Max_dt()
 {
-	// Use std::min_element to find the minimum time step in the Cells vector
-	auto max_it = std::max_element(Cells.begin(), Cells.end(), [](const Cell &a, const Cell &b)
-								   { return a.del_t < b.del_t; });
-	Max_dt = max_it->del_t;
+	V_I leafCells;
+	Build_Leaf_Cell_List(leafCells);
+	if (leafCells.empty())
+	{
+		Max_dt = 0.0;
+		return Max_dt;
+	}
+	double m = -std::numeric_limits<double>::infinity();
+	for (int i = 0; i < static_cast<int>(leafCells.size()); ++i)
+	{
+		const double dt = Cells[leafCells[i]].del_t;
+		if (dt > m)
+			m = dt;
+	}
+	Max_dt = m;
 
 	return Max_dt;
 }

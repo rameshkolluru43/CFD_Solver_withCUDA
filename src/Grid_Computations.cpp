@@ -276,11 +276,23 @@ bool initializeGridFiles()
 {
 	try
 	{
-		gridDir = "../Grid_Files/" + Test_Case_Name + "/";
-		cout << "Grid Directory: " << gridDir << endl;
-		cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
-		Grid_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
-		Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+		/* 15° ramp meshes are stored as Ramp_Grid_Files/Ramp_15o_Nx_Ny.* (legacy layout). */
+		if (Test_Case_Name == "Ramp_15_Degree")
+		{
+			gridDir = "../Grid_Files/Ramp_Grid_Files/";
+			cout << "Grid Directory (ramp): " << gridDir << endl;
+			cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
+			Grid_File = gridDir + "Ramp_15o_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
+			Grid_Vtk_File = gridDir + "Ramp_15o_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+		}
+		else
+		{
+			gridDir = "../Grid_Files/" + Test_Case_Name + "/";
+			cout << "Grid Directory: " << gridDir << endl;
+			cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
+			Grid_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
+			Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+		}
 
 		// Check if the grid file exists
 		ifstream file_check(Grid_File);
@@ -442,18 +454,10 @@ void Construct_Ghost_Cells()
 }
 
 /*
-Indicies in this function represent the indexes of neighbours of current cell. since all are hexahedrals each cell has 6 neighbours.
-Indicies are named as follows
-a0 - index of current cell,
-								a4(i,j+1)
-							|---------------|
-							|				|
-			a1	(i-1,j)		|	a0 (i,j)	|		a3(i+1,j)
-							|				|
-							|---------------|
-								a2(i,j-1)
-a1 - index of Left cell,  a2 - index of Bottom Cell,  a3 - index of Right cell,	 a4 - index of Top cell,
-order in which neighbour indexes are defined in input file	((i,j),(i-1,j),(i+1,j),(i,j+1),(i,j-1))
+  Structured quad indexing (2D): Neighbours[0..3] are always
+    [0] left (i-1,j), [1] bottom (i,j-1), [2] right (i+1,j), [3] top (i,j+1).
+  Custom text grid files read by Read_Grid() use the same four-neighbor order on each data line
+  (left, bottom, right, top). Construct_Cell() remaps face areas/normals to match this list.
 */
 
 void Set_Indicies_of_Neighbour_Cells(const int &a0, const int &a1, const int &a2, const int &a3, const int &a4)
@@ -532,13 +536,31 @@ void Construct_Cell(Cell &Grid_Cell)
 
 	Compute_Centroid(Grid_Cell);
 
-	// Constructing Face Area and Face Normal (works for tri/quad)
+	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
+
+	// Constructing Face Area and Face Normal (works for tri/quad). Vertex order is CCW;
+	// for a quad, edge e = v_e -> v_{e+1} runs bottom, right, top, left when v0 is SW.
 	Grid_Cell.Face_Areas.clear();
 	Grid_Cell.Face_Normals.clear();
 	Construct_Face(Grid_Cell);
 
+	/* Align face index with Neighbours[0..3]: 0=left, 1=bottom, 2=right, 3=top.
+	   Vertex-ordered edges e=0,1,2,3 are bottom,right,top,left — remap so logical f uses e=(f+3)%4. */
+	if (n == 4 && static_cast<int>(Grid_Cell.Face_Areas.size()) == 4 &&
+		static_cast<int>(Grid_Cell.Face_Normals.size()) == 8)
+	{
+		const std::vector<double> a = Grid_Cell.Face_Areas;
+		const std::vector<double> nrm = Grid_Cell.Face_Normals;
+		for (int f = 0; f < 4; ++f)
+		{
+			const int e = (f + 3) % 4;
+			Grid_Cell.Face_Areas[f] = a[e];
+			Grid_Cell.Face_Normals[2 * f + 0] = nrm[2 * e + 0];
+			Grid_Cell.Face_Normals[2 * f + 1] = nrm[2 * e + 1];
+		}
+	}
+
 	// Polygon area (shoelace) in XY plane
-	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
 	if (n < 3)
 	{
 		cout << "Cell has fewer than 3 vertices\n";
@@ -604,10 +626,17 @@ void Construct_Cell(const int &Current_Cell_No, const int &Face_No, const int &G
 		exit(0);
 	}
 
-	// Face endpoints from cyclic vertices list (Cell_Vertices is already in anti-clockwise order)
+	// Face endpoints: Face_No is logical (Neighbours index): 0=left, 1=bottom, 2=right, 3=top.
+	// Vertex CCW order gives edges bottom,right,top,left — same remap as Construct_Cell(Cell&): e = (f+3)%4.
 	const int nVerts = static_cast<int>(C.Cell_Vertices.size() / 3);
-	const int i0 = Face_No % nVerts;
-	const int i1 = (Face_No + 1) % nVerts;
+	int i0 = Face_No % nVerts;
+	int i1 = (Face_No + 1) % nVerts;
+	if (nVerts == 4)
+	{
+		const int e = (Face_No + 3) % 4;
+		i0 = e;
+		i1 = (e + 1) % 4;
+	}
 
 	V_D mid(3, 0.0);
 	mid[0] = 0.5 * (C.Cell_Vertices[3 * i0 + 0] + C.Cell_Vertices[3 * i1 + 0]);
@@ -932,6 +961,11 @@ void Check_Cells()
 	if (Cells.size() >= static_cast<size_t>(No_Physical_Cells))
 	{
 		cout << "Cell count OK (physical + optional ghost)\n";
+		double maxClosure = 0.0;
+		int nClosureFail = 0;
+		double minFaceLen = 1e300;
+		double minCellArea = 1e300;
+		const double closureTol = 1e-5;
 		for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
 		{
 			N1 = 0.0, N2 = 0.0;
@@ -940,10 +974,63 @@ void Check_Cells()
 			{
 				N1 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 0] * Cells[Cell_Index].Face_Areas[Face_No];
 				N2 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 1] * Cells[Cell_Index].Face_Areas[Face_No];
+				const double L = Cells[Cell_Index].Face_Areas[Face_No];
+				if (L > 0.0 && L < minFaceLen)
+					minFaceLen = L;
 			}
-			if ((N1 > 1e-5) || (N2 > 1e-5))
+			const double err = std::sqrt(N1 * N1 + N2 * N2);
+			if (err > maxClosure)
+				maxClosure = err;
+			if (err > closureTol)
+				nClosureFail++;
+			if (Cells[Cell_Index].Area > 0.0 && Cells[Cell_Index].Area < minCellArea)
+				minCellArea = Cells[Cell_Index].Area;
+			if ((fabs(N1) > closureTol) || (fabs(N2) > closureTol))
 				cout << "Cell No\t" << Cell_Index << "\t" << N1 << "\t" << N2 << endl;
 		}
+		cout << "FVM geometry closure: max|sum(n*dl)|=" << maxClosure << "  cells failing tol " << closureTol << ": " << nClosureFail << "\n";
+		cout << "FVM geometry: min face length=" << minFaceLen << "  min cell area=" << minCellArea << "\n";
+
+		/* Interior faces: outward normals from two cells must cancel (same edge, opposite directions). */
+		double maxPairErr = 0.0;
+		int nPairsChecked = 0;
+		for (int i = 0; i < No_Physical_Cells; i++)
+		{
+			const int nFi = (Cells[i].numFaces > 0) ? Cells[i].numFaces : static_cast<int>(Cells[i].Face_Areas.size());
+			const int nNi = static_cast<int>(Cells[i].Neighbours.size());
+			for (int f = 0; f < nFi && f < nNi; f++)
+			{
+				const int j = Cells[i].Neighbours[f];
+				if (j < 0 || j >= No_Physical_Cells || i >= j)
+					continue;
+				int fk = -1;
+				for (size_t k = 0; k < Cells[j].Neighbours.size(); k++)
+				{
+					if (Cells[j].Neighbours[k] == i)
+					{
+						fk = static_cast<int>(k);
+						break;
+					}
+				}
+				if (fk < 0)
+					continue;
+				const int nFj = (Cells[j].numFaces > 0) ? Cells[j].numFaces : static_cast<int>(Cells[j].Face_Areas.size());
+				if (fk >= nFj)
+					continue;
+				const double nxi = Cells[i].Face_Normals[2 * f + 0];
+				const double nyi = Cells[i].Face_Normals[2 * f + 1];
+				const double nxj = Cells[j].Face_Normals[2 * fk + 0];
+				const double nyj = Cells[j].Face_Normals[2 * fk + 1];
+				const double ex = nxi + nxj;
+				const double ey = nyi + nyj;
+				const double pe = std::sqrt(ex * ex + ey * ey);
+				if (pe > maxPairErr)
+					maxPairErr = pe;
+				nPairsChecked++;
+			}
+		}
+		cout << "FVM interior face normals: checked " << nPairsChecked << " pairs  max|n_i+n_j|=" << maxPairErr << "\n";
+
 		cout << "Checking summation of Areas done\n";
 	}
 	else

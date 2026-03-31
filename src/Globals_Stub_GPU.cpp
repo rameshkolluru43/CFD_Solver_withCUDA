@@ -9,9 +9,14 @@ vector<Cell> Cells, Boundary_Cells, Co_Volume_Cells;
 vector<V_D> U_Cells_RK_1, U_Cells_RK_2, A_x, A_y, A, A_x_L, A_x_R, A_y_T, A_y_B;
 V_D Error, b, Global_Primitive, Global_U, Average_Convective_Flux, Dissipative_Flux, Vertices;
 V_D d_U, d_F, Mod_Alpha;
+V_D MUSCL_Face_U_L, MUSCL_Face_U_R, MUSCL_d_U;
 vector<vector<bool>> Cells_Face_Boundary_Type;
 
 double Limiter_Zeta = 0.0, Limiter_Zeta1 = 0.0;
+double Second_Order_Limiter_Scale = 1.0;
+double Second_Order_Phi_Blend = 1.0;
+double Second_Order_Dissipation_Blend = 1.0;
+double Venkat_K = 5.0;
 int nx_1 = 0, nx_2 = 0, ny_1 = 0, ny_2 = 0;
 vector<string> gridFiles;
 string gridDir, Test_Case_Name, GridVTKFile, Flow_Type, Test_Case_JSON_File, Test_Case_Config_File;

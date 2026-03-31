@@ -68,6 +68,7 @@ extern "C" void Ramp_15_Degree()
 		Initial_Solution_File += "_M2_61_21.txt";
 		Solution_File += "_M2_61_21.txt";
 		Final_Solution_File += "_M2_61_21.vtk";
+		break;
 	case 9:
 		Grid_File = "../Grid_Files/Ramp_Grid_Files/Ramp_15o_109_37.txt";
 		Grid_Vtk_File = "../Grid_Files/Ramp_Grid_Files/Ramp_15o_109_37.vtk";

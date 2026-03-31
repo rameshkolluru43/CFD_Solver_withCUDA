@@ -1,11 +1,70 @@
 #include "definitions.h"
 #include "Globals.h"
 #include "Weno.h"
+#include "Flux.h"
 #include "Primitive_Computational.h"
 #include "Utilities.h"
 #include "Timestep.h"
 #include <cmath>	// For std::isfinite and other math functions
 #include <iostream> // For error messages
+#ifdef _OPENMP
+#include <omp.h>
+#endif
+
+namespace
+{
+	double Pressure_From_U(const V_D &U)
+	{
+		const double rho = U[0];
+		if (rho <= 1e-14 || !std::isfinite(rho))
+			return -1.0;
+		const double u = U[1] / rho;
+		const double v = U[2] / rho;
+		const double p = gamma_M_1 * (U[3] - 0.5 * rho * (u * u + v * v));
+		return p;
+	}
+
+	/* Thread-safe primitive recovery for WENO face states (no global M / mu / K). */
+	void WenoPrimitiveFromU(const V_D &U_Vect, V_D &G_Primitive)
+	{
+		Vector_Reset(G_Primitive);
+		const double Rho = U_Vect[0];
+		const double inv_Density = 1.0 / Rho;
+		double v1 = U_Vect[1] * inv_Density;
+		double v2 = U_Vect[2] * inv_Density;
+		if (fabs(v1) <= 1e-10)
+			v1 = 0.0;
+		if (fabs(v2) <= 1e-10)
+			v2 = 0.0;
+		const double vmag = (v1 * v1 + v2 * v2);
+		const double Pressure = gamma_M_1 * (U_Vect[3] - 0.5 * Rho * vmag);
+		double Temperature;
+		if (Non_Dimensional_Form)
+			Temperature = (Pressure / (Rho * R_ref));
+		else
+			Temperature = (Pressure * inv_Density / R_GC);
+		const double C = sqrt(gamma * Pressure * inv_Density);
+		const double Mloc = sqrt(vmag) / C;
+
+		G_Primitive[0] = Rho;
+		G_Primitive[1] = v1;
+		G_Primitive[2] = v2;
+		G_Primitive[3] = Temperature;
+		G_Primitive[4] = Pressure;
+		G_Primitive[5] = C;
+		G_Primitive[6] = U_Vect[3];
+		G_Primitive[7] = Mloc;
+		G_Primitive[8] = 0.0;
+		G_Primitive[9] = 0.0;
+		G_Primitive[10] = Pressure * pow((1.0 + 0.5 * gamma_M_1 * Mloc * Mloc), gamma / gamma_M_1);
+
+		if (std::isnan(C))
+		{
+			std::cout << "Error: Negative pressure occurred in WENO face primitive recovery" << std::endl;
+			exit(0);
+		}
+	}
+}
 void WENO_Reconstruction(double &a, double &b, double &c, double &d, double &e, int &shift, double &U)
 {
 	// Check for NaN or infinite values in input
@@ -19,7 +78,6 @@ void WENO_Reconstruction(double &a, double &b, double &c, double &d, double &e, 
 	double d0 = 0.0, d1 = 0.0, d2 = 0.0, b0 = 0.0, b1 = 0.0, b2 = 0.0, a0 = 0.0, a1 = 0.0, a2 = 0.0;
 	double v0 = 0.0, v1 = 0.0, v2 = 0.0, w0 = 0.0, w1 = 0.0, w2 = 0.0, sum = 0.0, epsilon = 1e-6;
 
-	int p = 2;
 	switch (shift)
 	{
 	case 0: // for Left Values
@@ -44,15 +102,30 @@ void WENO_Reconstruction(double &a, double &b, double &c, double &d, double &e, 
 		break;
 	}
 
-	b2 = (13.0 / 12.0) * pow((a - 2.0 * b + c), 2) + (1.0 / 4.0) * pow((a - 4.0 * b + 3.0 * c), 2);
+	{
+		const double t2 = (a - 2.0 * b + c);
+		const double t2b = (a - 4.0 * b + 3.0 * c);
+		b2 = (13.0 / 12.0) * (t2 * t2) + (1.0 / 4.0) * (t2b * t2b);
+	}
+	{
+		const double t1 = (b - 2.0 * c + d);
+		const double t1b = (b - d);
+		b1 = (13.0 / 12.0) * (t1 * t1) + (1.0 / 4.0) * (t1b * t1b);
+	}
+	{
+		const double t0 = (c - 2.0 * d + e);
+		const double t0b = (3.0 * c - 4.0 * d + e);
+		b0 = (13.0 / 12.0) * (t0 * t0) + (1.0 / 4.0) * (t0b * t0b);
+	}
 
-	b1 = (13.0 / 12.0) * pow((b - 2.0 * c + d), 2) + (1.0 / 4.0) * pow((b - d), 2);
-
-	b0 = (13.0 / 12.0) * pow((c - 2.0 * d + e), 2) + (1.0 / 4.0) * pow((3.0 * c - 4.0 * d + e), 2);
-
-	a0 = d0 / pow((epsilon + b0), p);
-	a1 = d1 / pow((epsilon + b1), p);
-	a2 = d2 / pow((epsilon + b2), p);
+	{
+		const double s0 = epsilon + b0;
+		const double s1 = epsilon + b1;
+		const double s2 = epsilon + b2;
+		a0 = d0 / (s0 * s0);
+		a1 = d1 / (s1 * s1);
+		a2 = d2 / (s2 * s2);
+	}
 
 	sum = a0 + a1 + a2;
 
@@ -231,10 +304,9 @@ void Get_Reconstructed_U(int &Cell_No, const int &Face_No, int &i1, int &i2, int
 		break;
 	}
 
-	V_D U1(4, 0.0), U2(4, 0.0), U3(4, 0.0), U4(4, 0.0), U5(4, 0.0);
-	V_D W1(4, 0.0), W2(4, 0.0), W3(4, 0.0), W4(4, 0.0), W5(4, 0.0), W(4, 0.0);
-
-	V_D L(16, 0.0), InvL(16, 0.0);
+	thread_local V_D U1(4, 0.0), U2(4, 0.0), U3(4, 0.0), U4(4, 0.0), U5(4, 0.0);
+	thread_local V_D W1(4, 0.0), W2(4, 0.0), W3(4, 0.0), W4(4, 0.0), W5(4, 0.0), W(4, 0.0);
+	thread_local V_D L(16, 0.0), InvL(16, 0.0);
 
 	//	cout<<"Starting reconstruction"<<endl;
 	//	cout<<i1<<"\t"<<i2<<"\t"<<i3<<"\t"<<i4<<"\t"<<i5<<endl;
@@ -275,9 +347,10 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 
 	//	cout<<"In weno construction x\t"<< Cell_No<<"\t"<<Face_No<<endl;
 
+	/* Neighbours[0..3] = left, bottom, right, top (same as Grid_Computations / flux). */
 	im1 = Cells[Cell_No].Neighbours[0];
-	ip1 = Cells[Cell_No].Neighbours[1];
-	jm1 = Cells[Cell_No].Neighbours[2];
+	ip1 = Cells[Cell_No].Neighbours[2];
+	jm1 = Cells[Cell_No].Neighbours[1];
 	jp1 = Cells[Cell_No].Neighbours[3];
 
 	if (im1 >= No_Physical_Cells)
@@ -309,7 +382,7 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 	}
 	else
 	{
-		ip2 = Cells[ip1].Neighbours[1]; // Fixed: should be Neighbours[1] for i+2 direction
+		ip2 = Cells[ip1].Neighbours[2];
 		//		cout<<"value of ip2\t"<<ip2<<endl;
 		if (ip2 >= No_Physical_Cells || ip2 < 0)
 		{
@@ -317,7 +390,7 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 		}
 		else
 		{
-			ip3 = Cells[ip2].Neighbours[1]; // Fixed: should be Neighbours[1] for i+3 direction
+			ip3 = Cells[ip2].Neighbours[2];
 			if (ip3 < 0)
 				ip3 = ip2; // Additional safety check
 		}
@@ -333,14 +406,14 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 	}
 	else
 	{
-		jm2 = Cells[jm1].Neighbours[2]; // Fixed: should be Neighbours[2] for j-2 direction
+		jm2 = Cells[jm1].Neighbours[1];
 		if (jm2 >= No_Physical_Cells)
 		{
 			jm3 = jm2;
 		}
 		else
 		{
-			jm3 = Cells[jm2].Neighbours[2]; // Fixed: should be Neighbours[2] for j-3 direction
+			jm3 = Cells[jm2].Neighbours[1];
 		}
 	}
 
@@ -394,170 +467,159 @@ void WENO_Reconstruction_X(int &Cell_No, const int &Face_No, V_D &U_L, V_D &U_R)
 
 void Evaluate_Cell_Net_Flux_WENO()
 {
-	int N_1 = 0, N_2 = 0, N_3 = 0, N_4 = 0; // Indicates the numbers to neighbours of the cell
-
+#ifdef _OPENMP
+#pragma omp parallel for schedule(static) if (No_Physical_Cells > 512)
+#endif
 	for (int Current_Cell_No = 0; Current_Cell_No < No_Physical_Cells; Current_Cell_No++)
 	{
-		// WENO2D implementation is structured-quad specific (4 faces with directional stencils).
-		// For mixed/triangular cells, do not attempt WENO here.
 		if (Cells[Current_Cell_No].numFaces != 4)
 		{
-			// Leave net flux as zero; caller should use 1O/2O paths for unstructured.
 			for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
-			{
 				Cells_Net_Flux[Current_Cell_No][i] = 0.0;
-			}
 			Evaluate_Time_Step(Current_Cell_No);
 			continue;
 		}
 
-		N_1 = Cells[Current_Cell_No].Neighbours[0]; //(i-1,j,k)
-		N_2 = Cells[Current_Cell_No].Neighbours[1]; //(i,j-1,k)
-		N_3 = Cells[Current_Cell_No].Neighbours[2]; //(i+1,j,k)
-		N_4 = Cells[Current_Cell_No].Neighbours[3]; //(i,j+1,k)
+		const int N_1 = Cells[Current_Cell_No].Neighbours[0];
+		const int N_2 = Cells[Current_Cell_No].Neighbours[1];
+		const int N_3 = Cells[Current_Cell_No].Neighbours[2];
+		const int N_4 = Cells[Current_Cell_No].Neighbours[3];
 
-		//		cout<<"here \t"<<Current_Cell_No<<endl;
 		for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
-		{
 			Cells_Net_Flux[Current_Cell_No][i] = 0.0;
-		}
-		Calculate_Face_WENO_Flux(Current_Cell_No, N_1, Face_0, Cells_Face_Boundary_Type[Current_Cell_No][Face_0]);
 
+		V_D fc_avg(4, 0.0), fc_diss(4, 0.0);
+
+		Calculate_Face_WENO_Flux(Current_Cell_No, N_1, Face_0, Cells_Face_Boundary_Type[Current_Cell_No][Face_0], fc_avg, fc_diss);
 		for (int i = 0; i < 4; i++)
-		{
-			Cells_Net_Flux[Current_Cell_No][i] += Average_Convective_Flux[i] - Dissipative_Flux[i];
-		}
+			Cells_Net_Flux[Current_Cell_No][i] += fc_avg[i] - fc_diss[i];
 
-		//              on Face between i,j-1 and i,j Face No 0 i,j-1/2	//Average Convective Flux Face  1
-
-		Calculate_Face_WENO_Flux(Current_Cell_No, N_2, Face_1, Cells_Face_Boundary_Type[Current_Cell_No][Face_1]);
+		Calculate_Face_WENO_Flux(Current_Cell_No, N_2, Face_1, Cells_Face_Boundary_Type[Current_Cell_No][Face_1], fc_avg, fc_diss);
 		for (int i = 0; i < 4; i++)
-		{
-			Cells_Net_Flux[Current_Cell_No][i] += Average_Convective_Flux[i] - Dissipative_Flux[i];
-		}
+			Cells_Net_Flux[Current_Cell_No][i] += fc_avg[i] - fc_diss[i];
 
-		//              on Face between i+1,j and i,j Face No 0 i+1/2,j  //Average Convective Flux Face  2
-		Calculate_Face_WENO_Flux(Current_Cell_No, N_3, Face_2, Cells_Face_Boundary_Type[Current_Cell_No][Face_2]);
+		Calculate_Face_WENO_Flux(Current_Cell_No, N_3, Face_2, Cells_Face_Boundary_Type[Current_Cell_No][Face_2], fc_avg, fc_diss);
 		for (int i = 0; i < 4; i++)
-		{
-			Cells_Net_Flux[Current_Cell_No][i] += Average_Convective_Flux[i] - Dissipative_Flux[i];
-		}
+			Cells_Net_Flux[Current_Cell_No][i] += fc_avg[i] - fc_diss[i];
 
-		//              on Face between i,j+1 and i,j Face No 0 i,j + 1/2 //Average Convective Flux Face  3
-		Calculate_Face_WENO_Flux(Current_Cell_No, N_4, Face_3, Cells_Face_Boundary_Type[Current_Cell_No][Face_3]);
+		Calculate_Face_WENO_Flux(Current_Cell_No, N_4, Face_3, Cells_Face_Boundary_Type[Current_Cell_No][Face_3], fc_avg, fc_diss);
 		for (int i = 0; i < 4; i++)
-		{
-			Cells_Net_Flux[Current_Cell_No][i] += Average_Convective_Flux[i] - Dissipative_Flux[i];
-		}
+			Cells_Net_Flux[Current_Cell_No][i] += fc_avg[i] - fc_diss[i];
 
 		Evaluate_Time_Step(Current_Cell_No);
-		//				cout<<"Evaluated time step for cell no\t"<<Current_Cell_No<<endl;
 	}
 }
 
-void Calculate_Face_WENO_Flux(int &Cell_No, int &N_Cell_No, const int &Face_No, bool Is_Wall_Face)
+void Calculate_Face_WENO_Flux(int Cell_No, int N_Cell_No, const int &Face_No, bool Is_Wall_Face, V_D &out_avg, V_D &out_diss)
 {
-	//	 	cout<<Cell_No<<"\t"<<N_Cell_No<<"\t"<<Face_No<<endl;
-	//	 	cout<<"Evaluating Average Fluxes endl\t"<<endl;
-	Rho_L = 0.0, T_L = 0.0, P_L = 0.0, u_L = 0.0, v_L = 0.0, Vdotn_L = 0.0, nx = 0.0, ny = 0.0, Vmag_L = 0.0, C_L = 0.0;
-	Rho_R = 0.0, T_R = 0.0, P_R = 0.0, u_R = 0.0, v_R = 0.0, Vdotn_R = 0.0, Vmag_R = 0.0, dl = 0.0;
+	V_D U_L(4, 0.0), U_R(4, 0.0), Flux_L(4, 0.0), Flux_R(4, 0.0);
+	V_D d_U(4, 0.0), d_F(4, 0.0), Mod_Alpha(4, 0.0);
+	V_D primL(11, 0.0), primR(11, 0.0);
 
-	//         double Avg_Rho=0.0,Avg_u=0.0,Avg_v=0.0,Avg_P=0.0;
+	double Rho_L = 0.0, P_L = 0.0, u_L = 0.0, v_L = 0.0, Vdotn_L = 0.0, C_L = 0.0, Vmag_L = 0.0;
+	double Rho_R = 0.0, P_R = 0.0, u_R = 0.0, v_R = 0.0, Vdotn_R = 0.0, C_R = 0.0, Vmag_R = 0.0;
+	double nx = 0.0, ny = 0.0, dl = 0.0;
 
-	for (int i = 0; i < 4; i++)
-	{
-		Flux_L[i] = 0.0;
-		Flux_R[i] = 0.0;
-		Average_Convective_Flux[i] = 0.0;
-		Dissipative_Flux[i] = 0.0;
-		U_L[i] = 0.0;
-		U_R[i] = 0.0;
-	}
-
-	int index = Face_No * 2;
+	const int index = Face_No * 2;
 
 	WENO_Reconstruction_X(Cell_No, Face_No, U_L, U_R);
 
-	//		cout<<"COmpleted weno reconstruction"<<endl;
-	Calculate_Primitive_Variables(Cell_No, U_L);
-	//      Obtaining Left state variables
-	Rho_L = Global_Primitive[0];
-	P_L = Global_Primitive[4];
-	u_L = Global_Primitive[1];
-	v_L = Global_Primitive[2];
-	C_L = Global_Primitive[5];
-	Calculate_Primitive_Variables(N_Cell_No, U_R);
-	//      Obtaining Right state variables
-	Rho_R = Global_Primitive[0];
-	P_R = Global_Primitive[4];
-	u_R = Global_Primitive[1];
-	v_R = Global_Primitive[2];
-	C_R = Global_Primitive[5];
+	if (Face_No == 0 || Face_No == 1)
+		std::swap(U_L, U_R);
 
-	//      Obtaining the Normals of the face and face length
-	nx = Cells[Cell_No].Face_Normals[index + 0]; //----------------- nx = dy/dl
-	ny = Cells[Cell_No].Face_Normals[index + 1]; //----------------- ny = -dx/dl
-	dl = Cells[Cell_No].Face_Areas[Face_No];	 //---------------------length of the face
+	{
+		const double pL = Pressure_From_U(U_L);
+		const double pR = Pressure_From_U(U_R);
+		if (pL < 1e-12 || pR < 1e-12 || !std::isfinite(pL) || !std::isfinite(pR))
+		{
+			Calculate_Computational_Variables(Cell_No, U_L);
+			Calculate_Computational_Variables(N_Cell_No, U_R);
+		}
+	}
 
-	Vdotn_L = (u_L * nx + v_L * ny); // V dot n = (u dy - v dx) / dl
+	WenoPrimitiveFromU(U_L, primL);
+	Rho_L = primL[0];
+	P_L = primL[4];
+	u_L = primL[1];
+	v_L = primL[2];
+	C_L = primL[5];
+	WenoPrimitiveFromU(U_R, primR);
+	Rho_R = primR[0];
+	P_R = primR[4];
+	u_R = primR[1];
+	v_R = primR[2];
+	C_R = primR[5];
+
+	nx = Cells[Cell_No].Face_Normals[index + 0];
+	ny = Cells[Cell_No].Face_Normals[index + 1];
+	dl = Cells[Cell_No].Face_Areas[Face_No];
+
+	Vdotn_L = (u_L * nx + v_L * ny);
 	Vdotn_R = (u_R * nx + v_R * ny);
-
-	//     Velocity Magnitudes for Left and Right states of the face
 
 	Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
 	Vmag_R = 0.5 * (u_R * u_R + v_R * v_R);
 
-	//      if the face is a wall face then the pressure and Temperature are extrapolated from cell centers first order extrapolation for pressure and Temperature
 	if (Is_Wall_Face)
-	{
 		P_R = P_L;
-	}
-
-	//      Left state Flux F_L
 
 	Flux_L[0] = Rho_L * Vdotn_L * dl;
 	Flux_L[1] = Rho_L * u_L * Vdotn_L * dl + P_L * nx * dl;
 	Flux_L[2] = Rho_L * v_L * Vdotn_L * dl + P_L * ny * dl;
 	Flux_L[3] = (gamma1 * P_L + Rho_L * Vmag_L) * Vdotn_L * dl;
-	//	Right state flux F_R
 
 	Flux_R[0] = Rho_R * Vdotn_R * dl;
 	Flux_R[1] = Rho_R * u_R * Vdotn_R * dl + P_R * nx * dl;
 	Flux_R[2] = Rho_R * v_R * Vdotn_R * dl + P_R * ny * dl;
 	Flux_R[3] = (gamma1 * P_R + Rho_R * Vmag_R) * Vdotn_R * dl;
 
-	//              Wave Speed evaluation
-	// Add safety checks for speed of sound
 	if (C_L < 1e-14)
-	{
-		std::cout << "Warning: Very small speed of sound C_L = " << C_L << std::endl;
 		C_L = 1e-14;
-	}
 	if (C_R < 1e-14)
-	{
-		std::cout << "Warning: Very small speed of sound C_R = " << C_R << std::endl;
 		C_R = 1e-14;
-	}
 
-	S[0] = fabs(Vdotn_L - C_L) * dl;
-	S[1] = fabs(Vdotn_L + C_L) * dl;
-	S[2] = fabs(Vdotn_L) * dl;
-	S[3] = fabs(Vdotn_R - C_R) * dl;
-	S[4] = fabs(Vdotn_R + C_R) * dl;
-	S[5] = fabs(Vdotn_R) * dl;
+	double S0 = fabs(Vdotn_L - C_L) * dl;
+	double S1 = fabs(Vdotn_L + C_L) * dl;
+	double S2 = fabs(Vdotn_L) * dl;
+	double S3 = fabs(Vdotn_R - C_R) * dl;
+	double S4 = fabs(Vdotn_R + C_R) * dl;
+	double S5 = fabs(Vdotn_R) * dl;
 
-	//              Finding Minimum and Maximum Wave speeds from neighbouring cells
-	Maximum(S[0], S[1], S[2], Max1); // Maximum of Left state Eigen values
-	Maximum(S[3], S[4], S[5], Max2); // Maximum of Right state Eigen values
-
-	Maximum(Max1, Max2, max_eigen_value); // Maximum of Left state and Right state Eigen values
-
-	//              cout<<Max1<<"\t"<<Max2<<"\t"<<max_eigen_value<<endl;
+	double Max1 = 0.0, Max2 = 0.0, max_eigen_value = 0.0;
+	Maximum(S0, S1, S2, Max1);
+	Maximum(S3, S4, S5, Max2);
+	Maximum(Max1, Max2, max_eigen_value);
 
 	for (int i = 0; i < 4; i++)
+		out_avg[i] = 0.5 * (Flux_L[i] + Flux_R[i]);
+
+	if (Dissipation_Type == 4)
 	{
-		Average_Convective_Flux[i] = 0.5 * (Flux_L[i] + Flux_R[i]);
-		Dissipative_Flux[i] = 0.5 * max_eigen_value * (U_R[i] - U_L[i]);
+		d_U[0] = U_R[0] - U_L[0];
+		d_U[1] = U_R[1] - U_L[1];
+		d_U[2] = U_R[2] - U_L[2];
+		d_U[3] = U_R[3] - U_L[3];
+
+		d_F[0] = (Rho_R * Vdotn_R - Rho_L * Vdotn_L) * dl;
+		d_F[1] = (Rho_R * u_R * Vdotn_R + P_R * nx - Rho_L * u_L * Vdotn_L + P_L * nx) * dl;
+		d_F[2] = (Rho_R * v_R * Vdotn_R + P_R * ny - Rho_L * v_L * Vdotn_L + P_L * ny) * dl;
+		d_F[3] = ((((P_R / (gamma - 1.0)) + Rho_R * Vmag_R) + P_R) * Vdotn_R -
+				  (((P_L / (gamma - 1.0)) + Rho_L * Vmag_L) + P_L) * Vdotn_L) *
+				 dl;
+
+		double dP = fabs(P_L - P_R);
+		double P_I = 0.5 * (P_L + P_R);
+		double Rho_I = 0.5 * (Rho_L + Rho_R);
+
+		for (int i = 0; i < 4; ++i)
+		{
+			Condition_For_RICCA(d_U[i], d_F[i], Vdotn_L, Vdotn_R, dP, Rho_I, P_I, Mod_Alpha[i]);
+			out_diss[i] = 0.5 * Mod_Alpha[i] * dl * d_U[i];
+		}
 	}
-	//				cout<<"Complted Net fluxes"<<endl;
+	else
+	{
+		for (int i = 0; i < 4; i++)
+			out_diss[i] = 0.5 * max_eigen_value * (U_R[i] - U_L[i]);
+	}
 }

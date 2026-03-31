@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Flux.h"
 #include "Limiter.h"
+#include "Primitive_Computational.h"
 
 void Condition_For_MOVERS_NWSC(double &d_U, double &d_F, double &Alpha)
 {
@@ -135,20 +136,20 @@ void MOVERS_NWSC_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	Dissipative_Flux[2] = 0.0;
 	Dissipative_Flux[3] = 0.0;
 
-	//      Left state Variables, Density, Pressure, u, v, speed of cound C
+	V_D Prim_L_face(11, 0.0), Prim_R_face(11, 0.0);
+	Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L_face);
+	Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R_face);
+	Rho_L = Prim_L_face[0];
+	P_L = Prim_L_face[4];
+	u_L = Prim_L_face[1];
+	v_L = Prim_L_face[2];
+	C_L = Prim_L_face[5];
 
-	Rho_L = Primitive_Cells[Cell_No][0];
-	P_L = Primitive_Cells[Cell_No][4];
-	u_L = Primitive_Cells[Cell_No][1];
-	v_L = Primitive_Cells[Cell_No][2];
-	C_L = Primitive_Cells[Cell_No][5];
-
-	//      Right state Variables, Density, Pressure, u, v, speed of cound C
-	Rho_R = Primitive_Cells[N_Cell_No][0];
-	P_R = Primitive_Cells[N_Cell_No][4];
-	u_R = Primitive_Cells[N_Cell_No][1];
-	v_R = Primitive_Cells[N_Cell_No][2];
-	C_R = Primitive_Cells[N_Cell_No][5];
+	Rho_R = Prim_R_face[0];
+	P_R = Prim_R_face[4];
+	u_R = Prim_R_face[1];
+	v_R = Prim_R_face[2];
+	C_R = Prim_R_face[5];
 
 	//      Magnitudes of Velocity on Left side and Right side of an interface
 	Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
@@ -169,25 +170,16 @@ void MOVERS_NWSC_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	Vdotn_L = (u_L * nx + v_L * ny);
 	Vdotn_R = (u_R * nx + v_R * ny);
 
-	//          Evaluating Conserved variable Difference between Left and Right faces
-
-	d_U[0] = 0.0;
-	d_U[1] = 0.0;
-	d_U[2] = 0.0;
-	d_U[3] = 0.0;
-
 	//          Evaluating Flux Difference between Left and Right Faces
 	d_F_0 = (Rho_R * Vdotn_R - Rho_L * Vdotn_L) * dl;
 	d_F_1 = (Rho_R * u_R * Vdotn_R + P_R * nx - Rho_L * u_L * Vdotn_L - P_L * nx) * dl;
 	d_F_2 = (Rho_R * v_R * Vdotn_R + P_R * ny - Rho_L * v_L * Vdotn_L - P_L * ny) * dl;
 	d_F_3 = ((((P_R / (gamma - 1.0)) + Rho_R * Vmag_R) + P_R) * Vdotn_R - (((P_L / (gamma - 1.0)) + Rho_L * Vmag_L) + P_L) * Vdotn_L) * dl;
 
-	Second_Order_Limiter(Cell_No, Face_No, d_U);
-
-	Condition_For_MOVERS_NWSC(d_U[0], d_F_0, Mod_Alpha0);
-	Condition_For_MOVERS_NWSC(d_U[1], d_F_1, Mod_Alpha1);
-	Condition_For_MOVERS_NWSC(d_U[2], d_F_2, Mod_Alpha2);
-	Condition_For_MOVERS_NWSC(d_U[3], d_F_3, Mod_Alpha3);
+	Condition_For_MOVERS_NWSC(MUSCL_d_U[0], d_F_0, Mod_Alpha0);
+	Condition_For_MOVERS_NWSC(MUSCL_d_U[1], d_F_1, Mod_Alpha1);
+	Condition_For_MOVERS_NWSC(MUSCL_d_U[2], d_F_2, Mod_Alpha2);
+	Condition_For_MOVERS_NWSC(MUSCL_d_U[3], d_F_3, Mod_Alpha3);
 
 	d_P = P_R - P_L;
 	P_I = 0.5 * (P_R + P_L);
@@ -195,8 +187,8 @@ void MOVERS_NWSC_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 	Sensor = beta * fabs(d_P / (2.0 * P_I));
 
 	//			      cout<<Sensor<<"\t"<< Mod_Alpha0<<"\t"<< Mod_Alpha1<<"\t"<<Mod_Alpha2<<"\t"<<Mod_Alpha3<<"\t"<<Alpha_P<<endl;
-	Dissipative_Flux[0] = 0.5 * (Sensor * Mod_Alpha0 + Alpha_P * d_U[0]);
-	Dissipative_Flux[1] = 0.5 * (Sensor * Mod_Alpha1 + Alpha_P * d_U[1]);
-	Dissipative_Flux[2] = 0.5 * (Sensor * Mod_Alpha2 + Alpha_P * d_U[2]);
-	Dissipative_Flux[3] = 0.5 * (Sensor * Mod_Alpha3 + Alpha_P * d_U[3]);
+	Dissipative_Flux[0] = 0.5 * (Sensor * Mod_Alpha0 + Alpha_P * MUSCL_d_U[0]);
+	Dissipative_Flux[1] = 0.5 * (Sensor * Mod_Alpha1 + Alpha_P * MUSCL_d_U[1]);
+	Dissipative_Flux[2] = 0.5 * (Sensor * Mod_Alpha2 + Alpha_P * MUSCL_d_U[2]);
+	Dissipative_Flux[3] = 0.5 * (Sensor * Mod_Alpha3 + Alpha_P * MUSCL_d_U[3]);
 }

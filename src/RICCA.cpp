@@ -2,6 +2,7 @@
 #include "Globals.h"
 #include "Flux.h"
 #include "Limiter.h"
+#include "Primitive_Computational.h"
 
 /**
  * @brief Computes the Alpha parameter for the RICCA condition based on input variables.
@@ -142,17 +143,18 @@ void RICCA_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
 
     int index = Face_No * 2;
 
-    // Left state variables
-    double Rho_L = Primitive_Cells[Cell_No][0];
-    double P_L = Primitive_Cells[Cell_No][4];
-    double u_L = Primitive_Cells[Cell_No][1];
-    double v_L = Primitive_Cells[Cell_No][2];
+    V_D Prim_L_face(11, 0.0), Prim_R_face(11, 0.0);
+    Calculate_Primitive_Variables(Cell_No, MUSCL_Face_U_L, Prim_L_face);
+    Calculate_Primitive_Variables(N_Cell_No, MUSCL_Face_U_R, Prim_R_face);
+    double Rho_L = Prim_L_face[0];
+    double P_L = Prim_L_face[4];
+    double u_L = Prim_L_face[1];
+    double v_L = Prim_L_face[2];
 
-    // Right state variables
-    double Rho_R = Primitive_Cells[N_Cell_No][0];
-    double P_R = Primitive_Cells[N_Cell_No][4];
-    double u_R = Primitive_Cells[N_Cell_No][1];
-    double v_R = Primitive_Cells[N_Cell_No][2];
+    double Rho_R = Prim_R_face[0];
+    double P_R = Prim_R_face[4];
+    double u_R = Prim_R_face[1];
+    double v_R = Prim_R_face[2];
 
     // Face geometry
     nx = Cells[Cell_No].Face_Normals[index];
@@ -167,13 +169,6 @@ void RICCA_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
     Vmag_L = 0.5 * (u_L * u_L + v_L * v_L);
     Vmag_R = 0.5 * (u_R * u_R + v_R * v_R);
 
-    // Conserved variable differences
-    d_U[0] = Rho_R - Rho_L;
-    d_U[1] = Rho_R * u_R - Rho_L * u_L;
-    d_U[2] = Rho_R * v_R - Rho_L * v_L;
-    d_U[3] = ((P_R / (gamma - 1.0)) + 0.5 * Rho_R * (u_R * u_R + v_R * v_R)) -
-             ((P_L / (gamma - 1.0)) + 0.5 * Rho_L * (u_L * u_L + v_L * v_L));
-
     // Flux differences
     d_F[0] = (Rho_R * Vdotn_R - Rho_L * Vdotn_L) * dl;
     d_F[1] = (Rho_R * u_R * Vdotn_R + P_R * nx - Rho_L * u_L * Vdotn_L + P_L * nx) * dl;
@@ -187,13 +182,10 @@ void RICCA_2O(const int &Cell_No, int &N_Cell_No, const int &Face_No)
     P_I = 0.5 * (P_L + P_R);
     Rho_I = 0.5 * (Rho_L + Rho_R);
 
-    // Apply second-order limiter
-    Second_Order_Limiter(Cell_No, Face_No, d_U);
-
-    // Condition for smooth region
+    // Condition for smooth region (MUSCL_d_U from Second_Order_Limiter in Net_Flux)
     for (int i = 0; i < 4; ++i)
     {
-        Condition_For_RICCA(d_U[i], d_F[i], Vdotn_L, Vdotn_R, dP, Rho_I, P_I, Mod_Alpha[i]);
-        Dissipative_Flux[i] = 0.5 * Mod_Alpha[i] * dl * d_U[i];
+        Condition_For_RICCA(MUSCL_d_U[i], d_F[i], Vdotn_L, Vdotn_R, dP, Rho_I, P_I, Mod_Alpha[i]);
+        Dissipative_Flux[i] = 0.5 * Mod_Alpha[i] * dl * MUSCL_d_U[i];
     }
 }

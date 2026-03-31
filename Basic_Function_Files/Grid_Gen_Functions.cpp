@@ -1,6 +1,7 @@
 #include "Geometry_Header.h"
 
 /* ======================================================================
+   Step 1: Set boundary point distribution (MUST be correct before TFI).
    Initialize Grid from four boundary point lists.
 
    List1 = south (j=0),    List2 = east (i=nx-1),
@@ -16,6 +17,9 @@
      List2: (nx-1,0) -> (nx-1,ny-1)
      List3: (nx-1,ny-1) -> (0,ny-1)   [stored in reverse xi order]
      List4: (0,ny-1) -> (0,0)         [stored in reverse eta order]
+
+   Flow: (1) boundaries set here -> (2) TFI() -> (3) Elliptic(); boundaries
+   remain fixed during elliptic solve.
    ====================================================================== */
 void Grid::operator()(vector<Point> &List1, vector<Point> &List2,
 					  vector<Point> &List3, vector<Point> &List4)
