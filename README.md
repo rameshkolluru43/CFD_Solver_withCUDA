@@ -24,8 +24,12 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 ### GPU Acceleration
 - **CUDA Kernels**: Optimized kernels for flux calculations, gradient computation, time integration
 - **Memory Management**: Efficient host-device memory transfers
-- **Parallel Execution**: Multi-GPU support with CUDA architectures 6.0-9.0
+- **Parallel Execution**: Multi-GPU support with CUDA architectures 6.0-9.0 (see `CMakeLists.txt` for `CUDA_ARCHITECTURES`; adjust for your GPU)
 - **Iterative Solvers**: GPU-accelerated linear algebra operations
+- **Metal (experimental, macOS / Apple Silicon)**: Optional `Metal_Kernels/` bridge and `.metal` compute shaders for future host-side integration—build with the standalone `Metal_Kernels/Makefile` (see that directory)
+
+### CPU Parallelism
+- **OpenMP**: Multi-threaded CPU loops when OpenMP is available (on macOS, Homebrew `libomp` is auto-detected by CMake when the compiler lacks built-in OpenMP)
 
 ### Solver Capabilities
 
@@ -48,18 +52,26 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 ```
 ├── src/                           # Main source files
 │   ├── Main.cpp                   # CPU main entry point
+│   ├── Globals_Config.cpp        # VTK-backed runtime paths (linked when building with VTK)
 │   ├── Main_CUDA.cu              # GPU main entry point
 │   ├── Solver.cpp                # Main solver routines
 │   ├── Numerical_Method.cpp      # Numerical schemes
 │   ├── Boundary_Conditions.cpp   # BC implementations
 │   └── ...                       # Additional solver components
-├── CUDA_KERNELS/                  # GPU kernel implementations
+├── CUDA_KERNELS/                  # GPU kernel implementations (NVIDIA CUDA)
 │   ├── Flux_Calculations_Cuda_Kernels.cu
 │   ├── Time_Integration_Cuda_Kernels.cu
 │   ├── Gradient_Calculation_Cuda_Kernels.cu
 │   ├── Viscous_Flux_Cuda_Kernels.cu
 │   ├── Iterative_Solver_Cuda_Kernels.cu
 │   └── ...                       # Additional GPU kernels
+├── Metal_Kernels/                 # Optional Apple Metal bridge + shaders (macOS)
+│   ├── include/MetalKernelBridge.h
+│   ├── src/MetalHostBridge.mm
+│   └── shaders/CFDSolverKernels.metal
+├── Incompressible_Solver/         # Incompressible / SIMPLE-related sources
+├── src_3D/                        # 3D-related notes and implementation headers
+├── VTK_Grid_Tests/                # VTK grid integration tests
 ├── include/                       # Header files
 │   ├── definitions.h             # Global definitions
 │   ├── Globals.h                 # Global variables
@@ -91,15 +103,19 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 
 ## 🛠️ Dependencies
 
-### Required
+### Required (CPU solver `CFD_solver`)
 - **CMake** (≥3.16): Build system
-- **CUDA Toolkit** (≥11.0): GPU computation
 - **C++ Compiler**: C++17 compatible (GCC/Clang)
+- **Boost** (regex component): Used by the solver
 - **JsonCpp**: JSON configuration parsing
-- **VTK** (≥9.4): Visualization output
+- **VTK** (≥9.4): Grid I/O and visualization (the CMake build **does not** produce `CFD_solver` if VTK is missing)
+
+### Required for GPU executable (`CFD_solver_gpu`)
+- **CUDA Toolkit** (≥11.0) with **nvcc** on `PATH`: If CUDA is not found, CMake builds the CPU target only
 
 ### Optional
-- **Doxygen**: Documentation generation
+- **OpenMP / libomp**: Faster CPU parallelism (CMake enables OpenMP when available)
+- **Doxygen**: API documentation generation (`Doxyfile_Cleaned`)
 - **GMSH**: Mesh generation
 - **ParaView**: Visualization
 
@@ -130,9 +146,9 @@ cmake ..
 # Build the project
 make -j$(nproc)
 
-# Two executables will be generated:
-# - CFD_solver     (CPU version)
-# - CFD_solver_gpu (GPU version)
+# Typical outputs:
+# - CFD_solver     (CPU) when VTK (and dependencies) are found
+# - CFD_solver_gpu (GPU) when CUDA (nvcc) is found
 ```
 
 ## 🚀 Usage
@@ -217,7 +233,7 @@ The solver includes comprehensive test cases and validation framework:
 
 For detailed testing information, see [TEST_SUMMARY.md](TEST_SUMMARY.md).
 
-## � Flux Scheme Enhancements
+## 📊 Flux Scheme Enhancements
 
 ### **Production-Ready Implementations** ✅
 
@@ -263,7 +279,7 @@ All flux schemes implement rigorous mathematical foundations:
 
 For comprehensive technical details, see the documentation files in the `docs/` directory.
 
-## �📊 GPU Performance
+## 📊 GPU Performance
 
 The CUDA implementation provides significant speedup over CPU execution:
 - **Memory Bandwidth**: Optimized memory access patterns
@@ -291,13 +307,11 @@ The CUDA implementation provides significant speedup over CPU execution:
 
 ### Generate Documentation
 ```bash
-# Using Doxygen
+# From the repository root
 doxygen Doxyfile_Cleaned
-
-# Documentation will be generated in:
-# - docs/html/     (HTML format)
-# - docs/latex/    (LaTeX format)
 ```
+
+HTML output is written under **`docs/doxygen/html/`** (see `OUTPUT_DIRECTORY` in `Doxyfile_Cleaned`). LaTeX output, if enabled, is under `docs/doxygen/latex/`.
 
 ### Key Classes and Functions
 
@@ -347,7 +361,8 @@ doxygen Doxyfile_Cleaned
 3. **New Numerical Schemes**: Add to `src/Numerical_Method.cpp` with proper mathematical documentation
 4. **New Boundary Conditions**: Extend `src/Boundary_Conditions.cpp` with physical justification
 5. **New CUDA Kernels**: Add to appropriate `CUDA_KERNELS/*.cu` file with performance optimization
-6. **New Test Cases**: Create in `Test_Cases/` directory with analytical solutions for validation
+6. **Metal (macOS)**: Extend `Metal_Kernels/` shaders and `MetalKernelBridge.h` / `MetalHostBridge.mm`; compile the metallib with `Metal_Kernels/scripts/build_metallib.sh`
+7. **New Test Cases**: Create in `Test_Cases/` directory with analytical solutions for validation
 
 #### **Documentation Standards** 📚
 - **Mathematical Framework**: Include governing equations and derivations

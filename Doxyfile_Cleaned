@@ -48,13 +48,13 @@ PROJECT_NAME           = "CFD Solver with CUDA Acceleration"
 # could be handy for archiving the generated documentation or if some version
 # control system is used.
 
-PROJECT_NUMBER         = "v3.0 - Incompressible Solver & Turbulence Models"
+PROJECT_NUMBER         = "v3.1 — Mixed mesh, AMR, CUDA; optional Metal (macOS)"
 
 # Using the PROJECT_BRIEF tag one can provide an optional one line description
 # for a project that appears at the top of each page and should give viewer a
 # quick idea about the purpose of the project. Keep the description short.
 
-PROJECT_BRIEF          = "Advanced CFD Solver Suite: High-Performance 2D Compressible/Incompressible Flow Solver with RANS Turbulence Models (K-epsilon, K-omega, SST), Enhanced Flux Schemes, SIMPLE Algorithm, and GPU Acceleration"
+PROJECT_BRIEF          = "2D compressible/incompressible CFD: Euler/NS, mixed tri/quad grids, gradient AMR tagging, RANS turbulence, SIMPLE, CUDA kernels, optional Apple Metal experiments (macOS)"
 
 # With the PROJECT_LOGO tag one can specify a logo or an icon that is included
 # in the documentation. The maximum height of the logo should not exceed 55
@@ -74,7 +74,7 @@ PROJECT_ICON           =
 # entered, it will be relative to the location where Doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       =
+OUTPUT_DIRECTORY       = docs/doxygen
 
 # If the CREATE_SUBDIRS tag is set to YES then Doxygen will create up to 4096
 # sub-directories (in 2 levels) under the output directory of each output format
@@ -348,7 +348,7 @@ OPTIMIZE_OUTPUT_SLICE  = NO
 #
 # Note see also the list of default file extension mappings.
 
-EXTENSION_MAPPING = cu=C++ cuh=C++
+EXTENSION_MAPPING = cu=C++ cuh=C++ metal=C++ mm=C++
 
 # If the MARKDOWN_SUPPORT tag is enabled then Doxygen pre-processes all comments
 # according to the Markdown format, which allows for more readable
@@ -970,7 +970,8 @@ INPUT                    = src \
                          CUDA_KERNELS \
                          Basic_Function_Files \
                          Incompressible_Solver \
-                         docs
+                         Metal_Kernels \
+                         docs/DoxygenMainPage.cpp
 
 # This tag can be used to specify the character encoding of the source files
 # that Doxygen parses. Internally Doxygen uses the UTF-8 encoding. Doxygen uses
@@ -1022,6 +1023,8 @@ FILE_PATTERNS          = *.c \
                          *.hxx \
                          *.hpp \
                          *.h++ \
+                         *.mm \
+                         *.metal \
                          *.md \
                          *.dox
 
@@ -1038,7 +1041,9 @@ RECURSIVE = YES
 # Note that relative paths are relative to the directory from which Doxygen is
 # run.
 
-EXCLUDE                =
+EXCLUDE                = docs/html \
+                         docs/doxygen \
+                         docs/latex
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -1054,7 +1059,13 @@ EXCLUDE_SYMLINKS         = YES
 # Note that the wildcards are matched against the file with absolute path, so to
 # exclude all test directories for example use the pattern */test/*
 
-EXCLUDE_PATTERNS         = *.py *.md */external/* */third_party/*
+EXCLUDE_PATTERNS         = *.py \
+                         *.md \
+                         */external/* \
+                         */third_party/* \
+                         */.venv/* \
+                         */venv/* \
+                         */site-packages/*
 
 # The EXCLUDE_SYMBOLS tag can be used to specify one or more symbol names
 # (namespaces, classes, functions, etc.) that should be excluded from the
@@ -1946,7 +1957,7 @@ EXTRA_SEARCH_MAPPINGS  =
 # If the GENERATE_LATEX tag is set to YES, Doxygen will generate LaTeX output.
 # The default value is: YES.
 
-GENERATE_LATEX         = YES
+GENERATE_LATEX         = NO
 
 # The LATEX_OUTPUT tag is used to specify where the LaTeX docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of

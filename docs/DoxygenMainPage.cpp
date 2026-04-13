@@ -10,9 +10,9 @@
  *
  * @section version_info Version Information
  *
- * - **Version**: v3.0 - Incompressible Solver & Turbulence Models
- * - **Release Date**: September 2025
- * - **Language**: C++ with CUDA support
+ * - **Version**: v3.1 (mixed unstructured meshes, AMR tagging, CUDA; optional Metal on macOS)
+ * - **Documentation refresh**: April 2026
+ * - **Language**: C++17 with optional CUDA (NVIDIA) and experimental Metal (Apple)
  * - **License**: GNU General Public License v3.0
  *
  * @section key_features Key Features
@@ -80,6 +80,12 @@
  * - Comprehensive boundary condition treatment
  * - Production limiting for numerical stability
  *
+ * ### Grids, AMR, and I/O
+ *
+ * - **Mixed 2D meshes**: Triangle and quadrilateral cells with per-face neighbour connectivity (VTK/GMSH-style paths)
+ * - **Gradient-based AMR (tagging)**: Green–Gauss-based refinement indicator; configurable threshold and period (topology refinement is staged for future work—see docs/ADAPTIVE_MESH_REFINEMENT.md)
+ * - **JSON configuration**: Central solver and test-case configuration (see docs/CONFIGURATION.md)
+ *
  * ### 🔧 Computational Framework
  *
  * - **Flow Physics**: Full Euler/Navier-Stokes (compressible) and SIMPLE (incompressible)
@@ -87,7 +93,9 @@
  * - **Spatial Discretization**: High-order MUSCL reconstruction, central differencing
  * - **Slope Limiters**: Van Leer, Minmod, Superbee with TVD properties
  * - **Matrix Solvers**: BiCGSTAB, GMRES, direct solvers for incompressible systems
- * - **GPU Acceleration**: CUDA kernels for all major computations
+ * - **GPU Acceleration**: CUDA kernels under CUDA_KERNELS/ (primary); optional **Metal** compute shaders and host bridge under Metal_Kernels/ (macOS / Apple Silicon, experimental)
+ * - **CPU parallelism**: OpenMP when available (CMake detects libomp on macOS Homebrew when needed)
+ * - **Build**: CMake requires VTK + JsonCpp + Boost (regex) for the CPU executable; nvcc enables the GPU target
  * - **Error Handling**: Comprehensive validation and graceful recovery
  *
  * @section architecture_overview Architecture Overview
@@ -102,7 +110,8 @@
  * | **Time Integration** | RK4, TVD-RK3, implicit schemes | src/Time_Integration.cpp, src/Turbulence_Integration.cpp |
  * | **Boundary Conditions** | Wall, inlet, outlet, far-field | src/Boundary_Conditions.cpp |
  * | **CUDA Kernels** | GPU-accelerated computations | CUDA_KERNELS/*.cu |
- * | **Grid Processing** | Structured/unstructured mesh handling | src/Grid_Functions.cpp |
+ * | **Metal (optional)** | Apple GPU bridge + `.metal` kernels | Metal_Kernels/* |
+ * | **Grid Processing** | Structured/unstructured mesh handling | src/Grid_Functions.cpp, src/Grid_Computations.cpp |
  * | **Matrix Solvers** | Iterative linear system solvers | src/Matrix_Solvers.cpp |
  * | **I/O System** | VTK output and JSON configuration | src/IO_Functions.cpp |
  *
@@ -246,6 +255,10 @@
  * - **Namespaces**: Logical code organization
  *
  * ### Technical Guides
+ * - **README.md** (repository root): Overview, build, and feature summary
+ * - **docs/MESH_AND_GRID.md**: Mesh formats and mixed tri/quad connectivity
+ * - **docs/ADAPTIVE_MESH_REFINEMENT.md**: AMR indicator and JSON options
+ * - **docs/CONFIGURATION.md**, **docs/BUILD_AND_RUN.md**: Configuration and build/run
  * - **docs/Van_Leer_Flux_Implementation.md**: Van Leer scheme mathematical framework
  * - **docs/ROE_2O_Implementation.md**: Second-order Roe implementation details
  * - **docs/Enhanced_ROE_First_Order.md**: Enhanced first-order Roe documentation
@@ -260,10 +273,10 @@
  *
  * ### Prerequisites
  * - **CMake** (≥3.16): Build system
- * - **CUDA Toolkit** (≥11.0): GPU computation
+ * - **CUDA Toolkit** (≥11.0) with nvcc: Required only for **CFD_solver_gpu**
  * - **C++ Compiler**: C++17 compatible (GCC/Clang)
- * - **JsonCpp**: Configuration file parsing
- * - **VTK** (≥9.4): Visualization output
+ * - **JsonCpp**, **Boost (regex)**: Configuration and solver dependencies
+ * - **VTK** (≥9.4): Required for **CFD_solver** in the default CMake configuration
  *
  * ### Quick Build
  * @code{.bash}

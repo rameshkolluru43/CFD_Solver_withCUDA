@@ -4,6 +4,14 @@ Summary of recent features and fixes.
 
 ---
 
+## Documentation (April 2026)
+
+- **README.md**: Dependencies aligned with CMake (Boost, OpenMP, VTK required for CPU build); Metal_Kernels called out; fixed corrupted section headings; Doxygen HTML path documented as `docs/doxygen/html/`.
+- **Doxyfile_Cleaned**: `PROJECT_NUMBER` / `PROJECT_BRIEF` updated; `OUTPUT_DIRECTORY=docs/doxygen`; `INPUT` now includes `Metal_Kernels` and only `docs/DoxygenMainPage.cpp` (avoids accidentally scanning old `docs/html` trees); excludes `docs/html`, generated `docs/doxygen`, and common virtualenv paths; `GENERATE_LATEX=NO` by default for faster runs; `.mm`/`.metal` file patterns added.
+- **docs/DoxygenMainPage.cpp**, **docs/README.md**: Main page and index refreshed for mixed mesh, AMR, CUDA vs Metal, and build prerequisites.
+
+---
+
 ## Mixed Mesh Support (Triangles and Quadrilaterals)
 
 - **Per-face connectivity**: `Neighbours[f]` is the neighbour across face `f`; face order matches the cell’s cyclic vertex order (VTK path).
