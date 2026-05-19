@@ -19,10 +19,23 @@ cmake ..
 make -j$(nproc)
 ```
 
-Two executables are produced:
+Two executables are produced (when CUDA is available):
 
-- **CFD_solver** — CPU-only solver  
-- **CFD_solver_gpu** — Solver with CUDA kernels  
+- **CFD_solver** — CPU solver (requires VTK in CMake)  
+- **CFD_solver_gpu** — Solver built with `USE_CUDA=1`
+
+### GPU flux schemes (MOVERS / RICCA)
+
+On **`CFD_solver_gpu`**, first-order net flux for **`Dissipation_Type`** **2** (MOVERS), **4** (RICCA), and **5** (MOVERS_NWSC) runs on the GPU via `CUDA_KERNELS/MOVERS_RICCA_Flux_Cuda_Kernels.cu`. Second-order runs (`Is_Second_Order` with MUSCL) still use the CPU path in `src/Net_Flux.cpp`. Other dissipation types (LLF, Roe, etc.) remain CPU unless separate CUDA kernels are wired in.
+
+### GPU viscous flux and viscous wall BC
+
+When **`Is_Viscous_Wall`** is true (viscous Navier–Stokes):
+
+- **`Evaluate_Viscous_Fluxes()`** uses `CUDA_KERNELS/Viscous_Flux_Cuda_Integration.cu` (Green–Gauss cell gradients + face stress; up to 8 faces/cell).
+- **`Apply_Boundary_Conditions()`** applies no-slip wall state on ghost cells via `CUDA_KERNELS/Boundary_Conditions_Cuda_Integration.cu`, then refreshes ghost primitives on the host.
+
+Inlet/exit/symmetry boundaries still run on the CPU. Set **`Is_Viscous_Wall": true`** and a finite **`Re`** in your test JSON to exercise the viscous CUDA path.
 
 ## Run
 

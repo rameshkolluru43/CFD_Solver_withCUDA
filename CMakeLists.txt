@@ -112,10 +112,21 @@ if(CFD_HAVE_CUDA)
 		${GPU_CPU_SOURCES}
 	)
 
+	# sm_XX: override with -DCFD_CUDA_ARCH=86 (Ampere), 89 (Ada), etc.
+	if(NOT DEFINED CFD_CUDA_ARCH)
+		set(CFD_CUDA_ARCH "75" CACHE STRING "CUDA arch for -arch=sm_XX (e.g. 75, 86, 89)")
+	endif()
+
 	set_target_properties(CFD_solver_gpu PROPERTIES
 		CUDA_SEPARABLE_COMPILATION ON
-		CUDA_ARCHITECTURES "75"
 	)
+	if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.18")
+		set_target_properties(CFD_solver_gpu PROPERTIES CUDA_ARCHITECTURES "${CFD_CUDA_ARCH}")
+	else()
+		message(STATUS "CMake ${CMAKE_VERSION}: CUDA_ARCHITECTURES ignored; using -arch=sm_${CFD_CUDA_ARCH}")
+		target_compile_options(CFD_solver_gpu PRIVATE
+			$<$<COMPILE_LANGUAGE:CUDA>:-arch=sm_${CFD_CUDA_ARCH}>)
+	endif()
 
 	target_compile_definitions(CFD_solver_gpu PRIVATE USE_CUDA=1)
 	target_include_directories(CFD_solver_gpu PRIVATE

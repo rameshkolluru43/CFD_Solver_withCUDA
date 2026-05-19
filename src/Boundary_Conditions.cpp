@@ -2,6 +2,10 @@
 #include "Boundary_Conditions.h"
 #include "Globals.h"
 
+#ifdef USE_CUDA
+#include "../CUDA_KERNELS/Boundary_Conditions_Cuda_Integration.h"
+#endif
+
 string BCFileName, InitCondFileName;
 
 // InletCondition inletCond;
@@ -44,7 +48,10 @@ void Apply_Boundary_Conditions()
 	switch (Is_Viscous_Wall)
 	{
 	case true:
-		//		cout<<"Viscous wall enabled"<<endl;
+#ifdef USE_CUDA
+		if (Apply_Viscous_Wall_Boundary_Condition_CUDA())
+			break;
+#endif
 		Viscous_Wall_Boundary_Condition();
 		break;
 	case false:

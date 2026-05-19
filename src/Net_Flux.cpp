@@ -5,6 +5,10 @@
 #include "Limiter.h"
 #include "Grid.h"
 
+#ifdef USE_CUDA
+#include "../CUDA_KERNELS/MOVERS_RICCA_Flux_Cuda.h"
+#endif
+
 namespace
 {
 bool Is_AMR_Transition_Face(const int owner, const int neigh)
@@ -107,6 +111,10 @@ void Evaluate_Cell_Net_Flux_1O()
 #ifdef DEBUG
     std::cerr << "Entered 1st Order Flux Calculation" << std::endl;
 #endif
+#ifdef USE_CUDA
+    if (Evaluate_Cell_Net_Flux_CUDA_Movers_Ricca(false))
+        return;
+#endif
     // Parallelize the loop with prgma
     // Loop over all physical cells
     // This function iterates over all physical cells and calculates the net flux for each cell
@@ -159,6 +167,11 @@ void Evaluate_Cell_Net_Flux_2O()
 {
 #ifdef DEBUG
     std::cerr << "Entered 2nd Order Flux Calculation" << std::endl;
+#endif
+#ifdef USE_CUDA
+    /* 2nd order uses MUSCL reconstruction on CPU; CUDA path is 1st order only. */
+    if (Evaluate_Cell_Net_Flux_CUDA_Movers_Ricca(true))
+        return;
 #endif
     V_I leafCells;
     Build_Leaf_Cell_List(leafCells);

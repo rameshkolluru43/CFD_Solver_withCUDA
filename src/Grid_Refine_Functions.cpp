@@ -4,6 +4,10 @@
 #include "Initialize.h"
 #include "Primitive_Computational.h"
 #include "Viscous_Functions.h"
+
+#ifdef USE_CUDA
+#include "../CUDA_KERNELS/Viscous_Flux_Cuda_Integration.h"
+#endif
 #include "Utilities.h"
 #include <filesystem>
 #include <limits>
@@ -508,6 +512,10 @@ void Viscous_Flux_on_Face(const int &Cell_No, const int &Face_No)
 //  This calculates Viscous flux on each face by averaging corresponding gradients evaluated at cell centers.
 void Evaluate_Viscous_Fluxes()
 {
+#ifdef USE_CUDA
+    if (Evaluate_Viscous_Fluxes_CUDA())
+        return;
+#endif
 
     //	cout<< "Evaluating Viscous Fluxes\n";
     for (int Current_Cell_Index = 0; Current_Cell_Index < No_Physical_Cells; Current_Cell_Index++)
