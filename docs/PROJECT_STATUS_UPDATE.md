@@ -78,7 +78,7 @@ Successfully completed **all Priority 1 and Priority 2 CUDA kernel implementatio
    - Memory management helpers
    - Error handling
 
-✅ **validate_cuda_syntax.sh**
+✅ **scripts/validate_cuda_syntax.sh**
    - Automated syntax validation script
    - Register usage analysis
    - Compilation verification
@@ -299,7 +299,7 @@ launch_weno5_characteristic_reconstruction()     // Highest accuracy
 
 ### 📋 Deployment Checklist
 When on CUDA-enabled system:
-1. Run validate_cuda_syntax.sh
+1. Run `scripts/validate_cuda_syntax.sh`
 2. Compile with cmake/make
 3. Execute unit tests
 4. Benchmark performance
@@ -446,7 +446,7 @@ Documentation/
   - PROJECT_STATUS_UPDATE.md (this file)
 
 Scripts/
-  - validate_cuda_syntax.sh
+  - scripts/validate_cuda_syntax.sh
 ```
 
 ### Modified Files (1)

@@ -490,12 +490,7 @@ void Write_Turbulence_Variables(const string &filename)
     if (current_turbulence_model == TurbulenceModel::LAMINAR)
         return;
 
-    ofstream outfile(filename);
-    if (!outfile.is_open())
-    {
-        cout << "Error: Cannot open file " << filename << " for writing." << endl;
-        return;
-    }
+    ofstream outfile = CFD_OpenOutputFileOrThrow(filename, "Write_Turbulence_Variables");
 
     outfile << "# Turbulence Variables Output" << endl;
     outfile << "# Cell_Index X Y k epsilon omega mut y_plus" << endl;

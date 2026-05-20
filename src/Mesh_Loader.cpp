@@ -17,8 +17,7 @@ void Read_CSV_Mesh(const std::string &xnodesCsv, const std::string &ynodesCsv)
     std::vector<double> ynodes = readCsv1D(ynodesCsv);
     if (xnodes.size() < 2 || ynodes.size() < 2)
     {
-        std::cerr << "CSV mesh requires at least 2 xnodes and 2 ynodes\n";
-        exit(1);
+        throw std::runtime_error("Read_CSV_Mesh: CSV mesh requires at least 2 xnodes and 2 ynodes");
     }
 
     // Ensure unique sorted nodes (robustness)
@@ -106,12 +105,7 @@ bool Load_Mesh(const std::string &configOrMeshPath)
         // If JSON config, parse it and delegate
         if (hasExt(configOrMeshPath, ".json"))
         {
-            std::ifstream jf(configOrMeshPath);
-            if (!jf.is_open())
-            {
-                std::cerr << "Error: Could not open JSON config: " << configOrMeshPath << "\n";
-                return false;
-            }
+            std::ifstream jf = CFD_OpenInputFileOrThrow(configOrMeshPath, "Load_Mesh JSON config");
             Json::CharReaderBuilder rb;
             Json::Value root;
             std::string errs;
@@ -175,14 +169,7 @@ bool Load_Mesh(const std::string &configOrMeshPath)
         // Otherwise, use file extension to dispatch
         if (hasExt(configOrMeshPath, ".vtk"))
         {
-            // Check if file exists before attempting to read
-            std::ifstream file_check(configOrMeshPath);
-            if (!file_check.good())
-            {
-                std::cerr << "Error: VTK file does not exist: " << configOrMeshPath << std::endl;
-                return false;
-            }
-            file_check.close();
+            CFD_EnsureInputFileExists(configOrMeshPath, "Load_Mesh VTK file");
 
             bool success = Read_GmshVTK_Grid(configOrMeshPath);
             if (!success)
@@ -195,14 +182,7 @@ bool Load_Mesh(const std::string &configOrMeshPath)
         }
         else if (hasExt(configOrMeshPath, ".txt"))
         {
-            // Check if file exists before attempting to read
-            std::ifstream file_check(configOrMeshPath);
-            if (!file_check.good())
-            {
-                std::cerr << "Error: TXT file does not exist: " << configOrMeshPath << std::endl;
-                return false;
-            }
-            file_check.close();
+            CFD_EnsureInputFileExists(configOrMeshPath, "Load_Mesh TXT file");
 
             Read_Grid(configOrMeshPath);
             std::cout << "Successfully loaded TXT mesh: " << configOrMeshPath << std::endl;
@@ -230,21 +210,8 @@ bool Load_Mesh(const std::string &configOrMeshPath)
                 return false;
             }
 
-            // Check if both CSV files exist
-            std::ifstream xfile_check(xpath);
-            std::ifstream yfile_check(ypath);
-            if (!xfile_check.good())
-            {
-                std::cerr << "Error: X-nodes CSV file does not exist: " << xpath << std::endl;
-                return false;
-            }
-            if (!yfile_check.good())
-            {
-                std::cerr << "Error: Y-nodes CSV file does not exist: " << ypath << std::endl;
-                return false;
-            }
-            xfile_check.close();
-            yfile_check.close();
+            CFD_EnsureInputFileExists(xpath, "Load_Mesh x-nodes CSV");
+            CFD_EnsureInputFileExists(ypath, "Load_Mesh y-nodes CSV");
 
             Read_CSV_Mesh(xpath, ypath);
             std::cout << "Successfully loaded CSV mesh: " << xpath << " and " << ypath << std::endl;
@@ -271,12 +238,7 @@ bool Load_Mesh(const std::string &configOrMeshPath)
 
 static std::vector<double> readCsv1D(const std::string &path)
 {
-    std::ifstream f(path);
-    if (!f.is_open())
-    {
-        std::cerr << "Failed to open CSV: " << path << "\n";
-        exit(1);
-    }
+    std::ifstream f = CFD_OpenInputFileOrThrow(path, "readCsv1D");
     std::vector<double> vals;
     std::string line;
     while (std::getline(f, line))
@@ -298,8 +260,7 @@ static std::vector<double> readCsv1D(const std::string &path)
     }
     if (vals.empty())
     {
-        std::cerr << "No numeric values found in CSV: " << path << "\n";
-        exit(1);
+        throw std::runtime_error("readCsv1D: no numeric values found in CSV: " + path);
     }
     return vals;
 }

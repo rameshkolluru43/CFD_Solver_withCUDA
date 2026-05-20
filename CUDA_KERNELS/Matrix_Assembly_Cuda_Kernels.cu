@@ -62,6 +62,25 @@ __constant__ double d_dt_constant;
 // DEVICE UTILITY FUNCTIONS
 //=============================================================================
 
+/** double atomicAdd needs sm_60+; CMake < 3.18 may omit -arch and break the build. */
+__device__ inline double atomicAddDouble(double *address, double val)
+{
+#if defined(__CUDA_ARCH__) && (__CUDA_ARCH__ >= 600)
+    return atomicAdd(address, val);
+#else
+    unsigned long long int *address_as_ull = reinterpret_cast<unsigned long long int *>(address);
+    unsigned long long int old = *address_as_ull;
+    unsigned long long int assumed;
+    do
+    {
+        assumed = old;
+        old = atomicCAS(address_as_ull, assumed,
+                        __double_as_longlong(val + __longlong_as_double(assumed)));
+    } while (assumed != old);
+    return __longlong_as_double(old);
+#endif
+}
+
 /**
  * @brief Device function to compute flux Jacobian matrix for Euler equations
  * 
@@ -186,7 +205,7 @@ __device__ void add_matrix_contribution_atomic(
     int matrix_size)
 {
     if (row_idx >= 0 && row_idx < matrix_size && col_idx >= 0 && col_idx < matrix_size) {
-        atomicAdd(&matrix[row_idx * matrix_size + col_idx], value);
+        atomicAddDouble(&matrix[row_idx * matrix_size + col_idx], value);
     }
 }
 
@@ -687,9 +706,9 @@ __global__ void validate_matrix_kernel(
     
     // Reduce within block (simplified)
     if (threadIdx.x == 0) {
-        atomicAdd(&d_validation_results[0], local_min);
-        atomicAdd(&d_validation_results[1], local_max);
-        atomicAdd(&d_validation_results[2], local_nnz);
-        atomicAdd(&d_validation_results[3], local_diag_sum);
+        atomicAddDouble(&d_validation_results[0], local_min);
+        atomicAddDouble(&d_validation_results[1], local_max);
+        atomicAddDouble(&d_validation_results[2], local_nnz);
+        atomicAddDouble(&d_validation_results[3], local_diag_sum);
     }
 }

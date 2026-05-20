@@ -5,6 +5,7 @@
 - **CMake** ≥ 3.16  
 - **C++17** compiler (GCC, Clang, or MSVC)  
 - **CUDA Toolkit** ≥ 11.0 (for GPU build)  
+- **MPI** implementation such as OpenMPI or MPICH (for MPI CPU build)  
 - **Boost** (regex)  
 - **JsonCpp** (JSON config parsing)  
 - **VTK** ≥ 9.4 (optional; for some visualization/IO)
@@ -19,10 +20,24 @@ cmake ..
 make -j$(nproc)
 ```
 
-Two executables are produced:
+When dependencies are found, CMake may produce:
 
-- **CFD_solver** — CPU-only solver  
-- **CFD_solver_gpu** — Solver with CUDA kernels  
+- **CFD_solver** — CPU solver (requires VTK in CMake)  
+- **CFD_solver_gpu** — Solver built with `USE_CUDA=1` (requires CUDA toolkit)  
+- **CFD_solver_mpi** — CPU solver with MPI rank-partitioned cell loops (requires VTK and MPI)
+
+### GPU flux schemes (MOVERS / RICCA / LLF)
+
+On **`CFD_solver_gpu`**, first-order net flux tries the MOVERS/RICCA CUDA kernels for **`Dissipation_Type`** **2** (MOVERS), **4** (RICCA), and **5** (MOVERS_NWSC) via `CUDA_KERNELS/MOVERS_RICCA_Flux_Cuda_Kernels.cu`, then falls back to the generic 1st-order inviscid CUDA path for **1** (LLF). Second-order runs (`Is_Second_Order` with MUSCL) still use the CPU path in `src/Net_Flux.cpp`. Other dissipation types (Roe, etc.) remain CPU unless separate CUDA kernels are wired in.
+
+### GPU viscous flux and viscous wall BC
+
+When **`Is_Viscous_Wall`** is true (viscous Navier–Stokes):
+
+- **`Evaluate_Viscous_Fluxes()`** uses `CUDA_KERNELS/Viscous_Flux_Cuda_Integration.cu` (Green–Gauss cell gradients + face stress; up to 8 faces/cell).
+- **`Apply_Boundary_Conditions()`** applies no-slip wall state on ghost cells via `CUDA_KERNELS/Boundary_Conditions_Cuda_Integration.cu`, then refreshes ghost primitives on the host.
+
+Inlet/exit/symmetry boundaries still run on the CPU. Set **`Is_Viscous_Wall": true`** and a finite **`Re`** in your test JSON to exercise the viscous CUDA path.
 
 ## Run
 
@@ -31,6 +46,9 @@ Pass the path to a **JSON configuration file**:
 ```bash
 # CPU
 ./CFD_solver ../json_Files/Solver_Config.json
+
+# MPI CPU
+mpirun -np 4 ./CFD_solver_mpi ../json_Files/Solver_Config.json
 
 # GPU
 ./CFD_solver_gpu ../json_Files/Solver_Config.json

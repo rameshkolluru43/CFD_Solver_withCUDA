@@ -267,7 +267,7 @@ void Read_Grid_Optimized(const string &ipfile)
     V_D P1(3, 0.0), P2(3, 0.0), P3(3, 0.0), P4(3, 0.0);
     Cell Grid_Cell = {};
 
-    ifstream Grid_File(ipfile.c_str(), ios::in);
+    ifstream Grid_File = CFD_OpenInputFileOrThrow(ipfile, "Read_Grid_Optimized");
     if (Grid_File.is_open())
     {
         // ... existing file reading code ...

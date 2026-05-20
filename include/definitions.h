@@ -19,6 +19,7 @@
 #include <algorithm>
 #include <chrono>
 #include <filesystem>
+#include <limits>
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
@@ -57,6 +58,62 @@
 
 using namespace std;
 // Filesystem disabled for CUDA prototype build to avoid nvcc host compiler issues.
+
+#ifndef __CUDACC__
+inline void CFD_EnsureInputFileExists(const std::string &path, const std::string &context)
+{
+  if (path.empty())
+    throw std::runtime_error(context + ": empty input file path");
+
+  std::error_code ec;
+  if (!std::filesystem::exists(path, ec) || ec)
+    throw std::runtime_error(context + ": input file not found: " + path);
+  if (!std::filesystem::is_regular_file(path, ec) || ec)
+    throw std::runtime_error(context + ": input path is not a regular file: " + path);
+}
+
+inline void CFD_EnsureParentDirectoryForOutput(const std::string &path, const std::string &context)
+{
+  if (path.empty())
+    throw std::runtime_error(context + ": empty output file path");
+
+  const std::filesystem::path outputPath(path);
+  const std::filesystem::path parent = outputPath.parent_path();
+  if (parent.empty())
+    return;
+
+  std::error_code ec;
+  if (!std::filesystem::exists(parent, ec) || ec)
+    throw std::runtime_error(context + ": output directory not found: " + parent.string());
+  if (!std::filesystem::is_directory(parent, ec) || ec)
+    throw std::runtime_error(context + ": output parent is not a directory: " + parent.string());
+}
+
+inline std::ifstream CFD_OpenInputFileOrThrow(const std::string &path, const std::string &context)
+{
+  CFD_EnsureInputFileExists(path, context);
+  std::ifstream file(path, std::ios::in);
+  if (!file.is_open())
+    throw std::runtime_error(context + ": unable to open input file: " + path);
+  return file;
+}
+
+inline std::ofstream CFD_OpenOutputFileOrThrow(const std::string &path, const std::string &context,
+                                              std::ios_base::openmode mode = std::ios::out)
+{
+  CFD_EnsureParentDirectoryForOutput(path, context);
+  std::ofstream file(path, mode);
+  if (!file.is_open())
+    throw std::runtime_error(context + ": unable to open output file: " + path);
+  return file;
+}
+
+inline void CFD_RequireFinitePositive(const double value, const std::string &context)
+{
+  if (!std::isfinite(value) || value <= 0.0)
+    throw std::runtime_error(context + ": expected finite positive value, got " + std::to_string(value));
+}
+#endif
 
 // Global Constants to be used in The entire code
 // Physical constants with _CONST suffix to avoid conflicts

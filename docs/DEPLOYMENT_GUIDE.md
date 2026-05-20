@@ -25,7 +25,7 @@
 
 ### ✅ Phase 3: Build System (COMPLETE)
 - [x] Updated CMakeLists.txt with new CUDA sources
-- [x] Created syntax validation script (validate_cuda_syntax.sh)
+- [x] Created syntax validation script (`scripts/validate_cuda_syntax.sh`)
 - [x] All files properly organized in CUDA_KERNELS/
 
 ---
@@ -70,7 +70,7 @@ nvidia-smi --query-gpu=compute_cap --format=csv
 #### Step 2: Validate Syntax
 ```bash
 cd /Users/rameshkolluru/My_Research/CFD_Solver_withCUDA
-./validate_cuda_syntax.sh
+./scripts/validate_cuda_syntax.sh
 ```
 
 **Expected output:**
@@ -209,7 +209,7 @@ After successful testing:
 # Commit all changes
 git status
 git add CUDA_KERNELS/*.cu CUDA_KERNELS/*.h
-git add CMakeLists.txt *.md validate_cuda_syntax.sh
+git add CMakeLists.txt docs/*.md scripts/validate_cuda_syntax.sh
 git commit -m "Complete Priority 1 & 2: Roe/HLLC/LLF flux + MUSCL/WENO5 reconstruction
 
 - Implemented Roe flux scheme (1st and 2nd order)
@@ -246,7 +246,7 @@ CFD_Solver_withCUDA/
 │   └── Reconstruction_Schemes_Cuda_Wrappers.cu    [NEW - wrappers]
 │
 ├── CMakeLists.txt                                  [UPDATED]
-├── validate_cuda_syntax.sh                         [NEW - executable]
+├── scripts/validate_cuda_syntax.sh                 [NEW - executable]
 │
 └── Documentation/
     ├── NEW_KERNELS_INTEGRATION_GUIDE.md           [NEW]
@@ -355,7 +355,7 @@ CFD_Solver_withCUDA/
 
 ### Scenario 1: Compilation Fails
 **Action:**
-1. Run validate_cuda_syntax.sh
+1. Run `scripts/validate_cuda_syntax.sh`
 2. Check error logs
 3. Review header file paths
 4. Verify CUDA version compatibility

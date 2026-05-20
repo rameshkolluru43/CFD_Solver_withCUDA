@@ -1,7 +1,8 @@
 #!/bin/bash
 
 # Set Doxygen config file
-DOXYFILE="Doxyfile_Cleaned"
+DOXYFILE="docs/Doxyfile_Cleaned"
+LOG_FILE="docs/logs/doxygen_log.txt"
 
 # Define directories containing C++ and CUDA files
 SRC_DIRS=(
@@ -28,21 +29,21 @@ echo "Using pre-configured Doxyfile with CUDA support..."
 
 # Run Doxygen
 echo "Running Doxygen to generate documentation..."
-doxygen "$DOXYFILE" 2>&1 | tee doxygen_log.txt
+doxygen "$DOXYFILE" 2>&1 | tee "$LOG_FILE"
 
 # Check if documentation was generated
-if [ -d "html" ]; then
+if [ -d "docs/doxygen/html" ]; then
     echo "✅ Documentation successfully generated!"
-    echo "📁 Main documentation: html/index.html"
-    echo "📊 Doxygen log saved to: doxygen_log.txt"
+    echo "📁 Main documentation: docs/doxygen/html/index.html"
+    echo "📊 Doxygen log saved to: $LOG_FILE"
     
     # Count files processed
-    if [ -f "doxygen_log.txt" ]; then
-        file_count=$(grep -c "Parsing file" doxygen_log.txt || echo "0")
+    if [ -f "$LOG_FILE" ]; then
+        file_count=$(grep -c "Parsing file" "$LOG_FILE" || echo "0")
         echo "📄 Files processed: $file_count"
         
         # Check if CUDA files were processed
-        cuda_count=$(grep -c "\.cu\|\.cuh" doxygen_log.txt 2>/dev/null || echo "0")
+        cuda_count=$(grep -c "\.cu\|\.cuh" "$LOG_FILE" 2>/dev/null || echo "0")
         if [ "${cuda_count}" -gt 0 ] 2>/dev/null; then
             echo "🚀 CUDA files processed: $cuda_count"
         fi
@@ -59,13 +60,13 @@ if [ -d "html" ]; then
     echo "• 📚 Comprehensive technical implementation guides"
     echo "• 🎯 Integration examples and usage tutorials"
     echo ""
-    echo "🌐 Open html/index.html in your web browser to view the documentation"
+    echo "🌐 Open docs/doxygen/html/index.html in your web browser to view the documentation"
     
 else
     echo "❌ Error: Documentation was not generated"
-    echo "🔍 Check doxygen_log.txt for detailed error messages"
-    if [ -f "doxygen_log.txt" ]; then
+    echo "🔍 Check $LOG_FILE for detailed error messages"
+    if [ -f "$LOG_FILE" ]; then
         echo "Last few lines of log:"
-        tail -10 doxygen_log.txt
+        tail -10 "$LOG_FILE"
     fi
 fi

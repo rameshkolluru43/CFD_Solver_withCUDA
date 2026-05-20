@@ -4,6 +4,7 @@
 #include "Grid.h"
 #include "Utilities.h"
 #include "Primitive_Computational.h"
+#include "MPI_Utils.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif
@@ -15,7 +16,7 @@ void Estimate_Error()
 {
 	double e0 = 0.0, e1 = 0.0, e2 = 0.0, e3 = 0.0;
 	V_I leafCells;
-	Build_Leaf_Cell_List(leafCells);
+	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
 #ifdef _OPENMP
 #pragma omp parallel for schedule(static) reduction(+ : e0, e1, e2, e3) if (leafCells.size() > 1024)
 #endif
@@ -25,10 +26,13 @@ void Estimate_Error()
 		for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
 		{
 			double t;
-			if (Cells_DelU[Cell_Index][i] < 1e-9)
+			const double denom = U_Cells[Cell_Index][i];
+			if (!std::isfinite(Cells_DelU[Cell_Index][i]) || !std::isfinite(denom))
+				t = 0.0;
+			else if (fabs(denom) < 1e-12)
 				t = fabs(Cells_DelU[Cell_Index][i]);
 			else
-				t = (fabs(Cells_DelU[Cell_Index][i]) / U_Cells[Cell_Index][i]);
+				t = (fabs(Cells_DelU[Cell_Index][i]) / fabs(denom));
 			const double ts = t * t;
 			if (i == 0)
 				e0 += ts;
@@ -40,10 +44,12 @@ void Estimate_Error()
 				e3 += ts;
 		}
 	}
-	Error[0] = sqrt(e0);
-	Error[1] = sqrt(e1);
-	Error[2] = sqrt(e2);
-	Error[3] = sqrt(e3);
+	double sums[4] = {e0, e1, e2, e3};
+	CFD_MPI_Global_Sum4(sums);
+	Error[0] = sqrt(sums[0]);
+	Error[1] = sqrt(sums[1]);
+	Error[2] = sqrt(sums[2]);
+	Error[3] = sqrt(sums[3]);
 }
 
 // This function updates all the cells values after finding the error.
@@ -51,7 +57,7 @@ void Update()
 {
 	int Cell_Index;
 	V_I leafCells;
-	Build_Leaf_Cell_List(leafCells);
+	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
 	//   cout<<"Updating the Function"<<endl;
 	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
 	{
@@ -62,6 +68,7 @@ void Update()
 		U_Cells[Cell_Index][3] += Cells_DelU[Cell_Index][3];
 		Calculate_Primitive_Variables(Cell_Index, U_Cells[Cell_Index], Primitive_Cells[Cell_Index]);
 	}
+	CFD_MPI_Synchronize_Solution_State();
 }
 
 // This function updates a given cell

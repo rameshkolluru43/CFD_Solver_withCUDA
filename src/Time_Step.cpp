@@ -2,6 +2,16 @@
 #include "Globals.h"
 #include "Timestep.h"
 
+namespace
+{
+void RequireFinitePositiveForCell(double value, int cellNo, const string &name)
+{
+    if (!std::isfinite(value) || value <= 0.0)
+        throw runtime_error("Time step error in cell " + to_string(cellNo) + ": " + name +
+                            " must be finite and positive, got " + to_string(value));
+}
+}
+
 void Viscous_Time_Step_1(int &Cell_No)
 {
     double nx_0 = 0.0, ny_0 = 0.0, dl_0 = 0.0, nx_1 = 0.0, ny_1 = 0.0, dl_1 = 0.0, nx_2 = 0.0, ny_2 = 0.0, dl_2 = 0.0, nx_3 = 0.0, ny_3 = 0.0, dl_3 = 0.0;
@@ -100,12 +110,17 @@ void Viscous_Time_Step_1(int &Cell_No)
 
     //			cout<<mu0<<"\t"<<mu1<<"\t"<<mu2<<"\t"<<mu3<<"\t"<<mu4<<"\t"<<mu<<endl;
     mu = (mu0 + mu1 + mu2 + mu3 + mu4) / 5; // Primitive_Cells[Cell_No][8];
+    RequireFinitePositiveForCell(0.5 * (Rho0 + Rho1), Cell_No, "average density on face 0");
+    RequireFinitePositiveForCell(0.5 * (Rho0 + Rho2), Cell_No, "average density on face 1");
+    RequireFinitePositiveForCell(0.5 * (Rho0 + Rho3), Cell_No, "average density on face 2");
+    RequireFinitePositiveForCell(0.5 * (Rho0 + Rho4), Cell_No, "average density on face 3");
 
     C11 = 4.0;
     Lambda_C = (fabs(0.5 * (u0 + u1) * nx_0 + 0.5 * (v0 + v1) * ny_0) + 0.5 * (C0 + C1)) * dl_0 + (fabs(0.5 * (u0 + u2) * nx_1 + 0.5 * (v0 + v2) * ny_1) + 0.5 * (C0 + C2)) * dl_1 + (fabs(0.5 * (u0 + u3) * nx_2 + 0.5 * (v0 + v3) * ny_2) + 0.5 * (C0 + C3)) * dl_2 + (fabs(0.5 * (u0 + u4) * nx_3 + 0.5 * (v0 + v4) * ny_3) + 0.5 * (C0 + C4)) * dl_3;
 
     Lambda_V = Inv_Area * (max((4.0 / (3.0 * (0.5 * (Rho0 + Rho1)))), (gamma / (0.5 * (Rho0 + Rho1)))) * mu * Inv_Pr * dl_0 * dl_0 + max((4.0 / (3.0 * (0.5 * (Rho0 + Rho2)))), (gamma / (0.5 * (Rho0 + Rho2)))) * mu * Inv_Pr * dl_1 * dl_1 + max((4.0 / (3.0 * (0.5 * (Rho0 + Rho3)))), (gamma / (0.5 * (Rho0 + Rho3)))) * mu * Inv_Pr * dl_2 * dl_2 + max((4.0 / (3.0 * (0.5 * (Rho0 + Rho4)))), (gamma / (0.5 * (Rho0 + Rho4)))) * mu * Inv_Pr * dl_3 * dl_3);
 
+    RequireFinitePositiveForCell(Lambda_C + C11 * Lambda_V, Cell_No, "time-step denominator");
     Cells[Cell_No].del_t = CFL * Cells[Cell_No].Area / (Lambda_C + C11 * Lambda_V);
     //			cout<< dl_0*dl_0 <<"\t"<<dl_1*dl_1<<"\t"<<dl_2*dl_2<<"\t"<<dl_3*dl_3<<"\t"<<1.0/Inv_Area<<endl;
     //			cout<< (dl_0*dl_0  + dl_1*dl_1 + dl_2*dl_2 + dl_3*dl_3)*Inv_Area<<endl;
@@ -183,6 +198,8 @@ void Viscous_Time_Step_2(int &Cell_No)
     // cout<<u0<<"\t"<<v0<<"\t"<<C0<<"\t"<<Rho0<<"\t"<<Inv_Area<<endl;
 
     C11 = 2.0;
+    RequireFinitePositiveForCell(Rho0, Cell_No, "density");
+    RequireFinitePositiveForCell(Pr, Cell_No, "Prandtl number");
 
     Term1 = (fabs(u0) + C0) * (0.25 * (dl_0 + dl_1 + dl_2 + dl_3));
     Term2 = (fabs(v0) + C0) * (0.25 * (dl_0 + dl_1 + dl_2 + dl_3));
@@ -197,6 +214,7 @@ void Viscous_Time_Step_2(int &Cell_No)
     //		cout<<(dl_0*dl_0 + dl_1*dl_1 + dl_2*dl_2 + dl_3*dl_3)/Cells_Area[Cell_No]<<endl;
     // cout<<Term3<<endl;
     Lambda_V = max((4.0 / (3.0 * Rho0)), gamma / Rho0) * (mu0 / Pr) * Term3;
+    RequireFinitePositiveForCell(Lambda_C + C11 * Lambda_V, Cell_No, "time-step denominator");
     Cells[Cell_No].del_t = CFL * Cells[Cell_No].Area / (Lambda_C + C11 * Lambda_V);
     //		cout<<Lambda_C<<"\t"<<Lambda_V<<endl;
     //				cout<<Cell_No<<"\t"<<mu0<<"\t"<<Pr<<"\t"<<Lambda_C<<"\t"<<Lambda_V<<"\t"<<Cells_DelT[Cell_No]<<endl;
@@ -269,6 +287,8 @@ void Viscous_Time_Step_3(int &Cell_No)
     C0 = Primitive_Cells[Cell_No][5];
     Rho0 = Primitive_Cells[Cell_No][0];
     mu = Primitive_Cells[Cell_No][8];
+    RequireFinitePositiveForCell(Rho0, Cell_No, "density");
+    RequireFinitePositiveForCell(mu, Cell_No, "viscosity");
 
     // Inv_Area = Cells_Inv_Area[Cell_No];
     Inv_Area = Cells[Cell_No].Inv_Area;
@@ -284,8 +304,10 @@ void Viscous_Time_Step_3(int &Cell_No)
     Rey = (Rho0 * fabs(v0) + C0 * Avg_ny_j * Avg_dl_j) / mu;
     Re_d = min(Rex, Rey);
 
+    RequireFinitePositiveForCell(Re_d, Cell_No, "directional Reynolds number");
     Term1 = 1.0 + 2.0 / Re_d;
     Term2 = (Lambda_x + Lambda_y) * Inv_Area;
+    RequireFinitePositiveForCell(Term1 * Term2, Cell_No, "time-step denominator");
     Cells[Cell_No].del_t = tau / (Term1 * Term2);
     //		cout<<Cell_No<<"\t"<<mu<<"\t"<<Re_d<<"\t"<<Term1<<"\t"<<Term2<<"\t"<<Re_d<<"\t"<<Cells_DelT[Cell_No]<<endl;
 }
@@ -299,13 +321,14 @@ void Inviscid_Time_Step(int &Cell_No)
                            : static_cast<int>(Cells[Cell_No].Face_Areas.size());
     if (nFaces <= 0)
     {
-        Cells[Cell_No].del_t = 0.0;
-        return;
+        throw runtime_error("Inviscid_Time_Step: cell has no faces: " + to_string(Cell_No));
     }
 
     const double u0 = Primitive_Cells[Cell_No][1];
     const double v0 = Primitive_Cells[Cell_No][2];
     const double a0 = Primitive_Cells[Cell_No][5];
+    RequireFinitePositiveForCell(Cells[Cell_No].Area, Cell_No, "cell area");
+    RequireFinitePositiveForCell(CFL, Cell_No, "CFL");
 
     double denom = 0.0;
     for (int face = 0; face < nFaces; face++)
@@ -321,8 +344,7 @@ void Inviscid_Time_Step(int &Cell_No)
 
     if (denom <= 0.0 || !std::isfinite(denom))
     {
-        Cells[Cell_No].del_t = 0.0;
-        return;
+        throw runtime_error("Inviscid_Time_Step: zero/non-finite denominator in cell " + to_string(Cell_No));
     }
 
     Cells[Cell_No].del_t = CFL * Cells[Cell_No].Area / denom;

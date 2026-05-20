@@ -91,7 +91,7 @@ Completely rewritten with comprehensive v3.0 documentation including:
 cd /Users/rameshkolluru/My_Research/CFD_Solver_withCUDA
 
 # Open documentation in browser
-./view_docs.sh
+./scripts/view_docs.sh
 
 # Or manually open
 open html/index.html

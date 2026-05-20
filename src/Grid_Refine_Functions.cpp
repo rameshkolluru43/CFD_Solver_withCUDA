@@ -4,6 +4,10 @@
 #include "Initialize.h"
 #include "Primitive_Computational.h"
 #include "Viscous_Functions.h"
+
+#ifdef USE_CUDA
+#include "../CUDA_KERNELS/Viscous_Flux_Cuda_Integration.h"
+#endif
 #include "Utilities.h"
 #include <filesystem>
 #include <limits>
@@ -237,7 +241,7 @@ void Calculate_Gradients_At_Cell_Centers()
             else
             {
                 cout << "Invalid Grad_Type: " << Grad_Type << endl;
-                exit(0);
+                throw runtime_error("Calculate_Green_Gauss_Gradient: invalid Grad_Type " + to_string(Grad_Type));
             }
         }
     }
@@ -501,13 +505,17 @@ void Viscous_Flux_on_Face(const int &Cell_No, const int &Face_No)
         cout << Cell_No << "\t" << Face_No << "\t" << T11 << "\t" << T12 << "\t" << T21 << "\t" << T22 << "\t" << Qx << "\t" << Qy << endl;
         cout << mu << "\t" << Inv_Re << "\t" << K1 << endl;
         cout << u11 << "\t" << u12 << "\t" << u21 << "\t" << u22 << endl;
-        exit(0);
+        throw runtime_error("Viscous flux calculation produced non-finite values");
     }
 }
 
 //  This calculates Viscous flux on each face by averaging corresponding gradients evaluated at cell centers.
 void Evaluate_Viscous_Fluxes()
 {
+#ifdef USE_CUDA
+    if (Evaluate_Viscous_Fluxes_CUDA())
+        return;
+#endif
 
     //	cout<< "Evaluating Viscous Fluxes\n";
     for (int Current_Cell_Index = 0; Current_Cell_Index < No_Physical_Cells; Current_Cell_Index++)

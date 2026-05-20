@@ -1,7 +1,7 @@
 #!/bin/bash
 # Syntax Validation Script for New CUDA Kernels
 # Date: 2026-01-15
-# Usage: ./validate_cuda_syntax.sh
+# Usage: ./scripts/validate_cuda_syntax.sh
 
 echo "=========================================="
 echo "CUDA Kernel Syntax Validation"
@@ -174,7 +174,7 @@ if [ $FAIL_COUNT -eq 0 ]; then
     echo "  1. cd ../../build"
     echo "  2. cmake .."
     echo "  3. make -j8 CFD_solver_gpu"
-    echo "  4. Run tests from TESTING_AND_VALIDATION_PLAN.md"
+    echo "  4. Run tests from docs/TESTING_AND_VALIDATION_PLAN.md"
     exit 0
 elif [ $FAIL_COUNT -le 2 ] && [ $WARN_COUNT -eq 0 ]; then
     echo -e "${YELLOW}⚠ MINOR ISSUES FOUND${NC}"
