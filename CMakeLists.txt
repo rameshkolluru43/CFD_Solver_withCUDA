@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 
+# Prefer -pthread over libpthread.a (nvlink cannot use static pthread during device link)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
 project(CFD_solver LANGUAGES C CXX)
 
 # Default to an optimized CPU build when using single-config generators (Ninja/Makefiles)
@@ -36,6 +39,7 @@ endif()
 
 # CPU-only machines (no nvcc): build CFD_solver without CUDA. GPU target requires CUDA toolkit.
 find_program(CFD_NVCC_EXECUTABLE nvcc PATHS ENV CUDA_PATH ENV CUDA_HOME PATH_SUFFIXES bin)
+set(CFD_CUDA_ARCHITECTURES "75" CACHE STRING "CUDA architecture list for CFD_solver_gpu, e.g. 50;61;75 or native")
 if(CFD_NVCC_EXECUTABLE)
 	set(CFD_HAVE_CUDA ON)
 	set(CMAKE_CUDA_COMPILER ${CFD_NVCC_EXECUTABLE})
@@ -92,6 +96,9 @@ set(CUDA_HOST_WRAPPERS
     ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Matrix_Assembly_Cuda_Host_Wrappers.cpp
 )
 set_source_files_properties(${CUDA_HOST_WRAPPERS} PROPERTIES LANGUAGE CUDA)
+set(CUDA_HOST_CPP_WRAPPERS
+    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Inviscid_Flux_Cuda_MainLoop_Wrapper.cpp
+)
 
 find_package(VTK QUIET COMPONENTS
     CommonCore CommonDataModel CommonExecutionModel
@@ -99,6 +106,12 @@ find_package(VTK QUIET COMPONENTS
     IOCore IOImage RenderingCore
 )
 find_package(Boost REQUIRED COMPONENTS regex)
+find_package(MPI QUIET COMPONENTS CXX)
+if(MPI_CXX_FOUND)
+	message(STATUS "MPI enabled for optional CPU target: ${MPI_CXX_COMPILER}")
+else()
+	message(STATUS "MPI not found -- skipping optional CPU MPI target CFD_solver_mpi")
+endif()
 
 # --- GPU executable (optional): full solver with CUDA kernel support ---
 if(CFD_HAVE_CUDA)
@@ -109,12 +122,14 @@ if(CFD_HAVE_CUDA)
 	add_executable(CFD_solver_gpu
 		${CUDA_SOURCES}
 		${CUDA_HOST_WRAPPERS}
+		${CUDA_HOST_CPP_WRAPPERS}
 		${GPU_CPU_SOURCES}
 	)
 
 	set_target_properties(CFD_solver_gpu PROPERTIES
-		CUDA_SEPARABLE_COMPILATION ON
-		CUDA_ARCHITECTURES "75"
+		# OFF: nvlink cannot link host static libs (libpthread.a); full clean rebuild required after changing this
+		CUDA_SEPARABLE_COMPILATION OFF
+		CUDA_ARCHITECTURES "${CFD_CUDA_ARCHITECTURES}"
 	)
 
 	target_compile_definitions(CFD_solver_gpu PRIVATE USE_CUDA=1)
@@ -131,18 +146,21 @@ if(CFD_HAVE_CUDA)
 		target_compile_definitions(CFD_solver_gpu PRIVATE USE_VTK=1)
 	endif()
 
+	# LINK_ONLY: host libs must not be passed to nvlink device link (libpthread.a fails)
+	target_link_libraries(CFD_solver_gpu PRIVATE cudart)
+	if(VTK_FOUND)
+		target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:${VTK_LIBRARIES}>)
+	endif()
 	target_link_libraries(CFD_solver_gpu PRIVATE
-		cudart
-		${VTK_LIBRARIES}
-		jsoncpp
-		Boost::regex
+		$<LINK_ONLY:jsoncpp>
+		$<LINK_ONLY:Boost::regex>
 	)
 	if(OpenMP_CXX_FOUND)
 		if(CFD_OPENMP_IS_LIBOMP_BREW)
 			target_compile_options(CFD_solver_gpu PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
-			target_link_libraries(CFD_solver_gpu PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
+			target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:"${CFD_LIBOMP_ROOT}/lib/libomp.dylib">)
 		else()
-			target_link_libraries(CFD_solver_gpu PUBLIC OpenMP::OpenMP_CXX)
+			target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:OpenMP::OpenMP_CXX>)
 		endif()
 	endif()
 	target_compile_options(CFD_solver_gpu PRIVATE
@@ -153,8 +171,13 @@ endif()
 
 # --- CPU executable ---
 if(VTK_FOUND)
-    list(APPEND SOURCES "${PROJECT_SOURCE_DIR}/src/Globals_Config.cpp")
-    add_executable(CFD_solver ${SOURCES})
+    set(CFD_CPU_SOURCES ${SOURCES})
+    if(EXISTS "${PROJECT_SOURCE_DIR}/src/Globals_Config.cpp")
+        list(APPEND CFD_CPU_SOURCES "${PROJECT_SOURCE_DIR}/src/Globals_Config.cpp")
+    else()
+        message(STATUS "src/Globals_Config.cpp not found — building CFD_solver without it")
+    endif()
+    add_executable(CFD_solver ${CFD_CPU_SOURCES})
     target_compile_definitions(CFD_solver PRIVATE USE_VTK=1)
     target_link_libraries(CFD_solver PRIVATE ${VTK_LIBRARIES} jsoncpp Boost::regex)
     target_compile_options(CFD_solver PRIVATE
@@ -171,6 +194,27 @@ if(VTK_FOUND)
     endif()
     if(JSONCPP_INCLUDE_DIR)
         target_include_directories(CFD_solver PRIVATE ${JSONCPP_INCLUDE_DIR})
+    endif()
+
+    if(MPI_CXX_FOUND)
+        add_executable(CFD_solver_mpi ${CFD_CPU_SOURCES})
+        target_compile_definitions(CFD_solver_mpi PRIVATE USE_VTK=1 USE_MPI=1)
+        target_link_libraries(CFD_solver_mpi PRIVATE ${VTK_LIBRARIES} jsoncpp Boost::regex MPI::MPI_CXX)
+        target_compile_options(CFD_solver_mpi PRIVATE
+            $<$<CONFIG:Release>:-O3 -DNDEBUG>
+            $<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
+        )
+        if(OpenMP_CXX_FOUND)
+            if(CFD_OPENMP_IS_LIBOMP_BREW)
+                target_compile_options(CFD_solver_mpi PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
+                target_link_libraries(CFD_solver_mpi PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
+            else()
+                target_link_libraries(CFD_solver_mpi PUBLIC OpenMP::OpenMP_CXX)
+            endif()
+        endif()
+        if(JSONCPP_INCLUDE_DIR)
+            target_include_directories(CFD_solver_mpi PRIVATE ${JSONCPP_INCLUDE_DIR})
+        endif()
     endif()
 else()
     message(STATUS "VTK not found -- skipping CPU target CFD_solver (GPU target will still build)")

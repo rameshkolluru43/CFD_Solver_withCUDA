@@ -10,6 +10,7 @@
 #include "Main.h"
 #include "Directory_Files.h"
 #include "Solver.h"
+#include "MPI_Utils.h"
 
 void readInputFile(int argc, char *argv[])
 {
@@ -66,12 +67,14 @@ bool runSolver()
             return false;
         }
 
-        cout << "*******----------The Following Solver is currently Running-----------**********\n";
+        if (CFD_MPI_Is_Root())
+            cout << "*******----------The Following Solver is currently Running-----------**********\n";
 
         bool solver_success = false;
         if (Is_Viscous_Wall)
         {
-            cout << "Viscous Terms are Enabled solving NS Solver" << endl;
+            if (CFD_MPI_Is_Root())
+                cout << "Viscous Terms are Enabled solving NS Solver" << endl;
             solver_success = Viscous_Solver(Error_File, Solution_File);
             if (!solver_success)
             {
@@ -81,7 +84,8 @@ bool runSolver()
         }
         else
         {
-            cout << "Inviscid Solver ---- Solving Euler Equations" << endl;
+            if (CFD_MPI_Is_Root())
+                cout << "Inviscid Solver ---- Solving Euler Equations" << endl;
             solver_success = Inviscid_Solver(Error_File, Solution_File);
             if (!solver_success)
             {
@@ -90,7 +94,8 @@ bool runSolver()
             }
         }
 
-        cout << "Solver completed successfully" << endl;
+        if (CFD_MPI_Is_Root())
+            cout << "Solver completed successfully" << endl;
         return true;
     }
     catch (const std::exception &e)
@@ -107,6 +112,12 @@ bool runSolver()
 
 int main(int argc, char *argv[])
 {
+    CFD_MPI_Initialize(&argc, &argv);
+    if (CFD_MPI_Is_Enabled() && CFD_MPI_Is_Root())
+    {
+        cout << "MPI enabled with " << CFD_MPI_Size() << " ranks" << endl;
+    }
+
     // Read input JSON file and initialize parameters
     readInputFile(argc, argv);
     // Reads the test case JSON file and populates the parameters
@@ -115,19 +126,27 @@ int main(int argc, char *argv[])
     if (!initializeGridFiles())
     {
         cerr << "Error: Failed to initialize grid files. Exiting..." << endl;
+        CFD_MPI_Finalize();
         exit(EXIT_FAILURE);
     }
 
-    cout << "Checking and creating the directories for solution files" << endl;
-    createOutputDirectories();
+    if (CFD_MPI_Is_Root())
+    {
+        cout << "Checking and creating the directories for solution files" << endl;
+        createOutputDirectories();
+    }
+    CFD_MPI_Barrier();
     Initialize_TestCase();
 
     if (!runSolver())
     {
         cerr << "Error: Solver execution failed. Exiting..." << endl;
+        CFD_MPI_Finalize();
         return EXIT_FAILURE;
     }
 
-    cout << "CFD simulation completed successfully!" << endl;
+    if (CFD_MPI_Is_Root())
+        cout << "CFD simulation completed successfully!" << endl;
+    CFD_MPI_Finalize();
     return EXIT_SUCCESS;
 }

@@ -227,12 +227,12 @@ git push
 
 ### **Option 2: Automatic Sync Script**
 
-Use the provided `sync_to_colab.sh` script:
+Use the provided `scripts/sync_to_colab.sh` script:
 
 ```bash
 # On your local machine:
-./sync_to_colab.sh push   # Upload changes to Colab
-./sync_to_colab.sh pull   # Download changes from Colab
+./scripts/sync_to_colab.sh push   # Upload changes to Colab
+./scripts/sync_to_colab.sh pull   # Download changes from Colab
 ```
 
 ### **Option 3: VS Code Sync Extension**

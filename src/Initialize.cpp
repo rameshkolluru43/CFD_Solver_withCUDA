@@ -5,6 +5,15 @@
 
 void Identify_Wall_Boundary_Faces(const int &Grid_Type);
 
+// Boundary/geometry globals (also in Globals_Stub_GPU.cpp, excluded from GPU link)
+BoundaryInfo gBoundaryInfo;
+MeshParams meshParams;
+InletCondition inletCond;
+ExitCondition exitCond;
+InitialCondition initCond;
+WallCondition wallCond;
+GeometryParams geomParams;
+
 // string pwd = std::filesystem::current_path();
 // pwd = pwd  + "/QPDE_FVM_CFD_Solver";
 
@@ -16,6 +25,14 @@ vector<vector<bool>> Cells_Face_Boundary_Type;
 double Pressure_Total_Inlet, Temperature_Total_Inlet, Pressure_Static_Exit, Re, Pr, Inv_Re, Inv_Pr;
 double Max_dt, Min_dt, u_ref, t_ref, L_ref, M_ref, mu_ref, P_ref, Rho_ref, K1, mu_star, R_ref, cp_ref;
 double Pressure_Static_Inlet, Rho_Static_Inlet, Temperature_Static_Inlet, Inlet_Mach_No, V_1, V_2, V_Magnitude, V_Magnitude_Inlet, C_Acoustic, M;
+double Limiter_Zeta = 0.0, Limiter_Zeta1 = 0.0;
+double Second_Order_Limiter_Scale = 1.0, Second_Order_Phi_Blend = 1.0, Second_Order_Dissipation_Blend = 1.0, Venkat_K = 5.0;
+vector<V_D> R_Cell;
+vector<string> gridFiles;
+string gridDir, Test_Case_Name, GridVTKFile, Flow_Type, Test_Case_JSON_File, Test_Case_Config_File;
+string Solver_Name, Description, Author, GeometryType;
+bool Is_Conservative = false, Is_Viscous = false;
+int Solver_Type = 0;
 int nx_1, nx_2, ny_1, ny_2;
 int Dissipation_Type, Flux_Type, Test_Case, Initialize_Type, iterations, Grid_Size, Area_Weighted_Average, Total_Iterations, Limiter_Case;
 bool Is_Second_Order, Is_MOVERS_1, Enable_Entropy_Fix, Is_Time_Dependent, Time_Accurate, Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Implicit_Method;

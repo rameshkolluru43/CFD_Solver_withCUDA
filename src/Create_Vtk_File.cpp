@@ -2,9 +2,13 @@
 #include "Globals.h"
 #include "Grid.h"
 #include "IO_Write.h"
+#include "MPI_Utils.h"
 
 void Read_Write_Grid(const string &Grid_File, const string &Out_Put_File)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	double x, y, z;
 	long int a, b, c, d, e;
 	string s1, s2;
@@ -55,6 +59,9 @@ void Read_Write_Grid(const string &Grid_File, const string &Out_Put_File)
 
 void Append_Solution(const string &Sol_File, const string &Update_Solution)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	double P, T, Rho, u, v, M, dt, Po;
 	int nx_c, ny_c, nz_c, Cells_In_Plane, No_of_Cells, iterations, Cindex;
 	string text1;

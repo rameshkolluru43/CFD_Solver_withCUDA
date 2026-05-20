@@ -21,8 +21,8 @@ Google Colab provides:
 
 ### Option A: Use the setup script
 ```python
-!chmod +x setup_colab.sh
-!bash setup_colab.sh
+!chmod +x scripts/setup_colab.sh
+!bash scripts/setup_colab.sh
 ```
 
 ### Option B: Manual installation

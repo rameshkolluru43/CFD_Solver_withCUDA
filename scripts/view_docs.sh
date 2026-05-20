@@ -7,7 +7,7 @@ echo "=== CFD Solver Suite Documentation ==="
 echo "Opening documentation in your default browser..."
 
 # Get the absolute path to the HTML documentation
-DOC_PATH="$(pwd)/html/index.html"
+DOC_PATH="$(pwd)/docs/doxygen/html/index.html"
 
 if [ -f "$DOC_PATH" ]; then
     echo "Documentation path: $DOC_PATH"
@@ -44,6 +44,6 @@ if [ -f "$DOC_PATH" ]; then
     
 else
     echo "Error: Documentation not found at $DOC_PATH"
-    echo "Please run 'doxygen Doxyfile_Cleaned' to generate documentation first."
+    echo "Please run 'doxygen docs/Doxyfile_Cleaned' or './scripts/update_docs.sh' to generate documentation first."
     exit 1
 fi

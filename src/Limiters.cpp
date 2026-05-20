@@ -108,159 +108,187 @@ void VanAlbadaSlope2(double a, double b, double &phi)
 		phi = (a * b2 + b * a2) / den;
 }
 
+namespace
+{
+constexpr double kSmall = 1.0e-14;
+
+bool valid_cell_index(const int cell_index)
+{
+	return cell_index >= 0 && cell_index < static_cast<int>(Cells.size()) &&
+		   cell_index < static_cast<int>(U_Cells.size());
+}
+
+void center_to_neighbor_vector(const int cell_index, const int face_no, double &dx, double &dy)
+{
+	dx = 0.0;
+	dy = 0.0;
+	const Cell &cell = Cells[cell_index];
+	if (3 * face_no + 1 < static_cast<int>(cell.Cell_Center_Vector.size()))
+	{
+		dx = cell.Cell_Center_Vector[3 * face_no + 0];
+		dy = cell.Cell_Center_Vector[3 * face_no + 1];
+		return;
+	}
+
+	if (face_no < static_cast<int>(cell.Neighbours.size()) && valid_cell_index(cell.Neighbours[face_no]))
+	{
+		const Cell &nb = Cells[cell.Neighbours[face_no]];
+		if (cell.Cell_Center.size() >= 2 && nb.Cell_Center.size() >= 2)
+		{
+			dx = nb.Cell_Center[0] - cell.Cell_Center[0];
+			dy = nb.Cell_Center[1] - cell.Cell_Center[1];
+		}
+	}
+}
+
+bool least_squares_gradient(const int cell_index, const int var, double &gx, double &gy)
+{
+	gx = 0.0;
+	gy = 0.0;
+	if (!valid_cell_index(cell_index))
+		return false;
+
+	double a00 = 0.0, a01 = 0.0, a11 = 0.0;
+	double b0 = 0.0, b1 = 0.0;
+	const Cell &cell = Cells[cell_index];
+	const double u0 = U_Cells[cell_index][var];
+	const int n_faces = std::min(static_cast<int>(cell.Neighbours.size()), cell.numFaces > 0 ? cell.numFaces : static_cast<int>(cell.Neighbours.size()));
+
+	for (int f = 0; f < n_faces; ++f)
+	{
+		const int nb = cell.Neighbours[f];
+		if (!valid_cell_index(nb))
+			continue;
+
+		double dx = 0.0, dy = 0.0;
+		center_to_neighbor_vector(cell_index, f, dx, dy);
+		const double r2 = dx * dx + dy * dy;
+		if (r2 < kSmall)
+			continue;
+
+		const double w = 1.0 / r2;
+		const double du = U_Cells[nb][var] - u0;
+		a00 += w * dx * dx;
+		a01 += w * dx * dy;
+		a11 += w * dy * dy;
+		b0 += w * dx * du;
+		b1 += w * dy * du;
+	}
+
+	const double det = a00 * a11 - a01 * a01;
+	if (fabs(det) < 1.0e-30)
+		return false;
+
+	gx = (b0 * a11 - b1 * a01) / det;
+	gy = (a00 * b1 - a01 * b0) / det;
+	return true;
+}
+
+void neighbor_bounds(const int cell_index, const int var, double &u_min, double &u_max)
+{
+	const double u0 = U_Cells[cell_index][var];
+	u_min = u0;
+	u_max = u0;
+
+	const Cell &cell = Cells[cell_index];
+	const int n_faces = std::min(static_cast<int>(cell.Neighbours.size()), cell.numFaces > 0 ? cell.numFaces : static_cast<int>(cell.Neighbours.size()));
+	for (int f = 0; f < n_faces; ++f)
+	{
+		const int nb = cell.Neighbours[f];
+		if (valid_cell_index(nb))
+		{
+			u_min = std::min(u_min, U_Cells[nb][var]);
+			u_max = std::max(u_max, U_Cells[nb][var]);
+		}
+	}
+}
+
+double bounded_tvd_phi(const int cell_index, const int var, const double delta)
+{
+	if (fabs(delta) < kSmall)
+		return 1.0;
+
+	double u_min = 0.0, u_max = 0.0;
+	neighbor_bounds(cell_index, var, u_min, u_max);
+	const double u0 = U_Cells[cell_index][var];
+	const double bound = (delta > 0.0) ? (u_max - u0) : (u_min - u0);
+	const double r = std::max(0.0, bound / delta);
+	double phi = std::min(1.0, r);
+
+	switch (Limiter_Case)
+	{
+	case 1: // Superbee
+		phi = std::max(std::min(2.0 * r, 1.0), std::min(r, 2.0));
+		break;
+	case 3: // van Leer
+		phi = (r > 0.0) ? (2.0 * r / (1.0 + r)) : 0.0;
+		break;
+	case 4: // van Albada
+		phi = (r > 0.0) ? ((r * r + r) / (r * r + 1.0)) : 0.0;
+		break;
+	default: // MinMod / MCD / fallback
+		break;
+	}
+
+	// Preserve the local extrema bound even for compressive limiter curves.
+	return std::max(0.0, std::min(phi, std::min(1.0, r)));
+}
+
+} // namespace
+
 /**
- * Unlimited change from cell center to the face along the segment to Neighbour_1 (half the center-to-center jump).
- * Uses local extrema among the cell and its face neighbors (physical cells only), matching Venkatakrishnan_Limiter_3D.
+ * Venkatakrishnan limiter factor for the unlimited change from a cell center to a face.
  */
 double Venkatakrishnan_Phi_MUSCL2D(int cell_index, int var, double Delta_plus)
 {
-	if (fabs(Delta_plus) < 1e-14)
+	if (fabs(Delta_plus) < kSmall)
 		return 1.0;
 
+	double u_min = 0.0, u_max = 0.0;
+	neighbor_bounds(cell_index, var, u_min, u_max);
 	const double u_c = U_Cells[cell_index][var];
-	double u_min = u_c, u_max = u_c;
-	const int nf = Cells[cell_index].numFaces;
-	for (int f = 0; f < nf; ++f)
-	{
-		const int nb = Cells[cell_index].Neighbours[f];
-		if (nb >= 0 && nb < No_Physical_Cells)
-		{
-			const double uv = U_Cells[nb][var];
-			u_min = std::min(u_min, uv);
-			u_max = std::max(u_max, uv);
-		}
-	}
+	const double y = (Delta_plus > 0.0) ? (u_max - u_c) : (u_min - u_c);
+	double h2 = Cells[cell_index].Area;
+	if (h2 <= 0.0)
+		h2 = Cell_Minimum_Length * Cell_Minimum_Length;
+	if (h2 <= 0.0)
+		h2 = 1.0;
 
-	double A = Cells[cell_index].Area;
-	if (A <= 0.0)
-	{
-		const double L = Cell_Minimum_Length;
-		A = L * L;
-	}
-	if (A <= 0.0)
-		A = 1.0;
-
-	const double Delta_sq = Venkat_K * Venkat_K * Venkat_K * A * A;
-	double y = 0.0;
-	if (Delta_plus > 0.0)
-		y = u_max - u_c;
-	else
-		y = u_min - u_c;
-
-	const double num = y * y + Delta_sq + 2.0 * y * Delta_plus;
-	const double den = y * y + 2.0 * Delta_plus * Delta_plus + y * Delta_plus + Delta_sq;
-	if (fabs(den) < 1e-30)
+	const double eps2 = Venkat_K * Venkat_K * Venkat_K * h2 * h2;
+	const double num = y * y + eps2 + 2.0 * y * Delta_plus;
+	const double den = y * y + 2.0 * Delta_plus * Delta_plus + y * Delta_plus + eps2;
+	if (fabs(den) < 1.0e-30)
 		return 1.0;
-
-	double phi = num / den;
-	return std::max(0.0, std::min(1.0, phi));
+	return std::max(0.0, std::min(1.0, num / den));
 }
 
-/** One-sided MUSCL state at face `Face_No`: value on the side of `Cell_Index` facing that face. */
+/** One-sided least-squares MUSCL state at face `Face_No`. */
 static void MUSCL_ReconstructOwnerSide(const int Cell_Index, const int Face_No, vector<double> &U_face)
 {
 	U_face.assign(4, 0.0);
-	int Neighbour_1 = 0, Neighbour_2 = 0, Neighbour_3 = 0;
-	double d1 = 0.0, d2 = 0.0, d3 = 0.0, phi = 0.0;
+	if (!valid_cell_index(Cell_Index))
+		return;
 
-	const double soScale = Second_Order_Limiter_Scale;
-	auto computeSlopes = [&](int k, double &Slope1, double &Slope2, double &Slope3)
-	{
-		Slope1 = soScale * Limiter_Zeta * (U_Cells[Cell_Index][k] - U_Cells[Neighbour_1][k]) / d1;
-		Slope2 = soScale * Limiter_Zeta1 * (U_Cells[Neighbour_1][k] - U_Cells[Neighbour_2][k]) / d2;
-		Slope3 = soScale * Limiter_Zeta1 * (U_Cells[Cell_Index][k] - U_Cells[Neighbour_2][k]) / (d1 + d2);
-	};
-
-	auto applyLimiter = [&](double Slope1, double Slope2, double Slope3, double &phiOut)
-	{
-		switch (Limiter_Case)
-		{
-		case 2:
-			MinMod(Slope1, Slope2, Slope3, phiOut);
-			break;
-		case 1:
-			SuperbeeSlope2(Slope1, Slope2, phiOut);
-			break;
-		case 3:
-			VanLeerSlope2(Slope1, Slope2, phiOut);
-			break;
-		case 4:
-			VanAlbadaSlope2(Slope1, Slope2, phiOut);
-			break;
-		default:
-			MinMod(Slope1, Slope2, phiOut);
-			break;
-		}
-	};
-
-	const int nF = Cells[Cell_Index].numFaces;
-	const double recon_half_sign = -1.0;
-
-	if (nF != 4)
-	{
-		if (Face_No < static_cast<int>(Cells[Cell_Index].Neighbours.size()))
-			Neighbour_1 = Cells[Cell_Index].Neighbours[Face_No];
-		if (Face_No < static_cast<int>(Cells[Cell_Index].Cell_Center_Distances.size()))
-			d1 = Cells[Cell_Index].Cell_Center_Distances[Face_No];
-		if (d1 <= 0.0)
-			d1 = 1.0;
-		Neighbour_2 = Neighbour_1;
-		d2 = d1;
-		Neighbour_3 = Neighbour_1;
-		d3 = d1;
-	}
-	else
-		switch (Face_No)
-		{
-		case 0:
-			Neighbour_1 = Cells[Cell_Index].Neighbours[0];
-			d1 = Cells[Cell_Index].Cell_Center_Distances[0];
-			Neighbour_2 = (Neighbour_1 >= No_Physical_Cells) ? Neighbour_1 : Cells[Neighbour_1].Neighbours[0];
-			d2 = (Neighbour_1 >= No_Physical_Cells) ? d1 : Cells[Neighbour_1].Cell_Center_Distances[0];
-			Neighbour_3 = Cells[Cell_Index].Neighbours[2];
-			d3 = Cells[Cell_Index].Cell_Center_Distances[2];
-			break;
-		case 1:
-			Neighbour_1 = Cells[Cell_Index].Neighbours[1];
-			d1 = Cells[Cell_Index].Cell_Center_Distances[1];
-			Neighbour_2 = (Neighbour_1 >= No_Physical_Cells) ? Neighbour_1 : Cells[Neighbour_1].Neighbours[1];
-			d2 = (Neighbour_1 >= No_Physical_Cells) ? d1 : Cells[Neighbour_1].Cell_Center_Distances[1];
-			Neighbour_3 = Cells[Cell_Index].Neighbours[3];
-			d3 = Cells[Cell_Index].Cell_Center_Distances[3];
-			break;
-		case 2:
-			Neighbour_1 = Cells[Cell_Index].Neighbours[2];
-			d1 = Cells[Cell_Index].Cell_Center_Distances[2];
-			Neighbour_2 = Cells[Cell_Index].Neighbours[0];
-			d2 = Cells[Cell_Index].Cell_Center_Distances[0];
-			Neighbour_3 = (Neighbour_1 >= No_Physical_Cells) ? Neighbour_1 : Cells[Neighbour_1].Neighbours[2];
-			d3 = (Neighbour_1 >= No_Physical_Cells) ? d1 : Cells[Neighbour_1].Cell_Center_Distances[2];
-			break;
-		case 3:
-			Neighbour_1 = Cells[Cell_Index].Neighbours[3];
-			d1 = Cells[Cell_Index].Cell_Center_Distances[3];
-			Neighbour_2 = Cells[Cell_Index].Neighbours[1];
-			d2 = Cells[Cell_Index].Cell_Center_Distances[1];
-			Neighbour_3 = (Neighbour_1 >= No_Physical_Cells) ? Neighbour_1 : Cells[Neighbour_1].Neighbours[3];
-			d3 = (Neighbour_1 >= No_Physical_Cells) ? d1 : Cells[Neighbour_1].Cell_Center_Distances[3];
-			break;
-		default:
-			break;
-		}
+	double dx = 0.0, dy = 0.0;
+	center_to_neighbor_vector(Cell_Index, Face_No, dx, dy);
+	const double rx = 0.5 * dx;
+	const double ry = 0.5 * dy;
 
 	for (int k = 0; k < 4; ++k)
 	{
-		double Slope1 = 0.0, Slope2 = 0.0, Slope3 = 0.0;
-		computeSlopes(k, Slope1, Slope2, Slope3);
-		if (Limiter_Case == 5)
+		double gx = 0.0, gy = 0.0;
+		if (!least_squares_gradient(Cell_Index, k, gx, gy))
 		{
-			const double d_unlim = 0.5 * (U_Cells[Neighbour_1][k] - U_Cells[Cell_Index][k]);
-			phi = Venkatakrishnan_Phi_MUSCL2D(Cell_Index, k, d_unlim);
+			U_face[k] = U_Cells[Cell_Index][k];
+			continue;
 		}
-		else
-			applyLimiter(Slope1, Slope2, Slope3, phi);
-		phi *= Second_Order_Phi_Blend;
-		U_face[k] = U_Cells[Cell_Index][k] + 0.5 * recon_half_sign * phi * d1;
+
+		const double delta = Second_Order_Limiter_Scale * (gx * rx + gy * ry);
+		double phi = (Limiter_Case == 5)
+						 ? Venkatakrishnan_Phi_MUSCL2D(Cell_Index, k, delta)
+						 : bounded_tvd_phi(Cell_Index, k, delta);
+		phi *= std::max(0.0, std::min(1.0, Second_Order_Phi_Blend));
+		U_face[k] = U_Cells[Cell_Index][k] + phi * delta;
 	}
 }
 
@@ -277,28 +305,18 @@ static void MUSCL_ReconstructOwnerSide(const int Cell_Index, const int Face_No, 
  * @param d_U A vector to store the difference between reconstructed right and left states of variables.
  *
  * The function performs the following steps:
- * 1. Identifies neighboring cells and computes distances between cell centers.
- * 2. Computes slopes and applies the limiter from Limiter_Case (two-point TVD limiters or three-point MinMod for MCD).
- * 3. Applies the limiter to the computed slopes.
- * 4. Reconstructs the left and right states of variables at the interface.
+ * 1. Computes a least-squares gradient from all face neighbors.
+ * 2. Limits the face extrapolation with Barth-Jespersen or Venkatakrishnan limiting.
+ * 3. Reconstructs left and right conservative states at the interface.
  *
  * The function uses the following helper lambdas:
  * - computeSlopes: Computes the slopes for the current variable.
  * - applyLimiter: Applies the slope limiter selected by Limiter_Case.
  * - reconstructVariables: Reconstructs the left and right states of the variable at the interface.
  *
- * Face indices match Cells[*].Neighbours and Grid_Computations (structured quads):
- * - Face_No = 0: left   (neighbor Neighbours[0], -i)
- * - Face_No = 1: bottom (neighbor Neighbours[1], -j)
- * - Face_No = 2: right  (neighbor Neighbours[2], +i)
- * - Face_No = 3: top    (neighbor Neighbours[3], +j)
- *
- * Reconstruction uses one sign for all faces given Slope1 = (U_cell - U_neighbour) / d1; see body.
- *
  * @note `Limiter_Case` (JSON / Globals) selects the slope limiter; names match `output_files.cpp`:
- *       0 MinMod (two-point), 1 Superbee, 2 MCD (three-point MinMod), 3 van Leer,
- *       4 van Albada (filenames use legacy _Log_Limiter), 5 Venkatakrishnan (`Venkat_K` in LimiterCoefficients),
- *       6 and other values fall back to MinMod.
+ *       1/3/4 select bounded Superbee / van Leer / van Albada curves, 5 selects
+ *       Venkatakrishnan (`Venkat_K` in LimiterCoefficients), and other values use MinMod-style limiting.
  */
 void Second_Order_Limiter(const int &Cell_Index, const int &Face_No, vector<double> &d_U)
 {

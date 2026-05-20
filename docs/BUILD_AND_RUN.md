@@ -5,6 +5,7 @@
 - **CMake** ≥ 3.16  
 - **C++17** compiler (GCC, Clang, or MSVC)  
 - **CUDA Toolkit** ≥ 11.0 (for GPU build)  
+- **MPI** implementation such as OpenMPI or MPICH (for MPI CPU build)  
 - **Boost** (regex)  
 - **JsonCpp** (JSON config parsing)  
 - **VTK** ≥ 9.4 (optional; for some visualization/IO)
@@ -23,6 +24,7 @@ Two executables are produced:
 
 - **CFD_solver** — CPU-only solver  
 - **CFD_solver_gpu** — Solver with CUDA kernels  
+- **CFD_solver_mpi** — CPU solver with MPI rank-partitioned cell loops, when MPI is found by CMake
 
 ## Run
 
@@ -31,6 +33,9 @@ Pass the path to a **JSON configuration file**:
 ```bash
 # CPU
 ./CFD_solver ../json_Files/Solver_Config.json
+
+# MPI CPU
+mpirun -np 4 ./CFD_solver_mpi ../json_Files/Solver_Config.json
 
 # GPU
 ./CFD_solver_gpu ../json_Files/Solver_Config.json

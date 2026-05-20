@@ -8,6 +8,7 @@
 #include "Boundary_Conditions.h"
 #include "Error_Update.h"
 #include "Grid.h"
+#include "MPI_Utils.h"
 #include <iostream>
 #include <algorithm>
 #include <cmath>
@@ -84,7 +85,7 @@ void Explicit_Method()
 
 	// Loop over all leaf cells and apply preconditioning to the fluxes
 	V_I leafCells;
-	Build_Leaf_Cell_List(leafCells);
+	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
 #ifdef _OPENMP
 #pragma omp parallel for schedule(static) if (leafCells.size() > 1024) private(inv_Area)
 #endif
@@ -335,10 +336,10 @@ void Implicit_Method()
 double get_Min_dt()
 {
 	V_I leafCells;
-	Build_Leaf_Cell_List(leafCells);
+	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
 	if (leafCells.empty())
 	{
-		Min_dt = 0.0;
+		Min_dt = CFD_MPI_Is_Enabled() ? CFD_MPI_Global_Min(std::numeric_limits<double>::infinity()) : 0.0;
 		return Min_dt;
 	}
 	double m = std::numeric_limits<double>::infinity();
@@ -348,17 +349,17 @@ double get_Min_dt()
 		if (dt < m)
 			m = dt;
 	}
-	Min_dt = m;
+	Min_dt = CFD_MPI_Global_Min(m);
 	return Min_dt;
 }
 
 double get_Max_dt()
 {
 	V_I leafCells;
-	Build_Leaf_Cell_List(leafCells);
+	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
 	if (leafCells.empty())
 	{
-		Max_dt = 0.0;
+		Max_dt = CFD_MPI_Is_Enabled() ? CFD_MPI_Global_Max(-std::numeric_limits<double>::infinity()) : 0.0;
 		return Max_dt;
 	}
 	double m = -std::numeric_limits<double>::infinity();
@@ -368,15 +369,17 @@ double get_Max_dt()
 		if (dt > m)
 			m = dt;
 	}
-	Max_dt = m;
+	Max_dt = CFD_MPI_Global_Max(m);
 
 	return Max_dt;
 }
 
 void Runge_Kutta_Method()
 {
-	int Step_Case = 0, Cell_Index;
+	int Step_Case = 0;
 	double inv_Area = 0.0;
+	V_I localLeafCells;
+	CFD_MPI_Build_Local_Leaf_Cell_List(localLeafCells);
 	// Step 1 - This is the First step of Runge-Kutta Method
 	Step_Case = 1;
 	if (Is_Viscous_Wall)
@@ -396,23 +399,25 @@ void Runge_Kutta_Method()
 
 	Min_dt = get_Min_dt();
 
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
+		const int Cell_Index = localLeafCells[li];
+		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
 
-		if (Local_Time_Stepping)
-			Min_dt = Cells[Cell_Index].del_t;
 		inv_Area = Cells[Cell_Index].Inv_Area;
 
-		U_Cells_RK_1[Cell_Index][0] = U_Cells[Cell_Index][0] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]);
-		U_Cells_RK_1[Cell_Index][1] = U_Cells[Cell_Index][1] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]);
-		U_Cells_RK_1[Cell_Index][2] = U_Cells[Cell_Index][2] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]);
-		U_Cells_RK_1[Cell_Index][3] = U_Cells[Cell_Index][3] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]);
+		U_Cells_RK_1[Cell_Index][0] = U_Cells[Cell_Index][0] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]);
+		U_Cells_RK_1[Cell_Index][1] = U_Cells[Cell_Index][1] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]);
+		U_Cells_RK_1[Cell_Index][2] = U_Cells[Cell_Index][2] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]);
+		U_Cells_RK_1[Cell_Index][3] = U_Cells[Cell_Index][3] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]);
 	}
 
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
+		int Cell_Index = localLeafCells[li];
 		Update(Cell_Index, Step_Case); // This function updates the Primitive Variables using Updated Values of RK stage 1
 	}
+	CFD_MPI_Synchronize_Solution_State();
 
 	// Step 2
 	Step_Case = 2;
@@ -436,24 +441,28 @@ void Runge_Kutta_Method()
 
 	Min_dt = get_Min_dt();
 
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
+		const int Cell_Index = localLeafCells[li];
+		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
 		//			if(Local_Time_Stepping)
 		//				Min_dt = Cells_DelT[Cell_Index];
 
 		// inv_Area = Cells_Inv_Area[Cell_Index];
 		inv_Area = Cells[Cell_Index].Inv_Area;
 
-		U_Cells_RK_2[Cell_Index][0] = 0.25 * (U_Cells_RK_1[Cell_Index][0] + 3.0 * U_Cells[Cell_Index][0] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]));
-		U_Cells_RK_2[Cell_Index][1] = 0.25 * (U_Cells_RK_1[Cell_Index][1] + 3.0 * U_Cells[Cell_Index][1] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]));
-		U_Cells_RK_2[Cell_Index][2] = 0.25 * (U_Cells_RK_1[Cell_Index][2] + 3.0 * U_Cells[Cell_Index][2] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]));
-		U_Cells_RK_2[Cell_Index][3] = 0.25 * (U_Cells_RK_1[Cell_Index][3] + 3.0 * U_Cells[Cell_Index][3] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]));
+		U_Cells_RK_2[Cell_Index][0] = 0.25 * (U_Cells_RK_1[Cell_Index][0] + 3.0 * U_Cells[Cell_Index][0] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]));
+		U_Cells_RK_2[Cell_Index][1] = 0.25 * (U_Cells_RK_1[Cell_Index][1] + 3.0 * U_Cells[Cell_Index][1] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]));
+		U_Cells_RK_2[Cell_Index][2] = 0.25 * (U_Cells_RK_1[Cell_Index][2] + 3.0 * U_Cells[Cell_Index][2] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]));
+		U_Cells_RK_2[Cell_Index][3] = 0.25 * (U_Cells_RK_1[Cell_Index][3] + 3.0 * U_Cells[Cell_Index][3] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]));
 	}
 	// This function updates the Primitive Variables using Updated Values of RK stage 2
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
+		int Cell_Index = localLeafCells[li];
 		Update(Cell_Index, Step_Case);
 	}
+	CFD_MPI_Synchronize_Solution_State();
 
 	// Final Step
 	Apply_Boundary_Conditions();
@@ -475,18 +484,20 @@ void Runge_Kutta_Method()
 
 	Min_dt = get_Min_dt();
 
-	for (Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
+		const int Cell_Index = localLeafCells[li];
+		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
 		//			if(Local_Time_Stepping)
 		//				Min_dt = Cells_DelT[Cell_Index];
 
 		// inv_Area = Cells_Inv_Area[Cell_Index];
 		inv_Area = Cells[Cell_Index].Inv_Area;
 
-		Cells_DelU[Cell_Index][0] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][0] - U_Cells[Cell_Index][0] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]));
-		Cells_DelU[Cell_Index][1] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][1] - U_Cells[Cell_Index][1] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]));
-		Cells_DelU[Cell_Index][2] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][2] - U_Cells[Cell_Index][2] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]));
-		Cells_DelU[Cell_Index][3] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][3] - U_Cells[Cell_Index][3] - Min_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]));
+		Cells_DelU[Cell_Index][0] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][0] - U_Cells[Cell_Index][0] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][0] - Cells_Viscous_Flux[Cell_Index][0]));
+		Cells_DelU[Cell_Index][1] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][1] - U_Cells[Cell_Index][1] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][1] - Cells_Viscous_Flux[Cell_Index][1]));
+		Cells_DelU[Cell_Index][2] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][2] - U_Cells[Cell_Index][2] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][2] - Cells_Viscous_Flux[Cell_Index][2]));
+		Cells_DelU[Cell_Index][3] = (2.0 / 3.0) * (U_Cells_RK_2[Cell_Index][3] - U_Cells[Cell_Index][3] - step_dt * inv_Area * (Cells_Net_Flux[Cell_Index][3] - Cells_Viscous_Flux[Cell_Index][3]));
 	}
 }
 

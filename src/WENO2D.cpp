@@ -514,6 +514,7 @@ void Calculate_Face_WENO_Flux(int Cell_No, int N_Cell_No, const int &Face_No, bo
 {
 	V_D U_L(4, 0.0), U_R(4, 0.0), Flux_L(4, 0.0), Flux_R(4, 0.0);
 	V_D d_U(4, 0.0), d_F(4, 0.0), Mod_Alpha(4, 0.0);
+	V_D ricca_diss(4, 0.0), llf_diss(4, 0.0);
 	V_D primL(11, 0.0), primR(11, 0.0);
 
 	double Rho_L = 0.0, P_L = 0.0, u_L = 0.0, v_L = 0.0, Vdotn_L = 0.0, C_L = 0.0, Vmag_L = 0.0;
@@ -593,7 +594,10 @@ void Calculate_Face_WENO_Flux(int Cell_No, int N_Cell_No, const int &Face_No, bo
 	for (int i = 0; i < 4; i++)
 		out_avg[i] = 0.5 * (Flux_L[i] + Flux_R[i]);
 
-	if (Dissipation_Type == 4)
+	for (int i = 0; i < 4; i++)
+		llf_diss[i] = 0.5 * max_eigen_value * (U_R[i] - U_L[i]);
+
+	if (Dissipation_Type == 4 || Dissipation_Type == 6)
 	{
 		d_U[0] = U_R[0] - U_L[0];
 		d_U[1] = U_R[1] - U_L[1];
@@ -614,12 +618,30 @@ void Calculate_Face_WENO_Flux(int Cell_No, int N_Cell_No, const int &Face_No, bo
 		for (int i = 0; i < 4; ++i)
 		{
 			Condition_For_RICCA(d_U[i], d_F[i], Vdotn_L, Vdotn_R, dP, Rho_I, P_I, Mod_Alpha[i]);
-			out_diss[i] = 0.5 * Mod_Alpha[i] * dl * d_U[i];
+			ricca_diss[i] = 0.5 * Mod_Alpha[i] * dl * d_U[i];
+		}
+
+		if (Dissipation_Type == 6)
+		{
+			const double denom = fabs(P_L) + fabs(P_R) + 1e-14;
+			const double pressure_sensor = std::min(1.0, 10.0 * fabs(P_R - P_L) / denom);
+			for (int i = 0; i < 4; ++i)
+			{
+				if (!std::isfinite(ricca_diss[i]))
+					out_diss[i] = llf_diss[i];
+				else
+					out_diss[i] = (1.0 - pressure_sensor) * ricca_diss[i] + pressure_sensor * llf_diss[i];
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 4; ++i)
+				out_diss[i] = std::isfinite(ricca_diss[i]) ? ricca_diss[i] : llf_diss[i];
 		}
 	}
 	else
 	{
 		for (int i = 0; i < 4; i++)
-			out_diss[i] = 0.5 * max_eigen_value * (U_R[i] - U_L[i]);
+			out_diss[i] = llf_diss[i];
 	}
 }

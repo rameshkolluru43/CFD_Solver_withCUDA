@@ -1,6 +1,6 @@
 #!/bin/bash
 # Google Colab Setup Script for CFD_Solver_withCUDA
-# Run this in a Colab notebook cell with: !bash setup_colab.sh
+# Run this in a Colab notebook cell with: !bash scripts/setup_colab.sh
 
 echo "=========================================="
 echo "CFD Solver with CUDA - Colab Setup"

@@ -7,10 +7,12 @@
 #include "Directory_Files.h"
 #include "Initialize.h"
 #include "Directory_Files.h"
+#include "MPI_Utils.h"
 
 void Initialize_TestCase()
 {
-    std::cout << "Initializing the Test Case: " << Test_Case << " - " << Test_Case_Name << std::endl;
+    if (CFD_MPI_Is_Root())
+        std::cout << "Initializing the Test Case: " << Test_Case << " - " << Test_Case_Name << std::endl;
 
     // Initialize solution
     if (Initialize_Type == 1)
@@ -24,14 +26,16 @@ void Initialize_TestCase()
     V_D V(2, 0.0);
     double a = 0.0;
     // Set initial conditions
-    // Print Initial Conditions read from json file
-    cout << "Inlet Conditions: " << endl;
-    cout << "Pressure_Static_Inlet: " << initCond.P << endl;
-    cout << "Rho_Static_Inlet: " << initCond.Rho << endl;
-    cout << "Inlet_Mach_No: " << initCond.M << endl;
-    cout << "V_1: " << initCond.u << endl;
-    cout << "V_2: " << initCond.v << endl;
-    cout << "Temperature_Static_Inlet: " << initCond.T << endl;
+    if (CFD_MPI_Is_Root())
+    {
+        cout << "Inlet Conditions: " << endl;
+        cout << "Pressure_Static_Inlet: " << initCond.P << endl;
+        cout << "Rho_Static_Inlet: " << initCond.Rho << endl;
+        cout << "Inlet_Mach_No: " << initCond.M << endl;
+        cout << "V_1: " << initCond.u << endl;
+        cout << "V_2: " << initCond.v << endl;
+        cout << "Temperature_Static_Inlet: " << initCond.T << endl;
+    }
 
     for (int index = 0; index < Total_No_Cells; ++index)
     {
@@ -59,5 +63,7 @@ void Initialize_TestCase()
 
     // Identify_Wall_Boundary_Faces(Grid_Type);
     Write_Solution(Initial_Solution_File, 1);
-    cout << "Initialized Solution, Identified Boundaries... Ready to solve." << std::endl;
+    CFD_MPI_Barrier();
+    if (CFD_MPI_Is_Root())
+        cout << "Initialized Solution, Identified Boundaries... Ready to solve." << std::endl;
 }

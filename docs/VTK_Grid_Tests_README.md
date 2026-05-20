@@ -77,7 +77,7 @@ The main integration test (`test_read_vtk_grid_integrated.cpp`) validates:
 ## 📚 Documentation
 
 For complete test documentation, see:
-- **`../TEST_SUMMARY.md`** - Comprehensive test results and analysis
+- **`TEST_SUMMARY.md`** - Comprehensive test results and analysis
 - **`../README.md`** - Main project documentation with validation section
 
 ## 🔧 Development Notes

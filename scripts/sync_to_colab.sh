@@ -7,9 +7,9 @@
 # Google Colab remote instance
 #
 # Usage:
-#   ./sync_to_colab.sh push    # Upload local changes to Colab
-#   ./sync_to_colab.sh pull    # Download Colab changes to local
-#   ./sync_to_colab.sh status  # Check sync status
+#   ./scripts/sync_to_colab.sh push    # Upload local changes to Colab
+#   ./scripts/sync_to_colab.sh pull    # Download Colab changes to local
+#   ./scripts/sync_to_colab.sh status  # Check sync status
 #
 # Prerequisites:
 #   - SSH connection to Colab established
@@ -221,8 +221,8 @@ check_status() {
         print_warning "Differences found:"
         cat /tmp/sync_status.txt
         echo ""
-        print_info "Run './sync_to_colab.sh push' to sync to Colab"
-        print_info "Run './sync_to_colab.sh pull' to sync from Colab"
+        print_info "Run './scripts/sync_to_colab.sh push' to sync to Colab"
+        print_info "Run './scripts/sync_to_colab.sh pull' to sync from Colab"
     else
         print_success "Directories are in sync!"
     fi
@@ -297,10 +297,10 @@ To use this sync script, follow these steps:
 
 4. USE SYNC SCRIPT
    ```
-   ./sync_to_colab.sh push    # Send local → Colab
-   ./sync_to_colab.sh pull    # Get Colab → local
-   ./sync_to_colab.sh status  # Check differences
-   ./sync_to_colab.sh git     # Use git to sync
+   ./scripts/sync_to_colab.sh push    # Send local → Colab
+   ./scripts/sync_to_colab.sh pull    # Get Colab → local
+   ./scripts/sync_to_colab.sh status  # Check differences
+   ./scripts/sync_to_colab.sh git     # Use git to sync
    ```
 
 TIP: Update the hostname in ~/.ssh/config each time you start a new

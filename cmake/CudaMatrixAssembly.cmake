@@ -72,7 +72,7 @@ target_link_libraries(cuda_matrix_assembly
 
 # Add test executable
 add_executable(test_matrix_assembly_cuda
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_matrix_assembly_cuda.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Unit_Test_Codes/test_matrix_assembly_cuda.cpp
 )
 
 target_link_libraries(test_matrix_assembly_cuda

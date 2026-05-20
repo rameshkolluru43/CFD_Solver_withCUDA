@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "Globals.h"
 #include "Directory_Files.h"
+#include "MPI_Utils.h"
 
 void Directory_Name()
 {
@@ -206,6 +207,13 @@ void Directory_Name()
 		Error_File += "MOVERS_NWSC/";
 		CF_File += "MOVERS_NWSC/";
 		break;
+	case 6:
+		Solution_File += "RICCA_LLF/";
+		Final_Solution_File += "RICCA_LLF/";
+		Initial_Solution_File += "RICCA_LLF/";
+		Error_File += "RICCA_LLF/";
+		CF_File += "RICCA_LLF/";
+		break;
 	}
 }
 
@@ -286,6 +294,13 @@ void File_Name()
 		Initial_Solution_File += "Initial_Solution_MOVERS_NWSC";
 		Error_File += "Error_MOVERS_NWSC";
 		CF_File += "CF_MOVERS_NWSC";
+		break;
+	case 6:
+		Solution_File += "Solution_RICCA_LLF";
+		Final_Solution_File += "Final_Solution_RICCA_LLF";
+		Initial_Solution_File += "Initial_Solution_RICCA_LLF";
+		Error_File += "Error_RICCA_LLF";
+		CF_File += "CF_RICCA_LLF";
 		break;
 	}
 
@@ -404,6 +419,9 @@ void File_Name()
 
 void Write_VTK_File(const string &Op_file1, const string &Op_file2)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	ofstream outputfile1(Op_file1.c_str(), ios::out);
 	ofstream outputfile2(Op_file2.c_str(), ios::out);
 	int Cell_Index = 0, Cells_In_Plane_Core, Cells_In_Plane_Polar;
@@ -443,6 +461,9 @@ void Write_VTK_File(const string &Op_file1, const string &Op_file2)
 
 void Write_VTK_File(const string &File_Name)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	ofstream Outfile(File_Name.c_str(), ios::out);
 	if (Outfile.is_open())
 	{
@@ -461,6 +482,9 @@ void Write_VTK_File(const string &File_Name)
 
 void Write_CF_File(const string &File_Name)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	ofstream Outfile(File_Name.c_str(), ios::out);
 	V_D Cell_Center(3, 0);
 	//	cout<<File_Name<<endl;
@@ -491,6 +515,9 @@ void Write_CF_File(const string &File_Name)
 
 void Write_Solution(const string &Op_file, const int &type)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	//     string myfile = Solution_File;
 	ofstream outputfile(Op_file.c_str(), ios::out);
 
@@ -557,6 +584,9 @@ void Write_Solution(const string &Op_file, const int &type)
 
 void Write_Error_File(const string &File_Name)
 {
+	if (!CFD_MPI_Is_Root())
+		return;
+
 	//	cout<<File_Name<<endl;
 	ofstream outputfile(File_Name.c_str(), ios::out | ios::app);
 	if (outputfile.is_open())

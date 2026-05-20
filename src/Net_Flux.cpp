@@ -4,6 +4,7 @@
 #include "Flux.h"
 #include "Limiter.h"
 #include "Grid.h"
+#include "MPI_Utils.h"
 
 namespace
 {
@@ -40,6 +41,9 @@ void Dissipation_Fallback_1O(const int &Current_Cell_No, int &neighbour, const i
     case 5:
         MOVERS_NWSC(Current_Cell_No, neighbour, face);
         break;
+        case 6:
+            RICCA(Current_Cell_No, neighbour, face);
+            break;
     default:
         LLF(Current_Cell_No, neighbour, face);
         break;
@@ -107,6 +111,10 @@ void Evaluate_Cell_Net_Flux_1O()
 #ifdef DEBUG
     std::cerr << "Entered 1st Order Flux Calculation" << std::endl;
 #endif
+#ifdef USE_CUDA
+    if (Evaluate_Cell_Net_Flux_1O_CUDA())
+        return;
+#endif
     // Parallelize the loop with prgma
     // Loop over all physical cells
     // This function iterates over all physical cells and calculates the net flux for each cell
@@ -123,7 +131,7 @@ void Evaluate_Cell_Net_Flux_1O()
     // The function supports multiple dissipation types, each corresponding to a specific
     // flux calculation method.
     V_I leafCells;
-    Build_Leaf_Cell_List(leafCells);
+    CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
     for (int idx = 0; idx < static_cast<int>(leafCells.size()); idx++)
     {
         int Current_Cell_No = leafCells[idx];
@@ -149,6 +157,9 @@ void Evaluate_Cell_Net_Flux_1O()
         case 5:
             Calculate_Flux_For_All_Faces(Current_Cell_No, MOVERS_NWSC);
             break;
+        case 6:
+            Calculate_Flux_For_All_Faces(Current_Cell_No, RICCA);
+            break;
         }
 
         Evaluate_Time_Step(Current_Cell_No);
@@ -161,7 +172,7 @@ void Evaluate_Cell_Net_Flux_2O()
     std::cerr << "Entered 2nd Order Flux Calculation" << std::endl;
 #endif
     V_I leafCells;
-    Build_Leaf_Cell_List(leafCells);
+    CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
     for (int idx = 0; idx < static_cast<int>(leafCells.size()); idx++)
     {
         int Current_Cell_No = leafCells[idx];
@@ -186,6 +197,9 @@ void Evaluate_Cell_Net_Flux_2O()
             break;
         case 5:
             Calculate_Flux_For_All_Faces(Current_Cell_No, MOVERS_NWSC_2O);
+            break;
+        case 6:
+            Calculate_Flux_For_All_Faces(Current_Cell_No, RICCA_2O);
             break;
         }
         Evaluate_Time_Step(Current_Cell_No);

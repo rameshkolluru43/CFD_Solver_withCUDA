@@ -51,7 +51,7 @@ The test case JSON usually defines grid path, boundary conditions, and flow para
 | `Local_Time_Stepping` | bool | Local time stepping. |
 | `Non_Dimensional_Form` | bool | Non-dimensional form. |
 | `Is_WENO` | bool | Use WENO reconstruction (quad meshes). |
-| `Dissipation_Type` | int | 1=LLF, 2=MOVERS, 3=Roe, 4=RICCA, 5=MOVERS_NWSC. |
+| `Dissipation_Type` | int | 1=LLF, 2=MOVERS, 3=Roe, 4=RICCA, 5=MOVERS_NWSC, 6=RICCA_LLF hybrid for WENO. |
 | `Is_MOVERS_1` | bool | MOVERS variant. |
 | `Enable_Entropy_Fix` | bool | Roe entropy fix. |
 | **AMR** | | |

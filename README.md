@@ -22,11 +22,14 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 - **WENO Schemes**: High-order Weighted Essentially Non-Oscillatory methods for complex flows
 
 ### GPU Acceleration
-- **CUDA Kernels**: Optimized kernels for flux calculations, gradient computation, time integration
+- **CUDA Main-Loop Flux Path**: `CFD_solver_gpu` includes a CUDA 1st-order inviscid net-flux dispatcher for **LLF**, **MOVERS**, **RICCA**, and **MOVERS_NWSC** (`Dissipation_Type` 1, 2, 4, 5)
+- **CUDA Kernels**: Additional kernels are available for Roe/HLLC/LLF flux experiments, reconstruction, gradients, viscous flux prototypes, matrix assembly, and time-integration utilities
 - **Memory Management**: Efficient host-device memory transfers
-- **Parallel Execution**: Multi-GPU support with CUDA architectures 6.0-9.0 (see `CMakeLists.txt` for `CUDA_ARCHITECTURES`; adjust for your GPU)
+- **Parallel Execution**: CUDA architecture is configured in `CMakeLists.txt` (`CUDA_ARCHITECTURES`; currently tuned for compute 7.5 and adjustable for your GPU)
 - **Iterative Solvers**: GPU-accelerated linear algebra operations
 - **Metal (experimental, macOS / Apple Silicon)**: Optional `Metal_Kernels/` bridge and `.metal` compute shaders for future host-side integration—build with the standalone `Metal_Kernels/Makefile` (see that directory)
+
+Current CUDA main-loop limits: 2nd-order MUSCL flux, WENO flux, viscous flux, Runge-Kutta state updates, implicit solving, and AMR split/merge still execute through CPU-side loop logic.
 
 ### CPU Parallelism
 - **OpenMP**: Multi-threaded CPU loops when OpenMP is available (on macOS, Homebrew `libomp` is auto-detected by CMake when the compiler lacks built-in OpenMP)
@@ -60,6 +63,8 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 │   └── ...                       # Additional solver components
 ├── CUDA_KERNELS/                  # GPU kernel implementations (NVIDIA CUDA)
 │   ├── Flux_Calculations_Cuda_Kernels.cu
+│   ├── Inviscid_Flux_Cuda_MainLoop.cu
+│   ├── Inviscid_Flux_Cuda_MainLoop_Wrapper.cpp
 │   ├── Time_Integration_Cuda_Kernels.cu
 │   ├── Gradient_Calculation_Cuda_Kernels.cu
 │   ├── Viscous_Flux_Cuda_Kernels.cu
@@ -88,8 +93,10 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
 │   └── ...                       # Test case configurations
 ├── Grid_Files/                    # Mesh files
 ├── Gmsh_Grids/                   # GMSH format grids
+├── scripts/                      # Shell helper scripts (Colab sync, docs, validation)
 ├── build/                        # Build directory
 └── docs/                         # Documentation
+    ├── README.md                             # Documentation index
     ├── MESH_AND_GRID.md                      # Mesh formats, tri/quad support
     ├── ADAPTIVE_MESH_REFINEMENT.md           # Gradient-based AMR
     ├── CONFIGURATION.md                      # JSON configuration reference
@@ -98,6 +105,8 @@ A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU accel
     ├── Van_Leer_Flux_Implementation.md      # Van Leer flux technical documentation
     ├── ROE_2O_Implementation.md             # Second-order Roe scheme documentation
     ├── AUSM_Flux_Implementation.md          # AUSM flux scheme documentation
+    ├── *_GUIDE.md                           # User/setup guides moved from repository root
+    ├── *_REPORT.md                          # Project and validation reports
     └── *_Completion_Summary.md              # Implementation completion summaries
 ```
 
@@ -167,6 +176,16 @@ make -j$(nproc)
 ./CFD_solver_gpu ../json_Files/Solver_Config.json
 ```
 
+`CFD_solver_gpu` follows the same solver configuration as the CPU executable. For inviscid first-order runs, `Dissipation_Type` selects the CUDA flux kernel when available:
+
+| `Dissipation_Type` | Scheme | CUDA main-loop support |
+|--------------------|--------|------------------------|
+| 1 | LLF | Yes |
+| 2 | MOVERS | Yes |
+| 3 | Roe | CPU fallback in current main-loop dispatcher |
+| 4 | RICCA | Yes |
+| 5 | MOVERS_NWSC | Yes |
+
 See [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md) for detailed build and run instructions.
 
 ### Configuration
@@ -231,7 +250,7 @@ The solver includes comprehensive test cases and validation framework:
 - Complex geometries for robustness testing
 - Comparison with analytical solutions where available
 
-For detailed testing information, see [TEST_SUMMARY.md](TEST_SUMMARY.md).
+For detailed testing information, see [docs/TEST_SUMMARY.md](docs/TEST_SUMMARY.md).
 
 ## 📊 Flux Scheme Enhancements
 
@@ -281,11 +300,11 @@ For comprehensive technical details, see the documentation files in the `docs/` 
 
 ## 📊 GPU Performance
 
-The CUDA implementation provides significant speedup over CPU execution:
-- **Memory Bandwidth**: Optimized memory access patterns
-- **Kernel Optimization**: Coalesced memory access, shared memory usage
-- **Multi-GPU Support**: Scalable to multiple GPUs
-- **Architecture Support**: CUDA compute capability 6.0-9.0
+The CUDA implementation currently accelerates selected solver paths and provides kernels for future full-GPU integration:
+- **Main-loop inviscid flux**: CUDA 1st-order net-flux path for LLF, MOVERS, RICCA, and MOVERS_NWSC.
+- **Host/device bridge**: Current bridge flattens the existing CPU-side `Cell`/state vectors, launches CUDA, and copies back `Cells_Net_Flux` and `del_t`.
+- **Kernel library**: Roe, HLLC/LLF, MUSCL/WENO reconstruction, gradient, viscous, matrix assembly, and time integration kernels are available for integration work.
+- **Remaining CPU-side paths**: 2nd-order MUSCL dispatch, WENO flux in the active loop, RK updates, viscous fluxes, AMR topology changes, and implicit solving.
 
 ### Supported CUDA Architectures
 - Pascal (6.0, 6.1)
@@ -304,6 +323,7 @@ The CUDA implementation provides significant speedup over CPU execution:
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | JSON configuration reference (solver, simulation, AMR) |
 | [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md) | Build requirements, CMake options, running CPU/GPU |
 | [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | Changelog and recent feature summary |
+| [docs/MAIN_LOOP_STATUS.md](docs/MAIN_LOOP_STATUS.md) | Main loop: what is implemented vs left to do |
 
 ### Generate Documentation
 ```bash
