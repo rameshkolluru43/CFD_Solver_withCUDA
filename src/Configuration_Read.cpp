@@ -11,17 +11,17 @@
 /// @details This function reads the JSON file and sets the parameters for the solver and all other parameters
 void readJSON(const std::string &jsonFileName)
 {
-    std::ifstream fileStream(jsonFileName);
-    if (!fileStream.is_open())
-    {
-        throw std::runtime_error("Error: JSON input file not found: " + jsonFileName);
-    }
+    std::ifstream fileStream = CFD_OpenInputFileOrThrow(jsonFileName, "readJSON");
 
     Json::Reader reader;
     Json::Value root;
     if (!reader.parse(fileStream, root))
     {
-        throw std::runtime_error("Error: Failed to parse JSON input.");
+        throw std::runtime_error("readJSON: failed to parse JSON input: " + jsonFileName);
+    }
+    if (!root.isMember("TestCase") || !root.isMember("Simulation") || !root.isMember("Solver"))
+    {
+        throw std::runtime_error("readJSON: missing required TestCase, Simulation, or Solver section in " + jsonFileName);
     }
 
     // Extract Solver Config First
@@ -34,12 +34,23 @@ void readJSON(const std::string &jsonFileName)
     Test_Case = testCaseData["Test_Case"].asInt(); // optional use
     Test_Case_Name = testCaseData["Test_Case_Name"].asString();
     Test_Case_JSON_File = testCaseData["Test_Case_Json"].asString();
+    if (Test_Case_JSON_File.empty())
+        throw std::runtime_error("readJSON: TestCase.Test_Case_Json is empty");
+    if (!std::filesystem::exists(Test_Case_JSON_File))
+    {
+        const std::filesystem::path configDir = std::filesystem::path(jsonFileName).parent_path();
+        const std::filesystem::path candidate = configDir / Test_Case_JSON_File;
+        if (!configDir.empty() && std::filesystem::exists(candidate))
+            Test_Case_JSON_File = candidate.lexically_normal().string();
+    }
+    CFD_EnsureInputFileExists(Test_Case_JSON_File, "readJSON Test_Case_Json");
 
     // Simulation settings
     Initialize_Type = simData["Initialize_Type"].asInt();
     Is_Implicit_Method = simData["Is_Implicit_Method"].asBool();
     Total_Iterations = simData["Total_Iterations"].asInt();
     CFL = simData["CFL"].asDouble();
+    CFD_RequireFinitePositive(CFL, "Simulation.CFL");
     Terminating_Time = simData["Terminating_Time"].asDouble();
     Is_Time_Dependent = simData["Is_Time_Dependent"].asBool();
 
@@ -58,6 +69,10 @@ void readJSON(const std::string &jsonFileName)
     Non_Dimensional_Form = solverData["Non_Dimensional_Form"].asBool();
     Is_WENO = solverData["Is_WENO"].asBool();
     Dissipation_Type = solverData["Dissipation_Type"].asInt();
+    if (Total_Iterations < 0)
+        throw std::runtime_error("Simulation.Total_Iterations must be non-negative");
+    if (NUM_FLUX_COMPONENTS <= 0 || NUM_FLUX_COMPONENTS > 4)
+        throw std::runtime_error("Solver.NUM_FLUX_COMPONENTS must be in [1, 4]");
     Is_MOVERS_1 = solverData["Is_MOVERS_1"].asBool();
     if (Flux_Type != Dissipation_Type)
     {
@@ -128,13 +143,7 @@ void readJSON(const std::string &jsonFileName)
 map<string, string> ReadConfigFile(const string &filename)
 {
     map<string, string> config;
-    ifstream file(filename);
-
-    if (!file.is_open())
-    {
-        cerr << "Error: Unable to open configuration file " << filename << endl;
-        exit(EXIT_FAILURE);
-    }
+    ifstream file = CFD_OpenInputFileOrThrow(filename, "ReadConfigFile");
 
     string line;
     while (getline(file, line))
@@ -163,17 +172,17 @@ map<string, string> ReadConfigFile(const string &filename)
 // from the grid file name initializes the grid and data structures and initializes the test case
 void parseTestCaseJSON(const std::string &jsonFileName)
 {
-    std::ifstream fileStream(jsonFileName);
-    if (!fileStream.is_open())
-    {
-        throw std::runtime_error("Error: Test Case JSON file not found: " + jsonFileName);
-    }
+    std::ifstream fileStream = CFD_OpenInputFileOrThrow(jsonFileName, "parseTestCaseJSON");
 
     Json::Reader reader;
     Json::Value root;
     if (!reader.parse(fileStream, root))
     {
-        throw std::runtime_error("Error: Failed to parse Test Case JSON.");
+        throw std::runtime_error("parseTestCaseJSON: failed to parse Test Case JSON: " + jsonFileName);
+    }
+    if (!root.isMember("GeneralDetails") || !root.isMember("mesh_parameters") || !root.isMember("Flow_Conditions"))
+    {
+        throw std::runtime_error("parseTestCaseJSON: missing required GeneralDetails, mesh_parameters, or Flow_Conditions section in " + jsonFileName);
     }
 
     // Extract General Info
@@ -196,6 +205,8 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     meshParams.ny = mesh["Ny"].asInt();
     meshParams.meshType = mesh["mesh_type"].asString();
     Grid_Size = meshParams.gridSize;
+    if (meshParams.nx <= 1 || meshParams.ny <= 1 || Grid_Size <= 0)
+        throw std::runtime_error("parseTestCaseJSON: mesh Nx, Ny, and Grid_Size must be positive and form at least one cell");
 
     // Flow Conditions
     const auto &flow = root["Flow_Conditions"];
@@ -240,17 +251,19 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     Is_Exit_SubSonic = !bcTypeIsSupersonic(exitCond.type);
     /* Driver JSON Is_Viscous selects NS vs Euler; keep wall BC flag aligned. */
     Is_Viscous_Wall = Is_Viscous;
+
+    CFD_RequireFinitePositive(inletCond.P, "Flow_Conditions.inlet_conditions.Pressure_Static_Inlet");
+    CFD_RequireFinitePositive(inletCond.Rho, "Flow_Conditions.inlet_conditions.Rho_Static_Inlet");
+    CFD_RequireFinitePositive(exitCond.P, "Flow_Conditions.exit_conditions.Pressure_Static_Exit");
+    CFD_RequireFinitePositive(exitCond.Rho, "Flow_Conditions.exit_conditions.Rho_Static_Exit");
+    CFD_RequireFinitePositive(initCond.P, "Flow_Conditions.Initial_Conditions.Pressure_Static_Inlet");
+    CFD_RequireFinitePositive(initCond.Rho, "Flow_Conditions.Initial_Conditions.Rho_Static_Inlet");
 }
 
 // Reads boundary conditions from a JSON file and populates the inlet and exit structures
 bool readBoundaryConditionsjson(const std::string &filename, InletCondition &inletCond, ExitCondition &exitCond)
 {
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        std::cerr << "Error opening file: " << filename << "\n";
-        return false;
-    }
+    std::ifstream file = CFD_OpenInputFileOrThrow(filename, "readBoundaryConditionsjson");
     Json::Reader reader;
     Json::Value BoundaryConditions;
     if (!reader.parse(file, BoundaryConditions))
@@ -283,12 +296,7 @@ bool readBoundaryConditionsjson(const std::string &filename, InletCondition &inl
 // Reads boundary conditions from a JSON file and populates the inlet and exit structures
 bool readInitialConditionsjson(const std::string &filename, InitialCondition &initialCond)
 {
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        std::cerr << "Error opening file: " << filename << "\n";
-        return false;
-    }
+    std::ifstream file = CFD_OpenInputFileOrThrow(filename, "readInitialConditionsjson");
     Json::Reader reader;
     Json::Value InitialConditions;
     if (!reader.parse(file, InitialConditions))
@@ -314,12 +322,7 @@ bool readInitialConditionsjson(const std::string &filename, InitialCondition &in
 // Reads initial and boundary conditions from a JSON file and populates the structures
 bool readInitialAndBoundaryConditions(const std::string &filename, InitialCondition &initialCond, InletCondition &inletCond, ExitCondition &exitCond)
 {
-    std::ifstream file(filename);
-    if (!file.is_open())
-    {
-        std::cerr << "Error opening file: " << filename << "\n";
-        return false;
-    }
+    std::ifstream file = CFD_OpenInputFileOrThrow(filename, "readInitialAndBoundaryConditions");
 
     Json::Reader reader;
     Json::Value data;

@@ -237,7 +237,7 @@ void Calculate_Gradients_At_Cell_Centers()
             else
             {
                 cout << "Invalid Grad_Type: " << Grad_Type << endl;
-                exit(0);
+                throw runtime_error("Calculate_Green_Gauss_Gradient: invalid Grad_Type " + to_string(Grad_Type));
             }
         }
     }
@@ -501,7 +501,7 @@ void Viscous_Flux_on_Face(const int &Cell_No, const int &Face_No)
         cout << Cell_No << "\t" << Face_No << "\t" << T11 << "\t" << T12 << "\t" << T21 << "\t" << T22 << "\t" << Qx << "\t" << Qy << endl;
         cout << mu << "\t" << Inv_Re << "\t" << K1 << endl;
         cout << u11 << "\t" << u12 << "\t" << u21 << "\t" << u22 << endl;
-        exit(0);
+        throw runtime_error("Viscous flux calculation produced non-finite values");
     }
 }
 

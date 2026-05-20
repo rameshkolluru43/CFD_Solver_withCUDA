@@ -240,8 +240,7 @@ bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
 					Append_Solution(Solution_File, Final_Solution_File);
 				}
 				timer = clock();
-				CFD_MPI_Finalize();
-				exit(0);
+				return true;
 			}
 			else if (iterations % 500 == 0)
 			{

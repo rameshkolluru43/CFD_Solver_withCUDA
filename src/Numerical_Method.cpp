@@ -72,9 +72,9 @@ void Explicit_Method()
 	// cout << "Evaluated Cell Net Flux" << endl;
 	Min_dt = get_Min_dt();
 	// cout << "Minimum Time Step\t" << Min_dt << endl;
-	if (Min_dt == 0.0)
+	if (!std::isfinite(Min_dt) || Min_dt == 0.0)
 	{
-		fprintf(stderr, "Error: Min_dt is zero. Cannot proceed with the simulation.\n");
+		fprintf(stderr, "Error: Min_dt is zero or non-finite. Cannot proceed with the simulation.\n");
 		exit(EXIT_FAILURE);
 	}
 	if (Min_dt < 0.0)
@@ -86,6 +86,12 @@ void Explicit_Method()
 	// Loop over all leaf cells and apply preconditioning to the fluxes
 	V_I leafCells;
 	CFD_MPI_Build_Local_Leaf_Cell_List(leafCells);
+	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
+	{
+		const int Cell_Index = leafCells[li];
+		if (!std::isfinite(Cells[Cell_Index].Inv_Area) || Cells[Cell_Index].Inv_Area <= 0.0)
+			throw runtime_error("Explicit_Method: invalid inverse area in cell " + to_string(Cell_Index));
+	}
 #ifdef _OPENMP
 #pragma omp parallel for schedule(static) if (leafCells.size() > 1024) private(inv_Area)
 #endif
@@ -398,11 +404,15 @@ void Runge_Kutta_Method()
 	}
 
 	Min_dt = get_Min_dt();
+	if (!std::isfinite(Min_dt) || Min_dt <= 0.0)
+		throw runtime_error("Runge_Kutta_Method: invalid minimum time step after stage 1");
 
 	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
 		const int Cell_Index = localLeafCells[li];
 		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
+		if (!std::isfinite(step_dt) || step_dt <= 0.0 || !std::isfinite(Cells[Cell_Index].Inv_Area) || Cells[Cell_Index].Inv_Area <= 0.0)
+			throw runtime_error("Runge_Kutta_Method: invalid dt or inverse area in cell " + to_string(Cell_Index));
 
 		inv_Area = Cells[Cell_Index].Inv_Area;
 
@@ -440,11 +450,15 @@ void Runge_Kutta_Method()
 	}
 
 	Min_dt = get_Min_dt();
+	if (!std::isfinite(Min_dt) || Min_dt <= 0.0)
+		throw runtime_error("Runge_Kutta_Method: invalid minimum time step after stage 2");
 
 	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
 		const int Cell_Index = localLeafCells[li];
 		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
+		if (!std::isfinite(step_dt) || step_dt <= 0.0 || !std::isfinite(Cells[Cell_Index].Inv_Area) || Cells[Cell_Index].Inv_Area <= 0.0)
+			throw runtime_error("Runge_Kutta_Method: invalid dt or inverse area in cell " + to_string(Cell_Index));
 		//			if(Local_Time_Stepping)
 		//				Min_dt = Cells_DelT[Cell_Index];
 
@@ -483,11 +497,15 @@ void Runge_Kutta_Method()
 	}
 
 	Min_dt = get_Min_dt();
+	if (!std::isfinite(Min_dt) || Min_dt <= 0.0)
+		throw runtime_error("Runge_Kutta_Method: invalid minimum time step after final stage");
 
 	for (int li = 0; li < static_cast<int>(localLeafCells.size()); li++)
 	{
 		const int Cell_Index = localLeafCells[li];
 		const double step_dt = Local_Time_Stepping ? Cells[Cell_Index].del_t : Min_dt;
+		if (!std::isfinite(step_dt) || step_dt <= 0.0 || !std::isfinite(Cells[Cell_Index].Inv_Area) || Cells[Cell_Index].Inv_Area <= 0.0)
+			throw runtime_error("Runge_Kutta_Method: invalid dt or inverse area in cell " + to_string(Cell_Index));
 		//			if(Local_Time_Stepping)
 		//				Min_dt = Cells_DelT[Cell_Index];
 

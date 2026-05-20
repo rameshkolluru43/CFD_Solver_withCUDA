@@ -129,13 +129,13 @@ void CheckMatrixForErrors(vector<V_D> &A)
 			{
 				cout << "NaN found at position (" << i << ", " << j << ")" << endl;
 				found_nan = true;
-				exit(0);
+				throw runtime_error("checkMatrixForNaNOrInfinity: NaN found");
 			}
 			else if (value == INFINITY || value == -INFINITY)
 			{
 				cout << "Infinity found at position (" << i << ", " << j << ")" << endl;
 				found_nan = true;
-				exit(0);
+				throw runtime_error("checkMatrixForNaNOrInfinity: infinity found");
 			}
 		}
 	}

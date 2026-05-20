@@ -25,6 +25,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect)
 	double vmag = 0.0, inv_Density = 0.0, v1 = 0.0, v2 = 0.0, Pressure = 0.0, Temperature = 0.0, C = 0.0, Rho = 0.0;
 
 	Rho = U_Vect[0];
+	CFD_RequireFinitePositive(Rho, "Calculate_Primitive_Variables density in cell " + to_string(Cell_No));
 	inv_Density = 1.0 / Rho;
 	v1 = U_Vect[1] * inv_Density;
 	v2 = U_Vect[2] * inv_Density;
@@ -42,10 +43,10 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect)
 	else
 		Temperature = (Pressure * inv_Density / R_GC);
 
-	if (Pressure < 0.0)
-		cout << "Negative pressure detected at Cell " << Cell_No << endl;
+	CFD_RequireFinitePositive(Pressure, "Calculate_Primitive_Variables pressure in cell " + to_string(Cell_No));
 
 	C = sqrt(gamma * Pressure * inv_Density); // Speed of sound
+	CFD_RequireFinitePositive(C, "Calculate_Primitive_Variables sound speed in cell " + to_string(Cell_No));
 	M = sqrt(vmag) / C;						  // Mach number
 
 	if (Is_Viscous_Wall)
@@ -73,8 +74,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect)
 
 	if (isnan(C))
 	{
-		cout << "Error: Negative pressure occurred at Cell " << Cell_No << endl;
-		exit(0);
+		throw runtime_error("Calculate_Primitive_Variables: non-finite sound speed in cell " + to_string(Cell_No));
 	}
 }
 
@@ -91,6 +91,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect, V_D &G_Primi
 	Vector_Reset(G_Primitive);
 
 	Rho = U_Vect[0];
+	CFD_RequireFinitePositive(Rho, "Calculate_Primitive_Variables density in cell " + to_string(Cell_No));
 	inv_Density = 1.0 / Rho;
 	v1 = U_Vect[1] * inv_Density;
 	v2 = U_Vect[2] * inv_Density;
@@ -102,6 +103,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect, V_D &G_Primi
 
 	vmag = (v1 * v1 + v2 * v2);
 	Pressure = gamma_M_1 * (U_Vect[3] - 0.5 * Rho * vmag);
+	CFD_RequireFinitePositive(Pressure, "Calculate_Primitive_Variables pressure in cell " + to_string(Cell_No));
 
 	if (Non_Dimensional_Form)
 		Temperature = (Pressure / (Rho * R_ref)); // Non-dimensionalized EOS
@@ -109,6 +111,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect, V_D &G_Primi
 		Temperature = (Pressure * inv_Density / R_GC);
 
 	C = sqrt(gamma * Pressure * inv_Density); // Speed of sound
+	CFD_RequireFinitePositive(C, "Calculate_Primitive_Variables sound speed in cell " + to_string(Cell_No));
 	M = sqrt(vmag) / C;						  // Mach number
 
 	if (Is_Viscous_Wall)
@@ -136,8 +139,7 @@ void Calculate_Primitive_Variables(const int &Cell_No, V_D &U_Vect, V_D &G_Primi
 
 	if (isnan(C))
 	{
-		cout << "Error: Negative pressure occurred at Cell " << Cell_No << endl;
-		exit(0);
+		throw runtime_error("Calculate_Primitive_Variables: non-finite sound speed in cell " + to_string(Cell_No));
 	}
 }
 

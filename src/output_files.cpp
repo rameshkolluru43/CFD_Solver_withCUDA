@@ -422,8 +422,8 @@ void Write_VTK_File(const string &Op_file1, const string &Op_file2)
 	if (!CFD_MPI_Is_Root())
 		return;
 
-	ofstream outputfile1(Op_file1.c_str(), ios::out);
-	ofstream outputfile2(Op_file2.c_str(), ios::out);
+	ofstream outputfile1 = CFD_OpenOutputFileOrThrow(Op_file1, "Write_VTK_File core output");
+	ofstream outputfile2 = CFD_OpenOutputFileOrThrow(Op_file2, "Write_VTK_File polar output");
 	int Cell_Index = 0, Cells_In_Plane_Core, Cells_In_Plane_Polar;
 	Cells_In_Plane_Core = (nx_c - 1) * (ny_c - 1);
 	Cells_In_Plane_Polar = (nx_p - 1) * (ny_p - 1);
@@ -454,8 +454,7 @@ void Write_VTK_File(const string &Op_file1, const string &Op_file2)
 	}
 	else
 	{
-		cout << "Could not Open file for writing VTK file" << endl;
-		exit(0);
+		throw runtime_error("Write_VTK_File: could not open output files");
 	}
 }
 
@@ -464,7 +463,7 @@ void Write_VTK_File(const string &File_Name)
 	if (!CFD_MPI_Is_Root())
 		return;
 
-	ofstream Outfile(File_Name.c_str(), ios::out);
+	ofstream Outfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_VTK_File");
 	if (Outfile.is_open())
 	{
 
@@ -474,9 +473,7 @@ void Write_VTK_File(const string &File_Name)
 	}
 	else
 	{
-		cout << "Could not write Data into VTK file\n";
-		cout << File_Name << endl;
-		exit(0);
+		throw runtime_error("Write_VTK_File: could not write data into " + File_Name);
 	}
 }
 
@@ -485,7 +482,7 @@ void Write_CF_File(const string &File_Name)
 	if (!CFD_MPI_Is_Root())
 		return;
 
-	ofstream Outfile(File_Name.c_str(), ios::out);
+	ofstream Outfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_CF_File");
 	V_D Cell_Center(3, 0);
 	//	cout<<File_Name<<endl;
 	int Cell_Index, j;
@@ -506,9 +503,7 @@ void Write_CF_File(const string &File_Name)
 	}
 	else
 	{
-		cout << "Could not write Data into CF file\n";
-		cout << File_Name << endl;
-		exit(0);
+		throw runtime_error("Write_CF_File: could not write data into " + File_Name);
 	}
 	Outfile.close();
 }
@@ -519,7 +514,7 @@ void Write_Solution(const string &Op_file, const int &type)
 		return;
 
 	//     string myfile = Solution_File;
-	ofstream outputfile(Op_file.c_str(), ios::out);
+	ofstream outputfile = CFD_OpenOutputFileOrThrow(Op_file, "Write_Solution");
 
 	//           cout<<Op_file<<endl;
 
@@ -575,9 +570,7 @@ void Write_Solution(const string &Op_file, const int &type)
 	}
 	else
 	{
-		cout << "Could not write to solution file opfile\n";
-		cout << Op_file << endl;
-		exit(0);
+		throw runtime_error("Write_Solution: could not write to " + Op_file);
 	}
 	outputfile.close();
 }
@@ -588,7 +581,7 @@ void Write_Error_File(const string &File_Name)
 		return;
 
 	//	cout<<File_Name<<endl;
-	ofstream outputfile(File_Name.c_str(), ios::out | ios::app);
+	ofstream outputfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_Error_File", ios::out | ios::app);
 	if (outputfile.is_open())
 	{
 		for (int i = 0; i < 4; i++)
@@ -597,9 +590,7 @@ void Write_Error_File(const string &File_Name)
 	}
 	else
 	{
-		cout << "Could not write to  Error file\n";
-		cout << File_Name << endl;
-		exit(0);
+		throw runtime_error("Write_Error_File: could not write to " + File_Name);
 	}
 }
 
@@ -607,7 +598,7 @@ void Write_Error_File(const string &File_Name)
 void Write_A_MatrixToFile(vector<V_D> &A, const string &File_Name)
 {
 	// Open file in write mode
-	ofstream Outfile(File_Name.c_str(), ios::out);
+	ofstream Outfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_A_MatrixToFile");
 
 	// Check if the file is open
 	if (!Outfile.is_open())
@@ -635,7 +626,7 @@ void Write_A_MatrixToFile(vector<V_D> &A, const string &File_Name)
 void Write_b_VectorToFile(V_D &b, const string &File_Name)
 {
 	// Open file in write mode
-	ofstream Outfile(File_Name.c_str(), ios::out);
+	ofstream Outfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_b_VectorToFile");
 
 	// Check if the file is open
 	if (!Outfile.is_open())
@@ -741,12 +732,13 @@ void CreateTestCaseDirectories(int &Test_Case)
 	catch (const filesystem::filesystem_error &e)
 	{
 		cerr << "Error creating directories: " << e.what() << endl;
+		throw;
 	}
 }
 
 void Write_Cell_Info(const string &opfile)
 {
-	ofstream File_Cell_Info(opfile.c_str(), ios::out);
+	ofstream File_Cell_Info = CFD_OpenOutputFileOrThrow(opfile, "Write_Cell_Info");
 	cout << "Writing Cell Information\t" << endl;
 	cout << opfile << endl;
 	int k, Cell_No = 0;

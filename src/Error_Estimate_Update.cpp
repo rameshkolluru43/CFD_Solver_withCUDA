@@ -26,10 +26,13 @@ void Estimate_Error()
 		for (int i = 0; i < NUM_FLUX_COMPONENTS; i++)
 		{
 			double t;
-			if (Cells_DelU[Cell_Index][i] < 1e-9)
+			const double denom = U_Cells[Cell_Index][i];
+			if (!std::isfinite(Cells_DelU[Cell_Index][i]) || !std::isfinite(denom))
+				t = 0.0;
+			else if (fabs(denom) < 1e-12)
 				t = fabs(Cells_DelU[Cell_Index][i]);
 			else
-				t = (fabs(Cells_DelU[Cell_Index][i]) / U_Cells[Cell_Index][i]);
+				t = (fabs(Cells_DelU[Cell_Index][i]) / fabs(denom));
 			const double ts = t * t;
 			if (i == 0)
 				e0 += ts;

@@ -186,7 +186,7 @@ V_D Assemble_b(V_D &b)
     {
         std::cout << "Error: Vector b has incorrect size: " << b.size()
                   << ", expected " << 4 * No_Physical_Cells << std::endl;
-        std::exit(0);
+        throw std::runtime_error("Assemble_b: vector b has incorrect size");
     }
     // Fill the vector b with the negative of the net fluxes for each cell
     for (int Cell_No = 0; Cell_No < No_Physical_Cells; Cell_No++)

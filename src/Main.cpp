@@ -113,40 +113,52 @@ bool runSolver()
 int main(int argc, char *argv[])
 {
     CFD_MPI_Initialize(&argc, &argv);
-    if (CFD_MPI_Is_Enabled() && CFD_MPI_Is_Root())
+    try
     {
-        cout << "MPI enabled with " << CFD_MPI_Size() << " ranks" << endl;
-    }
+        if (CFD_MPI_Is_Enabled() && CFD_MPI_Is_Root())
+        {
+            cout << "MPI enabled with " << CFD_MPI_Size() << " ranks" << endl;
+        }
 
-    // Read input JSON file and initialize parameters
-    readInputFile(argc, argv);
-    // Reads the test case JSON file and populates the parameters
-    parseTestCaseJSON(Test_Case_JSON_File);
+        // Read input JSON file and initialize parameters
+        readInputFile(argc, argv);
+        // Reads the test case JSON file and populates the parameters
+        parseTestCaseJSON(Test_Case_JSON_File);
 
-    if (!initializeGridFiles())
-    {
-        cerr << "Error: Failed to initialize grid files. Exiting..." << endl;
+        if (!initializeGridFiles())
+        {
+            cerr << "Error: Failed to initialize grid files. Exiting..." << endl;
+            CFD_MPI_Abort(EXIT_FAILURE);
+        }
+
+        if (CFD_MPI_Is_Root())
+        {
+            cout << "Checking and creating the directories for solution files" << endl;
+            createOutputDirectories();
+        }
+        CFD_MPI_Barrier();
+        Initialize_TestCase();
+
+        if (!runSolver())
+        {
+            cerr << "Error: Solver execution failed. Exiting..." << endl;
+            CFD_MPI_Abort(EXIT_FAILURE);
+        }
+
+        if (CFD_MPI_Is_Root())
+            cout << "CFD simulation completed successfully!" << endl;
         CFD_MPI_Finalize();
-        exit(EXIT_FAILURE);
+        return EXIT_SUCCESS;
     }
-
-    if (CFD_MPI_Is_Root())
+    catch (const std::exception &e)
     {
-        cout << "Checking and creating the directories for solution files" << endl;
-        createOutputDirectories();
+        cerr << "Fatal error before/during solver startup: " << e.what() << endl;
+        CFD_MPI_Abort(EXIT_FAILURE);
     }
-    CFD_MPI_Barrier();
-    Initialize_TestCase();
-
-    if (!runSolver())
+    catch (...)
     {
-        cerr << "Error: Solver execution failed. Exiting..." << endl;
-        CFD_MPI_Finalize();
-        return EXIT_FAILURE;
+        cerr << "Fatal unknown error before/during solver startup." << endl;
+        CFD_MPI_Abort(EXIT_FAILURE);
     }
-
-    if (CFD_MPI_Is_Root())
-        cout << "CFD simulation completed successfully!" << endl;
-    CFD_MPI_Finalize();
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }

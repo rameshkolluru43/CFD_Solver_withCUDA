@@ -41,7 +41,7 @@ void Read_Grid(const string &ipfile)
 	int cellID, neighbor1, neighbor2, neighbor3, neighbor4, Conversion_Type;
 	Vertices.resize(12, 0.0);
 	cout << "Reading \t" << ipfile.c_str() << endl;
-	ifstream Grid_File(ipfile.c_str(), ios::in);
+	ifstream Grid_File = CFD_OpenInputFileOrThrow(ipfile, "Read_Grid");
 	if (Grid_File.is_open())
 	{
 		cout << "File opened for reading \n";
@@ -82,7 +82,7 @@ void Read_Grid(const string &ipfile)
 				cout << "No of Physical Cells\t" << No_Physical_Cells << endl;
 				cout << "No of Cells in plane\t" << Cells_in_Plane << endl;
 				cout << "Check the Grid data" << endl;
-				exit(0);
+				throw runtime_error("Read_Grid: physical cell count does not match dual-block dimensions");
 			}
 			Total_No_Cells = No_Physical_Cells + No_Ghost_Cells;
 			break;
@@ -258,9 +258,7 @@ void Read_Grid(const string &ipfile)
 	}
 	else
 	{
-		cout << "Could not open the file....Please Check the Grid File Name and path of the file\n";
-		cout << ipfile.c_str() << endl;
-		exit(0);
+		throw runtime_error("Read_Grid: could not open grid file: " + ipfile);
 	}
 }
 
@@ -276,6 +274,23 @@ bool initializeGridFiles()
 {
 	try
 	{
+		auto resolveExistingInputPath = [](std::string &path, const std::string &context)
+		{
+			if (std::filesystem::exists(path))
+				return;
+			const std::string parentPrefix = "../";
+			if (path.rfind(parentPrefix, 0) == 0)
+			{
+				const std::string repoRelative = path.substr(parentPrefix.size());
+				if (std::filesystem::exists(repoRelative))
+				{
+					path = repoRelative;
+					return;
+				}
+			}
+			CFD_EnsureInputFileExists(path, context);
+		};
+
 		/* 15° ramp meshes are stored as Ramp_Grid_Files/Ramp_15o_Nx_Ny.* (legacy layout). */
 		if (Test_Case_Name == "Ramp_15_Degree")
 		{
@@ -294,14 +309,8 @@ bool initializeGridFiles()
 			Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
 		}
 
-		// Check if the grid file exists
-		ifstream file_check(Grid_File);
-		if (!file_check.good())
-		{
-			cerr << "Error: Grid file does not exist: " << Grid_File << endl;
-			return false;
-		}
-		file_check.close();
+		resolveExistingInputPath(Grid_File, "initializeGridFiles grid file");
+		resolveExistingInputPath(Grid_Vtk_File, "initializeGridFiles VTK grid file");
 
 		// Grid_File = gridFiles[0];
 		cout << "Grid file to be read: " << Grid_File << endl;
@@ -334,14 +343,7 @@ bool Form_Cells(const string &ipfile)
 	{
 		cout << "Reading \t" << ipfile.c_str() << endl;
 
-		// Check if file exists before attempting to load
-		ifstream file_check(ipfile);
-		if (!file_check.good())
-		{
-			cerr << "Error: Cannot open mesh file: " << ipfile << endl;
-			return false;
-		}
-		file_check.close();
+		CFD_EnsureInputFileExists(ipfile, "Form_Cells mesh file");
 
 		// Auto-detect loader (JSON: mesh.xnodes/mesh.ynodes or mesh.vtk/mesh.txt, VTK, CSV, or legacy TXT)
 		if (!Load_Mesh(ipfile))
@@ -563,8 +565,7 @@ void Construct_Cell(Cell &Grid_Cell)
 	// Polygon area (shoelace) in XY plane
 	if (n < 3)
 	{
-		cout << "Cell has fewer than 3 vertices\n";
-		exit(0);
+		throw runtime_error("Construct_Cell: cell has fewer than 3 vertices");
 	}
 	double twice_area = 0.0;
 	for (int i = 0; i < n; i++)
@@ -579,9 +580,9 @@ void Construct_Cell(Cell &Grid_Cell)
 	Grid_Cell.Area = 0.5 * fabs(twice_area);
 	if (!std::isfinite(Grid_Cell.Area) || Grid_Cell.Area <= 0.0)
 	{
-		cout << "Invalid cell area: " << Grid_Cell.Area << "\n";
+		cerr << "Invalid cell area: " << Grid_Cell.Area << "\n";
 		Print(Grid_Cell.Cell_Vertices);
-		exit(0);
+		throw runtime_error("Construct_Cell: invalid zero/negative cell area");
 	}
 	Grid_Cell.Inv_Area = 1.0 / Grid_Cell.Area;
 }
@@ -622,8 +623,8 @@ void Construct_Cell(const int &Current_Cell_No, const int &Face_No, const int &G
 	const int nFaces = (C.numFaces > 0) ? C.numFaces : static_cast<int>(C.nodeIndices.size());
 	if (Face_No < 0 || Face_No >= nFaces)
 	{
-		cout << "Invalid Face_No for ghost construction: " << Face_No << " (nFaces=" << nFaces << ")\n";
-		exit(0);
+		throw runtime_error("Construct_Cell ghost: invalid Face_No " + to_string(Face_No) +
+							" for nFaces=" + to_string(nFaces));
 	}
 
 	// Face endpoints: Face_No is logical (Neighbours index): 0=left, 1=bottom, 2=right, 3=top.
@@ -693,8 +694,7 @@ void Construct_Cell(V_D &Vertices)
 	}
 	else
 	{
-		cout << "Vertices are not 12 (quad) or 9 (tri) in number\n";
-		exit(0);
+		throw runtime_error("Construct_Cell: vertices are not 12 (quad) or 9 (tri) in number");
 	}
 }
 
@@ -724,8 +724,7 @@ void Construct_Face(Cell &Grid_Cell)
 	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
 	if (n < 3)
 	{
-		cout << "Cell has fewer than 3 vertices\n";
-		exit(0);
+		throw runtime_error("Construct_Face: cell has fewer than 3 vertices");
 	}
 
 	Grid_Cell.Face_Areas.clear();
@@ -771,7 +770,7 @@ void Construct_Face(V_D &a, V_D &b, double &dL, double &nx, double &ny)
 		cout << "Length of the face is zero\n";
 		Print(a);
 		Print(b);
-		exit(0);
+		throw runtime_error("Construct_Face: zero face length");
 	}
 	else
 	{
@@ -866,8 +865,7 @@ void Evaluate_Cross_Product(V_D &A, V_D &B, double &Area)
 	Area = 0.5 * (B[1] * A[0] - B[0] * A[1]);
 	if (isnan(Area) or (Area == 0.0))
 	{
-		cout << "In Evaluating Cross Product..... Check Area\t" << Area << endl;
-		exit(0);
+		throw runtime_error("Evaluate_Cross_Product: zero or non-finite area");
 	}
 	// cout<<"Face Area ="<<Area<<endl;
 }
@@ -912,8 +910,7 @@ void Distance_Between_Points(V_D &P1, V_D &P2, double &Distance)
 	{
 		Print(P1);
 		Print(P2);
-		cout << "In Distace between two points function, Passing Vectors should have same size" << endl;
-		exit(0);
+		throw runtime_error("Distance_Between_Points: vectors must have the same size");
 	}
 }
 
@@ -941,7 +938,7 @@ void Find_Minimum_Length()
 		{
 			cout << "Diagonal Vector is zero\n";
 			Print(Cells[index].Cell_Vertices);
-			exit(0);
+			throw runtime_error("Find_Minimum_Length: zero diagonal vector in cell " + to_string(index));
 		}
 
 		if (Cell_Minimum_Length > mag)
@@ -1036,7 +1033,7 @@ void Check_Cells()
 	else
 	{
 		cout << "Cells.size() < No_Physical_Cells. Check Read grid function.\n";
-		exit(0);
+		throw runtime_error("Check_Cells: Cells.size() < No_Physical_Cells");
 	}
 }
 

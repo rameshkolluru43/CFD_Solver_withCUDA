@@ -19,5 +19,6 @@ void CFD_MPI_Global_Sum4(double values[4]);
 
 void CFD_MPI_Synchronize_Solution_State();
 void CFD_MPI_Barrier();
+void CFD_MPI_Abort(int errorCode);
 
 #endif // MPI_UTILS_H

@@ -4,6 +4,7 @@
 #include "Grid.h"
 
 #include <algorithm>
+#include <cstdlib>
 
 #ifdef USE_MPI
 #include <mpi.h>
@@ -211,4 +212,13 @@ void CFD_MPI_Barrier()
     if (mpi_size > 1)
         MPI_Barrier(MPI_COMM_WORLD);
 #endif
+}
+
+void CFD_MPI_Abort(int errorCode)
+{
+#ifdef USE_MPI
+    if (mpi_size > 1)
+        MPI_Abort(MPI_COMM_WORLD, errorCode);
+#endif
+    std::exit(errorCode);
 }

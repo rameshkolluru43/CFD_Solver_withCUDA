@@ -148,15 +148,13 @@ void Initialize(const int &Test_Case)
 // Function used for initialization from a given file at a given time step
 void Initialize(const string &file_name)
 {
-	ifstream ipfile(file_name.c_str(), ios::in);
+	ifstream ipfile = CFD_OpenInputFileOrThrow(file_name, "Initialize restart solution");
 	int n1, n2, n3, N_Cells, CellIndex;
 	V_D V(2, 0.0);
 	double P = 0.0, Rho = 0.0, T = 0.0, v1 = 0.0, v2 = 0.0, dt = 0.0, P0 = 0.0;
 	Initialize(Test_Case);
 	cout << file_name << endl;
 
-	if (ipfile.is_open())
-	{
 		cout << "File opened for initialization\t" << file_name << endl;
 		ipfile >> n1 >> n2 >> n3;
 		cout << n1 << "\t" << n2 << "\t" << n3 << endl;
@@ -183,16 +181,9 @@ void Initialize(const string &file_name)
 		}
 		else
 		{
-			cout << "Mismatch in Solution file.........Please verify that correct solution file is given for input\n";
+			throw runtime_error("Initialize: solution cell count does not match grid for " + file_name);
 		}
 		cout << "Initialization done from file\t" << file_name << endl;
-	}
-	else
-	{
-		cout << "Could not Open Inputfile for reading......... Please check  the file name\n";
-		cout << file_name << endl;
-		exit(0);
-	}
 	//	Print(U_Cells);
 }
 

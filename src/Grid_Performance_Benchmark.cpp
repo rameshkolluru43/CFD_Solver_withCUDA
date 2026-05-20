@@ -304,7 +304,7 @@ public:
     // Generate comprehensive performance report
     void generate_performance_report(const std::string &filename = "grid_performance_report.txt")
     {
-        std::ofstream report(filename);
+        std::ofstream report = CFD_OpenOutputFileOrThrow(filename, "generate_performance_report");
 
         report << "=== Grid Computation Performance Report ===" << std::endl;
         report << "Generated: " << std::chrono::system_clock::now().time_since_epoch().count() << std::endl;

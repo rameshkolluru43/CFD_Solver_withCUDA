@@ -44,114 +44,108 @@ static string getLimiterName(int limiterCase)
 
 void createOutputDirectories()
 {
-    // Base directory for results
-    string baseDir = "../2D_Euler_Solutions/";
-    // Check if the directory already exists, if not, create it
-    if (!filesystem::exists(baseDir))
+    try
     {
-        cout << "Base Directory: " << baseDir << endl;
-        filesystem::create_directories(baseDir);
-    }
-    else
-    {
-        cerr << "Error: Directory already exists!" << endl;
-        //        return;
-    }
-
-    // Create directory based on test case
-    string testCaseDir = baseDir + Test_Case_Name;
-    if (!filesystem::exists(testCaseDir))
-    {
-        cout << "Test Case Directory: " << testCaseDir << endl;
-        filesystem::create_directories(testCaseDir);
-    }
-    else
-    {
-        cerr << "Error: Directory already exists!" << endl;
-        //      return;
-    }
-
-    // Create directories based on numerical method
-    string methodDir = testCaseDir + "/" + (Is_Implicit_Method ? "Implicit" : "Explicit");
-    if (!filesystem::exists(methodDir))
-    {
-        cout << "Method Directory: " << methodDir << endl;
-        filesystem::create_directories(methodDir);
-    }
-    else
-    {
-        cerr << "Error: Directory already exists!" << endl;
-        // return;
-    }
-
-    // Create flux-based directory
-    string fluxDir = methodDir + "/Flux_" + to_string(Flux_Type);
-    if (!filesystem::exists(fluxDir))
-    {
-        cout << "Flux Type Directory : " << fluxDir << endl;
-        filesystem::create_directories(fluxDir);
-    }
-    else
-    {
-        cerr << "Error: Directory already exists!" << endl;
-        // return;
-    }
-
-    // Create grid-specific directory
-    string gridDir = fluxDir + "/GridSize_" + to_string(Grid_Size);
-    if (!filesystem::exists(gridDir))
-    {
-        cout << "Grid Size Directory: " << gridDir << endl;
-        filesystem::create_directories(gridDir);
-    }
-    else
-    {
-        cerr << "Error: Directory already exists!" << endl;
-        //  return;
-    }
-
-    // Create additional directory for WENO if enabled
-    if (Is_WENO)
-    {
-        string wenoDir = gridDir + "/WENO";
-        if (!filesystem::exists(wenoDir))
+        // Base directory for results
+        string baseDir = "../2D_Euler_Solutions/";
+        // Check if the directory already exists, if not, create it
+        if (!filesystem::exists(baseDir))
         {
-            filesystem::create_directories(wenoDir);
+            cout << "Base Directory: " << baseDir << endl;
+            filesystem::create_directories(baseDir);
+        }
+        else if (!filesystem::is_directory(baseDir))
+        {
+            throw runtime_error("Output base path exists but is not a directory: " + baseDir);
+        }
+
+        // Create directory based on test case
+        string testCaseDir = baseDir + Test_Case_Name;
+        if (!filesystem::exists(testCaseDir))
+        {
+            cout << "Test Case Directory: " << testCaseDir << endl;
+            filesystem::create_directories(testCaseDir);
+        }
+        else if (!filesystem::is_directory(testCaseDir))
+        {
+            throw runtime_error("Test case output path exists but is not a directory: " + testCaseDir);
+        }
+
+        // Create directories based on numerical method
+        string methodDir = testCaseDir + "/" + (Is_Implicit_Method ? "Implicit" : "Explicit");
+        if (!filesystem::exists(methodDir))
+        {
+            cout << "Method Directory: " << methodDir << endl;
+            filesystem::create_directories(methodDir);
+        }
+        else if (!filesystem::is_directory(methodDir))
+        {
+            throw runtime_error("Method output path exists but is not a directory: " + methodDir);
+        }
+
+        // Create flux-based directory
+        string fluxDir = methodDir + "/Flux_" + to_string(Flux_Type);
+        if (!filesystem::exists(fluxDir))
+        {
+            cout << "Flux Type Directory : " << fluxDir << endl;
+            filesystem::create_directories(fluxDir);
+        }
+        else if (!filesystem::is_directory(fluxDir))
+        {
+            throw runtime_error("Flux output path exists but is not a directory: " + fluxDir);
+        }
+
+        // Create grid-specific directory
+        string gridDir = fluxDir + "/GridSize_" + to_string(Grid_Size);
+        if (!filesystem::exists(gridDir))
+        {
+            cout << "Grid Size Directory: " << gridDir << endl;
+            filesystem::create_directories(gridDir);
+        }
+        else if (!filesystem::is_directory(gridDir))
+        {
+            throw runtime_error("Grid output path exists but is not a directory: " + gridDir);
+        }
+
+        // Create additional directory for WENO if enabled
+        if (Is_WENO)
+        {
+            string wenoDir = gridDir + "/WENO";
+            if (!filesystem::exists(wenoDir))
+            {
+                filesystem::create_directories(wenoDir);
+            }
+            else if (!filesystem::is_directory(wenoDir))
+            {
+                throw runtime_error("WENO output path exists but is not a directory: " + wenoDir);
+            }
+            gridDir = wenoDir;
+        }
+
+        // Create output files in the final directory with descriptive names
+        string runTag;
+        if (Is_WENO)
+        {
+            runTag = "WENO_Grid_Size_" + to_string(Grid_Size);
         }
         else
         {
-            cerr << "Error: Directory already exists!" << endl;
-            //     return;
+            const string orderName = Is_Second_Order ? "2O" : "1O";
+            runTag = getDissipationName(Dissipation_Type) + "_" + orderName + "_" + getLimiterName(Limiter_Case);
         }
-        gridDir = wenoDir;
-    }
 
-    // Create output files in the final directory with descriptive names
-    string runTag;
-    if (Is_WENO)
-    {
-        runTag = "WENO_Grid_Size_" + to_string(Grid_Size);
-    }
-    else
-    {
-        const string orderName = Is_Second_Order ? "2O" : "1O";
-        runTag = getDissipationName(Dissipation_Type) + "_" + orderName + "_" + getLimiterName(Limiter_Case);
-    }
+        string outputFilePath = gridDir + "/results_" + runTag + ".txt";
+        Solution_File = gridDir + "/Solution_" + runTag + ".txt";
+        Error_File = gridDir + "/Error_" + runTag + ".txt";
+        Initial_Solution_File = gridDir + "/Initial_Solution_" + runTag + ".txt";
+        Final_Solution_File = gridDir + "/Final_Solution_" + runTag + ".vtk";
 
-    string outputFilePath = gridDir + "/results_" + runTag + ".txt";
-    Solution_File = gridDir + "/Solution_" + runTag + ".txt";
-    Error_File = gridDir + "/Error_" + runTag + ".txt";
-    Initial_Solution_File = gridDir + "/Initial_Solution_" + runTag + ".txt";
-    Final_Solution_File = gridDir + "/Final_Solution_" + runTag + ".vtk";
+        cout << Solution_File << endl;
+        cout << Error_File << endl;
+        cout << Initial_Solution_File << endl;
+        cout << Final_Solution_File << endl;
 
-    cout << Solution_File << endl;
-    cout << Error_File << endl;
-    cout << Initial_Solution_File << endl;
-    cout << Final_Solution_File << endl;
-
-    ofstream outputFile(outputFilePath);
-    if (outputFile.is_open())
-    {
+        ofstream outputFile = CFD_OpenOutputFileOrThrow(outputFilePath, "createOutputDirectories");
         outputFile << "Simulation Results for Test Case: " << Test_Case << "\n";
         outputFile << "Output folder Flux_Type (label only): " << Flux_Type << "\n";
         outputFile << "Dissipation_Type (actual face flux / dissipation): " << Dissipation_Type
@@ -162,9 +156,9 @@ void createOutputDirectories()
         outputFile.close();
         cout << "Output written to: " << outputFilePath << endl;
     }
-    else
+    catch (const filesystem::filesystem_error &e)
     {
-        cerr << "Error: Unable to create output file!" << endl;
+        throw runtime_error(string("createOutputDirectories: filesystem error: ") + e.what());
     }
 }
 
@@ -177,6 +171,8 @@ void findGridFiles(string &folderPath, int &desiredX, int &desiredY, vector<stri
     boost::smatch match;
     cout << "Folder Path: " << folderPath << endl;
     cout << "Pattern: " << pattern << endl;
+    if (!filesystem::exists(folderPath) || !filesystem::is_directory(folderPath))
+        throw runtime_error("findGridFiles: grid folder not found: " + folderPath);
     // findGridFiles Function :
     // • The function takes a folder path and desired grid dimensions.
     // • It uses a regular expression(Flow_Over_Cylinder_(\d +) _(\d +)\.txt) to match and capture the grid sizes from each filename.
@@ -195,11 +191,12 @@ void findGridFiles(string &folderPath, int &desiredX, int &desiredY, vector<stri
             }
             else
             {
-                cout << "Could not find grid file for desired dimensions ..... exiting" << endl;
-                exit(0);
+                throw runtime_error("findGridFiles: grid file dimensions do not match requested size");
             }
         }
     }
+    if (gridFiles.empty())
+        throw runtime_error("findGridFiles: no matching grid files found in " + folderPath);
 }
 
 void searchGridFiles()
@@ -212,6 +209,6 @@ void searchGridFiles()
     }
     else
     {
-        cerr << "Error: Grid file not found!" << endl;
+        throw runtime_error("searchGridFiles: grid file not found: " + gridFile);
     }
 }

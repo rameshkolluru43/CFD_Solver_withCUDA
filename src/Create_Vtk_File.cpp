@@ -13,12 +13,10 @@ void Read_Write_Grid(const string &Grid_File, const string &Out_Put_File)
 	long int a, b, c, d, e;
 	string s1, s2;
 	int nop, No_of_Cells;
-	ifstream Ip_Grid_File(Grid_File.c_str(), ios::in);
-	ofstream Op_Sol_File(Out_Put_File.c_str(), ios::out);
+	ifstream Ip_Grid_File = CFD_OpenInputFileOrThrow(Grid_File, "Read_Write_Grid");
+	ofstream Op_Sol_File = CFD_OpenOutputFileOrThrow(Out_Put_File, "Read_Write_Grid");
 	//		cout<<Grid_File<<endl;
 	//		cout<<Out_Put_File<<endl;
-	if (Ip_Grid_File.is_open())
-	{
 		getline(Ip_Grid_File, s1);
 		Op_Sol_File << s1 << endl;
 		getline(Ip_Grid_File, s1);
@@ -50,11 +48,6 @@ void Read_Write_Grid(const string &Grid_File, const string &Out_Put_File)
 			Op_Sol_File << p << endl;
 		}
 		//			cout<<"Sucessfully Created File with Grid Data"<<endl;
-	}
-	else
-	{
-		cout << "Could Not Open Input Grid File......Please Check the File Name\n";
-	}
 }
 
 void Append_Solution(const string &Sol_File, const string &Update_Solution)
@@ -68,14 +61,12 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 	V_D Pressure, Temperature, Density, U_Velocity, V_Velocity, W_Velocity, Mach_No, Pt;
 	V_I Cell_IDs;
 	V_I Cartesian_Cells;
-	ifstream solution_ipfile(Sol_File.c_str(), ios::in);
-	ifstream grid_ipfile(Update_Solution.c_str(), ios::in);
-	ofstream Solution_Update(Update_Solution.c_str(), ios::out | ios::app);
+	ifstream solution_ipfile = CFD_OpenInputFileOrThrow(Sol_File, "Append_Solution solution file");
+	ifstream grid_ipfile = CFD_OpenInputFileOrThrow(Update_Solution, "Append_Solution grid/VTK file");
+	ofstream Solution_Update = CFD_OpenOutputFileOrThrow(Update_Solution, "Append_Solution output file", ios::out | ios::app);
 	int grid_cell_count = -1;
 
 	// Read cell count from the existing VTK grid header (line starts with "CELLS").
-	if (grid_ipfile.is_open())
-	{
 		string tok;
 		while (grid_ipfile >> tok)
 		{
@@ -86,13 +77,10 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 			}
 		}
 		grid_ipfile.close();
-	}
 
 	//	cout<<Sol_File<<endl;
 	//	cout<<Update_Solution<<endl;
 
-	if (solution_ipfile.is_open())
-	{
 		//		cout<<"Solution File Opened\t"<<Sol_File<<endl;
 		if (Grid_Type == 0)
 		{
@@ -238,12 +226,7 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 				leafVerts.push_back(verts);
 			}
 
-			ofstream vtk_out(Update_Solution.c_str(), ios::out);
-			if (!vtk_out.is_open())
-			{
-				cout << "Could not Open Final Data file for Updating Solution\n";
-				return;
-			}
+			ofstream vtk_out = CFD_OpenOutputFileOrThrow(Update_Solution, "Append_Solution AMR VTK output");
 
 			const int nCellsOut = static_cast<int>(leafVerts.size());
 			const int nPtsOut = 4 * nCellsOut;
@@ -333,7 +316,9 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 				const int sidx = (it != solIndexByCellId.end()) ? it->second : leafIds[i];
 				const double pval = (sidx >= 0 && sidx < static_cast<int>(Pressure.size())) ? Pressure[sidx] : 1.0;
 				const double rhoval = (sidx >= 0 && sidx < static_cast<int>(Density.size())) ? Density[sidx] : 1.0;
-				vtk_out << log(pval / pow(max(rhoval, 1e-14), 1.4)) << endl;
+				if (pval <= 0.0 || rhoval <= 0.0 || !std::isfinite(pval) || !std::isfinite(rhoval))
+					throw runtime_error("Append_Solution: non-positive pressure/density while writing AMR entropy");
+				vtk_out << log(pval / pow(rhoval, 1.4)) << endl;
 			}
 
 			vtk_out << "SCALARS\t Mach_Number\t double " << endl;
@@ -378,8 +363,6 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 		if (grid_cell_count > 0 && grid_cell_count < No_of_Cells_Out)
 			No_of_Cells_Out = grid_cell_count;
 		//      cout<<"Cells in Plane\t"<<Cells_In_Plane<<endl;
-		if (Solution_Update.is_open())
-		{
 			//			cout<<"updating solution file"<<endl;
 			Solution_Update << "CELL_DATA\t" << No_of_Cells_Out << endl;
 			Solution_Update << "SCALARS\t Pressure\t double" << endl;
@@ -415,7 +398,11 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 			Solution_Update << "SCALARS\t Entropy\t double" << endl;
 			Solution_Update << "LOOKUP_TABLE default" << endl;
 			for (int i = 0; i < No_of_Cells_Out; i++)
+			{
+				if (Pressure[i] <= 0.0 || Density[i] <= 0.0 || !std::isfinite(Pressure[i]) || !std::isfinite(Density[i]))
+					throw runtime_error("Append_Solution: non-positive pressure/density while writing entropy");
 				Solution_Update << log(Pressure[i] / pow(Density[i], 1.4)) << endl;
+			}
 
 			Solution_Update << "SCALARS\t Mach_Number\t double " << endl;
 			Solution_Update << "LOOKUP_TABLE default" << endl;
@@ -453,14 +440,4 @@ void Append_Solution(const string &Sol_File, const string &Update_Solution)
 				int leaf = (cid >= 0 && cid < static_cast<int>(Cells.size()) && Cells[cid].AMR_IsLeaf) ? 1 : 0;
 				Solution_Update << leaf << endl;
 			}
-		}
-		else
-		{
-			cout << "Could not Open Final Data file for Updating Solution\n";
-		}
-	}
-	else
-	{
-		cout << "Could not Open Solution File\n";
-	}
 }

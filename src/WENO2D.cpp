@@ -29,6 +29,7 @@ namespace
 	{
 		Vector_Reset(G_Primitive);
 		const double Rho = U_Vect[0];
+		CFD_RequireFinitePositive(Rho, "WenoPrimitiveFromU density");
 		const double inv_Density = 1.0 / Rho;
 		double v1 = U_Vect[1] * inv_Density;
 		double v2 = U_Vect[2] * inv_Density;
@@ -38,12 +39,14 @@ namespace
 			v2 = 0.0;
 		const double vmag = (v1 * v1 + v2 * v2);
 		const double Pressure = gamma_M_1 * (U_Vect[3] - 0.5 * Rho * vmag);
+		CFD_RequireFinitePositive(Pressure, "WenoPrimitiveFromU pressure");
 		double Temperature;
 		if (Non_Dimensional_Form)
 			Temperature = (Pressure / (Rho * R_ref));
 		else
 			Temperature = (Pressure * inv_Density / R_GC);
 		const double C = sqrt(gamma * Pressure * inv_Density);
+		CFD_RequireFinitePositive(C, "WenoPrimitiveFromU sound speed");
 		const double Mloc = sqrt(vmag) / C;
 
 		G_Primitive[0] = Rho;
@@ -60,8 +63,7 @@ namespace
 
 		if (std::isnan(C))
 		{
-			std::cout << "Error: Negative pressure occurred in WENO face primitive recovery" << std::endl;
-			exit(0);
+			throw runtime_error("WenoPrimitiveFromU: non-finite sound speed");
 		}
 	}
 }
@@ -234,8 +236,7 @@ void Get_LR(int &CellNo, int &Neighbour, const int &Face_No, V_D &L, V_D &IL)
 	{
 		if (isnan(L[i]))
 		{
-			cout << "Nan occurred here in L \t" << i << "\t" << L[i] << endl;
-			exit(0);
+			throw runtime_error("Get_LR: non-finite WENO characteristic matrix L");
 		}
 	}
 
@@ -264,8 +265,7 @@ void Get_LR(int &CellNo, int &Neighbour, const int &Face_No, V_D &L, V_D &IL)
 	{
 		if (isnan(IL[i]))
 		{
-			cout << "Nan occurred here in IL \t" << i << "\t" << IL[i] << endl;
-			exit(0);
+			throw runtime_error("Get_LR: non-finite WENO inverse characteristic matrix IL");
 		}
 	}
 }
