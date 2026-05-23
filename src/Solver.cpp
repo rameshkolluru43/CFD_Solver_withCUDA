@@ -62,6 +62,20 @@
 #include "AMR.hpp"
 #include "MPI_Utils.h"
 
+namespace
+{
+void Write_Final_Solution_Output(const string &Error_Filename, const string &Sol_Filename, const int Solution_Data_Type)
+{
+	if (!CFD_MPI_Is_Root())
+		return;
+
+	Write_Error_File(Error_Filename);
+	Write_Solution(Sol_Filename, Solution_Data_Type);
+	Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
+	Append_Solution(Solution_File, Final_Solution_File);
+}
+}
+
 // Core logic for solving Euler equations based on Test Case
 
 bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
@@ -144,9 +158,7 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 						 << setw(20) << (timer / CLOCKS_PER_SEC)
 						 << setw(15) << Total_Time
 						 << endl;
-					Write_Error_File(Error_Filename);
-					Write_Solution(Sol_Filename, Solution_Data_Type);
-					Append_Solution(Solution_File, Final_Solution_File);
+					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 				}
 			}
 			if (iterations % 1000 == 0)
@@ -155,10 +167,7 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 				timer = clock();
 				if (CFD_MPI_Is_Root())
 				{
-					Write_Error_File(Error_Filename);
-					Write_Solution(Sol_Filename, Solution_Data_Type);
-					Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-					Append_Solution(Solution_File, Final_Solution_File);
+					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 					// cout << "Updated Solution File Sucessfully" << endl;
 					cout << setw(10) << iterations
 						 << setw(15) << Min_dt
@@ -175,6 +184,7 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 
 		if (CFD_MPI_Is_Root())
 		{
+			Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 			cout << "Inviscid solver completed successfully after " << iterations << " iterations" << endl;
 			cout << "Final Min_dt=" << Min_dt
 				 << " errors(rho,rhou,rhov,rhoEt)="
@@ -234,10 +244,7 @@ bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
 				if (CFD_MPI_Is_Root())
 				{
 					cout << Min_dt << "\t" << iterations << "\t Error\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
-					Write_Error_File(Error_Filename);
-					Write_Solution(Sol_Filename, Solution_Data_Type);
-					Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-					Append_Solution(Solution_File, Final_Solution_File);
+					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 				}
 				timer = clock();
 				return true;
@@ -247,10 +254,7 @@ bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
 				//			cout<<"Maximum and Minimum Time Step in iteration in \t"<<iterations<<"\t"<<Max_dt<<"\t"<<Min_dt<<endl;
 				if (CFD_MPI_Is_Root())
 				{
-					Write_Error_File(Error_Filename);
-					Write_Solution(Sol_Filename, Solution_Data_Type);
-					Read_Write_Grid(Grid_Vtk_File, Final_Solution_File);
-					Append_Solution(Solution_File, Final_Solution_File);
+					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 				}
 				// 			cout<<"Updated Solution File Sucessfully"<<endl;
 				if (CFD_MPI_Is_Root() && Is_Viscous_Wall)
@@ -284,6 +288,7 @@ bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
 		}
 		if (CFD_MPI_Is_Root())
 		{
+			Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 			cout << "Writing Skin Friction Coefficient\t" << CF_File << endl;
 			Write_CF_File(CF_File);
 		}

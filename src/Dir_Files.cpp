@@ -2,6 +2,8 @@
 #include "Globals.h"
 #include "IO_Write.h"
 
+static string getLimiterName(int limiterCase);
+
 static string getDissipationName(int type)
 {
     switch (type)
@@ -16,9 +18,20 @@ static string getDissipationName(int type)
         return "RICCA";
     case 5:
         return "MOVERS_NWSC";
+    case 6:
+        return "RICCA_LLF";
     default:
-        return "UNKNOWN";
+        return "UNKNOWN_" + to_string(type);
     }
+}
+
+static string getFluxSchemeName()
+{
+    if (Is_WENO)
+        return "WENO";
+
+    const string orderName = Is_Second_Order ? "2O" : "1O";
+    return orderName + "_" + getLimiterName(Limiter_Case);
 }
 
 static string getLimiterName(int limiterCase)
@@ -138,7 +151,11 @@ void createOutputDirectories()
         Solution_File = gridDir + "/Solution_" + runTag + ".txt";
         Error_File = gridDir + "/Error_" + runTag + ".txt";
         Initial_Solution_File = gridDir + "/Initial_Solution_" + runTag + ".txt";
-        Final_Solution_File = gridDir + "/Final_Solution_" + runTag + ".vtk";
+        Final_Solution_File = gridDir + "/" + Test_Case_Name +
+                              "_Grid_Size_" + to_string(Grid_Size) +
+                              "_FluxScheme_" + getFluxSchemeName() +
+                              "_Dissipation_" + getDissipationName(Dissipation_Type) +
+                              ".vtk";
 
         cout << Solution_File << endl;
         cout << Error_File << endl;
