@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "Globals.h"
 #include "Test_Cases.h"
+#include "Viscous_Functions.h"
 
 extern "C" void Half_Cylinder_Flow()
 {
@@ -161,6 +162,27 @@ extern "C" void Half_Cylinder_Flow()
     }
 
     Identify_Wall_Boundary_Faces(Grid_Type);
+
+    /* Viscous heat-transfer stack: Re/Pr from JSON (or defaults) + nondim heat-flux scale K1. */
+    if (Is_Viscous || Is_Viscous_Wall)
+    {
+        if (!(Re > 0.0))
+            Re = 1.0e5;
+        if (!(Pr > 0.0))
+            Pr = 0.72;
+        Inv_Re = 1.0 / Re;
+        Inv_Pr = 1.0 / Pr;
+        L_ref = 1.0;
+        M_ref = (inletCond.M > 0.0) ? inletCond.M : 6.0;
+        Rho_ref = (inletCond.Rho > 0.0) ? inletCond.Rho : 1.4;
+        Reference_Values();
+        K1 = 1.0 / ((gamma - 1.0) * M_ref * M_ref * Re * Pr);
+        Viscous_Time_Case = 2;
+        cout << "Half-cylinder viscous refs: Re=" << Re << " Pr=" << Pr
+             << " M_ref=" << M_ref << " K1=" << K1
+             << " Tw=" << wallCond.T << endl;
+    }
+
     Write_Solution(Initial_Solution_File, 1);
     cout << "Initialized Solution, Identified Boundaries... Ready to solve." << std::endl;
 }

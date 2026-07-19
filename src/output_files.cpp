@@ -2,6 +2,9 @@
 #include "Globals.h"
 #include "Directory_Files.h"
 #include "MPI_Utils.h"
+#include "IO_Write.h"
+#include <algorithm>
+#include <cstddef>
 
 void Directory_Name()
 {
@@ -415,6 +418,14 @@ void File_Name()
 		Error_File += "_1Order";
 		CF_File += "_1Order";
 	}
+
+	/* Parallel wall heat-flux / Stanton file next to CF. */
+	QW_File = CF_File;
+	const size_t pos = QW_File.rfind("CF_");
+	if (pos != string::npos)
+		QW_File.replace(pos, 3, "QW_");
+	else
+		QW_File += "_QW";
 }
 
 void Write_VTK_File(const string &Op_file1, const string &Op_file2)
@@ -504,6 +515,29 @@ void Write_CF_File(const string &File_Name)
 	else
 	{
 		throw runtime_error("Write_CF_File: could not write data into " + File_Name);
+	}
+	Outfile.close();
+}
+
+void Write_QW_File(const string &File_Name)
+{
+	if (!CFD_MPI_Is_Root())
+		return;
+
+	ofstream Outfile = CFD_OpenOutputFileOrThrow(File_Name, "Write_QW_File");
+	if (!Outfile.is_open())
+		throw runtime_error("Write_QW_File: could not write data into " + File_Name);
+
+	Outfile << "# i\tx\ty\tCf\tqw\tSt\n";
+	int j = 0;
+	const size_t n = std::min(CF.size(), QW.size());
+	for (size_t i = 0; i < n; ++i)
+	{
+		const int Cell_Index = Wall_Cells_List[j];
+		j += 3;
+		const auto &cc = Cells[Cell_Index].Cell_Center;
+		const double st = (i < St.size()) ? St[i] : 0.0;
+		Outfile << i << '\t' << cc[0] << '\t' << cc[1] << '\t' << CF[i] << '\t' << QW[i] << '\t' << st << '\n';
 	}
 	Outfile.close();
 }

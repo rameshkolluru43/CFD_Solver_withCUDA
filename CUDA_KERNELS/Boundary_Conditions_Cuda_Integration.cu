@@ -1,11 +1,12 @@
 /**
  * @file Boundary_Conditions_Cuda_Integration.cu
- * @brief Viscous no-slip wall BC on ghost cells (matches Viscous_Wall_Boundary_Condition in src/Wall_Boundary_Conditions.cpp).
+ * @brief Viscous no-slip (+ optional isothermal) wall BC on ghost cells.
  */
 
 #include <cuda_runtime.h>
 #include <vector>
 #include <cstdio>
+#include <cmath>
 
 #include "../include/definitions.h"
 #include "../include/Globals.h"
@@ -21,7 +22,10 @@ constexpr int kNv = 4;
 __global__ void viscous_wall_ghost_kernel(
     double *U,
     const int *wall_list,
-    int n_triplets)
+    int n_triplets,
+    double Tw,
+    double rgas,
+    double gamma)
 {
     const int idx = blockIdx.x * blockDim.x + threadIdx.x;
     if (idx >= n_triplets)
@@ -33,10 +37,31 @@ __global__ void viscous_wall_ghost_kernel(
     const int cb = cell * kNv;
     const int gb = ghost * kNv;
 
-    U[gb + 0] = U[cb + 0];
-    U[gb + 1] = -U[cb + 1];
-    U[gb + 2] = -U[cb + 2];
-    U[gb + 3] = U[cb + 3];
+    const double rho_i = fmax(U[cb + 0], 1e-14);
+    const double u_i = U[cb + 1] / rho_i;
+    const double v_i = U[cb + 2] / rho_i;
+    double p_i = (gamma - 1.0) * (U[cb + 3] - 0.5 * rho_i * (u_i * u_i + v_i * v_i));
+    if (!(p_i > 1e-12) || !isfinite(p_i))
+        p_i = 1e-12;
+    const double T_i = p_i / (rho_i * rgas);
+
+    double rho_g = rho_i;
+    double p_g = p_i;
+    if (Tw > 0.0)
+    {
+        double T_g = 2.0 * Tw - T_i;
+        if (!(T_g > 1e-12) || !isfinite(T_g))
+            T_g = Tw;
+        p_g = p_i;
+        rho_g = p_g / (rgas * T_g);
+        if (!(rho_g > 1e-14) || !isfinite(rho_g))
+            rho_g = rho_i;
+    }
+
+    U[gb + 0] = rho_g;
+    U[gb + 1] = -rho_g * u_i;
+    U[gb + 2] = -rho_g * v_i;
+    U[gb + 3] = p_g / (gamma - 1.0) + 0.5 * rho_g * (u_i * u_i + v_i * v_i);
 }
 
 struct WallBcBuffers
@@ -109,13 +134,15 @@ bool Apply_Viscous_Wall_Boundary_Condition_CUDA()
         }
     }
 
-  cudaMemcpy(g_wall_bc.d_U, h_U.data(), h_U.size() * sizeof(double), cudaMemcpyHostToDevice);
-  cudaMemcpy(g_wall_bc.d_wall_list, Wall_Cells_List.data(),
-             static_cast<size_t>(n_triplets) * 3 * sizeof(int), cudaMemcpyHostToDevice);
+    cudaMemcpy(g_wall_bc.d_U, h_U.data(), h_U.size() * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(g_wall_bc.d_wall_list, Wall_Cells_List.data(),
+               static_cast<size_t>(n_triplets) * 3 * sizeof(int), cudaMemcpyHostToDevice);
 
+    const double rgas = Non_Dimensional_Form ? ((R_ref > 0.0) ? R_ref : (1.0 / (gamma * M_ref * M_ref))) : R_GC;
     const int threads = 256;
     const int blocks = (n_triplets + threads - 1) / threads;
-    viscous_wall_ghost_kernel<<<blocks, threads>>>(g_wall_bc.d_U, g_wall_bc.d_wall_list, n_triplets);
+    viscous_wall_ghost_kernel<<<blocks, threads>>>(g_wall_bc.d_U, g_wall_bc.d_wall_list, n_triplets,
+                                                   wallCond.T, rgas, gamma);
 
     cudaError_t err = cudaDeviceSynchronize();
     if (err != cudaSuccess)

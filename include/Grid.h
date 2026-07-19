@@ -6,6 +6,10 @@
 #define MESH_H
 #include "definitions.h"
 #include "Globals.h"
+#include <map>
+#include <set>
+#include <utility>
+#include <vector>
 
 /*-----------------Functions Required for Geometric Features------------------------------------------------*/
 // Function for reading input grid file

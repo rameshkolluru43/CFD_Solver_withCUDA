@@ -4,6 +4,7 @@
 
 | Document | Description |
 |---------|-------------|
+| [../overview.md](../overview.md) | Project overview, GPU/host status, half-cylinder M=6 validation |
 | [BUILD_AND_RUN.md](BUILD_AND_RUN.md) | Build requirements, CMake, running CPU/GPU executables |
 | [STANDALONE_LOW_END_CUDA_RUN.md](STANDALONE_LOW_END_CUDA_RUN.md) | Standalone Linux setup and low-end CUDA GPU build/run guide |
 | [CONFIGURATION.md](CONFIGURATION.md) | JSON configuration reference (simulation, solver, AMR) |

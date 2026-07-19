@@ -137,64 +137,191 @@ void Calculate_Gradient(V_D &av, V_D &nx, V_D &ny, V_D &dl, double &inv_area, V_
 
 void Identify_Neighbours_For_Second_Gradients(int &Current_Cell_Index)
 {
-    // Initialize secondary neighbors to zero
+    /* Secondary_Neighbours = {SW, SE, NE, NW} diagonal stencil for co-volume
+       face gradients. Face map: 0=left, 1=bottom, 2=right, 3=top. */
     if (Cells[Current_Cell_Index].Secondary_Neighbours.empty())
-        Cells[Current_Cell_Index].Secondary_Neighbours.resize(4, 0.0);
+        Cells[Current_Cell_Index].Secondary_Neighbours.resize(4, -1);
     else
     {
         for (int i = 0; i < 4; ++i)
-            Cells[Current_Cell_Index].Secondary_Neighbours[i] = 0.0;
+            Cells[Current_Cell_Index].Secondary_Neighbours[i] = -1;
     }
 
-    // Fetch primary neighbors
     const auto &Neighbours = Cells[Current_Cell_Index].Neighbours;
-    int Neighbour_1 = Neighbours[0];
-    int Neighbour_2 = Neighbours[1];
-    int Neighbour_3 = Neighbours[2];
-    int Neighbour_4 = Neighbours[3];
+    if (Neighbours.size() < 4)
+        return;
 
-    // Lambda to fetch a neighbor safely
-    auto getNeighbour = [](int cellIndex, int direction) -> int
-    {
-        return (cellIndex >= 0 && cellIndex < No_Physical_Cells) ? Cells[cellIndex].Neighbours[direction] : 0;
+    const int N_L = Neighbours[0];
+    const int N_B = Neighbours[1];
+    const int N_R = Neighbours[2];
+    const int N_T = Neighbours[3];
+
+    const int n_all = static_cast<int>(Cells.size());
+    auto is_valid = [n_all](int c) -> bool { return c >= 0 && c < n_all; };
+    auto is_phys = [](int c) -> bool { return c >= 0 && c < No_Physical_Cells; };
+
+    /* Neighbour-of-neighbour; never return Current_Cell_Index or -1 silently as 0. */
+    auto getNeighbour = [&](int cellIndex, int direction) -> int {
+        if (!is_valid(cellIndex) || direction < 0 || direction >= 4)
+            return -1;
+        if (static_cast<int>(Cells[cellIndex].Neighbours.size()) <= direction)
+            return -1;
+        const int n = Cells[cellIndex].Neighbours[direction];
+        if (!is_valid(n) || n == Current_Cell_Index)
+            return -1;
+        return n;
     };
 
-    // Determine secondary neighbors based on boundary conditions
-    if (Neighbour_1 >= No_Physical_Cells && Neighbour_2 >= No_Physical_Cells) // Bottom-left corner
+    auto pick = [&](int a, int b) -> int {
+        if (is_valid(a) && a != Current_Cell_Index)
+            return a;
+        if (is_valid(b) && b != Current_Cell_Index)
+            return b;
+        return Current_Cell_Index; /* last resort: collapse stencil */
+    };
+
+    const bool ghost_L = !is_phys(N_L);
+    const bool ghost_B = !is_phys(N_B);
+    const bool ghost_R = !is_phys(N_R);
+    const bool ghost_T = !is_phys(N_T);
+
+    int SW = -1, SE = -1, NE = -1, NW = -1;
+
+    if (ghost_L && ghost_B)
     {
-        Cells[Current_Cell_Index].Secondary_Neighbours[0] = Neighbour_2;
-        Cells[Current_Cell_Index].Secondary_Neighbours[1] = getNeighbour(Neighbour_3, 2);
-        Cells[Current_Cell_Index].Secondary_Neighbours[2] = getNeighbour(Neighbour_4, 1);
-        Cells[Current_Cell_Index].Secondary_Neighbours[3] = getNeighbour(Neighbour_1, 0);
+        /* Wall/exit bottom-left corner (e.g. half-cylinder cell 0). */
+        SW = pick(N_B, N_L);
+        SE = pick(getNeighbour(N_R, 1), N_B);
+        NE = pick(getNeighbour(N_R, 3), getNeighbour(N_T, 2));
+        NW = pick(getNeighbour(N_T, 0), N_L);
     }
-    else if (Neighbour_2 >= No_Physical_Cells && Neighbour_3 >= No_Physical_Cells) // Bottom-right corner
+    else if (ghost_B && ghost_R)
     {
-        Cells[Current_Cell_Index].Secondary_Neighbours[0] = getNeighbour(Neighbour_1, 1);
-        Cells[Current_Cell_Index].Secondary_Neighbours[1] = Neighbour_2;
-        Cells[Current_Cell_Index].Secondary_Neighbours[2] = getNeighbour(Neighbour_4, 2);
-        Cells[Current_Cell_Index].Secondary_Neighbours[3] = getNeighbour(Neighbour_1, 3);
+        /* Wall/exit bottom-right corner (e.g. cell 479). */
+        SW = pick(getNeighbour(N_L, 1), N_B);
+        SE = pick(N_B, N_R);
+        NE = pick(getNeighbour(N_T, 2), N_R);
+        NW = pick(getNeighbour(N_L, 3), getNeighbour(N_T, 0));
     }
-    else if (Neighbour_3 >= No_Physical_Cells && Neighbour_4 >= No_Physical_Cells) // Top-right corner
+    else if (ghost_R && ghost_T)
     {
-        Cells[Current_Cell_Index].Secondary_Neighbours[0] = getNeighbour(Neighbour_1, 1);
-        Cells[Current_Cell_Index].Secondary_Neighbours[1] = getNeighbour(Neighbour_2, 0);
-        Cells[Current_Cell_Index].Secondary_Neighbours[2] = Neighbour_4;
-        Cells[Current_Cell_Index].Secondary_Neighbours[3] = getNeighbour(Neighbour_1, 3);
+        /* Inlet/exit top-right corner. */
+        SW = pick(getNeighbour(N_L, 1), getNeighbour(N_B, 0));
+        SE = pick(getNeighbour(N_B, 2), N_R);
+        NE = pick(N_T, N_R);
+        NW = pick(getNeighbour(N_L, 3), N_T);
     }
-    else if (Neighbour_1 >= No_Physical_Cells && Neighbour_4 >= No_Physical_Cells) // Top-left corner
+    else if (ghost_L && ghost_T)
     {
-        Cells[Current_Cell_Index].Secondary_Neighbours[0] = getNeighbour(Neighbour_2, 0);
-        Cells[Current_Cell_Index].Secondary_Neighbours[1] = getNeighbour(Neighbour_3, 2);
-        Cells[Current_Cell_Index].Secondary_Neighbours[2] = getNeighbour(Neighbour_4, 3);
-        Cells[Current_Cell_Index].Secondary_Neighbours[3] = Neighbour_1;
+        /* Inlet/exit top-left corner. */
+        SW = pick(getNeighbour(N_B, 0), N_L);
+        SE = pick(getNeighbour(N_R, 1), getNeighbour(N_B, 2));
+        NE = pick(getNeighbour(N_R, 3), N_T);
+        NW = pick(N_L, N_T);
     }
-    else // Interior or boundary cells
+    else
     {
-        Cells[Current_Cell_Index].Secondary_Neighbours[0] = getNeighbour(Neighbour_1, 1);
-        Cells[Current_Cell_Index].Secondary_Neighbours[1] = getNeighbour(Neighbour_2, 2);
-        Cells[Current_Cell_Index].Secondary_Neighbours[2] = getNeighbour(Neighbour_3, 3);
-        Cells[Current_Cell_Index].Secondary_Neighbours[3] = getNeighbour(Neighbour_4, 0);
+        /* Interior / single-face boundary: walk around primary faces. */
+        SW = pick(getNeighbour(N_L, 1), getNeighbour(N_B, 0));
+        SE = pick(getNeighbour(N_B, 2), getNeighbour(N_R, 1));
+        NE = pick(getNeighbour(N_R, 3), getNeighbour(N_T, 2));
+        NW = pick(getNeighbour(N_T, 0), getNeighbour(N_L, 3));
     }
+
+    Cells[Current_Cell_Index].Secondary_Neighbours[0] = SW;
+    Cells[Current_Cell_Index].Secondary_Neighbours[1] = SE;
+    Cells[Current_Cell_Index].Secondary_Neighbours[2] = NE;
+    Cells[Current_Cell_Index].Secondary_Neighbours[3] = NW;
+}
+
+void Dump_Viscous_Corner_Diagnostics(const string &opfile)
+{
+    ofstream out(opfile);
+    if (!out.is_open())
+    {
+        cerr << "Dump_Viscous_Corner_Diagnostics: cannot open " << opfile << endl;
+        return;
+    }
+
+    /* Multi-BC physical cells (corners). */
+    map<int, vector<string>> bc_by_cell;
+    auto add_list = [&](const char *tag, const V_I &list) {
+        for (size_t i = 0; i + 2 < list.size(); i += 3)
+            bc_by_cell[list[i]].push_back(string(tag) + ":face=" + to_string(list[i + 1]) +
+                                         ":ghost=" + to_string(list[i + 2]));
+    };
+    add_list("Inlet", Inlet_Cells_List);
+    add_list("Exit", Exit_Cells_List);
+    add_list("Wall", Wall_Cells_List);
+    add_list("Symmetry", Symmetry_Cells_List);
+
+    out << "=== Multi-BC corner cells ===\n";
+    for (const auto &kv : bc_by_cell)
+    {
+        if (kv.second.size() < 2)
+            continue;
+        const int c = kv.first;
+        if (c < 0 || c >= No_Physical_Cells || c >= static_cast<int>(Cells.size()))
+            continue;
+        const Cell &cell = Cells[c];
+        out << "\nCell " << c;
+        if (cell.Cell_Center.size() >= 2)
+            out << " center=(" << cell.Cell_Center[0] << "," << cell.Cell_Center[1] << ")";
+        out << "\n  BC:";
+        for (const auto &s : kv.second)
+            out << " " << s;
+        out << "\n  Neighbours LBRT:";
+        for (int f = 0; f < 4 && f < static_cast<int>(cell.Neighbours.size()); ++f)
+            out << " " << cell.Neighbours[f];
+        out << "\n  Secondary SW,SE,NE,NW:";
+        for (int f = 0; f < 4 && f < static_cast<int>(cell.Secondary_Neighbours.size()); ++f)
+            out << " " << cell.Secondary_Neighbours[f];
+        out << "\n";
+        for (int f = 0; f < 4; ++f)
+        {
+            const double nx = (2 * f + 1 < static_cast<int>(cell.Face_Normals.size()))
+                                  ? cell.Face_Normals[2 * f]
+                                  : 0.0;
+            const double ny = (2 * f + 1 < static_cast<int>(cell.Face_Normals.size()))
+                                  ? cell.Face_Normals[2 * f + 1]
+                                  : 0.0;
+            const double dl = (f < static_cast<int>(cell.Face_Areas.size())) ? cell.Face_Areas[f] : 0.0;
+            out << "  Face " << f << " n=(" << nx << "," << ny << ") L=" << dl;
+            if (c < static_cast<int>(Co_Volume_Cells.size()) &&
+                !Co_Volume_Cells[c].Face_Normals.empty())
+            {
+                out << "  co-vol n0=(" << Co_Volume_Cells[c].Face_Normals[f * 8 + 0] << ","
+                    << Co_Volume_Cells[c].Face_Normals[f * 8 + 1] << ")";
+            }
+            out << "\n";
+        }
+    }
+
+    /* Wall face histogram + first/last entries. */
+    out << "\n=== Wall face-number histogram ===\n";
+    map<int, int> hist;
+    for (size_t i = 0; i + 2 < Wall_Cells_List.size(); i += 3)
+        hist[Wall_Cells_List[i + 1]]++;
+    for (const auto &kv : hist)
+        out << "  face " << kv.first << " count=" << kv.second << "\n";
+
+    out << "\n=== BC list samples (first 3 + last 3 of each) ===\n";
+    auto sample = [&](const char *name, const V_I &list) {
+        out << name << " total=" << (list.size() / 3) << "\n";
+        const size_t n = list.size() / 3;
+        for (size_t k = 0; k < n && k < 3; ++k)
+            out << "  [" << k << "] cell=" << list[3 * k] << " face=" << list[3 * k + 1]
+                << " ghost=" << list[3 * k + 2] << "\n";
+        for (size_t k = (n > 3 ? n - 3 : 3); k < n; ++k)
+            out << "  [" << k << "] cell=" << list[3 * k] << " face=" << list[3 * k + 1]
+                << " ghost=" << list[3 * k + 2] << "\n";
+    };
+    sample("Inlet", Inlet_Cells_List);
+    sample("Exit", Exit_Cells_List);
+    sample("Wall", Wall_Cells_List);
+
+    out.close();
+    cout << "Viscous corner diagnostics written to " << opfile << endl;
 }
 
 // Evaluate gradients at cell centers
@@ -296,30 +423,34 @@ void Calculate_Vertex_Average(const V_D &weights, const V_D &cell_averages, V_D 
  */
 void Calculate_Gradient_On_Face(const int &Current_Cell_Index, const int &Grad_Type, const int &Face_No)
 {
-    // Retrieve neighbors
-    V_I neighbors(8, 0);
-    neighbors = {
-        Cells[Current_Cell_Index].Neighbours[0],
-        Cells[Current_Cell_Index].Neighbours[1],
-        Cells[Current_Cell_Index].Neighbours[2],
-        Cells[Current_Cell_Index].Neighbours[3],
-        Cells[Current_Cell_Index].Secondary_Neighbours[0],
-        Cells[Current_Cell_Index].Secondary_Neighbours[1],
-        Cells[Current_Cell_Index].Secondary_Neighbours[2],
-        Cells[Current_Cell_Index].Secondary_Neighbours[3]};
+    const int n_all = static_cast<int>(Cells.size());
+    auto safe_prim = [&](int c) -> double {
+        if (c < 0 || c >= n_all || c >= static_cast<int>(Primitive_Cells.size()))
+            return Primitive_Cells[Current_Cell_Index][Grad_Type];
+        if (Grad_Type < 0 || Grad_Type >= static_cast<int>(Primitive_Cells[c].size()))
+            return Primitive_Cells[Current_Cell_Index][Grad_Type];
+        return Primitive_Cells[c][Grad_Type];
+    };
 
-    // Retrieve cell averages
-    V_D cell_averages(8, 0.0);
-    cell_averages = {
-        Primitive_Cells[Current_Cell_Index][Grad_Type], // Current Cell
-        Primitive_Cells[neighbors[0]][Grad_Type],       // Neighbour 1
-        Primitive_Cells[neighbors[1]][Grad_Type],       // Neighbour 2
-        Primitive_Cells[neighbors[2]][Grad_Type],       // Neighbour 3
-        Primitive_Cells[neighbors[3]][Grad_Type],       // Neighbour 4
-        Primitive_Cells[neighbors[4]][Grad_Type],       // Neighbour 5
-        Primitive_Cells[neighbors[5]][Grad_Type],       // Neighbour 6
-        Primitive_Cells[neighbors[6]][Grad_Type],       // Neighbour 7
-        Primitive_Cells[neighbors[7]][Grad_Type]};      // Neighbour 8
+    /* Primary (0..3) then Secondary SW,SE,NE,NW (4..7). */
+    V_I neighbors(8, Current_Cell_Index);
+    for (int i = 0; i < 4; ++i)
+    {
+        if (i < static_cast<int>(Cells[Current_Cell_Index].Neighbours.size()))
+            neighbors[i] = Cells[Current_Cell_Index].Neighbours[i];
+        if (i < static_cast<int>(Cells[Current_Cell_Index].Secondary_Neighbours.size()))
+            neighbors[4 + i] = Cells[Current_Cell_Index].Secondary_Neighbours[i];
+        if (neighbors[i] < 0 || neighbors[i] >= n_all)
+            neighbors[i] = Current_Cell_Index;
+        if (neighbors[4 + i] < 0 || neighbors[4 + i] >= n_all)
+            neighbors[4 + i] = Current_Cell_Index;
+    }
+
+    /* 9 entries: current + 8 neighbours (was incorrectly sized to 8). */
+    V_D cell_averages(9, 0.0);
+    cell_averages[0] = safe_prim(Current_Cell_Index);
+    for (int i = 0; i < 8; ++i)
+        cell_averages[i + 1] = safe_prim(neighbors[i]);
 
     // Calculate weights
     V_D weights(9, 1.0); // Default to equal weights

@@ -360,6 +360,9 @@ bool Construct_Cells_Hybrid(bool use_gpu)
                                     cell.Cell_Vertices.begin() + i + 3);
                 cell_connectivity.push_back(point_coords.size() / 3 - 1);
             }
+#ifndef VTK_QUAD
+#define VTK_QUAD 9
+#endif
             cell_types.push_back(VTK_QUAD); // Assume quadrilateral
         }
         cell_offsets.push_back(cell_connectivity.size());

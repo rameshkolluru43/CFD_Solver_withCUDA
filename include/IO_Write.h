@@ -14,6 +14,7 @@ void Write_VTK_File(const string &);
 void Write_Error_File(const string &);
 void Write_Limiter_File(const string &);
 void Write_CF_File(const string &);
+void Write_QW_File(const string &);
 void Write_A_MatrixToFile(vector<V_D> &, const string &);
 void Write_b_VectorToFile(V_D &, const string &);
 void createOutputDirectories();

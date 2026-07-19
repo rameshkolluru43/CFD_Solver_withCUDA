@@ -1,0 +1,49 @@
+{
+  "GeneralDetails": {
+    "name": "Half_Cylinder",
+    "description": "Half Cylinder M=6 viscous: isothermal no-slip wall for heat-flux (WENO-Z + RICCA + NS)"
+  },
+  "geometry_parameters": {
+    "radius": 1.0,
+    "length": 2.0,
+    "thickness": 0.1
+  },
+  "mesh_parameters": {
+    "Grid_Size": 7,
+    "Nx": 481,
+    "Ny": 161,
+    "mesh_type": "structured"
+  },
+  "Flow_Conditions": {
+    "Reynolds_number": 100000.0,
+    "Prandtl_number": 0.72,
+    "inlet_conditions": {
+      "inlet_type": "supersonic",
+      "Pressure_Static_Inlet": 1.0,
+      "Rho_Static_Inlet": 1.4,
+      "Inlet_Mach_No": 6.0,
+      "u": 0.0,
+      "v": -6.0
+    },
+    "exit_conditions": {
+      "exit_type": "supersonic",
+      "Pressure_Static_Exit": 1.0,
+      "Rho_Static_Exit": 1.4,
+      "Exit_Mach_No": 6.0,
+      "u": 0.0,
+      "v": -6.0
+    },
+    "wall_conditions": {
+      "wall_type": "no_slip",
+      "wall_temperature": 2.0,
+      "wall_velocity": 0.0
+    },
+    "Initial_Conditions": {
+      "Pressure_Static_Inlet": 1.0,
+      "Rho_Static_Inlet": 1.4,
+      "Inlet_Mach_No": 6.0,
+      "u": 0.0,
+      "v": -6.0
+    }
+  }
+}

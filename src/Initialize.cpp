@@ -41,7 +41,7 @@ int AMR_Period = 100, AMR_Start_Iteration = 200;
 double AMR_Gradient_Threshold = 0.1, AMR_Max_Fraction = 0.3;
 double AMR_Coarsen_Threshold = 0.04;
 vector<double> Gradient_Refinement_Indicator;
-string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File;
+string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, QW_File;
 // variables to read the face normals and face lenghts and face area
 double nx, ny, dl, dA;
 
@@ -52,7 +52,7 @@ double mu = 0.0, K = 0.0;
 int Viscous_Time_Case;
 // Left State Variables
 double Rho_L, T_L, P_L, u_L, v_L, Vdotn_L, Vmag_L, M_L, C_L, H_L;
-V_D Flux_L, U_L, CF, b;
+V_D Flux_L, U_L, CF, QW, St, b;
 int NUM_FLUX_COMPONENTS;
 // Right State Varialbes
 double Rho_R, T_R, P_R, u_R, v_R, Vdotn_R, Vmag_R, M_R, C_R, H_R, Qx, Qy;
@@ -100,6 +100,8 @@ void Initialize(const int &Test_Case)
 	for (unsigned int i = 0; i < Wall_Cells_List.size(); i += 3)
 	{
 		CF.push_back(0.0);
+		QW.push_back(0.0);
+		St.push_back(0.0);
 	}
 	cout << CF.size() << endl;
 	for (int index = 0; index < No_Physical_Cells; index++)
@@ -126,6 +128,18 @@ void Initialize(const int &Test_Case)
 	{
 		for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
 			Identify_Neighbours_For_Second_Gradients(Cell_Index);
+		string corner_diag = "viscous_corner_diagnostics.txt";
+		if (!Solution_File.empty())
+		{
+			try
+			{
+				corner_diag = (filesystem::path(Solution_File).parent_path() / "viscous_corner_diagnostics.txt").string();
+			}
+			catch (...)
+			{
+			}
+		}
+		Dump_Viscous_Corner_Diagnostics(corner_diag);
 	}
 	cout << "Memory Allocation Done for all Cells\n";
 

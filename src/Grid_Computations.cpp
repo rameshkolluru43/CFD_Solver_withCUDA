@@ -153,9 +153,9 @@ void Read_Grid(const string &ipfile)
 			Grid_Cell.nodeIndices.resize(4, 0);
 			Grid_Cell.Area = 0.0;
 			Grid_Cell.Inv_Area = 0.0;
-			// Enforce anti-clockwise vertex ordering and node indices for geometric consistency
+			/* Keep file vertex order [o,a,b,c]. Neighbours/BC faces are LBRT in that
+			   convention; atan2 reordering breaks wall/exit normals at corners. */
 			Grid_Cell.nodeIndices = {0, 1, 2, 3};
-			Sort_Points_AntiClockWise(Grid_Cell.Cell_Vertices, Grid_Cell.nodeIndices);
 			Construct_Cell(Grid_Cell);
 			Cells.push_back(Grid_Cell);
 			// Delete all the data in the Grid_Cell
@@ -381,11 +381,11 @@ bool Form_Cells(const string &ipfile)
 		cout << "Construction Co Volumes for NS Solver" << endl;
 		if (Is_Viscous_Wall)
 		{
+			Co_Volume_Cells.clear();
+			Co_Volume_Cells.reserve(No_Physical_Cells);
 			for (int i = 0; i < No_Physical_Cells; i++)
 			{
-				//			cout<<i<<endl;
 				Construct_Co_Volumes(i);
-				//
 			}
 			cout << "Construction of Co-Volumes Completed\n";
 		}
@@ -458,8 +458,8 @@ void Construct_Ghost_Cells()
 /*
   Structured quad indexing (2D): Neighbours[0..3] are always
     [0] left (i-1,j), [1] bottom (i,j-1), [2] right (i+1,j), [3] top (i,j+1).
-  Custom text grid files read by Read_Grid() use the same four-neighbor order on each data line
-  (left, bottom, right, top). Construct_Cell() remaps face areas/normals to match this list.
+  Custom text grid files read by Read_Grid() use verts [o,a,b,c] and the same LBRT
+  neighbor order. Construct_Cell() builds face areas/normals in that LBRT order.
 */
 
 void Set_Indicies_of_Neighbour_Cells(const int &a0, const int &a1, const int &a2, const int &a3, const int &a4)
@@ -539,34 +539,57 @@ void Construct_Cell(Cell &Grid_Cell)
 	Compute_Centroid(Grid_Cell);
 
 	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
-
-	// Constructing Face Area and Face Normal (works for tri/quad). Vertex order is CCW;
-	// for a quad, edge e = v_e -> v_{e+1} runs bottom, right, top, left when v0 is SW.
-	Grid_Cell.Face_Areas.clear();
-	Grid_Cell.Face_Normals.clear();
-	Construct_Face(Grid_Cell);
-
-	/* Align face index with Neighbours[0..3]: 0=left, 1=bottom, 2=right, 3=top.
-	   Vertex-ordered edges e=0,1,2,3 are bottom,right,top,left — remap so logical f uses e=(f+3)%4. */
-	if (n == 4 && static_cast<int>(Grid_Cell.Face_Areas.size()) == 4 &&
-		static_cast<int>(Grid_Cell.Face_Normals.size()) == 8)
-	{
-		const std::vector<double> a = Grid_Cell.Face_Areas;
-		const std::vector<double> nrm = Grid_Cell.Face_Normals;
-		for (int f = 0; f < 4; ++f)
-		{
-			const int e = (f + 3) % 4;
-			Grid_Cell.Face_Areas[f] = a[e];
-			Grid_Cell.Face_Normals[2 * f + 0] = nrm[2 * e + 0];
-			Grid_Cell.Face_Normals[2 * f + 1] = nrm[2 * e + 1];
-		}
-	}
-
-	// Polygon area (shoelace) in XY plane
 	if (n < 3)
 	{
 		throw runtime_error("Construct_Cell: cell has fewer than 3 vertices");
 	}
+
+	Grid_Cell.Face_Areas.clear();
+	Grid_Cell.Face_Normals.clear();
+
+	if (n == 4)
+	{
+		/* Structured/text-grid quads: verts [o,a,b,c] with Neighbours LBRT.
+		   Face edges match classic Construct_Face(o,a,b,c):
+		     0=left  c->o, 1=bottom o->a, 2=right a->b, 3=top b->c. */
+		const double *V = Grid_Cell.Cell_Vertices.data();
+		const int i0[4] = {3, 0, 1, 2};
+		const int i1[4] = {0, 1, 2, 3};
+		const double cx = Grid_Cell.Cell_Center[0];
+		const double cy = Grid_Cell.Cell_Center[1];
+		Grid_Cell.Face_Areas.resize(4, 0.0);
+		Grid_Cell.Face_Normals.resize(8, 0.0);
+		for (int f = 0; f < 4; ++f)
+		{
+			V_D pa(3, 0.0), pb(3, 0.0);
+			pa[0] = V[3 * i0[f] + 0];
+			pa[1] = V[3 * i0[f] + 1];
+			pa[2] = V[3 * i0[f] + 2];
+			pb[0] = V[3 * i1[f] + 0];
+			pb[1] = V[3 * i1[f] + 1];
+			pb[2] = V[3 * i1[f] + 2];
+			double L = 0.0, nx = 0.0, ny = 0.0;
+			Construct_Face(pa, pb, L, nx, ny);
+			const double mx = 0.5 * (pa[0] + pb[0]);
+			const double my = 0.5 * (pa[1] + pb[1]);
+			/* Ensure outward normal (points away from cell center). */
+			if (nx * (mx - cx) + ny * (my - cy) < 0.0)
+			{
+				nx = -nx;
+				ny = -ny;
+			}
+			Grid_Cell.Face_Areas[f] = L;
+			Grid_Cell.Face_Normals[2 * f + 0] = nx;
+			Grid_Cell.Face_Normals[2 * f + 1] = ny;
+		}
+		Grid_Cell.numFaces = 4;
+	}
+	else
+	{
+		Construct_Face(Grid_Cell);
+	}
+
+	// Polygon area (shoelace) in XY plane
 	double twice_area = 0.0;
 	for (int i = 0; i < n; i++)
 	{
@@ -627,16 +650,17 @@ void Construct_Cell(const int &Current_Cell_No, const int &Face_No, const int &G
 							" for nFaces=" + to_string(nFaces));
 	}
 
-	// Face endpoints: Face_No is logical (Neighbours index): 0=left, 1=bottom, 2=right, 3=top.
-	// Vertex CCW order gives edges bottom,right,top,left — same remap as Construct_Cell(Cell&): e = (f+3)%4.
+	/* Face endpoints for logical Neighbours index (LBRT) with verts [o,a,b,c]:
+	   0=left c-o, 1=bottom o-a, 2=right a-b, 3=top b-c. */
 	const int nVerts = static_cast<int>(C.Cell_Vertices.size() / 3);
 	int i0 = Face_No % nVerts;
 	int i1 = (Face_No + 1) % nVerts;
 	if (nVerts == 4)
 	{
-		const int e = (Face_No + 3) % 4;
-		i0 = e;
-		i1 = (e + 1) % 4;
+		static const int i0_lbrt[4] = {3, 0, 1, 2};
+		static const int i1_lbrt[4] = {0, 1, 2, 3};
+		i0 = i0_lbrt[Face_No];
+		i1 = i1_lbrt[Face_No];
 	}
 
 	V_D mid(3, 0.0);

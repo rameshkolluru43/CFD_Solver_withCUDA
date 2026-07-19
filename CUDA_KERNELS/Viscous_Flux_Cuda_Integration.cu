@@ -1,6 +1,8 @@
 /**
  * @file Viscous_Flux_Cuda_Integration.cu
- * @brief 2D viscous flux on GPU (Green–Gauss cell gradients + face stress, matches src/Grid_Refine_Functions.cpp logic).
+ * @brief 2D viscous flux on GPU: Green–Gauss + face-normal correction (α-damped),
+ *        μ-scaled heat conductivity. Used by host Evaluate_Viscous_Fluxes when
+ *        the resident NS stepper is not active.
  */
 
 #include <cuda_runtime.h>
@@ -22,6 +24,15 @@ constexpr int kPrimStride = 9; // rho,u,v,T,P,c,pad,pad,mu
 __device__ double prim_at(const double *prim, int cell, int comp)
 {
     return prim[cell * kPrimStride + comp];
+}
+
+__device__ double d_sutherland_mu(double T)
+{
+    const double term1 = 110.4 / 288.15;
+    if (!(T > 1e-12) || !isfinite(T))
+        return 1.0;
+    const double term2 = T + term1;
+    return pow(T, 1.5) * ((1.0 + term1) / term2);
 }
 
 __device__ void green_gauss_grad_cell(
@@ -64,7 +75,7 @@ __device__ void green_gauss_grad_cell(
     gy *= inv_area;
 }
 
-__device__ void face_grad_from_cells(
+__device__ void face_grad_corrected(
     int cell,
     int neigh,
     int grad_comp,
@@ -74,7 +85,9 @@ __device__ void face_grad_from_cells(
     const double *face_areas,
     const double *inv_area,
     const double *prim,
+    const double *centers,
     int n_cells,
+    double alpha,
     double &gx,
     double &gy)
 {
@@ -84,8 +97,30 @@ __device__ void face_grad_from_cells(
     if (neigh >= 0 && neigh < n_cells)
         green_gauss_grad_cell(neigh, grad_comp, num_faces, neighbours, face_normals, face_areas,
                               inv_area[neigh], prim, n_cells, gxn, gyn);
+    else
+    {
+        gxn = gxc;
+        gyn = gyc;
+    }
     gx = 0.5 * (gxc + gxn);
     gy = 0.5 * (gyc + gyn);
+
+    if (neigh < 0 || neigh >= n_cells || centers == nullptr)
+        return;
+
+    const double dx = centers[neigh * 2 + 0] - centers[cell * 2 + 0];
+    const double dy = centers[neigh * 2 + 1] - centers[cell * 2 + 1];
+    const double ds2 = dx * dx + dy * dy;
+    if (!(ds2 > 1e-30))
+        return;
+    const double ds = sqrt(ds2);
+    const double ex = dx / ds;
+    const double ey = dy / ds;
+    const double dphi_exact = (prim_at(prim, neigh, grad_comp) - prim_at(prim, cell, grad_comp)) / ds;
+    const double dphi_approx = gx * ex + gy * ey;
+    const double corr = alpha * (dphi_exact - dphi_approx);
+    gx += corr * ex;
+    gy += corr * ey;
 }
 
 __device__ void viscous_flux_on_face(
@@ -98,9 +133,11 @@ __device__ void viscous_flux_on_face(
     const double *face_areas,
     const double *inv_area,
     const double *prim,
+    const double *centers,
     int n_cells,
     double inv_re,
-    double k1,
+    double k1_base,
+    double alpha,
     double &f0,
     double &f1,
     double &f2,
@@ -110,7 +147,6 @@ __device__ void viscous_flux_on_face(
     if (neigh < 0 || neigh >= n_cells)
         return;
 
-    const int index = face * 2;
     const double nx = face_normals[(cell * kMaxFaces + face) * 2 + 0];
     const double ny = face_normals[(cell * kMaxFaces + face) * 2 + 1];
     const double dl = face_areas[cell * kMaxFaces + face];
@@ -121,27 +157,37 @@ __device__ void viscous_flux_on_face(
     const double v_L = prim_at(prim, cell, 2);
     const double u_R = prim_at(prim, neigh, 1);
     const double v_R = prim_at(prim, neigh, 2);
-    const double mu = 0.5 * (prim_at(prim, cell, 8) + prim_at(prim, neigh, 8));
+    double mu = 0.5 * (prim_at(prim, cell, 8) + prim_at(prim, neigh, 8));
+    if (!(mu > 0.0) || !isfinite(mu))
+    {
+        const double T_L = prim_at(prim, cell, 3);
+        const double T_R = prim_at(prim, neigh, 3);
+        mu = 0.5 * (d_sutherland_mu(T_L) + d_sutherland_mu(T_R));
+    }
 
     const double v1 = 0.5 * (u_L + u_R);
     const double v2 = 0.5 * (v_L + v_R);
 
     double u11, u12, u21, u22, tgx, tgy;
-    face_grad_from_cells(cell, neigh, 1, num_faces, neighbours, face_normals, face_areas, inv_area, prim, n_cells, u11, u12);
-    face_grad_from_cells(cell, neigh, 2, num_faces, neighbours, face_normals, face_areas, inv_area, prim, n_cells, u21, u22);
-    face_grad_from_cells(cell, neigh, 3, num_faces, neighbours, face_normals, face_areas, inv_area, prim, n_cells, tgx, tgy);
+    face_grad_corrected(cell, neigh, 1, num_faces, neighbours, face_normals, face_areas, inv_area,
+                        prim, centers, n_cells, alpha, u11, u12);
+    face_grad_corrected(cell, neigh, 2, num_faces, neighbours, face_normals, face_areas, inv_area,
+                        prim, centers, n_cells, alpha, u21, u22);
+    face_grad_corrected(cell, neigh, 3, num_faces, neighbours, face_normals, face_areas, inv_area,
+                        prim, centers, n_cells, alpha, tgx, tgy);
 
     const double T11 = (2.0 / 3.0) * mu * inv_re * (2.0 * u11 - u22);
     const double T12 = mu * inv_re * (u12 + u21);
     const double T21 = T12;
     const double T22 = (2.0 / 3.0) * mu * inv_re * (2.0 * u22 - u11);
+    const double k1 = k1_base * mu;
     const double Qx = k1 * tgx;
     const double Qy = k1 * tgy;
 
     f0 = 0.0;
     f1 = (T11 * nx + T21 * ny) * dl;
     f2 = (T12 * nx + T22 * ny) * dl;
-    f3 = ((T11 * v1 + T12 * v2 + Qx) * nx * dl + (T21 * v1 + T22 * v2 + Qy) * ny * dl);
+    f3 = ((T11 * v1 + T12 * v2 + Qx) * nx + (T21 * v1 + T22 * v2 + Qy) * ny) * dl;
 }
 
 __global__ void evaluate_viscous_flux_kernel(
@@ -151,11 +197,13 @@ __global__ void evaluate_viscous_flux_kernel(
     const double *face_areas,
     const double *inv_area,
     const double *prim,
+    const double *centers,
     double *viscous_flux,
     int n_cells,
     int n_physical,
     double inv_re,
-    double k1)
+    double k1,
+    double alpha)
 {
     const int cell = blockIdx.x * blockDim.x + threadIdx.x;
     if (cell >= n_physical)
@@ -170,7 +218,7 @@ __global__ void evaluate_viscous_flux_kernel(
         const int neigh = neighbours[cell * kMaxFaces + face];
         double f0, f1, f2, f3;
         viscous_flux_on_face(cell, neigh, face, num_faces, neighbours, face_normals, face_areas,
-                             inv_area, prim, n_cells, inv_re, k1, f0, f1, f2, f3);
+                             inv_area, prim, centers, n_cells, inv_re, k1, alpha, f0, f1, f2, f3);
         viscous_flux[cell * kNv + 0] += f0;
         viscous_flux[cell * kNv + 1] += f1;
         viscous_flux[cell * kNv + 2] += f2;
@@ -188,6 +236,7 @@ struct ViscousCudaBuffers
     double *d_inv_area = nullptr;
     double *d_prim = nullptr;
     double *d_viscous = nullptr;
+    double *d_centers = nullptr;
 
     void free_all()
     {
@@ -205,6 +254,8 @@ struct ViscousCudaBuffers
             cudaFree(d_prim);
         if (d_viscous)
             cudaFree(d_viscous);
+        if (d_centers)
+            cudaFree(d_centers);
         *this = ViscousCudaBuffers{};
     }
 };
@@ -241,6 +292,8 @@ bool ensure_visc_buffers(int n_cells)
         return false;
     if (!chk(cudaMalloc(&g_visc.d_viscous, n_cells * kNv * sizeof(double)), "viscous"))
         return false;
+    if (!chk(cudaMalloc(&g_visc.d_centers, n_cells * 2 * sizeof(double)), "centers"))
+        return false;
     return true;
 }
 
@@ -264,6 +317,7 @@ bool Evaluate_Viscous_Fluxes_CUDA()
     std::vector<double> h_areas(n_cells * kMaxFaces, 0.0);
     std::vector<double> h_inv_area(n_cells, 0.0);
     std::vector<double> h_prim(n_cells * kPrimStride, 0.0);
+    std::vector<double> h_centers(n_cells * 2, 0.0);
 
     for (int c = 0; c < n_cells; ++c)
     {
@@ -272,6 +326,11 @@ bool Evaluate_Viscous_Fluxes_CUDA()
                            : static_cast<int>(Cells[c].Face_Areas.size());
         h_num_faces[c] = std::min(nf, kMaxFaces);
         h_inv_area[c] = Cells[c].Inv_Area;
+        if (Cells[c].Cell_Center.size() >= 2)
+        {
+            h_centers[c * 2 + 0] = Cells[c].Cell_Center[0];
+            h_centers[c * 2 + 1] = Cells[c].Cell_Center[1];
+        }
 
         for (int f = 0; f < h_num_faces[c]; ++f)
         {
@@ -307,7 +366,7 @@ bool Evaluate_Viscous_Fluxes_CUDA()
             else if (p.size() > 3)
             {
                 const double T = p[3];
-                const double term1 = T_S_MU_CONST / t_ref;
+                const double term1 = T_S_MU_CONST / T_REF_CONST;
                 const double term2 = T + term1;
                 h_prim[c * kPrimStride + 8] = (term2 > 1e-14)
                                                   ? pow(T, 1.5) * ((1.0 + term1) / term2)
@@ -322,13 +381,16 @@ bool Evaluate_Viscous_Fluxes_CUDA()
     cudaMemcpy(g_visc.d_face_areas, h_areas.data(), n_cells * kMaxFaces * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(g_visc.d_inv_area, h_inv_area.data(), n_cells * sizeof(double), cudaMemcpyHostToDevice);
     cudaMemcpy(g_visc.d_prim, h_prim.data(), n_cells * kPrimStride * sizeof(double), cudaMemcpyHostToDevice);
+    cudaMemcpy(g_visc.d_centers, h_centers.data(), n_cells * 2 * sizeof(double), cudaMemcpyHostToDevice);
 
     const int threads = 256;
     const int blocks = (No_Physical_Cells + threads - 1) / threads;
+    constexpr double kAlpha = 0.75;
 
     evaluate_viscous_flux_kernel<<<blocks, threads>>>(
         g_visc.d_num_faces, g_visc.d_neighbours, g_visc.d_face_normals, g_visc.d_face_areas,
-        g_visc.d_inv_area, g_visc.d_prim, g_visc.d_viscous, n_cells, No_Physical_Cells, Inv_Re, K1);
+        g_visc.d_inv_area, g_visc.d_prim, g_visc.d_centers, g_visc.d_viscous,
+        n_cells, No_Physical_Cells, Inv_Re, K1, kAlpha);
 
     cudaError_t err = cudaDeviceSynchronize();
     if (err != cudaSuccess)

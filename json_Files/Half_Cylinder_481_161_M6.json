@@ -1,0 +1,45 @@
+{
+  "GeneralDetails": {
+    "name": "Half_Cylinder",
+    "description": "Half Cylinder: inlet u=0,v=-6 (M=6, a=1); init quiescent u=v=0 with rho=1.4, P=1"
+  },
+  "geometry_parameters": {
+    "radius": 1.0,
+    "length": 2.0,
+    "thickness": 0.1
+  },
+  "mesh_parameters": {
+    "Grid_Size": 7,
+    "Nx": 481,
+    "Ny": 161,
+    "mesh_type": "structured"
+  },
+  "Flow_Conditions": {
+    "inlet_conditions": {
+      "inlet_type": "supersonic",
+      "Pressure_Static_Inlet": 1.0,
+      "Rho_Static_Inlet": 1.4,
+      "Inlet_Mach_No": 6.0,
+      "u": 0.0,
+      "v": -6.0
+    },
+    "exit_conditions": {
+      "exit_type": "supersonic",
+      "Pressure_Static_Exit": 1.0,
+      "Rho_Static_Exit": 1.4,
+      "Exit_Mach_No": 6.0,
+      "u": 0.0,
+      "v": -6.0
+    },
+    "wall_conditions": {
+      "wall_type": "slip"
+    },
+    "Initial_Conditions": {
+      "Pressure_Static_Inlet": 1.0,
+      "Rho_Static_Inlet": 1.4,
+      "Inlet_Mach_No": 0.0,
+      "u": 0.0,
+      "v": 0.0
+    }
+  }
+}

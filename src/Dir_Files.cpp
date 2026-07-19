@@ -156,11 +156,18 @@ void createOutputDirectories()
                               "_FluxScheme_" + getFluxSchemeName() +
                               "_Dissipation_" + getDissipationName(Dissipation_Type) +
                               ".vtk";
+        CF_File = gridDir + "/CF_" + runTag + ".txt";
+        QW_File = gridDir + "/QW_" + runTag + ".txt";
 
         cout << Solution_File << endl;
         cout << Error_File << endl;
         cout << Initial_Solution_File << endl;
         cout << Final_Solution_File << endl;
+        if (Is_Viscous_Wall)
+        {
+            cout << CF_File << endl;
+            cout << QW_File << endl;
+        }
 
         ofstream outputFile = CFD_OpenOutputFileOrThrow(outputFilePath, "createOutputDirectories");
         outputFile << "Simulation Results for Test Case: " << Test_Case << "\n";

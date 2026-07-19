@@ -4,6 +4,22 @@ Summary of recent features and fixes.
 
 ---
 
+## Half-cylinder M∞=6 viscous corner / BC fixes (July 2026)
+
+- **Face normals vs BC faces**: Structured TXT grids keep vertex order `[o,a,b,c]`; `Construct_Cell` builds LBRT face normals (outward-corrected). Ghost face midpoints use the same LBRT edges. Fixes wall normals at side corners (~47 cells) that previously pointed at the y=0 exit plane.
+- **Secondary neighbours**: Corner diagonal stencil for co-volume face gradients no longer collapses to cell 0 via invalid ghost walk.
+- **Supersonic inlet**: Hard-prescribe freestream; do not mutate `inletCond` velocities during BC fill.
+- **Host WENO walls**: Degenerate near-wall stencil falls back to 1O cell/ghost states.
+- **Update positivity**: Reject non-positive cell updates (keep prior U) instead of flooring pressure (which produced M ≫ 6).
+- **Viscous driver**: Remove double 1O flux evaluation before the explicit NS step.
+- **Diagnostics**: `Dump_Viscous_Corner_Diagnostics` writes multi-BC corner face/normal info when viscous.
+- **Plots**: `scripts/plot_halfcyl_inviscid_viscous.py` → `plots/half_cylinder_inviscid_viscous/`.
+- **Docs**: Root [overview.md](../overview.md); README link updated.
+
+**Key files**: `Grid_Computations.cpp`, `Grid_Refine_Functions.cpp`, `Initialize.cpp`, `Inlet_Boundary_Conditions.cpp`, `WENO2D.cpp`, `Error_Estimate_Update.cpp`, `Solver.cpp`, `Viscous_Functions.h`.
+
+---
+
 ## Documentation (April 2026)
 
 - **README.md**: Dependencies aligned with CMake (Boost, OpenMP, VTK required for CPU build); Metal_Kernels called out; fixed corrupted section headings; Doxygen HTML path documented as `docs/doxygen/html/`.

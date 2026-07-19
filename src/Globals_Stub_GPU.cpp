@@ -27,7 +27,7 @@ bool Is_Viscous_Wall = false, Is_2D_Flow = true, Is_Inlet_SubSonic = true, Is_Ex
 bool Is_Implicit_Method = false, Is_MOVERS_1 = false, Enable_Entropy_Fix = false, Is_Time_Dependent = false, has_Symmetry_BC = false, Time_Accurate = false;
 bool Local_Time_Stepping = false, Non_Dimensional_Form = false, Is_WENO = false, Is_Char = false;
 std::string Solution_File = "gpu_solution.dat";
-std::string Grid_File, Initial_Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, BCFileName, InitCondFileName;
+std::string Grid_File, Initial_Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, QW_File, BCFileName, InitCondFileName;
 int Total_No_Cells = 0, No_Cartesian_Cells = 0, No_Polar_Cells = 0, No_Physical_Cells = 10, Grid_Type = 0, Case_Type = 0, Exit_Type = 0, Inlet_Type = 0, Initialize_Type = 0, Procedure_Type = 0, Numerical_Method = 0, Method_Type = 0, Test_Case = 1;
 int No_Ghost_Cells = 0, Cells_in_Plane = 0, nx_p = 0, ny_p = 0, nz_p = 0, nx_c = 0, ny_c = 0, nz_c = 0, iterations = 0, Area_Weighted_Average = 0, Total_Iterations = 5, Limiter_Case = 0;
 int Dissipation_Type = 0, Flux_Type = 0, Grid_Size = 0, Viscous_Time_Case = 0, NUM_FLUX_COMPONENTS = 4;
@@ -48,7 +48,7 @@ double nx = 0.0, ny = 0.0, dl = 0.0, dA = 0.0;
 
 // Left and Right State Variables
 double Rho_L = 0.0, T_L = 0.0, P_L = 0.0, u_L = 0.0, v_L = 0.0, Vdotn_L = 0.0, Vmag_L = 0.0, M_L = 0.0, C_L = 0.0, H_L = 0.0;
-V_D Flux_L, U_L, CF;
+V_D Flux_L, U_L, CF, QW, St;
 double Rho_R = 0.0, T_R = 0.0, P_R = 0.0, u_R = 0.0, v_R = 0.0, Vdotn_R = 0.0, Vmag_R = 0.0, M_R = 0.0, C_R = 0.0, H_R = 0.0, Epsilon = 0.0;
 V_D Flux_R, U_R, S;
 

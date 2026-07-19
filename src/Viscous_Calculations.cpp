@@ -1,6 +1,7 @@
 #include "definitions.h"
 #include "Globals.h"
 #include "Viscous_Functions.h"
+#include <cmath>
 
 // Function to calculate viscosity using Sutherland's law
 // T_Star: Average temperature on the face (non-dimensional)
@@ -91,7 +92,54 @@ void Evaluate_Wall_Skin_Friction()
 
         tw = (T11 * nx + T12 * ny) * tx + (T21 * nx + T22 * ny) * ty;
         // cout<<"Value of tw\t"<<tw<<endl;
-        CF[Cell_Index - StartGridPoint] = 2.0 * tw / (Rho_inf * q_inf * q_inf);
+        const int iw = static_cast<int>(i / 3);
+        if (iw >= 0 && iw < static_cast<int>(CF.size()))
+            CF[iw] = 2.0 * tw / (Rho_inf * q_inf * q_inf);
         //	cout<<"Skin friction\t"<<Cell_Index-StartGridPoint<<"\t"<<CF[Cell_Index-StartGridPoint]<<endl;
+    }
+}
+
+void Evaluate_Wall_Heat_Flux()
+{
+    if (Wall_Cells_List.empty())
+        return;
+
+    const int n_wall = static_cast<int>(Wall_Cells_List.size() / 3);
+    if (static_cast<int>(QW.size()) != n_wall)
+        QW.assign(n_wall, 0.0);
+    if (static_cast<int>(St.size()) != n_wall)
+        St.assign(n_wall, 0.0);
+
+    const double u_inf = std::fabs(inletCond.v) > 1e-14 ? std::fabs(inletCond.v) : std::fabs(inletCond.u);
+    const double rho_inf = (Rho_inf > 0.0) ? Rho_inf : inletCond.Rho;
+    const double T_inf_loc = (Non_Dimensional_Form && R_ref > 0.0)
+                                 ? (inletCond.P / (rho_inf * R_ref))
+                                 : (inletCond.P / (rho_inf * R_GC));
+    const double cp = Non_Dimensional_Form ? cp_ref : (gamma * R_GC / (gamma - 1.0));
+    const double r_rec = std::pow(Pr > 0.0 ? Pr : 0.72, 1.0 / 3.0);
+    const double T_aw = T_inf_loc * (1.0 + r_rec * 0.5 * (gamma - 1.0) * inletCond.M * inletCond.M);
+    const double dT = (wallCond.T > 0.0) ? (T_aw - wallCond.T) : T_aw;
+    const double q_ref = (rho_inf > 0.0 && u_inf > 0.0 && cp > 0.0 && std::fabs(dT) > 1e-14)
+                             ? (rho_inf * u_inf * cp * dT)
+                             : 1.0;
+
+    for (unsigned int i = 0; i < Wall_Cells_List.size(); i += 3)
+    {
+        const int Cell_Index = Wall_Cells_List[i + 0];
+        const int Face_No = Wall_Cells_List[i + 1];
+        const int index = Face_No * 2;
+        nx = Cells[Cell_Index].Face_Normals[index + 0];
+        ny = Cells[Cell_Index].Face_Normals[index + 1];
+
+        const int Grad_Type = 3; // Temperature
+        Calculate_Gradient_On_Face(Cell_Index, Grad_Type, Face_No);
+        /* q_w = -κ ∂T/∂n; K1 already embeds κ/(Re Pr) scaling used in viscous flux. */
+        const double qn = -K1 * (T_Gradient[0] * nx + T_Gradient[1] * ny);
+        const int iw = static_cast<int>(i / 3);
+        if (iw >= 0 && iw < static_cast<int>(QW.size()))
+        {
+            QW[iw] = qn;
+            St[iw] = qn / q_ref;
+        }
     }
 }

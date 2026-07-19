@@ -392,7 +392,7 @@ extern double nx, ny, dl, dA;
 
 // Left State Variables
 extern double Rho_L, T_L, P_L, u_L, v_L, Vdotn_L, Vmag_L, M_L, C_L, H_L;
-extern V_D Flux_L, U_L, CF;
+extern V_D Flux_L, U_L, CF, QW, St;
 
 // Right State Varialbes
 extern double Rho_R, T_R, P_R, u_R, v_R, Vdotn_R, Vmag_R, M_R, C_R, H_R, Epsilon;
@@ -416,7 +416,7 @@ extern double AMR_Coarsen_Threshold;
 extern vector<double> Gradient_Refinement_Indicator;
 extern bool Local_Time_Stepping, Non_Dimensional_Form, Is_WENO, Is_Char, Is_Conservative, Is_Viscous;
 
-extern string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, BCFileName, InitCondFileName;
+extern string Grid_File, Initial_Solution_File, Solution_File, Error_File, Limiter_File, Final_Solution_File, Grid_Vtk_File, CF_File, QW_File, BCFileName, InitCondFileName;
 
 extern double mev_L, mev_R, max_eigen_value;
 extern InletCondition inletCond;

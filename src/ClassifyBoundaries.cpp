@@ -1,6 +1,13 @@
 #include "definitions.h"
 #include "Globals.h"
 
+#ifdef USE_VTK
+#include <unordered_map>
+#include <tuple>
+#include <vector>
+#include <iostream>
+#include <cmath>
+
 // Function to classify and store boundary points
 void classifyBoundaries(vtkSmartPointer<vtkUnstructuredGrid> grid,
                         std::unordered_map<std::string, std::vector<std::tuple<double, double, double>>> &boundaryMapping)
@@ -77,3 +84,4 @@ void saveBoundaryToVTK(const std::string &filename, const std::vector<std::tuple
     writer->SetInputData(boundaryData);
     writer->Write();
 }
+#endif // USE_VTK

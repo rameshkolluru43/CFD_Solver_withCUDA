@@ -2,6 +2,12 @@
 
 A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU acceleration through CUDA kernels. The solver supports both Euler and Navier-Stokes equations with various numerical schemes and boundary conditions for compressible flow simulations.
 
+**Start here for a short project map and the Mach-6 half-cylinder validation status:** [overview.md](overview.md)
+
+### Recent (July 2026) — half-cylinder viscous corner fix
+
+Structured-grid face normals are now built in **LBRT** order matching Neighbours/BC face indices (no atan2 vertex reorder that broke wall normals at corners). After the fix, a P3→viscous smoke stays near the inviscid reference (**Pmax ≈ 48.9**, **Mmax ≈ 6.05** vs prior blow-up **Pmax ~137 / Mmax ~64**). Plots: `plots/half_cylinder_inviscid_viscous/`. Details in [overview.md](overview.md) and [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md).
+
 ## 🚀 Features
 
 ### Numerical Methods
@@ -318,6 +324,8 @@ The CUDA implementation currently accelerates selected solver paths and provides
 
 | Document | Description |
 |----------|-------------|
+| [overview.md](overview.md) | Project overview, CUDA/host status, half-cylinder M=6 inviscid/viscous validation |
+| [docs/README.md](docs/README.md) | Full documentation index |
 | [docs/MESH_AND_GRID.md](docs/MESH_AND_GRID.md) | Mesh formats (VTK, CSV, TXT), mixed tri/quad support, face-ordered connectivity |
 | [docs/ADAPTIVE_MESH_REFINEMENT.md](docs/ADAPTIVE_MESH_REFINEMENT.md) | Gradient-based AMR: indicator, tagging, configuration |
 | [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | JSON configuration reference (solver, simulation, AMR) |

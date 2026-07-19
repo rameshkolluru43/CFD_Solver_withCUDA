@@ -61,6 +61,13 @@
 #include "Grid.h"
 #include "AMR.hpp"
 #include "MPI_Utils.h"
+#include <algorithm>
+#include <cmath>
+#include <chrono>
+
+#ifdef USE_CUDA
+#include "../CUDA_KERNELS/MOVERS_RICCA_Flux_Cuda.h"
+#endif
 
 namespace
 {
@@ -105,83 +112,126 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 				 << setw(15) << "OMP_Time" << endl;
 		}
 
+#ifdef USE_CUDA
+		bool use_resident_gpu = Resident_GPU_Explicit_Init();
+#else
+		bool use_resident_gpu = false;
+#endif
+		const auto wall0 = std::chrono::steady_clock::now();
+
 		do
 		{
-			//		start_time = omp_get_wtime();
-			int timer = clock();
-			// Applies the boundary conditions for the cells
-
-			Apply_Boundary_Conditions();
-			// cout << "Applied Boundary Conditions" << endl;
-
-			//  cout<<"In Solver solving with Implicit method\t"<<Is_Implicit_Method<<endl;
-			if (Time_Accurate)
+#ifdef USE_CUDA
+			if (use_resident_gpu)
 			{
-				// cout << "Using Runge Kutta Method" << endl;
-				Runge_Kutta_Method();
+				double err4[4] = {0, 0, 0, 0};
+				if (!Resident_GPU_Explicit_Step(Min_dt, err4))
+				{
+					cerr << "Resident_GPU_Explicit_Step failed; falling back to host path." << endl;
+					Resident_GPU_Explicit_Shutdown();
+					use_resident_gpu = false;
+					Apply_Boundary_Conditions();
+					Explicit_Method();
+					Estimate_Error();
+					Update();
+				}
 			}
 			else
+#endif
 			{
-				if (Is_Implicit_Method)
-				{
+				Apply_Boundary_Conditions();
+				if (Time_Accurate)
+					Runge_Kutta_Method();
+				else if (Is_Implicit_Method)
 					Implicit_Method();
-				}
 				else
-				{
 					Explicit_Method();
-				}
+				Estimate_Error();
+				Update();
 			}
 
 			Total_Time += Min_dt;
-
 			iterations++;
-			Estimate_Error();
-			Update();
 
-			// Gradient-based AMR (cell splitting): tag leaf cells and split every AMR_Period
 			if (Enable_AMR && iterations >= AMR_Start_Iteration && iterations > 0 && iterations % AMR_Period == 0)
 			{
+#ifdef USE_CUDA
+				if (use_resident_gpu)
+					Resident_GPU_Explicit_Download_Host();
+#endif
 				AMR_Adaptive_Step();
 			}
 
+			const auto wall_s = std::chrono::duration<double>(std::chrono::steady_clock::now() - wall0).count();
+
 			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
 			{
-				// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
 				if (CFD_MPI_Is_Root())
 				{
+#ifdef USE_CUDA
+					if (use_resident_gpu)
+						Resident_GPU_Explicit_Download_Host();
+#endif
 					cout << setw(10) << iterations
 						 << setw(15) << Min_dt
 						 << setw(15) << Error[0]
 						 << setw(15) << Error[1]
 						 << setw(15) << Error[2]
 						 << setw(15) << Error[3]
-						 << setw(20) << (timer / CLOCKS_PER_SEC)
+						 << setw(20) << wall_s
 						 << setw(15) << Total_Time
 						 << endl;
 					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 				}
 			}
+			/* Print every 1000; write VTK/solution only every 10000 (I/O was dominating runtime). */
 			if (iterations % 1000 == 0)
 			{
-				// cout<<"Maximum and Minimum Time Step in iteration\t"<<Max_dt<<"\t"<<Min_dt<<endl;
-				timer = clock();
 				if (CFD_MPI_Is_Root())
 				{
-					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
-					// cout << "Updated Solution File Sucessfully" << endl;
 					cout << setw(10) << iterations
 						 << setw(15) << Min_dt
 						 << setw(15) << Error[0]
 						 << setw(15) << Error[1]
 						 << setw(15) << Error[2]
 						 << setw(15) << Error[3]
-						 << setw(20) << (timer / CLOCKS_PER_SEC)
+						 << setw(20) << wall_s
 						 << setw(15) << Total_Time
 						 << endl;
 				}
+				if (iterations % 10000 == 0)
+				{
+#ifdef USE_CUDA
+					if (use_resident_gpu)
+						Resident_GPU_Explicit_Download_Host();
+#endif
+					if (CFD_MPI_Is_Root())
+						Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
+				}
+			}
+
+			const double res_max = std::max(std::max(Error[0], Error[1]), std::max(Error[2], Error[3]));
+			constexpr double kResTol = 1.0e-14;
+			if (iterations > 100 && res_max < kResTol)
+			{
+				if (CFD_MPI_Is_Root())
+				{
+					cout << "Residuals below " << kResTol << " at iteration " << iterations
+						 << " (max L2 relative residual = " << res_max << ")" << endl;
+#ifdef USE_CUDA
+					if (use_resident_gpu)
+						Resident_GPU_Explicit_Download_Host();
+#endif
+					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
+				}
+				break;
 			}
 		} while (iterations < Total_Iterations);
 
+#ifdef USE_CUDA
+		if (use_resident_gpu)
+			Resident_GPU_Explicit_Download_Host();
+#endif
 		if (CFD_MPI_Is_Root())
 		{
 			Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
@@ -190,6 +240,10 @@ bool Inviscid_Solver(string &Error_Filename, string &Sol_Filename)
 				 << " errors(rho,rhou,rhov,rhoEt)="
 				 << Error[0] << " " << Error[1] << " " << Error[2] << " " << Error[3] << endl;
 		}
+#ifdef USE_CUDA
+		if (use_resident_gpu)
+			Resident_GPU_Explicit_Shutdown();
+#endif
 		return true;
 	}
 	catch (const std::exception &e)
@@ -212,89 +266,148 @@ bool Viscous_Solver(string &Error_Filename, string &Sol_Filename)
 		int Solution_Data_Type = 1;
 		iterations = 0;
 		if (CFD_MPI_Is_Root())
-			cout << "Min_dt\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\tWall_Clock_Time\tTotal_Time" << endl;
+		{
+			cout << setw(10) << "Iter"
+				 << setw(15) << "dt"
+				 << setw(15) << "Rho_Error"
+				 << setw(15) << "Rho_u_Error"
+				 << setw(15) << "Rho_v_Error"
+				 << setw(15) << "Rho_Et_Error"
+				 << setw(20) << "Wall_Clock_Time"
+				 << setw(15) << "Total_Time" << endl;
+		}
+
+#ifdef USE_CUDA
+		bool use_resident_gpu = Resident_GPU_Explicit_Init();
+#else
+		bool use_resident_gpu = false;
+#endif
+		const auto wall0 = std::chrono::steady_clock::now();
+
 		do
 		{
-			int timer = clock();
-			Apply_Boundary_Conditions();
-			//		cout<<"Applied Boundary Conditions"<<endl;
-			Evaluate_Viscous_Fluxes();
-			//	cout<<"Viscous Fluxes evaluated"<<endl;
-			// Evaluates the Convective fluxes for all the cells
-			if (Is_Second_Order)
-				Evaluate_Cell_Net_Flux_2O();
+#ifdef USE_CUDA
+			if (use_resident_gpu)
+			{
+				double err4[4] = {0, 0, 0, 0};
+				if (!Resident_GPU_Explicit_Step(Min_dt, err4))
+				{
+					cerr << "Resident_GPU_Explicit_Step (NS) failed; falling back to host path." << endl;
+					Resident_GPU_Explicit_Shutdown();
+					use_resident_gpu = false;
+					Apply_Boundary_Conditions();
+					Evaluate_Viscous_Fluxes();
+					Explicit_Method();
+					Estimate_Error();
+					Update();
+				}
+			}
 			else
-				Evaluate_Cell_Net_Flux_1O();
+#endif
+			{
+				/* Explicit_Method (and RK) recompute inviscid flux (WENO/1O/2O)
+				   and combine with Cells_Viscous_Flux — do not pre-call 1O here. */
+				Apply_Boundary_Conditions();
+				Evaluate_Viscous_Fluxes();
 
-			// Solves the first order Euler method using Explicit Scheme
-			if (Time_Accurate)
-				Runge_Kutta_Method();
-			else if (Is_Implicit_Method)
-				Implicit_Method();
-			else
-				Explicit_Method();
+				if (Time_Accurate)
+					Runge_Kutta_Method();
+				else if (Is_Implicit_Method)
+					Implicit_Method();
+				else
+					Explicit_Method();
+				Estimate_Error();
+				Update();
+			}
+
 			Total_Time += Min_dt;
-			Estimate_Error();
-			//		cout<<"Error Estimated"<<endl;
-			Update();
+			iterations++;
+
+			const auto wall_s = std::chrono::duration<double>(std::chrono::steady_clock::now() - wall0).count();
 
 			if ((Total_Time >= Terminating_Time) and (Is_Time_Dependent))
 			{
-				//	cout<<"Minimum Time Step\tIterations\tRho_Error\tRho_u_Error\tRho_v_Error\tRho_Et_Error\t Wall Clock Time\t Total Time"<<endl;
+#ifdef USE_CUDA
+				if (use_resident_gpu)
+					Resident_GPU_Explicit_Download_Host();
+#endif
 				if (CFD_MPI_Is_Root())
 				{
-					cout << Min_dt << "\t" << iterations << "\t Error\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
+					cout << setw(10) << iterations
+						 << setw(15) << Min_dt
+						 << setw(15) << Error[0]
+						 << setw(15) << Error[1]
+						 << setw(15) << Error[2]
+						 << setw(15) << Error[3]
+						 << setw(20) << wall_s
+						 << setw(15) << Total_Time << endl;
 					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 				}
-				timer = clock();
-				return true;
+				break;
 			}
-			else if (iterations % 500 == 0)
+
+			if (iterations % 500 == 0)
 			{
-				//			cout<<"Maximum and Minimum Time Step in iteration in \t"<<iterations<<"\t"<<Max_dt<<"\t"<<Min_dt<<endl;
+#ifdef USE_CUDA
+				if (use_resident_gpu)
+					Resident_GPU_Explicit_Download_Host();
+#endif
 				if (CFD_MPI_Is_Root())
 				{
 					Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
+					if (Is_Viscous_Wall)
+					{
+						Evaluate_Wall_Skin_Friction();
+						Evaluate_Wall_Heat_Flux();
+						Write_CF_File(CF_File);
+						if (!QW_File.empty())
+							Write_QW_File(QW_File);
+					}
+					cout << setw(10) << iterations
+						 << setw(15) << Min_dt
+						 << setw(15) << Error[0]
+						 << setw(15) << Error[1]
+						 << setw(15) << Error[2]
+						 << setw(15) << Error[3]
+						 << setw(20) << wall_s
+						 << setw(15) << Total_Time << endl;
 				}
-				// 			cout<<"Updated Solution File Sucessfully"<<endl;
-				if (CFD_MPI_Is_Root() && Is_Viscous_Wall)
-				{
-					//				cout<<"Evaluating Skin Friction Coefficient"<<endl;
-					Evaluate_Wall_Skin_Friction();
-					//				cout<<"Writing Skin Friction Coefficient\t"<<CF_File<<endl;
-					Write_CF_File(CF_File);
-				}
-				timer = clock();
-				if (CFD_MPI_Is_Root())
-					cout << Min_dt << "\t" << iterations << "\t" << Error[0] << "\t" << Error[1] << "\t" << Error[2] << "\t" << Error[3] << "\t" << timer / CLOCKS_PER_SEC << "\t" << Total_Time << endl;
-				//			cout<<"---------------------------------------------------------------------------"<<endl;
 			}
-			iterations++;
 		} while (iterations < Total_Iterations);
+
+#ifdef USE_CUDA
+		if (use_resident_gpu)
+			Resident_GPU_Explicit_Download_Host();
+#endif
 		if (CFD_MPI_Is_Root())
 		{
 			cout << "Iterations Completed \t" << iterations << endl;
 			cout << "Evaluating Skin Friction Coefficient" << endl;
-		}
-		try
-		{
-			if (CFD_MPI_Is_Root())
+			try
+			{
 				Evaluate_Wall_Skin_Friction();
-		}
-		catch (const std::exception &e)
-		{
-			cerr << "Error during wall skin friction evaluation: " << e.what() << endl;
-			return false;
-		}
-		if (CFD_MPI_Is_Root())
-		{
+				Evaluate_Wall_Heat_Flux();
+			}
+			catch (const std::exception &e)
+			{
+				cerr << "Error during wall skin friction / heat flux evaluation: " << e.what() << endl;
+				return false;
+			}
 			Write_Final_Solution_Output(Error_Filename, Sol_Filename, Solution_Data_Type);
 			cout << "Writing Skin Friction Coefficient\t" << CF_File << endl;
 			Write_CF_File(CF_File);
+			if (!QW_File.empty())
+			{
+				cout << "Writing wall heat flux\t" << QW_File << endl;
+				Write_QW_File(QW_File);
+			}
+			cout << "Viscous solver completed successfully after " << iterations << " iterations"
+				 << (use_resident_gpu ? " (resident GPU NS)" : " (host/fallback)") << endl;
 		}
-
-		if (CFD_MPI_Is_Root())
-			cout << "Viscous solver completed successfully after " << iterations << " iterations" << endl;
+#ifdef USE_CUDA
+		if (use_resident_gpu)
+			Resident_GPU_Explicit_Shutdown();
+#endif
 		return true;
 	}
 	catch (const std::exception &e)

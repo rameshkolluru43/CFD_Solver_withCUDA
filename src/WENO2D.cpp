@@ -523,18 +523,30 @@ void Calculate_Face_WENO_Flux(int Cell_No, int N_Cell_No, const int &Face_No, bo
 
 	const int index = Face_No * 2;
 
-	WENO_Reconstruction_X(Cell_No, Face_No, U_L, U_R);
-
-	if (Face_No == 0 || Face_No == 1)
-		std::swap(U_L, U_R);
-
+	/* Wall faces: WENO5 needs a 5-point stencil; host ghosts collapse to one cell
+	   and frequently produce negative pressure at M=6 (e.g. cell 5504). Use
+	   robust 1O interior/ghost conservatives from the BC-filled neighbour. */
+	if (Is_Wall_Face || N_Cell_No < 0 || N_Cell_No >= static_cast<int>(U_Cells.size()))
 	{
+		U_L = U_Cells[Cell_No];
+		if (N_Cell_No >= 0 && N_Cell_No < static_cast<int>(U_Cells.size()))
+			U_R = U_Cells[N_Cell_No];
+		else
+			U_R = U_L;
+	}
+	else
+	{
+		WENO_Reconstruction_X(Cell_No, Face_No, U_L, U_R);
+
+		if (Face_No == 0 || Face_No == 1)
+			std::swap(U_L, U_R);
+
 		const double pL = Pressure_From_U(U_L);
 		const double pR = Pressure_From_U(U_R);
 		if (pL < 1e-12 || pR < 1e-12 || !std::isfinite(pL) || !std::isfinite(pR))
 		{
-			Calculate_Computational_Variables(Cell_No, U_L);
-			Calculate_Computational_Variables(N_Cell_No, U_R);
+			U_L = U_Cells[Cell_No];
+			U_R = U_Cells[N_Cell_No];
 		}
 	}
 

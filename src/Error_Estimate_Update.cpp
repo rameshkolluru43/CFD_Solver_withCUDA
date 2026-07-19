@@ -62,10 +62,34 @@ void Update()
 	for (int li = 0; li < static_cast<int>(leafCells.size()); li++)
 	{
 		Cell_Index = leafCells[li];
-		U_Cells[Cell_Index][0] += Cells_DelU[Cell_Index][0];
-		U_Cells[Cell_Index][1] += Cells_DelU[Cell_Index][1];
-		U_Cells[Cell_Index][2] += Cells_DelU[Cell_Index][2];
-		U_Cells[Cell_Index][3] += Cells_DelU[Cell_Index][3];
+		const double rho0 = U_Cells[Cell_Index][0];
+		const double ru0 = U_Cells[Cell_Index][1];
+		const double rv0 = U_Cells[Cell_Index][2];
+		const double rE0 = U_Cells[Cell_Index][3];
+
+		double rho = rho0 + Cells_DelU[Cell_Index][0];
+		double ru = ru0 + Cells_DelU[Cell_Index][1];
+		double rv = rv0 + Cells_DelU[Cell_Index][2];
+		double rE = rE0 + Cells_DelU[Cell_Index][3];
+
+		/* Reject non-positive updates (do not floor to tiny p — that creates M>>Minf). */
+		bool ok = std::isfinite(rho) && std::isfinite(ru) && std::isfinite(rv) && std::isfinite(rE) &&
+				  (rho > 1.0e-12);
+		if (ok)
+		{
+			const double ke = 0.5 * (ru * ru + rv * rv) / rho;
+			const double p = (gamma - 1.0) * (rE - ke);
+			ok = std::isfinite(p) && (p > 1.0e-12);
+		}
+		if (ok)
+		{
+			U_Cells[Cell_Index][0] = rho;
+			U_Cells[Cell_Index][1] = ru;
+			U_Cells[Cell_Index][2] = rv;
+			U_Cells[Cell_Index][3] = rE;
+		}
+		/* else keep previous conservative state */
+
 		Calculate_Primitive_Variables(Cell_Index, U_Cells[Cell_Index], Primitive_Cells[Cell_Index]);
 	}
 	CFD_MPI_Synchronize_Solution_State();

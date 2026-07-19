@@ -4,6 +4,8 @@
 #include "Test_Cases.h"
 
 #include <cctype>
+#include <cmath>
+#include <iostream>
 
 /// @brief
 /// @param jsonFileName  The JSON file name
@@ -216,8 +218,40 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     inletCond.P = inlet["Pressure_Static_Inlet"].asDouble();
     inletCond.Rho = inlet["Rho_Static_Inlet"].asDouble();
     inletCond.M = inlet["Inlet_Mach_No"].asDouble();
-    inletCond.u = inlet["u"].asDouble();
-    inletCond.v = inlet["v"].asDouble();
+    /* Accept either "u"/"v" or legacy "V_1"/"V_2" keys. */
+    if (inlet.isMember("u") || inlet.isMember("v"))
+    {
+        inletCond.u = inlet.isMember("u") ? inlet["u"].asDouble() : 0.0;
+        inletCond.v = inlet.isMember("v") ? inlet["v"].asDouble() : 0.0;
+    }
+    else
+    {
+        inletCond.u = inlet.isMember("V_1") ? inlet["V_1"].asDouble() : 0.0;
+        inletCond.v = inlet.isMember("V_2") ? inlet["V_2"].asDouble() : 0.0;
+    }
+    /* Dimensional T uses R_GC; nondim T uses R=1/(gamma M^2) once M is known. */
+    if (inletCond.Rho > 0.0 && inletCond.P > 0.0)
+    {
+        if (Non_Dimensional_Form && inletCond.M > 0.0)
+            inletCond.T = inletCond.P / (inletCond.Rho * (1.0 / (gamma * inletCond.M * inletCond.M)));
+        else
+            inletCond.T = inletCond.P / (inletCond.Rho * R_GC);
+    }
+    /* If Mach is set but velocity is ~0, rebuild freestream speed from a=sqrt(gamma P/rho). */
+    {
+        const double a = (inletCond.Rho > 0.0)
+                             ? std::sqrt(gamma * inletCond.P / inletCond.Rho)
+                             : 0.0;
+        const double speed = std::sqrt(inletCond.u * inletCond.u + inletCond.v * inletCond.v);
+        if (inletCond.M > 0.5 && a > 0.0 && speed < 1.0e-12)
+        {
+            /* Half-cylinder freestream is -y; other cases often +x. Prefer -y when |v| key absent. */
+            inletCond.u = 0.0;
+            inletCond.v = -inletCond.M * a;
+            std::cerr << "parseTestCaseJSON: rebuilt inlet velocity from Mach: u="
+                      << inletCond.u << " v=" << inletCond.v << std::endl;
+        }
+    }
 
     const auto &exit = flow["exit_conditions"];
     exitCond.type = exit["exit_type"].asString();
@@ -228,10 +262,21 @@ void parseTestCaseJSON(const std::string &jsonFileName)
     exitCond.v = exit["v"].asDouble();
 
     const auto &wall = flow["wall_conditions"];
-    wallCond.type = wall["wall_type"].asString();
-    wallCond.T = wall["wall_temperature"].asDouble();
-    wallCond.u = wall["wall_velocity"].asDouble();
-    wallCond.v = wall["wall_velocity"].asDouble();
+    wallCond.type = wall.isMember("wall_type") ? wall["wall_type"].asString() : "slip";
+    wallCond.T = wall.isMember("wall_temperature") ? wall["wall_temperature"].asDouble() : 0.0;
+    wallCond.u = wall.isMember("wall_velocity") ? wall["wall_velocity"].asDouble() : 0.0;
+    wallCond.v = wall.isMember("wall_velocity") ? wall["wall_velocity"].asDouble() : 0.0;
+
+    if (flow.isMember("Reynolds_number") && flow["Reynolds_number"].asDouble() > 0.0)
+    {
+        Re = flow["Reynolds_number"].asDouble();
+        Inv_Re = 1.0 / Re;
+    }
+    if (flow.isMember("Prandtl_number") && flow["Prandtl_number"].asDouble() > 0.0)
+    {
+        Pr = flow["Prandtl_number"].asDouble();
+        Inv_Pr = 1.0 / Pr;
+    }
 
     const auto &init = flow["Initial_Conditions"];
     initCond.P = init["Pressure_Static_Inlet"].asDouble();

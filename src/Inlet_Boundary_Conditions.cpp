@@ -3,6 +3,8 @@
 #include "Boundary_Conditions.h"
 #include "Primitive_Computational.h"
 #include "Utilities.h"
+#include <cmath>
+#include <iostream>
 
 void Subsonic_Inlet_Condition(InletCondition &inletCond, V_I &Inlet_Cells_List)
 {
@@ -40,11 +42,28 @@ void Subsonic_Inlet_Condition(InletCondition &inletCond, V_I &Inlet_Cells_List)
 
 void Supersonic_Inlet_Condition(InletCondition &inlet, V_I &Inlet_Cells_List)
 {
-	// The implementation is as described in the Blazek Text book Page 283
-	// Pressure and Density are prescribed and the velocity is extrapolated from the interior cells
-	double vmag = 0.0;
+	/* Blazek §8.4: all characteristics enter — prescribe freestream (do NOT
+	   extrapolate velocity or mutate the global inletCond freestream state). */
+	const double u_inf = inlet.u;
+	const double v_inf = inlet.v;
+	const double rho_inf = inlet.Rho;
+	const double p_inf = inlet.P;
+	const double ke = 0.5 * (u_inf * u_inf + v_inf * v_inf);
 
-	int Cell_Index = 0, Ghost_Cell_Index = 0;
+	if (!(rho_inf > 0.0) || !(p_inf > 0.0) || !std::isfinite(ke))
+	{
+		std::cerr << "Error: Supersonic_Inlet_Condition invalid freestream "
+				  << "rho=" << rho_inf << " p=" << p_inf
+				  << " u=" << u_inf << " v=" << v_inf << std::endl;
+		return;
+	}
+	if (ke < 1.0e-24)
+	{
+		std::cerr << "Warning: Supersonic_Inlet_Condition freestream velocity is ~0 "
+				  << "(u=" << u_inf << ", v=" << v_inf << "). "
+				  << "Check Flow_Conditions.inlet_conditions in the case JSON.\n";
+	}
+
 	if (Inlet_Cells_List.size() % 3 != 0)
 	{
 		std::cerr << "Error: Inlet_Cells_List size is not a multiple of 3." << std::endl;
@@ -52,24 +71,17 @@ void Supersonic_Inlet_Condition(InletCondition &inlet, V_I &Inlet_Cells_List)
 	}
 	for (unsigned int i = 0; i < Inlet_Cells_List.size(); i += 3)
 	{
-		Cell_Index = Inlet_Cells_List[i + 0];
-		//		cout<<"inlet cell index\t"<<Cell_Index<<endl;
-		Ghost_Cell_Index = Inlet_Cells_List[i + 2];
-		//		cout<<"inlet ghost cell index\t"<<Ghost_Cell_Index<<endl;
-		inlet.u = Primitive_Cells[Cell_Index][1];
-		inlet.v = Primitive_Cells[Cell_Index][2];
+		const int Ghost_Cell_Index = Inlet_Cells_List[i + 2];
 
-		vmag = (inlet.u * inlet.u + inlet.v * inlet.v) * 0.5; // 0.5*V^2
-
-		U_Cells[Ghost_Cell_Index][0] = inlet.Rho;								 // rho
-		U_Cells[Ghost_Cell_Index][1] = inlet.Rho * inlet.u;						 // rho*u
-		U_Cells[Ghost_Cell_Index][2] = inlet.Rho * inlet.v;						 // rho*v
-		U_Cells[Ghost_Cell_Index][3] = (inlet.P / gamma_M_1) + inlet.Rho * vmag; // P/(gamma-1) + 0.5*rho*V^2
+		U_Cells[Ghost_Cell_Index][0] = rho_inf;
+		U_Cells[Ghost_Cell_Index][1] = rho_inf * u_inf;
+		U_Cells[Ghost_Cell_Index][2] = rho_inf * v_inf;
+		U_Cells[Ghost_Cell_Index][3] = (p_inf / gamma_M_1) + rho_inf * ke;
 
 		Calculate_Primitive_Variables(Ghost_Cell_Index, U_Cells[Ghost_Cell_Index]);
 		Vector_Reset(Primitive_Cells[Ghost_Cell_Index]);
-		for (unsigned int i = 0; i < Global_Primitive.size(); i++)
-			Primitive_Cells[Ghost_Cell_Index][i] = Global_Primitive[i];
+		for (unsigned int k = 0; k < Global_Primitive.size(); k++)
+			Primitive_Cells[Ghost_Cell_Index][k] = Global_Primitive[k];
 	}
 }
 

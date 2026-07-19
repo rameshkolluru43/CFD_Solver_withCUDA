@@ -147,6 +147,7 @@ if(CFD_HAVE_CUDA)
 	target_include_directories(CFD_solver_gpu PRIVATE
 		${PROJECT_SOURCE_DIR}/include
 		${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+		/usr/local/cuda/include
 	)
 	if(JSONCPP_INCLUDE_DIR)
 		target_include_directories(CFD_solver_gpu PRIVATE ${JSONCPP_INCLUDE_DIR})
@@ -162,10 +163,19 @@ if(CFD_HAVE_CUDA)
 	if(VTK_FOUND)
 		target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:${VTK_LIBRARIES}>)
 	endif()
-	target_link_libraries(CFD_solver_gpu PRIVATE
-		$<LINK_ONLY:jsoncpp>
-		$<LINK_ONLY:Boost::regex>
-	)
+	# Prefer absolute jsoncpp from deps tree (plain -ljsoncpp often misses non-system install).
+	find_library(JSONCPP_LIBRARY NAMES jsoncpp
+		PATHS /home/ramesh.kolluru/deps/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu
+		NO_DEFAULT_PATH)
+	if(NOT JSONCPP_LIBRARY)
+		find_library(JSONCPP_LIBRARY NAMES jsoncpp)
+	endif()
+	if(JSONCPP_LIBRARY)
+		target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:${JSONCPP_LIBRARY}>)
+	else()
+		target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:jsoncpp>)
+	endif()
+	target_link_libraries(CFD_solver_gpu PRIVATE $<LINK_ONLY:Boost::regex>)
 	if(OpenMP_CXX_FOUND)
 		if(CFD_OPENMP_IS_LIBOMP_BREW)
 			target_compile_options(CFD_solver_gpu PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")

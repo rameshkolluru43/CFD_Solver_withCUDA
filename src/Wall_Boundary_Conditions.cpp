@@ -3,6 +3,7 @@
 #include "Boundary_Conditions.h"
 #include "Primitive_Computational.h"
 #include "Utilities.h"
+#include <cmath>
 
 // Inviscid Wall Boundary Condition
 void Symmetry_Boundary_Condition()
@@ -62,16 +63,37 @@ void Viscous_Wall_Boundary_Condition()
 		Face_No = Wall_Cells_List[i + 1];
 		Ghost_Cell_Index = Wall_Cells_List[i + 2];
 
-		// Applying Wall Boundary Condition
-		U_Cells[Ghost_Cell_Index][0] = U_Cells[Cell_Index][0];
-		U_Cells[Ghost_Cell_Index][1] = -U_Cells[Cell_Index][1];
-		U_Cells[Ghost_Cell_Index][2] = -U_Cells[Cell_Index][2];
-		U_Cells[Ghost_Cell_Index][3] = U_Cells[Cell_Index][3];
+		/* No-slip: reflect momentum so face velocity is zero. */
+		const double rho_i = Primitive_Cells[Cell_Index][0];
+		const double u_i = Primitive_Cells[Cell_Index][1];
+		const double v_i = Primitive_Cells[Cell_Index][2];
+		const double T_i = Primitive_Cells[Cell_Index][3];
+		const double p_i = Primitive_Cells[Cell_Index][4];
 
-		Calculate_Primitive_Variables(Cell_Index, U_Cells[Ghost_Cell_Index]);
+		double rho_g = rho_i;
+		double p_g = p_i;
+		if (wallCond.T > 0.0)
+		{
+			/* Isothermal wall: Dirichlet T at face via mirrored ghost temperature. */
+			double T_g = 2.0 * wallCond.T - T_i;
+			if (!(T_g > 1.0e-12) || !std::isfinite(T_g))
+				T_g = wallCond.T;
+			p_g = p_i;
+			const double Rgas = Non_Dimensional_Form ? R_ref : R_GC;
+			rho_g = p_g / (Rgas * T_g);
+			if (!(rho_g > 1.0e-14) || !std::isfinite(rho_g))
+				rho_g = rho_i;
+		}
+
+		U_Cells[Ghost_Cell_Index][0] = rho_g;
+		U_Cells[Ghost_Cell_Index][1] = -rho_g * u_i;
+		U_Cells[Ghost_Cell_Index][2] = -rho_g * v_i;
+		U_Cells[Ghost_Cell_Index][3] = p_g / (gamma - 1.0) + 0.5 * rho_g * (u_i * u_i + v_i * v_i);
+
+		Calculate_Primitive_Variables(Ghost_Cell_Index, U_Cells[Ghost_Cell_Index]);
 		Vector_Reset(Primitive_Cells[Ghost_Cell_Index]);
-		for (unsigned int i = 0; i < Global_Primitive.size(); i++)
-			Primitive_Cells[Ghost_Cell_Index][i] = Global_Primitive[i];
+		for (unsigned int k = 0; k < Global_Primitive.size(); k++)
+			Primitive_Cells[Ghost_Cell_Index][k] = Global_Primitive[k];
 	}
 }
 

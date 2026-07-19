@@ -43,8 +43,10 @@ void print_cuda_device_info_for_matrix_assembly()
     std::cout << "Max Threads per Block: " << prop.maxThreadsPerBlock << std::endl;
     std::cout << "Max Grid Size: " << prop.maxGridSize[0] << " x " << prop.maxGridSize[1] << std::endl;
     std::cout << "Warp Size: " << prop.warpSize << std::endl;
+#if defined(CUDART_VERSION) && (CUDART_VERSION < 13000)
     std::cout << "Memory Clock Rate: " << prop.memoryClockRate / 1000 << " MHz" << std::endl;
     std::cout << "Memory Bus Width: " << prop.memoryBusWidth << " bits" << std::endl;
+#endif
     std::cout << "L2 Cache Size: " << prop.l2CacheSize / 1024 << " KB" << std::endl;
     std::cout << "===========================================" << std::endl;
 }
