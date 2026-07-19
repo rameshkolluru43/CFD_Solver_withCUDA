@@ -99,8 +99,10 @@ Related robustness fixes in the same campaign:
 ## Documentation index
 
 - [README.md](README.md) — features, build, usage
+- [docs/HALF_CYLINDER_VALIDATION.md](docs/HALF_CYLINDER_VALIDATION.md) — M=6 validation recipe
 - [docs/README.md](docs/README.md) — full doc table of contents
 - [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) — changelog
+- API: `./scripts/update_docs.sh` → `docs/doxygen/html/index.html`
 
 ## Contact
 

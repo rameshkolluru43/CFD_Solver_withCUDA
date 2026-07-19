@@ -1,4 +1,7 @@
 # Quick Reference: New CUDA Kernels
+
+> **Archive (January 2026).** Prefer [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md) and `CUDA_KERNELS/MOVERS_RICCA_Flux_Cuda.h` for the active main-loop API.
+
 **Date:** January 15, 2026
 
 ## Flux Schemes - Quick Selector

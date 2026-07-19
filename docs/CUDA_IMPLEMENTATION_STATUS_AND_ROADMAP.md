@@ -1,5 +1,7 @@
 # CUDA Implementation Status and Roadmap
 
+> **Archive (January 2026).** For current CUDA/host status use [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md), [overview.md](../overview.md), and [RELEASE_NOTES.md](RELEASE_NOTES.md).
+
 **Date:** 15 January 2026  
 **Repository:** rameshkolluru43/CFD_Solver_withCUDA  
 **Branch:** main

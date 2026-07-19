@@ -1,12 +1,12 @@
 # Adaptive Mesh Refinement (AMR)
 
-The solver includes **gradient-based dynamic meshing**: cells are tagged for refinement using solution gradients. The current implementation performs **tagging only** (no mesh topology change).
+The solver includes **gradient-based dynamic meshing**: cells are tagged for refinement using solution gradients. On the **inviscid** path, `AMR_Adaptive_Step()` can also perform quad **1→4 split / 4→1 merge** when enabled (see [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md)). Older notes that said “tagging only” are outdated for the inviscid loop.
 
 ## Overview
 
 - **Indicator**: Per-cell scalar combining density and pressure gradients, made scale-invariant with cell size.
 - **Tagging**: Cells with indicator above a threshold are marked `Is_Splittable`; optionally only a fraction of cells (by indicator rank) are tagged.
-- **Solver hook**: Every **AMR_Period** iterations, the indicator is computed and cells are tagged; a short log line reports how many cells were tagged.
+- **Solver hook**: Every **AMR_Period** iterations (after `AMR_Start_Iteration`), the inviscid loop runs indicator + tagging and may split/merge quads.
 
 ## Gradient-Based Indicator
 

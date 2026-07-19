@@ -326,20 +326,23 @@ The CUDA implementation currently accelerates selected solver paths and provides
 |----------|-------------|
 | [overview.md](overview.md) | Project overview, CUDA/host status, half-cylinder M=6 inviscid/viscous validation |
 | [docs/README.md](docs/README.md) | Full documentation index |
-| [docs/MESH_AND_GRID.md](docs/MESH_AND_GRID.md) | Mesh formats (VTK, CSV, TXT), mixed tri/quad support, face-ordered connectivity |
+| [docs/HALF_CYLINDER_VALIDATION.md](docs/HALF_CYLINDER_VALIDATION.md) | Canonical M=6 configs, expected Pmax/Mmax, plots |
+| [docs/MESH_AND_GRID.md](docs/MESH_AND_GRID.md) | Mesh formats, **LBRT** structured TXT, face normals, mixed tri/quad |
 | [docs/ADAPTIVE_MESH_REFINEMENT.md](docs/ADAPTIVE_MESH_REFINEMENT.md) | Gradient-based AMR: indicator, tagging, configuration |
-| [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | JSON configuration reference (solver, simulation, AMR) |
+| [docs/CONFIGURATION.md](docs/CONFIGURATION.md) | JSON configuration reference (solver, viscous, AMR) |
 | [docs/BUILD_AND_RUN.md](docs/BUILD_AND_RUN.md) | Build requirements, CMake options, running CPU/GPU |
 | [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md) | Changelog and recent feature summary |
-| [docs/MAIN_LOOP_STATUS.md](docs/MAIN_LOOP_STATUS.md) | Main loop: what is implemented vs left to do |
+| [docs/MAIN_LOOP_STATUS.md](docs/MAIN_LOOP_STATUS.md) | Main loop: host vs CUDA, WENO, viscous, AMR |
 
 ### Generate Documentation
 ```bash
 # From the repository root
-doxygen Doxyfile_Cleaned
+./scripts/update_docs.sh
+# or:
+doxygen docs/Doxyfile_Cleaned
 ```
 
-HTML output is written under **`docs/doxygen/html/`** (see `OUTPUT_DIRECTORY` in `Doxyfile_Cleaned`). LaTeX output, if enabled, is under `docs/doxygen/latex/`.
+HTML output: **`docs/doxygen/html/index.html`** (`OUTPUT_DIRECTORY` in `docs/Doxyfile_Cleaned`).
 
 ### Key Classes and Functions
 

@@ -1,4 +1,7 @@
 # Deployment Guide - Next Steps Complete
+
+> **Archive (January 2026).** Prefer [BUILD_AND_RUN.md](BUILD_AND_RUN.md) and [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md).
+
 **Date:** January 15, 2026  
 **Status:** ✅ All preparatory work complete, ready for CUDA system deployment
 

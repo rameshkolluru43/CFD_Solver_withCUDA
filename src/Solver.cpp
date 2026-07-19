@@ -1,6 +1,10 @@
 /**
  * @file Solver.cpp
- * @brief This file contains the implementation of solvers for Euler equations and Navier-Stokes equations.
+ * @brief Euler (`Inviscid_Solver`) and Navier–Stokes (`Viscous_Solver`) time loops.
+ *
+ * On `CFD_solver_gpu`, prefers `Resident_GPU_Explicit_*` when init succeeds; otherwise
+ * host Explicit/RK with optional CUDA 1O inviscid kernels. Validated half-cylinder
+ * WENO+RICCA NS continues use the host WENO path (see docs/HALF_CYLINDER_VALIDATION.md).
  *
  * The solvers include methods for evaluating time steps, applying boundary conditions, and solving the equations
  * using explicit, implicit, or Runge-Kutta methods. The file also includes logic for handling viscous and inviscid

@@ -526,6 +526,13 @@ void Construct_Cell(V_D &o, V_D &a, V_D &b, V_D &c)
 }
 // Constructing the Cell with grid cell structure as the passing variable
 
+/**
+ * @brief Fill Face_Areas / Face_Normals / Area for a physical cell.
+ *
+ * For structured/text quads with verts [o,a,b,c], faces follow LBRT order
+ * (0=left c→o, 1=bottom o→a, 2=right a→b, 3=top b→c) with outward normals.
+ * Do not atan2-reorder vertices after Read_Grid — that breaks wall BC normals at corners.
+ */
 void Construct_Cell(Cell &Grid_Cell)
 {
 	// Ensure basic sizes

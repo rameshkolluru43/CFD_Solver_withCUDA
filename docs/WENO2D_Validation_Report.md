@@ -186,3 +186,19 @@ The corrected implementation is now mathematically sound, numerically stable, an
 3. **Performance benchmark** against original (broken) version
 4. **Integration testing** with full CFD solver
 5. **Documentation update** with usage guidelines
+
+---
+
+## July 2026 updates
+
+### Host WENO wall-face fallback
+
+Near-wall faces with a **degenerate stencil** fall back to first-order cell/ghost states in `src/WENO2D.cpp` (avoids bad reconstruction on isothermal no-slip walls during M=6 NS continues).
+
+### Order-of-accuracy helper
+
+```bash
+python3 scripts/test_weno_order_accuracy.py
+```
+
+Writes under `plots/weno_order_accuracy/`. For the production half-cylinder WENO+RICCA path, see [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md) and [overview.md](../overview.md).

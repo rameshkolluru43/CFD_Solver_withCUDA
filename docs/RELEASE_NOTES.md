@@ -14,9 +14,17 @@ Summary of recent features and fixes.
 - **Viscous driver**: Remove double 1O flux evaluation before the explicit NS step.
 - **Diagnostics**: `Dump_Viscous_Corner_Diagnostics` writes multi-BC corner face/normal info when viscous.
 - **Plots**: `scripts/plot_halfcyl_inviscid_viscous.py` → `plots/half_cylinder_inviscid_viscous/`.
-- **Docs**: Root [overview.md](../overview.md); README link updated.
+- **Docs**: Root [overview.md](../overview.md); [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md); MESH/MAIN_LOOP/CONFIGURATION/BUILD refreshed; Doxygen main page + regenerate path fixed.
 
 **Key files**: `Grid_Computations.cpp`, `Grid_Refine_Functions.cpp`, `Initialize.cpp`, `Inlet_Boundary_Conditions.cpp`, `WENO2D.cpp`, `Error_Estimate_Update.cpp`, `Solver.cpp`, `Viscous_Functions.h`.
+
+---
+
+## Documentation refresh (July 2026)
+
+- Added **[HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md)** (configs, expected Pmax/Mmax, plots).
+- Updated **MESH_AND_GRID.md** (LBRT / no atan2 reorder), **MAIN_LOOP_STATUS.md** (resident GPU, host WENO, corner fix), **CONFIGURATION.md**, **BUILD_AND_RUN.md**, **docs/README.md**, root **README.md** Doxygen commands.
+- **Doxyfile_Cleaned** / **DoxygenMainPage.cpp**: project number and main page for v3.2 July 2026; regenerate with `./scripts/update_docs.sh` → `docs/doxygen/html/`.
 
 ---
 
@@ -25,6 +33,12 @@ Summary of recent features and fixes.
 - **README.md**: Dependencies aligned with CMake (Boost, OpenMP, VTK required for CPU build); Metal_Kernels called out; fixed corrupted section headings; Doxygen HTML path documented as `docs/doxygen/html/`.
 - **Doxyfile_Cleaned**: `PROJECT_NUMBER` / `PROJECT_BRIEF` updated; `OUTPUT_DIRECTORY=docs/doxygen`; `INPUT` now includes `Metal_Kernels` and only `docs/DoxygenMainPage.cpp` (avoids accidentally scanning old `docs/html` trees); excludes `docs/html`, generated `docs/doxygen`, and common virtualenv paths; `GENERATE_LATEX=NO` by default for faster runs; `.mm`/`.metal` file patterns added.
 - **docs/DoxygenMainPage.cpp**, **docs/README.md**: Main page and index refreshed for mixed mesh, AMR, CUDA vs Metal, and build prerequisites.
+
+---
+
+## AMR (status note)
+
+Gradient AMR tagging is wired in the inviscid loop; quad split/merge via `AMR_Adaptive_Step` is available when enabled. See [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md) and [ADAPTIVE_MESH_REFINEMENT.md](ADAPTIVE_MESH_REFINEMENT.md). Older “tagging only” wording in some archives is outdated.
 
 ---
 

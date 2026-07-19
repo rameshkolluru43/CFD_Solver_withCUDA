@@ -55,12 +55,30 @@ Face indices are 0-based and match the cell’s cyclic vertex order.
 
 Node indices in VTK are 0-based. The reader builds `Cells` with `nodeIndices` and then fills `Cell_Vertices` from the global point list; vertices are ordered anticlockwise for 2D.
 
-### Structured TXT
+### Structured TXT (LBRT convention)
 
-Used by some test cases (e.g. Half_Cylinder). The grid is built as a structured set of quadrilaterals; ghost count and boundary lists are derived from the block dimensions. After loading, `Cells` is resized to `Total_No_Cells` (physical + ghost) before constructing ghost cells.
+Used by half-cylinder and similar cases (e.g. `Grid_Files/Half_Cylinder/Half_Cylinder_481_161.txt`). The grid is a structured set of quadrilaterals; ghost count and boundary lists come from the block dimensions. After loading, `Cells` is resized to `Total_No_Cells` (physical + ghost) before constructing ghost cells.
+
+**Critical indexing (July 2026 fix):**
+
+| Index | Neighbour | Face edge (verts `[o,a,b,c]`) |
+|-------|-----------|-------------------------------|
+| 0 | Left | `c → o` |
+| 1 | Bottom | `o → a` |
+| 2 | Right | `a → b` |
+| 3 | Top | `b → c` |
+
+Rules enforced in `Read_Grid` / `Construct_Cell`:
+
+1. **Keep file vertex order** `[o,a,b,c]`. Do **not** call `Sort_Points_AntiClockWise` / atan2 reorder on structured TXT — that misaligns `Face_Normals` with Neighbours/BC faces near side corners (~47 wall cells on the 481×161 half cylinder).
+2. Build face areas/normals in classic **LBRT** order; flip if the normal is not outward from the cell centre.
+3. Ghost face midpoints use the same LBRT vertex pairs (`Construct_Cell(cell, face, ghost)`).
+4. Corner secondary neighbours for co-volume face gradients use corrected SW/SE/NE/NW logic (`Identify_Neighbours_For_Second_Gradients`); optional dump via `Dump_Viscous_Corner_Diagnostics`.
+
+Without (1)–(3), viscous continues from a good inviscid P3 field can blow up (Pmax ~137, Mmax ~64). After the fix, smoke stays near the inviscid reference (Pmax ≈ 48.9, Mmax ≈ 6.05). See [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md).
 
 ## Limits and Notes
 
-- **WENO** reconstruction is currently implemented for **quad-only** meshes (4 faces). On mixed or triangular meshes, the solver falls back to first- or second-order flux (MUSCL/LLF, etc.) when WENO is selected.
+- **WENO** reconstruction is currently implemented for **quad-only** meshes (4 faces). On mixed or triangular meshes, the solver falls back to first- or second-order flux (MUSCL/LLF, etc.) when WENO is selected. Near-wall host WENO faces with a degenerate stencil fall back to first-order cell/ghost states.
 - **Viscous** time-step and **co-volume** / **implicit assembly** paths assume quadrilaterals; for non-quad cells they are skipped or use an inviscid-style time step.
-- **Refinement (AMR)** tagging is gradient-based and works on all cell types; actual mesh refinement (splitting) is currently implemented only as tagging (no mesh change yet).
+- **AMR**: gradient tagging works on all cell types; the inviscid loop can also run quad 1→4 split / 4→1 merge when enabled (`AMR_Adaptive_Step`). See [ADAPTIVE_MESH_REFINEMENT.md](ADAPTIVE_MESH_REFINEMENT.md) and [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md).

@@ -10,8 +10,8 @@
  *
  * @section version_info Version Information
  *
- * - **Version**: v3.1 (mixed unstructured meshes, AMR tagging, CUDA; optional Metal on macOS)
- * - **Documentation refresh**: April 2026
+ * - **Version**: v3.2 (LBRT structured grids, half-cylinder M=6 NS validation, CUDA MOVERS/RICCA; optional Metal)
+ * - **Documentation refresh**: July 2026
  * - **Language**: C++17 with optional CUDA (NVIDIA) and experimental Metal (Apple)
  * - **License**: GNU General Public License v3.0
  *
@@ -80,11 +80,14 @@
  * - Comprehensive boundary condition treatment
  * - Production limiting for numerical stability
  *
- * ### Grids, AMR, and I/O
+ * ### Grids, AMR, CUDA, and Validation
  *
  * - **Mixed 2D meshes**: Triangle and quadrilateral cells with per-face neighbour connectivity (VTK/GMSH-style paths)
- * - **Gradient-based AMR (tagging)**: Green–Gauss-based refinement indicator; configurable threshold and period (topology refinement is staged for future work—see docs/ADAPTIVE_MESH_REFINEMENT.md)
- * - **JSON configuration**: Central solver and test-case configuration (see docs/CONFIGURATION.md)
+ * - **Structured TXT LBRT**: Neighbours `[left,bottom,right,top]` with verts `[o,a,b,c]`; face normals must stay aligned with BC faces (July 2026 corner fix — see docs/MESH_AND_GRID.md)
+ * - **CUDA main loop**: 1O LLF/MOVERS/RICCA/MOVERS_NWSC; optional resident GPU explicit step; validated WENO+RICCA NS on host
+ * - **Half-cylinder M∞=6**: Inviscid Pmax≈48.3 / Mmax≈6; viscous smoke after corner fix Pmax≈48.9 / Mmax≈6.05 — docs/HALF_CYLINDER_VALIDATION.md
+ * - **Gradient-based AMR**: Tagging + quad split/merge on the inviscid path when enabled
+ * - **JSON configuration**: Run + test-case JSON (docs/CONFIGURATION.md)
  *
  * ### 🔧 Computational Framework
  *
@@ -230,11 +233,14 @@
  *
  * ### Flux Scheme Selection
  * @code{.cpp}
- * // Available compressible flux schemes
- * Dissipation_Type = 1;  // Van Leer flux vector splitting
- * Dissipation_Type = 2;  // LLF (Local Lax-Friedrichs)
- * Dissipation_Type = 3;  // Enhanced Roe scheme (1st/2nd order)
- * Dissipation_Type = 4;  // AUSM flux scheme
+ * // Dissipation_Type (main-loop map)
+ * Dissipation_Type = 1;  // LLF
+ * Dissipation_Type = 2;  // MOVERS
+ * Dissipation_Type = 3;  // Roe
+ * Dissipation_Type = 4;  // RICCA (WENO face dissipation; CUDA 1O)
+ * Dissipation_Type = 5;  // MOVERS_NWSC
+ * Dissipation_Type = 6;  // RICCA_LLF hybrid (WENO)
+ * // Note: Van Leer / AUSM source exists but is not in the main Dissipation_Type dispatch.
  * @endcode
  *
  * ### Turbulence Model Selection
@@ -255,14 +261,13 @@
  * - **Namespaces**: Logical code organization
  *
  * ### Technical Guides
- * - **README.md** (repository root): Overview, build, and feature summary
- * - **docs/MESH_AND_GRID.md**: Mesh formats and mixed tri/quad connectivity
+ * - **overview.md**: Short project map and M=6 validation status
+ * - **docs/HALF_CYLINDER_VALIDATION.md**: Canonical half-cylinder configs and plots
+ * - **docs/MESH_AND_GRID.md**: Mesh formats, LBRT, mixed tri/quad
+ * - **docs/MAIN_LOOP_STATUS.md**: What is wired in the time loop
  * - **docs/ADAPTIVE_MESH_REFINEMENT.md**: AMR indicator and JSON options
  * - **docs/CONFIGURATION.md**, **docs/BUILD_AND_RUN.md**: Configuration and build/run
- * - **docs/Van_Leer_Flux_Implementation.md**: Van Leer scheme mathematical framework
- * - **docs/ROE_2O_Implementation.md**: Second-order Roe implementation details
- * - **docs/Enhanced_ROE_First_Order.md**: Enhanced first-order Roe documentation
- * - **docs/AUSM_Flux_Implementation.md**: AUSM flux scheme technical guide
+ * - **docs/RELEASE_NOTES.md**: Changelog
  *
  * ### Completion Summaries
  * - Implementation achievement summaries with before/after comparisons
@@ -287,11 +292,10 @@
  *
  * ### Running Your First Simulation
  * @code{.bash}
- * # CPU version
- * ./CFD_solver ../json_Files/Solver_Config.json
- *
- * # GPU version (if CUDA available)
- * ./CFD_solver_gpu ../json_Files/Solver_Config.json
+ * cmake -S . -B build-cuda && cmake --build build-cuda --target CFD_solver_gpu -j$(nproc)
+ * ./build-cuda/CFD_solver_gpu json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
+ * # Regenerate API docs:
+ * doxygen docs/Doxyfile_Cleaned   # → docs/doxygen/html/index.html
  * @endcode
  *
  * @section contributing Contributing

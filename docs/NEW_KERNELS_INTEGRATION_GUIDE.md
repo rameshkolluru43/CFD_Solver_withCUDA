@@ -1,4 +1,7 @@
 # Integration Guide for New CUDA Flux and Reconstruction Schemes
+
+> **Archive (January 2026).** Prefer [MAIN_LOOP_STATUS.md](MAIN_LOOP_STATUS.md) for the active CUDA main-loop contract.
+
 **Date:** January 15, 2026  
 **Status:** Implementation Complete - Ready for Integration
 
