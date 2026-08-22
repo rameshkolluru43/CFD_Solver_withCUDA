@@ -8,6 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstdio>
+#include <iostream>
 
 #include "../include/definitions.h"
 #include "../include/Globals.h"
@@ -467,11 +468,123 @@ __device__ void d_load_offset_state(int cell0, int negFace, int posFace, int off
     d_load_cell_U(cur, d_U, n_cells, U);
 }
 
-__device__ void d_weno_from_offset(int cell, int negFace, int posFace,
+__device__ void d_mat4_vec(const double A[16], const double x[kNv], double y[kNv])
+{
+    for (int i = 0; i < kNv; ++i)
+    {
+        double s = 0.0;
+        for (int j = 0; j < kNv; ++j)
+            s += A[i + kNv * j] * x[j];
+        y[i] = s;
+    }
+}
+
+/** Roe-averaged L / L^{-1} for face-normal characteristic WENO (host Get_LR). */
+__device__ bool d_get_LR(double dL, double uL, double vL, double aL,
+                         double dR, double uR, double vR, double aR,
+                         double nx, double ny, double gamma,
+                         double L[16], double IL[16])
+{
+    const double sqrt_dL = sqrt(fmax(dL, 1e-14));
+    const double sqrt_dR = sqrt(fmax(dR, 1e-14));
+    const double denom = sqrt_dL + sqrt_dR;
+    double u_RL, v_RL, a_RL;
+    if (denom < 1e-14)
+    {
+        u_RL = 0.5 * (uL + uR);
+        v_RL = 0.5 * (vL + vR);
+        a_RL = 0.5 * (aL + aR);
+    }
+    else
+    {
+        u_RL = (uL * sqrt_dL + uR * sqrt_dR) / denom;
+        v_RL = (vL * sqrt_dL + vR * sqrt_dR) / denom;
+        a_RL = (aL * sqrt_dL + aR * sqrt_dR) / denom;
+    }
+    if (!(a_RL > 1e-14) || !isfinite(a_RL))
+        a_RL = 1e-14;
+
+    const double gamma_m1 = gamma - 1.0;
+    const double vn = u_RL * nx + v_RL * ny;
+    const double ek = 0.5 * (u_RL * u_RL + v_RL * v_RL);
+    const double h = (a_RL * a_RL / gamma_m1) + ek;
+    const double t1 = 0.5 / (a_RL * a_RL);
+    const double t2 = gamma_m1 * t1;
+
+    L[0] = 1.0 - 2.0 * t2 * ek;
+    L[4] = 2.0 * t2 * u_RL;
+    L[8] = 2.0 * t2 * v_RL;
+    L[12] = -2.0 * t2;
+    L[1] = v_RL * nx - u_RL * ny;
+    L[5] = ny;
+    L[9] = -nx;
+    L[13] = 0.0;
+    L[2] = t2 * ek - a_RL * vn * t1;
+    L[6] = -t2 * u_RL + a_RL * t1 * nx;
+    L[10] = -t2 * v_RL + a_RL * t1 * ny;
+    L[14] = t2;
+    L[3] = t2 * ek + a_RL * vn * t1;
+    L[7] = -t2 * u_RL - a_RL * t1 * nx;
+    L[11] = -t2 * v_RL - a_RL * t1 * ny;
+    L[15] = t2;
+
+    IL[0] = 1.0;
+    IL[4] = 0.0;
+    IL[8] = 1.0;
+    IL[12] = 1.0;
+    IL[1] = u_RL;
+    IL[5] = ny;
+    IL[9] = u_RL + a_RL * nx;
+    IL[13] = u_RL - a_RL * nx;
+    IL[2] = v_RL;
+    IL[6] = -nx;
+    IL[10] = v_RL + a_RL * ny;
+    IL[14] = v_RL - a_RL * ny;
+    IL[3] = ek;
+    IL[7] = u_RL * ny - v_RL * nx;
+    IL[11] = h + a_RL * vn;
+    IL[15] = h - a_RL * vn;
+
+    for (int i = 0; i < 16; ++i)
+    {
+        if (!isfinite(L[i]) || !isfinite(IL[i]))
+            return false;
+    }
+    return true;
+}
+
+__device__ void d_load_prim6(int cell, const double *d_prim, int n_cells,
+                             double &rho, double &u, double &v, double &a)
+{
+    if (cell < 0 || cell >= n_cells || d_prim == nullptr)
+    {
+        rho = 1.0;
+        u = 0.0;
+        v = 0.0;
+        a = 1.0;
+        return;
+    }
+    rho = d_prim[cell * 6 + 0];
+    u = d_prim[cell * 6 + 1];
+    v = d_prim[cell * 6 + 2];
+    a = d_prim[cell * 6 + 5];
+    if (!(rho > 1e-14) || !isfinite(rho))
+        rho = 1e-14;
+    if (!isfinite(u))
+        u = 0.0;
+    if (!isfinite(v))
+        v = 0.0;
+    if (!(a > 1e-14) || !isfinite(a))
+        a = 1e-14;
+}
+
+__device__ void d_weno_from_offset(int cell, int face, int neigh, int negFace, int posFace,
                                   int o1, int o2, int o3, int o4, int o5, int LR,
                                   const int *d_neighbours, const int *d_wall_face,
                                   const double *d_face_normals, const double *d_U,
-                                  int n_phys, int n_cells, double gamma, double Uout[kNv])
+                                  const double *d_prim,
+                                  int n_phys, int n_cells, double gamma, bool is_char,
+                                  double Uout[kNv])
 {
     double U1[kNv], U2[kNv], U3[kNv], U4[kNv], U5[kNv];
     d_load_offset_state(cell, negFace, posFace, o1, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U1);
@@ -479,8 +592,41 @@ __device__ void d_weno_from_offset(int cell, int negFace, int posFace,
     d_load_offset_state(cell, negFace, posFace, o3, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U3);
     d_load_offset_state(cell, negFace, posFace, o4, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U4);
     d_load_offset_state(cell, negFace, posFace, o5, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U5);
+
+    if (!is_char)
+    {
+        for (int v = 0; v < kNv; ++v)
+            Uout[v] = d_weno5_scalar(U1[v], U2[v], U3[v], U4[v], U5[v], LR);
+        return;
+    }
+
+    double dL, uL, vL, aL, dR, uR, vR, aR;
+    d_load_prim6(cell, d_prim, n_cells, dL, uL, vL, aL);
+    d_load_prim6(neigh, d_prim, n_cells, dR, uR, vR, aR);
+    double nx = d_face_normals[(cell * kMaxFaces + face) * 2 + 0];
+    double ny = d_face_normals[(cell * kMaxFaces + face) * 2 + 1];
+    double Lmat[16], ILmat[16];
+    if (!d_get_LR(dL, uL, vL, aL, dR, uR, vR, aR, nx, ny, gamma, Lmat, ILmat))
+    {
+        for (int v = 0; v < kNv; ++v)
+            Uout[v] = d_weno5_scalar(U1[v], U2[v], U3[v], U4[v], U5[v], LR);
+        return;
+    }
+
+    double W1[kNv], W2[kNv], W3[kNv], W4[kNv], W5[kNv], W[kNv];
+    d_mat4_vec(Lmat, U1, W1);
+    d_mat4_vec(Lmat, U2, W2);
+    d_mat4_vec(Lmat, U3, W3);
+    d_mat4_vec(Lmat, U4, W4);
+    d_mat4_vec(Lmat, U5, W5);
     for (int v = 0; v < kNv; ++v)
-        Uout[v] = d_weno5_scalar(U1[v], U2[v], U3[v], U4[v], U5[v], LR);
+        W[v] = d_weno5_scalar(W1[v], W2[v], W3[v], W4[v], W5[v], LR);
+    d_mat4_vec(ILmat, W, Uout);
+    for (int v = 0; v < kNv; ++v)
+    {
+        if (!isfinite(Uout[v]))
+            Uout[v] = U3[v];
+    }
 }
 
 __device__ double d_pressure_from_U(const double U[kNv], double gamma)
@@ -491,6 +637,64 @@ __device__ double d_pressure_from_U(const double U[kNv], double gamma)
     const double u = U[1] / rho;
     const double v = U[2] / rho;
     return (gamma - 1.0) * (U[3] - 0.5 * rho * (u * u + v * v));
+}
+
+__device__ double d_blend_pressure(const double U0[kNv], const double Uw[kNv],
+                                  double t, double gamma)
+{
+    double U[kNv];
+    for (int i = 0; i < kNv; ++i)
+        U[i] = (1.0 - t) * U0[i] + t * Uw[i];
+    return d_pressure_from_U(U, gamma);
+}
+
+/**
+ * Zhang–Shu positivity limiter (convex blend):
+ *   U* = (1-θ) U_1O + θ U_WENO,  θ ∈ [0,1]
+ * Largest θ such that ρ(U*)≥ε and p(U*)≥ε.
+ */
+__device__ double d_positivity_theta(const double U0[kNv], const double Uw[kNv],
+                                    double gamma, double eps)
+{
+    double theta = 1.0;
+
+    if (!(Uw[0] > eps) || !isfinite(Uw[0]))
+    {
+        if (U0[0] > eps && isfinite(U0[0]) && (U0[0] - Uw[0]) > 1e-30)
+            theta = fmin(theta, (U0[0] - eps) / (U0[0] - Uw[0]));
+        else
+            theta = 0.0;
+    }
+    theta = fmax(0.0, fmin(1.0, theta));
+
+    if (!(d_blend_pressure(U0, Uw, theta, gamma) > eps))
+    {
+        double lo = 0.0, hi = theta;
+        for (int it = 0; it < 14; ++it)
+        {
+            const double mid = 0.5 * (lo + hi);
+            if (d_blend_pressure(U0, Uw, mid, gamma) > eps)
+                lo = mid;
+            else
+                hi = mid;
+        }
+        theta = lo;
+    }
+    if (!isfinite(theta) || theta < 0.0)
+        theta = 0.0;
+    if (theta > 1.0)
+        theta = 1.0;
+    return theta;
+}
+
+__device__ void d_positivity_limit_face(const double U_cell[kNv], double U_face[kNv],
+                                       double gamma, double eps)
+{
+    const double th = d_positivity_theta(U_cell, U_face, gamma, eps);
+    if (th >= 1.0 - 1e-15)
+        return;
+    for (int i = 0; i < kNv; ++i)
+        U_face[i] = (1.0 - th) * U_cell[i] + th * U_face[i];
 }
 
 __device__ bool d_weno_wall_face(int cell, int face,
@@ -566,26 +770,28 @@ __device__ bool d_weno_wall_face(int cell, int face,
 __device__ void d_weno_interior_face(int cell, int face,
                                     const int *d_neighbours, const int *d_wall_face,
                                     const double *d_face_normals, const double *d_U,
-                                    int n_phys, int n_cells, double gamma,
+                                    const double *d_prim,
+                                    int n_phys, int n_cells, double gamma, bool is_char,
                                     double U_L[kNv], double U_R[kNv])
 {
+    const int neigh = d_neighbours[cell * kMaxFaces + face];
     switch (face)
     {
     case 0:
-        d_weno_from_offset(cell, 0, 2, -3, -2, -1, 0, 1, 0, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_L);
-        d_weno_from_offset(cell, 0, 2, -2, -1, 0, 1, 2, 1, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_R);
+        d_weno_from_offset(cell, face, neigh, 0, 2, -3, -2, -1, 0, 1, 0, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_L);
+        d_weno_from_offset(cell, face, neigh, 0, 2, -2, -1, 0, 1, 2, 1, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_R);
         break;
     case 1:
-        d_weno_from_offset(cell, 1, 3, -3, -2, -1, 0, 1, 0, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_L);
-        d_weno_from_offset(cell, 1, 3, -2, -1, 0, 1, 2, 1, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_R);
+        d_weno_from_offset(cell, face, neigh, 1, 3, -3, -2, -1, 0, 1, 0, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_L);
+        d_weno_from_offset(cell, face, neigh, 1, 3, -2, -1, 0, 1, 2, 1, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_R);
         break;
     case 2:
-        d_weno_from_offset(cell, 0, 2, -2, -1, 0, 1, 2, 0, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_L);
-        d_weno_from_offset(cell, 0, 2, -1, 0, 1, 2, 3, 1, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_R);
+        d_weno_from_offset(cell, face, neigh, 0, 2, -2, -1, 0, 1, 2, 0, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_L);
+        d_weno_from_offset(cell, face, neigh, 0, 2, -1, 0, 1, 2, 3, 1, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_R);
         break;
     case 3:
-        d_weno_from_offset(cell, 1, 3, -2, -1, 0, 1, 2, 0, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_L);
-        d_weno_from_offset(cell, 1, 3, -1, 0, 1, 2, 3, 1, d_neighbours, d_wall_face, d_face_normals, d_U, n_phys, n_cells, gamma, U_R);
+        d_weno_from_offset(cell, face, neigh, 1, 3, -2, -1, 0, 1, 2, 0, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_L);
+        d_weno_from_offset(cell, face, neigh, 1, 3, -1, 0, 1, 2, 3, 1, d_neighbours, d_wall_face, d_face_normals, d_U, d_prim, n_phys, n_cells, gamma, is_char, U_R);
         break;
     default:
         d_load_cell_U(cell, d_U, n_cells, U_L);
@@ -612,10 +818,12 @@ __global__ void net_flux_weno_ricca_kernel(
     const double *d_face_areas,
     const int *d_wall_face,
     const double *d_U,
+    const double *d_prim,
     double *d_net_flux,
     int n_cells,
     int n_phys,
     int dissipation_type,
+    bool is_char,
     double gamma,
     double gamma1)
 {
@@ -641,26 +849,40 @@ __global__ void net_flux_weno_ricca_kernel(
 
         const bool is_wall = d_wall_face[cell * kMaxFaces + face] != 0;
         double U_L[kNv], U_R[kNv];
-        bool ok = false;
-        if (is_wall)
-            ok = d_weno_wall_face(cell, face, d_neighbours, d_wall_face, d_face_normals, d_U,
-                                  n_phys, n_cells, gamma, U_L, U_R);
-        if (!ok && neigh >= n_phys)
+        double U_cell[kNv], U_neigh[kNv];
+        d_load_cell_U(cell, d_U, n_cells, U_cell);
+        d_load_cell_U(neigh, d_U, n_cells, U_neigh);
+
+        /* Host WENO2D: walls / invalid neighbours use 1O cell averages (no WENO). */
+        if (is_wall || neigh >= n_phys)
         {
-            d_load_cell_U(cell, d_U, n_cells, U_L);
-            d_load_cell_U(neigh, d_U, n_cells, U_R);
-            ok = true;
+            for (int v = 0; v < kNv; ++v)
+            {
+                U_L[v] = U_cell[v];
+                U_R[v] = U_neigh[v];
+            }
         }
-        if (!ok)
+        else
         {
             d_weno_interior_face(cell, face, d_neighbours, d_wall_face, d_face_normals, d_U,
-                                 n_phys, n_cells, gamma, U_L, U_R);
+                                 d_prim, n_phys, n_cells, gamma, is_char, U_L, U_R);
+        }
+
+        /* Zhang–Shu: convex-blend WENO faces toward 1O cell averages if ρ/p ≤ ε. */
+        {
+            constexpr double pos_eps = 1e-8;
+            d_positivity_limit_face(U_cell, U_L, gamma, pos_eps);
+            d_positivity_limit_face(U_neigh, U_R, gamma, pos_eps);
             const double pL = d_pressure_from_U(U_L, gamma);
             const double pR = d_pressure_from_U(U_R, gamma);
-            if (pL < 1e-12 || pR < 1e-12 || !isfinite(pL) || !isfinite(pR))
+            if (!(U_L[0] > pos_eps) || !(U_R[0] > pos_eps) || !(pL > pos_eps) || !(pR > pos_eps) ||
+                !isfinite(pL) || !isfinite(pR))
             {
-                d_load_cell_U(cell, d_U, n_cells, U_L);
-                d_load_cell_U(neigh, d_U, n_cells, U_R);
+                for (int v = 0; v < kNv; ++v)
+                {
+                    U_L[v] = U_cell[v];
+                    U_R[v] = U_neigh[v];
+                }
             }
         }
 
@@ -811,6 +1033,59 @@ __device__ void conserv_to_prim(const double *U, double *prim, double gamma)
     prim[5] = sqrt(gamma * p / rho);
 }
 
+/* Repair conservatives in-place so prim and U stay thermodynamically consistent.
+   Blind p-clamp in conserv_to_prim alone leaves U[3] negative-internal-energy and
+   the next WENO step amplifies until |V|→∞ and dt collapses. */
+__device__ void repair_conserved(double *U, double gamma)
+{
+    const double rho_floor = 1e-8;
+    const double p_floor = 1e-8;
+    double rho = U[0];
+    const bool rho_bad = !isfinite(rho) || rho < rho_floor;
+    if (rho_bad)
+    {
+        /* Tiny/NaN density with leftover energy → a→∞; reset to a calm floor state. */
+        U[0] = rho_floor;
+        U[1] = 0.0;
+        U[2] = 0.0;
+        U[3] = p_floor / (gamma - 1.0);
+        return;
+    }
+    double u = U[1] / rho;
+    double v = U[2] / rho;
+    if (!isfinite(u))
+        u = 0.0;
+    if (!isfinite(v))
+        v = 0.0;
+    /* Cap extreme velocities that already indicate a failed update. */
+    const double v_cap = 20.0;
+    const double speed = sqrt(u * u + v * v);
+    if (speed > v_cap)
+    {
+        const double s = v_cap / speed;
+        u *= s;
+        v *= s;
+    }
+    U[1] = rho * u;
+    U[2] = rho * v;
+    double ke = 0.5 * (u * u + v * v);
+    double p = (gamma - 1.0) * (U[3] - rho * ke);
+    if (!isfinite(p) || p < p_floor)
+    {
+        p = p_floor;
+        /* Near-vacuum: drop unsupported KE so a stays finite. */
+        if (ke > 2.0)
+        {
+            u = 0.0;
+            v = 0.0;
+            ke = 0.0;
+            U[1] = 0.0;
+            U[2] = 0.0;
+        }
+    }
+    U[3] = p / (gamma - 1.0) + rho * ke;
+}
+
 __global__ void inlet_ghost_kernel(const int *list, int n, double *U, double *prim,
                                    double rho, double u, double v, double p, double gamma)
 {
@@ -899,14 +1174,62 @@ __global__ void update_and_error_kernel(const int *leaf, int n_leaf, double *U, 
     const int c = leaf[li];
     const double s = -min_dt * inv_area[c];
     double local_e[kNv] = {0.0, 0.0, 0.0, 0.0};
+    double Uold[kNv], Utry[kNv];
+    for (int v = 0; v < kNv; ++v)
+        Uold[v] = U[c * kNv + v];
     for (int v = 0; v < kNv; ++v)
     {
         const double dU = s * net_flux[c * kNv + v];
-        const double denom = U[c * kNv + v];
-        double t = (!isfinite(dU) || !isfinite(denom)) ? 0.0
-                                                       : (fabs(denom) < 1e-12 ? fabs(dU) : fabs(dU) / fabs(denom));
+        Utry[v] = Uold[v] + dU;
+    }
+    /* Zhang–Shu cell update: U ← (1-θ)Uold + θ Utry with ρ,p ≥ ε (θ≤1). */
+    double th = 1.0;
+    {
+        constexpr double pos_eps = 1e-8;
+        for (int v = 0; v < kNv; ++v)
+        {
+            if (!isfinite(Utry[v]))
+            {
+                th = 0.0;
+                break;
+            }
+        }
+        if (th > 0.0)
+            th = d_positivity_theta(Uold, Utry, gamma, pos_eps);
+        for (int v = 0; v < kNv; ++v)
+            U[c * kNv + v] = (1.0 - th) * Uold[v] + th * Utry[v];
+    }
+    /* Residual from *applied* update (θ·dU), not the rejected trial. */
+    for (int v = 0; v < kNv; ++v)
+    {
+        const double dU_app = th * (Utry[v] - Uold[v]);
+        const double denom = Uold[v];
+        double t = (!isfinite(dU_app) || !isfinite(denom)) ? 0.0
+                                                           : (fabs(denom) < 1e-12 ? fabs(dU_app) : fabs(dU_app) / fabs(denom));
         local_e[v] = t * t;
-        U[c * kNv + v] += dU;
+    }
+    repair_conserved(&U[c * kNv], gamma);
+    /* Last-resort safety net if repair still leaves a runaway / vacuum state. */
+    {
+        const double rho = U[c * kNv + 0];
+        bool bad = !isfinite(rho) || !(rho > 1e-10);
+        if (!bad)
+        {
+            const double u = U[c * kNv + 1] / rho;
+            const double v = U[c * kNv + 2] / rho;
+            const double ke = 0.5 * (u * u + v * v);
+            const double p = (gamma - 1.0) * (U[c * kNv + 3] - rho * ke);
+            const double a2 = (rho > 0.0) ? (gamma * p / rho) : 0.0;
+            const double speed = sqrt(u * u + v * v);
+            bad = !isfinite(u) || !isfinite(v) || !isfinite(p) || !isfinite(a2) ||
+                  !(p > 1e-10) || speed > 20.0 || a2 > 20.0 * 20.0;
+        }
+        if (bad)
+        {
+            for (int v = 0; v < kNv; ++v)
+                U[c * kNv + v] = Uold[v];
+            repair_conserved(&U[c * kNv], gamma);
+        }
     }
     conserv_to_prim(&U[c * kNv], &prim[c * 6], gamma);
     for (int v = 0; v < kNv; ++v)
@@ -940,6 +1263,7 @@ struct CudaFluxBuffers
     int *d_exit = nullptr;
     int *d_wall = nullptr;
     int n_inlet = 0, n_exit = 0, n_wall = 0;
+    std::vector<int> h_leaf;
 
     void free_all()
     {
@@ -1103,9 +1427,9 @@ bool launch_flux_kernel(int n_cells, int n_leaf)
             g_buf.d_leaf, n_leaf,
             g_buf.d_num_faces, g_buf.d_neighbours,
             g_buf.d_face_normals, g_buf.d_face_areas, g_buf.d_wall_face,
-            g_buf.d_U, g_buf.d_net_flux,
+            g_buf.d_U, g_buf.d_prim, g_buf.d_net_flux,
             n_cells, g_buf.n_phys, Dissipation_Type,
-            GAMMA_CONST, GAMMA1_CONST);
+            Is_Char, GAMMA_CONST, GAMMA1_CONST);
     }
     else
     {
@@ -1181,10 +1505,8 @@ bool Resident_GPU_Explicit_Available()
         return false;
     if (NUM_FLUX_COMPONENTS != 4 || Cells.empty())
         return false;
-    /* Keep GPU WENO off: after dF sign fix, P3 continue still drifts Pmax 48→104
-       (wall recon ≠ host). Use host WENO2D until bit-identical. */
     if (Is_WENO)
-        return false;
+        return (Dissipation_Type == 4); /* GPU WENO5 + RICCA */
     return (Dissipation_Type == 2 || Dissipation_Type == 4 || Dissipation_Type == 5);
 }
 
@@ -1229,12 +1551,106 @@ bool Resident_GPU_Explicit_Init()
         return false;
 
     g_buf.n_phys = No_Physical_Cells;
+    g_buf.h_leaf.assign(leafCells.begin(), leafCells.end());
     g_buf.resident = true;
     if (CFD_MPI_Is_Root())
-        std::printf("Resident GPU explicit solver ON (%s cells=%d leaf=%d phys=%d inlet=%d exit=%d wall=%d)\n",
+        std::printf("Resident GPU explicit solver ON (%s%s cells=%d leaf=%d phys=%d inlet=%d exit=%d wall=%d)\n",
                     Is_WENO ? "WENO+RICCA" : "1O",
+                    (Is_WENO && Is_Char) ? "+Char" : "",
                     n_cells, n_leaf, g_buf.n_phys, g_buf.n_inlet, g_buf.n_exit, g_buf.n_wall);
     return true;
+}
+
+static void diagnose_dt_collapse(const std::vector<double> &h_dt, double min_dt, double ref_dt, const char *tag)
+{
+    const int n_leaf = static_cast<int>(h_dt.size());
+    if (n_leaf <= 0 || g_buf.h_leaf.size() != static_cast<size_t>(n_leaf))
+        return;
+
+    int imin = 0;
+    double max_dt = h_dt[0];
+    int n_small = 0;
+    const double thresh = (ref_dt > 0.0) ? 0.1 * ref_dt : 1e-6;
+    for (int i = 0; i < n_leaf; ++i)
+    {
+        if (h_dt[i] < h_dt[imin])
+            imin = i;
+        if (h_dt[i] > max_dt)
+            max_dt = h_dt[i];
+        if (h_dt[i] < thresh)
+            ++n_small;
+    }
+    const int c = g_buf.h_leaf[imin];
+
+    std::vector<double> U4(4), prim6(6);
+    cudaMemcpy(U4.data(), g_buf.d_U + c * kNv, 4 * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(prim6.data(), g_buf.d_prim + c * 6, 6 * sizeof(double), cudaMemcpyDeviceToHost);
+
+    const double rho = U4[0];
+    const double u = (fabs(rho) > 1e-30) ? U4[1] / rho : 0.0;
+    const double v = (fabs(rho) > 1e-30) ? U4[2] / rho : 0.0;
+    const double ke = 0.5 * (u * u + v * v);
+    const double praw = (GAMMA_CONST - 1.0) * (U4[3] - rho * ke);
+    const double speed = sqrt(u * u + v * v);
+
+    /* Global pathology counts (sample all leaf cells' raw pressure from U). */
+    std::vector<double> h_U(g_buf.n_cells * kNv);
+    std::vector<double> h_prim(g_buf.n_cells * 6);
+    cudaMemcpy(h_U.data(), g_buf.d_U, g_buf.n_cells * kNv * sizeof(double), cudaMemcpyDeviceToHost);
+    cudaMemcpy(h_prim.data(), g_buf.d_prim, g_buf.n_cells * 6 * sizeof(double), cudaMemcpyDeviceToHost);
+
+    int n_neg_p = 0, n_tiny_rho = 0, n_fast = 0, n_clamped_p = 0;
+    double max_speed = 0.0, max_a = 0.0, min_praw = 1e300;
+    int c_fast = -1, c_neg = -1;
+    for (int li = 0; li < n_leaf; ++li)
+    {
+        const int ci = g_buf.h_leaf[li];
+        const double r = h_U[ci * kNv + 0];
+        const double uu = (fabs(r) > 1e-30) ? h_U[ci * kNv + 1] / r : 0.0;
+        const double vv = (fabs(r) > 1e-30) ? h_U[ci * kNv + 2] / r : 0.0;
+        const double pr = (GAMMA_CONST - 1.0) * (h_U[ci * kNv + 3] - 0.5 * r * (uu * uu + vv * vv));
+        const double spd = sqrt(uu * uu + vv * vv);
+        const double a = h_prim[ci * 6 + 5];
+        if (!(pr > 0.0) || !std::isfinite(pr))
+        {
+            ++n_neg_p;
+            if (c_neg < 0)
+                c_neg = ci;
+        }
+        if (!(r > 1e-6) || !std::isfinite(r))
+            ++n_tiny_rho;
+        if (pr < 1e-12 && r > 1e-6)
+            ++n_clamped_p; /* would hit conserv_to_prim floor */
+        if (spd + a > max_speed)
+        {
+            max_speed = spd + a;
+            c_fast = ci;
+        }
+        if (a > max_a)
+            max_a = a;
+        if (pr < min_praw)
+            min_praw = pr;
+        if (spd + a > 50.0)
+            ++n_fast;
+    }
+
+    std::cerr << std::scientific;
+    std::cerr << "[GPU-DT-DEBUG] " << tag
+              << " min_dt=" << min_dt << " ref_dt=" << ref_dt
+              << " max_dt=" << max_dt << " n_dt<0.1*ref=" << n_small << "\n";
+    std::cerr << "[GPU-DT-DEBUG] worst-dt cell=" << c
+              << " U=[" << U4[0] << "," << U4[1] << "," << U4[2] << "," << U4[3] << "]"
+              << " praw=" << praw << " |V|=" << speed
+              << " prim(rho,u,v,p,a)=[" << prim6[0] << "," << prim6[1] << "," << prim6[2]
+              << "," << prim6[4] << "," << prim6[5] << "]\n";
+    std::cerr << "[GPU-DT-DEBUG] counts: neg_p=" << n_neg_p
+              << " tiny_rho=" << n_tiny_rho
+              << " would_clamp_p=" << n_clamped_p
+              << " fast(|V|+a>50)=" << n_fast
+              << " min_praw=" << min_praw
+              << " max(|V|+a)=" << max_speed << " @cell " << c_fast
+              << " max_a=" << max_a
+              << " first_neg_p_cell=" << c_neg << "\n";
 }
 
 bool Resident_GPU_Explicit_Step(double &min_dt_out, double err_out[4])
@@ -1291,7 +1707,30 @@ bool Resident_GPU_Explicit_Step(double &min_dt_out, double err_out[4])
         if (h_dt[i] < min_dt)
             min_dt = h_dt[i];
     if (!(min_dt > 0.0) || !std::isfinite(min_dt))
+    {
+        diagnose_dt_collapse(h_dt, min_dt, -1.0, "nonfinite/nonpositive min_dt");
         return false;
+    }
+    /* GPU WENO can produce non-physical states that drive dt → 0 without NaN.
+       Force host fallback before the solution is destroyed. */
+    static double s_ref_dt = -1.0;
+    static bool s_warned = false;
+    if (s_ref_dt < 0.0 && min_dt > 1e-8)
+        s_ref_dt = min_dt;
+    if (s_ref_dt > 0.0 && min_dt < 0.5 * s_ref_dt && !s_warned)
+    {
+        diagnose_dt_collapse(h_dt, min_dt, s_ref_dt, "early-warning dt<0.5*ref");
+        s_warned = true;
+    }
+    if (min_dt < 1e-12 || (s_ref_dt > 0.0 && min_dt < 1e-4 * s_ref_dt))
+    {
+        diagnose_dt_collapse(h_dt, min_dt, s_ref_dt, "COLLAPSE");
+        std::cerr << "Resident_GPU_Explicit_Step: min_dt collapsed (" << min_dt
+                  << "); requesting host fallback.\n";
+        s_ref_dt = -1.0;
+        s_warned = false;
+        return false;
+    }
     min_dt_out = min_dt;
     Min_dt = min_dt;
 

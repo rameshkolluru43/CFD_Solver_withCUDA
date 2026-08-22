@@ -82,8 +82,9 @@ if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
 	list(FILTER SOURCES EXCLUDE REGEX "Grid_Performance_Benchmark\\.cpp$")
 endif()
 
-# All CUDA kernel sources
+# All CUDA kernel sources (2D path; exclude standalone 3D Euler kernels)
 file(GLOB CUDA_KERNEL_SOURCES "${PROJECT_SOURCE_DIR}/CUDA_KERNELS/*.cu")
+list(FILTER CUDA_KERNEL_SOURCES EXCLUDE REGEX "Euler3D_Cuda\\.cu$")
 
 set(CUDA_SOURCES
     ${PROJECT_SOURCE_DIR}/src/Main_CUDA.cu
@@ -239,4 +240,70 @@ if(VTK_FOUND)
     endif()
 else()
     message(STATUS "VTK not found -- skipping CPU target CFD_solver (GPU target will still build)")
+endif()
+
+# --- 3D Euler/NS (clean src3d/ path; independent of incomplete src_3D/) ---
+set(CFD_3D_HOST_SOURCES
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D.cpp
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Flux.cpp
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Viscous.cpp
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Turbulence.cpp
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Ramp.cpp
+	${PROJECT_SOURCE_DIR}/src3d/Euler3D_SWBLI.cpp
+)
+add_executable(CFD_solver_3d
+	${PROJECT_SOURCE_DIR}/src3d/Main_3D.cpp
+	${CFD_3D_HOST_SOURCES}
+)
+target_include_directories(CFD_solver_3d PRIVATE ${PROJECT_SOURCE_DIR}/src3d)
+target_compile_features(CFD_solver_3d PRIVATE cxx_std_17)
+target_compile_options(CFD_solver_3d PRIVATE
+	$<$<CONFIG:Release>:-O3 -DNDEBUG>
+	$<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
+)
+if(OpenMP_CXX_FOUND)
+	if(CFD_OPENMP_IS_LIBOMP_BREW)
+		target_compile_options(CFD_solver_3d PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
+		target_link_libraries(CFD_solver_3d PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
+	else()
+		target_link_libraries(CFD_solver_3d PRIVATE OpenMP::OpenMP_CXX)
+	endif()
+endif()
+message(STATUS "3D CPU target: CFD_solver_3d")
+
+if(CFD_HAVE_CUDA)
+	add_executable(CFD_solver_3d_gpu
+		${PROJECT_SOURCE_DIR}/src3d/Main_3D_CUDA.cu
+		${CFD_3D_HOST_SOURCES}
+		${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Euler3D_Cuda.cu
+	)
+	target_include_directories(CFD_solver_3d_gpu PRIVATE
+		${PROJECT_SOURCE_DIR}/src3d
+		${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+	)
+	target_compile_features(CFD_solver_3d_gpu PRIVATE cxx_std_17)
+	target_link_libraries(CFD_solver_3d_gpu PRIVATE cudart)
+	set_target_properties(CFD_solver_3d_gpu PROPERTIES CUDA_SEPARABLE_COMPILATION OFF)
+	if(NOT DEFINED CFD_CUDA_ARCH)
+		set(CFD_CUDA_ARCH "75" CACHE STRING "CUDA arch for -arch=sm_XX (e.g. 75, 86, 89)")
+	endif()
+	if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.18")
+		set_target_properties(CFD_solver_3d_gpu PROPERTIES CUDA_ARCHITECTURES "${CFD_CUDA_ARCH}")
+	else()
+		target_compile_options(CFD_solver_3d_gpu PRIVATE
+			$<$<COMPILE_LANGUAGE:CUDA>:-arch=sm_${CFD_CUDA_ARCH}>)
+	endif()
+	target_compile_options(CFD_solver_3d_gpu PRIVATE
+		$<$<CONFIG:Release>:-O3 -DNDEBUG>
+		$<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
+	)
+	if(OpenMP_CXX_FOUND)
+		if(CFD_OPENMP_IS_LIBOMP_BREW)
+			target_compile_options(CFD_solver_3d_gpu PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
+			target_link_libraries(CFD_solver_3d_gpu PRIVATE $<LINK_ONLY:"${CFD_LIBOMP_ROOT}/lib/libomp.dylib">)
+		else()
+			target_link_libraries(CFD_solver_3d_gpu PRIVATE $<LINK_ONLY:OpenMP::OpenMP_CXX>)
+		endif()
+	endif()
+	message(STATUS "3D CUDA target: CFD_solver_3d_gpu")
 endif()
