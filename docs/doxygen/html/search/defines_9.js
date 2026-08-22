@@ -1,0 +1,6 @@
+var searchData=
+[
+  ['r_0',['R',['../de/dfd/Flux__Calculations__Cuda__Kernels_8cu_a5c71a5e59a53413cd6c270266d63b031.html#a5c71a5e59a53413cd6c270266d63b031',1,'R:&#160;Flux_Calculations_Cuda_Kernels.cu'],['../de/d8a/Time__Integration__Cuda__Kernels_8cu_a5c71a5e59a53413cd6c270266d63b031.html#a5c71a5e59a53413cd6c270266d63b031',1,'R:&#160;Time_Integration_Cuda_Kernels.cu'],['../dc/dc3/Viscous__Flux__Cuda__Kernels_8cu_a5c71a5e59a53413cd6c270266d63b031.html#a5c71a5e59a53413cd6c270266d63b031',1,'R:&#160;Viscous_Flux_Cuda_Kernels.cu'],['../dc/d30/headers_8hpp_a5c71a5e59a53413cd6c270266d63b031.html#a5c71a5e59a53413cd6c270266d63b031',1,'R:&#160;headers.hpp']]],
+  ['r_5fgc_1',['R_GC',['../d6/dc2/definitions_8h_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399',1,'R_GC:&#160;definitions.h'],['../de/d28/Boundary__Conditions__Cuda__Kernels_8cu_a90f943126d79031ff729db29ea695399.html#a90f943126d79031ff729db29ea695399',1,'R_GC:&#160;Boundary_Conditions_Cuda_Kernels.cu']]],
+  ['radian_2',['radian',['../d6/dc2/definitions_8h_a44b92d40663e50ac09e79dfc86eb8733.html#a44b92d40663e50ac09e79dfc86eb8733',1,'radian:&#160;definitions.h'],['../dc/d30/headers_8hpp_a44b92d40663e50ac09e79dfc86eb8733.html#a44b92d40663e50ac09e79dfc86eb8733',1,'radian:&#160;headers.hpp']]]
+];

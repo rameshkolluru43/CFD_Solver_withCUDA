@@ -1,0 +1,17 @@
+digraph "vanleer_limiter_device"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="vanleer_limiter_device",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Van Leer limiter - device function."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="generic_limiter_kernel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_a0495974e865f76c7a7d9ba863a56c42d.html#a0495974e865f76c7a7d9ba863a56c42d",tooltip="Generic limiter kernel - allows runtime selection of limiter type."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="launch_generic_limiter",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dcf/Limiter__Cuda__Wrappers_8cu_a2df0a5a8d9c9d209c46a8d8c27d26916.html#a2df0a5a8d9c9d209c46a8d8c27d26916",tooltip="Host wrapper for generic limiter with runtime selection."];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="vanleer_limiter_kernel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_ac1821890e23af6b7b0953ad2d0b6540a.html#ac1821890e23af6b7b0953ad2d0b6540a",tooltip="Van Leer limiter kernel."];
+  Node4 -> Node5 [id="edge4_Node000004_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="launch_vanleer_limiter",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d8/dcf/Limiter__Cuda__Wrappers_8cu_a600db60a76a0110c9da6d1b1154ae88b.html#a600db60a76a0110c9da6d1b1154ae88b",tooltip="Host wrapper for Van Leer limiter."];
+}

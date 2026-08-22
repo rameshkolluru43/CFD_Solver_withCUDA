@@ -1,0 +1,17 @@
+digraph "apply_entropy_fix_device"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="apply_entropy_fix_device",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Apply Harten's entropy fix."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="roe_flux_2nd_order\l_kernel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d06/Roe__Flux__Cuda__Kernels_8cu_ac6edd71e840940db06f23ed23143d1ca.html#ac6edd71e840940db06f23ed23143d1ca",tooltip="Second-order Roe flux kernel with MUSCL reconstruction."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="launch_roe_flux_2nd\l_order",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d7f/Advanced__Flux__Schemes__Cuda__Wrappers_8cu_a37e90122e8482fc95276f7c4dae97d87.html#a37e90122e8482fc95276f7c4dae97d87",tooltip=" "];
+  Node1 -> Node4 [id="edge3_Node000001_Node000004",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="roe_flux_kernel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d06/Roe__Flux__Cuda__Kernels_8cu_a15fb0f19bbc9e82f34f6cd9be682c6c0.html#a15fb0f19bbc9e82f34f6cd9be682c6c0",tooltip="First-order Roe flux kernel."];
+  Node4 -> Node5 [id="edge4_Node000004_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="launch_roe_flux",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d1/d7f/Advanced__Flux__Schemes__Cuda__Wrappers_8cu_a52188d3c2be29288fca4523468b91c54.html#a52188d3c2be29288fca4523468b91c54",tooltip=" "];
+}

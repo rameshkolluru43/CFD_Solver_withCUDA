@@ -1,0 +1,23 @@
+digraph "launch_generic_limiter"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="LR";
+  Node1 [id="Node000001",label="launch_generic_limiter",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Host wrapper for generic limiter with runtime selection."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="generic_limiter_kernel",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_a0495974e865f76c7a7d9ba863a56c42d.html#a0495974e865f76c7a7d9ba863a56c42d",tooltip="Generic limiter kernel - allows runtime selection of limiter type."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="minmod_limiter_2arg\l_device",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_ae90579c110e169cf90b51971956bdaf3.html#ae90579c110e169cf90b51971956bdaf3",tooltip="MinMod limiter (2 arguments) - device function."];
+  Node3 -> Node4 [id="edge3_Node000003_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="sign_device",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_ae4fd862d70b0ca8212234c263e3742b9.html#ae4fd862d70b0ca8212234c263e3742b9",tooltip="Device function to compute sign of a number."];
+  Node4 -> Node5 [id="edge4_Node000004_Node000005",color="steelblue1",style="solid",tooltip=" "];
+  Node5 [id="Node000005",label="x",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/ddf/CType__Elliptic__Grid_8cpp_a9d9acf133a5b966f0cbd16a2c57a7d79.html#a9d9acf133a5b966f0cbd16a2c57a7d79",tooltip=" "];
+  Node2 -> Node6 [id="edge5_Node000002_Node000006",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="superbee_limiter_device",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_a143064da2b380b91714d2e78f52df389.html#a143064da2b380b91714d2e78f52df389",tooltip="Superbee limiter - device function."];
+  Node2 -> Node7 [id="edge6_Node000002_Node000007",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="vanalbada_limiter_device",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_a22974d7e549467c1352988866406c9f5.html#a22974d7e549467c1352988866406c9f5",tooltip="Van Albada limiter - device function."];
+  Node2 -> Node8 [id="edge7_Node000002_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="vanleer_limiter_device",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d7f/Limiter__Cuda__Kernels_8cu_a0015e2bd6f79e6c783599f1a51a34c5a.html#a0015e2bd6f79e6c783599f1a51a34c5a",tooltip="Van Leer limiter - device function."];
+}
