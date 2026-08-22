@@ -19,13 +19,13 @@ Wall BC faces must keep `Face_Normals` aligned with Neighbours / boundary lists.
 
 | File | Role |
 |------|------|
-| `json_Files/Half_Cylinder_481_161_M6.json` | Inviscid freestream case params |
-| `json_Files/Half_Cylinder_481_161_M6_freestreamIC.json` | Freestream IC variant |
-| `json_Files/Half_Cylinder_481_161_M6_viscous.json` | Viscous: isothermal no-slip, Re = 1e5, Tw = 2 |
-| `json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json` | P3 → viscous 500-iter smoke (`Initialize_Type=1`) |
-| `json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_20k.json` | Longer viscous continue |
-| `json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_smoke.json` | Short viscous smoke |
-| `json_Files/Run_HalfCylinder_M6_WENO_RICCA_inviscid_smoke_host.json` | Host inviscid WENO+RICCA smoke |
+| `input/json_Files/Half_Cylinder_481_161_M6.json` | Inviscid freestream case params |
+| `input/json_Files/Half_Cylinder_481_161_M6_freestreamIC.json` | Freestream IC variant |
+| `input/json_Files/Half_Cylinder_481_161_M6_viscous.json` | Viscous: isothermal no-slip, Re = 1e5, Tw = 2 |
+| `input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json` | P3 → viscous 500-iter smoke (`Initialize_Type=1`) |
+| `input/json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_20k.json` | Longer viscous continue |
+| `input/json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_smoke.json` | Short viscous smoke |
+| `input/json_Files/Run_HalfCylinder_M6_WENO_RICCA_inviscid_smoke_host.json` | Host inviscid WENO+RICCA smoke |
 
 Typical solver settings for the validated path:
 
@@ -40,7 +40,7 @@ cmake -S . -B build-cuda
 cmake --build build-cuda --target CFD_solver_gpu -j$(nproc)
 
 # Viscous corner-fix smoke (continue from P3 solution)
-./build-cuda/CFD_solver_gpu json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
+./build-cuda/CFD_solver_gpu input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
 ```
 
 Host CPU build (`CFD_solver`) is also valid for the WENO+RICCA path; CUDA is optional for this validation.

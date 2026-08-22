@@ -2,11 +2,13 @@
 
 A high-performance Computational Fluid Dynamics (CFD) solver featuring GPU acceleration through CUDA kernels. The solver supports both Euler and Navier-Stokes equations with various numerical schemes and boundary conditions for compressible flow simulations.
 
-**Start here for a short project map and the Mach-6 half-cylinder validation status:** [overview.md](overview.md)
+**Start here:** [LAYOUT.md](LAYOUT.md) · [docs/overview.md](docs/overview.md) · [docs/README.md](docs/README.md)
 
-### Recent (July 2026) — half-cylinder viscous corner fix
+### Recent
 
-Structured-grid face normals are now built in **LBRT** order matching Neighbours/BC face indices (no atan2 vertex reorder that broke wall normals at corners). After the fix, a P3→viscous smoke stays near the inviscid reference (**Pmax ≈ 48.9**, **Mmax ≈ 6.05** vs prior blow-up **Pmax ~137 / Mmax ~64**). Plots: `plots/half_cylinder_inviscid_viscous/`. Details in [overview.md](overview.md) and [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md).
+- **Folder layout:** code in `solvers/`, JSON/meshes in `input/`, VTK/plots in `solutions/` (see [LAYOUT.md](LAYOUT.md)).
+- **3D path (`solvers/src3d/`):** Cartesian Euler/NS, WENO-Z, WALE LES, SWBLI plate, Mach-6 open cavity (90° block mesh). Binaries `CFD_solver_3d` / `CFD_solver_3d_gpu`.
+- **Half-cylinder viscous corner fix (July 2026):** LBRT face normals. Plots: `solutions/plots/half_cylinder_inviscid_viscous/`. Details: [docs/overview.md](docs/overview.md), [docs/RELEASE_NOTES.md](docs/RELEASE_NOTES.md).
 
 ## 🚀 Features
 
@@ -33,12 +35,13 @@ Structured-grid face normals are now built in **LBRT** order matching Neighbours
 - **Memory Management**: Efficient host-device memory transfers
 - **Parallel Execution**: CUDA architecture is configured in `CMakeLists.txt` (`CUDA_ARCHITECTURES`; currently tuned for compute 7.5 and adjustable for your GPU)
 - **Iterative Solvers**: GPU-accelerated linear algebra operations
-- **Metal (experimental, macOS / Apple Silicon)**: Optional `Metal_Kernels/` bridge and `.metal` compute shaders for future host-side integration—build with the standalone `Metal_Kernels/Makefile` (see that directory)
+- **Metal (experimental, macOS / Apple Silicon)**: Optional `solvers/Metal_Kernels/` bridge and `.metal` shaders — standalone `Makefile` in that directory
 
 Current CUDA main-loop limits: 2nd-order MUSCL flux, WENO flux, viscous flux, Runge-Kutta state updates, implicit solving, and AMR split/merge still execute through CPU-side loop logic.
 
 ### CPU Parallelism
-- **OpenMP**: Multi-threaded CPU loops when OpenMP is available (on macOS, Homebrew `libomp` is auto-detected by CMake when the compiler lacks built-in OpenMP)
+- **OpenMP**: Multi-threaded host loops (`-fopenmp` / `libgomp` on Linux; Homebrew `libomp` on macOS)
+- **MPI**: Optional `CFD_solver_mpi` — replicated mesh, rank-owned cell ranges, allgather of conservatives (`mpirun --oversubscribe -np 2` on small machines)
 
 ### Solver Capabilities
 
@@ -58,81 +61,37 @@ Current CUDA main-loop limits: 2nd-order MUSCL flux, WENO flux, viscous flux, Ru
 
 ## 📁 Project Structure
 
+See **[LAYOUT.md](LAYOUT.md)** for binaries, cwd rules, and example commands.
+
 ```
-├── src/                           # Main source files
-│   ├── Main.cpp                   # CPU main entry point
-│   ├── Globals_Config.cpp        # VTK-backed runtime paths (linked when building with VTK)
-│   ├── Main_CUDA.cu              # GPU main entry point
-│   ├── Solver.cpp                # Main solver routines
-│   ├── Numerical_Method.cpp      # Numerical schemes
-│   ├── Boundary_Conditions.cpp   # BC implementations
-│   └── ...                       # Additional solver components
-├── CUDA_KERNELS/                  # GPU kernel implementations (NVIDIA CUDA)
-│   ├── Flux_Calculations_Cuda_Kernels.cu
-│   ├── Inviscid_Flux_Cuda_MainLoop.cu
-│   ├── Inviscid_Flux_Cuda_MainLoop_Wrapper.cpp
-│   ├── Time_Integration_Cuda_Kernels.cu
-│   ├── Gradient_Calculation_Cuda_Kernels.cu
-│   ├── Viscous_Flux_Cuda_Kernels.cu
-│   ├── Iterative_Solver_Cuda_Kernels.cu
-│   └── ...                       # Additional GPU kernels
-├── Metal_Kernels/                 # Optional Apple Metal bridge + shaders (macOS)
-│   ├── include/MetalKernelBridge.h
-│   ├── src/MetalHostBridge.mm
-│   └── shaders/CFDSolverKernels.metal
-├── Incompressible_Solver/         # Incompressible / SIMPLE-related sources
-├── src_3D/                        # 3D-related notes and implementation headers
-├── VTK_Grid_Tests/                # VTK grid integration tests
-├── include/                       # Header files
-│   ├── definitions.h             # Global definitions
-│   ├── Globals.h                 # Global variables
-│   ├── Solver.h                  # Solver declarations
-│   └── ...                       # Additional headers
-├── Test_Cases/                    # Validation test cases
-│   ├── Half_Cylinder_Test_Case.cpp
-│   ├── Shock_Tube_2D.cpp
-│   ├── Flow_Over_Bump.cpp
-│   └── ...                       # Additional test cases
-├── json_Files/                    # Configuration files
-│   ├── Solver_Config.json        # Main solver configuration
-│   ├── Boundary_Conditions.json  # BC settings
-│   └── ...                       # Test case configurations
-├── Grid_Files/                    # Mesh files
-├── Gmsh_Grids/                   # GMSH format grids
-├── scripts/                      # Shell helper scripts (Colab sync, docs, validation)
-├── build/                        # Build directory
-└── docs/                         # Documentation
-    ├── README.md                             # Documentation index
-    ├── MESH_AND_GRID.md                      # Mesh formats, tri/quad support
-    ├── ADAPTIVE_MESH_REFINEMENT.md           # Gradient-based AMR
-    ├── CONFIGURATION.md                      # JSON configuration reference
-    ├── BUILD_AND_RUN.md                      # Build and run guide
-    ├── RELEASE_NOTES.md                      # Changelog and recent updates
-    ├── Van_Leer_Flux_Implementation.md      # Van Leer flux technical documentation
-    ├── ROE_2O_Implementation.md             # Second-order Roe scheme documentation
-    ├── AUSM_Flux_Implementation.md          # AUSM flux scheme documentation
-    ├── *_GUIDE.md                           # User/setup guides moved from repository root
-    ├── *_REPORT.md                          # Project and validation reports
-    └── *_Completion_Summary.md              # Implementation completion summaries
+solvers/src, src3d, include, CUDA_KERNELS   # 2D + 3D + CUDA
+input/json_Files, Grid_Files                # run JSON and 2D meshes
+wrappers/scripts, python                    # helpers
+tests/Test_Cases                            # 2D case drivers
+solutions/2D_Euler_Solutions                # VTK + case plots
+docs/                                       # guides
+build/                                      # CMake binaries
 ```
 
 ## 🛠️ Dependencies
 
-### Required (CPU solver `CFD_solver`)
-- **CMake** (≥3.16): Build system
-- **C++ Compiler**: C++17 compatible (GCC/Clang)
-- **Boost** (regex component): Used by the solver
-- **JsonCpp**: JSON configuration parsing
-- **VTK** (≥9.4): Grid I/O and visualization (the CMake build **does not** produce `CFD_solver` if VTK is missing)
+### 2D CPU (`CFD_solver`)
+- **CMake** ≥ 3.16, **C++17**
+- **Boost** (regex), **JsonCpp**
+- **OpenMP** (typical with GCC)
+- **VTK** optional (library VTK I/O). Structured **TXT** meshes run without VTK.
 
-### Required for GPU executable (`CFD_solver_gpu`)
-- **CUDA Toolkit** (≥11.0) with **nvcc** on `PATH`: If CUDA is not found, CMake builds the CPU target only
+### 2D MPI (`CFD_solver_mpi`)
+- OpenMPI runtime (`mpirun`, `libmpi`) plus `mpi.h` (system `libopenmpi-dev` or a user prefix such as `$HOME/deps`)
+
+### GPU (`CFD_solver_gpu`, `CFD_solver_3d_gpu`)
+- **CUDA Toolkit** with `nvcc` on `PATH`. Architecture: `CFD_CUDA_ARCH` / `CFD_CUDA_ARCHITECTURES` (default **75**)
+
+### 3D (`CFD_solver_3d`)
+- Same C++/OpenMP stack; no VTK library required (writes legacy VTK text)
 
 ### Optional
-- **OpenMP / libomp**: Faster CPU parallelism (CMake enables OpenMP when available)
-- **Doxygen**: API documentation generation (`Doxyfile_Cleaned`)
-- **GMSH**: Mesh generation
-- **ParaView**: Visualization
+- **Doxygen**, **GMSH**, **ParaView**
 
 ## 🔧 Installation
 
@@ -147,39 +106,34 @@ brew install cmake jsoncpp vtk doxygen
 
 ### Build Instructions
 ```bash
-# Clone the repository
 git clone https://github.com/rameshkolluru43/CFD_Solver_withCUDA.git
 cd CFD_Solver_withCUDA
 
-# Create build directory
-mkdir -p build
-cd build
-
-# Configure with CMake
-cmake ..
-
-# Build the project
-make -j$(nproc)
-
-# Typical outputs:
-# - CFD_solver     (CPU) when VTK (and dependencies) are found
-# - CFD_solver_gpu (GPU) when CUDA (nvcc) is found
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j$(nproc)
 ```
+
+Typical binaries in `build/`: `CFD_solver`, `CFD_solver_mpi`, `CFD_solver_gpu`, `CFD_solver_3d`, `CFD_solver_3d_gpu` (each only if its dependencies were found).
 
 ## 🚀 Usage
 
 ### Running Simulations
 
-#### CPU Version
+3D configs use `VTK_Out` under `solutions/2D_Euler_Solutions/`. Run **3D from the repo root**. Run **2D from `build/`** so `../input/Grid_Files` resolves. Full table: [LAYOUT.md](LAYOUT.md).
+
+#### 3D
 ```bash
-./CFD_solver ../json_Files/Solver_Config.json
-# Or with AMR enabled:
-./CFD_solver ../json_Files/Test_Config_AMR.json
+./build/CFD_solver_3d input/json_Files/Run_3D_Sod_LLF_smoke.json
+./build/CFD_solver_3d_gpu input/json_Files/Run_3D_Cavity_M6_LES_WALE.json
 ```
 
-#### GPU Version
+#### 2D CPU / OpenMP / MPI / GPU
 ```bash
-./CFD_solver_gpu ../json_Files/Solver_Config.json
+cd build
+./CFD_solver ../input/json_Files/Solver_Config.json
+OMP_NUM_THREADS=4 ./CFD_solver ../input/json_Files/MPI_Smoke_Test.json
+mpirun --oversubscribe -np 2 ./CFD_solver_mpi ../input/json_Files/MPI_Smoke_Test.json
+./CFD_solver_gpu ../input/json_Files/Run_HalfCylinder_M6_WENO_wallfix_smoke50.json
 ```
 
 `CFD_solver_gpu` follows the same solver configuration as the CPU executable. For inviscid first-order runs, `Dissipation_Type` selects the CUDA flux kernel when available:
@@ -203,7 +157,7 @@ The solver uses JSON configuration files to define simulation parameters:
 {
     "TestCase": {
         "Test_Case": 1,
-        "Test_Case_Name": "Flow_Over_Cylinder",
+        "Test_Case_Name": "Half_Cylinder",
         "Test_Case_Json": "../json_Files/Half_Cylinder.json"
     },
     "Simulation": {
@@ -227,9 +181,9 @@ The solver uses JSON configuration files to define simulation parameters:
 3. **Flow Over Bump**: Transonic flow over a bump
 4. **Forward Facing Step**: Supersonic flow over a step
 5. **Shock Reflection**: 2D shock reflection
-6. **SWBLI**: Shock-Wave Boundary Layer Interaction
-7. **Scramjet Inlet**: Hypersonic inlet flow
-8. **And more...**
+6. **SWBLI**: 2D and 3D shock-wave / boundary-layer interaction
+7. **3D ramp / cavity**: 15° ramp and Mach-6 open cavity (`solvers/src3d/`)
+8. **Scramjet Inlet**: Hypersonic inlet flow
 
 ## 🧪 Validation & Testing
 
@@ -324,7 +278,8 @@ The CUDA implementation currently accelerates selected solver paths and provides
 
 | Document | Description |
 |----------|-------------|
-| [overview.md](overview.md) | Project overview, CUDA/host status, half-cylinder M=6 inviscid/viscous validation |
+| [docs/overview.md](docs/overview.md) | Project overview, CUDA/host status, half-cylinder M=6 |
+| [LAYOUT.md](LAYOUT.md) | Folder map, binaries, cwd, example commands |
 | [docs/README.md](docs/README.md) | Full documentation index |
 | [docs/HALF_CYLINDER_VALIDATION.md](docs/HALF_CYLINDER_VALIDATION.md) | Canonical M=6 configs, expected Pmax/Mmax, plots |
 | [docs/MESH_AND_GRID.md](docs/MESH_AND_GRID.md) | Mesh formats, **LBRT** structured TXT, face normals, mixed tri/quad |
@@ -337,7 +292,7 @@ The CUDA implementation currently accelerates selected solver paths and provides
 ### Generate Documentation
 ```bash
 # From the repository root
-./scripts/update_docs.sh
+./wrappers/scripts/update_docs.sh
 # or:
 doxygen docs/Doxyfile_Cleaned
 ```
@@ -353,10 +308,9 @@ HTML output: **`docs/doxygen/html/index.html`** (`OUTPUT_DIRECTORY` in `docs/Dox
 - `Boundary_Conditions`: Comprehensive boundary condition implementations
 
 #### **Flux Computation Framework** 🚀
-- `Van_Leer()`: Van Leer flux vector splitting implementation in `src/Van_Leer.cpp`
-- `ROE()`: Enhanced first-order Roe scheme with entropy fix in `src/Roe_Scheme.cpp`
-- `ROE_2O()`: Second-order Roe scheme with TVD limiting in `src/Roe_Scheme.cpp`
-- `AUSM()`: AUSM flux computation scheme in `src/Ausm_Flux.cpp`
+- `Van_Leer()`: `solvers/src/Van_Leer.cpp`
+- `ROE()` / `ROE_2O()`: `solvers/src/Roe_Scheme.cpp`
+- `AUSM()`: `solvers/src/Ausm_Flux.cpp`
 - `Second_Order_Limiter()`: TVD slope limiters for high-resolution methods
 - `Calculate_Primitive_Variables()`: Conservative to primitive variable conversion
 
@@ -378,7 +332,7 @@ HTML output: **`docs/doxygen/html/index.html`** (`OUTPUT_DIRECTORY` in `docs/Dox
 
 #### **Flux Scheme Development** 🔧
 1. **New Flux Schemes**: 
-   - Create dedicated source file in `src/` (e.g., `src/NewFlux_Scheme.cpp`)
+   - Create dedicated source file in `solvers/src/` (e.g. `solvers/src/NewFlux_Scheme.cpp`)
    - Follow the established pattern with function signature: `void NEW_FLUX(int Cell_No, int N_Cell_No, int Face_No)`
    - Implement proper error checking and boundary condition handling
    - Add comprehensive documentation following existing templates
@@ -389,11 +343,11 @@ HTML output: **`docs/doxygen/html/index.html`** (`OUTPUT_DIRECTORY` in `docs/Dox
    - Include scheme in test case validation framework
 
 #### **General Development Guidelines**
-3. **New Numerical Schemes**: Add to `src/Numerical_Method.cpp` with proper mathematical documentation
-4. **New Boundary Conditions**: Extend `src/Boundary_Conditions.cpp` with physical justification
-5. **New CUDA Kernels**: Add to appropriate `CUDA_KERNELS/*.cu` file with performance optimization
-6. **Metal (macOS)**: Extend `Metal_Kernels/` shaders and `MetalKernelBridge.h` / `MetalHostBridge.mm`; compile the metallib with `Metal_Kernels/scripts/build_metallib.sh`
-7. **New Test Cases**: Create in `Test_Cases/` directory with analytical solutions for validation
+3. **New Numerical Schemes**: Add to `solvers/src/Numerical_Method.cpp` with proper mathematical documentation
+4. **New Boundary Conditions**: Extend `solvers/src/Boundary_Conditions.cpp` with physical justification
+5. **New CUDA Kernels**: Add to `solvers/CUDA_KERNELS/*.cu`
+6. **Metal (macOS)**: `solvers/Metal_Kernels/` — `scripts/build_metallib.sh`
+7. **New Test Cases**: `tests/Test_Cases/`
 
 #### **Documentation Standards** 📚
 - **Mathematical Framework**: Include governing equations and derivations

@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(APPLE)
     # macOS Homebrew paths
     set(INCLUDE_DIRS
-        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/solvers/include
         /opt/homebrew/include
         /opt/homebrew/include/vtk-9.4
         /opt/homebrew/Cellar/jsoncpp/1.9.6/include
@@ -23,7 +23,7 @@ else()
     include(${VTK_USE_FILE})
     
     set(INCLUDE_DIRS
-        ${PROJECT_SOURCE_DIR}/include
+        ${PROJECT_SOURCE_DIR}/solvers/include
         /usr/include
         /usr/include/jsoncpp
         ${VTK_INCLUDE_DIRS}
@@ -36,30 +36,30 @@ endif()
 include_directories(${INCLUDE_DIRS})
 
 # Source Files (All .cpp from src/)
-file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/solvers/src/*.cpp")
 
 # Separate CUDA sources
 set(CUDA_SOURCES
-    ${PROJECT_SOURCE_DIR}/src/Main_CUDA.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Time_Integration_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Flux_Calculations_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Gradient_Calculation_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Viscous_Flux_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Geometry_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Linear_Algebra_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Iterative_Solver_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Optimizations_Cuda.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Roe_Flux_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/HLLC_LLF_Flux_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/MUSCL_WENO_Reconstruction_Cuda_Kernels.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Advanced_Flux_Schemes_Cuda_Wrappers.cu
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Reconstruction_Schemes_Cuda_Wrappers.cu
+    ${PROJECT_SOURCE_DIR}/solvers/src/Main_CUDA.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Time_Integration_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Flux_Calculations_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Gradient_Calculation_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Viscous_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Geometry_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Linear_Algebra_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Iterative_Solver_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Advanced_Optimizations_Cuda.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Grid_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Roe_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/HLLC_LLF_Flux_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/MUSCL_WENO_Reconstruction_Cuda_Kernels.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Advanced_Flux_Schemes_Cuda_Wrappers.cu
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Reconstruction_Schemes_Cuda_Wrappers.cu
 )
 
 # Add Grid CUDA Host Wrappers (C++ source)
 set(CUDA_HOST_SOURCES
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
 )
 
 # Link Directories
@@ -73,7 +73,7 @@ target_compile_definitions(CFD_solver PRIVATE USE_VTK=1)
 add_executable(CFD_solver_gpu
     ${CUDA_SOURCES}
     ${CUDA_HOST_SOURCES}
-    ${PROJECT_SOURCE_DIR}/src/Globals_Stub_GPU.cpp
+    ${PROJECT_SOURCE_DIR}/solvers/src/Globals_Stub_GPU.cpp
 )
 
 # CUDA architecture detection - Colab typically has compute capability 7.5 (T4)
@@ -94,7 +94,7 @@ endif()
 target_compile_definitions(CFD_solver_gpu PRIVATE USE_CUDA_DRIVER_MAIN=1)
 target_include_directories(CFD_solver_gpu PRIVATE
     ${INCLUDE_DIRS}
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS
 )
 
 # Link Libraries - CPU version

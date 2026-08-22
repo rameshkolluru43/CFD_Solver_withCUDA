@@ -1,0 +1,1263 @@
+#include "definitions.h"
+#include "Grid.h"
+#include "Globals.h"
+#include "Utilities.h"
+
+vector<Cell> Cells, Boundary_Cells, Co_Volume_Cells;
+
+V_I Wall_Cells_List, Inlet_Cells_List, Exit_Cells_List, Symmetry_Cells_List, Far_Field_Out_Flow_List, Far_Field_InFlow_List;
+V_D Vertices;
+int Total_No_Cells, No_Cartesian_Cells, No_Polar_Cells, No_Physical_Cells, No_Ghost_Cells, Cells_in_Plane, nx_c, ny_c, nz_c, nx_p, ny_p, nz_p, Grid_Type;
+
+double global_temp, R_Mid_dot_A, Cell_Minimum_Length;
+// int nx_1,nx_2,ny_1,ny_2;
+
+bool Is_Viscous_Wall, Is_2D_Flow, Is_Inlet_SubSonic, Is_Exit_SubSonic, Enable_Far_Field, has_Symmetry_BC;
+double CFL;
+int numNodes, nodeIndex, PointCellType, LineCellType, TriangleCellType, QuadrilateralCellType, HexahedronCellType, TetrahedronCellType, WedgeCellType;
+
+int get_NoPhysical_Cells()
+{
+	return Total_No_Cells;
+}
+
+/**
+ * @brief Reads the input grid file and constructs physical cells, evaluates face areas, normals, and cell volumes.
+ *
+ * @param ipfile The path to the input grid file.
+ *
+ * Function for reading input grid file. This file has particular format written by me for reading the grid data.
+ * The grid file contains the information of the vertices of the cell followed by the cell and its neighbours information in .txt file.
+ * It takes a file containing data of grid and constructs Physical Cells, evaluates its face areas, normals and cell volumes.
+ * Creates the storage vectors for the above said variables.
+ **/
+
+void Read_Grid(const string &ipfile)
+{
+
+	V_D P1(3, 0.0), P2(3, 0.0), P3(3, 0.0), P4(3, 0.0);
+	Cell Grid_Cell = {};
+	double x = 0.0, y = 0.0, z = 0.0;
+	int cellID, neighbor1, neighbor2, neighbor3, neighbor4, Conversion_Type;
+	Vertices.resize(12, 0.0);
+	cout << "Reading \t" << ipfile.c_str() << endl;
+	ifstream Grid_File = CFD_OpenInputFileOrThrow(ipfile, "Read_Grid");
+	if (Grid_File.is_open())
+	{
+		cout << "File opened for reading \n";
+		Grid_File >> Grid_Type;
+		Grid_File >> Conversion_Type;
+		if (Conversion_Type == 1)
+			cout << "Grid is created in mm\n Caution convert point data to meters\n";
+		else
+			cout << "Grid is Created in meters\n";
+		switch (Grid_Type)
+		{
+		case 0: // For Cartesian Mesh
+			cout << "Reading Grid of type\t" << Grid_Type << "\t Cartesian Mesh\n";
+			Grid_File >> nx_c >> ny_c;		// Represents Points on Cartesian Mesh
+			Grid_File >> No_Physical_Cells; // Represents Points on combination of Cartesian cout<<"nx\t"<<nx_c<<"\tny\t"<<ny_c<<"\tnz\t"<<nz_c<<"\t"<<No_Physical_Cells<<endl;
+			Cells_in_Plane = (nx_c - 1) * (ny_c - 1);
+			No_Ghost_Cells = 2 * (nx_c - 1) + 2 * (ny_c - 1);
+			cout << "Total Number of Ghost Cells to be constructed \t" << No_Ghost_Cells << endl;
+			Total_No_Cells = No_Physical_Cells + No_Ghost_Cells;
+			cout << "Number of Physical Cells\t" << No_Physical_Cells << endl;
+			cout << "Number of Ghost Cells\t" << No_Ghost_Cells << endl;
+			cout << "Total Number of Cells\t" << Total_No_Cells << endl;
+			break;
+		case 1: // For Shock Diffraction and Forward Step cases
+			cout << "Reading Grid of type\t" << Grid_Type << "\t Dual block mesh\n";
+			Grid_File >> nx_1 >> ny_1 >> nx_2 >> ny_2; // Mesh with Two blocks
+			Grid_File >> No_Physical_Cells;			   //
+			cout << "nx1\t" << nx_1 << "\tny1\t" << ny_1 << "\tnx2\t" << nx_2 << "\tny2\t" << ny_2 << "\t" << No_Physical_Cells << endl;
+			Cells_in_Plane = (nx_1 - 1) * (ny_1 - 1) + (nx_2 - 1) * (ny_2 - 1);
+			No_Ghost_Cells = (nx_1 - 1) + 2 * (ny_1 - 1) + (nx_2 - 1) + 2 * (ny_2 - 1) + (nx_2 - 1) - (nx_1 - 1);
+			cout << "Total Number of Ghost Cells to be constructed \t" << No_Ghost_Cells << endl;
+			if (No_Physical_Cells == Cells_in_Plane)
+			{
+				cout << "Dual Block Grid is accurate" << endl;
+			}
+			else
+			{
+				cout << "No of Physical Cells\t" << No_Physical_Cells << endl;
+				cout << "No of Cells in plane\t" << Cells_in_Plane << endl;
+				cout << "Check the Grid data" << endl;
+				throw runtime_error("Read_Grid: physical cell count does not match dual-block dimensions");
+			}
+			Total_No_Cells = No_Physical_Cells + No_Ghost_Cells;
+			break;
+		}
+		// Reading the Physical Cells Information which are the vertices of the cell
+		// followed by the cell and its neighbours information
+		for (int i = 0; i < No_Physical_Cells; i++)
+		{
+			//			cout<<"Physical Cell Number "<<i<<endl;
+			x = 0.0;
+			y = 0.0;
+			z = 0.0;
+			Grid_File >> x >> y >> z;
+			P1[0] = x;
+			P1[1] = y;
+			P1[2] = z;
+			Grid_File >> x >> y >> z;
+			P2[0] = x;
+			P2[1] = y;
+			P2[2] = z;
+			Grid_File >> x >> y >> z;
+			P3[0] = x;
+			P3[1] = y;
+			P3[2] = z;
+			Grid_File >> x >> y >> z;
+			P4[0] = x;
+			P4[1] = y;
+			P4[2] = z;
+			switch (Conversion_Type)
+			{
+			case 1:
+				Conversion_Factor(P1);
+				Conversion_Factor(P2);
+				Conversion_Factor(P3);
+				Conversion_Factor(P4);
+				break;
+			default:
+				// 					cout<<"Grid is created in m, No conversion requited"<<endl;
+				break;
+			}
+			// --------------------Vertices of Current cell -----------------------------------
+			Vertices[0] = P1[0];
+			Vertices[1] = P1[1];
+			Vertices[2] = P1[2];
+			Vertices[3] = P2[0];
+			Vertices[4] = P2[1];
+			Vertices[5] = P2[2];
+			Vertices[6] = P3[0];
+			Vertices[7] = P3[1];
+			Vertices[8] = P3[2];
+			Vertices[9] = P4[0];
+			Vertices[10] = P4[1];
+			Vertices[11] = P4[2];
+			//-----------------------------------------------------------------------------------
+			//------------------------------------------------------------------------------------
+			Grid_Cell.cellID = i;
+			Grid_Cell.Dimension = 2;
+
+			if (Grid_Cell.Cell_Vertices.empty())
+				Grid_Cell.Cell_Vertices.resize(12, 0.0);
+			Grid_Cell.Cell_Vertices = Vertices;
+			if (Grid_Cell.Neighbours.empty())
+				Grid_Cell.Neighbours.resize(4, 0);
+			// Read the Neighbouring Cell Information
+			Grid_File >> cellID >> neighbor1 >> neighbor2 >> neighbor3 >> neighbor4;
+			Grid_Cell.Neighbours = {neighbor1, neighbor2, neighbor3, neighbor4};
+			Grid_Cell.faceID.resize(4, 0);
+			Grid_Cell.nodeIndices.resize(4, 0);
+			Grid_Cell.Area = 0.0;
+			Grid_Cell.Inv_Area = 0.0;
+			/* Keep file vertex order [o,a,b,c]. Neighbours/BC faces are LBRT in that
+			   convention; atan2 reordering breaks wall/exit normals at corners. */
+			Grid_Cell.nodeIndices = {0, 1, 2, 3};
+			Construct_Cell(Grid_Cell);
+			Cells.push_back(Grid_Cell);
+			// Delete all the data in the Grid_Cell
+			Grid_Cell.Cell_Vertices.clear();
+			Grid_Cell.Neighbours.clear();
+			Grid_Cell.faceID.clear();
+			Grid_Cell.nodeIndices.clear();
+			Grid_Cell.Face_Areas.clear();
+			Grid_Cell.Face_Normals.clear();
+			//-----------------------------------------------------------------------------------
+		}
+		cout << "Construction of Physical Cells Completed\n";
+		Check_Cells();
+		cout << "Checking Cells done" << endl;
+		cout << "Reading Boundary Cells Information for Boundary Conditions\n";
+		string Str;
+		int Boundary_Type = 0, No_Cells = 0, a = 0, b = 0, c = 0;
+		Grid_File >> Str >> Boundary_Type >> No_Cells;
+		cout << Str << "\t" << Boundary_Type << "\t" << No_Cells << endl;
+		if (Boundary_Type == 0)
+		{
+			for (int i = 0; i < No_Cells; i++)
+			{
+				Grid_File >> a >> b >> c;
+				// cout << a << "\t" << b << "\t" << c << endl;
+				Inlet_Cells_List.push_back(a);
+				Inlet_Cells_List.push_back(b);
+				Inlet_Cells_List.push_back(c);
+			}
+		}
+		Grid_File >> Str >> Boundary_Type >> No_Cells;
+		cout << Str << "\t" << Boundary_Type << "\t" << No_Cells << endl;
+		if (Boundary_Type == 1)
+		{
+			for (int i = 0; i < No_Cells; i++)
+			{
+				Grid_File >> a >> b >> c;
+				Exit_Cells_List.push_back(a);
+				Exit_Cells_List.push_back(b);
+				Exit_Cells_List.push_back(c);
+			}
+		}
+		Grid_File >> Str >> Boundary_Type >> No_Cells;
+		cout << Str << "\t" << Boundary_Type << "\t" << No_Cells << endl;
+		if (Boundary_Type == 2)
+		{
+			for (int i = 0; i < No_Cells; i++)
+			{
+				Grid_File >> a >> b >> c;
+				// 				cout<<a<<"\t"<<b<<"\t"<<c<<endl;
+				Wall_Cells_List.push_back(a);
+				Wall_Cells_List.push_back(b);
+				Wall_Cells_List.push_back(c);
+			}
+		}
+		Grid_File >> Str >> Boundary_Type >> No_Cells;
+		cout << Str << "\t" << Boundary_Type << "\t" << No_Cells << endl;
+		if (Boundary_Type == 3)
+		{
+			for (int i = 0; i < No_Cells; i++)
+			{
+				Grid_File >> a >> b >> c;
+				// 				cout<<a<<"\t"<<b<<"\t"<<c<<endl;
+				Symmetry_Cells_List.push_back(a);
+				Symmetry_Cells_List.push_back(b);
+				Symmetry_Cells_List.push_back(c);
+			}
+		}
+
+		/*		Grid_File>>Str>>Boundary_Type>>No_Cells;
+				cout<<Str<<"\t"<<Boundary_Type<<"\t"<<No_Cells<<endl;
+				if(Boundary_Type==4)
+				{
+					for(int i=0;i<No_Cells;i++)
+					{
+						Grid_File>>a>>b>>c;
+		// 				cout<<a<<"\t"<<b<<"\t"<<c<<endl;
+						Far_Field_InFlow_List.push_back(a);
+						Far_Field_InFlow_List.push_back(b);
+						Far_Field_InFlow_List.push_back(c);
+					}
+				}
+
+				cout<<Str<<"\t"<<Boundary_Type<<"\t"<<No_Cells<<endl;
+				cout<<Str<<"\t"<<No_Cells<<endl;
+				if(Boundary_Type==5)
+				{
+					for(int i=0;i<No_Cells;i++)
+					{
+						Grid_File>>a>>b>>c;
+		// 				cout<<a<<"\t"<<b<<"\t"<<c<<endl;
+						Far_Field_Out_Flow_List.push_back(a);
+						Far_Field_Out_Flow_List.push_back(b);
+						Far_Field_Out_Flow_List.push_back(c);
+					}
+				}
+				*/
+		cout << "Reading and assigning Boundary Cells Done\n";
+		Grid_File.close();
+	}
+	else
+	{
+		throw runtime_error("Read_Grid: could not open grid file: " + ipfile);
+	}
+}
+
+void Conversion_Factor(V_D &Data)
+{
+	for (unsigned int i = 0; i < Data.size(); i++)
+		Data[i] *= 0.001;
+}
+
+/*		Function for Constructing Cells from the data read from grid file				*/
+
+bool initializeGridFiles()
+{
+	try
+	{
+		auto resolveExistingInputPath = [](std::string &path, const std::string &context)
+		{
+			if (std::filesystem::exists(path))
+				return;
+			const std::string parentPrefix = "../";
+			if (path.rfind(parentPrefix, 0) == 0)
+			{
+				const std::string repoRelative = path.substr(parentPrefix.size());
+				if (std::filesystem::exists(repoRelative))
+				{
+					path = repoRelative;
+					return;
+				}
+			}
+			CFD_EnsureInputFileExists(path, context);
+		};
+
+		/* 15° ramp meshes are stored as Ramp_Grid_Files/Ramp_15o_Nx_Ny.* (legacy layout). */
+		if (Test_Case_Name == "Ramp_15_Degree")
+		{
+			gridDir = "../input/Grid_Files/Ramp_Grid_Files/";
+			cout << "Grid Directory (ramp): " << gridDir << endl;
+			cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
+			Grid_File = gridDir + "Ramp_15o_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
+			Grid_Vtk_File = gridDir + "Ramp_15o_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+		}
+		else
+		{
+			gridDir = "../input/Grid_Files/" + Test_Case_Name + "/";
+			cout << "Grid Directory: " << gridDir << endl;
+			cout << "Finding for Grid files for size \t" << meshParams.nx << "\t" << meshParams.ny << endl;
+			Grid_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".txt";
+			Grid_Vtk_File = gridDir + Test_Case_Name + "_" + to_string(meshParams.nx) + "_" + to_string(meshParams.ny) + ".vtk";
+		}
+
+		resolveExistingInputPath(Grid_File, "initializeGridFiles grid file");
+		resolveExistingInputPath(Grid_Vtk_File, "initializeGridFiles VTK grid file");
+
+		// Grid_File = gridFiles[0];
+		cout << "Grid file to be read: " << Grid_File << endl;
+
+		if (!Form_Cells(Grid_File))
+		{
+			cerr << "Error: Failed to form cells from grid file: " << Grid_File << endl;
+			return false;
+		}
+
+		std::cout << "Grid_Type used: " << Grid_Type << std::endl;
+		cout << "Grid files initialized successfully" << endl;
+		return true;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Exception in initializeGridFiles: " << e.what() << endl;
+		return false;
+	}
+	catch (...)
+	{
+		cerr << "Unknown exception in initializeGridFiles" << endl;
+		return false;
+	}
+}
+
+bool Form_Cells(const string &ipfile)
+{
+	try
+	{
+		cout << "Reading \t" << ipfile.c_str() << endl;
+
+		CFD_EnsureInputFileExists(ipfile, "Form_Cells mesh file");
+
+		// Auto-detect loader (JSON: mesh.xnodes/mesh.ynodes or mesh.vtk/mesh.txt, VTK, CSV, or legacy TXT)
+		if (!Load_Mesh(ipfile))
+		{
+			cerr << "Error: Failed to load mesh from file: " << ipfile << endl;
+			return false;
+		}
+
+		// Validate that cells were loaded
+		if (Cells.empty())
+		{
+			cerr << "Error: No cells were loaded from the mesh file" << endl;
+			return false;
+		}
+
+		cout << "Constructing Physical Cells done" << endl;
+		cout << "Number of cells loaded: " << Cells.size() << endl;
+		cout << "Boundary cells - Inlet: " << Inlet_Cells_List.size() << "\tWall: " << Wall_Cells_List.size()
+			 << "\tExit: " << Exit_Cells_List.size() << "\tSymmetry: " << Symmetry_Cells_List.size() << endl;
+
+		if (Cells.size() < static_cast<size_t>(Total_No_Cells))
+			Cells.resize(Total_No_Cells);
+		cout << "Total cells after loading: " << Cells.size() << endl;
+
+		Construct_Ghost_Cells();
+		cout << "Constructing Ghost Cells done" << endl;
+
+		Calculate_Cell_Center_Distances();
+		cout << "Evaluating Cell Center Distances done" << endl;
+		cout << "Physical: " << No_Physical_Cells << "\tGhost: " << No_Ghost_Cells << "\tTotal: " << Total_No_Cells << endl;
+
+		Check_Cells();
+		cout << "Checking Cells done" << endl;
+
+		cout << "Construction Co Volumes for NS Solver" << endl;
+		if (Is_Viscous_Wall)
+		{
+			Co_Volume_Cells.clear();
+			Co_Volume_Cells.reserve(No_Physical_Cells);
+			for (int i = 0; i < No_Physical_Cells; i++)
+			{
+				Construct_Co_Volumes(i);
+			}
+			cout << "Construction of Co-Volumes Completed\n";
+		}
+
+		cout << "Form_Cells completed successfully" << endl;
+		return true;
+	}
+	catch (const std::exception &e)
+	{
+		cerr << "Exception in Form_Cells: " << e.what() << endl;
+		return false;
+	}
+	catch (...)
+	{
+		cerr << "Unknown exception occurred in Form_Cells" << endl;
+		return false;
+	}
+}
+
+void Construct_Ghost_Cells()
+{
+	int Cell_Index = 0, Ghost_Cell_Index = 0, Face_No = 0;
+	Construct_Cell();
+	cout << "Constructing Ghost Cells" << endl;
+	cout << "Number of Cells With Inlet Boundary\t" << Inlet_Cells_List.size() / 3 << endl;
+	for (unsigned int i = 0; i < Inlet_Cells_List.size(); i += 3)
+	{
+		Cell_Index = Inlet_Cells_List[i];
+		Face_No = Inlet_Cells_List[i + 1];
+		Ghost_Cell_Index = Inlet_Cells_List[i + 2];
+		// cout << Cell_Index << "\t" << Face_No << "\t" << Ghost_Cell_Index << endl;
+		Construct_Cell(Cell_Index, Face_No, Ghost_Cell_Index);
+		//		cout<<Cells_Volume.size()<<"\t"<<Cells_Inv_Volume.size()<<endl;
+		// 	Print(Cells_Inv_Volume);
+	}
+
+	cout << "Number of Cells With Wall Boundary\t" << Wall_Cells_List.size() / 3 << endl;
+	for (unsigned int i = 0; i < Wall_Cells_List.size(); i += 3)
+	{
+
+		//	 	cout<<Wall_Cells_List[i]<<"\t";
+		Cell_Index = Wall_Cells_List[i];
+		Face_No = Wall_Cells_List[i + 1];
+		Ghost_Cell_Index = Wall_Cells_List[i + 2];
+		//		cout<<Cell_Index<<"\t"<<Face_No<<"\t"<<Ghost_Cell_Index<<endl;
+		Construct_Cell(Cell_Index, Face_No, Ghost_Cell_Index);
+	}
+	cout << "Number of Cells With Exit Boundary\t" << Exit_Cells_List.size() / 3 << endl;
+	// 	Print(Cells_Inv_Volume);
+	for (unsigned int i = 0; i < Exit_Cells_List.size(); i += 3)
+	{
+		// 		cout<<Exit_Cells_List[i]<<"\t";
+		Cell_Index = Exit_Cells_List[i];
+		Face_No = Exit_Cells_List[i + 1];
+		Ghost_Cell_Index = Exit_Cells_List[i + 2];
+		Construct_Cell(Cell_Index, Face_No, Ghost_Cell_Index);
+	}
+	// 	Print(Cells_Inv_Volume);
+	cout << "Number of Cells with Symmetery Boundary\t" << Symmetry_Cells_List.size() / 3 << endl;
+	for (unsigned int i = 0; i < Symmetry_Cells_List.size(); i += 3)
+	{
+		Cell_Index = Symmetry_Cells_List[i];
+		Face_No = Symmetry_Cells_List[i + 1];
+		Ghost_Cell_Index = Symmetry_Cells_List[i + 2];
+		Construct_Cell(Cell_Index, Face_No, Ghost_Cell_Index);
+	}
+	// 	Print(Cells_Inv_Volume);
+}
+
+/*
+  Structured quad indexing (2D): Neighbours[0..3] are always
+    [0] left (i-1,j), [1] bottom (i,j-1), [2] right (i+1,j), [3] top (i,j+1).
+  Custom text grid files read by Read_Grid() use verts [o,a,b,c] and the same LBRT
+  neighbor order. Construct_Cell() builds face areas/normals in that LBRT order.
+*/
+
+void Set_Indicies_of_Neighbour_Cells(const int &a0, const int &a1, const int &a2, const int &a3, const int &a4)
+{
+	/*
+	//																			Cell index		face_no
+	Cell_Neighbour_indicies.push_back(a0); //	current cell		(i,j,k)			0
+	Cell_Neighbour_indicies.push_back(a1); // 	left 	cell		(i-1,j,k)		1			0
+	Cell_Neighbour_indicies.push_back(a2); // 	bottom	cell		(i,j-1,k)		2			1
+	Cell_Neighbour_indicies.push_back(a3); //	right 	cell		(i+1,j,k)		3			2
+	Cell_Neighbour_indicies.push_back(a4); //	Top cell			(i,j+1,k)		4			3
+	*/
+	// cout<<a0<<"\t"<<a1<<"\t"<<a2<<"\t"<<a3<<"\t"<<a4<<endl;
+
+	if (Cells[a0].Neighbours.empty())
+		Cells[a0].Neighbours.resize(4, 0);
+	Cells[a0].Neighbours[0] = a1; // Left Cell
+	Cells[a0].Neighbours[1] = a2; // Bottom Cell
+	Cells[a0].Neighbours[2] = a3; // Right Cell
+	Cells[a0].Neighbours[3] = a4; // Top Cell
+}
+
+/*
+ This Function takes 8 points and calculates all the features of a cell. Features include Face area, Face normal, volume for a given cell
+ */
+void Construct_Cell(V_D &o, V_D &a, V_D &b, V_D &c)
+{
+	V_D Temp(3, 0.0);
+	V_D Diagonal_Vector1(2, 0.0);
+	V_D Diagonal_Vector2(2, 0.0);
+	double Area = 0.0;
+	// Evaluating Cell Center
+	Temp[0] = 0.25 * (o[0] + a[0] + b[0] + c[0]);
+	Temp[1] = 0.25 * (o[1] + a[1] + b[1] + c[1]);
+	Temp[2] = 0.25 * (o[2] + a[2] + b[2] + c[2]);
+	// Cells_Cell_Center.push_back(Temp);
+	Construct_Face(o, a, b, c); // Left Face		1	(i+1,j,k)	1,0,0
+	// Flow is assumed to be in x-y plane and hence the other area and normal components in x direction are made zero to make sure that there is no flux in that direction
+	/*	cout<<Face_Area_Components.size()<<endl;
+		cout<<Face_Normal_Components.size()<<endl;*/
+	// Cell_Face_Areas.push_back(Face_Area_Components);
+	// Cell_Face_Normals.push_back(Face_Normal_Components);
+	/*	Print(Face_Normal_Components);
+		cout<<"-----------------------------"<<endl;
+		Print(Face_Area_Components);
+		cout<<"-----------------------------"<<endl;
+	*/
+	// Face_Area_Components.clear();
+	// Face_Normal_Components.clear();
+	// Cell_Neighbour_indicies.clear();
+	Diagonal_Vector1[0] = b[0] - o[0];
+	Diagonal_Vector1[1] = b[1] - o[1];
+	Diagonal_Vector2[0] = c[0] - a[0];
+	Diagonal_Vector2[1] = c[1] - a[1];
+	// Print(Diagonal_Vector1);
+	// cout<<endl;
+	// Print(Diagonal_Vector2);
+	// cout<<endl;
+	Evaluate_Cross_Product(Diagonal_Vector1, Diagonal_Vector2, Area);
+	// Cells_Area.push_back(Area);
+	// Cells_Inv_Area.push_back((1.0 / Area));
+	//	cout<<Area<<"\t"<<1.0/Area<<endl;
+	//	cout<<"Construction of Cell done"<<endl;
+}
+// Constructing the Cell with grid cell structure as the passing variable
+
+/**
+ * @brief Fill Face_Areas / Face_Normals / Area for a physical cell.
+ *
+ * For structured/text quads with verts [o,a,b,c], faces follow LBRT order
+ * (0=left c→o, 1=bottom o→a, 2=right a→b, 3=top b→c) with outward normals.
+ * Do not atan2-reorder vertices after Read_Grid — that breaks wall BC normals at corners.
+ */
+void Construct_Cell(Cell &Grid_Cell)
+{
+	// Ensure basic sizes
+	Grid_Cell.Dimension = 2;
+	Grid_Cell.numNodes = static_cast<int>(Grid_Cell.nodeIndices.size());
+	Grid_Cell.numFaces = Grid_Cell.numNodes; // 2D polygon: faces = edges = nodes
+
+	if (Grid_Cell.Cell_Center.empty())
+		Grid_Cell.Cell_Center.resize(3, 0.0);
+
+	Compute_Centroid(Grid_Cell);
+
+	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
+	if (n < 3)
+	{
+		throw runtime_error("Construct_Cell: cell has fewer than 3 vertices");
+	}
+
+	Grid_Cell.Face_Areas.clear();
+	Grid_Cell.Face_Normals.clear();
+
+	if (n == 4)
+	{
+		/* Structured/text-grid quads: verts [o,a,b,c] with Neighbours LBRT.
+		   Face edges match classic Construct_Face(o,a,b,c):
+		     0=left  c->o, 1=bottom o->a, 2=right a->b, 3=top b->c. */
+		const double *V = Grid_Cell.Cell_Vertices.data();
+		const int i0[4] = {3, 0, 1, 2};
+		const int i1[4] = {0, 1, 2, 3};
+		const double cx = Grid_Cell.Cell_Center[0];
+		const double cy = Grid_Cell.Cell_Center[1];
+		Grid_Cell.Face_Areas.resize(4, 0.0);
+		Grid_Cell.Face_Normals.resize(8, 0.0);
+		for (int f = 0; f < 4; ++f)
+		{
+			V_D pa(3, 0.0), pb(3, 0.0);
+			pa[0] = V[3 * i0[f] + 0];
+			pa[1] = V[3 * i0[f] + 1];
+			pa[2] = V[3 * i0[f] + 2];
+			pb[0] = V[3 * i1[f] + 0];
+			pb[1] = V[3 * i1[f] + 1];
+			pb[2] = V[3 * i1[f] + 2];
+			double L = 0.0, nx = 0.0, ny = 0.0;
+			Construct_Face(pa, pb, L, nx, ny);
+			const double mx = 0.5 * (pa[0] + pb[0]);
+			const double my = 0.5 * (pa[1] + pb[1]);
+			/* Ensure outward normal (points away from cell center). */
+			if (nx * (mx - cx) + ny * (my - cy) < 0.0)
+			{
+				nx = -nx;
+				ny = -ny;
+			}
+			Grid_Cell.Face_Areas[f] = L;
+			Grid_Cell.Face_Normals[2 * f + 0] = nx;
+			Grid_Cell.Face_Normals[2 * f + 1] = ny;
+		}
+		Grid_Cell.numFaces = 4;
+	}
+	else
+	{
+		Construct_Face(Grid_Cell);
+	}
+
+	// Polygon area (shoelace) in XY plane
+	double twice_area = 0.0;
+	for (int i = 0; i < n; i++)
+	{
+		const int j = (i + 1) % n;
+		const double xi = Grid_Cell.Cell_Vertices[3 * i + 0];
+		const double yi = Grid_Cell.Cell_Vertices[3 * i + 1];
+		const double xj = Grid_Cell.Cell_Vertices[3 * j + 0];
+		const double yj = Grid_Cell.Cell_Vertices[3 * j + 1];
+		twice_area += (xi * yj - xj * yi);
+	}
+	Grid_Cell.Area = 0.5 * fabs(twice_area);
+	if (!std::isfinite(Grid_Cell.Area) || Grid_Cell.Area <= 0.0)
+	{
+		cerr << "Invalid cell area: " << Grid_Cell.Area << "\n";
+		Print(Grid_Cell.Cell_Vertices);
+		throw runtime_error("Construct_Cell: invalid zero/negative cell area");
+	}
+	Grid_Cell.Inv_Area = 1.0 / Grid_Cell.Area;
+}
+
+void Construct_Cell()
+{
+	R_Mid_dot_A = 0.0;
+	double Area = 0.0;
+	V_D Temp(3, 0.0);
+	// cout<<"In construct cell()\t"<<Cells_Volume.size()<<"\t"<<Cells_Inv_Volume.size()<<endl;
+
+	// cout<<"In construct cell()\t"<<Cell_Face_Areas.size()<<"\t"<<Cell_Face_Normals.size()<<endl;
+	for (int i = 0; i < No_Ghost_Cells; i++)
+	{
+		// Face_Area_Components.resize(4, 0.0);
+		// Face_Normal_Components.resize(8, 0.0);
+		// Cell_Face_Areas.push_back(Face_Area_Components);
+		// Cell_Face_Normals.push_back(Face_Normal_Components);
+		// Cells_Area.push_back(Area);
+		// Cells_Inv_Area.push_back(Area);
+		// Cells_Cell_Center.push_back(Temp);
+	}
+	// cout << Cell_Face_Areas.size() << "\t" << Cell_Face_Normals.size() << endl;
+}
+
+// This Function creates a Ghost cell
+void Construct_Cell(const int &Current_Cell_No, const int &Face_No, const int &Ghost_Cell_No)
+{
+	// Generic ghost cell center construction for 2D polygons:
+	// reflect cell center across the face midpoint.
+	if (Cells.size() <= static_cast<size_t>(Ghost_Cell_No))
+	{
+		cout << "Memory for Ghost Cell is not created \n";
+		return;
+	}
+
+	Cell &C = Cells[Current_Cell_No];
+	const int nFaces = (C.numFaces > 0) ? C.numFaces : static_cast<int>(C.nodeIndices.size());
+	if (Face_No < 0 || Face_No >= nFaces)
+	{
+		throw runtime_error("Construct_Cell ghost: invalid Face_No " + to_string(Face_No) +
+							" for nFaces=" + to_string(nFaces));
+	}
+
+	/* Face endpoints for logical Neighbours index (LBRT) with verts [o,a,b,c]:
+	   0=left c-o, 1=bottom o-a, 2=right a-b, 3=top b-c. */
+	const int nVerts = static_cast<int>(C.Cell_Vertices.size() / 3);
+	int i0 = Face_No % nVerts;
+	int i1 = (Face_No + 1) % nVerts;
+	if (nVerts == 4)
+	{
+		static const int i0_lbrt[4] = {3, 0, 1, 2};
+		static const int i1_lbrt[4] = {0, 1, 2, 3};
+		i0 = i0_lbrt[Face_No];
+		i1 = i1_lbrt[Face_No];
+	}
+
+	V_D mid(3, 0.0);
+	mid[0] = 0.5 * (C.Cell_Vertices[3 * i0 + 0] + C.Cell_Vertices[3 * i1 + 0]);
+	mid[1] = 0.5 * (C.Cell_Vertices[3 * i0 + 1] + C.Cell_Vertices[3 * i1 + 1]);
+	mid[2] = 0.5 * (C.Cell_Vertices[3 * i0 + 2] + C.Cell_Vertices[3 * i1 + 2]);
+
+	V_D gc(3, 0.0);
+	gc[0] = C.Cell_Center[0] + 2.0 * (mid[0] - C.Cell_Center[0]);
+	gc[1] = C.Cell_Center[1] + 2.0 * (mid[1] - C.Cell_Center[1]);
+	gc[2] = C.Cell_Center[2] + 2.0 * (mid[2] - C.Cell_Center[2]);
+
+	Cell &G = Cells[Ghost_Cell_No];
+	G.Dimension = 2;
+	if (G.Cell_Center.empty())
+		G.Cell_Center.resize(3, 0.0);
+	G.Cell_Center = gc;
+	G.Area = C.Area;
+	G.Inv_Area = C.Inv_Area;
+}
+
+// This function constructs the cell based on the vertices being passed to the function.
+void Construct_Cell(V_D &Vertices)
+{
+	if (Vertices.size() == 12)
+	{
+		V_D o(3, 0.0), a(3, 0.0), b(3, 0.0), c(3, 0.0);
+		o[0] = Vertices[0];
+		o[1] = Vertices[1];
+		o[2] = Vertices[2];
+		a[0] = Vertices[3];
+		a[1] = Vertices[4];
+		a[2] = Vertices[5];
+		b[0] = Vertices[6];
+		b[1] = Vertices[7];
+		b[2] = Vertices[8];
+		c[0] = Vertices[9];
+		c[1] = Vertices[10];
+		c[2] = Vertices[11];
+		Construct_Cell(o, a, b, c);
+	}
+	else if (Vertices.size() == 9)
+	{
+		V_D o(3, 0.0), a(3, 0.0), b(3, 0.0);
+		o[0] = Vertices[0];
+		o[1] = Vertices[1];
+		o[2] = Vertices[2];
+		a[0] = Vertices[3];
+		a[1] = Vertices[4];
+		a[2] = Vertices[5];
+		b[0] = Vertices[6];
+		b[1] = Vertices[7];
+		b[2] = Vertices[8];
+		Construct_Cell(o, a, b);
+	}
+	else
+	{
+		throw runtime_error("Construct_Cell: vertices are not 12 (quad) or 9 (tri) in number");
+	}
+}
+
+// This function constructs a triangular cell based on the vertices being passed to the function
+void Construct_Cell(V_D &o, V_D &a, V_D &b)
+{
+	// Triangle centroid (and area is computed elsewhere for Cell-based construction)
+	V_D Temp(3, 0.0);
+	Temp[0] = (o[0] + a[0] + b[0]) / 3.0;
+	Temp[1] = (o[1] + a[1] + b[1]) / 3.0;
+	Temp[2] = (o[2] + a[2] + b[2]) / 3.0;
+	// Cells_Cell_Center.push_back(Temp);
+	// Cell_Face_Areas.push_back(Face_Area_Components);
+	// Cell_Face_Normals.push_back(Face_Normal_Components);
+	// Face_Area_Components.clear();
+	// Face_Normal_Components.clear();
+	// Cell_Neighbour_indicies.clear();
+	// Cells_Area.push_back(Area);
+	// Cells_Inv_Area.push_back((1.0 / Area));
+}
+
+//	This function constructs faces and stores face area vectors and face normals for gride cell structure for a 2D cell
+void Construct_Face(Cell &Grid_Cell)
+{
+	// Generic face construction for a 2D polygon (tri/quad).
+	// Faces follow the cyclic vertex order: i -> i+1.
+	const int n = static_cast<int>(Grid_Cell.Cell_Vertices.size() / 3);
+	if (n < 3)
+	{
+		throw runtime_error("Construct_Face: cell has fewer than 3 vertices");
+	}
+
+	Grid_Cell.Face_Areas.clear();
+	Grid_Cell.Face_Normals.clear();
+	Grid_Cell.Face_Areas.reserve(n);
+	Grid_Cell.Face_Normals.reserve(2 * n);
+
+	double L = 0.0, nx = 0.0, ny = 0.0;
+	V_D a(3, 0.0), b(3, 0.0);
+	for (int f = 0; f < n; f++)
+	{
+		const int i0 = f;
+		const int i1 = (f + 1) % n;
+		a[0] = Grid_Cell.Cell_Vertices[3 * i0 + 0];
+		a[1] = Grid_Cell.Cell_Vertices[3 * i0 + 1];
+		a[2] = Grid_Cell.Cell_Vertices[3 * i0 + 2];
+		b[0] = Grid_Cell.Cell_Vertices[3 * i1 + 0];
+		b[1] = Grid_Cell.Cell_Vertices[3 * i1 + 1];
+		b[2] = Grid_Cell.Cell_Vertices[3 * i1 + 2];
+		Construct_Face(a, b, L, nx, ny);
+		Grid_Cell.Face_Areas.push_back(L);
+		Grid_Cell.Face_Normals.push_back(nx);
+		Grid_Cell.Face_Normals.push_back(ny);
+	}
+
+	Grid_Cell.numFaces = n;
+}
+
+// This function takes two verticies at at time and constructs the face and normals of the face and length of the face for a 2D cell
+void Construct_Face(V_D &a, V_D &b, double &dL, double &nx, double &ny)
+{
+	//	cout<<"In construct face function"<<endl;
+	dL = 0.0;
+	nx = 0.0;
+	ny = 0.0;
+	double dx = 0.0, dy = 0.0;
+	dy = b[1] - a[1];
+	dx = b[0] - a[0]; // Face  formed by a and b
+	// Length of Each Side of the face
+	dL = sqrt(dx * dx + dy * dy);
+	if (dL == 0.0)
+	{
+		cout << "Length of the face is zero\n";
+		Print(a);
+		Print(b);
+		throw runtime_error("Construct_Face: zero face length");
+	}
+	else
+	{
+		nx = dy / dL;  //----------------- nx = dy/dl
+		ny = -dx / dL; // --------------- ny = -dx/dl
+	}
+}
+
+// This function takes four verticies at at time and constructs the face and normals of the face and length of the face for a 2D cell
+void Construct_Face(V_D &o, V_D &a, V_D &b, V_D &c)
+{
+	//	   cout<<"In construct face function"<<endl;
+
+	double A1_x = 0.0, A1_y = 0.0, A2_x = 0.0, A2_y = 0.0, A3_x = 0.0, A3_y = 0.0, A4_x = 0.0, A4_y = 0.0;
+	double A_Mag1 = 0.0, A_Mag2 = 0.0, A_Mag3 = 0.0, A_Mag4 = 0.0;
+
+	A1_y = o[1] - c[1];
+	A1_x = o[0] - c[0]; // Face 0  vector (co)
+	A2_y = a[1] - o[1];
+	A2_x = a[0] - o[0]; // Face 1  vector (oa)
+	A3_y = b[1] - a[1];
+	A3_x = b[0] - a[0]; // Face 2  vector (ab)
+	A4_y = c[1] - b[1];
+	A4_x = c[0] - b[0]; // Face 3  vector (bc)
+
+	// Length of Each Side of the face
+	A_Mag1 = sqrt(A1_x * A1_x + A1_y * A1_y);
+	A_Mag2 = sqrt(A2_x * A2_x + A2_y * A2_y);
+	A_Mag3 = sqrt(A3_x * A3_x + A3_y * A3_y);
+	A_Mag4 = sqrt(A4_x * A4_x + A4_y * A4_y);
+
+	/*
+
+		// In 2D these Represents the Lenghts of the sides of the control volume
+		Face_Area_Components.push_back(A_Mag1);
+		Face_Area_Components.push_back(A_Mag2);
+		Face_Area_Components.push_back(A_Mag3);
+		Face_Area_Components.push_back(A_Mag4);
+
+		Face_Normal_Components.push_back(A1_y / A_Mag1);  //----------------- nx = dy/dl
+		Face_Normal_Components.push_back(-A1_x / A_Mag1); // --------------- ny = -dx/dl
+
+		Face_Normal_Components.push_back(A2_y / A_Mag2);  //----------------- nx = dy/dl
+		Face_Normal_Components.push_back(-A2_x / A_Mag2); // --------------- ny = -dx/dl
+
+		Face_Normal_Components.push_back(A3_y / A_Mag3);  //----------------- nx = dy/dl
+		Face_Normal_Components.push_back(-A3_x / A_Mag3); // --------------- ny = -dx/dl
+
+		Face_Normal_Components.push_back(A4_y / A_Mag4);  //----------------- nx = dy/dl
+		Face_Normal_Components.push_back(-A4_x / A_Mag4); // --------------- ny = -dx/dl
+
+		//	   Print(Face_Normal_Components);
+		*/
+}
+
+// This function evaluates the distance between the current cell and its neighbours
+void Calculate_Cell_Center_Distances()
+{
+	V_D Cell_Center(3, 0.0), N_Cell_Center(3, 0.0);
+	double D = 0.0;
+	for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+	{
+		const size_t nn = Cells[Cell_Index].Neighbours.size();
+		if (Cells[Cell_Index].Cell_Center_Distances.size() != nn)
+			Cells[Cell_Index].Cell_Center_Distances.assign(nn, 0.0);
+		if (Cells[Cell_Index].Cell_Center_Vector.size() != 3 * nn)
+			Cells[Cell_Index].Cell_Center_Vector.assign(3 * nn, 0.0);
+
+		Cell_Center = Cells[Cell_Index].Cell_Center;
+		for (size_t k = 0; k < nn; k++)
+		{
+			const int N = Cells[Cell_Index].Neighbours[k];
+			N_Cell_Center = Cells[N].Cell_Center;
+			Distance_Between_Points(Cell_Center, N_Cell_Center, D);
+			Cells[Cell_Index].Cell_Center_Distances[k] = D;
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 0] = N_Cell_Center[0] - Cell_Center[0];
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 1] = N_Cell_Center[1] - Cell_Center[1];
+			Cells[Cell_Index].Cell_Center_Vector[3 * k + 2] = N_Cell_Center[2] - Cell_Center[2];
+		}
+	}
+	cout << "Calculating Distance between Cell Centers Done" << endl;
+}
+
+/*void Create_Ghost_Cells_CellCenters(int & Current_Cell_No)
+{
+}*/
+
+// Function for Evaluting Cross Product of Vectors, this function uses a Global vector to return the value, each time the global vector is cleared to ensure that the elements are zero
+void Evaluate_Cross_Product(V_D &A, V_D &B, double &Area)
+{
+	Area = 0.0;
+	Area = 0.5 * (B[1] * A[0] - B[0] * A[1]);
+	if (isnan(Area) or (Area == 0.0))
+	{
+		throw runtime_error("Evaluate_Cross_Product: zero or non-finite area");
+	}
+	// cout<<"Face Area ="<<Area<<endl;
+}
+
+// Function Evaluating Face Normals
+void Evaluate_Unit_Vector(V_D &AV)
+{
+	double temp = 0.0;
+	for (unsigned int i = 0; i < AV.size(); i++)
+		temp += AV[i] * AV[i];
+	for (unsigned int i = 0; i < AV.size(); i++)
+		AV[i] /= sqrt(temp);
+}
+
+// This function evaluates the dot product of two vectors
+void Dot_Product(V_D &V1, V_D &V2, double &dotp)
+{
+	dotp = (V1[0] * V2[0] + V1[1] * V2[1] + V1[2] * V2[2]);
+}
+
+// This function evaluates distance between two points
+void Distance_Between_Points(V_D &P1, V_D &P2, double &Distance)
+{
+	// This function calculates distance between two points
+	double size = 0.0, temp = 0.0;
+	Distance = 0.0;
+	// Print(P1);
+	// Print(P2);
+	if (P1.size() == P2.size())
+	{
+		size = P1.size();
+		temp = 0.0;
+		for (unsigned int i = 0; i < size; i++)
+		{
+			temp = P2[i] - P1[i];
+			Distance += temp * temp;
+		}
+		Distance = sqrt(Distance);
+		//	cout << "Distance between two points\t" << Distance << endl;
+	}
+	else
+	{
+		Print(P1);
+		Print(P2);
+		throw runtime_error("Distance_Between_Points: vectors must have the same size");
+	}
+}
+
+// This Function evalutates the dot product of two vectors of equal size
+void Evaluate_Dot_Product(V_D &A, V_D &B)
+{
+	global_temp = 0.0;
+	for (unsigned int i = 0; i < A.size(); i++)
+		global_temp += A[i] * B[i];
+}
+
+// This function finds the cell with smallest diagonal vector
+void Find_Minimum_Length()
+{
+	double Min_Len = 100.0, a = 0.0, b = 0.0, c = 0.0, mag = 0.0;
+	Cell_Minimum_Length = 100.0;
+	for (int index = 0; index < No_Physical_Cells; index++)
+	{
+		a = fabs(Cells[index].Diagonal_Vector[0]);
+		b = fabs(Cells[index].Diagonal_Vector[1]);
+		c = fabs(Cells[index].Diagonal_Vector[2]);
+
+		mag = sqrt(a * a + b * b + c * c);
+		if (mag < 1e-5)
+		{
+			cout << "Diagonal Vector is zero\n";
+			Print(Cells[index].Cell_Vertices);
+			throw runtime_error("Find_Minimum_Length: zero diagonal vector in cell " + to_string(index));
+		}
+
+		if (Cell_Minimum_Length > mag)
+			Cell_Minimum_Length = mag;
+		// 		cout<<a<<"\t"<<b<<"\t"<<c<<"\t"<<Cell_Minimum_Length<<endl;
+	}
+}
+
+// This Function evaluates the area integral of a all the cells
+
+void Check_Cells()
+{
+	double N1 = 0.0, N2 = 0.0;
+	cout << "Checking Summation of areas to be zero for a given cell" << endl;
+	cout << "no of physical cells\t" << No_Physical_Cells << endl;
+	cout << "Total cells (incl. ghost)\t" << Cells.size() << endl;
+	if (Cells.size() >= static_cast<size_t>(No_Physical_Cells))
+	{
+		cout << "Cell count OK (physical + optional ghost)\n";
+		double maxClosure = 0.0;
+		int nClosureFail = 0;
+		double minFaceLen = 1e300;
+		double minCellArea = 1e300;
+		const double closureTol = 1e-5;
+		for (int Cell_Index = 0; Cell_Index < No_Physical_Cells; Cell_Index++)
+		{
+			N1 = 0.0, N2 = 0.0;
+			const int nFaces = (Cells[Cell_Index].numFaces > 0) ? Cells[Cell_Index].numFaces : static_cast<int>(Cells[Cell_Index].Face_Areas.size());
+			for (int Face_No = 0; Face_No < nFaces; Face_No++)
+			{
+				N1 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 0] * Cells[Cell_Index].Face_Areas[Face_No];
+				N2 += Cells[Cell_Index].Face_Normals[Face_No * 2 + 1] * Cells[Cell_Index].Face_Areas[Face_No];
+				const double L = Cells[Cell_Index].Face_Areas[Face_No];
+				if (L > 0.0 && L < minFaceLen)
+					minFaceLen = L;
+			}
+			const double err = std::sqrt(N1 * N1 + N2 * N2);
+			if (err > maxClosure)
+				maxClosure = err;
+			if (err > closureTol)
+				nClosureFail++;
+			if (Cells[Cell_Index].Area > 0.0 && Cells[Cell_Index].Area < minCellArea)
+				minCellArea = Cells[Cell_Index].Area;
+			if ((fabs(N1) > closureTol) || (fabs(N2) > closureTol))
+				cout << "Cell No\t" << Cell_Index << "\t" << N1 << "\t" << N2 << endl;
+		}
+		cout << "FVM geometry closure: max|sum(n*dl)|=" << maxClosure << "  cells failing tol " << closureTol << ": " << nClosureFail << "\n";
+		cout << "FVM geometry: min face length=" << minFaceLen << "  min cell area=" << minCellArea << "\n";
+
+		/* Interior faces: outward normals from two cells must cancel (same edge, opposite directions). */
+		double maxPairErr = 0.0;
+		int nPairsChecked = 0;
+		for (int i = 0; i < No_Physical_Cells; i++)
+		{
+			const int nFi = (Cells[i].numFaces > 0) ? Cells[i].numFaces : static_cast<int>(Cells[i].Face_Areas.size());
+			const int nNi = static_cast<int>(Cells[i].Neighbours.size());
+			for (int f = 0; f < nFi && f < nNi; f++)
+			{
+				const int j = Cells[i].Neighbours[f];
+				if (j < 0 || j >= No_Physical_Cells || i >= j)
+					continue;
+				int fk = -1;
+				for (size_t k = 0; k < Cells[j].Neighbours.size(); k++)
+				{
+					if (Cells[j].Neighbours[k] == i)
+					{
+						fk = static_cast<int>(k);
+						break;
+					}
+				}
+				if (fk < 0)
+					continue;
+				const int nFj = (Cells[j].numFaces > 0) ? Cells[j].numFaces : static_cast<int>(Cells[j].Face_Areas.size());
+				if (fk >= nFj)
+					continue;
+				const double nxi = Cells[i].Face_Normals[2 * f + 0];
+				const double nyi = Cells[i].Face_Normals[2 * f + 1];
+				const double nxj = Cells[j].Face_Normals[2 * fk + 0];
+				const double nyj = Cells[j].Face_Normals[2 * fk + 1];
+				const double ex = nxi + nxj;
+				const double ey = nyi + nyj;
+				const double pe = std::sqrt(ex * ex + ey * ey);
+				if (pe > maxPairErr)
+					maxPairErr = pe;
+				nPairsChecked++;
+			}
+		}
+		cout << "FVM interior face normals: checked " << nPairsChecked << " pairs  max|n_i+n_j|=" << maxPairErr << "\n";
+
+		cout << "Checking summation of Areas done\n";
+	}
+	else
+	{
+		cout << "Cells.size() < No_Physical_Cells. Check Read grid function.\n";
+		throw runtime_error("Check_Cells: Cells.size() < No_Physical_Cells");
+	}
+}
+
+// Function to compute centroid from vertices
+void Compute_Centroid(V_D &Vertices, V_D &Centroid)
+{
+	if (Centroid.empty()) // Fixes NULL issue
+	{
+		Centroid.resize(3, 0.0);
+	}
+
+	double x = 0.0, y = 0.0, z = 0.0;
+	int num_points = Vertices.size() / 3; // Assuming 3D points
+
+	for (size_t i = 0; i < Vertices.size(); i += 3)
+	{
+		x += Vertices[i];
+		y += Vertices[i + 1];
+		z += Vertices[i + 2];
+	}
+
+	if (num_points > 0) // Prevent division by zero
+	{
+		Centroid[0] = x / num_points;
+		Centroid[1] = y / num_points;
+		Centroid[2] = z / num_points;
+	}
+}
+
+// sorting points in anti clockwise direction based on angle from centroid
+//  Function to compute angle of a point w.r.t. the centroid
+double angleFromCentroid(const V_D &Centroid, const V_D &Point)
+{
+	double dx = Point[0] - Centroid[0];
+	double dy = Point[1] - Centroid[1];
+	return atan2(dy, dx); // Computes angle in radians
+}
+
+// Computes the centroid of a quadrilateral
+void Compute_Centroid(V_D &o, V_D &a, V_D &b, V_D &c, V_D &Centroid)
+{
+	Centroid[0] = 0.25 * (o[0] + a[0] + b[0] + c[0]);
+	Centroid[1] = 0.25 * (o[1] + a[1] + b[1] + c[1]);
+	Centroid[2] = 0.25 * (o[2] + a[2] + b[2] + c[2]);
+}
+
+// Computes the centroid of a Cell based on the points
+void Compute_Centroid(Cell &Grid_Cell)
+{
+	// cout<<"In Compute Centroid\n";
+	if (Grid_Cell.Cell_Center.empty())
+		Grid_Cell.Cell_Center.resize(3, 0.0);
+	Compute_Centroid(Grid_Cell.Cell_Vertices, Grid_Cell.Cell_Center);
+}
+
+// Computes the centroid of a triangle
+void Compute_Centroid(V_D &o, V_D &a, V_D &b, V_D &Centroid)
+{
+	Centroid[0] = 0.25 * (o[0] + a[0] + b[0]);
+	Centroid[1] = 0.25 * (o[1] + a[1] + b[1]);
+	Centroid[2] = 0.25 * (o[2] + a[2] + b[2]);
+}
+
+/**
+ * @brief Sorts a set of points in anti-clockwise order around their centroid.
+ *
+ * @param Points A flat vector of coordinates representing 3D points. The vector should have a size
+ *               that is a multiple of 3, where each triplet (x, y, z) represents a point.
+ *
+ * Assumptions:
+ * - The input vector `Points` is structured as a flat array of 3D points.
+ * - The function computes the centroid of the points and sorts them based on their angle
+ *   relative to the centroid in the XY plane.
+ * - The Z-coordinate is ignored during sorting.
+ */
+// To check if the points are sorted in anti-clockwise order
+bool Are_Points_Sorted_AntiClockWise(const std::vector<V_D> &groupedPoints, const V_D &Centroid)
+{
+	for (size_t i = 1; i < groupedPoints.size(); ++i)
+	{
+		double anglePrev = atan2(groupedPoints[i - 1][1] - Centroid[1], groupedPoints[i - 1][0] - Centroid[0]);
+		double angleCurr = atan2(groupedPoints[i][1] - Centroid[1], groupedPoints[i][0] - Centroid[0]);
+		if (anglePrev > angleCurr) // If any point is out of order
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
+void Sort_Points_AntiClockWise(V_D &Points)
+{
+	// Check if the input is valid
+	if (Points.empty() || Points.size() % 3 != 0)
+	{
+		std::cerr << "Error: Points vector must be non-empty and have a size that is a multiple of 3." << std::endl;
+		return;
+	}
+
+	V_D Centroid(3, 0.0);
+	Compute_Centroid(Points, Centroid);
+
+	// Grouping Points into 3D points
+	std::vector<V_D> groupedPoints;
+	for (size_t i = 0; i < Points.size(); i += 3)
+	{
+		groupedPoints.push_back({Points[i], Points[i + 1], Points[i + 2]});
+	}
+
+	// Check if points are already sorted
+	if (!Are_Points_Sorted_AntiClockWise(groupedPoints, Centroid))
+	{
+		// Sorting based on angles from the centroid in the XY plane
+		std::sort(groupedPoints.begin(), groupedPoints.end(),
+				  [&Centroid](const V_D &a, const V_D &b)
+				  {
+					  double angleA = atan2(a[1] - Centroid[1], a[0] - Centroid[0]);
+					  double angleB = atan2(b[1] - Centroid[1], b[0] - Centroid[0]);
+					  if (std::abs(angleA - angleB) < 1e-9) // Handle floating-point precision issues
+					  {
+						  // If angles are the same, sort by Z-coordinate
+						  return a[2] < b[2];
+					  }
+					  return angleA < angleB;
+				  });
+	}
+	else
+	{
+		std::cout << "Points are already sorted in anti-clockwise order." << std::endl;
+	}
+
+	// Flattening the sorted points back into the original Points vector
+	Points.clear();
+	for (const auto &point : groupedPoints)
+	{
+		Points.insert(Points.end(), point.begin(), point.end());
+	}
+}
+
+void Sort_Points_AntiClockWise(V_D &Points, V_I &Indices)
+{
+	// Check if the input is valid
+	if (Points.empty() || Points.size() % 3 != 0 || Indices.size() * 3 != Points.size())
+	{
+		std::cerr << "Error: Mismatch between Points and Indices." << std::endl;
+		return;
+	}
+
+	V_D Centroid(3, 0.0);
+	Compute_Centroid(Points, Centroid);
+
+	// Pair each point with its index
+	std::vector<std::pair<V_D, int>> pointIndexPairs;
+	for (size_t i = 0; i < Points.size(); i += 3)
+	{
+		V_D point = {Points[i], Points[i + 1], Points[i + 2]};
+		pointIndexPairs.emplace_back(point, Indices[i / 3]);
+	}
+
+	// Check if points are already sorted
+	std::vector<V_D> rawPoints;
+	for (const auto &pair : pointIndexPairs)
+		rawPoints.push_back(pair.first);
+
+	if (!Are_Points_Sorted_AntiClockWise(rawPoints, Centroid))
+	{
+		std::sort(pointIndexPairs.begin(), pointIndexPairs.end(),
+				  [&Centroid](const std::pair<V_D, int> &a, const std::pair<V_D, int> &b)
+				  {
+					  double angleA = atan2(a.first[1] - Centroid[1], a.first[0] - Centroid[0]);
+					  double angleB = atan2(b.first[1] - Centroid[1], b.first[0] - Centroid[0]);
+					  if (std::abs(angleA - angleB) < 1e-9)
+						  return a.first[2] < b.first[2];
+					  return angleA < angleB;
+				  });
+	}
+	else
+	{
+		// std::cout << "Points are already sorted in anti-clockwise order." << std::endl;
+	}
+
+	// Rebuild the Points and Indices vector
+	Points.clear();
+	Indices.clear();
+	for (const auto &pair : pointIndexPairs)
+	{
+		Points.insert(Points.end(), pair.first.begin(), pair.first.end());
+		Indices.push_back(pair.second);
+	}
+}
+
+bool Is_On_Boundary(double &x, double &y, double &minX, double &maxX, double &minY, double &maxY)
+{
+	return std::abs(x - minX) < EPSILON || std::abs(x - maxX) < EPSILON ||
+		   std::abs(y - minY) < EPSILON || std::abs(y - maxY) < EPSILON;
+}

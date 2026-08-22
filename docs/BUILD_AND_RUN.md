@@ -56,20 +56,20 @@ Validated Mach-6 NS continues after the corner fix are documented as **host WENO
 ## Run
 
 ```bash
-./build/CFD_solver json_Files/Solver_Config.json
-mpirun -np 4 ./build/CFD_solver_mpi json_Files/Solver_Config.json
-./build-cuda/CFD_solver_gpu json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
+./build/CFD_solver input/json_Files/Solver_Config.json
+mpirun -np 4 ./build/CFD_solver_mpi input/json_Files/Solver_Config.json
+./build-cuda/CFD_solver_gpu input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
 ```
 
 ### Example configs
 
 | Config | Purpose |
 |--------|---------|
-| `json_Files/Test_Config_WENO.json` | Generic WENO |
-| `json_Files/Test_Config_AMR.json` | Gradient AMR |
-| `json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json` | M=6 viscous 500-iter smoke (P3 continue) |
-| `json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_20k.json` | Longer viscous continue |
-| `json_Files/Half_Cylinder_481_161_M6_viscous.json` | Case: Re, Tw, freestream (via `Test_Case_Json`) |
+| `input/json_Files/Test_Config_WENO.json` | Generic WENO |
+| `input/json_Files/Test_Config_AMR.json` | Gradient AMR |
+| `input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json` | M=6 viscous 500-iter smoke (P3 continue) |
+| `input/json_Files/Run_HalfCylinder_M6_WENO_RICCA_P3_viscous_20k.json` | Longer viscous continue |
+| `input/json_Files/Half_Cylinder_481_161_M6_viscous.json` | Case: Re, Tw, freestream (via `Test_Case_Json`) |
 
 Full half-cylinder recipe: [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md).
 

@@ -57,11 +57,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_path(JSONCPP_INCLUDE_DIR json/json.h
     PATHS /usr/include/jsoncpp /usr/local/include/jsoncpp
           /usr/include /usr/local/include
+          "$ENV{HOME}/deps/usr/include/jsoncpp"
           /opt/homebrew/include /opt/homebrew/Cellar/jsoncpp/1.9.6/include
 )
 
 # Include Paths
-include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/solvers/include)
 if(JSONCPP_INCLUDE_DIR)
     include_directories(${JSONCPP_INCLUDE_DIR})
     message(STATUS "Found jsoncpp headers at: ${JSONCPP_INCLUDE_DIR}")
@@ -70,7 +71,7 @@ else()
 endif()
 
 # Source Files (All .cpp from src/)
-file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
+file(GLOB SOURCES "${PROJECT_SOURCE_DIR}/solvers/src/*.cpp")
 
 # Exclude GPU-only files from CPU source list
 list(FILTER SOURCES EXCLUDE REGEX "Globals_Stub_GPU\\.cpp$")
@@ -83,22 +84,22 @@ if(NOT CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64|AMD64")
 endif()
 
 # All CUDA kernel sources (2D path; exclude standalone 3D Euler kernels)
-file(GLOB CUDA_KERNEL_SOURCES "${PROJECT_SOURCE_DIR}/CUDA_KERNELS/*.cu")
+file(GLOB CUDA_KERNEL_SOURCES "${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/*.cu")
 list(FILTER CUDA_KERNEL_SOURCES EXCLUDE REGEX "Euler3D_Cuda\\.cu$")
 
 set(CUDA_SOURCES
-    ${PROJECT_SOURCE_DIR}/src/Main_CUDA.cu
+    ${PROJECT_SOURCE_DIR}/solvers/src/Main_CUDA.cu
     ${CUDA_KERNEL_SOURCES}
 )
 
 # Host wrapper .cpp files contain CUDA <<<>>> syntax, must be compiled by nvcc
 set(CUDA_HOST_WRAPPERS
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Matrix_Assembly_Cuda_Host_Wrappers.cpp
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Grid_Cuda_Host_Wrappers.cpp
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Matrix_Assembly_Cuda_Host_Wrappers.cpp
 )
 set_source_files_properties(${CUDA_HOST_WRAPPERS} PROPERTIES LANGUAGE CUDA)
 set(CUDA_HOST_CPP_WRAPPERS
-    ${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Inviscid_Flux_Cuda_MainLoop_Wrapper.cpp
+    ${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Inviscid_Flux_Cuda_MainLoop_Wrapper.cpp
 )
 
 find_package(VTK QUIET COMPONENTS
@@ -106,17 +107,39 @@ find_package(VTK QUIET COMPONENTS
     FiltersCore FiltersGeometry IOXML IOLegacy
     IOCore IOImage RenderingCore
 )
+set(BOOST_ROOT "$ENV{HOME}/deps/usr" CACHE PATH "Boost prefix")
 find_package(Boost REQUIRED COMPONENTS regex)
-find_package(MPI QUIET COMPONENTS CXX)
-if(MPI_CXX_FOUND)
-	message(STATUS "MPI enabled for optional CPU target: ${MPI_CXX_COMPILER}")
+# MPI: FindMPI fails on this machine (mpicxx points at missing -dev include).
+# Use headers from a user prefix + the runtime SONAME if present.
+set(MPI_CXX_FOUND FALSE)
+find_path(CFD_MPI_INCLUDE_DIR mpi.h
+	PATHS
+		"$ENV{HOME}/deps/usr/lib/x86_64-linux-gnu/openmpi/include"
+		"${PROJECT_SOURCE_DIR}/../deps/usr/lib/x86_64-linux-gnu/openmpi/include"
+		/usr/lib/x86_64-linux-gnu/openmpi/include
+		/usr/include
+)
+if(EXISTS "/usr/lib/x86_64-linux-gnu/libmpi.so.40")
+	set(CFD_MPI_LIBRARY "/usr/lib/x86_64-linux-gnu/libmpi.so.40")
+else()
+	find_library(CFD_MPI_LIBRARY NAMES mpi mpi_cxx
+		PATHS /usr/lib/x86_64-linux-gnu /usr/lib
+		PATH_SUFFIXES openmpi/lib)
+endif()
+if(CFD_MPI_INCLUDE_DIR AND CFD_MPI_LIBRARY)
+	add_library(CFD_MPI INTERFACE)
+	target_include_directories(CFD_MPI INTERFACE "${CFD_MPI_INCLUDE_DIR}")
+	target_compile_definitions(CFD_MPI INTERFACE OMPI_SKIP_MPICXX)
+	target_link_libraries(CFD_MPI INTERFACE "${CFD_MPI_LIBRARY}")
+	set(MPI_CXX_FOUND TRUE)
+	message(STATUS "MPI enabled for CFD_solver_mpi: ${CFD_MPI_INCLUDE_DIR} ${CFD_MPI_LIBRARY}")
 else()
 	message(STATUS "MPI not found -- skipping optional CPU MPI target CFD_solver_mpi")
 endif()
 
 # --- GPU executable (optional): full solver with CUDA kernel support ---
 if(CFD_HAVE_CUDA)
-	file(GLOB GPU_CPU_SOURCES "${PROJECT_SOURCE_DIR}/src/*.cpp")
+	file(GLOB GPU_CPU_SOURCES "${PROJECT_SOURCE_DIR}/solvers/src/*.cpp")
 	list(FILTER GPU_CPU_SOURCES EXCLUDE REGEX "Main\\.cpp$")
 	list(FILTER GPU_CPU_SOURCES EXCLUDE REGEX "Globals_Stub_GPU\\.cpp$")
 
@@ -146,8 +169,8 @@ if(CFD_HAVE_CUDA)
 
 	target_compile_definitions(CFD_solver_gpu PRIVATE USE_CUDA=1)
 	target_include_directories(CFD_solver_gpu PRIVATE
-		${PROJECT_SOURCE_DIR}/include
-		${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+		${PROJECT_SOURCE_DIR}/solvers/include
+		${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS
 		/usr/local/cuda/include
 	)
 	if(JSONCPP_INCLUDE_DIR)
@@ -194,8 +217,8 @@ endif()
 # --- CPU executable ---
 if(VTK_FOUND)
     set(CFD_CPU_SOURCES ${SOURCES})
-    if(EXISTS "${PROJECT_SOURCE_DIR}/src/Globals_Config.cpp")
-        list(APPEND CFD_CPU_SOURCES "${PROJECT_SOURCE_DIR}/src/Globals_Config.cpp")
+    if(EXISTS "${PROJECT_SOURCE_DIR}/solvers/src/Globals_Config.cpp")
+        list(APPEND CFD_CPU_SOURCES "${PROJECT_SOURCE_DIR}/solvers/src/Globals_Config.cpp")
     else()
         message(STATUS "src/Globals_Config.cpp not found — building CFD_solver without it")
     endif()
@@ -218,44 +241,83 @@ if(VTK_FOUND)
         target_include_directories(CFD_solver PRIVATE ${JSONCPP_INCLUDE_DIR})
     endif()
 
-    if(MPI_CXX_FOUND)
-        add_executable(CFD_solver_mpi ${CFD_CPU_SOURCES})
-        target_compile_definitions(CFD_solver_mpi PRIVATE USE_VTK=1 USE_MPI=1)
-        target_link_libraries(CFD_solver_mpi PRIVATE ${VTK_LIBRARIES} jsoncpp Boost::regex MPI::MPI_CXX)
-        target_compile_options(CFD_solver_mpi PRIVATE
-            $<$<CONFIG:Release>:-O3 -DNDEBUG>
-            $<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
-        )
-        if(OpenMP_CXX_FOUND)
-            if(CFD_OPENMP_IS_LIBOMP_BREW)
-                target_compile_options(CFD_solver_mpi PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
-                target_link_libraries(CFD_solver_mpi PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
-            else()
-                target_link_libraries(CFD_solver_mpi PUBLIC OpenMP::OpenMP_CXX)
-            endif()
-        endif()
-        if(JSONCPP_INCLUDE_DIR)
-            target_include_directories(CFD_solver_mpi PRIVATE ${JSONCPP_INCLUDE_DIR})
+else()
+    message(STATUS "VTK not found -- building CPU CFD_solver without VTK (TXT/legacy VTK I/O only)")
+    add_executable(CFD_solver ${SOURCES})
+    target_link_libraries(CFD_solver PRIVATE Boost::regex)
+    if(JSONCPP_LIBRARY)
+        target_link_libraries(CFD_solver PRIVATE ${JSONCPP_LIBRARY})
+    else()
+        target_link_libraries(CFD_solver PRIVATE jsoncpp)
+    endif()
+    target_compile_options(CFD_solver PRIVATE
+        $<$<CONFIG:Release>:-O3 -DNDEBUG>
+        $<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
+    )
+    if(OpenMP_CXX_FOUND)
+        if(CFD_OPENMP_IS_LIBOMP_BREW)
+            target_compile_options(CFD_solver PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
+            target_link_libraries(CFD_solver PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
+        else()
+            target_link_libraries(CFD_solver PUBLIC OpenMP::OpenMP_CXX)
         endif()
     endif()
-else()
-    message(STATUS "VTK not found -- skipping CPU target CFD_solver (GPU target will still build)")
+    if(JSONCPP_INCLUDE_DIR)
+        target_include_directories(CFD_solver PRIVATE ${JSONCPP_INCLUDE_DIR})
+    endif()
+endif()
+
+if(NOT JSONCPP_LIBRARY)
+	find_library(JSONCPP_LIBRARY NAMES jsoncpp
+		PATHS /home/ramesh.kolluru/deps/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu)
+endif()
+
+if(MPI_CXX_FOUND)
+	add_executable(CFD_solver_mpi ${SOURCES})
+	target_compile_definitions(CFD_solver_mpi PRIVATE USE_MPI=1 OMPI_SKIP_MPICXX)
+	if(VTK_FOUND)
+		target_compile_definitions(CFD_solver_mpi PRIVATE USE_VTK=1)
+		target_link_libraries(CFD_solver_mpi PRIVATE ${VTK_LIBRARIES})
+	endif()
+	target_link_libraries(CFD_solver_mpi PRIVATE Boost::regex CFD_MPI)
+	if(JSONCPP_LIBRARY)
+		target_link_libraries(CFD_solver_mpi PRIVATE ${JSONCPP_LIBRARY})
+	else()
+		target_link_libraries(CFD_solver_mpi PRIVATE jsoncpp)
+	endif()
+	target_compile_options(CFD_solver_mpi PRIVATE
+		$<$<CONFIG:Release>:-O3 -DNDEBUG>
+		$<$<CONFIG:RelWithDebInfo>:-O2 -g -DNDEBUG>
+	)
+	if(OpenMP_CXX_FOUND)
+		if(CFD_OPENMP_IS_LIBOMP_BREW)
+			target_compile_options(CFD_solver_mpi PRIVATE -Xpreprocessor -fopenmp "-I${CFD_LIBOMP_ROOT}/include")
+			target_link_libraries(CFD_solver_mpi PRIVATE "${CFD_LIBOMP_ROOT}/lib/libomp.dylib")
+		else()
+			target_link_libraries(CFD_solver_mpi PUBLIC OpenMP::OpenMP_CXX)
+		endif()
+	endif()
+	if(JSONCPP_INCLUDE_DIR)
+		target_include_directories(CFD_solver_mpi PRIVATE ${JSONCPP_INCLUDE_DIR})
+	endif()
+	message(STATUS "CPU MPI target: CFD_solver_mpi")
 endif()
 
 # --- 3D Euler/NS (clean src3d/ path; independent of incomplete src_3D/) ---
 set(CFD_3D_HOST_SOURCES
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D.cpp
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Flux.cpp
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Viscous.cpp
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Turbulence.cpp
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D_Ramp.cpp
-	${PROJECT_SOURCE_DIR}/src3d/Euler3D_SWBLI.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_Flux.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_Viscous.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_Turbulence.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_Ramp.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_SWBLI.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Euler3D_Cavity.cpp
 )
 add_executable(CFD_solver_3d
-	${PROJECT_SOURCE_DIR}/src3d/Main_3D.cpp
+	${PROJECT_SOURCE_DIR}/solvers/src3d/Main_3D.cpp
 	${CFD_3D_HOST_SOURCES}
 )
-target_include_directories(CFD_solver_3d PRIVATE ${PROJECT_SOURCE_DIR}/src3d)
+target_include_directories(CFD_solver_3d PRIVATE ${PROJECT_SOURCE_DIR}/solvers/src3d)
 target_compile_features(CFD_solver_3d PRIVATE cxx_std_17)
 target_compile_options(CFD_solver_3d PRIVATE
 	$<$<CONFIG:Release>:-O3 -DNDEBUG>
@@ -273,13 +335,13 @@ message(STATUS "3D CPU target: CFD_solver_3d")
 
 if(CFD_HAVE_CUDA)
 	add_executable(CFD_solver_3d_gpu
-		${PROJECT_SOURCE_DIR}/src3d/Main_3D_CUDA.cu
+		${PROJECT_SOURCE_DIR}/solvers/src3d/Main_3D_CUDA.cu
 		${CFD_3D_HOST_SOURCES}
-		${PROJECT_SOURCE_DIR}/CUDA_KERNELS/Euler3D_Cuda.cu
+		${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS/Euler3D_Cuda.cu
 	)
 	target_include_directories(CFD_solver_3d_gpu PRIVATE
-		${PROJECT_SOURCE_DIR}/src3d
-		${PROJECT_SOURCE_DIR}/CUDA_KERNELS
+		${PROJECT_SOURCE_DIR}/solvers/src3d
+		${PROJECT_SOURCE_DIR}/solvers/CUDA_KERNELS
 	)
 	target_compile_features(CFD_solver_3d_gpu PRIVATE cxx_std_17)
 	target_link_libraries(CFD_solver_3d_gpu PRIVATE cudart)

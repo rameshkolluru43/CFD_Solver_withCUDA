@@ -10,8 +10,8 @@
  *
  * @section version_info Version Information
  *
- * - **Version**: v3.2 (LBRT structured grids, half-cylinder M=6 NS validation, CUDA MOVERS/RICCA; optional Metal)
- * - **Documentation refresh**: July 2026
+ * - **Version**: v3.3 (repo layout `solvers/` `input/` `solutions/`; 3D Euler/NS/LES; MPI/OpenMP)
+ * - **Documentation refresh**: August 2026
  * - **Language**: C++17 with optional CUDA (NVIDIA) and experimental Metal (Apple)
  * - **License**: GNU General Public License v3.0
  *
@@ -24,20 +24,20 @@
  * - Exact contact discontinuity preservation
  * - Excellent performance across all flow regimes
  * - ~50 floating point operations per face
- * - **Implementation**: Van_Leer() function in src/Van_Leer.cpp
+ * - **Implementation**: Van_Leer() in solvers/src/Van_Leer.cpp
  *
  * #### **Enhanced Roe Approximate Riemann Solver**
  * - **First-Order**: Comprehensive error checking, entropy fix, boundary handling
  * - **Second-Order**: TVD slope limiting with high-resolution shock capturing
  * - Mathematical rigor with complete eigenvalue-eigenvector decomposition
  * - Production-ready reliability with industrial-grade error handling
- * - **Implementation**: ROE() and ROE_2O() functions in src/Roe_Scheme.cpp
+ * - **Implementation**: ROE() and ROE_2O() in solvers/src/Roe_Scheme.cpp
  *
  * #### **AUSM Flux Scheme**
  * - All-speed capability from incompressible to hypersonic regimes
  * - Advanced upwind splitting for momentum and energy equations
  * - Robust pressure and acoustic wave treatment
- * - **Implementation**: AUSM() function in src/Ausm_Flux.cpp
+ * - **Implementation**: AUSM() in solvers/src/Ausm_Flux.cpp
  *
  * ### 🌊 Incompressible Flow: SIMPLE Algorithm (NEW v3.0)
  *
@@ -63,7 +63,7 @@
  * - **Turbulent Viscosity**: Proper calculation with realizability constraints
  * - **Wall Functions**: Enhanced wall treatment for coarse grids
  * - **Source Terms**: Production and dissipation with proper limiting
- * - **Implementation**: K_Epsilon_Model class in src/K_Epsilon_Model.cpp
+ * - **Implementation**: solvers/src/K_Epsilon_Model.cpp
  *
  * #### **K-omega Turbulence Models**
  * - **Wilcox K-omega**: Original formulation with low-Re corrections
@@ -71,7 +71,7 @@
  * - **Automatic Wall Distance**: Efficient wall distance calculation
  * - **Blending Functions**: Smooth transition between inner/outer regions
  * - **Cross-diffusion Terms**: Proper SST model implementation
- * - **Implementation**: K_Omega_Model class in src/K_Omega_Model.cpp
+ * - **Implementation**: solvers/src/K_Omega_Model.cpp
  *
  * #### **Turbulence Integration Features**
  * - Seamless integration with both compressible and incompressible solvers
@@ -96,9 +96,10 @@
  * - **Spatial Discretization**: High-order MUSCL reconstruction, central differencing
  * - **Slope Limiters**: Van Leer, Minmod, Superbee with TVD properties
  * - **Matrix Solvers**: BiCGSTAB, GMRES, direct solvers for incompressible systems
- * - **GPU Acceleration**: CUDA kernels under CUDA_KERNELS/ (primary); optional **Metal** compute shaders and host bridge under Metal_Kernels/ (macOS / Apple Silicon, experimental)
- * - **CPU parallelism**: OpenMP when available (CMake detects libomp on macOS Homebrew when needed)
- * - **Build**: CMake requires VTK + JsonCpp + Boost (regex) for the CPU executable; nvcc enables the GPU target
+ * - **3D solver**: Cartesian hex Euler/NS, WENO-Z, WALE LES, SWBLI plate, Mach-6 cavity — solvers/src3d/
+ * - **GPU Acceleration**: CUDA under solvers/CUDA_KERNELS/ (2D + Euler3D_Cuda.cu); optional Metal under solvers/Metal_Kernels/
+ * - **CPU parallelism**: OpenMP on host loops; optional CFD_solver_mpi (replicated mesh)
+ * - **Build**: CMake; VTK library optional for 2D TXT meshes; nvcc enables GPU targets. See LAYOUT.md.
  * - **Error Handling**: Comprehensive validation and graceful recovery
  *
  * @section architecture_overview Architecture Overview
@@ -107,16 +108,16 @@
  *
  * | Component | Description | Key Files |
  * |-----------|-------------|-----------|
- * | **Compressible Flux Computation** | Advanced Riemann solvers | src/Van_Leer.cpp, src/Roe_Scheme.cpp, src/Ausm_Flux.cpp |
- * | **Incompressible Solver** | SIMPLE algorithm implementation | Incompressible_Solver/Incompressible_Solver.cpp |
- * | **Turbulence Models** | RANS turbulence modeling | src/K_Epsilon_Model.cpp, src/K_Omega_Model.cpp |
- * | **Time Integration** | RK4, TVD-RK3, implicit schemes | src/Time_Integration.cpp, src/Turbulence_Integration.cpp |
- * | **Boundary Conditions** | Wall, inlet, outlet, far-field | src/Boundary_Conditions.cpp |
- * | **CUDA Kernels** | GPU-accelerated computations | CUDA_KERNELS/*.cu |
- * | **Metal (optional)** | Apple GPU bridge + `.metal` kernels | Metal_Kernels/* |
- * | **Grid Processing** | Structured/unstructured mesh handling | src/Grid_Functions.cpp, src/Grid_Computations.cpp |
- * | **Matrix Solvers** | Iterative linear system solvers | src/Matrix_Solvers.cpp |
- * | **I/O System** | VTK output and JSON configuration | src/IO_Functions.cpp |
+ * | **Compressible Flux Computation** | Advanced Riemann solvers | solvers/src/Van_Leer.cpp, Roe_Scheme.cpp, Ausm_Flux.cpp |
+ * | **3D Euler/NS/LES** | Cartesian hex, WENO-Z, WALE, cavity/SWBLI | solvers/src3d/ |
+ * | **Incompressible Solver** | SIMPLE algorithm | solvers/Incompressible_Solver/ |
+ * | **Turbulence Models** | RANS | solvers/src/K_Epsilon_Model.cpp, K_Omega_Model.cpp |
+ * | **Time Integration** | RK4, TVD-RK3, implicit | solvers/src/Turbulence_Integration.cpp |
+ * | **Boundary Conditions** | Wall, inlet, outlet, far-field | solvers/src/Boundary_Conditions.cpp |
+ * | **CUDA Kernels** | GPU-accelerated computations | solvers/CUDA_KERNELS/*.cu |
+ * | **Metal (optional)** | Apple GPU bridge | solvers/Metal_Kernels/ |
+ * | **Grid Processing** | Structured/unstructured mesh | solvers/src/Grid_Computations.cpp |
+ * | **I/O System** | VTK text output, JSON | solvers/src/Configuration_Read.cpp |
  *
  * @section mathematical_framework Mathematical Framework
  *
@@ -261,7 +262,7 @@
  * - **Namespaces**: Logical code organization
  *
  * ### Technical Guides
- * - **overview.md**: Short project map and M=6 validation status
+ * - **overview.md / LAYOUT.md**: Project map and folder layout
  * - **docs/HALF_CYLINDER_VALIDATION.md**: Canonical half-cylinder configs and plots
  * - **docs/MESH_AND_GRID.md**: Mesh formats, LBRT, mixed tri/quad
  * - **docs/MAIN_LOOP_STATUS.md**: What is wired in the time loop
@@ -280,22 +281,24 @@
  * - **CMake** (≥3.16): Build system
  * - **CUDA Toolkit** (≥11.0) with nvcc: Required only for **CFD_solver_gpu**
  * - **C++ Compiler**: C++17 compatible (GCC/Clang)
- * - **JsonCpp**, **Boost (regex)**: Configuration and solver dependencies
- * - **VTK** (≥9.4): Required for **CFD_solver** in the default CMake configuration
+ * - **JsonCpp**, **Boost (regex)**
+ * - **VTK**: optional for 2D TXT meshes
+ * - **OpenMPI**: optional for CFD_solver_mpi
  *
  * ### Quick Build
  * @code{.bash}
- * mkdir build && cd build
- * cmake ..
- * make -j$(nproc)
+ * cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+ * cmake --build build -j$(nproc)
  * @endcode
  *
  * ### Running Your First Simulation
  * @code{.bash}
- * cmake -S . -B build-cuda && cmake --build build-cuda --target CFD_solver_gpu -j$(nproc)
- * ./build-cuda/CFD_solver_gpu json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json
- * # Regenerate API docs:
- * doxygen docs/Doxyfile_Cleaned   # → docs/doxygen/html/index.html
+ * # 3D (repo root)
+ * ./build/CFD_solver_3d_gpu input/json_Files/Run_3D_Sod_LLF_smoke_cuda.json
+ * # 2D (from build/)
+ * cd build && ./CFD_solver_gpu ../input/json_Files/Run_HalfCylinder_M6_WENO_wallfix_smoke50.json
+ * # API docs
+ * ./wrappers/scripts/update_docs.sh   # → docs/doxygen/html/index.html
  * @endcode
  *
  * @section contributing Contributing

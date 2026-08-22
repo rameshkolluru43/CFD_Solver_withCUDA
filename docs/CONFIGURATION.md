@@ -97,7 +97,7 @@ Example viscous half-cylinder: Re = `1e5`, Tw = `2.0`, M∞ = `6`, isothermal no
 
 ## Example: half-cylinder viscous smoke (corner fix)
 
-See `json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json`:
+See `input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json`:
 
 ```json
 {
@@ -133,11 +133,11 @@ Full validation recipe: [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.m
 
 ## Example: AMR Enabled
 
-See `json_Files/Test_Config_AMR.json` for gradient AMR tagging on the inviscid path.
+See `input/json_Files/Test_Config_AMR.json` for gradient AMR tagging on the inviscid path.
 
 ## How Config Is Loaded
 
-- Command-line argument is the run JSON path (e.g. `json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json`).
+- Command-line argument is the run JSON path (e.g. `input/json_Files/Run_HalfCylinder_M6_corner_fix_smoke500.json`).
 - **Configuration_Read** parses `TestCase`, `Simulation`, `Solver`, and `LimiterCoefficients`.
 - Test-case JSON supplies grid and BC / Re / Tw.
 - AMR keys are optional (defaults: `Enable_AMR=false`, etc.).

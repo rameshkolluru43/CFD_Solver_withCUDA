@@ -4,12 +4,13 @@
 
 | Document | Description |
 |---------|-------------|
-| [../overview.md](../overview.md) | Project overview, GPU/host status, half-cylinder M=6 validation |
+| [overview.md](overview.md) | Project overview, GPU/host status, half-cylinder M=6 validation |
+| [../LAYOUT.md](../LAYOUT.md) | Folder map (solvers, input, wrappers, solutions) |
 | [HALF_CYLINDER_VALIDATION.md](HALF_CYLINDER_VALIDATION.md) | Canonical M=6 configs, expected Pmax/Mmax, plots |
 | [BUILD_AND_RUN.md](BUILD_AND_RUN.md) | Build requirements, CMake, running CPU/GPU |
 | [CONFIGURATION.md](CONFIGURATION.md) | JSON configuration reference (solver, viscous, AMR, Dissipation_Type) |
 | [STANDALONE_LOW_END_CUDA_RUN.md](STANDALONE_LOW_END_CUDA_RUN.md) | Low-end CUDA GPU build/run |
-| API (Doxygen) | `./scripts/update_docs.sh` or `doxygen docs/Doxyfile_Cleaned` → **`docs/doxygen/html/index.html`** |
+| API (Doxygen) | `./wrappers/scripts/update_docs.sh` or `doxygen docs/Doxyfile_Cleaned` → **`docs/doxygen/html/index.html`** |
 
 **Note:** Older trees under `docs/html/` are obsolete. Configured output is **`docs/doxygen/html/`** (`OUTPUT_DIRECTORY` in `docs/Doxyfile_Cleaned`).
 
@@ -57,10 +58,10 @@ Phase reports, Jan 2026 CUDA roadmaps, and `*_Completion_Summary.md` files in th
 
 | Script | Purpose |
 |--------|---------|
-| `../scripts/update_docs.sh` | Regenerate Doxygen → `docs/doxygen/html` |
-| `../scripts/view_docs.sh` | Open generated HTML docs |
-| `../scripts/plot_halfcyl_inviscid_viscous.py` | Half-cylinder inviscid/viscous plots |
-| `../scripts/test_weno_order_accuracy.py` | WENO order-of-accuracy helper |
-| `../scripts/validate_cuda_syntax.sh` | CUDA syntax check |
-| `../scripts/setup_colab.sh` | Colab dependency setup |
-| `../scripts/sync_to_colab.sh` | Sync workspace ↔ Colab |
+| `../wrappers/scripts/update_docs.sh` | Regenerate Doxygen → `docs/doxygen/html` |
+| `../wrappers/scripts/view_docs.sh` | Open generated HTML docs |
+| `../wrappers/scripts/plot_halfcyl_inviscid_viscous.py` | Half-cylinder inviscid/viscous plots |
+| `../wrappers/scripts/test_weno_order_accuracy.py` | WENO order-of-accuracy helper |
+| `../wrappers/scripts/validate_cuda_syntax.sh` | CUDA syntax check |
+| `../wrappers/scripts/setup_colab.sh` | Colab dependency setup |
+| `../wrappers/scripts/sync_to_colab.sh` | Sync workspace ↔ Colab |
